@@ -1,0 +1,1 @@
+const { supabase } = require('./lib/supabase'); async function getSchema() { const { data, error } = await supabase.from('users').select().limit(1); console.log('Schema error:', error); console.log('Schema data:', data); if (data && data.length > 0) { console.log('Fields:', Object.keys(data[0])); } } getSchema();

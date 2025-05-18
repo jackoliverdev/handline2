@@ -1,0 +1,14 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Always use British English spelling and terminology. Use 'colour' not 'color', 'optimise' not 'optimize', etc. Format dates as DD/MM/YYYY. Use the 24-hour clock for times. All text content should be professionally written and suitable for a B2B audience.
+
+This is a website for HandLine Company, an Italian manufacturer of industrial safety gloves. All code and content should reflect their brand identity. Use colour scheme: Primary Orange (#F28C38), Dark Grey (#1E1E1E), Light Beige (#F5EFE0), White (#FFFFFF), Secondary Grey (#5A5A5A). Use Montserrat for headings and Open Sans for body text. Key messaging includes: "We speak SAFETY", "Design is clear, just like our mission", "We protect your hands", and "Evolution, not revolution".
+
+This project uses NextJS, React, Tailwind CSS, with Firebase for authentication and Supabase for data storage. For product filtering, implement client-side filtering using React state management. Use TypeScript for all components. Ensure all components are responsive and mobile-friendly. Follow a clean, minimalist design approach suitable for a B2B industrial company. Don't include any pricing or e-commerce functionality, as this is an informational B2B site.
+
+Create reusable components for product cards, specification tables, and industry solution sections. Implement a consistent page structure across the site. Create a robust filtering system for products based on temperature ratings, cut resistance levels, and industry applications. Ensure all pages load quickly and meet Core Web Vitals performance standards.
+
+Structure product data with fields for name, description, category, temperature_rating, cut_resistance_level, features, applications, industries, and images. Blog posts should have title, slug, content, author, and tags fields. Ensure all database queries are optimized and secure. Implement proper error handling for all API requests.

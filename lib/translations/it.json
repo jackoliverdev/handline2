@@ -1,0 +1,498 @@
+{
+  "navbar": {
+    "home": "Home",
+    "products": "Prodotti",
+    "industries": "Settori",
+    "about": "Chi Siamo",
+    "blog": "Blog",
+    "contact": "Contatti",
+    "dashboard": "Pannello",
+    "menu": "Menu",
+    "language": {
+      "toggleLabel": "Lingua / Language",
+      "en": "English",
+      "it": "Italiano",
+      "toggleButton": "Passa a {lang}"
+    },
+    "announcement": "PROTEGGIAMO LE MANI CON SOLUZIONI INNOVATIVE",
+    "searchPlaceholder": "Cerca prodotti, settori o articoli..."
+  },
+  "sidebar": {
+    "categories": "Categorie Prodotti",
+    "industries": "Settori",
+    "resources": "Risorse",
+    "products": {
+      "categories": {
+        "heatResistantGloves": "Guanti Termoresistenti",
+        "heatResistantSleeves": "Manicotti Termoresistenti",
+        "cutResistantGloves": "Guanti Antitaglio",
+        "cutResistantSleeves": "Manicotti Antitaglio",
+        "corporateCustomisation": "Soluzioni Aziendali",
+        "industrialCustomisation": "Soluzioni Industriali"
+      }
+    }
+  },
+  "hero": {
+    "expertise": "40+ Anni di Esperienza",
+    "title": "Le Tue Mani Protette",
+    "description": "Hand Line Company è un produttore italiano specializzato in guanti di sicurezza ad alte prestazioni per ambienti industriali. I nostri guanti resistenti al calore e al taglio offrono una protezione ineguagliabile fino a 1000°C con precisione e comfort.",
+    "exploreProducts": "Esplora Prodotti",
+    "getInTouch": "Contattaci",
+    "mainTitle": {
+      "handline": "HAND LINE,",
+      "weSpeak": "PARLIAMO DI",
+      "safety": "SICUREZZA"
+    }
+  },
+  "productsHero": {
+    "badge": "Sicurezza Industriale",
+    "heading": "Guanti",
+    "headingAccent": "Protettivi",
+    "description": "Scopri la nostra gamma completa di guanti di sicurezza industriali ad alte prestazioni, progettati per offrire una protezione superiore contro calore, tagli e altri rischi sul lavoro.",
+    "browseProducts": "Esplora Prodotti",
+    "getInTouch": "Contattaci",
+    "stats": {
+      "heat": "Resistenza al Calore",
+      "cut": "Resistenza al Taglio",
+      "cutValue": "Livello 5",
+      "certified": "Certificato",
+      "years": "Anni di Esperienza"
+    }
+  },
+  "expertise": {
+    "title": "La Nostra Esperienza",
+    "description": "Con oltre quattro decenni di esperienza, HandLine Company si è affermata come leader nelle soluzioni innovative di protezione delle mani per ambienti industriali.",
+    "features": {
+      "heatProtection": {
+        "title": "Guanti Termoresistenti",
+        "description": "Tecnologia termica avanzata offre protezione dal calore mantenendo flessibilità e comfort per lavori ad alta temperatura.",
+        "cta": "Esplora Gamma Termoresistente"
+      },
+      "cutResistance": {
+        "title": "Guanti Antitaglio",
+        "description": "Materiali avanzati offrono una protezione superiore contro i tagli mantenendo destrezza e comfort per lavori di precisione.",
+        "cta": "Scopri Soluzioni Antitaglio"
+      },
+      "customisation": {
+        "title": "Personalizzazione Prodotti",
+        "description": "Soluzioni di sicurezza personalizzate sviluppate per soddisfare le tue esigenze specifiche garantendo protezione e prestazioni ottimali.",
+        "cta": "Scopri il Nostro Processo"
+      }
+    },
+    "quote": {
+      "text": "Il mio viaggio è iniziato 40 anni fa quando ho osservato i lavoratori maneggiare stampi caldi. Combinando le loro prospettive con la mia esperienza artigianale, abbiamo creato soluzioni di sicurezza innovative che ora proteggono i lavoratori in innumerevoli settori.",
+      "author": "Franco Castronuovo, CEO e Fondatore"
+    }
+  },
+  "featuredProducts": {
+    "title": "Prodotti in Evidenza",
+    "description": "Scopri i nostri guanti di sicurezza più popolari, progettati per fornire una protezione e un comfort superiori in diverse applicazioni industriali.",
+    "noProducts": "Nessun prodotto in evidenza disponibile al momento.",
+    "preview": "Anteprima",
+    "details": "Dettagli",
+    "viewAll": "Vedi tutti i prodotti",
+    "specs": {
+      "temperature": "Temperatura",
+      "cutLevel": "Livello Taglio"
+    },
+    "industries": "Settori",
+    "keyFeatures": "Caratteristiche principali:",
+    "moreFeatures": "+{{count}} altre"
+  },
+  "industrySolutions": {
+    "badge": "Soluzioni per Settori",
+    "title": "Soluzioni per Settori",
+    "description": "Progettiamo protezioni specializzate per le mani per un'ampia gamma di settori industriali, garantendo sicurezza, comfort e precisione per ogni applicazione.",
+    "noIndustries": "Nessuna soluzione per settori disponibile al momento.",
+    "learnMore": "Scopri di più",
+    "viewAll": "Vedi tutti i settori"
+  },
+  "footer": {
+    "companyDescription": "Produttore italiano specializzato in guanti di sicurezza ad alte prestazioni per ambienti industriali. Proteggiamo le mani con soluzioni innovative dal 1982.",
+    "address": "via Alfonso Salardi, 12, 22100 - COMO, Italia",
+    "phone": "+39 031 123 4567",
+    "email": "info@handlinecompany.com",
+    "sections": {
+      "products": {
+        "title": "Prodotti",
+        "links": {
+          "heatResistant": "Resistenti al Calore",
+          "cutResistant": "Resistenti al Taglio",
+          "welding": "Saldatura",
+          "chemical": "Chimici"
+        }
+      },
+      "industries": {
+        "title": "Settori",
+        "links": {
+          "glass": "Vetro",
+          "metalworking": "Lavorazione Metalli",
+          "welding": "Saldatura",
+          "automotive": "Automotive"
+        }
+      },
+      "company": {
+        "title": "Azienda",
+        "links": {
+          "about": "Chi Siamo",
+          "certifications": "Certificazioni",
+          "blog": "Blog",
+          "contact": "Contatti"
+        }
+      }
+    },
+    "legal": {
+      "copyright": "Tutti i diritti riservati.",
+      "links": {
+        "privacy": "Privacy",
+        "terms": "Termini di Servizio",
+        "cookies": "Cookie",
+        "standards": "Standard EN"
+      }
+    }
+  },
+  "products": {
+    "browseTitle": "Sfoglia i Nostri Prodotti",
+    "searchPlaceholder": "Cerca prodotti...",
+    "sortOptions": {
+      "featured": "In Evidenza",
+      "newest": "Più Recenti",
+      "name-asc": "Nome: A-Z",
+      "name-desc": "Nome: Z-A"
+    },
+    "filters": {
+      "title": "Filtri",
+      "category": "Categoria",
+      "subCategory": "Sottocategoria",
+      "temperature": "Resistenza al Calore",
+      "cutLevel": "Livello di Resistenza al Taglio",
+      "industries": "Settori",
+      "allCategories": "Tutte le categorie",
+      "uncategorised": "Senza categoria",
+      "activeFilters": "Filtri attivi:",
+      "clearAll": "Cancella Tutto",
+      "apply": "Applica"
+    },
+    "results": {
+      "showing": "Mostrando {current} di {total} prodotti",
+      "noResults": "Nessun prodotto trovato",
+      "noResultsDescription": "Non abbiamo trovato prodotti corrispondenti ai tuoi criteri di ricerca.",
+      "clearFilters": "Cancella Filtri",
+      "seeMore": "Vedi Altri Prodotti",
+      "showLess": "Mostra Meno"
+    },
+    "preview": "Anteprima",
+    "details": "Dettagli",
+    "viewFullDetails": "Vedi tutti i dettagli",
+    "outOfStock": "Esaurito",
+    "new": "Nuovo",
+    "featured": "In Evidenza",
+    "industries": "Settori",
+    "keyFeatures": "Caratteristiche principali:",
+    "moreFeatures": "+{{count}} altre"
+  },
+  "productPage": {
+    "backToProducts": "Torna ai prodotti",
+    "specifications": "Specifiche",
+    "features": "Caratteristiche",
+    "applications": "Applicazioni",
+    "productDetails": "Dettagli Prodotto",
+    "technicalSpecifications": "Specifiche Tecniche",
+    "temperatureRating": "Resistenza al Calore",
+    "cutResistanceLevel": "Livello di Resistenza al Taglio",
+    "industries": "Settori",
+    "submitEnquiry": "Invia richiesta",
+    "contactUs": "Contattaci",
+    "requestSample": "Richiedi Campione"
+  },
+  "relatedProducts": {
+    "title": "Prodotti correlati"
+  },
+  "industriesHero": {
+    "badge": "Soluzioni per Settori",
+    "heading": "Soluzioni",
+    "headingAccent": "Industriali",
+    "description": "Scopri come le soluzioni innovative di HandLine sono progettate per rispondere alle sfide uniche dei diversi settori, offrendo protezione e prestazioni quando conta di più.",
+    "stats": {
+      "industries": "Settori Serviti",
+      "years": "Anni di Esperienza",
+      "products": "Prodotti",
+      "customers": "Clienti Soddisfatti"
+    },
+    "exploreIndustries": "Esplora Settori",
+    "viewProducts": "Vedi Prodotti"
+  },
+  "industries": {
+    "sectorsWeServe": "Settori Serviti",
+    "sectorsDescription": "In HandLine sviluppiamo soluzioni di sicurezza specializzate per una vasta gamma di settori, ciascuno con sfide e requisiti unici.",
+    "keyFeatures": "Caratteristiche principali",
+    "viewSolutions": "Vedi Soluzioni",
+    "contactForDetails": "Contattaci per dettagli"
+  },
+  "about": {
+    "est": "Fond. 1981",
+    "heading": "Chi Siamo",
+    "description": "Da oltre quarant'anni HandLine è all'avanguardia nella sicurezza industriale, progettando e producendo guanti protettivi di alta qualità che uniscono innovazione, comfort e protezione senza compromessi.",
+    "ourStory": "La Nostra Storia",
+    "getInTouch": "Contattaci",
+    "stats": {
+      "years": "Anni di Esperienza",
+      "team": "Membri del Team",
+      "countries": "Paesi",
+      "products": "Prodotti"
+    },
+    "history": {
+      "badge": "Il Nostro Percorso",
+      "heading": "HandLine negli Anni",
+      "description": "Dalle origini a Milano fino a diventare un produttore leader di dispositivi di protezione, scopri i momenti chiave che hanno plasmato la nostra azienda.",
+      "1981": {
+        "title": "Fondazione",
+        "description": "HandLine viene fondata a Milano con la visione di creare guanti di sicurezza superiori per i lavoratori industriali."
+      },
+      "1992": {
+        "title": "Primo Brevetto",
+        "description": "Sviluppato e brevettato il nostro primo guanto antitaglio, fissando nuovi standard di protezione nel settore."
+      },
+      "2000": {
+        "title": "Espansione Internazionale",
+        "description": "Espansione delle operazioni per servire clienti in tutta Europa, con reti di distribuzione in 12 paesi."
+      },
+      "2008": {
+        "title": "Tecnologia Termica",
+        "description": "Introdotta la tecnologia avanzata di protezione termica, rivoluzionando la sicurezza in ambienti ad alte temperature."
+      },
+      "2015": {
+        "title": "Sostenibilità",
+        "description": "Avviati processi produttivi eco-sostenibili e materiali green per le nostre linee premium."
+      },
+      "2023": {
+        "title": "Trasformazione Digitale",
+        "description": "Implementate soluzioni Industry 4.0 e lanciato un catalogo digitale completo dei prodotti."
+      }
+    },
+    "mission": {
+      "badge": "La Nostra Missione",
+      "heading": "Perché Esistiamo",
+      "statement": "Proteggere le mani che costruiscono il nostro mondo con soluzioni innovative che uniscono protezione totale, comfort eccezionale ed eccellenza del design italiano.",
+      "description": "In HandLine ci impegniamo a sviluppare prodotti che non solo rispettano ma superano gli standard di sicurezza, mantenendo la destrezza e il comfort essenziali per i lavoratori di ogni settore. I nostri design bilanciano funzionalità ed estetica, creando dispositivi di protezione che le persone desiderano indossare."
+    },
+    "values": {
+      "badge": "I Nostri Valori",
+      "heading": "Principi Guida",
+      "description": "Questi principi fondamentali guidano ogni aspetto di HandLine, dalla progettazione dei prodotti al servizio clienti.",
+      "safety": {
+        "title": "Sicurezza Prima di Tutto",
+        "description": "Crediamo che la sicurezza non debba mai essere compromessa. Ogni prodotto che progettiamo mette la protezione al primo posto."
+      },
+      "innovation": {
+        "title": "Innovazione",
+        "description": "Superiamo costantemente i limiti della protezione delle mani attraverso ricerca e innovazione."
+      },
+      "customer": {
+        "title": "Focus sul Cliente",
+        "description": "Ascoltiamo le esigenze dei nostri clienti e sviluppiamo soluzioni per le loro specifiche sfide di sicurezza."
+      },
+      "quality": {
+        "title": "Eccellenza Qualitativa",
+        "description": "Il nostro rigoroso controllo qualità garantisce che ogni prodotto rispetti i più alti standard di durata e prestazione."
+      },
+      "design": {
+        "title": "Chiarezza del Design",
+        "description": "Crediamo in un design chiaro e funzionale che migliori l'usabilità e l'esperienza dell'utente."
+      },
+      "compliance": {
+        "title": "Conformità",
+        "description": "I nostri prodotti rispettano o superano tutti gli standard e le certificazioni di sicurezza rilevanti a livello globale."
+      }
+    },
+    "team": {
+      "badge": "Le Nostre Persone",
+      "heading": "Il Team HandLine",
+      "description": "I nostri professionisti uniscono decenni di esperienza a una passione per l'innovazione nella sicurezza."
+    }
+  },
+  "contact": {
+    "section": {
+      "badge": "Contattaci",
+      "title": "Contatta HandLine",
+      "description": "Il nostro team è a tua disposizione per ogni esigenza di guanti di sicurezza industriale."
+    },
+    "form": {
+      "title": "Inviaci un Messaggio",
+      "description": "Compila il modulo e i nostri esperti ti risponderanno rapidamente.",
+      "fields": {
+        "name": "Nome",
+        "namePlaceholder": "Il tuo nome",
+        "company": "Nome Azienda",
+        "companyPlaceholder": "La tua organizzazione",
+        "email": "Email",
+        "emailPlaceholder": "tua.email@azienda.com",
+        "subject": "Oggetto",
+        "subjectPlaceholder": "Richiesta di informazioni o supporto",
+        "message": "Messaggio",
+        "messagePlaceholder": "Parlaci delle tue esigenze di sicurezza o delle tue domande sui nostri prodotti..."
+      },
+      "submit": "Invia Messaggio",
+      "success": {
+        "title": "Messaggio inviato!",
+        "description": "Ti risponderemo il prima possibile."
+      }
+    },
+    "info": {
+      "title": "Informazioni di Contatto",
+      "description": "Puoi raggiungerci presso la nostra sede o utilizzando i dettagli qui sotto.",
+      "address": {
+        "title": "Sede Legale",
+        "content": "via Alfonso Salardi, 12, 22100 - COMO, Italia"
+      },
+      "phone": {
+        "title": "Telefono",
+        "content": "+39 031 123 4567"
+      },
+      "email": {
+        "title": "Email",
+        "content": "info@handlinecompany.com"
+      },
+      "contactInfoTitle": "Informazioni di Contatto",
+      "findUsTitle": "Trovarci",
+      "directionsTitle": "Viaggia verso HandLine Company",
+      "directionsDescription": "Ottieni indicazioni per la nostra sede principale a Como",
+      "directionsButton": "Ottieni indicazioni"
+    },
+    "faq": {
+      "badge": "Sicurezza Prima di Tutto",
+      "title": "Domande Frequenti",
+      "description": "Trova risposte rapide alle domande comuni sui nostri guanti di sicurezza e servizi",
+      "questions": [
+        {
+          "question": "Che tipi di guanti di sicurezza offrite?",
+          "answer": "HandLine produce una gamma completa di guanti di sicurezza, inclusi guanti resistenti al calore (fino a 350°C), guanti resistenti ai tagli (fino al Livello 5), guanti da lavoro generici, guanti resistenti alle sostanze chimiche e guanti specializzati per vari settori."
+        },
+        {
+          "question": "Come scelgo i guanti di sicurezza giusti per la mia applicazione?",
+          "answer": "Consigliamo di valutare i rischi specifici nel tuo ambiente di lavoro (calore, tagli, sostanze chimiche, ecc.), considerare i requisiti di comfort e destrezza, e assicurare la giusta misura. Il nostro team può fornire raccomandazioni personalizzate in base al tuo settore e alle tue esigenze specifiche."
+        },
+        {
+          "question": "I vostri guanti sono certificati CE?",
+          "answer": "Sì, tutti i guanti di sicurezza HandLine sono certificati CE e conformi alle normative europee pertinenti, inclusi EN 388 per i rischi meccanici, EN 407 per i rischi termici e altri standard di sicurezza applicabili."
+        },
+        {
+          "question": "Offrite soluzioni personalizzate per settori specifici?",
+          "answer": "Assolutamente! Lavoriamo a stretto contatto con i clienti di vari settori per sviluppare soluzioni di protezione delle mani su misura. Contatta il nostro team per discutere delle tue esigenze specifiche, e possiamo sviluppare o raccomandare prodotti che soddisfino le tue esigenze esatte."
+        },
+        {
+          "question": "Come posso richiedere campioni di prodotti?",
+          "answer": "Puoi richiedere campioni di prodotti contattando il nostro team commerciale tramite il modulo di contatto. Specifica quali prodotti ti interessano, il tuo settore e l'applicazione prevista. In genere forniamo campioni per la valutazione entro 1-2 settimane."
+        }
+      ],
+      "cta": "Hai bisogno di maggiori informazioni? Contatta i nostri esperti"
+    },
+    "hero": {
+      "badge": "Siamo Qui Per Aiutarti",
+      "title": "Contattaci",
+      "titleAccent": "HandLine",
+      "description": "Siamo qui per aiutarti con qualsiasi domanda tu possa avere sui nostri prodotti e soluzioni di sicurezza. Contatta il nostro team e ti risponderemo il prima possibile.",
+      "stats": {
+        "support": "Supporto 24/7",
+        "response": "Tempo di risposta medio: 1 ora",
+        "satisfaction": "Soddisfazione clienti 98%",
+        "experience": "Oltre 40 anni di esperienza"
+      },
+      "buttons": {
+        "sendMessage": "Invia un Messaggio",
+        "ourInfo": "Le Nostre Informazioni"
+      }
+    }
+  },
+  "blog": {
+    "hero": {
+      "badge": "Approfondimenti e Risorse",
+      "title": "HandLine",
+      "titleAccent": "Notiziario",
+      "description": "Competenza leader nel settore sui guanti di sicurezza e soluzioni di protezione delle mani.",
+      "exploreArticles": "Esplora Articoli",
+      "learnAboutUs": "Scopri Chi Siamo"
+    },
+    "stats": {
+      "articles": "Articoli",
+      "categories": "Categorie",
+      "freeAccess": "Accesso Gratuito",
+      "yearsExperience": "Anni di Esperienza"
+    },
+    "grid": {
+      "badge": "Conoscenza della Sicurezza",
+      "title": "Risorse sulla Sicurezza HandLine",
+      "description": "Scopri approfondimenti esperti sui guanti di sicurezza industriali, dispositivi di protezione e migliori pratiche per la protezione delle mani sul posto di lavoro.",
+      "searchPlaceholder": "Cerca articoli...",
+      "showing": "Mostrando",
+      "articles": "articoli",
+      "noArticles": "Nessun articolo trovato",
+      "noArticlesDescription": "Prova a modificare i criteri di ricerca o filtro"
+    },
+    "readArticle": "Leggi l'articolo",
+    "backToBlogs": "Torna al notiziario",
+    "minRead": "{count} min di lettura"
+  },
+  "auth": {
+    "customerPortal": "Portale Clienti",
+    "customerPortalDesc": "Accedi al tuo pannello e ai servizi",
+    "welcomeBack": "Bentornato",
+    "createAccount": "Crea il tuo account",
+    "signInDesc": "Inserisci le tue credenziali per accedere al tuo account e al pannello.",
+    "signUpDesc": "Crea un account per accedere a tutte le funzionalità e ai servizi.",
+    "email": "Indirizzo email",
+    "emailPlaceholder": "nome@azienda.com",
+    "password": "Password",
+    "orContinueWith": "o continua con",
+    "passwordPlaceholder": "••••••••",
+    "confirmPassword": "Conferma password",
+    "forgotPassword": "Password dimenticata?",
+    "forgotPasswordTitle": "Password dimenticata?",
+    "forgotPasswordDesc": "Inserisci la tua email per reimpostare la password",
+    "forgotPasswordHelp": "Ti invieremo un link per reimpostare la password",
+    "submit": "Invia",
+    "signIn": "Accedi",
+    "signUp": "Registrati",
+    "signUpInstead": "Registrati invece",
+    "signInInstead": "Accedi",
+    "notAMember": "Non sei registrato?",
+    "alreadyHaveAccount": "Hai già un account?",
+    "continueWithGoogle": "Continua con Google",
+    "terms": "Termini di Servizio",
+    "privacy": "Informativa Privacy",
+    "agreeTo": "Accedendo accetti i nostri",
+    "successSignIn": "Accesso effettuato.",
+    "successSignUp": "Registrazione completata e accesso effettuato.",
+    "errorSignIn": "Errore di accesso",
+    "errorSignUp": "Errore di registrazione",
+    "userExists": "Utente già esistente",
+    "profileSetupIssue": "Accesso riuscito ma la configurazione del profilo non è andata a buon fine. Alcune funzionalità potrebbero essere limitate.",
+    "accountCreated": "Account creato!",
+    "passwordRequirement": {
+      "minLength": "Almeno 8 caratteri",
+      "hasNumber": "Almeno un numero",
+      "hasSpecial": "Almeno un carattere speciale",
+      "match": "Le password corrispondono",
+      "noMatch": "Le password non corrispondono"
+    },
+    "showPassword": "Mostra password",
+    "hidePassword": "Nascondi password"
+  },
+  "common": {
+    "and": "e"
+  },
+  "forms": {
+    "company": "Nome Azienda",
+    "companySize": "Dimensione Azienda",
+    "selectCompanySize": "Seleziona dimensione azienda",
+    "industry": "Settore",
+    "sizeNeeded": "Taglia Necessaria",
+    "contactDetails": "Dettagli di Contatto",
+    "emailPlaceholder": "tua.email@azienda.com",
+    "privacyConsent": "Acconsento al trattamento dei miei dati da parte di HandLine in conformità con la",
+    "privacyPolicy": "Informativa Privacy",
+    "and": "e",
+    "terms": "Termini di Servizio",
+    "submit": "Invia Richiesta"
+  }
+} 

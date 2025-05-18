@@ -1,0 +1,492 @@
+{
+  "navbar": {
+    "home": "Home",
+    "products": "Products",
+    "industries": "Industries",
+    "about": "About Us",
+    "blog": "Blog",
+    "contact": "Contact",
+    "dashboard": "Dashboard",
+    "menu": "Menu",
+    "language": {
+      "toggleLabel": "Language / Lingua",
+      "en": "English",
+      "it": "Italiano",
+      "toggleButton": "Switch to {lang}"
+    },
+    "announcement": "PROTECTING HANDS WITH INNOVATIVE SOLUTIONS",
+    "searchPlaceholder": "Search products, industries, or articles..."
+  },
+  "hero": {
+    "expertise": "40+ Years of Expertise",
+    "title": "Your Hands Protected",
+    "description": "Hand Line Company is an Italian manufacturer specialising in high-performance safety gloves for industrial settings. Our heat-resistant and cut-resistant gloves provide unmatched protection up to 350°C with precision and comfort.",
+    "exploreProducts": "Explore Products",
+    "getInTouch": "Get in Touch",
+    "mainTitle": {
+      "handline": "HAND LINE,",
+      "weSpeak": "WE SPEAK",
+      "safety": "SAFETY"
+    }
+  },
+  "productsHero": {
+    "badge": "Industrial Safety",
+    "heading": "Safety",
+    "headingAccent": "Gloves",
+    "description": "Explore our comprehensive range of high-performance industrial safety gloves, designed to provide superior protection against heat, cuts, and other workplace hazards.",
+    "browseProducts": "Browse Products",
+    "getInTouch": "Get in Touch",
+    "stats": {
+      "heat": "Heat Resistance",
+      "cut": "Cut Resistance",
+      "cutValue": "Level 5",
+      "certified": "Certified",
+      "years": "Years Experience"
+    }
+  },
+  "industriesHero": {
+    "badge": "Sector Solutions",
+    "heading": "Industry",
+    "headingAccent": "Solutions",
+    "description": "Discover how HandLine's innovative safety solutions are tailored to meet the unique challenges of various industries, providing protection and performance when it matters most.",
+    "stats": {
+      "industries": "Industries Served",
+      "years": "Years Experience",
+      "products": "Products",
+      "customers": "Happy Customers"
+    },
+    "exploreIndustries": "Explore Industries",
+    "viewProducts": "View Products"
+  },
+  "expertise": {
+    "title": "Our Expertise",
+    "description": "With over four decades of experience, HandLine Company has established itself as a leader in innovative hand protection solutions for industrial environments.",
+    "features": {
+      "heatProtection": {
+        "title": "Heat Protection Gloves",
+        "description": "Advanced thermal technology provides heat protection whilst maintaining flexibility and comfort for high-temperature tasks.",
+        "cta": "Explore Heat-Resistant Range"
+      },
+      "cutResistance": {
+        "title": "Cut Resistant Gloves",
+        "description": "Advanced materials provide superior cut protection while maintaining dexterity and comfort for precision tasks.",
+        "cta": "View Cut-Resistant Solutions"
+      },
+      "customisation": {
+        "title": "Product Customisation",
+        "description": "Tailored safety solutions developed to meet your specific requirements whilst ensuring optimal protection and performance.",
+        "cta": "Learn About Our Process"
+      }
+    },
+    "quote": {
+      "text": "My journey began 40 years ago when I observed workers handling hot moulds. By combining their perspectives with my craftsmanship, we created innovative safety solutions that now protect workers across countless industries.",
+      "author": "Franco Castronuovo, CEO and Founder"
+    }
+  },
+  "featuredProducts": {
+    "title": "Featured Products",
+    "description": "Discover our most popular safety gloves, designed to provide superior protection and comfort across different industrial applications.",
+    "noProducts": "No featured products available at the moment.",
+    "preview": "Preview",
+    "details": "Details",
+    "viewAll": "View all products",
+    "specs": {
+      "temperature": "Temperature",
+      "cutLevel": "Cut Level"
+    }
+  },
+  "industrySolutions": {
+    "badge": "Sector Solutions",
+    "title": "Industry Solutions",
+    "description": "We design specialised hand protection for a wide range of industries, ensuring safety, comfort, and precision for every application.",
+    "noIndustries": "No industry solutions available at the moment.",
+    "learnMore": "Learn more",
+    "viewAll": "View all industries"
+  },
+  "footer": {
+    "companyDescription": "Italian manufacturer specialising in high-performance safety gloves for industrial environments. Protecting hands with innovative solutions since 1982.",
+    "address": "via Alfonso Salardi, 12, 22100 - COMO, Italy",
+    "phone": "+39 031 123 4567",
+    "email": "info@handlinecompany.com",
+    "sections": {
+      "products": {
+        "title": "Products",
+        "links": {
+          "heatResistant": "Heat Resistant",
+          "cutResistant": "Cut Resistant",
+          "welding": "Welding",
+          "chemical": "Chemical"
+        }
+      },
+      "industries": {
+        "title": "Industries",
+        "links": {
+          "glass": "Glass",
+          "metalworking": "Metalworking",
+          "welding": "Welding",
+          "automotive": "Automotive"
+        }
+      },
+      "company": {
+        "title": "Company",
+        "links": {
+          "about": "About Us",
+          "certifications": "Certifications",
+          "blog": "Blog",
+          "contact": "Contact"
+        }
+      }
+    },
+    "legal": {
+      "copyright": "All rights reserved.",
+      "links": {
+        "privacy": "Privacy Policy",
+        "terms": "Terms of Service",
+        "cookies": "Cookie Policy",
+        "standards": "EN-Standards"
+      }
+    }
+  },
+  "products": {
+    "browseTitle": "Browse Our Products",
+    "searchPlaceholder": "Search products...",
+    "sortOptions": {
+      "featured": "Featured",
+      "newest": "Newest",
+      "name-asc": "Name: A to Z",
+      "name-desc": "Name: Z to A"
+    },
+    "filters": {
+      "title": "Filters",
+      "clearAll": "Clear All Filters",
+      "category": "Category",
+      "subCategory": "Sub-Category",
+      "temperature": "Temperature Rating",
+      "cutLevel": "Cut Resistance Level",
+      "industries": "Industries",
+      "allCategories": "All Categories",
+      "uncategorised": "Uncategorised",
+      "activeFilters": "Active filters:",
+      "apply": "Apply"
+    },
+    "results": {
+      "showing": "Showing {current} of {total} products",
+      "noResults": "No products found",
+      "noResultsDescription": "We couldn't find any products matching your search criteria.",
+      "clearFilters": "Clear Filters",
+      "seeMore": "See More Products",
+      "showLess": "Show Less"
+    },
+    "preview": "Preview",
+    "details": "Details",
+    "viewFullDetails": "View Full Details",
+    "outOfStock": "Out of Stock",
+    "new": "New",
+    "featured": "Featured",
+    "industries": "Industries",
+    "keyFeatures": "Key Features:",
+    "moreFeatures": "+{{count}} more"
+  },
+  "productPage": {
+    "backToProducts": "Back to products",
+    "specifications": "Specifications",
+    "features": "Features",
+    "applications": "Applications",
+    "productDetails": "Product Details",
+    "technicalSpecifications": "Technical Specifications",
+    "temperatureRating": "Temperature Rating",
+    "cutResistanceLevel": "Cut Resistance Level",
+    "industries": "Industries",
+    "submitEnquiry": "Submit Enquiry",
+    "contactUs": "Contact Us",
+    "requestSample": "Request Sample"
+  },
+  "relatedProducts": {
+    "title": "Related Products"
+  },
+  "industries": {
+    "sectorsWeServe": "Sectors We Serve",
+    "sectorsDescription": "At HandLine, we develop specialised safety solutions for a diverse range of industries, each with unique challenges and requirements.",
+    "keyFeatures": "Key Features",
+    "viewSolutions": "View Solutions",
+    "contactForDetails": "Contact us for details"
+  },
+  "about": {
+    "est": "Est. 1981",
+    "heading": "About",
+    "description": "For over four decades, HandLine has been at the forefront of industrial safety, designing and manufacturing premium protective gloves that combine innovation, comfort, and uncompromising protection.",
+    "ourStory": "Our Story",
+    "getInTouch": "Get in Touch",
+    "stats": {
+      "years": "Years' Experience",
+      "team": "Team Members",
+      "countries": "Countries",
+      "products": "Products"
+    },
+    "history": {
+      "badge": "Our Journey",
+      "heading": "HandLine Through the Years",
+      "description": "From our beginnings in Milan to becoming a leading safety equipment manufacturer, discover key moments that shaped our company.",
+      "1981": {
+        "title": "Foundation",
+        "description": "HandLine was founded in Milan, Italy with a vision to create superior safety gloves for industrial workers."
+      },
+      "1992": {
+        "title": "First Patent",
+        "description": "Developed and patented our first cut-resistant glove technology, setting new industry standards for protection."
+      },
+      "2000": {
+        "title": "International Expansion",
+        "description": "Expanded operations to serve clients across Europe, with distribution networks in 12 countries."
+      },
+      "2008": {
+        "title": "Thermal Technology",
+        "description": "Introduced advanced thermal protection technology, revolutionising safety in extreme temperature environments."
+      },
+      "2015": {
+        "title": "Sustainability Initiative",
+        "description": "Launched eco-friendly production processes and sustainable materials for our premium glove lines."
+      },
+      "2023": {
+        "title": "Digital Transformation",
+        "description": "Implemented Industry 4.0 manufacturing solutions and launched a comprehensive digital product catalogue."
+      }
+    },
+    "mission": {
+      "badge": "Our Mission",
+      "heading": "Why We Exist",
+      "statement": "To protect the hands that build our world through innovative safety solutions that combine uncompromising protection, exceptional comfort, and Italian design excellence.",
+      "description": "At HandLine, we are committed to developing products that not only meet but exceed safety standards, whilst maintaining the dexterity and comfort essential for workers across all industries. Our designs balance functionality with aesthetics, creating safety equipment that people want to wear."
+    },
+    "values": {
+      "badge": "Our Values",
+      "heading": "Principles That Guide Us",
+      "description": "These core principles guide everything we do at HandLine, from product design to customer service.",
+      "safety": {
+        "title": "Safety First",
+        "description": "We believe that safety should never be compromised. Every product we design prioritises protection above all else."
+      },
+      "innovation": {
+        "title": "Innovation",
+        "description": "We continuously push the boundaries of what is possible in hand protection through research and innovation."
+      },
+      "customer": {
+        "title": "Customer Focus",
+        "description": "We listen to our clients' needs and develop solutions that address their specific safety challenges."
+      },
+      "quality": {
+        "title": "Quality Excellence",
+        "description": "Our rigorous quality control ensures that every product meets the highest standards of durability and performance."
+      },
+      "design": {
+        "title": "Design Clarity",
+        "description": "We believe in clear, purposeful design that enhances function while providing intuitive user experience."
+      },
+      "compliance": {
+        "title": "Compliance",
+        "description": "Our products meet or exceed all relevant safety standards and certifications across global markets."
+      }
+    },
+    "team": {
+      "badge": "Our People",
+      "heading": "Meet the HandLine Team",
+      "description": "Our dedicated professionals combine decades of experience with a passion for safety innovation."
+    }
+  },
+  "contact": {
+    "section": {
+      "badge": "Get In Touch",
+      "title": "Contact HandLine",
+      "description": "Our team is ready to assist with your industrial safety glove requirements."
+    },
+    "form": {
+      "title": "Send Us a Message",
+      "description": "Complete the form and our experts will respond promptly.",
+      "fields": {
+        "name": "Name",
+        "namePlaceholder": "Your name",
+        "company": "Company Name",
+        "companyPlaceholder": "Your organisation",
+        "email": "Email",
+        "emailPlaceholder": "your.email@company.com",
+        "subject": "Subject",
+        "subjectPlaceholder": "Product inquiry or support request",
+        "message": "Message",
+        "messagePlaceholder": "Tell us about your safety requirements or questions about our products..."
+      },
+      "submit": "Send Message",
+      "success": {
+        "title": "Message sent!",
+        "description": "We'll get back to you as soon as possible."
+      }
+    },
+    "info": {
+      "title": "Contact Information",
+      "description": "Reach us at our headquarters or using the details below.",
+      "address": {
+        "title": "Registered Office",
+        "content": "via Alfonso Salardi, 12, 22100 - COMO, Italy"
+      },
+      "phone": {
+        "title": "Telephone",
+        "content": "+39 031 123 4567"
+      },
+      "email": {
+        "title": "Email",
+        "content": "info@handlinecompany.com"
+      },
+      "contactInfoTitle": "Contact Information",
+      "findUsTitle": "Find Us",
+      "directionsTitle": "Travel to HandLine Company",
+      "directionsDescription": "Get directions to our main facility in Como",
+      "directionsButton": "Get directions"
+    },
+    "faq": {
+      "badge": "Safety First",
+      "title": "Frequently Asked Questions",
+      "description": "Find quick answers to common questions about our safety gloves and services",
+      "questions": [
+        {
+          "question": "What types of safety gloves do you offer?",
+          "answer": "HandLine manufactures a comprehensive range of safety gloves including heat-resistant gloves (up to 350°C), cut-resistant gloves (up to Level 5), general-purpose work gloves, chemical-resistant gloves, and specialised gloves for various industries."
+        },
+        {
+          "question": "How do I choose the right safety gloves for my application?",
+          "answer": "We recommend assessing the specific hazards in your workplace (heat, cuts, chemicals, etc.), considering comfort and dexterity requirements, and ensuring proper sizing. Our team can provide personalised recommendations based on your industry and specific needs."
+        },
+        {
+          "question": "Are your gloves CE certified?",
+          "answer": "Yes, all HandLine safety gloves are CE certified and comply with relevant European standards including EN 388 for mechanical risks, EN 407 for thermal risks, and other applicable safety standards."
+        },
+        {
+          "question": "Do you offer custom solutions for specific industries?",
+          "answer": "Absolutely! We work closely with clients in various industries to develop tailored hand protection solutions. Contact our team to discuss your specific requirements, and we can develop or recommend products that meet your exact needs."
+        },
+        {
+          "question": "How can I request product samples?",
+          "answer": "You can request product samples by contacting our sales team through our contact form. Please specify which products you're interested in, your industry, and intended application. We typically provide samples for evaluation within 1-2 weeks."
+        }
+      ],
+      "cta": "Need more information? Contact our experts"
+    },
+    "hero": {
+      "badge": "We're Here To Help",
+      "title": "Contact",
+      "titleAccent": "HandLine",
+      "description": "We're here to help with any questions you may have about our safety products and solutions. Reach out to our team and we'll get back to you as soon as possible.",
+      "stats": {
+        "support": "24/7 Support Available",
+        "response": "1hr Avg. Response Time",
+        "satisfaction": "98% Customer Satisfaction",
+        "experience": "40+ Years Experience"
+      },
+      "buttons": {
+        "sendMessage": "Send a Message",
+        "ourInfo": "Our Information"
+      }
+    }
+  },
+  "blog": {
+    "hero": {
+      "badge": "Insights & Resources",
+      "title": "HandLine",
+      "titleAccent": "Blog",
+      "description": "Industry-leading expertise on safety gloves and hand protection solutions.",
+      "exploreArticles": "Explore Articles",
+      "learnAboutUs": "Learn About Us"
+    },
+    "stats": {
+      "articles": "Articles",
+      "categories": "Categories",
+      "freeAccess": "Free Access",
+      "yearsExperience": "Years Experience"
+    },
+    "grid": {
+      "badge": "Safety Knowledge",
+      "title": "HandLine Safety Resources",
+      "description": "Discover expert insights about industrial safety gloves, protective equipment, and best practices for workplace hand protection.",
+      "searchPlaceholder": "Search articles...",
+      "showing": "Showing",
+      "articles": "articles",
+      "noArticles": "No articles found",
+      "noArticlesDescription": "Try adjusting your search or filter criteria"
+    },
+    "readArticle": "Read Article",
+    "backToBlogs": "Back to Blogs",
+    "minRead": "{count} min read"
+  },
+  "auth": {
+    "customerPortal": "Customer Portal",
+    "customerPortalDesc": "Access your account dashboard and services",
+    "welcomeBack": "Welcome Back",
+    "createAccount": "Create Your Account",
+    "signInDesc": "Enter your credentials to access your account and dashboard.",
+    "signUpDesc": "Create an account to access our full suite of services and features.",
+    "email": "Email Address",
+    "emailPlaceholder": "name@example.com",
+    "password": "Password",
+    "orContinueWith": "or continue with",
+    "passwordPlaceholder": "••••••••",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot password?",
+    "forgotPasswordTitle": "Forgot password?",
+    "forgotPasswordDesc": "Enter your email to reset your password",
+    "forgotPasswordHelp": "We will send you a link to reset your password",
+    "submit": "Submit",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signUpInstead": "Sign up instead",
+    "signInInstead": "Sign in",
+    "notAMember": "Not a member?",
+    "alreadyHaveAccount": "Already have an account?",
+    "continueWithGoogle": "Continue with Google",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "agreeTo": "By signing in, you agree to our",
+    "successSignIn": "You have been signed in.",
+    "successSignUp": "You have been signed up and logged in.",
+    "errorSignIn": "Error Signing In",
+    "errorSignUp": "Error signing up",
+    "userExists": "User already exists",
+    "profileSetupIssue": "Your sign-in was successful but profile setup failed. Some features may be limited.",
+    "accountCreated": "Account created!",
+    "passwordRequirement": {
+      "minLength": "At least 8 characters",
+      "hasNumber": "At least one number",
+      "hasSpecial": "At least one special character",
+      "match": "Passwords match",
+      "noMatch": "Passwords do not match"
+    },
+    "showPassword": "Show password",
+    "hidePassword": "Hide password"
+  },
+  "sidebar": {
+    "categories": "Product Categories",
+    "industries": "Industries",
+    "resources": "Resources",
+    "products": {
+      "categories": {
+        "heatResistantGloves": "Heat-Resistant Gloves",
+        "heatResistantSleeves": "Heat-Resistant Sleeves",
+        "cutResistantGloves": "Cut-Resistant Gloves",
+        "cutResistantSleeves": "Cut-Resistant Sleeves",
+        "corporateCustomisation": "Corporate Solutions",
+        "industrialCustomisation": "Industrial Solutions"
+      }
+    }
+  },
+  "forms": {
+    "company": "Company Name",
+    "companySize": "Company Size",
+    "selectCompanySize": "Select company size",
+    "industry": "Industry",
+    "sizeNeeded": "Size Needed",
+    "contactDetails": "Contact Details",
+    "emailPlaceholder": "your.email@company.com",
+    "privacyConsent": "I consent to HandLine storing and processing my data in accordance with the",
+    "privacyPolicy": "Privacy Policy",
+    "and": "and",
+    "terms": "Terms of Service",
+    "submit": "Submit Request"
+  }
+} 

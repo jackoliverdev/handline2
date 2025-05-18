@@ -1,0 +1,25 @@
+[✅] Connect Supabase store org/user info
+[✅] Blog page
+[✅] Update user website blog page to pull from admin blog management
+[✅] Logo showcase under hero homepage
+[] Testimonial component homepage
+[] Porfolio page
+[] Map next to contact form
+[] Buttons Icons white text
+[✅] Blog CMS Admin Portal
+[] Extend portal edit users page
+[] Extend admin portal manage users page
+[] Update desktop website nav bar so just show logged in
+[] Help center
+[] Booking calendar user admin
+[] Digital Courses
+[] Force name on sign up add to supabase
+[] Newsletter footer collects leads into supabase db
+[] Admin newsletter side can export newsletter list
+[] Case Studies page
+[] Improve footer
+
+[] Logos grid under hero scroling auto
+
+[] check mobile
+[] Improve mobile menu

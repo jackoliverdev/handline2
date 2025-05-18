@@ -1,0 +1,198 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  :root {
+    --background: 39 33% 98%; /* #F5EFE0 light beige */
+    --foreground: 0 0% 12%; /* #1E1E1E dark grey */
+
+    --card: 0 0% 100%; /* #FFFFFF white */
+    --card-foreground: 0 0% 12%; /* #1E1E1E dark grey */
+ 
+    --popover: 39 33% 98%; /* #F5EFE0 light beige */
+    --popover-foreground: 0 0% 12%; /* #1E1E1E dark grey */
+ 
+    --primary: 28 87% 59%; /* #F28C38 primary orange */
+    --primary-foreground: 0 0% 100%; /* #FFFFFF white */
+ 
+    --secondary: 0 0% 35%; /* #5A5A5A secondary grey */
+    --secondary-foreground: 0 0% 100%; /* #FFFFFF white */
+ 
+    --muted: 39 20% 93%; /* Lighter version of beige */
+    --muted-foreground: 0 0% 35%; /* #5A5A5A secondary grey */
+ 
+    --accent: 28 87% 65%; /* Lighter version of orange */
+    --accent-foreground: 0 0% 100%; /* #FFFFFF white */
+ 
+    --destructive: 0 84% 60%; /* #EF4444 red */
+    --destructive-foreground: 0 0% 100%; /* #FFFFFF white */
+
+    --border: 28 30% 85%; /* Light orange-tinted border */
+    --input: 28 30% 85%; /* Light orange-tinted input border */
+    --ring: 28 87% 59%; /* #F28C38 primary orange */
+ 
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 0 0% 7.1%; /* #121212 charcoal black - reverted to original */
+    --foreground: 39 33% 98%; /* #F5EFE0 light beige */
+ 
+    --card: 0 0% 10%; /* #1A1A1A slightly lighter than background - adjusted to original */
+    --card-foreground: 39 33% 98%; /* #F5EFE0 light beige */
+ 
+    --popover: 0 0% 7.1%; /* #121212 charcoal black - reverted to original */
+    --popover-foreground: 39 33% 98%; /* #F5EFE0 light beige */
+ 
+    --primary: 28 87% 59%; /* #F28C38 primary orange */
+    --primary-foreground: 0 0% 100%; /* #FFFFFF white */
+ 
+    --secondary: 0 0% 35%; /* #5A5A5A secondary grey */
+    --secondary-foreground: 39 33% 98%; /* #F5EFE0 light beige */
+ 
+    --muted: 0 0% 20%; /* #333333 muted dark grey */
+    --muted-foreground: 0 0% 70%; /* #B3B3B3 muted light grey */
+ 
+    --accent: 28 60% 40%; /* Darker version of orange */
+    --accent-foreground: 0 0% 100%; /* #FFFFFF white */
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 39 33% 98%; /* #F5EFE0 light beige */
+ 
+    --border: 0 0% 25%; /* #404040 dark grey border */
+    --input: 0 0% 25%; /* #404040 dark grey input */
+    --ring: 28 87% 59%; /* #F28C38 primary orange */
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom brand variables */
+:root {
+  --brand-primary: #F28C38; /* Primary Orange */
+  --brand-dark: #1E1E1E; /* Dark Grey */
+  --brand-light: #F5EFE0; /* Light Beige */
+  --brand-white: #FFFFFF; /* White */
+  --brand-secondary: #5A5A5A; /* Secondary Grey */
+}
+
+/* Additional utility classes for brand colours */
+@layer utilities {
+  .bg-brand-primary {
+    background-color: var(--brand-primary);
+  }
+  
+  .bg-brand-dark {
+    background-color: var(--brand-dark);
+  }
+  
+  .bg-brand-light {
+    background-color: var(--brand-light);
+  }
+  
+  .bg-brand-secondary {
+    background-color: var(--brand-secondary);
+  }
+  
+  .text-brand-primary {
+    color: var(--brand-primary);
+  }
+  
+  .text-brand-dark {
+    color: var(--brand-dark);
+  }
+  
+  .text-brand-light {
+    color: var(--brand-light);
+  }
+  
+  .text-brand-secondary {
+    color: var(--brand-secondary);
+  }
+  
+  .border-brand-primary {
+    border-color: var(--brand-primary);
+  }
+}
+
+/* Button styling */
+.btn-primary {
+  background-color: var(--brand-primary);
+  color: var(--brand-white);
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #E07A26; /* Darker orange on hover */
+  box-shadow: 0 4px 8px rgba(242, 140, 56, 0.25);
+}
+
+/* Icon styling for consistent brand appearance */
+.brand-icon {
+  color: var(--brand-primary);
+}
+
+.dark .brand-icon {
+  color: var(--brand-primary);
+}
+
+/* Dashboard monochromatic palette styles */
+.dashboard-mono {
+  --bg-color: #121212;
+  --text-primary: #E0E0E0;
+  --text-secondary: #B0B0B0;
+  --border-color: #444444;
+  --accent-color: #888888;
+}
+
+/* Apply monochromatic theme to dashboard elements */
+.dark .dashboard-element {
+  background-color: #121212;
+  color: #E0E0E0;
+  border-color: #444444;
+}
+
+.dark .dashboard-secondary-text {
+  color: #B0B0B0;
+}
+
+.dark .dashboard-accent {
+  color: #888888;
+}
+
+/* Light mode dashboard palette styles */
+.light-dashboard {
+  --bg-color: #FFFFFF;
+  --text-primary: #121926;
+  --text-secondary: #64748B;
+  --border-color: #E2E8F0;
+  --accent-color: #0080FF;
+  --card-bg: #FFFFFF;
+  --hover-bg: #F8FAFC;
+}
+
+/* Apply light mode theme to dashboard elements */
+.light .dashboard-element {
+  background-color: #FFFFFF;
+  color: #121926;
+  border-color: #E2E8F0;
+}
+
+.light .dashboard-secondary-text {
+  color: #64748B;
+}
+
+.light .dashboard-accent {
+  color: #0080FF;
+}
