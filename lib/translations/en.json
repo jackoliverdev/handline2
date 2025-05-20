@@ -8,6 +8,23 @@
     "contact": "Contact",
     "dashboard": "Dashboard",
     "menu": "Menu",
+    "partners": "Partners",
+    "resources": "Resources",
+    "aboutDropdown": {
+      "ourCompany": "Our Company",
+      "careers": "Careers"
+    },
+    "resourcesDropdown": {
+      "blog": "Blog",
+      "caseStudies": "Case Studies",
+      "enResourceCentre": "EN Resource Centre",
+      "productDisclaimer": "Product Disclaimer",
+      "declarations": "Declarations"
+    },
+    "partnersDropdown": {
+      "partnerships": "Partnerships",
+      "distribution": "Distribution"
+    },
     "language": {
       "toggleLabel": "Language / Lingua",
       "en": "English",
@@ -105,9 +122,9 @@
   },
   "footer": {
     "companyDescription": "Italian manufacturer specialising in high-performance safety gloves for industrial environments. Protecting hands with innovative solutions since 1982.",
-    "address": "via Alfonso Salardi, 12, 22100 - COMO, Italy",
+    "address": "via Antonio Bruse 34, 22035, Canzo (CO), Italy",
     "phone": "+39 031 123 4567",
-    "email": "info@handlinecompany.com",
+    "email": "info@handlineco.com",
     "sections": {
       "products": {
         "title": "Products",
@@ -205,6 +222,7 @@
     "title": "Related Products"
   },
   "industries": {
+    "manufacturing": "Manufacturing",
     "sectorsWeServe": "Sectors We Serve",
     "sectorsDescription": "At HandLine, we develop specialised safety solutions for a diverse range of industries, each with unique challenges and requirements.",
     "keyFeatures": "Key Features",
@@ -252,11 +270,54 @@
         "description": "Implemented Industry 4.0 manufacturing solutions and launched a comprehensive digital product catalogue."
       }
     },
+    "different": {
+      "badge": "Our Advantages",
+      "heading": "WHAT MAKES US DIFFERENT",
+      "description": "At HandLine, we pride ourselves on several key differentiators that set us apart in the safety equipment industry.",
+      "productQuality": {
+        "title": "Excellence in",
+        "titleAccent": "Product Quality",
+        "description": "40+ years of technical expertise in safety glove manufacturing with rigorous quality control throughout production."
+      },
+      "customisation": {
+        "title": "Unmatched",
+        "titleAccent": "Customisation",
+        "description": "Tailored products according to user's needs. No one knows products better than our customer."
+      },
+      "pricing": {
+        "title": "Competitive",
+        "titleAccent": "Pricing",
+        "description": "Guaranteed market competitiveness and effective cost structure management."
+      },
+      "innovation": {
+        "title": "Continuous",
+        "titleAccent": "Innovation",
+        "description": "At the forefront of product development, continuously looking for new ways to improve."
+      },
+      "flexibility": {
+        "title": "Product",
+        "titleAccent": "Flexibility",
+        "description": "No order limits or restrictions, guaranteeing full flexibility to manage unpredictable needs."
+      },
+      "service": {
+        "title": "Best in class",
+        "titleAccent": "Service",
+        "description": "Stock management to cover fast changing customer's need, ensuring excellent delivery timing."
+      }
+    },
     "mission": {
       "badge": "Our Mission",
-      "heading": "Why We Exist",
-      "statement": "To protect the hands that build our world through innovative safety solutions that combine uncompromising protection, exceptional comfort, and Italian design excellence.",
-      "description": "At HandLine, we are committed to developing products that not only meet but exceed safety standards, whilst maintaining the dexterity and comfort essential for workers across all industries. Our designs balance functionality with aesthetics, creating safety equipment that people want to wear."
+      "heading": "Protecting Hands That Build Our World",
+      "description": "Since 1981, HandLine has been dedicated to developing innovative protective solutions that combine uncompromising safety with Italian design excellence.",
+      "points": {
+        "0": "Specialised manufacturing expertise in high-performance safety gloves",
+        "1": "Rigorous testing to exceed industry safety standards",
+        "2": "Balance of protection, comfort and performance",
+        "3": "Commitment to innovation and continuous improvement"
+      },
+      "cta": "Discover Our Products",
+      "since": "Since",
+      "year": "1981"
     },
     "values": {
       "badge": "Our Values",
@@ -291,6 +352,27 @@
       "badge": "Our People",
       "heading": "Meet the HandLine Team",
       "description": "Our dedicated professionals combine decades of experience with a passion for safety innovation."
+    },
+    "certifications": {
+      "badge": "Quality Standards",
+      "heading": "Our Certifications",
+      "description": "HandLine meets and exceeds the highest safety and quality standards in the industry, ensuring reliable protection for all users.",
+      "mainStatement": "Our production follows the highest quality standard with ISO certifications across the production and value chain.",
+      "types": {
+        "iso": {
+          "title": "ISO Certification",
+          "description": "Meeting international standards for quality management systems, ensuring consistent production excellence."
+        },
+        "ce": {
+          "title": "CE Marking",
+          "description": "Compliance with European health, safety, and environmental protection standards for all our products."
+        },
+        "en": {
+          "title": "EN Standards",
+          "description": "Adherence to specific European protective equipment norms, including EN 388 for mechanical risks and EN 407 for heat resistance."
+        }
+      },
+      "note": "Our certification documentation is available upon request. Product logos and certification marks will be updated soon."
     }
   },
   "contact": {
@@ -325,7 +407,7 @@
       "description": "Reach us at our headquarters or using the details below.",
       "address": {
         "title": "Registered Office",
-        "content": "via Alfonso Salardi, 12, 22100 - COMO, Italy"
+        "content": "via Antonio Bruse 34, 22035, Canzo (CO), Italy"
       },
       "phone": {
         "title": "Telephone",
@@ -333,7 +415,7 @@
       },
       "email": {
         "title": "Email",
-        "content": "info@handlinecompany.com"
+        "content": "info@handlineco.com"
       },
       "contactInfoTitle": "Contact Information",
       "findUsTitle": "Find Us",
@@ -409,11 +491,143 @@
       "showing": "Showing",
       "articles": "articles",
       "noArticles": "No articles found",
-      "noArticlesDescription": "Try adjusting your search or filter criteria"
+      "noArticlesDescription": "Try adjusting your search or filter criteria",
+      "clearFilters": "Clear Filters"
     },
     "readArticle": "Read Article",
     "backToBlogs": "Back to Blogs",
     "minRead": "{count} min read"
+  },
+  "caseStudies": {
+    "hero": {
+      "badge": "Client Success Stories",
+      "title": "HandLine",
+      "titleAccent": "Case Studies",
+      "description": "Real-world examples of how our safety solutions have transformed workplace protection across industries.",
+      "exploreCaseStudies": "Explore Case Studies",
+      "learnAboutUs": "Learn About Us"
+    },
+    "stats": {
+      "caseStudies": "Case Studies",
+      "industries": "Industries",
+      "successStories": "Success Stories",
+      "yearsExperience": "Years Experience"
+    },
+    "grid": {
+      "badge": "Success Stories",
+      "title": "HandLine Success Stories",
+      "description": "Discover how HandLine safety solutions have helped businesses across various industries improve their safety protocols and protect their workforce.",
+      "searchPlaceholder": "Search case studies...",
+      "showing": "Showing",
+      "caseStudies": "case studies",
+      "noCaseStudies": "No case studies found",
+      "noCaseStudiesDescription": "Try adjusting your search or filter criteria",
+      "filterByTags": "Filter by Tags",
+      "filterByIndustry": "Filter by Industry"
+    },
+    "viewCaseStudy": "View Case Study",
+    "backToCaseStudies": "Back to Case Studies",
+    "challenge": "The Challenge",
+    "solution": "Our Solution",
+    "results": "The Results",
+    "relatedCaseStudies": "Related Case Studies",
+    "clientDetails": "Client Details",
+    "industryDetails": "Industry Details",
+    "testimonial": "Client Testimonial"
+  },
+  "partners": {
+    "hero": {
+      "badge": "Global Partnerships",
+      "title": "Partner with",
+      "description": "Join our global network of partners to bring HandLine's innovative safety solutions to more workers around the world. Discover opportunities for strategic partnerships and distribution.",
+      "partnerships": "Strategic Partnerships",
+      "distribution": "Distribution Network",
+      "stats": {
+        "countries": "Countries",
+        "partners": "Global Partners",
+        "years": "Years Experience",
+        "products": "Products"
+      }
+    },
+    "title": "Partner with HandLine",
+    "description": "Join our global network of partners and distributors to bring HandLine's innovative safety solutions to more workers around the world.",
+    "strategic": {
+      "title": "Strategic Partnerships",
+      "description": "We're looking for industry leaders to collaborate on innovative safety solutions. Build a strategic alliance with HandLine to enhance worker protection and productivity.",
+      "cta": "Explore Partnerships"
+    },
+    "distribution": {
+      "title": "Distribution Network",
+      "description": "Join our growing network of distributors to bring HandLine's safety products to your region. We offer exclusive territories, competitive margins and comprehensive support.",
+      "cta": "Become a Distributor"
+    },
+    "partnerships": {
+      "hero": {
+        "badge": "Strategic Alliances",
+        "title": "Partner with",
+        "titleAccent": "Hand Line",
+        "description": "We build lasting partnerships to enhance worker safety and innovation. Join us to create protective solutions that make a difference in workplaces worldwide.",
+        "becomePartner": "Become a Partner",
+        "seeProducts": "See our products"
+      },
+      "form": {
+        "title": "Become a Partner",
+        "description": "Fill out the form below to discuss partnership opportunities with our team.",
+        "emailAlternative": "Alternatively, email us directly at",
+        "emailAddress": "partnerships@handlineco.com",
+        "fullName": "Full Name",
+        "fullNamePlaceholder": "Your full name",
+        "company": "Company",
+        "companyPlaceholder": "Your company name",
+        "email": "Email Address",
+        "emailPlaceholder": "your.email@company.com",
+        "phone": "Phone (Optional)",
+        "phonePlaceholder": "Your phone number",
+        "details": "Partnership Details",
+        "detailsPlaceholder": "Please tell us about your partnership interests and how we might work together...",
+        "submit": "Submit Partnership Enquiry",
+        "submitting": "Submitting...",
+        "successTitle": "Partnership enquiry sent",
+        "successMessage": "Thank you for your interest. We'll be in touch shortly at ",
+        "errorTitle": "Something went wrong",
+        "errorMessage": "Please try again later or contact us directly at partnerships@handlineco.com"
+      }
+    },
+    "distributionPage": {
+      "hero": {
+        "badge": "Global Network",
+        "title": "Distribute",
+        "titleAccent": "Hand Line",
+        "titleSuffix": "Products",
+        "description": "Join our global distribution network to bring industry-leading safety solutions to your market. Our distributors benefit from exclusive products, competitive margins and comprehensive support.",
+        "becomeDistributor": "Become a Distributor",
+        "seeProducts": "See our products"
+      },
+      "form": {
+        "title": "Become a Distributor",
+        "description": "Fill out the form below to discuss distribution opportunities in your region.",
+        "emailAlternative": "Alternatively, email us directly at",
+        "emailAddress": "distribution@handlineco.com",
+        "fullName": "Full Name",
+        "fullNamePlaceholder": "Your full name",
+        "company": "Company",
+        "companyPlaceholder": "Your company name",
+        "email": "Email Address",
+        "emailPlaceholder": "your.email@company.com",
+        "phone": "Phone (Optional)",
+        "phonePlaceholder": "Your phone number",
+        "country": "Country/Region",
+        "countryPlaceholder": "Your country or region of operation",
+        "details": "Distribution Details",
+        "detailsPlaceholder": "Please tell us about your distribution capabilities, market reach, and why you're interested in HandLine products...",
+        "submit": "Submit Distribution Enquiry",
+        "submitting": "Submitting...",
+        "successTitle": "Distribution enquiry sent",
+        "successMessage": "Thank you for your interest. We'll be in touch shortly at ",
+        "errorTitle": "Something went wrong",
+        "errorMessage": "Please try again later or contact us directly at distribution@handlineco.com"
+      }
+    }
   },
   "auth": {
     "customerPortal": "Customer Portal",
@@ -488,5 +702,144 @@
     "and": "and",
     "terms": "Terms of Service",
     "submit": "Submit Request"
+  },
+  "standards": {
+    "viewStandard": "View Standard",
+    "download": "Download",
+    "downloads": "Downloads",
+    "relatedStandards": "Related Standards",
+    "backToStandards": "Back to Standards",
+    "grid": {
+      "badge": "Safety Standards",
+      "title": "European Standards Library",
+      "description": "Browse our comprehensive collection of European safety standards, guides, and resources for personal protective equipment.",
+      "searchPlaceholder": "Search standards by code or keyword...",
+      "showing": "Showing",
+      "standards": "standards",
+      "noStandards": "No standards found",
+      "noStandardsDescription": "Try adjusting your search or filter criteria",
+      "filterByCategory": "Filter by Category",
+      "clearFilters": "Clear Filters"
+    },
+    "hero": {
+      "badge": "European Standards",
+      "title": "EN Resource",
+      "titleAccent": "Centre",
+      "description": "Access comprehensive information on European safety standards that ensure our products meet the highest quality and safety requirements.",
+      "exploreStandards": "Explore Standards",
+      "learnAboutUs": "Learn About Us",
+      "stats": {
+        "standards": "50+",
+        "resources": "100%",
+        "guides": "40+",
+        "categories": "15+",
+        "resourcesLabel": "Compliance",
+        "guidesLabel": "Years Expertise",
+        "categoriesLabel": "Categories"
+      }
+    },
+    "productDisclaimer": {
+      "hero": {
+        "badge": "Important Information",
+        "title": "Product",
+        "titleAccent": "Disclaimer",
+        "description": "Important information regarding the proper use, limitations, and care of HandLine safety gloves and protective equipment. Understanding these guidelines is essential for maintaining optimal protection and performance.",
+        "readDisclaimer": "Read Disclaimer",
+        "enResourceCentre": "EN Resource Centre",
+        "stats": {
+          "heat": "350°C",
+          "heatLabel": "Heat Resistance",
+          "cut": "Level 5",
+          "cutLabel": "Cut Resistance",
+          "certified": "EN 388",
+          "certifiedLabel": "Certified",
+          "safety": "100%",
+          "safetyLabel": "Safety Focused"
+        }
+      },
+      "sections": {
+        "usage": {
+          "title": "Product Usage Disclaimer",
+          "content": "HandLine gloves and protective equipment are designed to provide protection in specific work environments when used correctly. Our products primarily focus on hand protection with specialised solutions for heat resistance, cut resistance, and general construction applications. Please read and understand all accompanying documentation before using any of our products."
+        },
+        "heatResistance": {
+          "title": "Heat Resistance",
+          "content": "Products that provide heat resistance or protection against heat are not intended for use in extreme temperatures - use only as specified. HandLine heat-resistant gloves provide protection against momentary exposure to heat but will not protect against extreme temperatures, extended heat exposure, or submersion in hot liquids. The heat resistance rating indicates the product's capability under controlled testing conditions, which may differ from actual workplace conditions."
+        },
+        "cutResistance": {
+          "title": "Cut Resistance",
+          "content": "Products that provide 'cut resistance' and 'cut protection' do not completely prevent or eliminate the potential for cuts or punctures, and are not intended or tested to provide protection against powered blades, serrated or other sharp or rotating equipment. Cut resistance levels are based on standardised tests that may not reflect all workplace conditions or extreme forces."
+        },
+        "generalGuidelines": {
+          "title": "General Guidelines",
+          "content": "All HandLine safety gloves and equipment must be inspected before each use. Do not use damaged items. Follow all care instructions to maintain the protective properties of the equipment. Different HandLine products offer different types and levels of protection - always select the appropriate product for your specific task."
+        },
+        "limitations": {
+          "title": "Limitations",
+          "content": "No personal protective equipment can provide complete protection against all hazards. Our gloves and other protective equipment are tested to specific standards and are designed to protect against designated risks only. Products that provide protection against sparks or flame are not 'fire-proof' and do not completely prevent or eliminate the potential for burns or associated injuries."
+        },
+        "properSelection": {
+          "title": "Proper Selection",
+          "content": "It is the responsibility of the employer and user to assess the type of hazard and select the appropriate protective equipment. HandLine offers a range of specialised gloves for different applications including heat-proof, cut-proof, construction, and general industrial use. Consult industry professionals if uncertain about the suitability of a product for your specific environment."
+        },
+        "modification": {
+          "title": "Modification",
+          "content": "Any modification to HandLine gloves or equipment voids all certification and warranty claims. Products should be used only as designed and intended. Alterations may compromise the protective properties and could result in injury."
+        },
+        "legalNotice": {
+          "title": "Legal Notice",
+          "content": "Users are encouraged to always use caution and care when handling sharp or abrasive materials, chemicals, or other hazardous or dangerous substances. Any information or data provided is based upon HandLine's current knowledge and understanding of the subject matter, and is offered solely as a possible suggestion for use in making your own decisions or product choices. Product users should conduct all appropriate testing or other evaluations to determine the suitability of HandLine products for a particular purpose or use within a particular environment. HandLine may revise this information as new information, knowledge or experience becomes available. According to current regulations, the employer has the final responsibility for selecting gloves and other personal protective equipment."
+        }
+      }
+    }
+  },
+  "careers": {
+    "hero": {
+      "badge": "Join Our Team",
+      "title": "Careers at HandLine",
+      "description": "Join our team of passionate professionals dedicated to creating innovative safety solutions. Discover exciting career opportunities that allow you to make a difference in workplace safety.",
+      "viewOpenings": "View Current Openings",
+      "aboutCompany": "About Our Company",
+      "browseOpenings": "Browse Openings",
+      "learnAboutValues": "Learn About Our Values",
+      "joinOurTeam": "Join Our Team",
+      "contactUs": "Contact Us",
+      "stats": {
+        "teamMembers": "120+",
+        "teamMembersLabel": "Team Members",
+        "locations": "5",
+        "locationsLabel": "Locations",
+        "countries": "12",
+        "countriesLabel": "Countries",
+        "founded": "1981",
+        "foundedLabel": "Founded",
+        "employees": "Team Members",
+        "years": "Years Experience"
+      }
+    },
+    "grid": {
+      "badge": "Open Positions",
+      "title": "Current Opportunities",
+      "description": "Explore our current openings and find the perfect role to match your skills and passion for safety innovation.",
+      "searchPlaceholder": "Search positions...",
+      "departments": "Departments",
+      "locations": "Locations",
+      "clearFilters": "Clear Filters",
+      "showing": "Showing",
+      "positions": "positions",
+      "noPositions": "No positions found",
+      "noPositionsDescription": "We don't have any open positions matching your criteria at the moment. Please check back later or adjust your search."
+    },
+    "viewPosition": "View Position",
+    "new": "New",
+    "backToCareers": "Back to Careers",
+    "post": {
+      "aboutRole": "About the Role",
+      "requirements": "Requirements",
+      "benefits": "Benefits",
+      "responsibilities": "Responsibilities",
+      "salary": "Salary",
+      "applyNow": "Apply Now"
+    }
   }
 } 

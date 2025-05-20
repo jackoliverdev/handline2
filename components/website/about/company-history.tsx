@@ -5,6 +5,7 @@ import { CalendarDays, Flag, Award, Globe, Lightbulb, Cpu } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLanguage } from "@/lib/context/language-context";
+import { motion } from "framer-motion";
 
 interface Milestone {
   year: string;
@@ -57,7 +58,13 @@ export const CompanyHistory = () => {
   return (
     <section id="our-story" className="py-16 bg-[#F5EFE0]/80 dark:bg-transparent">
       <div className="container">
-        <div className="text-center mb-10">
+        <motion.div 
+          initial={{ opacity: 0, y: -15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-10"
+        >
           <Badge className="mb-2 bg-brand-primary/10 text-brand-primary border-brand-primary/20">
             {t('about.history.badge')}
           </Badge>
@@ -67,17 +74,28 @@ export const CompanyHistory = () => {
           <p className="text-lg text-brand-secondary dark:text-gray-300 max-w-2xl mx-auto">
             {t('about.history.description')}
           </p>
-        </div>
+        </motion.div>
 
         {/* Desktop Timeline */}
         <div className="hidden md:block relative mt-10 mb-20">
           {/* Main central timeline line - thicker and more visible */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 top-0 bottom-0 w-2 bg-brand-primary z-10"></div>
+          <motion.div 
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            style={{ transformOrigin: "top" }}
+            className="absolute left-1/2 transform -translate-x-1/2 top-0 bottom-0 w-2 bg-brand-primary z-10"
+          ></motion.div>
           
           <div className="relative">
             {milestones.map((milestone, index) => (
-              <div 
+              <motion.div 
                 key={milestone.year} 
+                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 + (index * 0.1) }}
                 className={`flex ${index % 2 === 0 ? '' : 'flex-row-reverse'} ${index !== 0 ? 'mt-[-60px]' : ''} mb-4`}
                 style={{ zIndex: 30 - index }}
               >
@@ -93,15 +111,21 @@ export const CompanyHistory = () => {
                 
                 <div className="w-2/12 flex justify-center">
                   {/* Timeline circle with icon - centered on the vertical line */}
-                  <div className="z-20 relative top-6">
-                    <div className="w-8 h-8 rounded-full bg-[#F5EFE0] dark:bg-gray-800 border-4 border-brand-primary flex items-center justify-center">
+                  <div className="z-20 relative top-6" style={{ marginLeft: "8px" }}>
+                    <motion.div 
+                      initial={{ scale: 0, opacity: 0 }}
+                      whileInView={{ scale: 1, opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.3, delay: 0.2 + (index * 0.1) }}
+                      className="w-8 h-8 rounded-full bg-[#F5EFE0] dark:bg-gray-800 border-4 border-brand-primary flex items-center justify-center"
+                    >
                       <div className="w-2 h-2 rounded-full bg-brand-primary"></div>
-                    </div>
+                    </motion.div>
                   </div>
                 </div>
                 
                 <div className="w-5/12"></div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -109,16 +133,38 @@ export const CompanyHistory = () => {
         {/* Mobile Timeline */}
         <div className="md:hidden relative">
           {/* Vertical timeline line - centered in the available space */}
-          <div className="absolute left-5 top-0 bottom-0 w-2 bg-brand-primary z-0"></div>
+          <motion.div 
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            style={{ transformOrigin: "top" }}
+            className="absolute left-5 top-0 bottom-0 w-2 bg-brand-primary z-0"
+          ></motion.div>
           
           <div className="space-y-3">
             {milestones.map((milestone, index) => (
-              <div key={milestone.year} className={`relative ${index !== 0 ? 'mt-[-5px]' : ''} pl-12`} style={{ zIndex: 20 - index }}>
+              <motion.div 
+                key={milestone.year} 
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 + (index * 0.1) }}
+                className={`relative ${index !== 0 ? 'mt-[-5px]' : ''} pl-12`} 
+                style={{ zIndex: 20 - index }}
+              >
                 {/* Timeline circle - centered directly on the line */}
                 <div className="absolute left-0 top-4 flex items-center justify-center z-10">
-                  <div className="w-10 h-10 rounded-full bg-[#F5EFE0] dark:bg-gray-800 border-4 border-brand-primary flex items-center justify-center shadow-md" style={{ marginLeft: '3px' }}>
+                  <motion.div 
+                    initial={{ scale: 0, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: 0.2 + (index * 0.1) }}
+                    style={{ marginLeft: '3px' }}
+                    className="w-10 h-10 rounded-full bg-[#F5EFE0] dark:bg-gray-800 border-4 border-brand-primary flex items-center justify-center shadow-md"
+                  >
                     <div className="w-3 h-3 rounded-full bg-brand-primary"></div>
-                  </div>
+                  </motion.div>
                 </div>
                 
                 <Card className="bg-[#F5EFE0]/80 dark:bg-transparent shadow-sm border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm dark:backdrop-blur-none transition-all duration-300 hover:shadow-md">
@@ -128,7 +174,7 @@ export const CompanyHistory = () => {
                     <p className="text-sm text-brand-secondary dark:text-gray-300">{milestone.description}</p>
                   </CardContent>
                 </Card>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

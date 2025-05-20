@@ -19,12 +19,12 @@ const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 // Company details
 const companyDetails = {
   name: "Hand Line Company s.r.l.",
-  address: "via Alfonso Salardi, 12, 22100 - COMO, Italy",
+  address: "via Antonio Bruse 34, 22035, Canzo (CO), Italy",
   phone: "+39 02 1234 5678",
-  email: "info@handline.com",
+  email: "info@handlineco.com",
   location: {
-    lat: 45.8081, // Como, Italy coordinates
-    lng: 9.0852
+    lat: 45.8686, // Canzo, Italy coordinates
+    lng: 9.2715
   }
 };
 
@@ -220,7 +220,7 @@ export function ContactInfo() {
 
             // Create info window for the marker
             const infoWindow = new google.maps.InfoWindow({
-              content: '<div style="font-family: Montserrat, Arial, sans-serif; padding: 8px;"><strong>Hand Line Company s.r.l.</strong><br>via Alfonso Salardi, 12, 22100 - COMO, Italy</div>'
+              content: '<div style="font-family: Montserrat, Arial, sans-serif; padding: 8px;"><strong>Hand Line Company s.r.l.</strong><br>via Antonio Bruse 34, 22035, Canzo (CO), Italy</div>'
             });
             
             // Open info window by default
@@ -490,12 +490,12 @@ export function ContactInfo() {
             // Mobile: show static map image or simple Google Maps embed
             <div className="w-full max-w-[95vw] mx-auto rounded-lg overflow-hidden h-56 sm:h-64" style={{ background: '#e5e3df', position: 'relative' }}>
               <a
-                href="https://www.google.com/maps/place/via+Alfonso+Salardi,+12,+22100+Como,+Italy"
+                href="https://www.google.com/maps/place/via+Antonio+Bruse+34,+22035+Canzo,+Italy"
                 target="_blank" rel="noopener noreferrer"
                 aria-label="Open HandLine Safety location in Google Maps"
               >
                 <img
-                  src={`https://maps.googleapis.com/maps/api/staticmap?center=45.8081,9.0852&zoom=13&size=600x300&markers=color:orange%7C45.8081,9.0852&key=${GOOGLE_MAPS_API_KEY}`}
+                  src={`https://maps.googleapis.com/maps/api/staticmap?center=45.8686,9.2715&zoom=13&size=600x300&markers=color:orange%7C45.8686,9.2715&key=${GOOGLE_MAPS_API_KEY}`}
                   alt="Hand Line Company s.r.l. location map"
                   className="w-full h-full object-cover"
                   style={{ minHeight: '100%', minWidth: '100%' }}

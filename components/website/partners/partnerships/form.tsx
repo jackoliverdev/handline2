@@ -52,14 +52,14 @@ export function PartnershipForm() {
       // Simulate form submission
       await new Promise((resolve) => setTimeout(resolve, 1000));
       toast({
-        title: "Partnership enquiry sent",
-        description: "Thank you for your interest. We'll be in touch shortly at " + data.email,
+        title: t("partners.partnerships.form.successTitle"),
+        description: t("partners.partnerships.form.successMessage") + data.email,
       });
       form.reset();
     } catch (error) {
       toast({
-        title: "Something went wrong",
-        description: "Please try again later or contact us directly at partnerships@handlineco.com",
+        title: t("partners.partnerships.form.errorTitle"),
+        description: t("partners.partnerships.form.errorMessage"),
         variant: 'destructive',
       });
     } finally {
@@ -80,15 +80,15 @@ export function PartnershipForm() {
             id="partnership-form"
             style={{ scrollMarginTop: "60px" }}
           >
-            <h2 className="text-2xl font-bold tracking-tight text-brand-dark dark:text-white mb-2">Become a Partner</h2>
-            <p className="text-brand-secondary dark:text-gray-300 mb-4">Fill out the form below to discuss partnership opportunities with our team.</p>
+            <h2 className="text-2xl font-bold tracking-tight text-brand-dark dark:text-white mb-2">{t("partners.partnerships.form.title")}</h2>
+            <p className="text-brand-secondary dark:text-gray-300 mb-4">{t("partners.partnerships.form.description")}</p>
             <p className="text-brand-secondary dark:text-gray-300 mb-6">
-              Alternatively, email us directly at{" "}
+              {t("partners.partnerships.form.emailAlternative")}{" "}
               <a 
                 href="mailto:partnerships@handlineco.com" 
                 className="text-brand-primary hover:underline"
               >
-                partnerships@handlineco.com
+                {t("partners.partnerships.form.emailAddress")}
               </a>
             </p>
           </motion.div>
@@ -101,11 +101,11 @@ export function PartnershipForm() {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Full Name</FormLabel>
+                        <FormLabel>{t("partners.partnerships.form.fullName")}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
-                            placeholder="Your full name"
+                            placeholder={t("partners.partnerships.form.fullNamePlaceholder")}
                             className="bg-white/50 dark:bg-gray-800/50 border-brand-primary/20 dark:border-gray-700"
                           />
                         </FormControl>
@@ -118,11 +118,11 @@ export function PartnershipForm() {
                     name="company"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Company</FormLabel>
+                        <FormLabel>{t("partners.partnerships.form.company")}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
-                            placeholder="Your company name"
+                            placeholder={t("partners.partnerships.form.companyPlaceholder")}
                             className="bg-white/50 dark:bg-gray-800/50 border-brand-primary/20 dark:border-gray-700"
                           />
                         </FormControl>
@@ -138,12 +138,12 @@ export function PartnershipForm() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email Address</FormLabel>
+                        <FormLabel>{t("partners.partnerships.form.email")}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
                             type="email"
-                            placeholder="your.email@company.com"
+                            placeholder={t("partners.partnerships.form.emailPlaceholder")}
                             className="bg-white/50 dark:bg-gray-800/50 border-brand-primary/20 dark:border-gray-700"
                           />
                         </FormControl>
@@ -156,11 +156,11 @@ export function PartnershipForm() {
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Phone (Optional)</FormLabel>
+                        <FormLabel>{t("partners.partnerships.form.phone")}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
-                            placeholder="Your phone number"
+                            placeholder={t("partners.partnerships.form.phonePlaceholder")}
                             className="bg-white/50 dark:bg-gray-800/50 border-brand-primary/20 dark:border-gray-700"
                           />
                         </FormControl>
@@ -175,11 +175,11 @@ export function PartnershipForm() {
                   name="message"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Partnership Details</FormLabel>
+                      <FormLabel>{t("partners.partnerships.form.details")}</FormLabel>
                       <FormControl>
                         <Textarea
                           {...field}
-                          placeholder="Please tell us about your partnership interests and how we might work together..."
+                          placeholder={t("partners.partnerships.form.detailsPlaceholder")}
                           className="min-h-[150px] bg-white/50 dark:bg-gray-800/50 border-brand-primary/20 dark:border-gray-700"
                         />
                       </FormControl>
@@ -215,11 +215,11 @@ export function PartnershipForm() {
                           d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                         />
                       </svg>
-                      Submitting...
+                      {t("partners.partnerships.form.submitting")}
                     </span>
                   ) : (
                     <span className="flex items-center gap-2">
-                      Submit Partnership Enquiry
+                      {t("partners.partnerships.form.submit")}
                       <Send className="h-4 w-4 transition-all duration-300 group-hover:translate-x-1" />
                     </span>
                   )}

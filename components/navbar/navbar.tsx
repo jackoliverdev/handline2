@@ -15,42 +15,50 @@ import {
 } from "@/components/ui/dropdown-menu";
 import WebsiteSidebar from "@/components/website/sidebar";
 
-// Navigation items with their sub-items
-const NAV_ITEMS = [
+// Define navigation items structure
+const getNavItems = (t: any) => [
   { 
     href: "/products", 
-    label: "navbar.products",
+    label: t("navbar.products"),
     hasDropdown: true,
     dropdownItems: [
-      { href: "/products?category=heat-resistant", label: "Heat Protection" },
-      { href: "/products?category=cut-resistant", label: "Cut Resistance" },
-      { href: "/products?category=customisation", label: "Customisation" },
+      { href: "/products?category=heat-resistant", label: t("sidebar.products.categories.heatResistantGloves") },
+      { href: "/products?category=cut-resistant", label: t("sidebar.products.categories.cutResistantGloves") },
+      { href: "/products?category=customisation", label: t("forms.company") },
     ]
   },
-  { href: "/industries", label: "navbar.industries" },
-  { href: "/about", label: "navbar.about" },
+  { href: "/industries", label: t("navbar.industries") },
   { 
-    href: "/partners", 
-    label: "Partners",
+    href: "/about", 
+    label: t("navbar.about"),
     hasDropdown: true,
     dropdownItems: [
-      { href: "/partners/partnerships", label: "Partnerships" },
-      { href: "/partners/distribution", label: "Distribution" },
+      { href: "/about", label: t("navbar.aboutDropdown.ourCompany") },
+      { href: "/careers", label: t("navbar.aboutDropdown.careers") },
+    ]
+  },
+  { 
+    href: "/partners", 
+    label: t("navbar.partners"),
+    hasDropdown: true,
+    dropdownItems: [
+      { href: "/partners/partnerships", label: t("navbar.partnersDropdown.partnerships") },
+      { href: "/partners/distribution", label: t("navbar.partnersDropdown.distribution") },
     ]
   },
   { 
     href: "/resources", 
-    label: "Resources",
+    label: t("navbar.resources"),
     hasDropdown: true,
     dropdownItems: [
-      { href: "/resources/blog", label: "Blog" },
-      { href: "/resources/case-studies", label: "Case Studies" },
-      { href: "/resources/en-resource-centre", label: "EN Resource Centre" },
-      { href: "/resources/product-disclaimer", label: "Product Disclaimer" },
-      { href: "/resources/declarations", label: "Declarations" },
+      { href: "/resources/blog", label: t("navbar.resourcesDropdown.blog") },
+      { href: "/resources/case-studies", label: t("navbar.resourcesDropdown.caseStudies") },
+      { href: "/resources/en-resource-centre", label: t("navbar.resourcesDropdown.enResourceCentre") },
+      { href: "/resources/product-disclaimer", label: t("navbar.resourcesDropdown.productDisclaimer") },
+      { href: "/resources/declarations", label: t("navbar.resourcesDropdown.declarations") },
     ]
   },
-  { href: "/contact", label: "navbar.contact" },
+  { href: "/contact", label: t("navbar.contact") },
 ];
 
 export const NavBar = () => {
@@ -59,6 +67,9 @@ export const NavBar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const { t, language, setLanguage } = useLanguage();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  
+  // Generate navigation items with translation
+  const NAV_ITEMS = getNavItems(t);
 
   // Don't render the navbar on dashboard routes
   if (pathname?.startsWith('/dashboard') || pathname?.startsWith('/app')) {
@@ -102,7 +113,7 @@ export const NavBar = () => {
                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
               >
                 <Menu className="h-6 w-6" />
-                <span className="text-xs uppercase ml-1">Menu</span>
+                <span className="text-xs uppercase ml-1">{t('navbar.menu')}</span>
               </button>
               
               <Link href="/" className="flex-shrink-0">
@@ -128,10 +139,10 @@ export const NavBar = () => {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
                     <DropdownMenuItem onClick={() => setLanguage('en')} className="text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800">
-                      <span role="img" aria-label="English" className="mr-2">🇬🇧</span> English
+                      <span role="img" aria-label="English" className="mr-2">🇬🇧</span> {t('navbar.language.en')}
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => setLanguage('it')} className="text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800">
-                      <span role="img" aria-label="Italian" className="mr-2">🇮🇹</span> Italiano
+                      <span role="img" aria-label="Italian" className="mr-2">🇮🇹</span> {t('navbar.language.it')}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -210,7 +221,7 @@ export const NavBar = () => {
                         }
                       `}
                     >
-                      {t(item.label)}
+                      {item.label}
                       {item.hasDropdown && <ChevronDown className="h-4 w-4 ml-1" />}
                     </Link>
                     
@@ -241,10 +252,10 @@ export const NavBar = () => {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
                       <DropdownMenuItem onClick={() => setLanguage('en')} className="text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800">
-                        <span role="img" aria-label="English" className="mr-2">🇬🇧</span> English
+                        <span role="img" aria-label="English" className="mr-2">🇬🇧</span> {t('navbar.language.en')}
                       </DropdownMenuItem>
                       <DropdownMenuItem onClick={() => setLanguage('it')} className="text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800">
-                        <span role="img" aria-label="Italian" className="mr-2">🇮🇹</span> Italiano
+                        <span role="img" aria-label="Italian" className="mr-2">🇮🇹</span> {t('navbar.language.it')}
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>

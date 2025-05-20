@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { FileText, Shield, BookOpen, ChevronRight } from "lucide-react";
+import { FileText, Shield, BookOpen, ChevronRight, Package, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -12,7 +12,6 @@ const stats = [
   { value: 'Terms', label: 'of Service' },
   { value: 'Privacy', label: 'Policy' },
   { value: 'Cookie', label: 'Policy' },
-  { value: 'Legal', label: 'Standards' },
 ];
 
 export function LegalHero() {
@@ -69,7 +68,7 @@ export function LegalHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...SPRING_CONFIG, delay: 0.3 }}
-            className="mx-auto mb-6 md:mb-10 grid max-w-xl grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
+            className="mx-auto mb-6 md:mb-10 grid max-w-xl grid-cols-3 gap-4 md:gap-6"
           >
             {stats.map((stat) => (
               <div key={stat.label} className="flex flex-col items-center">
@@ -91,9 +90,9 @@ export function LegalHero() {
               className="group font-medium bg-brand-primary hover:bg-brand-primary/90 w-full sm:w-auto text-sm md:text-base h-10 md:h-11"
               asChild
             >
-              <Link href="#terms" className="flex items-center justify-center gap-1.5 md:gap-2">
-                <FileText className="h-4 w-4 md:h-5 md:w-5" />
-                <span>Terms of Service</span>
+              <Link href="/products" className="flex items-center justify-center gap-1.5 md:gap-2">
+                <Package className="h-4 w-4 md:h-5 md:w-5" />
+                <span>Browse Products</span>
                 <ChevronRight className="h-3.5 w-3.5 md:h-4 md:w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
@@ -103,21 +102,9 @@ export function LegalHero() {
               className="group font-medium border-brand-primary text-brand-primary hover:text-brand-primary hover:bg-white/80 dark:text-white dark:border-white dark:hover:bg-white/10 w-full sm:w-auto text-sm md:text-base h-10 md:h-11"
               asChild
             >
-              <Link href="#privacy" className="flex items-center justify-center gap-1.5 md:gap-2">
-                <BookOpen className="h-4 w-4 md:h-5 md:w-5" />
-                <span>Privacy Policy</span>
-                <ChevronRight className="h-3.5 w-3.5 md:h-4 md:w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
-            </Button>
-            <Button 
-              size="default" 
-              variant="outline" 
-              className="group font-medium border-brand-primary text-brand-primary hover:text-brand-primary hover:bg-white/80 dark:text-white dark:border-white dark:hover:bg-white/10 w-full sm:w-auto text-sm md:text-base h-10 md:h-11"
-              asChild
-            >
-              <Link href="#standards" className="flex items-center justify-center gap-1.5 md:gap-2">
-                <Shield className="h-4 w-4 md:h-5 md:w-5" />
-                <span>EN-Standards</span>
+              <Link href="/contact" className="flex items-center justify-center gap-1.5 md:gap-2">
+                <Mail className="h-4 w-4 md:h-5 md:w-5" />
+                <span>Contact Us</span>
                 <ChevronRight className="h-3.5 w-3.5 md:h-4 md:w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>

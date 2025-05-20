@@ -1,8 +1,10 @@
 import { Metadata } from "next";
 import { AboutHero } from "@/components/website/about/hero";
 import { CompanyHistory } from "@/components/website/about/company-history";
-import { MissionValues } from "@/components/website/about/mission-values";
-import { Team } from "@/components/website/about/team";
+import { Values } from "@/components/website/about/values";
+import { Certifications } from "@/components/website/about/certifications";
+import { Mission } from "@/components/website/about/mission";
+import { Different } from "@/components/website/about/different";
 
 export const metadata: Metadata = {
   title: "About HandLine | Italian Safety Glove Manufacturer",
@@ -14,11 +16,15 @@ export default function AboutPage() {
     <main className="flex flex-col min-h-screen">
       <AboutHero />
       
+      <Mission />
+
+      <Values />
+      
+      <Different />
+      
       <CompanyHistory />
       
-      <MissionValues />
-      
-      <Team />
+      <Certifications />
     </main>
   );
 } 

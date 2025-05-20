@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { AlertCircle, FileText, BookOpen, ChevronRight, Sparkles, Shield } from "lucide-react";
+import { AlertCircle, FileText, ChevronRight, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -15,12 +15,6 @@ interface ProductDisclaimerHeroProps {
 
 export function ProductDisclaimerHero({ language }: ProductDisclaimerHeroProps) {
   const { t } = useLanguage();
-  const stats = [
-    { value: '200+', label: 'Products' },
-    { value: '100%', label: 'Transparency' },
-    { value: '40+', label: 'Years Experience' },
-    { value: 'EN 388', label: 'Certified' },
-  ];
 
   return (
     <section className="relative overflow-hidden bg-[#F5EFE0]/80 dark:bg-transparent pt-28 pb-6 md:pt-32 md:pb-16">
@@ -41,7 +35,7 @@ export function ProductDisclaimerHero({ language }: ProductDisclaimerHeroProps) 
             <div className="inline-flex items-center rounded-full border border-brand-primary px-3 py-1 md:px-4 md:py-1.5 text-xs md:text-sm backdrop-blur-sm">
               <AlertCircle className="mr-1.5 h-3 w-3 md:h-4 md:w-4 text-brand-primary" />
               <span className="text-brand-dark dark:text-white font-medium">
-                Important Information
+                {t('standards.productDisclaimer.hero.badge')}
               </span>
             </div>
           </motion.div>
@@ -54,7 +48,7 @@ export function ProductDisclaimerHero({ language }: ProductDisclaimerHeroProps) 
             className="relative mb-4 md:mb-6"
           >
             <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-brand-dark dark:text-white font-heading">
-              Product <span className="text-brand-primary">Disclaimer</span>
+              {t('standards.productDisclaimer.hero.title')} <span className="text-brand-primary">{t('standards.productDisclaimer.hero.titleAccent')}</span>
             </h1>
           </motion.div>
 
@@ -66,7 +60,7 @@ export function ProductDisclaimerHero({ language }: ProductDisclaimerHeroProps) 
             className="mb-6 md:mb-10"
           >
             <p className="max-w-2xl text-base md:text-lg text-brand-secondary dark:text-gray-300">
-              Important information regarding the proper use, limitations, and care of HandLine safety products. Understanding these guidelines is essential for maintaining optimal protection and performance.
+              {t('standards.productDisclaimer.hero.description')}
             </p>
           </motion.div>
 
@@ -77,12 +71,22 @@ export function ProductDisclaimerHero({ language }: ProductDisclaimerHeroProps) 
             transition={{ ...SPRING_CONFIG, delay: 0.3 }}
             className="mx-auto mb-6 md:mb-10 grid max-w-xl grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
           >
-            {stats.map((stat) => (
-              <div key={stat.label} className="flex flex-col items-center">
-                <div className="text-2xl md:text-3xl font-bold text-brand-primary font-heading">{stat.value}</div>
-                <div className="mt-0.5 md:mt-1 text-xs md:text-sm text-brand-secondary dark:text-gray-400">{stat.label}</div>
-              </div>
-            ))}
+            <div className="flex flex-col items-center">
+              <div className="text-2xl md:text-3xl font-bold text-brand-primary font-heading">{t('standards.productDisclaimer.hero.stats.heat')}</div>
+              <div className="mt-0.5 md:mt-1 text-xs md:text-sm text-brand-secondary dark:text-gray-400">{t('standards.productDisclaimer.hero.stats.heatLabel')}</div>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="text-2xl md:text-3xl font-bold text-brand-primary font-heading">{t('standards.productDisclaimer.hero.stats.cut')}</div>
+              <div className="mt-0.5 md:mt-1 text-xs md:text-sm text-brand-secondary dark:text-gray-400">{t('standards.productDisclaimer.hero.stats.cutLabel')}</div>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="text-2xl md:text-3xl font-bold text-brand-primary font-heading">{t('standards.productDisclaimer.hero.stats.certified')}</div>
+              <div className="mt-0.5 md:mt-1 text-xs md:text-sm text-brand-secondary dark:text-gray-400">{t('standards.productDisclaimer.hero.stats.certifiedLabel')}</div>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="text-2xl md:text-3xl font-bold text-brand-primary font-heading">{t('standards.productDisclaimer.hero.stats.safety')}</div>
+              <div className="mt-0.5 md:mt-1 text-xs md:text-sm text-brand-secondary dark:text-gray-400">{t('standards.productDisclaimer.hero.stats.safetyLabel')}</div>
+            </div>
           </motion.div>
 
           {/* Buttons */}
@@ -99,7 +103,7 @@ export function ProductDisclaimerHero({ language }: ProductDisclaimerHeroProps) 
             >
               <Link href="#disclaimer-content" className="flex items-center justify-center gap-1.5 md:gap-2">
                 <AlertCircle className="h-4 w-4 md:h-5 md:w-5" />
-                <span>Read Disclaimer</span>
+                <span>{t('standards.productDisclaimer.hero.readDisclaimer')}</span>
                 <ChevronRight className="h-3.5 w-3.5 md:h-4 md:w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
@@ -111,7 +115,7 @@ export function ProductDisclaimerHero({ language }: ProductDisclaimerHeroProps) 
             >
               <Link href="/resources/en-resource-centre" className="flex items-center justify-center gap-1.5 md:gap-2">
                 <Shield className="h-4 w-4 md:h-5 md:w-5" />
-                <span>EN Resource Centre</span>
+                <span>{t('standards.productDisclaimer.hero.enResourceCentre')}</span>
                 <ChevronRight className="h-3.5 w-3.5 md:h-4 md:w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>

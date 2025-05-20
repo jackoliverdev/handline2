@@ -8,6 +8,23 @@
     "contact": "Contatti",
     "dashboard": "Pannello",
     "menu": "Menu",
+    "partners": "Partner",
+    "resources": "Risorse",
+    "aboutDropdown": {
+      "ourCompany": "La Nostra Azienda",
+      "careers": "Lavora con Noi"
+    },
+    "resourcesDropdown": {
+      "blog": "Blog",
+      "caseStudies": "Casi Studio",
+      "enResourceCentre": "Centro Risorse EN",
+      "productDisclaimer": "Disclaimer Prodotti",
+      "declarations": "Dichiarazioni"
+    },
+    "partnersDropdown": {
+      "partnerships": "Partnership",
+      "distribution": "Distribuzione"
+    },
     "language": {
       "toggleLabel": "Lingua / Language",
       "en": "English",
@@ -109,9 +126,9 @@
   },
   "footer": {
     "companyDescription": "Produttore italiano specializzato in guanti di sicurezza ad alte prestazioni per ambienti industriali. Proteggiamo le mani con soluzioni innovative dal 1982.",
-    "address": "via Alfonso Salardi, 12, 22100 - COMO, Italia",
+    "address": "via Antonio Bruse 34, 22035, Canzo (CO), Italia",
     "phone": "+39 031 123 4567",
-    "email": "info@handlinecompany.com",
+    "email": "info@handlineco.com",
     "sections": {
       "products": {
         "title": "Prodotti",
@@ -223,6 +240,7 @@
     "viewProducts": "Vedi Prodotti"
   },
   "industries": {
+    "manufacturing": "Manifattura",
     "sectorsWeServe": "Settori Serviti",
     "sectorsDescription": "In HandLine sviluppiamo soluzioni di sicurezza specializzate per una vasta gamma di settori, ciascuno con sfide e requisiti unici.",
     "keyFeatures": "Caratteristiche principali",
@@ -270,11 +288,54 @@
         "description": "Implementate soluzioni Industry 4.0 e lanciato un catalogo digitale completo dei prodotti."
       }
     },
+    "different": {
+      "badge": "I Nostri Vantaggi",
+      "heading": "COSA CI RENDE DIVERSI",
+      "description": "In HandLine, siamo orgogliosi di diversi elementi chiave che ci distinguono nel settore delle attrezzature di sicurezza.",
+      "productQuality": {
+        "title": "Eccellenza nella",
+        "titleAccent": "Qualità del Prodotto",
+        "description": "Oltre 40 anni di esperienza tecnica nella produzione di guanti di sicurezza con rigoroso controllo qualità durante tutta la produzione."
+      },
+      "customisation": {
+        "title": "Impareggiabile",
+        "titleAccent": "Personalizzazione",
+        "description": "Prodotti su misura in base alle esigenze dell'utente. Nessuno conosce i prodotti meglio del nostro cliente."
+      },
+      "pricing": {
+        "title": "Prezzi",
+        "titleAccent": "Competitivi",
+        "description": "Garantita competitività sul mercato e gestione efficace della struttura dei costi."
+      },
+      "innovation": {
+        "title": "Innovazione",
+        "titleAccent": "Continua",
+        "description": "All'avanguardia nello sviluppo dei prodotti, alla continua ricerca di nuovi modi per migliorare."
+      },
+      "flexibility": {
+        "title": "Flessibilità",
+        "titleAccent": "del Prodotto",
+        "description": "Nessun limite o restrizione sugli ordini, garantendo piena flessibilità per gestire esigenze imprevedibili."
+      },
+      "service": {
+        "title": "Servizio",
+        "titleAccent": "di Prima Classe",
+        "description": "Gestione delle scorte per coprire le esigenze in rapida evoluzione del cliente, garantendo tempi di consegna eccellenti."
+      }
+    },
     "mission": {
       "badge": "La Nostra Missione",
-      "heading": "Perché Esistiamo",
-      "statement": "Proteggere le mani che costruiscono il nostro mondo con soluzioni innovative che uniscono protezione totale, comfort eccezionale ed eccellenza del design italiano.",
-      "description": "In HandLine ci impegniamo a sviluppare prodotti che non solo rispettano ma superano gli standard di sicurezza, mantenendo la destrezza e il comfort essenziali per i lavoratori di ogni settore. I nostri design bilanciano funzionalità ed estetica, creando dispositivi di protezione che le persone desiderano indossare."
+      "heading": "Proteggere le Mani Che Costruiscono il Nostro Mondo",
+      "description": "Dal 1981, HandLine si dedica allo sviluppo di soluzioni protettive innovative che combinano sicurezza senza compromessi con l'eccellenza del design italiano.",
+      "points": {
+        "0": "Competenza specializzata nella produzione di guanti di sicurezza ad alte prestazioni",
+        "1": "Test rigorosi per superare gli standard di sicurezza del settore",
+        "2": "Equilibrio tra protezione, comfort e prestazioni",
+        "3": "Impegno per l'innovazione e il miglioramento continuo"
+      },
+      "cta": "Scopri i Nostri Prodotti",
+      "since": "Dal",
+      "year": "1981"
     },
     "values": {
       "badge": "I Nostri Valori",
@@ -309,6 +370,27 @@
       "badge": "Le Nostre Persone",
       "heading": "Il Team HandLine",
       "description": "I nostri professionisti uniscono decenni di esperienza a una passione per l'innovazione nella sicurezza."
+    },
+    "certifications": {
+      "badge": "Standard di Qualità",
+      "heading": "Le Nostre Certificazioni",
+      "description": "HandLine soddisfa e supera i più elevati standard di sicurezza e qualità del settore, garantendo una protezione affidabile per tutti gli utenti.",
+      "mainStatement": "La nostra produzione segue il più alto standard di qualità con certificazioni ISO in tutta la catena di produzione e di valore.",
+      "types": {
+        "iso": {
+          "title": "Certificazione ISO",
+          "description": "Conformità agli standard internazionali per i sistemi di gestione della qualità, garantendo eccellenza produttiva costante."
+        },
+        "ce": {
+          "title": "Marchio CE",
+          "description": "Conformità agli standard europei di salute, sicurezza e protezione ambientale per tutti i nostri prodotti."
+        },
+        "en": {
+          "title": "Norme EN",
+          "description": "Aderenza a specifiche norme europee per dispositivi di protezione, incluse EN 388 per rischi meccanici ed EN 407 per la resistenza al calore."
+        }
+      },
+      "note": "La documentazione delle certificazioni è disponibile su richiesta. Loghi dei prodotti e marchi di certificazione saranno aggiornati a breve."
     }
   },
   "contact": {
@@ -343,7 +425,7 @@
       "description": "Puoi raggiungerci presso la nostra sede o utilizzando i dettagli qui sotto.",
       "address": {
         "title": "Sede Legale",
-        "content": "via Alfonso Salardi, 12, 22100 - COMO, Italia"
+        "content": "via Antonio Bruse 34, 22035, Canzo (CO), Italia"
       },
       "phone": {
         "title": "Telefono",
@@ -351,7 +433,7 @@
       },
       "email": {
         "title": "Email",
-        "content": "info@handlinecompany.com"
+        "content": "info@handlineco.com"
       },
       "contactInfoTitle": "Informazioni di Contatto",
       "findUsTitle": "Trovarci",
@@ -427,11 +509,143 @@
       "showing": "Mostrando",
       "articles": "articoli",
       "noArticles": "Nessun articolo trovato",
-      "noArticlesDescription": "Prova a modificare i criteri di ricerca o filtro"
+      "noArticlesDescription": "Prova a modificare i criteri di ricerca o filtro",
+      "clearFilters": "Cancella Filtri"
     },
     "readArticle": "Leggi l'articolo",
     "backToBlogs": "Torna al notiziario",
     "minRead": "{count} min di lettura"
+  },
+  "caseStudies": {
+    "hero": {
+      "badge": "Storie di Successo",
+      "title": "HandLine",
+      "titleAccent": "Casi Studio",
+      "description": "Esempi reali di come le nostre soluzioni di sicurezza hanno trasformato la protezione sul lavoro in diversi settori.",
+      "exploreCaseStudies": "Esplora Casi Studio",
+      "learnAboutUs": "Scopri Chi Siamo"
+    },
+    "stats": {
+      "caseStudies": "Casi Studio",
+      "industries": "Settori",
+      "successStories": "Storie di Successo",
+      "yearsExperience": "Anni di Esperienza"
+    },
+    "grid": {
+      "badge": "Storie di Successo",
+      "title": "Casi di Successo HandLine",
+      "description": "Scopri come le soluzioni di sicurezza HandLine hanno aiutato aziende di vari settori a migliorare i loro protocolli di sicurezza e proteggere la loro forza lavoro.",
+      "searchPlaceholder": "Cerca casi studio...",
+      "showing": "Mostrando",
+      "caseStudies": "casi studio",
+      "noCaseStudies": "Nessun caso studio trovato",
+      "noCaseStudiesDescription": "Prova a modificare i criteri di ricerca o filtro",
+      "filterByTags": "Filtra per Tag",
+      "filterByIndustry": "Filtra per Settore"
+    },
+    "viewCaseStudy": "Vedi Caso Studio",
+    "backToCaseStudies": "Torna ai Casi Studio",
+    "challenge": "La Sfida",
+    "solution": "La Nostra Soluzione",
+    "results": "I Risultati",
+    "relatedCaseStudies": "Casi Studio Correlati",
+    "clientDetails": "Dettagli Cliente",
+    "industryDetails": "Dettagli Settore",
+    "testimonial": "Testimonianza Cliente"
+  },
+  "partners": {
+    "hero": {
+      "badge": "Partnership Globali",
+      "title": "Collabora con",
+      "description": "Unisciti alla nostra rete globale di partner per portare le soluzioni di sicurezza innovative di HandLine a più lavoratori in tutto il mondo. Scopri le opportunità di partnership strategiche e distribuzione.",
+      "partnerships": "Partnership Strategiche",
+      "distribution": "Rete di Distribuzione",
+      "stats": {
+        "countries": "Paesi",
+        "partners": "Partner Globali",
+        "years": "Anni di Esperienza",
+        "products": "Prodotti"
+      }
+    },
+    "title": "Collabora con HandLine",
+    "description": "Unisciti alla nostra rete globale di partner e distributori per portare le soluzioni di sicurezza innovative di HandLine a più lavoratori in tutto il mondo.",
+    "strategic": {
+      "title": "Partnership Strategiche",
+      "description": "Cerchiamo leader del settore per collaborare a soluzioni di sicurezza innovative. Costruisci un'alleanza strategica con HandLine per migliorare la protezione e la produttività dei lavoratori.",
+      "cta": "Esplora Partnership"
+    },
+    "distribution": {
+      "title": "Rete di Distribuzione",
+      "description": "Unisciti alla nostra crescente rete di distributori per portare i prodotti di sicurezza HandLine nella tua regione. Offriamo territori esclusivi, margini competitivi e supporto completo.",
+      "cta": "Diventa Distributore"
+    },
+    "partnerships": {
+      "hero": {
+        "badge": "Alleanze Strategiche",
+        "title": "Collabora con",
+        "titleAccent": "Hand Line",
+        "description": "Costruiamo partnership durature per migliorare la sicurezza e l'innovazione sul lavoro. Unisciti a noi per creare soluzioni protettive che fanno la differenza nei luoghi di lavoro di tutto il mondo.",
+        "becomePartner": "Diventa Partner",
+        "seeProducts": "Vedi i nostri prodotti"
+      },
+      "form": {
+        "title": "Diventa Partner",
+        "description": "Compila il modulo sottostante per discutere opportunità di partnership con il nostro team.",
+        "emailAlternative": "In alternativa, inviaci un'email direttamente a",
+        "emailAddress": "partnerships@handlineco.com",
+        "fullName": "Nome Completo",
+        "fullNamePlaceholder": "Il tuo nome completo",
+        "company": "Azienda",
+        "companyPlaceholder": "Il nome della tua azienda",
+        "email": "Indirizzo Email",
+        "emailPlaceholder": "tua.email@azienda.com",
+        "phone": "Telefono (Opzionale)",
+        "phonePlaceholder": "Il tuo numero di telefono",
+        "details": "Dettagli Partnership",
+        "detailsPlaceholder": "Parlaci dei tuoi interessi di partnership e di come potremmo collaborare...",
+        "submit": "Invia Richiesta Partnership",
+        "submitting": "Invio in corso...",
+        "successTitle": "Richiesta partnership inviata",
+        "successMessage": "Grazie per il tuo interesse. Ti contatteremo presto all'indirizzo ",
+        "errorTitle": "Qualcosa è andato storto",
+        "errorMessage": "Riprova più tardi o contattaci direttamente a partnerships@handlineco.com"
+      }
+    },
+    "distributionPage": {
+      "hero": {
+        "badge": "Rete Globale",
+        "title": "Distribuisci i Prodotti",
+        "titleAccent": "Hand Line",
+        "titleSuffix": "",
+        "description": "Unisciti alla nostra rete di distribuzione globale per portare soluzioni di sicurezza all'avanguardia nel tuo mercato. I nostri distributori beneficiano di prodotti esclusivi, margini competitivi e supporto completo.",
+        "becomeDistributor": "Diventa Distributore",
+        "seeProducts": "Vedi i nostri prodotti"
+      },
+      "form": {
+        "title": "Diventa Distributore",
+        "description": "Compila il modulo sottostante per discutere opportunità di distribuzione nella tua regione.",
+        "emailAlternative": "In alternativa, inviaci un'email direttamente a",
+        "emailAddress": "distribution@handlineco.com",
+        "fullName": "Nome Completo",
+        "fullNamePlaceholder": "Il tuo nome completo",
+        "company": "Azienda",
+        "companyPlaceholder": "Il nome della tua azienda",
+        "email": "Indirizzo Email",
+        "emailPlaceholder": "tua.email@azienda.com",
+        "phone": "Telefono (Opzionale)",
+        "phonePlaceholder": "Il tuo numero di telefono",
+        "country": "Paese/Regione",
+        "countryPlaceholder": "Il tuo paese o regione di operatività",
+        "details": "Dettagli Distribuzione",
+        "detailsPlaceholder": "Parlaci delle tue capacità di distribuzione, della tua portata di mercato e del motivo per cui sei interessato ai prodotti HandLine...",
+        "submit": "Invia Richiesta Distribuzione",
+        "submitting": "Invio in corso...",
+        "successTitle": "Richiesta distribuzione inviata",
+        "successMessage": "Grazie per il tuo interesse. Ti contatteremo presto all'indirizzo ",
+        "errorTitle": "Qualcosa è andato storto",
+        "errorMessage": "Riprova più tardi o contattaci direttamente a distribution@handlineco.com"
+      }
+    }
   },
   "auth": {
     "customerPortal": "Portale Clienti",
@@ -494,5 +708,165 @@
     "and": "e",
     "terms": "Termini di Servizio",
     "submit": "Invia Richiesta"
+  },
+  "standards": {
+    "viewStandard": "Visualizza Standard",
+    "download": "Scarica",
+    "downloads": "Download",
+    "relatedStandards": "Standard Correlati",
+    "backToStandards": "Torna agli Standard",
+    "grid": {
+      "badge": "Standard di Sicurezza",
+      "title": "Biblioteca Standard Europei",
+      "description": "Sfoglia la nostra collezione completa di standard europei di sicurezza, guide e risorse per dispositivi di protezione individuale.",
+      "searchPlaceholder": "Cerca standard per codice o parola chiave...",
+      "showing": "Visualizzando",
+      "standards": "standard",
+      "noStandards": "Nessuno standard trovato",
+      "noStandardsDescription": "Prova a modificare i criteri di ricerca o filtro",
+      "filterByCategory": "Filtra per Categoria",
+      "clearFilters": "Cancella Filtri"
+    },
+    "hero": {
+      "badge": "Standard Europei",
+      "title": "Centro Risorse",
+      "titleAccent": "EN",
+      "description": "Accedi a informazioni complete sugli standard europei di sicurezza che garantiscono che i nostri prodotti rispettino i più alti requisiti di qualità e sicurezza.",
+      "exploreStandards": "Esplora Standard",
+      "learnAboutUs": "Scopri Chi Siamo",
+      "stats": {
+        "standards": "50+",
+        "resources": "100%",
+        "guides": "40+",
+        "categories": "15+",
+        "resourcesLabel": "Conformità",
+        "guidesLabel": "Anni di Esperienza",
+        "categoriesLabel": "Categorie"
+      }
+    },
+    "productDisclaimer": {
+      "hero": {
+        "badge": "Informazioni Importanti",
+        "title": "Avvertenze sui",
+        "titleAccent": "Prodotti",
+        "description": "Informazioni importanti sull'uso corretto, le limitazioni e la cura dei guanti di sicurezza e delle attrezzature protettive HandLine. Comprendere queste linee guida è essenziale per mantenere una protezione e prestazioni ottimali.",
+        "readDisclaimer": "Leggi Avvertenze",
+        "enResourceCentre": "Centro Risorse EN",
+        "stats": {
+          "heat": "350°C",
+          "heatLabel": "Resistenza al Calore",
+          "cut": "Livello 5",
+          "cutLabel": "Resistenza al Taglio",
+          "certified": "EN 388",
+          "certifiedLabel": "Certificati",
+          "safety": "100%",
+          "safetyLabel": "Sicurezza Prioritaria"
+        }
+      },
+      "sections": {
+        "usage": {
+          "title": "Avvertenze sull'Uso dei Prodotti",
+          "content": "I guanti e le attrezzature protettive HandLine sono progettati per fornire protezione in ambienti di lavoro specifici quando utilizzati correttamente. I nostri prodotti si concentrano principalmente sulla protezione delle mani con soluzioni specializzate per resistenza al calore, resistenza al taglio e applicazioni generali di costruzione. Si prega di leggere e comprendere tutta la documentazione allegata prima di utilizzare qualsiasi dei nostri prodotti."
+        },
+        "heatResistance": {
+          "title": "Resistenza al Calore",
+          "content": "I prodotti che forniscono resistenza al calore o protezione contro il calore non sono destinati all'uso in temperature estreme - utilizzare solo come specificato. I guanti termoresistenti HandLine forniscono protezione contro l'esposizione momentanea al calore ma non proteggeranno contro temperature estreme, esposizione prolungata al calore o immersione in liquidi caldi. Il grado di resistenza al calore indica la capacità del prodotto in condizioni di test controllate, che potrebbero differire dalle condizioni reali del luogo di lavoro."
+        },
+        "cutResistance": {
+          "title": "Resistenza al Taglio",
+          "content": "I prodotti che forniscono 'resistenza al taglio' e 'protezione dal taglio' non prevengono o eliminano completamente il potenziale di tagli o forature, e non sono destinati o testati per fornire protezione contro lame motorizzate, seghettate o altre attrezzature affilate o rotanti. I livelli di resistenza al taglio si basano su test standardizzati che potrebbero non riflettere tutte le condizioni del luogo di lavoro o forze estreme."
+        },
+        "generalGuidelines": {
+          "title": "Linee Guida Generali",
+          "content": "Tutti i guanti e le attrezzature di sicurezza HandLine devono essere ispezionati prima di ogni utilizzo. Non utilizzare articoli danneggiati. Seguire tutte le istruzioni di cura per mantenere le proprietà protettive dell'attrezzatura. Diversi prodotti HandLine offrono diversi tipi e livelli di protezione - selezionare sempre il prodotto appropriato per la specifica attività."
+        },
+        "limitations": {
+          "title": "Limitazioni",
+          "content": "Nessun dispositivo di protezione individuale può fornire una protezione completa contro tutti i pericoli. I nostri guanti e altre attrezzature protettive sono testati secondo standard specifici e sono progettati per proteggere solo contro rischi designati. I prodotti che forniscono protezione contro scintille o fiamme non sono 'ignifughi' e non prevengono o eliminano completamente il potenziale di ustioni o lesioni associate."
+        },
+        "properSelection": {
+          "title": "Corretta Selezione",
+          "content": "È responsabilità del datore di lavoro e dell'utente valutare il tipo di pericolo e selezionare l'attrezzatura protettiva appropriata. HandLine offre una gamma di guanti specializzati per diverse applicazioni, inclusi guanti termoresistenti, antitaglio, da costruzione e per uso industriale generale. Consultare professionisti del settore in caso di dubbi sull'idoneità di un prodotto per l'ambiente specifico."
+        },
+        "modification": {
+          "title": "Modifiche",
+          "content": "Qualsiasi modifica ai guanti o alle attrezzature HandLine invalida tutte le certificazioni e le richieste di garanzia. I prodotti devono essere utilizzati solo come progettati e previsto. Le alterazioni possono compromettere le proprietà protettive e potrebbero causare lesioni."
+        },
+        "legalNotice": {
+          "title": "Nota Legale",
+          "content": "Si incoraggiano gli utenti a usare sempre cautela e attenzione quando maneggiano materiali taglienti o abrasivi, prodotti chimici o altre sostanze pericolose. Qualsiasi informazione o dato fornito si basa sulle attuali conoscenze e comprensione di HandLine della materia, ed è offerto esclusivamente come possibile suggerimento per l'uso nel prendere le proprie decisioni o scelte di prodotto. Gli utenti dei prodotti dovrebbero condurre tutti i test appropriati o altre valutazioni per determinare l'idoneità dei prodotti HandLine per uno scopo particolare o un uso in un particolare ambiente. HandLine può rivedere queste informazioni man mano che nuove informazioni, conoscenze o esperienze diventano disponibili. In base alle normative vigenti, il datore di lavoro ha la responsabilità finale per la selezione di guanti e altri dispositivi di protezione individuale."
+        }
+      }
+    },
+    "careers": {
+      "hero": {
+        "badge": "Unisciti al Nostro Team",
+        "title": "Carriere in",
+        "titleAccent": "HandLine",
+        "description": "Entra a far parte del nostro team di professionisti appassionati dedicati alla creazione di soluzioni di sicurezza innovative. Scopri entusiasmanti opportunità di carriera che ti permettono di fare la differenza nella sicurezza sul lavoro.",
+        "viewOpenings": "Visualizza Posizioni Aperte",
+        "aboutCompany": "La Nostra Azienda",
+        "contactUs": "Contattaci",
+        "stats": {
+          "teamMembers": "120+",
+          "teamMembersLabel": "Dipendenti",
+          "locations": "5",
+          "locationsLabel": "Sedi",
+          "countries": "12",
+          "countriesLabel": "Paesi",
+          "founded": "1981",
+          "foundedLabel": "Fondazione"
+        }
+      }
+    }
+  },
+  "careers": {
+    "hero": {
+      "badge": "Unisciti al Nostro Team",
+      "title": "Carriere in HandLine",
+      "description": "Entra a far parte del nostro team di professionisti appassionati dedicati alla creazione di soluzioni di sicurezza innovative. Scopri entusiasmanti opportunità di carriera che ti permettono di fare la differenza nella sicurezza sul lavoro.",
+      "viewOpenings": "Visualizza Posizioni Aperte",
+      "aboutCompany": "La Nostra Azienda",
+      "browseOpenings": "Esplora Posizioni",
+      "learnAboutValues": "Scopri i Nostri Valori",
+      "joinOurTeam": "Unisciti a Noi",
+      "contactUs": "Contattaci",
+      "stats": {
+        "teamMembers": "120+",
+        "teamMembersLabel": "Dipendenti",
+        "locations": "5",
+        "locationsLabel": "Sedi",
+        "countries": "12",
+        "countriesLabel": "Paesi",
+        "founded": "1981",
+        "foundedLabel": "Fondazione",
+        "employees": "Dipendenti",
+        "years": "Anni di Esperienza"
+      }
+    },
+    "grid": {
+      "badge": "Posizioni Aperte",
+      "title": "Opportunità Attuali",
+      "description": "Esplora le nostre posizioni aperte e trova il ruolo perfetto per le tue competenze e la tua passione per l'innovazione nella sicurezza.",
+      "searchPlaceholder": "Cerca posizioni...",
+      "departments": "Dipartimenti",
+      "locations": "Sedi",
+      "clearFilters": "Cancella Filtri",
+      "showing": "Visualizzando",
+      "positions": "posizioni",
+      "noPositions": "Nessuna posizione trovata",
+      "noPositionsDescription": "Al momento non abbiamo posizioni aperte che corrispondono ai tuoi criteri. Controlla più tardi o modifica la tua ricerca."
+    },
+    "viewPosition": "Visualizza Posizione",
+    "new": "Nuova",
+    "backToCareers": "Torna alle Carriere",
+    "post": {
+      "aboutRole": "Informazioni sul Ruolo",
+      "requirements": "Requisiti",
+      "benefits": "Benefici",
+      "responsibilities": "Responsabilità",
+      "salary": "Stipendio",
+      "applyNow": "Candidati Ora"
+    }
   }
 } 

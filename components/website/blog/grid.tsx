@@ -2,12 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Search, BookOpen, Tag } from 'lucide-react';
+import { Search, BookOpen, Tag, X } from 'lucide-react';
 
 import { BlogCard } from './blog-card';
 import { BlogPost } from '@/lib/blog-service';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/lib/context/language-context';
 
 interface BlogGridProps {
@@ -38,6 +39,15 @@ export function BlogGrid({ blogPosts, language }: BlogGridProps) {
         : [...prev, tag]
     );
   };
+
+  // Clear all filters
+  const clearFilters = () => {
+    setSelectedTags([]);
+    setSearchQuery('');
+  };
+
+  // Check if any filters are active
+  const hasActiveFilters = selectedTags.length > 0 || searchQuery.length > 0;
 
   // Filter blog posts based on search query and selected tags (localised)
   const filteredPosts = blogPosts.filter((post) => {
@@ -97,7 +107,7 @@ export function BlogGrid({ blogPosts, language }: BlogGridProps) {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           {tags.map((tag) => (
             <Badge
               key={tag}
@@ -108,6 +118,18 @@ export function BlogGrid({ blogPosts, language }: BlogGridProps) {
               {tag}
             </Badge>
           ))}
+          
+          {hasActiveFilters && (
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={clearFilters}
+              className="ml-2 text-brand-primary hover:text-brand-primary/80 hover:bg-brand-primary/10"
+            >
+              <X className="mr-1 h-4 w-4" />
+              {t('blog.grid.clearFilters')}
+            </Button>
+          )}
         </div>
       </div>
 

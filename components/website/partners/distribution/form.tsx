@@ -54,14 +54,14 @@ export function DistributionForm() {
       // Simulate form submission
       await new Promise((resolve) => setTimeout(resolve, 1000));
       toast({
-        title: "Distribution enquiry sent",
-        description: "Thank you for your interest. We'll be in touch shortly at " + data.email,
+        title: t("partners.distributionPage.form.successTitle"),
+        description: t("partners.distributionPage.form.successMessage") + data.email,
       });
       form.reset();
     } catch (error) {
       toast({
-        title: "Something went wrong",
-        description: "Please try again later or contact us directly at distribution@handlineco.com",
+        title: t("partners.distributionPage.form.errorTitle"),
+        description: t("partners.distributionPage.form.errorMessage"),
         variant: 'destructive',
       });
     } finally {
@@ -82,15 +82,15 @@ export function DistributionForm() {
             id="distribution-form"
             style={{ scrollMarginTop: "60px" }}
           >
-            <h2 className="text-2xl font-bold tracking-tight text-brand-dark dark:text-white mb-2">Become a Distributor</h2>
-            <p className="text-brand-secondary dark:text-gray-300 mb-4">Fill out the form below to discuss distribution opportunities in your region.</p>
+            <h2 className="text-2xl font-bold tracking-tight text-brand-dark dark:text-white mb-2">{t("partners.distributionPage.form.title")}</h2>
+            <p className="text-brand-secondary dark:text-gray-300 mb-4">{t("partners.distributionPage.form.description")}</p>
             <p className="text-brand-secondary dark:text-gray-300 mb-6">
-              Alternatively, email us directly at{" "}
+              {t("partners.distributionPage.form.emailAlternative")}{" "}
               <a 
                 href="mailto:distribution@handlineco.com" 
                 className="text-brand-primary hover:underline"
               >
-                distribution@handlineco.com
+                {t("partners.distributionPage.form.emailAddress")}
               </a>
             </p>
           </motion.div>
@@ -103,11 +103,11 @@ export function DistributionForm() {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Full Name</FormLabel>
+                        <FormLabel>{t("partners.distributionPage.form.fullName")}</FormLabel>
                         <FormControl>
-                          <Input
-                            {...field}
-                            placeholder="Your full name"
+                          <Input 
+                            {...field} 
+                            placeholder={t("partners.distributionPage.form.fullNamePlaceholder")}
                             className="bg-white/50 dark:bg-gray-800/50 border-brand-primary/20 dark:border-gray-700"
                           />
                         </FormControl>
@@ -120,11 +120,11 @@ export function DistributionForm() {
                     name="company"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Company</FormLabel>
+                        <FormLabel>{t("partners.distributionPage.form.company")}</FormLabel>
                         <FormControl>
-                          <Input
-                            {...field}
-                            placeholder="Your company name"
+                          <Input 
+                            {...field} 
+                            placeholder={t("partners.distributionPage.form.companyPlaceholder")}
                             className="bg-white/50 dark:bg-gray-800/50 border-brand-primary/20 dark:border-gray-700"
                           />
                         </FormControl>
@@ -133,19 +133,19 @@ export function DistributionForm() {
                     )}
                   />
                 </div>
-
+                
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                   <FormField
                     control={form.control}
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email Address</FormLabel>
+                        <FormLabel>{t("partners.distributionPage.form.email")}</FormLabel>
                         <FormControl>
-                          <Input
-                            {...field}
+                          <Input 
+                            {...field} 
                             type="email"
-                            placeholder="your.email@company.com"
+                            placeholder={t("partners.distributionPage.form.emailPlaceholder")}
                             className="bg-white/50 dark:bg-gray-800/50 border-brand-primary/20 dark:border-gray-700"
                           />
                         </FormControl>
@@ -158,11 +158,11 @@ export function DistributionForm() {
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Phone (Optional)</FormLabel>
+                        <FormLabel>{t("partners.distributionPage.form.phone")}</FormLabel>
                         <FormControl>
-                          <Input
-                            {...field}
-                            placeholder="Your phone number"
+                          <Input 
+                            {...field} 
+                            placeholder={t("partners.distributionPage.form.phonePlaceholder")}
                             className="bg-white/50 dark:bg-gray-800/50 border-brand-primary/20 dark:border-gray-700"
                           />
                         </FormControl>
@@ -171,17 +171,17 @@ export function DistributionForm() {
                     )}
                   />
                 </div>
-
+                
                 <FormField
                   control={form.control}
                   name="country"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Country/Region</FormLabel>
+                      <FormLabel>{t("partners.distributionPage.form.country")}</FormLabel>
                       <FormControl>
-                        <Input
-                          {...field}
-                          placeholder="Your country or region of operation"
+                        <Input 
+                          {...field} 
+                          placeholder={t("partners.distributionPage.form.countryPlaceholder")}
                           className="bg-white/50 dark:bg-gray-800/50 border-brand-primary/20 dark:border-gray-700"
                         />
                       </FormControl>
@@ -189,17 +189,17 @@ export function DistributionForm() {
                     </FormItem>
                   )}
                 />
-
+                
                 <FormField
                   control={form.control}
                   name="message"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Distribution Details</FormLabel>
+                      <FormLabel>{t("partners.distributionPage.form.details")}</FormLabel>
                       <FormControl>
-                        <Textarea
-                          {...field}
-                          placeholder="Please tell us about your distribution capabilities, market reach, and why you're interested in HandLine products..."
+                        <Textarea 
+                          {...field} 
+                          placeholder={t("partners.distributionPage.form.detailsPlaceholder")}
                           className="min-h-[150px] bg-white/50 dark:bg-gray-800/50 border-brand-primary/20 dark:border-gray-700"
                         />
                       </FormControl>
@@ -207,9 +207,9 @@ export function DistributionForm() {
                     </FormItem>
                   )}
                 />
-
-                <Button
-                  type="submit"
+                
+                <Button 
+                  type="submit" 
                   disabled={isSubmitting}
                   className="w-full sm:w-auto group font-medium rounded-lg bg-brand-primary text-white hover:bg-brand-primary/90 dark:bg-brand-primary dark:hover:bg-brand-primary/90 transition-all duration-300"
                 >
@@ -235,11 +235,11 @@ export function DistributionForm() {
                           d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                         />
                       </svg>
-                      Submitting...
+                      {t("partners.distributionPage.form.submitting")}
                     </span>
                   ) : (
                     <span className="flex items-center gap-2">
-                      Submit Distribution Enquiry
+                      {t("partners.distributionPage.form.submit")}
                       <Send className="h-4 w-4 transition-all duration-300 group-hover:translate-x-1" />
                     </span>
                   )}

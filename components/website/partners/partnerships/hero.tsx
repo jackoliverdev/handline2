@@ -31,7 +31,7 @@ export const PartnershipsHero = () => {
             <div className="inline-flex items-center rounded-full border border-brand-primary px-3 py-1 md:px-4 md:py-1.5 text-xs md:text-sm backdrop-blur-sm">
               <Briefcase className="mr-1.5 h-3 w-3 md:h-4 md:w-4 text-brand-primary" />
               <span className="text-brand-dark dark:text-white font-medium">
-                Strategic Alliances
+                {t("partners.partnerships.hero.badge")}
               </span>
             </div>
           </motion.div>
@@ -44,7 +44,7 @@ export const PartnershipsHero = () => {
             className="relative mb-4 md:mb-6"
           >
             <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-brand-dark dark:text-white font-heading">
-              Partner with <span className="text-brand-primary">Hand Line</span>
+              {t("partners.partnerships.hero.title")} <span className="text-brand-primary">Hand Line</span>
             </h1>
           </motion.div>
 
@@ -56,7 +56,7 @@ export const PartnershipsHero = () => {
             className="mb-6 md:mb-10"
           >
             <p className="max-w-2xl text-base md:text-lg text-brand-secondary dark:text-gray-300">
-              We build lasting partnerships to enhance worker safety and innovation. Join us to create protective solutions that make a difference in workplaces worldwide.
+              {t("partners.partnerships.hero.description")}
             </p>
           </motion.div>
 
@@ -74,7 +74,7 @@ export const PartnershipsHero = () => {
             >
               <Link href="#partnership-form" className="flex items-center justify-center gap-1.5 md:gap-2">
                 <Briefcase className="h-4 w-4 md:h-5 md:w-5" />
-                <span>Become a Partner</span>
+                <span>{t("partners.partnerships.hero.becomePartner")}</span>
                 <ChevronRight className="h-3.5 w-3.5 md:h-4 md:w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
@@ -86,7 +86,7 @@ export const PartnershipsHero = () => {
             >
               <Link href="/products" className="flex items-center justify-center gap-1.5 md:gap-2">
                 <Package className="h-4 w-4 md:h-5 md:w-5" />
-                <span>See our products</span>
+                <span>{t("partners.partnerships.hero.seeProducts")}</span>
                 <ChevronRight className="h-3.5 w-3.5 md:h-4 md:w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>

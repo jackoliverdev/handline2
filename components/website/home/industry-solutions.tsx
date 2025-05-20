@@ -8,6 +8,44 @@ import Image from "next/image";
 import { ArrowRight, ChevronRight, Shield, Factory } from "lucide-react";
 import { getAllIndustries, Industry } from "@/lib/industries-service";
 import { useLanguage } from "@/lib/context/language-context";
+import { motion } from "framer-motion";
+
+// Animation variants
+const sectionVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut"
+    }
+  }
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: 0.2 + (i * 0.1),
+      duration: 0.4,
+      ease: "easeOut"
+    }
+  })
+};
 
 export const IndustrySolutions = () => {
   const [industries, setIndustries] = useState<Industry[]>([]);
@@ -56,78 +94,148 @@ export const IndustrySolutions = () => {
   };
 
   return (
-    <section className="pt-16 pb-24 sm:py-24 bg-brand-light dark:bg-background">
+    <motion.section 
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+      variants={sectionVariants}
+      className="pt-4 pb-24 sm:pt-8 sm:pb-24 bg-brand-light dark:bg-background"
+    >
       <div className="container mx-auto px-4 sm:px-6">
-        <div className="flex flex-col items-center mb-16 text-center">
-          <div>
-            <Link href="/industries" className="inline-block hover:scale-105 transition-transform duration-300">
-              <div className="inline-flex items-center rounded-full bg-white/80 dark:bg-black/60 px-3 py-1 text-xs sm:text-sm border border-[#F28C38] backdrop-blur-sm mb-4 cursor-pointer">
+        <motion.div 
+          variants={itemVariants}
+          className="flex flex-col items-center mb-16 text-center"
+        >
+          <div className="flex flex-col items-center">
+            <Link href="/industries" className="inline-block transition-transform duration-300 mb-4">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                className="inline-flex items-center rounded-full bg-white/80 dark:bg-black/60 px-3 py-1 text-xs sm:text-sm border border-[#F28C38] backdrop-blur-sm cursor-pointer"
+              >
                 <Factory className="mr-1.5 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 text-[#F28C38]" />
                 <span className="text-brand-dark dark:text-white font-medium font-heading">
                   {t('industrySolutions.badge')}
                 </span>
-              </div>
+              </motion.div>
             </Link>
-            <h2 className="text-3xl md:text-4xl font-bold text-brand-dark dark:text-white mb-4 font-heading">
-              {t('industrySolutions.title')}
-            </h2>
-            <p className="max-w-5xl text-lg text-brand-secondary dark:text-gray-300 mx-auto">
+            <div className="inline-flex items-center justify-center mb-4">
+              <motion.div 
+                initial={{ width: 0 }}
+                whileInView={{ width: "2.5rem" }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="h-1 w-10 bg-[#F28C38] rounded-full mr-3"
+              ></motion.div>
+              <h2 className="text-3xl md:text-4xl font-bold text-brand-dark dark:text-white font-heading">
+                {t('industrySolutions.title')}
+              </h2>
+              <motion.div 
+                initial={{ width: 0 }}
+                whileInView={{ width: "2.5rem" }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="h-1 w-10 bg-[#F28C38] rounded-full ml-3"
+              ></motion.div>
+            </div>
+            <motion.p 
+              variants={itemVariants}
+              className="max-w-5xl text-lg text-brand-secondary dark:text-gray-300 mx-auto"
+            >
               We start from the person and design solutions around their needs. With almost half a century serving large organisations, we've developed deep industry expertise to help our customers improve protection and optimise productivity.
-            </p>
+            </motion.p>
           </div>
-        </div>
+        </motion.div>
 
         {loading ? (
-          <div className="flex justify-center items-center min-h-[300px]">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="flex justify-center items-center min-h-[300px]"
+          >
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-primary"></div>
-          </div>
+          </motion.div>
         ) : industries.length === 0 ? (
-          <div className="text-center py-16 border border-brand-primary/10 dark:border-brand-primary/20 rounded-xl bg-white/50 dark:bg-gray-800/30">
+          <motion.div 
+            variants={itemVariants}
+            className="text-center py-16 border border-brand-primary/10 dark:border-brand-primary/20 rounded-xl bg-white/50 dark:bg-gray-800/30"
+          >
             <p className="text-lg text-brand-secondary dark:text-gray-300">{t('industrySolutions.noIndustries')}</p>
-          </div>
+          </motion.div>
         ) : (
           <div 
             ref={scrollContainerRef}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
           >
-            {industries.map((industry) => (
-              <div key={industry.id}>
+            {industries.map((industry, index) => (
+              <motion.div 
+                key={industry.id}
+                custom={index}
+                variants={cardVariants}
+              >
                 <Link href={`/industries/${industry.slug}`}>
                   <Card className="h-full overflow-hidden group hover:shadow-md transition-all duration-300 border border-brand-primary/10 dark:border-brand-primary/20 bg-[#F5EFE0]/80 dark:bg-transparent rounded-xl backdrop-blur-sm dark:backdrop-blur-none">
                     <div className="relative h-48 overflow-hidden">
                       {industry.image_url ? (
-                        <Image
-                          src={industry.image_url}
-                          alt={industry.industry_name}
-                          fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
+                        <motion.div
+                          initial={{ scale: 1.1, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          transition={{ duration: 0.5, delay: 0.3 + (index * 0.1) }}
+                        >
+                          <Image
+                            src={industry.image_url}
+                            alt={industry.industry_name}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                        </motion.div>
                       ) : (
                         <div className="flex h-full w-full items-center justify-center bg-gray-100 dark:bg-gray-800">
                           <Shield className="h-16 w-16 text-gray-400 dark:text-gray-500" />
                         </div>
                       )}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                      <div className="absolute bottom-4 left-4 right-4">
+                      <motion.div 
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.4 + (index * 0.1), duration: 0.3 }}
+                        className="absolute bottom-4 left-4 right-4"
+                      >
                         <h3 className="text-xl font-bold text-white mb-1 font-heading">{industry.industry_name}</h3>
-                      </div>
+                      </motion.div>
                     </div>
-                    <CardContent className="p-5">
-                      <p className="text-brand-secondary dark:text-gray-300 mb-4 line-clamp-3">
-                        {getShortDescription(industry)}
-                      </p>
-                      <div className="flex items-center text-brand-primary font-medium group-hover:text-brand-primary/80">
-                        <span>{t('industrySolutions.learnMore')}</span>
-                        <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                      </div>
-                    </CardContent>
+                    <motion.div 
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.5 + (index * 0.1), duration: 0.3 }}
+                    >
+                      <CardContent className="p-5">
+                        <p className="text-brand-secondary dark:text-gray-300 mb-4 line-clamp-3">
+                          {getShortDescription(industry)}
+                        </p>
+                        <div className="flex items-center text-brand-primary font-medium group-hover:text-brand-primary/80">
+                          <span className="relative">
+                            {t('industrySolutions.learnMore')}
+                            <span className="absolute left-0 -bottom-[2px] h-[1px] w-0 bg-brand-primary transition-all duration-300 ease-out group-hover:w-full"></span>
+                          </span>
+                          <motion.div
+                            whileHover={{ x: 3 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <ArrowRight className="ml-2 h-4 w-4" />
+                          </motion.div>
+                        </div>
+                      </CardContent>
+                    </motion.div>
                   </Card>
                 </Link>
-              </div>
+              </motion.div>
             ))}
           </div>
         )}
       </div>
-    </section>
+    </motion.section>
   );
 }; 

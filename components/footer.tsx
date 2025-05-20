@@ -34,7 +34,7 @@ export function Footer() {
                   className="object-contain"
                 />
               </div>
-              <span className="text-lg sm:text-xl font-bold text-brand-dark dark:text-white">HandLine Company</span>
+              <span className="text-lg sm:text-xl font-bold text-brand-dark dark:text-white">Hand Line Company</span>
             </div>
             <p className="text-sm sm:text-base text-brand-secondary dark:text-gray-300 max-w-md">
               {t('footer.companyDescription')}
@@ -192,9 +192,6 @@ export function Footer() {
               </Link>
               <Link href="/legal?tab=cookies" className="text-xs sm:text-sm text-brand-secondary dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors">
                 {t('footer.legal.links.cookies')}
-              </Link>
-              <Link href="/legal?tab=standards" className="text-xs sm:text-sm text-brand-secondary dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors">
-                {t('footer.legal.links.standards')}
               </Link>
             </div>
           </div>

@@ -19,7 +19,7 @@ export function LegalTabs() {
       <div className="container py-8 md:py-12">
         <Tabs defaultValue={tab} onValueChange={handleTabChange} className="w-full">
           <div className="flex justify-center mb-8">
-            <TabsList className="grid w-full max-w-lg grid-cols-4 border border-brand-primary/10 dark:border-brand-primary/20 bg-white/70 dark:bg-gray-800/30 backdrop-blur-sm">
+            <TabsList className="grid w-full max-w-lg grid-cols-3 border border-brand-primary/10 dark:border-brand-primary/20 bg-white/70 dark:bg-gray-800/30 backdrop-blur-sm">
               <TabsTrigger 
                 value="terms" 
                 className="data-[state=active]:bg-brand-primary data-[state=active]:text-white dark:data-[state=active]:text-white"
@@ -37,12 +37,6 @@ export function LegalTabs() {
                 className="data-[state=active]:bg-brand-primary data-[state=active]:text-white dark:data-[state=active]:text-white"
               >
                 Cookie Policy
-              </TabsTrigger>
-              <TabsTrigger 
-                value="standards"
-                className="data-[state=active]:bg-brand-primary data-[state=active]:text-white dark:data-[state=active]:text-white"
-              >
-                EN-Standards
               </TabsTrigger>
             </TabsList>
           </div>
@@ -87,23 +81,6 @@ export function LegalTabs() {
               <p className="text-brand-secondary dark:text-gray-400 mb-8">{legalContent.cookies.lastUpdated}</p>
               
               {legalContent.cookies.sections.map((section, index) => (
-                <div key={index} className="mb-8">
-                  <h3 className="text-xl font-semibold mb-4 text-brand-dark dark:text-white font-heading">{section.title}</h3>
-                  <div 
-                    dangerouslySetInnerHTML={{ __html: section.content }} 
-                    className="prose prose-slate dark:prose-invert max-w-none text-brand-secondary dark:text-gray-300" 
-                  />
-                </div>
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="standards" className="max-w-4xl mx-auto">
-            <div className="rounded-lg p-6 bg-[#F5EFE0]/80 dark:bg-transparent border border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm shadow-sm">
-              <h2 className="text-3xl font-bold mb-2 text-brand-dark dark:text-white font-heading">{legalContent.standards.title}</h2>
-              <p className="text-brand-secondary dark:text-gray-400 mb-8">{legalContent.standards.lastUpdated}</p>
-              
-              {legalContent.standards.sections.map((section, index) => (
                 <div key={index} className="mb-8">
                   <h3 className="text-xl font-semibold mb-4 text-brand-dark dark:text-white font-heading">{section.title}</h3>
                   <div 

@@ -1,7 +1,7 @@
 export const legalContent = {
   terms: {
     title: "Terms of Service",
-    lastUpdated: "Last updated: 1 June 2023",
+    lastUpdated: "Last updated: 1st May 2025",
     sections: [
       {
         title: "1. Introduction",
@@ -75,7 +75,7 @@ export const legalContent = {
   },
   privacy: {
     title: "Privacy Policy",
-    lastUpdated: "Last updated: 1 June 2023",
+    lastUpdated: "Last updated: 1st May 2025",
     sections: [
       {
         title: "1. Introduction",
@@ -170,7 +170,7 @@ export const legalContent = {
   },
   cookies: {
     title: "Cookie Policy",
-    lastUpdated: "Last updated: 1 June 2023",
+    lastUpdated: "Last updated: 1st May 2025",
     sections: [
       {
         title: "1. Introduction",
@@ -229,203 +229,6 @@ export const legalContent = {
           <p>If you have any questions about our Cookie Policy, please contact us:</p>
           <p>HandLine Company<br>Via Industria 24<br>22100 Como<br>Italy</p>
           <p>Email: privacy@handlinecompany.com</p>
-        `
-      }
-    ]
-  },
-  standards: {
-    title: "EN-Standards",
-    lastUpdated: "Last updated: 1 October 2023",
-    sections: [
-      {
-        title: "Introduction",
-        content: `
-          <p>This summary guide is intended as a reference to better understand the technical datasheets included in the website. Please refer to European standard for further information (<a href="http://ec.europa.eu" target="_blank" rel="noopener noreferrer">http://ec.europa.eu</a>).</p>
-        `
-      },
-      {
-        title: "Categories",
-        content: `
-          <p>Protective gloves can be divided into 3 categories depending on type and which risk or danger the gloves should protect against.</p>
-          <ul>
-            <li><strong>Category 1:</strong> Gloves of simple design, for minimal risks only. Example of gloves in this category are household gloves used for cleaning and for protection against warm objects or temperatures not exceeding +50° C. Additional gloves in this category can include light-duty gardening gloves or other work where the risk for injury is minimal.</li>
-            <li><strong>Category 2:</strong> Gloves of intermediate design, for intermediate risks. Gloves are placed in this category when the risk is not classified as minimal or irreversible. The gloves must be subjected to independent testing and certification by a Notified Body, whom then issues a CE marking showing the gloves protective capacities. In this category you will find general handling gloves requiring good puncture and abrasion performance according to EN 388.</li>
-            <li><strong>Category 3:</strong> Gloves of complex design, for irreversible or mortal risks. Gloves in this category are designed to protect against the highest levels of risk e.g. highly corrosive acids. Gloves in this category must also be independently tested and certified by a Notified Body (approved by the EU commission).</li>
-          </ul>
-        `
-      },
-      {
-        title: "EN 420",
-        content: `
-          <p>This standard defines the general requirements for protective gloves in terms of construction, fitness of purpose, safety, etc.</p>
-          <ul>
-            <li>The gloves themselves should not impose a risk or cause injury.</li>
-            <li>The pH of the gloves should be as close as possible to neutral.</li>
-            <li>Leather gloves should have a pH value between 3.5 – 9.5.</li>
-            <li>The highest permitted value for chromium is 3 mg/kg (chrome VI).</li>
-            <li>Specific details of any substance used in the glove which is known to cause allergies.</li>
-            <li>Sized by reference to an agreed common European hand size, for example minimum length.</li>
-          </ul>
-        `
-      },
-      {
-        title: "EN 388",
-        content: `
-          <p>Gloves giving protection from mechanical risks are regulated by EN 388.</p>
-          <p>Protection against mechanical hazards is expressed by a pictogram followed by four numbers (performance levels), each representing test performance against a specific hazard.</p>
-          <ul>
-            <li><strong>Resistance to abrasion:</strong> Based on the number of cycles required to abrade through the sample glove (abrasion by sandpaper under a stipulated pressure). The protection factor is then indicated on a scale from 1 to 4 depending on how many revolutions are required to make a hole in the material. The higher the number, the better the glove.</li>
-            <li><strong>Blade cut resistance:</strong> Based on the number of cycles required to cut through the sample at a constant speed. The protection factor is then indicated on a scale from 1 to 4.</li>
-            <li><strong>Tear resistance:</strong> Based on the amount of force required to tear the sample. The protection factor is then indicated on a scale from 1 to 4.</li>
-            <li><strong>Puncture resistance:</strong> Based on the amount of force required to pierce the sample with a standard sized point. The protection factor is then indicated on a scale from 1 to 4.</li>
-          </ul>
-          <div class="overflow-x-auto mt-4">
-            <table class="min-w-full border-collapse border border-gray-300">
-              <thead>
-                <tr>
-                  <th class="border border-gray-300 px-4 py-2">Test</th>
-                  <th class="border border-gray-300 px-4 py-2" colspan="6">Performance Level</th>
-                </tr>
-                <tr>
-                  <th class="border border-gray-300 px-4 py-2"></th>
-                  <th class="border border-gray-300 px-4 py-2">0</th>
-                  <th class="border border-gray-300 px-4 py-2">1</th>
-                  <th class="border border-gray-300 px-4 py-2">2</th>
-                  <th class="border border-gray-300 px-4 py-2">3</th>
-                  <th class="border border-gray-300 px-4 py-2">4</th>
-                  <th class="border border-gray-300 px-4 py-2">5</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="border border-gray-300 px-4 py-2">1. Abrasion resistance (cycles)</td>
-                  <td class="border border-gray-300 px-4 py-2">&lt; 100</td>
-                  <td class="border border-gray-300 px-4 py-2">100</td>
-                  <td class="border border-gray-300 px-4 py-2">500</td>
-                  <td class="border border-gray-300 px-4 py-2">2000</td>
-                  <td class="border border-gray-300 px-4 py-2">8000</td>
-                  <td class="border border-gray-300 px-4 py-2">-</td>
-                </tr>
-                <tr>
-                  <td class="border border-gray-300 px-4 py-2">2. Blade cut resistance (factor)</td>
-                  <td class="border border-gray-300 px-4 py-2">&lt; 1.2</td>
-                  <td class="border border-gray-300 px-4 py-2">1.2</td>
-                  <td class="border border-gray-300 px-4 py-2">2.5</td>
-                  <td class="border border-gray-300 px-4 py-2">5.0</td>
-                  <td class="border border-gray-300 px-4 py-2">10.0</td>
-                  <td class="border border-gray-300 px-4 py-2">20.0</td>
-                </tr>
-                <tr>
-                  <td class="border border-gray-300 px-4 py-2">3. Tear resistance (Newton)</td>
-                  <td class="border border-gray-300 px-4 py-2">&lt; 10</td>
-                  <td class="border border-gray-300 px-4 py-2">10</td>
-                  <td class="border border-gray-300 px-4 py-2">25</td>
-                  <td class="border border-gray-300 px-4 py-2">50</td>
-                  <td class="border border-gray-300 px-4 py-2">75</td>
-                  <td class="border border-gray-300 px-4 py-2">-</td>
-                </tr>
-                <tr>
-                  <td class="border border-gray-300 px-4 py-2">4. Puncture resistance (Newton)</td>
-                  <td class="border border-gray-300 px-4 py-2">&lt; 20</td>
-                  <td class="border border-gray-300 px-4 py-2">20</td>
-                  <td class="border border-gray-300 px-4 py-2">60</td>
-                  <td class="border border-gray-300 px-4 py-2">100</td>
-                  <td class="border border-gray-300 px-4 py-2">150</td>
-                  <td class="border border-gray-300 px-4 py-2">-</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        `
-      },
-      {
-        title: "EN 407",
-        content: `
-          <p>Gloves giving protection from thermal hazards are regulated by EN 407.</p>
-          <p>The nature and degree of protection is shown by a pictogram followed by a series of six performance levels, relating to specific protective qualities. The higher the number, the better the test result. The following is tested:</p>
-          <ul>
-            <li><strong>Resistance to flammability:</strong> The glove's material is stretched and lit with a gas flame. The flame is held against the material for 15 seconds. After the gas flame is distinguished, the length of time is measured for how long the material either glows or burns.</li>
-            <li><strong>Resistance to contact heat:</strong> The glove's material is exposed to temperatures between +100°C and +500°C. The length of time is then measured for how long it takes the material on the inside of the glove to increase by 10°C from the starting temperature (approx. 25°C). 15 seconds is the minimum accepted length of time for approval. For example: to be marked with class 2, the glove's inside material must manage 250°C heat for 15 seconds before the material exceeds 35°C.</li>
-            <li><strong>Resistance to convective heat:</strong> The amount of time is measured for the heat from a gas flame (80Kw/kvm) to increase the temperature of the glove's inside material by 24°C.</li>
-            <li><strong>Resistance to radiant heat:</strong> The glove's material is stretched in front of a heat source with an effect of 20-40 kw/kvm. The average time is measured for heat penetration of 2.5 kw/kvm.</li>
-            <li><strong>Resistance to small splashes of molten metal:</strong> The test is based on the total number of drops of molten metal required to increase the temperature by 40°C between the inside of the glove and the skin.</li>
-            <li><strong>Resistance to large splashes of molten metal:</strong> Simulated skin is attached to the inside of the glove material. Molten metal is then poured over the glove material. The total number of grams is measured of how much molten metal is required to damage the simulated skin.</li>
-          </ul>
-          <div class="overflow-x-auto mt-4">
-            <table class="min-w-full border-collapse border border-gray-300">
-              <thead>
-                <tr>
-                  <th class="border border-gray-300 px-4 py-2">Test</th>
-                  <th class="border border-gray-300 px-4 py-2" colspan="4">Performance Level</th>
-                </tr>
-                <tr>
-                  <th class="border border-gray-300 px-4 py-2"></th>
-                  <th class="border border-gray-300 px-4 py-2">1</th>
-                  <th class="border border-gray-300 px-4 py-2">2</th>
-                  <th class="border border-gray-300 px-4 py-2">3</th>
-                  <th class="border border-gray-300 px-4 py-2">4</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="border border-gray-300 px-4 py-2">1. Resistance to flammability (after-burn time, seconds)</td>
-                  <td class="border border-gray-300 px-4 py-2">&lt; 20</td>
-                  <td class="border border-gray-300 px-4 py-2">&lt; 10</td>
-                  <td class="border border-gray-300 px-4 py-2">&lt; 3</td>
-                  <td class="border border-gray-300 px-4 py-2">&lt; 2</td>
-                </tr>
-                <tr>
-                  <td class="border border-gray-300 px-4 py-2">2. Resistance to contact heat (°C after 15 seconds)</td>
-                  <td class="border border-gray-300 px-4 py-2">100</td>
-                  <td class="border border-gray-300 px-4 py-2">250</td>
-                  <td class="border border-gray-300 px-4 py-2">350</td>
-                  <td class="border border-gray-300 px-4 py-2">500</td>
-                </tr>
-                <tr>
-                  <td class="border border-gray-300 px-4 py-2">3. Resistance to convective heat (seconds)</td>
-                  <td class="border border-gray-300 px-4 py-2">&lt; 4</td>
-                  <td class="border border-gray-300 px-4 py-2">&lt; 7</td>
-                  <td class="border border-gray-300 px-4 py-2">&lt; 10</td>
-                  <td class="border border-gray-300 px-4 py-2">&lt; 18</td>
-                </tr>
-                <tr>
-                  <td class="border border-gray-300 px-4 py-2">4. Resistance to radiant heat (seconds)</td>
-                  <td class="border border-gray-300 px-4 py-2">&lt; 5</td>
-                  <td class="border border-gray-300 px-4 py-2">&lt; 30</td>
-                  <td class="border border-gray-300 px-4 py-2">&lt; 90</td>
-                  <td class="border border-gray-300 px-4 py-2">&lt; 150</td>
-                </tr>
-                <tr>
-                  <td class="border border-gray-300 px-4 py-2">5. Resistance to small splashes of molten metal (# of drops)</td>
-                  <td class="border border-gray-300 px-4 py-2">&lt; 5</td>
-                  <td class="border border-gray-300 px-4 py-2">&lt; 15</td>
-                  <td class="border border-gray-300 px-4 py-2">&gt; 25</td>
-                  <td class="border border-gray-300 px-4 py-2">&gt; 35</td>
-                </tr>
-                <tr>
-                  <td class="border border-gray-300 px-4 py-2">6. Resistance to large splashes of molten metal (grams)</td>
-                  <td class="border border-gray-300 px-4 py-2">30</td>
-                  <td class="border border-gray-300 px-4 py-2">60</td>
-                  <td class="border border-gray-300 px-4 py-2">120</td>
-                  <td class="border border-gray-300 px-4 py-2">200</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        `
-      },
-      {
-        title: "Other Standards",
-        content: `
-          <p>We limited the content of this page to those standards that mostly affect our product. Please consider contacting us also in regards with any of the following:</p>
-          <ul>
-            <li>EN 12477: Welding Gloves</li>
-            <li>EN 374: Chemicals and micro-organism protection gloves</li>
-            <li>EN 455: Single-use medical gloves</li>
-            <li>EN 511: Cold resistant gloves</li>
-            <li>EN 10819: Protection from vibration</li>
-            <li>EN 60903: Electrical risks (Including Electro Static Discharge)</li>
-          </ul>
         `
       }
     ]
