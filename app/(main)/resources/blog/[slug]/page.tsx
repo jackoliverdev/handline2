@@ -33,10 +33,50 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     };
   }
   
-  return {
+  const hostname = process.env.NEXT_PUBLIC_SITE_URL || 'https://handline2.vercel.app';
+  const url = `${hostname}/resources/blog/${params.slug}`;
+
+  // Base metadata object
+  const metadata: Metadata = {
     title: `${post.title} | HandLine Blog`,
     description: post.summary,
+    openGraph: {
+      title: post.title,
+      description: post.summary,
+      url: url,
+      siteName: 'HandLine Safety Solutions',
+      locale: lang === 'it' ? 'it_IT' : 'en_GB',
+      type: 'article',
+      publishedTime: post.published_at,
+      authors: [post.author || 'HandLine'],
+      tags: post.tags || []
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.summary,
+    }
   };
+
+  // Only add images if there's an image_url available
+  if (post.image_url) {
+    if (metadata.openGraph) {
+      metadata.openGraph.images = [
+        {
+          url: post.image_url,
+          width: 1200,
+          height: 630,
+          alt: post.title
+        }
+      ];
+    }
+    
+    if (metadata.twitter) {
+      metadata.twitter.images = [post.image_url];
+    }
+  }
+
+  return metadata;
 }
 
 // Disable static generation for this page
