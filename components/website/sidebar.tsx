@@ -293,7 +293,7 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
             {expandedSection === 'resources' && (
               <div className="mt-1">
                 <Link 
-                  href="/blog" 
+                  href="/resources/blog" 
                   className="flex items-center px-3 py-1.5 text-slate-300 hover:bg-[#222222] transition-colors"
                   onClick={onClose}
                 >

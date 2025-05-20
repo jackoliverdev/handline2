@@ -11,7 +11,7 @@ export default function NotFound() {
         Sorry, we couldn't find the blog post you're looking for. It may have been moved, deleted, or never existed.
       </p>
       <Button asChild>
-        <Link href="/blog" className="flex items-center">
+        <Link href="/resources/blog" className="flex items-center">
           <ChevronLeft className="mr-1 h-4 w-4" />
           Back to Blog
         </Link>

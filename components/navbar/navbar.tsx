@@ -29,7 +29,27 @@ const NAV_ITEMS = [
   },
   { href: "/industries", label: "navbar.industries" },
   { href: "/about", label: "navbar.about" },
-  { href: "/blog", label: "navbar.blog" },
+  { 
+    href: "/partners", 
+    label: "Partners",
+    hasDropdown: true,
+    dropdownItems: [
+      { href: "/partners/partnerships", label: "Partnerships" },
+      { href: "/partners/distribution", label: "Distribution" },
+    ]
+  },
+  { 
+    href: "/resources", 
+    label: "Resources",
+    hasDropdown: true,
+    dropdownItems: [
+      { href: "/resources/blog", label: "Blog" },
+      { href: "/resources/case-studies", label: "Case Studies" },
+      { href: "/resources/en-resource-centre", label: "EN Resource Centre" },
+      { href: "/resources/product-disclaimer", label: "Product Disclaimer" },
+      { href: "/resources/declarations", label: "Declarations" },
+    ]
+  },
   { href: "/contact", label: "navbar.contact" },
 ];
 

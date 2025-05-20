@@ -160,7 +160,7 @@ export function Footer() {
                     </Link>
                   </li>
                   <li>
-                    <Link href="/blog" className="inline-flex items-center text-sm sm:text-base text-brand-secondary dark:text-gray-300 hover:text-brand-primary dark:hover:text-brand-primary transition-colors">
+                    <Link href="/resources/blog" className="inline-flex items-center text-sm sm:text-base text-brand-secondary dark:text-gray-300 hover:text-brand-primary dark:hover:text-brand-primary transition-colors">
                       <ChevronRight className="h-3 w-3 mr-1 text-brand-primary/70" />
                       {t('footer.sections.company.links.blog')}
                     </Link>

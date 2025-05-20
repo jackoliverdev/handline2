@@ -60,17 +60,19 @@ export const IndustrySolutions = () => {
       <div className="container mx-auto px-4 sm:px-6">
         <div className="flex flex-col items-center mb-16 text-center">
           <div>
-            <div className="inline-flex items-center rounded-full bg-white/80 dark:bg-black/60 px-3 py-1 text-xs sm:text-sm border border-[#F28C38] backdrop-blur-sm mb-4">
-              <Factory className="mr-1.5 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 text-[#F28C38]" />
-              <span className="text-brand-dark dark:text-white font-medium font-heading">
-                {t('industrySolutions.badge')}
-              </span>
-            </div>
+            <Link href="/industries" className="inline-block hover:scale-105 transition-transform duration-300">
+              <div className="inline-flex items-center rounded-full bg-white/80 dark:bg-black/60 px-3 py-1 text-xs sm:text-sm border border-[#F28C38] backdrop-blur-sm mb-4 cursor-pointer">
+                <Factory className="mr-1.5 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 text-[#F28C38]" />
+                <span className="text-brand-dark dark:text-white font-medium font-heading">
+                  {t('industrySolutions.badge')}
+                </span>
+              </div>
+            </Link>
             <h2 className="text-3xl md:text-4xl font-bold text-brand-dark dark:text-white mb-4 font-heading">
               {t('industrySolutions.title')}
             </h2>
-            <p className="max-w-2xl text-lg text-brand-secondary dark:text-gray-300 mx-auto">
-              {t('industrySolutions.description')}
+            <p className="max-w-5xl text-lg text-brand-secondary dark:text-gray-300 mx-auto">
+              We start from the person and design solutions around their needs. With almost half a century serving large organisations, we've developed deep industry expertise to help our customers improve protection and optimise productivity.
             </p>
           </div>
         </div>

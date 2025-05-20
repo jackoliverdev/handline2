@@ -6,8 +6,16 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ChevronLeft, Calendar, Clock, User, Share2 } from 'lucide-react';
+import { ChevronLeft, Calendar, Clock, User, Share2, Linkedin, Twitter, Facebook, Copy, Check } from 'lucide-react';
 import type { BlogPost } from '@/lib/blog-service';
+import { useState, useEffect } from 'react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { toast } from '@/components/ui/use-toast';
 
 export default function BlogPostClient({ post }: { post: BlogPost }) {
   const { language, t } = useLanguage();
@@ -15,6 +23,25 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
   const summary = post.summary_locales?.[language] || post.summary;
   const content = post.content_locales?.[language] || post.content;
   const tags = post.tags_locales?.[language] || post.tags || [];
+  const [currentUrl, setCurrentUrl] = useState<string>('');
+  const [copySuccess, setCopySuccess] = useState(false);
+
+  useEffect(() => {
+    // Set the current URL when the component mounts (client-side only)
+    setCurrentUrl(window.location.href);
+  }, []);
+
+  // Handle share link copying
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(currentUrl).then(() => {
+      setCopySuccess(true);
+      toast({
+        title: "Link copied!",
+        description: "The blog post link has been copied to your clipboard.",
+      });
+      setTimeout(() => setCopySuccess(false), 2000);
+    });
+  };
 
   // Calculate reading time (approximately 200 words per minute)
   const wordCount = content.split(/\s+/).length;
@@ -31,6 +58,15 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
     }).format(date);
   };
 
+  // Encoded values for share links
+  const encodedTitle = encodeURIComponent(title);
+  const encodedSummary = encodeURIComponent(summary);
+  
+  // Share URLs
+  const linkedinShareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(currentUrl)}&title=${encodedTitle}&summary=${encodedSummary}&source=HandLine`;
+  const twitterShareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodedTitle}`;
+  const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
+
   return (
     <main className="flex flex-col min-h-[100dvh] bg-[#F5EFE0]/80 dark:bg-transparent pt-8 md:pt-12">
       {/* Background decoration */}
@@ -46,7 +82,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
           {/* Back Button */}
           <div className="mb-6">
             <Button variant="outline" size="sm" asChild className="bg-[#F5EFE0]/90 hover:bg-[#F5EFE0] dark:bg-transparent dark:hover:bg-black/20 border-brand-primary/20 hover:border-brand-primary/40 dark:border-brand-primary/30 dark:hover:border-brand-primary/50 transition-all duration-200">
-              <Link href="/blog" className="flex items-center gap-1.5 text-brand-dark dark:text-gray-200 hover:text-brand-primary dark:hover:text-brand-primary">
+              <Link href="/resources/blog" className="flex items-center gap-1.5 text-brand-dark dark:text-gray-200 hover:text-brand-primary dark:hover:text-brand-primary">
                 <ChevronLeft className="h-4 w-4 text-brand-primary" />
                 {t('blog.backToBlogs')}
               </Link>
@@ -108,10 +144,57 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
                 <span>{t('blog.minRead').replace('{count}', readingTime.toString())}</span>
               </div>
               <div className="ml-auto">
-                <Button variant="ghost" size="icon" className="rounded-full">
-                  <Share2 className="h-4 w-4" />
-                  <span className="sr-only">Share</span>
-                </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className="rounded-full hover:bg-brand-primary/10">
+                      <Share2 className="h-4 w-4 text-brand-primary" />
+                      <span className="sr-only">Share</span>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56">
+                    <DropdownMenuItem asChild>
+                      <a 
+                        href={linkedinShareUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex cursor-pointer items-center"
+                      >
+                        <Linkedin className="mr-2 h-4 w-4 text-[#0077B5]" />
+                        <span>Share to LinkedIn</span>
+                      </a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <a 
+                        href={twitterShareUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex cursor-pointer items-center"
+                      >
+                        <Twitter className="mr-2 h-4 w-4 text-[#1DA1F2]" />
+                        <span>Share to Twitter</span>
+                      </a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <a 
+                        href={facebookShareUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex cursor-pointer items-center"
+                      >
+                        <Facebook className="mr-2 h-4 w-4 text-[#4267B2]" />
+                        <span>Share to Facebook</span>
+                      </a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={copyToClipboard} className="flex cursor-pointer items-center">
+                      {copySuccess ? (
+                        <Check className="mr-2 h-4 w-4 text-green-500" />
+                      ) : (
+                        <Copy className="mr-2 h-4 w-4" />
+                      )}
+                      <span>{copySuccess ? "Copied!" : "Copy link"}</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             </div>
           </div>

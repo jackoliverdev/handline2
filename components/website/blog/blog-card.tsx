@@ -70,7 +70,7 @@ export function BlogCard({ post, index, language }: BlogCardProps) {
       )}
       
       {/* Blog Image */}
-      <Link href={`/blog/${post.slug}`} className="block overflow-hidden">
+      <Link href={`/resources/blog/${post.slug}`} className="block overflow-hidden">
         <div className="relative aspect-[16/9] w-full overflow-hidden bg-black dark:bg-black">
           <Image
             src={imageUrl}
@@ -101,7 +101,7 @@ export function BlogCard({ post, index, language }: BlogCardProps) {
           )}
         </div>
         
-        <Link href={`/blog/${post.slug}`}>
+        <Link href={`/resources/blog/${post.slug}`}>
           <h3 className="mb-2 line-clamp-1 text-lg font-bold text-brand-dark hover:text-brand-primary dark:text-white dark:hover:text-brand-primary">
             {title}
           </h3>
@@ -131,7 +131,7 @@ export function BlogCard({ post, index, language }: BlogCardProps) {
             className="flex items-center justify-between bg-brand-primary text-white hover:bg-brand-primary/90"
             asChild
           >
-            <Link href={`/blog/${post.slug}`}>
+            <Link href={`/resources/blog/${post.slug}`}>
               <span>{t('blog.readArticle')}</span>
               <ArrowRight className="h-4 w-4 ml-1" />
             </Link>

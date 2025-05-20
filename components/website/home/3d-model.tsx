@@ -80,7 +80,7 @@ export const GlovesModel: React.FC = () => {
                   auto-rotate-delay="0"
                   rotation-per-second="25deg"
                   camera-controls
-                  camera-orbit="0deg 65deg 130%"
+                  camera-orbit="0deg 90deg 130%"
                   field-of-view="40deg"
                   min-camera-orbit="auto auto 100%"
                   max-camera-orbit="auto auto 150%"

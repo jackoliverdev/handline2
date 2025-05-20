@@ -12,3 +12,4 @@ This project uses NextJS, React, Tailwind CSS, with Firebase for authentication 
 Create reusable components for product cards, specification tables, and industry solution sections. Implement a consistent page structure across the site. Create a robust filtering system for products based on temperature ratings, cut resistance levels, and industry applications. Ensure all pages load quickly and meet Core Web Vitals performance standards.
 
 Structure product data with fields for name, description, category, temperature_rating, cut_resistance_level, features, applications, industries, and images. Blog posts should have title, slug, content, author, and tags fields. Ensure all database queries are optimized and secure. Implement proper error handling for all API requests.
+
