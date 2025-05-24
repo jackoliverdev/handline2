@@ -22,9 +22,10 @@ const getNavItems = (t: any) => [
     label: t("navbar.products"),
     hasDropdown: true,
     dropdownItems: [
-      { href: "/products?category=heat-resistant", label: t("sidebar.products.categories.heatResistantGloves") },
-      { href: "/products?category=cut-resistant", label: t("sidebar.products.categories.cutResistantGloves") },
-      { href: "/products?category=customisation", label: t("forms.company") },
+      { href: "/products", label: "All Products" },
+      { href: "/products/gloves", label: "Safety Gloves" },
+      { href: "/products/industrial-swabs", label: "Industrial Swabs" },
+      { href: "/products/respiratory", label: "Respiratory Protection" },
     ]
   },
   { href: "/industries", label: t("navbar.industries") },
@@ -119,7 +120,7 @@ export const NavBar = () => {
               <Link href="/" className="flex-shrink-0">
                 <div className="flex items-center justify-center">
                   <Image 
-                    src="/handline-logo.png" 
+                    src="/Logo-HLC.png" 
                     alt="Hand Line"
                     width={32} 
                     height={32}
@@ -168,7 +169,7 @@ export const NavBar = () => {
               <Link href="/" className="flex-shrink-0">
                 <div className="flex items-center justify-center">
                   <Image 
-                    src="/handline-logo.png" 
+                    src="/Logo-HLC.png" 
                     alt="Hand Line"
                     width={40} 
                     height={40}

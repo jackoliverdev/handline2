@@ -19,8 +19,8 @@ export function ProductList({ products }: ProductListProps) {
   // Localise all products
   const localizedProducts = products.map(product => localiseProduct(product, language));
 
-  // Filter products that have a technical sheet URL (declaration document)
-  const productsWithDeclarations = localizedProducts.filter(product => product.technical_sheet_url);
+  // Filter products that have a declaration sheet URL (declaration document)
+  const productsWithDeclarations = localizedProducts.filter(product => product.declaration_sheet_url);
 
   // Filter by search query if provided
   const filteredProducts = productsWithDeclarations.filter(product => 
@@ -104,7 +104,7 @@ export function ProductList({ products }: ProductListProps) {
                       className="border-brand-primary/30 text-brand-primary hover:bg-brand-primary/10 hover:text-brand-primary hover:border-brand-primary transition-all duration-300 gap-2"
                       asChild
                     >
-                      <a href={product.technical_sheet_url || '#'} target="_blank" rel="noopener noreferrer" download>
+                      <a href={product.declaration_sheet_url || '#'} target="_blank" rel="noopener noreferrer" download>
                         <span>{t('standards.download')}</span>
                         <Download className="h-4 w-4" />
                       </a>

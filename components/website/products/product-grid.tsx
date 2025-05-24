@@ -34,12 +34,13 @@ import { MobileFilterSheet } from "./filters/MobileFilterSheet";
 interface ProductGridProps {
   products: Product[];
   className?: string;
+  initialCategory?: string;
 }
 
-export const ProductGrid = ({ products, className = "" }: ProductGridProps) => {
+export const ProductGrid = ({ products, className = "", initialCategory }: ProductGridProps) => {
   const { t, language } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory || "");
   const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>([]);
   const [selectedTempRatings, setSelectedTempRatings] = useState<string[]>([]);
   const [selectedCutLevels, setSelectedCutLevels] = useState<string[]>([]);
@@ -50,10 +51,10 @@ export const ProductGrid = ({ products, className = "" }: ProductGridProps) => {
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const [activeFiltersCount, setActiveFiltersCount] = useState(0);
   
-  // Track expanded filter sections
+  // Track expanded filter sections - adjust based on whether we're on a specific category page
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
-    category: true,
-    subCategory: false,
+    category: !initialCategory, // Close category if we have an initial category
+    subCategory: !!initialCategory, // Open sub-category if we have an initial category
     temperature: false,
     cutLevel: false,
     industries: false
@@ -70,8 +71,8 @@ export const ProductGrid = ({ products, className = "" }: ProductGridProps) => {
   
   // Track expanded sections for mobile
   const [expandedMobileSections, setExpandedMobileSections] = useState<Record<string, boolean>>({
-    category: false,
-    subCategory: false,
+    category: false, // Keep closed on mobile by default
+    subCategory: !!initialCategory, // Open sub-category if we have an initial category
     temperature: false,
     cutLevel: false,
     industries: false
@@ -336,9 +337,6 @@ export const ProductGrid = ({ products, className = "" }: ProductGridProps) => {
 
   return (
     <div className={className}>
-      <h2 className="mb-8 text-center text-3xl font-bold md:text-4xl text-brand-dark dark:text-white font-heading">
-        {t('products.browseTitle')}
-      </h2>
       {/* Desktop-only left sidebar filters */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-[280px,1fr]">
         <div className="hidden md:block">

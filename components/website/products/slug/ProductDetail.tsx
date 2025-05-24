@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
 import Link from "next/link";
+import Image from "next/image";
 import { useLanguage } from "@/lib/context/language-context";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -106,6 +107,12 @@ export function ProductDetail({ product, relatedProducts }: { product: any, rela
                   >
                     {t('productPage.applications')}
                   </TabsTrigger>
+                  <TabsTrigger 
+                    value="documentation" 
+                    className="rounded-none border-b-2 border-transparent px-4 py-2 data-[state=active]:border-brand-primary"
+                  >
+                    Documentation
+                  </TabsTrigger>
                 </TabsList>
                 <TabsContent value="specifications" className="mt-0">
                   <div className="space-y-4">
@@ -129,13 +136,31 @@ export function ProductDetail({ product, relatedProducts }: { product: any, rela
                           <p className="text-brand-secondary dark:text-gray-300">{product.temperature_rating}°C</p>
                         </div>
                       )}
-                      {product.cut_resistance_level && (
+                      {product.cut_resistance_level && product.en_standard && (
                         <div className="group relative overflow-hidden rounded-lg border bg-[#F5EFE0]/80 dark:bg-transparent shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm dark:backdrop-blur-none p-4">
-                          <div className="flex items-center gap-2 mb-2">
-                            <Scissors className="h-5 w-5 text-brand-primary" />
-                            <h3 className="font-medium text-brand-dark dark:text-white">{t('productPage.cutResistanceLevel')}</h3>
+                          <div className="flex items-center gap-3 mb-3">
+                            {product.en_standard === 'EN407' ? (
+                              <Flame className="h-5 w-5 text-brand-primary" />
+                            ) : (
+                              <Scissors className="h-5 w-5 text-brand-primary" />
+                            )}
+                            <h3 className="font-medium text-brand-dark dark:text-white">
+                              EN Standards
+                            </h3>
                           </div>
-                          <p className="text-brand-secondary dark:text-gray-300">{product.cut_resistance_level}</p>
+                          <div className="flex items-center gap-3">
+                            <div className="relative w-12 h-12 flex-shrink-0">
+                              <Image
+                                src={`/images/standards/${product.en_standard}.png`}
+                                alt={product.en_standard}
+                                fill
+                                className="object-contain"
+                              />
+                            </div>
+                            <div>
+                              <p className="text-brand-secondary dark:text-gray-300 font-medium">{product.cut_resistance_level}</p>
+                            </div>
+                          </div>
                         </div>
                       )}
                     </div>
@@ -196,24 +221,41 @@ export function ProductDetail({ product, relatedProducts }: { product: any, rela
                     </div>
                   </div>
                 </TabsContent>
+                <TabsContent value="documentation" className="mt-0">
+                  <div className="space-y-4">
+                    {/* Technical Sheet */}
+                    {product.technical_sheet_url && (
+                      <Button
+                        variant="outline"
+                        size="lg"
+                        className="w-full border-brand-primary/30 bg-[#F5EFE0]/80 dark:bg-transparent text-brand-primary hover:bg-brand-primary/10 hover:border-brand-primary hover:text-black dark:hover:text-white dark:hover:bg-brand-primary/5 transition-all duration-300 group"
+                        asChild
+                      >
+                        <a href={product.technical_sheet_url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                          <Download className="h-5 w-5 transition-transform duration-300 group-hover:translate-y-1" />
+                          Download Technical Sheet
+                        </a>
+                      </Button>
+                    )}
+                    
+                    {/* Declaration Sheet */}
+                    {product.declaration_sheet_url && (
+                      <Button
+                        variant="outline"
+                        size="lg"
+                        className="w-full border-brand-primary/30 bg-[#F5EFE0]/80 dark:bg-transparent text-brand-primary hover:bg-brand-primary/10 hover:border-brand-primary hover:text-black dark:hover:text-white dark:hover:bg-brand-primary/5 transition-all duration-300 group"
+                        asChild
+                      >
+                        <a href={product.declaration_sheet_url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                          <Download className="h-5 w-5 transition-transform duration-300 group-hover:translate-y-1" />
+                          Download Product Declaration
+                        </a>
+                      </Button>
+                    )}
+                  </div>
+                </TabsContent>
               </Tabs>
             </div>
-            {/* Technical Sheet */}
-            {product.technical_sheet_url && (
-              <div className="pt-4">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="w-full border-brand-primary/30 bg-[#F5EFE0]/80 dark:bg-transparent text-brand-primary hover:bg-brand-primary/10 hover:border-brand-primary hover:text-black dark:hover:text-white dark:hover:bg-brand-primary/5 transition-all duration-300 group"
-                  asChild
-                >
-                  <a href={product.technical_sheet_url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
-                    <Download className="h-5 w-5 transition-transform duration-300 group-hover:translate-y-1" />
-                    Download Technical Sheet
-                  </a>
-                </Button>
-              </div>
-            )}
             {/* Contact and Sample Request Buttons */}
             <div className="pt-4 grid grid-cols-2 gap-4">
               <Button

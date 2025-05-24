@@ -54,7 +54,7 @@ export const NavbarMobile = () => {
                 <div className="relative h-8 w-8 overflow-hidden rounded-full bg-gradient-to-br from-brand-primary to-brand-primary/80 p-[2px] shadow-md">
                   <div className="h-full w-full rounded-full bg-[#F5EFE0] dark:bg-slate-900 p-1">
                     <Image 
-                      src="/handline-logo.png"
+                      src="/Logo-HLC.png"
                       alt="HandLine Company Logo"
                       width={24}
                       height={24}

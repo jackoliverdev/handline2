@@ -84,7 +84,7 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
             <Link href="/">
               <div className="flex items-center">
                 <Image 
-                  src="/handline-logo.png" 
+                  src="/Logo-HLC.png" 
                   alt="Hand Line"
                   width={32} 
                   height={32}
@@ -148,110 +148,83 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
               
               {expandedSection === 'products' && (
                 <div className="ml-10 pl-2 border-l border-[#333333]">
-                  {/* Heat Protection */}
+                  {/* All Products */}
+                  <div className="py-1.5 text-slate-300 hover:bg-[#222222] transition-colors">
+                    <Link 
+                      href="/products"
+                      className="flex items-center"
+                      onClick={onClose}
+                    >
+                      <LayoutDashboard className="h-4 w-4 text-slate-400 mr-2" />
+                      <span className="text-sm">All Products</span>
+                    </Link>
+                  </div>
+
+                  {/* Gloves */}
                   <div
                     className="flex items-center justify-between py-1.5 text-slate-300 hover:bg-[#222222] transition-colors cursor-pointer"
-                    onClick={() => toggleCategory('heat')}
+                    onClick={() => toggleCategory('gloves')}
                   >
                     <div className="flex items-center">
-                      <Flame className="h-4 w-4 text-slate-400 mr-2" />
-                      <span className="text-sm">{t('expertise.features.heatProtection.title')}</span>
+                      <Shield className="h-4 w-4 text-slate-400 mr-2" />
+                      <span className="text-sm">Safety Gloves</span>
                     </div>
-                    {expandedCategory === 'heat' ? (
+                    {expandedCategory === 'gloves' ? (
                       <ChevronDown className="h-3.5 w-3.5 text-slate-500" />
                     ) : (
                       <ChevronRight className="h-3.5 w-3.5 text-slate-500" />
                     )}
                   </div>
                   
-                  {expandedCategory === 'heat' && (
+                  {expandedCategory === 'gloves' && (
                     <div className="ml-6 pl-2 border-l border-[#333333]">
                       <Link 
-                        href="/products?category=heat-resistant&type=gloves"
+                        href="/products/gloves/heat"
                         className="block py-1.5 text-xs text-slate-400 hover:text-white"
                         onClick={onClose}
                       >
-                        {t('sidebar.products.categories.heatResistantGloves')}
+                        Heat-Resistant
                       </Link>
                       <Link 
-                        href="/products?category=heat-resistant&type=sleeves"
+                        href="/products/gloves/cut"
                         className="block py-1.5 text-xs text-slate-400 hover:text-white"
                         onClick={onClose}
                       >
-                        {t('sidebar.products.categories.heatResistantSleeves')}
+                        Cut-Resistant
+                      </Link>
+                      <Link 
+                        href="/products/gloves/general"
+                        className="block py-1.5 text-xs text-slate-400 hover:text-white"
+                        onClick={onClose}
+                      >
+                        General Purpose
                       </Link>
                     </div>
                   )}
 
-                  {/* Cut Resistance */}
-                  <div
-                    className="flex items-center justify-between py-1.5 text-slate-300 hover:bg-[#222222] transition-colors cursor-pointer"
-                    onClick={() => toggleCategory('cut')}
-                  >
-                    <div className="flex items-center">
+                  {/* Industrial Swabs */}
+                  <div className="py-1.5 text-slate-300 hover:bg-[#222222] transition-colors">
+                    <Link 
+                      href="/products/industrial-swabs"
+                      className="flex items-center"
+                      onClick={onClose}
+                    >
                       <Scissors className="h-4 w-4 text-slate-400 mr-2" />
-                      <span className="text-sm">{t('expertise.features.cutResistance.title')}</span>
-                    </div>
-                    {expandedCategory === 'cut' ? (
-                      <ChevronDown className="h-3.5 w-3.5 text-slate-500" />
-                    ) : (
-                      <ChevronRight className="h-3.5 w-3.5 text-slate-500" />
-                    )}
+                      <span className="text-sm">Industrial Swabs</span>
+                    </Link>
                   </div>
-                  
-                  {expandedCategory === 'cut' && (
-                    <div className="ml-6 pl-2 border-l border-[#333333]">
-                      <Link 
-                        href="/products?category=cut-resistant&type=gloves"
-                        className="block py-1.5 text-xs text-slate-400 hover:text-white"
-                        onClick={onClose}
-                      >
-                        {t('sidebar.products.categories.cutResistantGloves')}
-                      </Link>
-                      <Link 
-                        href="/products?category=cut-resistant&type=sleeves"
-                        className="block py-1.5 text-xs text-slate-400 hover:text-white"
-                        onClick={onClose}
-                      >
-                        {t('sidebar.products.categories.cutResistantSleeves')}
-                      </Link>
-                    </div>
-                  )}
 
-                  {/* Customisation */}
-                  <div
-                    className="flex items-center justify-between py-1.5 text-slate-300 hover:bg-[#222222] transition-colors cursor-pointer"
-                    onClick={() => toggleCategory('custom')}
-                  >
-                    <div className="flex items-center">
-                      <Settings className="h-4 w-4 text-slate-400 mr-2" />
-                      <span className="text-sm">{t('expertise.features.customisation.title')}</span>
-                    </div>
-                    {expandedCategory === 'custom' ? (
-                      <ChevronDown className="h-3.5 w-3.5 text-slate-500" />
-                    ) : (
-                      <ChevronRight className="h-3.5 w-3.5 text-slate-500" />
-                    )}
+                  {/* Respiratory Protection */}
+                  <div className="py-1.5 text-slate-300 hover:bg-[#222222] transition-colors">
+                    <Link 
+                      href="/products/respiratory"
+                      className="flex items-center"
+                      onClick={onClose}
+                    >
+                      <Shield className="h-4 w-4 text-slate-400 mr-2" />
+                      <span className="text-sm">Respiratory Protection</span>
+                    </Link>
                   </div>
-                  
-                  {expandedCategory === 'custom' && (
-                    <div className="ml-6 pl-2 border-l border-[#333333]">
-                      <Link 
-                        href="/products?category=customisation&type=corporate"
-                        className="block py-1.5 text-xs text-slate-400 hover:text-white"
-                        onClick={onClose}
-                      >
-                        {t('sidebar.products.categories.corporateCustomisation')}
-                      </Link>
-                      <Link 
-                        href="/products?category=customisation&type=industrial"
-                        className="block py-1.5 text-xs text-slate-400 hover:text-white"
-                        onClick={onClose}
-                      >
-                        {t('sidebar.products.categories.industrialCustomisation')}
-                      </Link>
-                    </div>
-                  )}
                 </div>
               )}
             </div>

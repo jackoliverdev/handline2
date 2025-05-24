@@ -70,8 +70,11 @@
   * {
     @apply border-border;
   }
+  html {
+    @apply bg-[#F5EFE0] dark:bg-[#121212];
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-[#F5EFE0] dark:bg-[#121212] text-foreground;
   }
 }
 

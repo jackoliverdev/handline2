@@ -143,7 +143,7 @@ export function Sidebar({ className }: SidebarProps) {
           <div className="flex items-center justify-between">
             <Link href="/dashboard" className="flex items-center space-x-2">
               <Avatar className="h-8 w-8">
-                <AvatarImage src="/handline-logo.png" alt="HandLine Logo" />
+                <AvatarImage src="/Logo-HLC.png" alt="HandLine Logo" />
                 <AvatarFallback>HL</AvatarFallback>
               </Avatar>
               {!isCollapsed && (

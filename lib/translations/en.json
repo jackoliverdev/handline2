@@ -49,8 +49,8 @@
   "productsHero": {
     "badge": "Industrial Safety",
     "heading": "Safety",
-    "headingAccent": "Gloves",
-    "description": "Explore our comprehensive range of high-performance industrial safety gloves, designed to provide superior protection against heat, cuts, and other workplace hazards.",
+    "headingAccent": "Products",
+    "description": "Explore our comprehensive range of high-performance industrial safety products, designed to provide superior protection against heat, cuts, respiratory hazards, and other workplace risks.",
     "browseProducts": "Browse Products",
     "getInTouch": "Get in Touch",
     "stats": {
@@ -61,11 +61,56 @@
       "years": "Years Experience"
     }
   },
+  "glovesHero": {
+    "badge": "Hand Protection",
+    "heading": "Safety",
+    "headingAccent": "Gloves",
+    "description": "Discover our comprehensive range of high-performance safety gloves, designed to provide superior protection against heat, cuts, and mechanical hazards in industrial environments.",
+    "browseProducts": "Browse Gloves",
+    "getInTouch": "Get in Touch",
+    "stats": {
+      "heat": "Heat Resistance",
+      "cut": "Cut Resistance",
+      "cutValue": "Level 5",
+      "certified": "Certified",
+      "years": "Years Experience"
+    }
+  },
+  "industrialSwabsHero": {
+    "badge": "Precision Cleaning",
+    "heading": "Industrial",
+    "headingAccent": "Swabs",
+    "description": "Explore our specialised range of industrial swabs and cleaning solutions, designed for precision cleaning tasks in demanding industrial environments.",
+    "browseProducts": "Browse Swabs",
+    "getInTouch": "Get in Touch",
+    "stats": {
+      "precision": "Precision Cleaning",
+      "applications": "Applications",
+      "applicationsValue": "500+",
+      "certified": "Certified",
+      "years": "Years Experience"
+    }
+  },
+  "respiratoryHero": {
+    "badge": "Respiratory Safety",
+    "heading": "Respiratory",
+    "headingAccent": "Protection",
+    "description": "Discover our advanced respiratory protection equipment, designed to provide superior protection against airborne hazards in industrial environments.",
+    "browseProducts": "Browse Protection",
+    "getInTouch": "Get in Touch",
+    "stats": {
+      "protection": "Protection Levels",
+      "standards": "Standards",
+      "standardsValue": "EN 149",
+      "certified": "Certified",
+      "years": "Years Experience"
+    }
+  },
   "industriesHero": {
     "badge": "Sector Solutions",
     "heading": "Industry",
     "headingAccent": "Solutions",
-    "description": "Discover how HandLine's innovative safety solutions are tailored to meet the unique challenges of various industries, providing protection and performance when it matters most.",
+    "description": "Discover how Hand Line's innovative safety solutions are tailored to meet the unique challenges of various industries, providing protection and performance when it matters most.",
     "stats": {
       "industries": "Industries Served",
       "years": "Years Experience",
@@ -77,7 +122,7 @@
   },
   "expertise": {
     "title": "Our Expertise",
-    "description": "With over four decades of experience, HandLine Company has established itself as a leader in innovative hand protection solutions for industrial environments.",
+    "description": "With over four decades of experience, Hand Line Company has established itself as a leader in innovative hand protection solutions for industrial environments.",
     "features": {
       "heatProtection": {
         "title": "Heat Protection Gloves",
@@ -165,6 +210,38 @@
     }
   },
   "products": {
+    "categories": {
+      "main": {
+        "title": "Product Categories",
+        "description": "Explore our comprehensive range of industrial safety products designed to protect workers across various industries.",
+        "gloves": {
+          "title": "Safety Gloves",
+          "description": "High-performance protective gloves for all industrial applications",
+          "subcategories": {
+            "heat": {
+              "title": "Heat-Resistant Gloves",
+              "description": "Advanced thermal protection for high-temperature environments up to 350°C"
+            },
+            "cut": {
+              "title": "Cut-Resistant Gloves", 
+              "description": "Superior protection against cuts and lacerations with Level 5 resistance"
+            },
+            "general": {
+              "title": "General Purpose Gloves",
+              "description": "Versatile protection for everyday industrial tasks and construction work"
+            }
+          }
+        },
+        "industrialSwabs": {
+          "title": "Industrial Swabs",
+          "description": "Specialised cleaning and maintenance solutions for industrial environments"
+        },
+        "respiratory": {
+          "title": "Respiratory Protection",
+          "description": "Advanced respiratory protection equipment for hazardous environments"
+        }
+      }
+    },
     "browseTitle": "Browse Our Products",
     "searchPlaceholder": "Search products...",
     "sortOptions": {
@@ -224,7 +301,7 @@
   "industries": {
     "manufacturing": "Manufacturing",
     "sectorsWeServe": "Sectors We Serve",
-    "sectorsDescription": "At HandLine, we develop specialised safety solutions for a diverse range of industries, each with unique challenges and requirements.",
+    "sectorsDescription": "At Hand Line, we develop specialised safety solutions for a diverse range of industries, each with unique challenges and requirements.",
     "keyFeatures": "Key Features",
     "viewSolutions": "View Solutions",
     "contactForDetails": "Contact us for details"
@@ -232,7 +309,7 @@
   "about": {
     "est": "Est. 1981",
     "heading": "About",
-    "description": "For over four decades, HandLine has been at the forefront of industrial safety, designing and manufacturing premium protective gloves that combine innovation, comfort, and uncompromising protection.",
+    "description": "For over four decades, Hand Line has been at the forefront of industrial safety, designing and manufacturing premium protective gloves that combine innovation, comfort, and uncompromising protection.",
     "ourStory": "Our Story",
     "getInTouch": "Get in Touch",
     "stats": {
@@ -243,11 +320,11 @@
     },
     "history": {
       "badge": "Our Journey",
-      "heading": "HandLine Through the Years",
+      "heading": "Hand Line Through the Years",
       "description": "From our beginnings in Milan to becoming a leading safety equipment manufacturer, discover key moments that shaped our company.",
       "1981": {
         "title": "Foundation",
-        "description": "HandLine was founded in Milan, Italy with a vision to create superior safety gloves for industrial workers."
+        "description": "Hand Line was founded in Milan, Italy with a vision to create superior safety gloves for industrial workers."
       },
       "1992": {
         "title": "First Patent",
@@ -273,7 +350,7 @@
     "different": {
       "badge": "Our Advantages",
       "heading": "WHAT MAKES US DIFFERENT",
-      "description": "At HandLine, we pride ourselves on several key differentiators that set us apart in the safety equipment industry.",
+      "description": "At Hand Line, we pride ourselves on several key differentiators that set us apart in the safety equipment industry.",
       "productQuality": {
         "title": "Excellence in",
         "titleAccent": "Product Quality",
@@ -308,7 +385,7 @@
     "mission": {
       "badge": "Our Mission",
       "heading": "Protecting Hands That Build Our World",
-      "description": "Since 1981, HandLine has been dedicated to developing innovative protective solutions that combine uncompromising safety with Italian design excellence.",
+      "description": "Since 1981, Hand Line has been dedicated to developing innovative protective solutions that combine uncompromising safety with Italian design excellence.",
       "points": {
         "0": "Specialised manufacturing expertise in high-performance safety gloves",
         "1": "Rigorous testing to exceed industry safety standards",
@@ -322,7 +399,7 @@
     "values": {
       "badge": "Our Values",
       "heading": "Principles That Guide Us",
-      "description": "These core principles guide everything we do at HandLine, from product design to customer service.",
+      "description": "These core principles guide everything we do at Hand Line, from product design to customer service.",
       "safety": {
         "title": "Safety First",
         "description": "We believe that safety should never be compromised. Every product we design prioritises protection above all else."
@@ -350,13 +427,13 @@
     },
     "team": {
       "badge": "Our People",
-      "heading": "Meet the HandLine Team",
+      "heading": "Meet the Hand Line Team",
       "description": "Our dedicated professionals combine decades of experience with a passion for safety innovation."
     },
     "certifications": {
       "badge": "Quality Standards",
       "heading": "Our Certifications",
-      "description": "HandLine meets and exceeds the highest safety and quality standards in the industry, ensuring reliable protection for all users.",
+      "description": "Hand Line meets and exceeds the highest safety and quality standards in the industry, ensuring reliable protection for all users.",
       "mainStatement": "Our production follows the highest quality standard with ISO certifications across the production and value chain.",
       "types": {
         "iso": {
@@ -378,7 +455,7 @@
   "contact": {
     "section": {
       "badge": "Get In Touch",
-      "title": "Contact HandLine",
+      "title": "Contact Hand Line",
       "description": "Our team is ready to assist with your industrial safety glove requirements."
     },
     "form": {
@@ -419,7 +496,7 @@
       },
       "contactInfoTitle": "Contact Information",
       "findUsTitle": "Find Us",
-      "directionsTitle": "Travel to HandLine Company",
+      "directionsTitle": "Travel to Hand Line Company",
       "directionsDescription": "Get directions to our main facility in Como",
       "directionsButton": "Get directions"
     },
@@ -430,7 +507,7 @@
       "questions": [
         {
           "question": "What types of safety gloves do you offer?",
-          "answer": "HandLine manufactures a comprehensive range of safety gloves including heat-resistant gloves (up to 350°C), cut-resistant gloves (up to Level 5), general-purpose work gloves, chemical-resistant gloves, and specialised gloves for various industries."
+          "answer": "Hand Line manufactures a comprehensive range of safety gloves including heat-resistant gloves (up to 350°C), cut-resistant gloves (up to Level 5), general-purpose work gloves, chemical-resistant gloves, and specialised gloves for various industries."
         },
         {
           "question": "How do I choose the right safety gloves for my application?",
@@ -438,7 +515,7 @@
         },
         {
           "question": "Are your gloves CE certified?",
-          "answer": "Yes, all HandLine safety gloves are CE certified and comply with relevant European standards including EN 388 for mechanical risks, EN 407 for thermal risks, and other applicable safety standards."
+          "answer": "Yes, all Hand Line safety gloves are CE certified and comply with relevant European standards including EN 388 for mechanical risks, EN 407 for thermal risks, and other applicable safety standards."
         },
         {
           "question": "Do you offer custom solutions for specific industries?",
@@ -454,7 +531,7 @@
     "hero": {
       "badge": "We're Here To Help",
       "title": "Contact",
-      "titleAccent": "HandLine",
+      "titleAccent": "Hand Line",
       "description": "We're here to help with any questions you may have about our safety products and solutions. Reach out to our team and we'll get back to you as soon as possible.",
       "stats": {
         "support": "24/7 Support Available",
@@ -471,7 +548,7 @@
   "blog": {
     "hero": {
       "badge": "Insights & Resources",
-      "title": "HandLine",
+      "title": "Hand Line",
       "titleAccent": "Blog",
       "description": "Industry-leading expertise on safety gloves and hand protection solutions.",
       "exploreArticles": "Explore Articles",
@@ -485,7 +562,7 @@
     },
     "grid": {
       "badge": "Safety Knowledge",
-      "title": "HandLine Safety Resources",
+      "title": "Hand Line Safety Resources",
       "description": "Discover expert insights about industrial safety gloves, protective equipment, and best practices for workplace hand protection.",
       "searchPlaceholder": "Search articles...",
       "showing": "Showing",
@@ -501,7 +578,7 @@
   "caseStudies": {
     "hero": {
       "badge": "Client Success Stories",
-      "title": "HandLine",
+      "title": "Hand Line",
       "titleAccent": "Case Studies",
       "description": "Real-world examples of how our safety solutions have transformed workplace protection across industries.",
       "exploreCaseStudies": "Explore Case Studies",
@@ -515,8 +592,8 @@
     },
     "grid": {
       "badge": "Success Stories",
-      "title": "HandLine Success Stories",
-      "description": "Discover how HandLine safety solutions have helped businesses across various industries improve their safety protocols and protect their workforce.",
+      "title": "Hand Line Success Stories",
+      "description": "Discover how Hand Line safety solutions have helped businesses across various industries improve their safety protocols and protect their workforce.",
       "searchPlaceholder": "Search case studies...",
       "showing": "Showing",
       "caseStudies": "case studies",
@@ -539,7 +616,7 @@
     "hero": {
       "badge": "Global Partnerships",
       "title": "Partner with",
-      "description": "Join our global network of partners to bring HandLine's innovative safety solutions to more workers around the world. Discover opportunities for strategic partnerships and distribution.",
+      "description": "Join our global network of partners to bring Hand Line's innovative safety solutions to more workers around the world. Discover opportunities for strategic partnerships and distribution.",
       "partnerships": "Strategic Partnerships",
       "distribution": "Distribution Network",
       "stats": {
@@ -549,16 +626,16 @@
         "products": "Products"
       }
     },
-    "title": "Partner with HandLine",
-    "description": "Join our global network of partners and distributors to bring HandLine's innovative safety solutions to more workers around the world.",
+    "title": "Partner with Hand Line",
+    "description": "Join our global network of partners and distributors to bring Hand Line's innovative safety solutions to more workers around the world.",
     "strategic": {
       "title": "Strategic Partnerships",
-      "description": "We're looking for industry leaders to collaborate on innovative safety solutions. Build a strategic alliance with HandLine to enhance worker protection and productivity.",
+      "description": "We're looking for industry leaders to collaborate on innovative safety solutions. Build a strategic alliance with Hand Line to enhance worker protection and productivity.",
       "cta": "Explore Partnerships"
     },
     "distribution": {
       "title": "Distribution Network",
-      "description": "Join our growing network of distributors to bring HandLine's safety products to your region. We offer exclusive territories, competitive margins and comprehensive support.",
+      "description": "Join our growing network of distributors to bring Hand Line's safety products to your region. We offer exclusive territories, competitive margins and comprehensive support.",
       "cta": "Become a Distributor"
     },
     "partnerships": {
@@ -619,7 +696,7 @@
         "country": "Country/Region",
         "countryPlaceholder": "Your country or region of operation",
         "details": "Distribution Details",
-        "detailsPlaceholder": "Please tell us about your distribution capabilities, market reach, and why you're interested in HandLine products...",
+        "detailsPlaceholder": "Please tell us about your distribution capabilities, market reach, and why you're interested in Hand Line products...",
         "submit": "Submit Distribution Enquiry",
         "submitting": "Submitting...",
         "successTitle": "Distribution enquiry sent",
@@ -697,7 +774,7 @@
     "sizeNeeded": "Size Needed",
     "contactDetails": "Contact Details",
     "emailPlaceholder": "your.email@company.com",
-    "privacyConsent": "I consent to HandLine storing and processing my data in accordance with the",
+    "privacyConsent": "I consent to Hand Line storing and processing my data in accordance with the",
     "privacyPolicy": "Privacy Policy",
     "and": "and",
     "terms": "Terms of Service",
@@ -743,7 +820,7 @@
         "badge": "Important Information",
         "title": "Product",
         "titleAccent": "Disclaimer",
-        "description": "Important information regarding the proper use, limitations, and care of HandLine safety gloves and protective equipment. Understanding these guidelines is essential for maintaining optimal protection and performance.",
+        "description": "Important information regarding the proper use, limitations, and care of Hand Line safety gloves and protective equipment. Understanding these guidelines is essential for maintaining optimal protection and performance.",
         "readDisclaimer": "Read Disclaimer",
         "enResourceCentre": "EN Resource Centre",
         "stats": {
@@ -760,11 +837,11 @@
       "sections": {
         "usage": {
           "title": "Product Usage Disclaimer",
-          "content": "HandLine gloves and protective equipment are designed to provide protection in specific work environments when used correctly. Our products primarily focus on hand protection with specialised solutions for heat resistance, cut resistance, and general construction applications. Please read and understand all accompanying documentation before using any of our products."
+          "content": "Hand Line gloves and protective equipment are designed to provide protection in specific work environments when used correctly. Our products primarily focus on hand protection with specialised solutions for heat resistance, cut resistance, and general construction applications. Please read and understand all accompanying documentation before using any of our products."
         },
         "heatResistance": {
           "title": "Heat Resistance",
-          "content": "Products that provide heat resistance or protection against heat are not intended for use in extreme temperatures - use only as specified. HandLine heat-resistant gloves provide protection against momentary exposure to heat but will not protect against extreme temperatures, extended heat exposure, or submersion in hot liquids. The heat resistance rating indicates the product's capability under controlled testing conditions, which may differ from actual workplace conditions."
+          "content": "Products that provide heat resistance or protection against heat are not intended for use in extreme temperatures - use only as specified. Hand Line heat-resistant gloves provide protection against momentary exposure to heat but will not protect against extreme temperatures, extended heat exposure, or submersion in hot liquids. The heat resistance rating indicates the product's capability under controlled testing conditions, which may differ from actual workplace conditions."
         },
         "cutResistance": {
           "title": "Cut Resistance",
@@ -772,7 +849,7 @@
         },
         "generalGuidelines": {
           "title": "General Guidelines",
-          "content": "All HandLine safety gloves and equipment must be inspected before each use. Do not use damaged items. Follow all care instructions to maintain the protective properties of the equipment. Different HandLine products offer different types and levels of protection - always select the appropriate product for your specific task."
+          "content": "All Hand Line safety gloves and equipment must be inspected before each use. Do not use damaged items. Follow all care instructions to maintain the protective properties of the equipment. Different Hand Line products offer different types and levels of protection - always select the appropriate product for your specific task."
         },
         "limitations": {
           "title": "Limitations",
@@ -780,15 +857,15 @@
         },
         "properSelection": {
           "title": "Proper Selection",
-          "content": "It is the responsibility of the employer and user to assess the type of hazard and select the appropriate protective equipment. HandLine offers a range of specialised gloves for different applications including heat-proof, cut-proof, construction, and general industrial use. Consult industry professionals if uncertain about the suitability of a product for your specific environment."
+          "content": "It is the responsibility of the employer and user to assess the type of hazard and select the appropriate protective equipment. Hand Line offers a range of specialised gloves for different applications including heat-proof, cut-proof, construction, and general industrial use. Consult industry professionals if uncertain about the suitability of a product for your specific environment."
         },
         "modification": {
           "title": "Modification",
-          "content": "Any modification to HandLine gloves or equipment voids all certification and warranty claims. Products should be used only as designed and intended. Alterations may compromise the protective properties and could result in injury."
+          "content": "Any modification to Hand Line gloves or equipment voids all certification and warranty claims. Products should be used only as designed and intended. Alterations may compromise the protective properties and could result in injury."
         },
         "legalNotice": {
           "title": "Legal Notice",
-          "content": "Users are encouraged to always use caution and care when handling sharp or abrasive materials, chemicals, or other hazardous or dangerous substances. Any information or data provided is based upon HandLine's current knowledge and understanding of the subject matter, and is offered solely as a possible suggestion for use in making your own decisions or product choices. Product users should conduct all appropriate testing or other evaluations to determine the suitability of HandLine products for a particular purpose or use within a particular environment. HandLine may revise this information as new information, knowledge or experience becomes available. According to current regulations, the employer has the final responsibility for selecting gloves and other personal protective equipment."
+          "content": "Users are encouraged to always use caution and care when handling sharp or abrasive materials, chemicals, or other hazardous or dangerous substances. Any information or data provided is based upon Hand Line's current knowledge and understanding of the subject matter, and is offered solely as a possible suggestion for use in making your own decisions or product choices. Product users should conduct all appropriate testing or other evaluations to determine the suitability of Hand Line products for a particular purpose or use within a particular environment. Hand Line may revise this information as new information, knowledge or experience becomes available. According to current regulations, the employer has the final responsibility for selecting gloves and other personal protective equipment."
         }
       }
     }
@@ -796,7 +873,7 @@
   "careers": {
     "hero": {
       "badge": "Join Our Team",
-      "title": "Careers at HandLine",
+      "title": "Careers at Hand Line",
       "description": "Join our team of passionate professionals dedicated to creating innovative safety solutions. Discover exciting career opportunities that allow you to make a difference in workplace safety.",
       "viewOpenings": "View Current Openings",
       "aboutCompany": "About Our Company",

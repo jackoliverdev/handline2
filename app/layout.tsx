@@ -29,11 +29,11 @@ export const metadata: Metadata = {
   viewport: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
   icons: {
     icon: [
-      { url: "/handline-logo.png", type: "image/png" },
+      { url: "/Logo-HLC.png", type: "image/png" },
       { url: "/favicon.png", type: "image/png" },
     ],
-    shortcut: "/handline-logo.png",
-    apple: "/handline-logo.png",
+    shortcut: "/Logo-HLC.png",
+    apple: "/Logo-HLC.png",
   },
 };
 

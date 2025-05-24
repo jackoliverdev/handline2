@@ -63,9 +63,9 @@
   },
   "productsHero": {
     "badge": "Sicurezza Industriale",
-    "heading": "Guanti",
-    "headingAccent": "Protettivi",
-    "description": "Scopri la nostra gamma completa di guanti di sicurezza industriali ad alte prestazioni, progettati per offrire una protezione superiore contro calore, tagli e altri rischi sul lavoro.",
+    "heading": "Prodotti",
+    "headingAccent": "Sicurezza",
+    "description": "Scopri la nostra gamma completa di prodotti di sicurezza industriale ad alte prestazioni, progettati per offrire una protezione superiore contro calore, tagli, rischi respiratori e altri pericoli sul posto di lavoro.",
     "browseProducts": "Esplora Prodotti",
     "getInTouch": "Contattaci",
     "stats": {
@@ -76,9 +76,54 @@
       "years": "Anni di Esperienza"
     }
   },
+  "glovesHero": {
+    "badge": "Protezione Mani",
+    "heading": "Guanti",
+    "headingAccent": "Sicurezza",
+    "description": "Scopri la nostra gamma completa di guanti di sicurezza ad alte prestazioni, progettati per fornire una protezione superiore contro calore, tagli e rischi meccanici in ambienti industriali.",
+    "browseProducts": "Esplora Guanti",
+    "getInTouch": "Contattaci",
+    "stats": {
+      "heat": "Resistenza al Calore",
+      "cut": "Resistenza al Taglio",
+      "cutValue": "Livello 5",
+      "certified": "Certificato",
+      "years": "Anni di Esperienza"
+    }
+  },
+  "industrialSwabsHero": {
+    "badge": "Pulizia Precisione",
+    "heading": "Tamponi",
+    "headingAccent": "Industriali",
+    "description": "Esplora la nostra gamma specializzata di tamponi industriali e soluzioni di pulizia, progettati per attività di pulizia di precisione in ambienti industriali impegnativi.",
+    "browseProducts": "Esplora Tamponi",
+    "getInTouch": "Contattaci",
+    "stats": {
+      "precision": "Pulizia Precisione",
+      "applications": "Applicazioni",
+      "applicationsValue": "500+",
+      "certified": "Certificato",
+      "years": "Anni di Esperienza"
+    }
+  },
+  "respiratoryHero": {
+    "badge": "Sicurezza Respiratoria",
+    "heading": "Protezione",
+    "headingAccent": "Respiratoria",
+    "description": "Scopri la nostra attrezzatura avanzata per la protezione respiratoria, progettata per fornire una protezione superiore contro i rischi aerodispersi in ambienti industriali.",
+    "browseProducts": "Esplora Protezione",
+    "getInTouch": "Contattaci",
+    "stats": {
+      "protection": "Livelli Protezione",
+      "standards": "Standard",
+      "standardsValue": "EN 149",
+      "certified": "Certificato",
+      "years": "Anni di Esperienza"
+    }
+  },
   "expertise": {
     "title": "La Nostra Esperienza",
-    "description": "Con oltre quattro decenni di esperienza, HandLine Company si è affermata come leader nelle soluzioni innovative di protezione delle mani per ambienti industriali.",
+    "description": "Con oltre quattro decenni di esperienza, Hand Line Company si è affermata come leader nelle soluzioni innovative di protezione delle mani per ambienti industriali.",
     "features": {
       "heatProtection": {
         "title": "Guanti Termoresistenti",
@@ -169,6 +214,38 @@
     }
   },
   "products": {
+    "categories": {
+      "main": {
+        "title": "Categorie Prodotti",
+        "description": "Esplora la nostra gamma completa di prodotti di sicurezza industriale progettati per proteggere i lavoratori in vari settori.",
+        "gloves": {
+          "title": "Guanti di Sicurezza",
+          "description": "Guanti protettivi ad alte prestazioni per tutte le applicazioni industriali",
+          "subcategories": {
+            "heat": {
+              "title": "Guanti Termoresistenti",
+              "description": "Protezione termica avanzata per ambienti ad alta temperatura fino a 350°C"
+            },
+            "cut": {
+              "title": "Guanti Antitaglio",
+              "description": "Protezione superiore contro tagli e lacerazioni con resistenza Livello 5"
+            },
+            "general": {
+              "title": "Guanti Uso Generale",
+              "description": "Protezione versatile per attività industriali quotidiane e lavori di costruzione"
+            }
+          }
+        },
+        "industrialSwabs": {
+          "title": "Tamponi Industriali",
+          "description": "Soluzioni specializzate per pulizia e manutenzione in ambienti industriali"
+        },
+        "respiratory": {
+          "title": "Protezione Respiratoria",
+          "description": "Dispositivi avanzati di protezione respiratoria per ambienti pericolosi"
+        }
+      }
+    },
     "browseTitle": "Sfoglia i Nostri Prodotti",
     "searchPlaceholder": "Cerca prodotti...",
     "sortOptions": {
@@ -229,7 +306,7 @@
     "badge": "Soluzioni per Settori",
     "heading": "Soluzioni",
     "headingAccent": "Industriali",
-    "description": "Scopri come le soluzioni innovative di HandLine sono progettate per rispondere alle sfide uniche dei diversi settori, offrendo protezione e prestazioni quando conta di più.",
+    "description": "Scopri come le soluzioni innovative di Hand Line sono progettate per rispondere alle sfide uniche dei diversi settori, offrendo protezione e prestazioni quando conta di più.",
     "stats": {
       "industries": "Settori Serviti",
       "years": "Anni di Esperienza",
@@ -242,7 +319,7 @@
   "industries": {
     "manufacturing": "Manifattura",
     "sectorsWeServe": "Settori Serviti",
-    "sectorsDescription": "In HandLine sviluppiamo soluzioni di sicurezza specializzate per una vasta gamma di settori, ciascuno con sfide e requisiti unici.",
+    "sectorsDescription": "In Hand Line sviluppiamo soluzioni di sicurezza specializzate per una vasta gamma di settori, ciascuno con sfide e requisiti unici.",
     "keyFeatures": "Caratteristiche principali",
     "viewSolutions": "Vedi Soluzioni",
     "contactForDetails": "Contattaci per dettagli"
@@ -250,7 +327,7 @@
   "about": {
     "est": "Fond. 1981",
     "heading": "Chi Siamo",
-    "description": "Da oltre quarant'anni HandLine è all'avanguardia nella sicurezza industriale, progettando e producendo guanti protettivi di alta qualità che uniscono innovazione, comfort e protezione senza compromessi.",
+    "description": "Da oltre quarant'anni Hand Line è all'avanguardia nella sicurezza industriale, progettando e producendo guanti protettivi di alta qualità che uniscono innovazione, comfort e protezione senza compromessi.",
     "ourStory": "La Nostra Storia",
     "getInTouch": "Contattaci",
     "stats": {
@@ -261,11 +338,11 @@
     },
     "history": {
       "badge": "Il Nostro Percorso",
-      "heading": "HandLine negli Anni",
+      "heading": "Hand Line negli Anni",
       "description": "Dalle origini a Milano fino a diventare un produttore leader di dispositivi di protezione, scopri i momenti chiave che hanno plasmato la nostra azienda.",
       "1981": {
         "title": "Fondazione",
-        "description": "HandLine viene fondata a Milano con la visione di creare guanti di sicurezza superiori per i lavoratori industriali."
+        "description": "Hand Line viene fondata a Milano con la visione di creare guanti di sicurezza superiori per i lavoratori industriali."
       },
       "1992": {
         "title": "Primo Brevetto",
@@ -291,7 +368,7 @@
     "different": {
       "badge": "I Nostri Vantaggi",
       "heading": "COSA CI RENDE DIVERSI",
-      "description": "In HandLine, siamo orgogliosi di diversi elementi chiave che ci distinguono nel settore delle attrezzature di sicurezza.",
+      "description": "In Hand Line, siamo orgogliosi di diversi elementi chiave che ci distinguono nel settore delle attrezzature di sicurezza.",
       "productQuality": {
         "title": "Eccellenza nella",
         "titleAccent": "Qualità del Prodotto",
@@ -326,7 +403,7 @@
     "mission": {
       "badge": "La Nostra Missione",
       "heading": "Proteggere le Mani Che Costruiscono il Nostro Mondo",
-      "description": "Dal 1981, HandLine si dedica allo sviluppo di soluzioni protettive innovative che combinano sicurezza senza compromessi con l'eccellenza del design italiano.",
+      "description": "Dal 1981, Hand Line si dedica allo sviluppo di soluzioni protettive innovative che combinano sicurezza senza compromessi con l'eccellenza del design italiano.",
       "points": {
         "0": "Competenza specializzata nella produzione di guanti di sicurezza ad alte prestazioni",
         "1": "Test rigorosi per superare gli standard di sicurezza del settore",
@@ -340,7 +417,7 @@
     "values": {
       "badge": "I Nostri Valori",
       "heading": "Principi Guida",
-      "description": "Questi principi fondamentali guidano ogni aspetto di HandLine, dalla progettazione dei prodotti al servizio clienti.",
+      "description": "Questi principi fondamentali guidano ogni aspetto di Hand Line, dalla progettazione dei prodotti al servizio clienti.",
       "safety": {
         "title": "Sicurezza Prima di Tutto",
         "description": "Crediamo che la sicurezza non debba mai essere compromessa. Ogni prodotto che progettiamo mette la protezione al primo posto."
@@ -368,13 +445,13 @@
     },
     "team": {
       "badge": "Le Nostre Persone",
-      "heading": "Il Team HandLine",
+      "heading": "Il Team Hand Line",
       "description": "I nostri professionisti uniscono decenni di esperienza a una passione per l'innovazione nella sicurezza."
     },
     "certifications": {
       "badge": "Standard di Qualità",
       "heading": "Le Nostre Certificazioni",
-      "description": "HandLine soddisfa e supera i più elevati standard di sicurezza e qualità del settore, garantendo una protezione affidabile per tutti gli utenti.",
+      "description": "Hand Line soddisfa e supera i più elevati standard di sicurezza e qualità del settore, garantendo una protezione affidabile per tutti gli utenti.",
       "mainStatement": "La nostra produzione segue il più alto standard di qualità con certificazioni ISO in tutta la catena di produzione e di valore.",
       "types": {
         "iso": {
@@ -396,7 +473,7 @@
   "contact": {
     "section": {
       "badge": "Contattaci",
-      "title": "Contatta HandLine",
+      "title": "Contatta Hand Line",
       "description": "Il nostro team è a tua disposizione per ogni esigenza di guanti di sicurezza industriale."
     },
     "form": {
@@ -437,7 +514,7 @@
       },
       "contactInfoTitle": "Informazioni di Contatto",
       "findUsTitle": "Trovarci",
-      "directionsTitle": "Viaggia verso HandLine Company",
+      "directionsTitle": "Viaggia verso Hand Line Company",
       "directionsDescription": "Ottieni indicazioni per la nostra sede principale a Como",
       "directionsButton": "Ottieni indicazioni"
     },
@@ -448,7 +525,7 @@
       "questions": [
         {
           "question": "Che tipi di guanti di sicurezza offrite?",
-          "answer": "HandLine produce una gamma completa di guanti di sicurezza, inclusi guanti resistenti al calore (fino a 350°C), guanti resistenti ai tagli (fino al Livello 5), guanti da lavoro generici, guanti resistenti alle sostanze chimiche e guanti specializzati per vari settori."
+          "answer": "Hand Line produce una gamma completa di guanti di sicurezza, inclusi guanti resistenti al calore (fino a 350°C), guanti resistenti ai tagli (fino al Livello 5), guanti da lavoro generici, guanti resistenti alle sostanze chimiche e guanti specializzati per vari settori."
         },
         {
           "question": "Come scelgo i guanti di sicurezza giusti per la mia applicazione?",
@@ -456,7 +533,7 @@
         },
         {
           "question": "I vostri guanti sono certificati CE?",
-          "answer": "Sì, tutti i guanti di sicurezza HandLine sono certificati CE e conformi alle normative europee pertinenti, inclusi EN 388 per i rischi meccanici, EN 407 per i rischi termici e altri standard di sicurezza applicabili."
+          "answer": "Sì, tutti i guanti di sicurezza Hand Line sono certificati CE e conformi alle normative europee pertinenti, inclusi EN 388 per i rischi meccanici, EN 407 per i rischi termici e altri standard di sicurezza applicabili."
         },
         {
           "question": "Offrite soluzioni personalizzate per settori specifici?",
@@ -472,7 +549,7 @@
     "hero": {
       "badge": "Siamo Qui Per Aiutarti",
       "title": "Contattaci",
-      "titleAccent": "HandLine",
+      "titleAccent": "Hand Line",
       "description": "Siamo qui per aiutarti con qualsiasi domanda tu possa avere sui nostri prodotti e soluzioni di sicurezza. Contatta il nostro team e ti risponderemo il prima possibile.",
       "stats": {
         "support": "Supporto 24/7",
@@ -489,7 +566,7 @@
   "blog": {
     "hero": {
       "badge": "Approfondimenti e Risorse",
-      "title": "HandLine",
+      "title": "Hand Line",
       "titleAccent": "Notiziario",
       "description": "Competenza leader nel settore sui guanti di sicurezza e soluzioni di protezione delle mani.",
       "exploreArticles": "Esplora Articoli",
@@ -503,7 +580,7 @@
     },
     "grid": {
       "badge": "Conoscenza della Sicurezza",
-      "title": "Risorse sulla Sicurezza HandLine",
+      "title": "Risorse sulla Sicurezza Hand Line",
       "description": "Scopri approfondimenti esperti sui guanti di sicurezza industriali, dispositivi di protezione e migliori pratiche per la protezione delle mani sul posto di lavoro.",
       "searchPlaceholder": "Cerca articoli...",
       "showing": "Mostrando",
@@ -519,7 +596,7 @@
   "caseStudies": {
     "hero": {
       "badge": "Storie di Successo",
-      "title": "HandLine",
+      "title": "Hand Line",
       "titleAccent": "Casi Studio",
       "description": "Esempi reali di come le nostre soluzioni di sicurezza hanno trasformato la protezione sul lavoro in diversi settori.",
       "exploreCaseStudies": "Esplora Casi Studio",
@@ -533,8 +610,8 @@
     },
     "grid": {
       "badge": "Storie di Successo",
-      "title": "Casi di Successo HandLine",
-      "description": "Scopri come le soluzioni di sicurezza HandLine hanno aiutato aziende di vari settori a migliorare i loro protocolli di sicurezza e proteggere la loro forza lavoro.",
+      "title": "Casi di Successo Hand Line",
+      "description": "Scopri come le soluzioni di sicurezza Hand Line hanno aiutato aziende di vari settori a migliorare i loro protocolli di sicurezza e proteggere la loro forza lavoro.",
       "searchPlaceholder": "Cerca casi studio...",
       "showing": "Mostrando",
       "caseStudies": "casi studio",
@@ -557,7 +634,7 @@
     "hero": {
       "badge": "Partnership Globali",
       "title": "Collabora con",
-      "description": "Unisciti alla nostra rete globale di partner per portare le soluzioni di sicurezza innovative di HandLine a più lavoratori in tutto il mondo. Scopri le opportunità di partnership strategiche e distribuzione.",
+      "description": "Unisciti alla nostra rete globale di partner per portare le soluzioni di sicurezza innovative di Hand Line a più lavoratori in tutto il mondo. Scopri le opportunità di partnership strategiche e distribuzione.",
       "partnerships": "Partnership Strategiche",
       "distribution": "Rete di Distribuzione",
       "stats": {
@@ -567,16 +644,16 @@
         "products": "Prodotti"
       }
     },
-    "title": "Collabora con HandLine",
-    "description": "Unisciti alla nostra rete globale di partner e distributori per portare le soluzioni di sicurezza innovative di HandLine a più lavoratori in tutto il mondo.",
+    "title": "Collabora con Hand Line",
+    "description": "Unisciti alla nostra rete globale di partner e distributori per portare le soluzioni di sicurezza innovative di Hand Line a più lavoratori in tutto il mondo.",
     "strategic": {
       "title": "Partnership Strategiche",
-      "description": "Cerchiamo leader del settore per collaborare a soluzioni di sicurezza innovative. Costruisci un'alleanza strategica con HandLine per migliorare la protezione e la produttività dei lavoratori.",
+      "description": "Cerchiamo leader del settore per collaborare a soluzioni di sicurezza innovative. Costruisci un'alleanza strategica con Hand Line per migliorare la protezione e la produttività dei lavoratori.",
       "cta": "Esplora Partnership"
     },
     "distribution": {
       "title": "Rete di Distribuzione",
-      "description": "Unisciti alla nostra crescente rete di distributori per portare i prodotti di sicurezza HandLine nella tua regione. Offriamo territori esclusivi, margini competitivi e supporto completo.",
+      "description": "Unisciti alla nostra crescente rete di distributori per portare i prodotti di sicurezza Hand Line nella tua regione. Offriamo territori esclusivi, margini competitivi e supporto completo.",
       "cta": "Diventa Distributore"
     },
     "partnerships": {
@@ -637,7 +714,7 @@
         "country": "Paese/Regione",
         "countryPlaceholder": "Il tuo paese o regione di operatività",
         "details": "Dettagli Distribuzione",
-        "detailsPlaceholder": "Parlaci delle tue capacità di distribuzione, della tua portata di mercato e del motivo per cui sei interessato ai prodotti HandLine...",
+        "detailsPlaceholder": "Parlaci delle tue capacità di distribuzione, della tua portata di mercato e del motivo per cui sei interessato ai prodotti Hand Line...",
         "submit": "Invia Richiesta Distribuzione",
         "submitting": "Invio in corso...",
         "successTitle": "Richiesta distribuzione inviata",
@@ -703,7 +780,7 @@
     "sizeNeeded": "Taglia Necessaria",
     "contactDetails": "Dettagli di Contatto",
     "emailPlaceholder": "tua.email@azienda.com",
-    "privacyConsent": "Acconsento al trattamento dei miei dati da parte di HandLine in conformità con la",
+    "privacyConsent": "Acconsento al trattamento dei miei dati da parte di Hand Line in conformità con la",
     "privacyPolicy": "Informativa Privacy",
     "and": "e",
     "terms": "Termini di Servizio",
@@ -749,7 +826,7 @@
         "badge": "Informazioni Importanti",
         "title": "Avvertenze sui",
         "titleAccent": "Prodotti",
-        "description": "Informazioni importanti sull'uso corretto, le limitazioni e la cura dei guanti di sicurezza e delle attrezzature protettive HandLine. Comprendere queste linee guida è essenziale per mantenere una protezione e prestazioni ottimali.",
+        "description": "Informazioni importanti sull'uso corretto, le limitazioni e la cura dei guanti di sicurezza e delle attrezzature protettive Hand Line. Comprendere queste linee guida è essenziale per mantenere una protezione e prestazioni ottimali.",
         "readDisclaimer": "Leggi Avvertenze",
         "enResourceCentre": "Centro Risorse EN",
         "stats": {
@@ -766,11 +843,11 @@
       "sections": {
         "usage": {
           "title": "Avvertenze sull'Uso dei Prodotti",
-          "content": "I guanti e le attrezzature protettive HandLine sono progettati per fornire protezione in ambienti di lavoro specifici quando utilizzati correttamente. I nostri prodotti si concentrano principalmente sulla protezione delle mani con soluzioni specializzate per resistenza al calore, resistenza al taglio e applicazioni generali di costruzione. Si prega di leggere e comprendere tutta la documentazione allegata prima di utilizzare qualsiasi dei nostri prodotti."
+          "content": "I guanti e le attrezzature protettive Hand Line sono progettati per fornire protezione in ambienti di lavoro specifici quando utilizzati correttamente. I nostri prodotti si concentrano principalmente sulla protezione delle mani con soluzioni specializzate per resistenza al calore, resistenza al taglio e applicazioni generali di costruzione. Si prega di leggere e comprendere tutta la documentazione allegata prima di utilizzare qualsiasi dei nostri prodotti."
         },
         "heatResistance": {
           "title": "Resistenza al Calore",
-          "content": "I prodotti che forniscono resistenza al calore o protezione contro il calore non sono destinati all'uso in temperature estreme - utilizzare solo come specificato. I guanti termoresistenti HandLine forniscono protezione contro l'esposizione momentanea al calore ma non proteggeranno contro temperature estreme, esposizione prolungata al calore o immersione in liquidi caldi. Il grado di resistenza al calore indica la capacità del prodotto in condizioni di test controllate, che potrebbero differire dalle condizioni reali del luogo di lavoro."
+          "content": "I prodotti che forniscono resistenza al calore o protezione contro il calore non sono destinati all'uso in temperature estreme - utilizzare solo come specificato. I guanti termoresistenti Hand Line forniscono protezione contro l'esposizione momentanea al calore ma non proteggeranno contro temperature estreme, esposizione prolungata al calore o immersione in liquidi caldi. Il grado di resistenza al calore indica la capacità del prodotto in condizioni di test controllate, che potrebbero differire dalle condizioni reali del luogo di lavoro."
         },
         "cutResistance": {
           "title": "Resistenza al Taglio",
@@ -778,7 +855,7 @@
         },
         "generalGuidelines": {
           "title": "Linee Guida Generali",
-          "content": "Tutti i guanti e le attrezzature di sicurezza HandLine devono essere ispezionati prima di ogni utilizzo. Non utilizzare articoli danneggiati. Seguire tutte le istruzioni di cura per mantenere le proprietà protettive dell'attrezzatura. Diversi prodotti HandLine offrono diversi tipi e livelli di protezione - selezionare sempre il prodotto appropriato per la specifica attività."
+          "content": "Tutti i guanti e le attrezzature di sicurezza Hand Line devono essere ispezionati prima di ogni utilizzo. Non utilizzare articoli danneggiati. Seguire tutte le istruzioni di cura per mantenere le proprietà protettive dell'attrezzatura. Diversi prodotti Hand Line offrono diversi tipi e livelli di protezione - selezionare sempre il prodotto appropriato per la specifica attività."
         },
         "limitations": {
           "title": "Limitazioni",
@@ -786,15 +863,15 @@
         },
         "properSelection": {
           "title": "Corretta Selezione",
-          "content": "È responsabilità del datore di lavoro e dell'utente valutare il tipo di pericolo e selezionare l'attrezzatura protettiva appropriata. HandLine offre una gamma di guanti specializzati per diverse applicazioni, inclusi guanti termoresistenti, antitaglio, da costruzione e per uso industriale generale. Consultare professionisti del settore in caso di dubbi sull'idoneità di un prodotto per l'ambiente specifico."
+          "content": "È responsabilità del datore di lavoro e dell'utente valutare il tipo di pericolo e selezionare l'attrezzatura protettiva appropriata. Hand Line offre una gamma di guanti specializzati per diverse applicazioni, inclusi guanti termoresistenti, antitaglio, da costruzione e per uso industriale generale. Consultare professionisti del settore in caso di dubbi sull'idoneità di un prodotto per l'ambiente specifico."
         },
         "modification": {
           "title": "Modifiche",
-          "content": "Qualsiasi modifica ai guanti o alle attrezzature HandLine invalida tutte le certificazioni e le richieste di garanzia. I prodotti devono essere utilizzati solo come progettati e previsto. Le alterazioni possono compromettere le proprietà protettive e potrebbero causare lesioni."
+          "content": "Qualsiasi modifica ai guanti o alle attrezzature Hand Line invalida tutte le certificazioni e le richieste di garanzia. I prodotti devono essere utilizzati solo come progettati e previsto. Le alterazioni possono compromettere le proprietà protettive e potrebbero causare lesioni."
         },
         "legalNotice": {
           "title": "Nota Legale",
-          "content": "Si incoraggiano gli utenti a usare sempre cautela e attenzione quando maneggiano materiali taglienti o abrasivi, prodotti chimici o altre sostanze pericolose. Qualsiasi informazione o dato fornito si basa sulle attuali conoscenze e comprensione di HandLine della materia, ed è offerto esclusivamente come possibile suggerimento per l'uso nel prendere le proprie decisioni o scelte di prodotto. Gli utenti dei prodotti dovrebbero condurre tutti i test appropriati o altre valutazioni per determinare l'idoneità dei prodotti HandLine per uno scopo particolare o un uso in un particolare ambiente. HandLine può rivedere queste informazioni man mano che nuove informazioni, conoscenze o esperienze diventano disponibili. In base alle normative vigenti, il datore di lavoro ha la responsabilità finale per la selezione di guanti e altri dispositivi di protezione individuale."
+          "content": "Si incoraggiano gli utenti a usare sempre cautela e attenzione quando maneggiano materiali taglienti o abrasivi, prodotti chimici o altre sostanze pericolose. Qualsiasi informazione o dato fornito si basa sulle attuali conoscenze e comprensione di Hand Line della materia, ed è offerto esclusivamente come possibile suggerimento per l'uso nel prendere le proprie decisioni o scelte di prodotto. Gli utenti dei prodotti dovrebbero condurre tutti i test appropriati o altre valutazioni per determinare l'idoneità dei prodotti Hand Line per uno scopo particolare o un uso in un particolare ambiente. Hand Line può rivedere queste informazioni man mano che nuove informazioni, conoscenze o esperienze diventano disponibili. In base alle normative vigenti, il datore di lavoro ha la responsabilità finale per la selezione di guanti e altri dispositivi di protezione individuale."
         }
       }
     },
@@ -802,7 +879,7 @@
       "hero": {
         "badge": "Unisciti al Nostro Team",
         "title": "Carriere in",
-        "titleAccent": "HandLine",
+        "titleAccent": "Hand Line",
         "description": "Entra a far parte del nostro team di professionisti appassionati dedicati alla creazione di soluzioni di sicurezza innovative. Scopri entusiasmanti opportunità di carriera che ti permettono di fare la differenza nella sicurezza sul lavoro.",
         "viewOpenings": "Visualizza Posizioni Aperte",
         "aboutCompany": "La Nostra Azienda",
@@ -823,7 +900,7 @@
   "careers": {
     "hero": {
       "badge": "Unisciti al Nostro Team",
-      "title": "Carriere in HandLine",
+      "title": "Carriere in Hand Line",
       "description": "Entra a far parte del nostro team di professionisti appassionati dedicati alla creazione di soluzioni di sicurezza innovative. Scopri entusiasmanti opportunità di carriera che ti permettono di fare la differenza nella sicurezza sul lavoro.",
       "viewOpenings": "Visualizza Posizioni Aperte",
       "aboutCompany": "La Nostra Azienda",

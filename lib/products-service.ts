@@ -10,6 +10,7 @@ export interface Product {
   sub_category?: string | null;
   temperature_rating?: number | null;
   cut_resistance_level?: string | null;
+  en_standard?: 'EN388' | 'EN407' | null;
   features: string[];
   applications: string[];
   industries: string[];
@@ -20,6 +21,7 @@ export interface Product {
   image5_url?: string | null;
   additional_images?: string[] | null;
   technical_sheet_url?: string | null;
+  declaration_sheet_url?: string | null;
   is_featured: boolean;
   out_of_stock: boolean;
   order_priority: number;
