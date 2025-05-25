@@ -2,42 +2,86 @@
 
 import React from "react";
 import { CategoryCard } from "./category-card";
+import { useLanguage } from "@/lib/context/language-context";
+import { motion } from "framer-motion";
+import { Shield } from "lucide-react";
+import Link from "next/link";
 
 export const GlovesCategories = () => {
+  const { t } = useLanguage();
+  
   const subcategories = [
     {
-      title: "Heat-Resistant Gloves",
-      description: "Advanced thermal protection for high-temperature environments up to 350°C",
+      title: t('products.categories.main.gloves.subcategories.heat.title'),
+      description: t('products.categories.main.gloves.subcategories.heat.description'),
       imageSrc: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/products/Categories/heat_resistant_gloves.png",
-      imageAlt: "Heat-Resistant Gloves",
+      imageAlt: t('products.categories.main.gloves.subcategories.heat.title'),
       href: "/products/gloves/heat"
     },
     {
-      title: "Cut-Resistant Gloves",
-      description: "Superior protection against cuts and lacerations with Level 5 resistance",
+      title: t('products.categories.main.gloves.subcategories.cut.title'),
+      description: t('products.categories.main.gloves.subcategories.cut.description'),
       imageSrc: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/products/Categories/cut_resistant_gloves.png",
-      imageAlt: "Cut-Resistant Gloves", 
+      imageAlt: t('products.categories.main.gloves.subcategories.cut.title'), 
       href: "/products/gloves/cut"
     },
     {
-      title: "General Purpose Gloves",
-      description: "Versatile protection for everyday industrial tasks and construction work",
+      title: t('products.categories.main.gloves.subcategories.general.title'),
+      description: t('products.categories.main.gloves.subcategories.general.description'),
       imageSrc: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/products/Categories/general_purpose_gloves.png",
-      imageAlt: "General Purpose Gloves",
+      imageAlt: t('products.categories.main.gloves.subcategories.general.title'),
       href: "/products/gloves/general"
     }
   ];
 
   return (
-    <section id="glove-categories" className="py-12 md:py-16">
+    <section className="py-16">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-brand-dark dark:text-white font-heading mb-4">
-            Glove Categories
-          </h2>
-          <p className="text-lg text-brand-secondary dark:text-gray-400 max-w-2xl mx-auto">
-            Choose the right protection for your specific workplace hazards and requirements.
-          </p>
+          <div className="flex flex-col items-center">
+            <Link href="/products/gloves" className="inline-block transition-transform duration-300 mb-4">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                className="inline-flex items-center rounded-full bg-white/80 dark:bg-black/60 px-3 py-1 text-xs sm:text-sm border border-[#F28C38] backdrop-blur-sm cursor-pointer"
+              >
+                <Shield className="mr-1.5 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 text-[#F28C38]" />
+                <span className="text-brand-dark dark:text-white font-medium font-heading">
+                  {t('products.categories.main.gloves.badge')}
+                </span>
+              </motion.div>
+            </Link>
+            <div className="inline-flex items-center justify-center mb-4">
+              <motion.div 
+                initial={{ width: 0 }}
+                whileInView={{ width: "2.5rem" }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="h-1 w-10 bg-[#F28C38] rounded-full mr-3"
+              ></motion.div>
+              <h2 className="text-3xl md:text-4xl font-bold text-brand-dark dark:text-white font-heading">
+                {t('products.categories.main.gloves.title')} Categories
+              </h2>
+              <motion.div 
+                initial={{ width: 0 }}
+                whileInView={{ width: "2.5rem" }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="h-1 w-10 bg-[#F28C38] rounded-full ml-3"
+              ></motion.div>
+            </div>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="text-lg text-brand-secondary dark:text-gray-300 max-w-2xl mx-auto"
+            >
+              {t('products.categories.main.gloves.categoriesDescription')}
+            </motion.p>
+          </div>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

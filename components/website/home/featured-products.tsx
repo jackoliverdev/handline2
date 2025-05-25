@@ -226,17 +226,24 @@ export const FeaturedProducts = () => {
                               </div>
                             </motion.div>
                           )}
-                          {product.cut_resistance_level && (
+                          {product.cut_resistance_level && product.en_standard && (
                             <motion.div 
                               initial={{ opacity: 0, y: 5 }}
                               animate={{ opacity: 1, y: 0 }}
                               transition={{ delay: 0.7 + (index * 0.05), duration: 0.3 }}
                               className="flex items-center"
                             >
-                              <Scissors className="h-3 w-3 sm:h-4 sm:w-4 text-brand-primary mr-1 sm:mr-1.5" />
+                              <div className="relative w-4 h-4 sm:w-6 sm:h-6 mr-1 sm:mr-1.5 flex-shrink-0">
+                                <Image
+                                  src={`/images/standards/${product.en_standard}.png`}
+                                  alt={product.en_standard}
+                                  fill
+                                  className="object-contain"
+                                />
+                              </div>
                               <div>
-                                <p className="text-2xs sm:text-xs text-brand-secondary dark:text-gray-400">{t('featuredProducts.specs.cutLevel')}</p>
-                                <p className="text-sm sm:text-base font-medium text-brand-dark dark:text-white">{product.cut_resistance_level}</p>
+                                <p className="text-2xs sm:text-xs text-brand-secondary dark:text-gray-400">EN Standards</p>
+                                <p className="text-sm sm:text-base font-medium text-brand-dark dark:text-white">{product.en_standard}</p>
                               </div>
                             </motion.div>
                           )}

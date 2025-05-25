@@ -10,6 +10,14 @@
     "menu": "Menu",
     "partners": "Partner",
     "resources": "Risorse",
+    "allProducts": "Tutti i Prodotti",
+    "safetyGloves": "Guanti di Sicurezza",
+    "allGloves": "Tutti i Guanti",
+    "heatResistant": "Termoresistenti",
+    "cutResistant": "Antitaglio",
+    "generalPurpose": "Uso Generale",
+    "industrialSwabs": "Tamponi Industriali",
+    "respiratoryProtection": "Protezione Respiratoria",
     "aboutDropdown": {
       "ourCompany": "La Nostra Azienda",
       "careers": "Lavora con Noi"
@@ -165,6 +173,7 @@
     "badge": "Soluzioni per Settori",
     "title": "Soluzioni per Settori",
     "description": "Progettiamo protezioni specializzate per le mani per un'ampia gamma di settori industriali, garantendo sicurezza, comfort e precisione per ogni applicazione.",
+    "detailedDescription": "Partiamo dalla persona e progettiamo soluzioni attorno alle loro esigenze. Con quasi mezzo secolo di servizio a grandi organizzazioni, abbiamo sviluppato una profonda competenza del settore per aiutare i nostri clienti a migliorare la protezione e ottimizzare la produttività.",
     "noIndustries": "Nessuna soluzione per settori disponibile al momento.",
     "learnMore": "Scopri di più",
     "viewAll": "Vedi tutti i settori"
@@ -216,11 +225,15 @@
   "products": {
     "categories": {
       "main": {
+        "badge": "Categorie Prodotti",
         "title": "Categorie Prodotti",
         "description": "Esplora la nostra gamma completa di prodotti di sicurezza industriale progettati per proteggere i lavoratori in vari settori.",
         "gloves": {
+          "badge": "Guanti di Sicurezza",
           "title": "Guanti di Sicurezza",
           "description": "Guanti protettivi ad alte prestazioni per tutte le applicazioni industriali",
+          "categoriesDescription": "Scegli dalla nostra gamma specializzata di guanti di sicurezza progettati per specifiche applicazioni industriali.",
+          "detailedDescription": "La nostra gamma completa di guanti di sicurezza offre una protezione superiore in tutte le applicazioni industriali. Dalla resistenza al calore estremo alla protezione avanzata contro i tagli, i nostri guanti sono progettati con ingegneria di precisione e testati per superare gli standard del settore. Ogni categoria è specificamente adattata per affrontare le sfide uniche di diversi ambienti di lavoro mantenendo comfort e destrezza.",
           "subcategories": {
             "heat": {
               "title": "Guanti Termoresistenti",
@@ -237,16 +250,54 @@
           }
         },
         "industrialSwabs": {
+          "badge": "Tamponi Industriali",
           "title": "Tamponi Industriali",
-          "description": "Soluzioni specializzate per pulizia e manutenzione in ambienti industriali"
+          "description": "Soluzioni specializzate di pulizia e manutenzione per ambienti industriali",
+          "detailedDescription": "I nostri tamponi industriali forniscono soluzioni specializzate di pulizia e manutenzione per ambienti industriali impegnativi. Progettati per attività di pulizia di precisione, questi tamponi di alta qualità sono essenziali per la produzione elettronica, l'assemblaggio automobilistico, le applicazioni aerospaziali e la manutenzione industriale generale dove pulizia e precisione sono critiche."
         },
         "respiratory": {
+          "badge": "Protezione Respiratoria",
           "title": "Protezione Respiratoria",
-          "description": "Dispositivi avanzati di protezione respiratoria per ambienti pericolosi"
+          "description": "Dispositivi avanzati di protezione respiratoria per ambienti pericolosi",
+          "detailedDescription": "Le nostre attrezzature per la protezione respiratoria forniscono una protezione avanzata contro i rischi aerodispersi in ambienti industriali. Dalle maschere antipolvere ai respiratori facciali completi, i nostri prodotti sono progettati per soddisfare i più alti standard di sicurezza garantendo comfort durante l'uso prolungato. Essenziali per costruzioni, produzione, lavorazione chimica e qualsiasi ambiente con contaminanti aerodispersi."
+        }
+      },
+      "pages": {
+        "heat": {
+          "badge": "Protezione Termica",
+          "title": "Prodotti Termoresistenti",
+          "description": "Sfoglia la nostra gamma completa di guanti termoresistenti progettati per la protezione da temperature estreme.",
+          "detailedDescription": "I nostri guanti termoresistenti forniscono una protezione termica eccezionale per i lavoratori in ambienti ad alta temperatura. Progettati con materiali avanzati e testati per resistere a temperature fino a 350°C, questi guanti offrono una protezione superiore senza compromettere la destrezza. Perfetti per la produzione del vetro, la lavorazione dei metalli, la saldatura e altre applicazioni industriali ad alto calore."
+        },
+        "cut": {
+          "badge": "Protezione dal Taglio",
+          "title": "Prodotti Antitaglio",
+          "description": "Sfoglia la nostra gamma completa di guanti antitaglio progettati per la massima protezione contro oggetti taglienti.",
+          "detailedDescription": "I nostri guanti antitaglio forniscono una protezione superiore contro tagli e lacerazioni mantenendo una destrezza e un comfort eccezionali. Progettati con materiali avanzati e testati per raggiungere la resistenza al taglio di Livello 5, questi guanti sono essenziali per i lavoratori che maneggiano materiali taglienti, vetro, fabbricazione di metalli e operazioni di assemblaggio di precisione."
+        },
+        "general": {
+          "badge": "Uso Generale",
+          "title": "Prodotti Uso Generale",
+          "description": "Sfoglia la nostra gamma completa di guanti uso generale progettati per attività industriali quotidiane.",
+          "detailedDescription": "I nostri guanti per uso generale forniscono una protezione affidabile per attività industriali quotidiane e lavori di costruzione. Progettati per versatilità e comfort, questi guanti offrono eccellente presa, durata e protezione per un'ampia gamma di applicazioni inclusi lavori di assemblaggio, movimentazione materiali, attività di manutenzione e attività generali di costruzione."
+        },
+        "respiratory": {
+          "badge": "Sicurezza Respiratoria",
+          "title": "Prodotti Protezione Respiratoria",
+          "description": "Sfoglia la nostra gamma completa di dispositivi di protezione respiratoria per ambienti pericolosi."
+        },
+        "industrialSwabs": {
+          "badge": "Pulizia di Precisione",
+          "title": "Prodotti Tamponi Industriali",
+          "description": "Sfoglia la nostra gamma completa di tamponi industriali progettati per attività di pulizia di precisione.",
+          "detailedDescription": "Esplora la nostra gamma di soluzioni di pulizia specializzate progettate per applicazioni industriali."
         }
       }
     },
     "browseTitle": "Sfoglia i Nostri Prodotti",
+    "badge": "I Nostri Prodotti",
+    "mainPageTitle": "Sfoglia Tutti i Nostri Prodotti",
+    "mainPageDescription": "Esplora la nostra gamma completa di prodotti per la sicurezza industriale e dispositivi di protezione progettati per ambienti professionali.",
     "searchPlaceholder": "Cerca prodotti...",
     "sortOptions": {
       "featured": "In Evidenza",
@@ -265,7 +316,12 @@
       "uncategorised": "Senza categoria",
       "activeFilters": "Filtri attivi:",
       "clearAll": "Cancella Tutto",
-      "apply": "Applica"
+      "apply": "Applica",
+      "heatResistantGloves": "Guanti Termoresistenti",
+      "cutResistantGloves": "Guanti Antitaglio",
+      "generalPurposeGloves": "Guanti Uso Generale",
+      "industrialSwabs": "Tamponi Industriali",
+      "respiratoryProtection": "Protezione Respiratoria"
     },
     "results": {
       "showing": "Mostrando {current} di {total} prodotti",

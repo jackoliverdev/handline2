@@ -83,23 +83,23 @@ export function Footer() {
                         </Link>
                         <Link href="/products/gloves/cut" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary transition-colors">
                           Cut-Resistant
-                        </Link>
+                    </Link>
                         <Link href="/products/gloves/general" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary transition-colors">
                           General Purpose
-                        </Link>
+                    </Link>
                       </div>
                     )}
                   </div>
                   <Link href="/products/industrial-swabs" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary transition-colors">
                     Industrial Swabs
-                  </Link>
+                    </Link>
                   <Link href="/products/respiratory" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary transition-colors">
                     Respiratory Protection
-                  </Link>
+                    </Link>
                 </div>
               )}
-            </div>
-
+              </div>
+              
             {/* Industries */}
             <div className="min-w-[120px]">
               <button 
@@ -112,21 +112,21 @@ export function Footer() {
               {isIndustriesOpen && (
                 <div className="mt-2 flex flex-col gap-1 text-sm animate-in slide-in-from-top-2 duration-200">
                   <Link href="/industries/glass" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary transition-colors">
-                    {t('footer.sections.industries.links.glass')}
-                  </Link>
+                      {t('footer.sections.industries.links.glass')}
+                    </Link>
                   <Link href="/industries/metal" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary transition-colors">
-                    {t('footer.sections.industries.links.metalworking')}
-                  </Link>
+                      {t('footer.sections.industries.links.metalworking')}
+                    </Link>
                   <Link href="/industries/welding" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary transition-colors">
-                    {t('footer.sections.industries.links.welding')}
-                  </Link>
+                      {t('footer.sections.industries.links.welding')}
+                    </Link>
                   <Link href="/industries/automotive" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary transition-colors">
-                    {t('footer.sections.industries.links.automotive')}
-                  </Link>
+                      {t('footer.sections.industries.links.automotive')}
+                    </Link>
                 </div>
               )}
-            </div>
-
+              </div>
+              
             {/* Company */}
             <div className="min-w-[120px]">
               <button 
@@ -139,38 +139,38 @@ export function Footer() {
               {isCompanyOpen && (
                 <div className="mt-2 flex flex-col gap-1 text-sm animate-in slide-in-from-top-2 duration-200">
                   <Link href="/about" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary transition-colors">
-                    {t('footer.sections.company.links.about')}
-                  </Link>
+                      {t('footer.sections.company.links.about')}
+                    </Link>
                   <Link href="/about#certifications" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary transition-colors">
-                    {t('footer.sections.company.links.certifications')}
-                  </Link>
+                      {t('footer.sections.company.links.certifications')}
+                    </Link>
                   <Link href="/resources/blog" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary transition-colors">
-                    {t('footer.sections.company.links.blog')}
-                  </Link>
+                      {t('footer.sections.company.links.blog')}
+                    </Link>
                   <Link href="/contact" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary transition-colors">
-                    {t('footer.sections.company.links.contact')}
-                  </Link>
-                </div>
+                      {t('footer.sections.company.links.contact')}
+                    </Link>
+              </div>
               )}
             </div>
           </div>
         </div>
-
+        
         {/* Bottom copyright line */}
         <div className="border-t border-gray-200 dark:border-gray-800 mt-4 pt-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <p className="text-sm text-gray-500 dark:text-gray-400">
             &copy; {currentYear} Hand Line S.r.l. {t('footer.legal.copyright')}
-          </p>
+            </p>
           <div className="flex gap-4 text-sm">
             <Link href="/legal?tab=privacy" className="text-gray-500 dark:text-gray-400 hover:text-brand-primary transition-colors">
-              {t('footer.legal.links.privacy')}
-            </Link>
+                {t('footer.legal.links.privacy')}
+              </Link>
             <Link href="/legal?tab=terms" className="text-gray-500 dark:text-gray-400 hover:text-brand-primary transition-colors">
-              {t('footer.legal.links.terms')}
-            </Link>
+                {t('footer.legal.links.terms')}
+              </Link>
             <Link href="/legal?tab=cookies" className="text-gray-500 dark:text-gray-400 hover:text-brand-primary transition-colors">
-              {t('footer.legal.links.cookies')}
-            </Link>
+                {t('footer.legal.links.cookies')}
+              </Link>
           </div>
         </div>
       </div>

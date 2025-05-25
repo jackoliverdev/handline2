@@ -91,10 +91,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
               <span>{product.temperature_rating}°C</span>
             </div>
           )}
-          {product.cut_resistance_level && (
+          {product.cut_resistance_level && product.en_standard && (
             <div className="flex items-center text-xs sm:text-sm text-brand-secondary dark:text-gray-300">
-              <Scissors className="mr-1 h-3 w-3 sm:h-4 sm:w-4 text-brand-primary" />
-              <span>{product.cut_resistance_level}</span>
+              <div className="relative w-4 h-4 sm:w-5 sm:h-5 mr-1 flex-shrink-0">
+                <Image
+                  src={`/images/standards/${product.en_standard}.png`}
+                  alt={product.en_standard}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <span>{product.en_standard}</span>
             </div>
           )}
         </div>

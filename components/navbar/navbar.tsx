@@ -22,10 +22,10 @@ const getNavItems = (t: any) => [
     label: t("navbar.products"),
     hasDropdown: true,
     dropdownItems: [
-      { href: "/products", label: "All Products" },
-      { href: "/products/gloves", label: "Safety Gloves" },
-      { href: "/products/industrial-swabs", label: "Industrial Swabs" },
-      { href: "/products/respiratory", label: "Respiratory Protection" },
+      { href: "/products", label: t("navbar.allProducts") },
+      { href: "/products/gloves", label: t("navbar.safetyGloves") },
+      { href: "/products/industrial-swabs", label: t("navbar.industrialSwabs") },
+      { href: "/products/respiratory", label: t("navbar.respiratoryProtection") },
     ]
   },
   { href: "/industries", label: t("navbar.industries") },

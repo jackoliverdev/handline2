@@ -156,7 +156,7 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                       onClick={onClose}
                     >
                       <LayoutDashboard className="h-4 w-4 text-slate-400 mr-2" />
-                      <span className="text-sm">All Products</span>
+                      <span className="text-sm">{t('navbar.allProducts')}</span>
                     </Link>
                   </div>
 
@@ -167,7 +167,7 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                   >
                     <div className="flex items-center">
                       <Shield className="h-4 w-4 text-slate-400 mr-2" />
-                      <span className="text-sm">Safety Gloves</span>
+                      <span className="text-sm">{t('navbar.safetyGloves')}</span>
                     </div>
                     {expandedCategory === 'gloves' ? (
                       <ChevronDown className="h-3.5 w-3.5 text-slate-500" />
@@ -179,25 +179,32 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                   {expandedCategory === 'gloves' && (
                     <div className="ml-6 pl-2 border-l border-[#333333]">
                       <Link 
+                        href="/products/gloves"
+                        className="block py-1.5 text-xs text-slate-400 hover:text-white"
+                        onClick={onClose}
+                      >
+                        {t('navbar.allGloves')}
+                      </Link>
+                      <Link 
                         href="/products/gloves/heat"
                         className="block py-1.5 text-xs text-slate-400 hover:text-white"
                         onClick={onClose}
                       >
-                        Heat-Resistant
+                        {t('navbar.heatResistant')}
                       </Link>
                       <Link 
                         href="/products/gloves/cut"
                         className="block py-1.5 text-xs text-slate-400 hover:text-white"
                         onClick={onClose}
                       >
-                        Cut-Resistant
+                        {t('navbar.cutResistant')}
                       </Link>
                       <Link 
                         href="/products/gloves/general"
                         className="block py-1.5 text-xs text-slate-400 hover:text-white"
                         onClick={onClose}
                       >
-                        General Purpose
+                        {t('navbar.generalPurpose')}
                       </Link>
                     </div>
                   )}
@@ -210,7 +217,7 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                       onClick={onClose}
                     >
                       <Scissors className="h-4 w-4 text-slate-400 mr-2" />
-                      <span className="text-sm">Industrial Swabs</span>
+                      <span className="text-sm">{t('navbar.industrialSwabs')}</span>
                     </Link>
                   </div>
 
@@ -222,7 +229,7 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                       onClick={onClose}
                     >
                       <Shield className="h-4 w-4 text-slate-400 mr-2" />
-                      <span className="text-sm">Respiratory Protection</span>
+                      <span className="text-sm">{t('navbar.respiratoryProtection')}</span>
                     </Link>
                   </div>
                 </div>

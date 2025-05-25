@@ -10,6 +10,14 @@
     "menu": "Menu",
     "partners": "Partners",
     "resources": "Resources",
+    "allProducts": "All Products",
+    "safetyGloves": "Safety Gloves",
+    "allGloves": "All Gloves",
+    "heatResistant": "Heat-Resistant",
+    "cutResistant": "Cut-Resistant",
+    "generalPurpose": "General Purpose",
+    "industrialSwabs": "Industrial Swabs",
+    "respiratoryProtection": "Respiratory Protection",
     "aboutDropdown": {
       "ourCompany": "Our Company",
       "careers": "Careers"
@@ -161,6 +169,7 @@
     "badge": "Sector Solutions",
     "title": "Industry Solutions",
     "description": "We design specialised hand protection for a wide range of industries, ensuring safety, comfort, and precision for every application.",
+    "detailedDescription": "We start from the person and design solutions around their needs. With almost half a century serving large organisations, we've developed deep industry expertise to help our customers improve protection and optimise productivity.",
     "noIndustries": "No industry solutions available at the moment.",
     "learnMore": "Learn more",
     "viewAll": "View all industries"
@@ -212,11 +221,15 @@
   "products": {
     "categories": {
       "main": {
+        "badge": "Product Categories",
         "title": "Product Categories",
         "description": "Explore our comprehensive range of industrial safety products designed to protect workers across various industries.",
         "gloves": {
+          "badge": "Safety Gloves",
           "title": "Safety Gloves",
           "description": "High-performance protective gloves for all industrial applications",
+          "categoriesDescription": "Choose from our specialised range of safety gloves designed for specific industrial applications.",
+          "detailedDescription": "Our comprehensive range of safety gloves provides superior protection across all industrial applications. From extreme heat resistance to advanced cut protection, our gloves are designed with precision engineering and tested to exceed industry standards. Each category is specifically tailored to meet the unique challenges of different work environments while maintaining comfort and dexterity.",
           "subcategories": {
             "heat": {
               "title": "Heat-Resistant Gloves",
@@ -233,16 +246,54 @@
           }
         },
         "industrialSwabs": {
+          "badge": "Industrial Swabs",
           "title": "Industrial Swabs",
-          "description": "Specialised cleaning and maintenance solutions for industrial environments"
+          "description": "Specialised cleaning and maintenance solutions for industrial environments",
+          "detailedDescription": "Our industrial swabs provide specialised cleaning and maintenance solutions for demanding industrial environments. Designed for precision cleaning tasks, these high-quality swabs are essential for electronics manufacturing, automotive assembly, aerospace applications, and general industrial maintenance where cleanliness and precision are critical."
         },
         "respiratory": {
+          "badge": "Respiratory Protection",
           "title": "Respiratory Protection",
-          "description": "Advanced respiratory protection equipment for hazardous environments"
+          "description": "Advanced respiratory protection equipment for hazardous environments",
+          "detailedDescription": "Our respiratory protection equipment provides advanced protection against airborne hazards in industrial environments. From dust masks to full-face respirators, our products are designed to meet the highest safety standards whilst ensuring comfort during extended use. Essential for construction, manufacturing, chemical processing, and any environment with airborne contaminants."
+        }
+      },
+      "pages": {
+        "heat": {
+          "badge": "Heat Protection",
+          "title": "Heat-Resistant Products",
+          "description": "Browse our complete range of heat-resistant gloves designed for extreme temperature protection.",
+          "detailedDescription": "Our heat-resistant gloves provide exceptional thermal protection for workers in high-temperature environments. Engineered with advanced materials and tested to withstand temperatures up to 350°C, these gloves offer superior protection without compromising dexterity. Perfect for glass manufacturing, metalworking, welding, and other high-heat industrial applications."
+        },
+        "cut": {
+          "badge": "Cut Protection",
+          "title": "Cut-Resistant Products", 
+          "description": "Browse our complete range of cut-resistant gloves designed for maximum protection against sharp objects.",
+          "detailedDescription": "Our cut-resistant gloves provide superior protection against cuts and lacerations whilst maintaining exceptional dexterity and comfort. Engineered with advanced materials and tested to achieve Level 5 cut resistance, these gloves are essential for workers handling sharp materials, glass, metal fabrication, and precision assembly operations."
+        },
+        "general": {
+          "badge": "General Purpose",
+          "title": "General Purpose Products",
+          "description": "Browse our complete range of general purpose gloves designed for everyday industrial tasks.",
+          "detailedDescription": "Our general purpose gloves provide reliable protection for everyday industrial tasks and construction work. Designed for versatility and comfort, these gloves offer excellent grip, durability, and protection for a wide range of applications including assembly work, material handling, maintenance tasks, and general construction activities."
+        },
+        "respiratory": {
+          "badge": "Respiratory Safety",
+          "title": "Respiratory Protection Products",
+          "description": "Browse our complete range of respiratory protection equipment for hazardous environments."
+        },
+        "industrialSwabs": {
+          "badge": "Precision Cleaning",
+          "title": "Industrial Swab Products",
+          "description": "Browse our complete range of industrial swabs designed for precision cleaning tasks.",
+          "detailedDescription": "Explore our range of specialised cleaning solutions designed for industrial applications."
         }
       }
     },
     "browseTitle": "Browse Our Products",
+    "badge": "Our Products",
+    "mainPageTitle": "Browse All of Our Products",
+    "mainPageDescription": "Explore our complete range of industrial safety products and protective equipment designed for professional environments.",
     "searchPlaceholder": "Search products...",
     "sortOptions": {
       "featured": "Featured",
@@ -261,7 +312,12 @@
       "allCategories": "All Categories",
       "uncategorised": "Uncategorised",
       "activeFilters": "Active filters:",
-      "apply": "Apply"
+      "apply": "Apply",
+      "heatResistantGloves": "Heat-Resistant Gloves",
+      "cutResistantGloves": "Cut-Resistant Gloves",
+      "generalPurposeGloves": "General Purpose Gloves",
+      "industrialSwabs": "Industrial Swabs",
+      "respiratoryProtection": "Respiratory Protection"
     },
     "results": {
       "showing": "Showing {current} of {total} products",

@@ -56,7 +56,6 @@ export const IndustrySolutions = () => {
   useEffect(() => {
     const loadIndustries = async () => {
       try {
-        setLoading(true);
         const { data } = await getAllIndustries(language);
         // Take only the first 4 industries for display
         setIndustries(data.slice(0, 4));
@@ -68,7 +67,7 @@ export const IndustrySolutions = () => {
     };
     
     loadIndustries();
-  }, [language]); // Add language as a dependency
+  }, [language]);
   
   // Get the first paragraph of the description for a summary
   const getShortDescription = (industry: Industry) => {
@@ -144,7 +143,7 @@ export const IndustrySolutions = () => {
               variants={itemVariants}
               className="max-w-5xl text-lg text-brand-secondary dark:text-gray-300 mx-auto"
             >
-              We start from the person and design solutions around their needs. With almost half a century serving large organisations, we've developed deep industry expertise to help our customers improve protection and optimise productivity.
+              {t('industrySolutions.detailedDescription')}
             </motion.p>
           </div>
         </motion.div>
