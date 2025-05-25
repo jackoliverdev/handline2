@@ -7,13 +7,14 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
-import { ChevronLeft, Flame, Scissors, User2, Link2, Download, ListChecks, ChevronRight } from "lucide-react";
+import { ChevronLeft, Flame, Scissors, User2, Link2, Download, ListChecks, ChevronRight, Shield } from "lucide-react";
 import { ProductImageGallery } from "@/components/website/products/product-image-gallery";
 import { ProductCard } from "@/components/website/products/product-card";
 import { SampleModal } from "@/components/website/products/sample-modal";
 
 export function ProductDetail({ product, relatedProducts }: { product: any, relatedProducts: any[] }) {
   const { t, language } = useLanguage();
+  
   // Localise product fields
   const name = product.name_locales?.[language] || product.name;
   const description = product.description_locales?.[language] || product.description;
@@ -129,26 +130,24 @@ export function ProductDetail({ product, relatedProducts }: { product: any, rela
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {product.temperature_rating && (
                         <div className="group relative overflow-hidden rounded-lg border bg-[#F5EFE0]/80 dark:bg-transparent shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm dark:backdrop-blur-none p-4">
-                          <div className="flex items-center gap-2 mb-2">
+                          <div className="flex items-center justify-center gap-2 mb-3">
                             <Flame className="h-5 w-5 text-brand-primary" />
                             <h3 className="font-medium text-brand-dark dark:text-white">{t('productPage.temperatureRating')}</h3>
                           </div>
-                          <p className="text-brand-secondary dark:text-gray-300">{product.temperature_rating}°C</p>
+                          <div className="flex items-center justify-center h-12">
+                            <p className="text-brand-secondary dark:text-gray-300 font-medium text-lg">{product.temperature_rating}°C</p>
+                          </div>
                         </div>
                       )}
                       {product.cut_resistance_level && product.en_standard && (
                         <div className="group relative overflow-hidden rounded-lg border bg-[#F5EFE0]/80 dark:bg-transparent shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm dark:backdrop-blur-none p-4">
-                          <div className="flex items-center gap-3 mb-3">
-                            {product.en_standard === 'EN407' ? (
-                              <Flame className="h-5 w-5 text-brand-primary" />
-                            ) : (
-                              <Scissors className="h-5 w-5 text-brand-primary" />
-                            )}
+                          <div className="flex items-center justify-center gap-3 mb-3">
+                            <Shield className="h-5 w-5 text-brand-primary" />
                             <h3 className="font-medium text-brand-dark dark:text-white">
                               EN Standards
                             </h3>
                           </div>
-                          <div className="flex items-center gap-3">
+                          <div className="flex items-center justify-center gap-3 h-12">
                             <div className="relative w-12 h-12 flex-shrink-0">
                               <Image
                                 src={`/images/standards/${product.en_standard}.png`}
@@ -158,7 +157,9 @@ export function ProductDetail({ product, relatedProducts }: { product: any, rela
                               />
                             </div>
                             <div>
-                              <p className="text-brand-secondary dark:text-gray-300 font-medium">{product.cut_resistance_level}</p>
+                              <p className="text-brand-secondary dark:text-gray-300 font-medium text-lg">
+                                {product.en_standard}
+                              </p>
                             </div>
                           </div>
                         </div>
