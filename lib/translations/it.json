@@ -556,13 +556,20 @@
     "info": {
       "title": "Informazioni di Contatto",
       "description": "Puoi raggiungerci presso la nostra sede o utilizzando i dettagli qui sotto.",
+      "offices": {
+        "switchLabel": "Sede",
+        "italy": "Sede Italia",
+        "uk": "Sede Regno Unito"
+      },
       "address": {
         "title": "Sede Legale",
-        "content": "via Antonio Bruse 34, 22035, Canzo (CO), Italia"
+        "content": "via Antonio Bruse 34, 22035, Canzo (CO), Italia",
+        "contentUK": "121 London Road, London, EC1V 2NX"
       },
       "phone": {
         "title": "Telefono",
-        "content": "+39 031 123 4567"
+        "content": "+39 031 123 4567",
+        "contentUK": "+44 1279 421947"
       },
       "email": {
         "title": "Email",
@@ -572,6 +579,7 @@
       "findUsTitle": "Trovarci",
       "directionsTitle": "Viaggia verso Hand Line Company",
       "directionsDescription": "Ottieni indicazioni per la nostra sede principale a Como",
+      "directionsDescriptionUK": "Ottieni indicazioni per il nostro ufficio nel Regno Unito a Londra",
       "directionsButton": "Ottieni indicazioni"
     },
     "faq": {
@@ -999,7 +1007,32 @@
       "benefits": "Benefici",
       "responsibilities": "Responsabilità",
       "salary": "Stipendio",
-      "applyNow": "Candidati Ora"
+      "applyNow": "Candidati Ora",
+      "location": "Sede",
+      "jobType": "Tipo di Lavoro",
+      "posted": "Pubblicato",
+      "quickActions": "Azioni Rapide",
+      "sharePosition": "Condividi questa posizione",
+      "backToCareers": "Torna alle Carriere",
+      "readyToJoin": "Pronto a Unirti al Nostro Team?",
+      "excitedToLearn": "Siamo entusiasti di conoscerti meglio e discutere di come puoi contribuire alla nostra missione."
+    },
+    "application": {
+      "title": "Candidati per la Posizione",
+      "personalInfo": "Informazioni Personali",
+      "firstName": "Nome",
+      "lastName": "Cognome",
+      "email": "Indirizzo Email",
+      "phone": "Numero di Telefono",
+      "documents": "Documenti",
+      "cv": "CV/Curriculum",
+      "coverLetter": "Lettera di Presentazione",
+      "fileSelected": "File selezionato",
+      "additionalInfo": "Informazioni Aggiuntive",
+      "message": "Messaggio",
+      "messagePlaceholder": "Raccontaci perché sei interessato a questa posizione e cosa ti rende perfetto per questo ruolo...",
+      "availableFrom": "Disponibile dal",
+      "submit": "Invia Candidatura"
     }
   }
 } 

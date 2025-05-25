@@ -1,11 +1,12 @@
 "use client";
 import { useLanguage } from '@/lib/context/language-context';
 import { CareerMarkdownContent } from './career-markdown-content';
+import { JobApplicationModal } from './job-application-modal';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ChevronLeft, Calendar, MapPin, Building, Briefcase, Share2, Linkedin, Twitter, Facebook, Copy, Check } from 'lucide-react';
+import { ChevronLeft, Calendar, MapPin, Building, Briefcase, Share2, Linkedin, Twitter, Facebook, Copy, Check, Clock, Euro, Users } from 'lucide-react';
 import type { CareerPost } from '@/lib/career-service';
 import { useState, useEffect } from 'react';
 import {
@@ -31,6 +32,7 @@ export default function CareerPostClient({ post }: { post: CareerPost }) {
   
   const [currentUrl, setCurrentUrl] = useState<string>('');
   const [copySuccess, setCopySuccess] = useState(false);
+  const [isApplicationModalOpen, setIsApplicationModalOpen] = useState(false);
 
   useEffect(() => {
     // Set the current URL when the component mounts (client-side only)
@@ -96,128 +98,131 @@ ${salaryRange ? `# ${t('careers.post.salary')}\n\n${salaryRange}` : ''}
   `;
 
   return (
-    <main className="flex flex-col min-h-[100dvh] bg-[#F5EFE0]/80 dark:bg-transparent pt-8 md:pt-12">
-      {/* Background decoration */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="bg-grid-primary/[0.02] absolute inset-0 [mask-image:radial-gradient(white,transparent_85%)]" />
-        <div className="absolute -top-1/3 right-0 -z-10 h-[600px] w-[600px] rounded-full bg-brand-primary/5 blur-[100px]" />
-        <div className="absolute bottom-0 left-0 -z-10 h-[300px] w-[300px] rounded-full bg-brand-primary/10 blur-[100px]" />
+    <main className="min-h-screen bg-[#F5EFE0]/80 dark:bg-background pt-20">
+      {/* Back Navigation */}
+      <div className="bg-[#F5EFE0]/90 dark:bg-background border-b border-brand-primary/20 dark:border-gray-700 backdrop-blur-sm">
+        <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <Button variant="ghost" size="sm" asChild className="text-brand-secondary hover:text-brand-dark dark:text-gray-400 dark:hover:text-white">
+            <Link href="/careers" className="flex items-center gap-2">
+              <ChevronLeft className="h-4 w-4" />
+              {t('careers.post.backToCareers')}
+            </Link>
+          </Button>
+        </div>
       </div>
 
       {/* Hero Section */}
-      <section className="relative w-full pt-4 pb-8 md:py-12">
-        <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-2 border-b border-brand-primary/10">
-          {/* Back Button */}
-          <div className="mb-6">
-            <Button variant="outline" size="sm" asChild className="bg-[#F5EFE0]/90 hover:bg-[#F5EFE0] dark:bg-transparent dark:hover:bg-black/20 border-brand-primary/20 hover:border-brand-primary/40 dark:border-brand-primary/30 dark:hover:border-brand-primary/50 transition-all duration-200">
-              <Link href="/careers" className="flex items-center gap-1.5 text-brand-dark dark:text-gray-200 hover:text-brand-primary dark:hover:text-brand-primary">
-                <ChevronLeft className="h-4 w-4 text-brand-primary" />
-                {t('careers.backToCareers')}
-              </Link>
-            </Button>
+      <section className="bg-[#F5EFE0]/80 dark:bg-background py-12 lg:py-16">
+        <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Department Badge */}
+          <div className="mb-4">
+            <Badge className="bg-brand-primary/10 text-brand-primary border-brand-primary/20">
+              {department}
+            </Badge>
           </div>
-
-          <div className="space-y-6">
-            {/* Featured Image */}
-            {post.image_url && (
-              <div className="relative aspect-[21/9] w-full overflow-hidden rounded-xl">
-                <Image
-                  src={post.image_url}
-                  alt={title}
-                  fill
-                  priority
-                  className="object-cover transition-all duration-500 hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 70vw"
-                />
-                <div className="absolute inset-0 rounded-xl border border-brand-primary/10 bg-gradient-to-t from-background/50 via-transparent to-transparent" />
-              </div>
-            )}
-
-            {/* Title */}
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl text-brand-dark dark:text-white">
-              {title}
-            </h1>
-
-            {/* Meta */}
-            <div className="flex flex-wrap items-center gap-6 text-brand-secondary dark:text-gray-300">
-              <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10">
-                  <Building className="h-4 w-4 text-brand-primary" />
-                </div>
-                <span>{department}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10">
-                  <MapPin className="h-4 w-4 text-brand-primary" />
-                </div>
-                <span>{location}</span>
-              </div>
-              {post.published_at && (
-                <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10">
-                    <Calendar className="h-4 w-4 text-brand-primary" />
+          
+          {/* Job Title */}
+          <h1 className="text-4xl lg:text-5xl font-bold text-brand-dark dark:text-white mb-4">
+            {title}
+          </h1>
+          
+          {/* Job Summary */}
+          <p className="text-xl text-brand-secondary dark:text-gray-300 leading-relaxed mb-8">
+            {summary}
+          </p>
+          
+          {/* Job Meta and Quick Actions Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            {/* Job Meta Tiles */}
+            <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="bg-white/60 dark:bg-transparent rounded-lg p-4 border border-brand-primary/20 dark:border-gray-700">
+                <div className="flex items-center text-brand-secondary dark:text-gray-300">
+                  <MapPin className="mr-3 h-5 w-5 text-brand-primary flex-shrink-0" />
+                  <div>
+                    <p className="text-sm text-brand-secondary/70 dark:text-gray-400">{t('careers.post.location')}</p>
+                    <p className="font-semibold text-brand-dark dark:text-white">{location}</p>
                   </div>
-                  <span>{formatDate(post.published_at)}</span>
+                </div>
+              </div>
+              <div className="bg-white/60 dark:bg-transparent rounded-lg p-4 border border-brand-primary/20 dark:border-gray-700">
+                <div className="flex items-center text-brand-secondary dark:text-gray-300">
+                  <Clock className="mr-3 h-5 w-5 text-brand-primary flex-shrink-0" />
+                  <div>
+                    <p className="text-sm text-brand-secondary/70 dark:text-gray-400">{t('careers.post.jobType')}</p>
+                    <p className="font-semibold text-brand-dark dark:text-white">{jobType}</p>
+                  </div>
+                </div>
+              </div>
+              {salaryRange && (
+                <div className="bg-white/60 dark:bg-transparent rounded-lg p-4 border border-brand-primary/20 dark:border-gray-700">
+                  <div className="flex items-center text-brand-secondary dark:text-gray-300">
+                    <Euro className="mr-3 h-5 w-5 text-brand-primary flex-shrink-0" />
+                    <div>
+                      <p className="text-sm text-brand-secondary/70 dark:text-gray-400">{t('careers.post.salary')}</p>
+                      <p className="font-semibold text-brand-dark dark:text-white">{salaryRange}</p>
+                    </div>
+                  </div>
                 </div>
               )}
-              <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10">
-                  <Briefcase className="h-4 w-4 text-brand-primary" />
+              {post.published_at && (
+                <div className="bg-white/60 dark:bg-transparent rounded-lg p-4 border border-brand-primary/20 dark:border-gray-700">
+                  <div className="flex items-center text-brand-secondary dark:text-gray-300">
+                    <Calendar className="mr-3 h-5 w-5 text-brand-primary flex-shrink-0" />
+                    <div>
+                      <p className="text-sm text-brand-secondary/70 dark:text-gray-400">{t('careers.post.posted')}</p>
+                      <p className="font-semibold text-brand-dark dark:text-white">{formatDate(post.published_at)}</p>
+                    </div>
+                  </div>
                 </div>
-                <span>{jobType}</span>
-              </div>
-              <div className="ml-auto">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon" className="rounded-full hover:bg-brand-primary/10">
-                      <Share2 className="h-4 w-4 text-brand-primary" />
-                      <span className="sr-only">Share</span>
+              )}
+            </div>
+            
+            {/* Quick Actions Sidebar */}
+            <div className="lg:col-span-1">
+              <div className="bg-white/90 dark:bg-transparent rounded-xl p-6 h-full border border-brand-primary/20 dark:border-gray-700 backdrop-blur-sm flex flex-col">
+                <h3 className="text-lg font-semibold text-brand-dark dark:text-white mb-6">
+                  {t('careers.post.quickActions')}
+                </h3>
+                
+                {/* Apply Button */}
+                <Button 
+                  size="lg" 
+                  className="bg-brand-primary text-white hover:bg-brand-primary/90 transition-all duration-300 px-6 py-3 text-base font-medium"
+                  onClick={() => setIsApplicationModalOpen(true)}
+                >
+                  {t('careers.post.applyNow')}
+                </Button>
+                
+                {/* Share Options */}
+                <div className="border-t border-brand-primary/20 dark:border-gray-700 pt-4 mt-auto">
+                  <h4 className="text-sm font-medium text-brand-dark dark:text-white mb-3">
+                    {t('careers.post.sharePosition')}
+                  </h4>
+                  <div className="flex gap-2">
+                    <Button variant="outline" size="sm" asChild>
+                      <a href={linkedinShareUrl} target="_blank" rel="noopener noreferrer">
+                        <Linkedin className="h-4 w-4 text-[#0077B5]" />
+                      </a>
                     </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56">
-                    <DropdownMenuItem asChild>
-                      <a 
-                        href={linkedinShareUrl} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="flex cursor-pointer items-center"
-                      >
-                        <Linkedin className="mr-2 h-4 w-4 text-[#0077B5]" />
-                        <span>Share to LinkedIn</span>
+                    <Button variant="outline" size="sm" asChild>
+                      <a href={twitterShareUrl} target="_blank" rel="noopener noreferrer">
+                        <Twitter className="h-4 w-4 text-[#1DA1F2]" />
                       </a>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <a 
-                        href={twitterShareUrl} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="flex cursor-pointer items-center"
-                      >
-                        <Twitter className="mr-2 h-4 w-4 text-[#1DA1F2]" />
-                        <span>Share to Twitter</span>
+                    </Button>
+                    <Button variant="outline" size="sm" asChild>
+                      <a href={facebookShareUrl} target="_blank" rel="noopener noreferrer">
+                        <Facebook className="h-4 w-4 text-[#4267B2]" />
                       </a>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <a 
-                        href={facebookShareUrl} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="flex cursor-pointer items-center"
-                      >
-                        <Facebook className="mr-2 h-4 w-4 text-[#4267B2]" />
-                        <span>Share to Facebook</span>
-                      </a>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={copyToClipboard} className="flex cursor-pointer items-center">
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={copyToClipboard}>
                       {copySuccess ? (
-                        <Check className="mr-2 h-4 w-4 text-green-500" />
+                        <Check className="h-4 w-4 text-green-500" />
                       ) : (
-                        <Copy className="mr-2 h-4 w-4" />
+                        <Copy className="h-4 w-4" />
                       )}
-                      <span>{copySuccess ? "Copied!" : "Copy link"}</span>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                    </Button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -225,20 +230,35 @@ ${salaryRange ? `# ${t('careers.post.salary')}\n\n${salaryRange}` : ''}
       </section>
 
       {/* Content Section */}
-      <section className="w-full pt-0 md:pt-0 pb-12 md:pb-16">
+      <section className="bg-[#F5EFE0]/80 dark:bg-background py-6 lg:py-8">
         <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div>
-            <CareerMarkdownContent content={fullContent} />
-            
-            {/* Apply Now Button */}
-            <div className="mt-10 flex justify-center">
-              <Button size="lg" className="bg-brand-primary text-white hover:bg-brand-primary/90">
-                {t('careers.post.applyNow')}
-              </Button>
-            </div>
+          <CareerMarkdownContent content={fullContent} />
+          
+          {/* Bottom Apply Section */}
+          <div className="mt-12 text-center bg-white/90 dark:bg-transparent rounded-xl p-8 border border-brand-primary/20 dark:border-gray-700 backdrop-blur-sm">
+            <h3 className="text-2xl font-bold text-brand-dark dark:text-white mb-4">
+              {t('careers.post.readyToJoin')}
+            </h3>
+            <p className="text-brand-secondary dark:text-gray-300 mb-6 max-w-2xl mx-auto">
+              {t('careers.post.excitedToLearn')}
+            </p>
+            <Button 
+              size="lg" 
+              className="bg-brand-primary text-white hover:bg-brand-primary/90 px-8"
+              onClick={() => setIsApplicationModalOpen(true)}
+            >
+              {t('careers.post.applyNow')}
+            </Button>
           </div>
         </div>
       </section>
+
+      {/* Job Application Modal */}
+      <JobApplicationModal
+        post={post}
+        isOpen={isApplicationModalOpen}
+        onClose={() => setIsApplicationModalOpen(false)}
+      />
     </main>
   );
 } 

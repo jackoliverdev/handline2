@@ -538,13 +538,20 @@
     "info": {
       "title": "Contact Information",
       "description": "Reach us at our headquarters or using the details below.",
+      "offices": {
+        "switchLabel": "Office Location",
+        "italy": "Italy Office",
+        "uk": "UK Office"
+      },
       "address": {
         "title": "Registered Office",
-        "content": "via Antonio Bruse 34, 22035, Canzo (CO), Italy"
+        "content": "via Antonio Bruse 34, 22035, Canzo (CO), Italy",
+        "contentUK": "121 London Road, London, EC1V 2NX"
       },
       "phone": {
         "title": "Telephone",
-        "content": "+39 031 123 4567"
+        "content": "+39 031 123 4567",
+        "contentUK": "+44 1279 421947"
       },
       "email": {
         "title": "Email",
@@ -554,6 +561,7 @@
       "findUsTitle": "Find Us",
       "directionsTitle": "Travel to Hand Line Company",
       "directionsDescription": "Get directions to our main facility in Como",
+      "directionsDescriptionUK": "Get directions to our UK office in London",
       "directionsButton": "Get directions"
     },
     "faq": {
@@ -972,7 +980,32 @@
       "benefits": "Benefits",
       "responsibilities": "Responsibilities",
       "salary": "Salary",
-      "applyNow": "Apply Now"
+      "applyNow": "Apply Now",
+      "location": "Location",
+      "jobType": "Job Type", 
+      "posted": "Posted",
+      "quickActions": "Quick Actions",
+      "sharePosition": "Share this position",
+      "backToCareers": "Back to Careers",
+      "readyToJoin": "Ready to Join Our Team?",
+      "excitedToLearn": "We're excited to learn more about you and discuss how you can contribute to our mission."
+    },
+    "application": {
+      "title": "Apply for Position",
+      "personalInfo": "Personal Information",
+      "firstName": "First Name",
+      "lastName": "Last Name", 
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "documents": "Documents",
+      "cv": "CV/Resume",
+      "coverLetter": "Cover Letter",
+      "fileSelected": "File selected",
+      "additionalInfo": "Additional Information",
+      "message": "Message",
+      "messagePlaceholder": "Tell us why you're interested in this position and what makes you a great fit...",
+      "availableFrom": "Available From",
+      "submit": "Submit Application"
     }
   }
 } 

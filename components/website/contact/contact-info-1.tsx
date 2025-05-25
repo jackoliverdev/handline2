@@ -16,27 +16,15 @@ declare global {
 // Use environment variable for API key
 const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
-// Office data
-const officeData = {
-  italy: {
-    name: "Hand Line Company s.r.l.",
-    address: "via Antonio Bruse 34, 22035, Canzo (CO), Italy",
-    phone: "+39 031 123 4567",
-    email: "info@handlineco.com",
-    location: {
-      lat: 45.8686, // Canzo, Italy coordinates
-      lng: 9.2715
-    }
-  },
-  uk: {
-    name: "Hand Line Company s.r.l.",
-    address: "121 London Road, London, EC1V 2NX",
-    phone: "+44 1279 421947",
-    email: "info@handlineco.com", 
-    location: {
-      lat: 51.5074, // London coordinates
-      lng: -0.1278
-    }
+// Company details
+const companyDetails = {
+  name: "Hand Line Company s.r.l.",
+  address: "via Antonio Bruse 34, 22035, Canzo (CO), Italy",
+  phone: "+39 02 1234 5678",
+  email: "info@handlineco.com",
+  location: {
+    lat: 45.8686, // Canzo, Italy coordinates
+    lng: 9.2715
   }
 };
 
@@ -56,10 +44,6 @@ export function ContactInfo() {
   const modalRef = useRef<HTMLDivElement>(null);
   const svgContainerRef = useRef<HTMLDivElement>(null);
   const [isDesktop, setIsDesktop] = useState(false);
-  const [selectedOffice, setSelectedOffice] = useState<'italy' | 'uk'>('italy');
-  
-  // Get current office data
-  const currentOffice = officeData[selectedOffice];
   
   // Responsive check for desktop
   useEffect(() => {
@@ -155,7 +139,7 @@ export function ContactInfo() {
       if (!mapRef.current) return;
       
       const mapOptions = {
-        center: currentOffice.location,
+        center: companyDetails.location,
         zoom: 5,
         zoomControl: true,
         mapTypeControl: false,
@@ -171,7 +155,7 @@ export function ContactInfo() {
         defaultTravelMode: "DRIVING",
         distanceMeasurementType: "IMPERIAL",
         mapOptions: {
-          center: currentOffice.location,
+          center: companyDetails.location,
           fullscreenControl: true,
           mapTypeControl: false,
           streetViewControl: false,
@@ -180,11 +164,7 @@ export function ContactInfo() {
           maxZoom: 20,
           mapId: "",
         },
-        mapsApiKey: GOOGLE_MAPS_API_KEY,
-        officeName: currentOffice.name,
-        officeAddress: currentOffice.address,
-        directionsTitle: t('contact.info.directionsTitle'),
-        directionsDescription: selectedOffice === 'italy' ? t('contact.info.directionsDescription') : t('contact.info.directionsDescriptionUK')
+        mapsApiKey: GOOGLE_MAPS_API_KEY
       };
       
       // Initialize the Commutes functionality
@@ -240,7 +220,7 @@ export function ContactInfo() {
 
             // Create info window for the marker
             const infoWindow = new google.maps.InfoWindow({
-              content: \`<div style="font-family: Montserrat, Arial, sans-serif; padding: 8px;"><strong>\${configuration.officeName || 'Hand Line Company s.r.l.'}</strong><br>\${configuration.officeAddress || origin}</div>\`
+              content: '<div style="font-family: Montserrat, Arial, sans-serif; padding: 8px;"><strong>Hand Line Company s.r.l.</strong><br>via Antonio Bruse 34, 22035, Canzo (CO), Italy</div>'
             });
             
             // Open info window by default
@@ -289,10 +269,10 @@ export function ContactInfo() {
                           if (infoPanel) {
                             infoPanel.innerHTML = \`
                               <h1 class="heading" style="font: 14px Montserrat, Arial, sans-serif; margin: 0;">
-                                \${configuration.directionsTitle || 'Travel to Hand Line Company'}
+                                \${t('contact.info.directionsTitle')}
                               </h1>
                               <p style="font: 12px Open Sans, Arial, sans-serif; margin: 5px 0;">
-                                \${configuration.directionsDescription || 'Get directions to our main facility'}
+                                \${t('contact.info.directionsDescription')}
                               </p>
                             \`;
                           }
@@ -333,18 +313,18 @@ export function ContactInfo() {
         }
       });
     };
-  }, [isDesktop, selectedOffice, currentOffice]);
+  }, [isDesktop]);
   
   const contactInfo = [
     {
       icon: Building2,
       title: t('contact.info.address.title'),
-      content: selectedOffice === 'italy' ? t('contact.info.address.content') : t('contact.info.address.contentUK'),
+      content: t('contact.info.address.content'),
     },
     {
       icon: Phone,
       title: t('contact.info.phone.title'),
-      content: selectedOffice === 'italy' ? t('contact.info.phone.content') : t('contact.info.phone.contentUK'),
+      content: t('contact.info.phone.content'),
     },
     {
       icon: Mail,
@@ -369,54 +349,20 @@ export function ContactInfo() {
       </motion.div>
       <div className="space-y-6">
         <Card className="p-6 bg-[#F5EFE0]/80 dark:bg-transparent border-brand-primary/10 dark:border-brand-primary/20 shadow-sm backdrop-blur-sm">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-xl font-semibold text-brand-dark dark:text-white">{t('contact.info.contactInfoTitle')}</h3>
-            
-            {/* Office Switcher */}
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-brand-secondary dark:text-gray-300">{t('contact.info.offices.switchLabel')}:</span>
-              <div className="flex bg-white dark:bg-gray-800 rounded-lg p-1 border border-brand-primary/10 dark:border-brand-primary/20">
-                <button
-                  onClick={() => setSelectedOffice('italy')}
-                  className={`px-3 py-1 text-sm rounded-md transition-colors ${
-                    selectedOffice === 'italy'
-                      ? 'bg-brand-primary text-white'
-                      : 'text-brand-secondary dark:text-gray-300 hover:text-brand-dark dark:hover:text-white'
-                  }`}
-                >
-                  {t('contact.info.offices.italy')}
-                </button>
-                <button
-                  onClick={() => setSelectedOffice('uk')}
-                  className={`px-3 py-1 text-sm rounded-md transition-colors ${
-                    selectedOffice === 'uk'
-                      ? 'bg-brand-primary text-white'
-                      : 'text-brand-secondary dark:text-gray-300 hover:text-brand-dark dark:hover:text-white'
-                  }`}
-                >
-                  {t('contact.info.offices.uk')}
-                </button>
-              </div>
-            </div>
-          </div>
-          
+          <h3 className="text-xl font-semibold mb-4 text-brand-dark dark:text-white">{t('contact.info.contactInfoTitle')}</h3>
           <div className="space-y-2">
             <div className="flex items-start gap-3">
               <Building2 className="h-5 w-5 text-brand-primary mt-1" />
               <div>
                 <div className="font-medium text-brand-dark dark:text-white">{t('contact.info.address.title')}</div>
-                <div className="text-brand-secondary dark:text-gray-300">
-                  {selectedOffice === 'italy' ? t('contact.info.address.content') : t('contact.info.address.contentUK')}
-                </div>
+                <div className="text-brand-secondary dark:text-gray-300">{t('contact.info.address.content')}</div>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <Phone className="h-5 w-5 text-brand-primary mt-1" />
               <div>
                 <div className="font-medium text-brand-dark dark:text-white">{t('contact.info.phone.title')}</div>
-                <div className="text-brand-secondary dark:text-gray-300">
-                  {selectedOffice === 'italy' ? t('contact.info.phone.content') : t('contact.info.phone.contentUK')}
-                </div>
+                <div className="text-brand-secondary dark:text-gray-300">{t('contact.info.phone.content')}</div>
               </div>
             </div>
             <div className="flex items-start gap-3">
@@ -495,7 +441,7 @@ export function ContactInfo() {
                         {t('contact.info.directionsTitle')}
                       </h1>
                       <p style={{ color: '#5A5A5A', font: '12px Open Sans, Arial, sans-serif', margin: '4px 0 0 0', lineHeight: '1.3' }}>
-                        {selectedOffice === 'italy' ? t('contact.info.directionsDescription') : t('contact.info.directionsDescriptionUK')}
+                        {t('contact.info.directionsDescription')}
                       </p>
                     </div>
                     
@@ -544,13 +490,13 @@ export function ContactInfo() {
             // Mobile: show static map image or simple Google Maps embed
             <div className="w-full max-w-[95vw] mx-auto rounded-lg overflow-hidden h-56 sm:h-64" style={{ background: '#e5e3df', position: 'relative' }}>
               <a
-                href={`https://www.google.com/maps/place/${currentOffice.address.replace(/ /g, '+')}`}
+                href="https://www.google.com/maps/place/via+Antonio+Bruse+34,+22035+Canzo,+Italy"
                 target="_blank" rel="noopener noreferrer"
                 aria-label="Open HandLine Safety location in Google Maps"
               >
                 <img
-                  src={`https://maps.googleapis.com/maps/api/staticmap?center=${currentOffice.location.lat},${currentOffice.location.lng}&zoom=13&size=600x300&markers=color:orange%7C${currentOffice.location.lat},${currentOffice.location.lng}&key=${GOOGLE_MAPS_API_KEY}`}
-                  alt={`${currentOffice.name} location map`}
+                  src={`https://maps.googleapis.com/maps/api/staticmap?center=45.8686,9.2715&zoom=13&size=600x300&markers=color:orange%7C45.8686,9.2715&key=${GOOGLE_MAPS_API_KEY}`}
+                  alt="Hand Line Company s.r.l. location map"
                   className="w-full h-full object-cover"
                   style={{ minHeight: '100%', minWidth: '100%' }}
                   onError={e => { (e.target as HTMLImageElement).src = '/static/map-fallback.jpg'; }}

@@ -24,23 +24,21 @@ export default function CareerRoot({ careerPosts }: { careerPosts: CareerPost[] 
   }, []);
 
   return (
-    <main className="flex flex-col min-h-[100dvh]">
+    <main className="flex flex-col min-h-screen bg-[#F5EFE0]/80 dark:bg-background">
       <CareersHero language={language} />
-      <div id="career-grid" className="bg-[#F5EFE0]/80 dark:bg-transparent py-12">
-        {showDebug && (
-          <div className="container mx-auto px-4 mb-8 p-4 bg-red-50 border border-red-200 rounded-md">
-            <h3 className="text-lg font-semibold text-red-700 mb-2">Debug Information</h3>
-            <p className="mb-2">Posts received: {careerPosts.length}</p>
-            <pre className="bg-white p-3 rounded text-xs overflow-auto max-h-60">
-              {JSON.stringify(careerPosts, null, 2)}
-            </pre>
-            <p className="mt-2 text-sm text-gray-600">
-              Press Ctrl+Shift+D to hide this debug panel
-            </p>
-          </div>
-        )}
-        <CareerGrid careerPosts={careerPosts} language={language} />
-      </div>
+      {showDebug && (
+        <div className="container mx-auto px-4 mb-8 p-4 bg-red-50 border border-red-200 rounded-md">
+          <h3 className="text-lg font-semibold text-red-700 mb-2">Debug Information</h3>
+          <p className="mb-2">Posts received: {careerPosts.length}</p>
+          <pre className="bg-white p-3 rounded text-xs overflow-auto max-h-60">
+            {JSON.stringify(careerPosts, null, 2)}
+          </pre>
+          <p className="mt-2 text-sm text-gray-600">
+            Press Ctrl+Shift+D to hide this debug panel
+          </p>
+        </div>
+      )}
+      <CareerGrid careerPosts={careerPosts} language={language} />
     </main>
   );
 } 
