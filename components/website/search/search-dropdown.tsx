@@ -57,7 +57,7 @@ export function SearchDropdown({
         // Use the comprehensive search API with language parameter
         const response = await fetch('/api/search/all?' + new URLSearchParams({
           q: query,
-          limit: '5',
+          limit: '10',
           language: language
         }));
         

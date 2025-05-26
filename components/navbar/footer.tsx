@@ -25,7 +25,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="bg-white/90 dark:bg-black/90 border-t border-gray-200 dark:border-gray-800">
+    <footer className="bg-white/100 dark:bg-black/100 border-t border-gray-200 dark:border-gray-800">
       <div className="container mx-auto px-4 py-6">
         {/* Single row layout */}
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
@@ -38,7 +38,13 @@ export function Footer() {
                   src="/Logo-HLC.png" 
                   alt="HandLine Logo" 
                   fill
-                  className="object-contain"
+                  className="object-contain block dark:hidden"
+                />
+                <Image 
+                  src="/LogoWHITE.png" 
+                  alt="HandLine Logo" 
+                  fill
+                  className="object-contain hidden dark:block"
                 />
               </div>
               <div>

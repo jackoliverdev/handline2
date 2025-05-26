@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { DeclarationsHero } from "@/components/website/declarations/hero";
+import { DeclarationsHero } from "@/components/website/resources/declarations/hero";
 import { ProductList } from "@/components/website/resources/declarations/product-list";
 import { getAllProducts } from "@/lib/products-service";
 

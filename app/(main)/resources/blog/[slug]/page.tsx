@@ -10,9 +10,9 @@ import it from '@/lib/translations/it.json';
 import { getBlogBySlug, getRelatedBlogs } from '@/lib/blog-service';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { BlogCard } from '@/components/website/blog/blog-card';
-import { MarkdownContent } from '@/components/website/blog/markdown-content';
-import BlogPostClient from '@/components/website/blog/BlogPostClient';
+import { BlogCard } from '@/components/website/resources/blog/blog-card';
+import { MarkdownContent } from '@/components/website/resources/blog/markdown-content';
+import BlogPostClient from '@/components/website/resources/blog/BlogPostClient';
 
 interface BlogPostPageProps {
   params: {

@@ -126,7 +126,7 @@ export function ContactFaq() {
             transition={{ delay: 0.4, duration: 0.5 }}
             className="mt-12 text-center"
           >
-            <Button asChild variant="outline" className="group font-medium rounded-lg border-2 border-brand-primary/30 text-brand-primary hover:bg-brand-primary/5 dark:text-white dark:border-white/20 dark:hover:bg-white/5 transition-all duration-300">
+            <Button asChild variant="default" className="group font-medium rounded-lg bg-[#F28C38] hover:bg-[#F28C38]/90 text-white transition-all duration-300 hover:scale-105 hover:shadow-xl transform">
               <Link
                 href="#contact-form"
                 className="flex items-center gap-2"

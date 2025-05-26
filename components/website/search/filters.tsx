@@ -10,10 +10,9 @@ import { cn } from '@/lib/utils';
 
 interface SearchFiltersProps {
   selectedContentTypes: ContentType[];
-  selectedCategory: string;
   sortBy: 'relevance' | 'newest' | 'alphabetical';
+  sortDirection: 'asc' | 'desc';
   onContentTypesChange: (contentTypes: ContentType[]) => void;
-  onCategoryChange: (category: string) => void;
   onSortChange: (sort: 'relevance' | 'newest' | 'alphabetical') => void;
   totalResults: number;
   isLoading: boolean;
@@ -21,10 +20,9 @@ interface SearchFiltersProps {
 
 export function SearchFilters({
   selectedContentTypes,
-  selectedCategory,
   sortBy,
+  sortDirection,
   onContentTypesChange,
-  onCategoryChange,
   onSortChange,
   totalResults,
   isLoading
@@ -42,27 +40,32 @@ export function SearchFilters({
     { key: 'en_resource', labelKey: 'search.contentTypes.en_resource', icon: '📋' }
   ];
 
-  // Category options - these would typically come from the API
-  const categoryOptions = [
-    { key: '', labelKey: 'search.filters.allCategories' },
-    { key: 'Heat-Resistant Gloves', labelKey: 'search.categories.heatResistant' },
-    { key: 'Cut-Resistant Gloves', labelKey: 'search.categories.cutResistant' },
-    { key: 'General Purpose Gloves', labelKey: 'search.categories.generalPurpose' },
-    { key: 'Industrial Swabs', labelKey: 'search.categories.industrialSwabs' },
-    { key: 'Respiratory Protection', labelKey: 'search.categories.respiratory' },
-    { key: 'industry', labelKey: 'search.categories.industry' },
-    { key: 'blog', labelKey: 'search.categories.blog' },
-    { key: 'case_study', labelKey: 'search.categories.caseStudy' },
-    { key: 'career', labelKey: 'search.categories.career' },
-    { key: 'en_resource', labelKey: 'search.categories.enResource' }
+  // Sort options
+  const getSortOptions = () => [
+    { key: 'relevance' as const, labelKey: 'search.sorting.relevance', icon: Grid3X3 },
+    { 
+      key: 'newest' as const, 
+      labelKey: sortBy === 'newest' && sortDirection === 'desc' 
+        ? 'search.sorting.oldest' 
+        : 'search.sorting.newest', 
+      icon: sortBy === 'newest' && sortDirection === 'desc' ? SortAsc : SortDesc,
+      customLabel: sortBy === 'newest' 
+        ? (sortDirection === 'desc' ? 'Oldest First' : 'Newest First')
+        : undefined
+    },
+    { 
+      key: 'alphabetical' as const, 
+      labelKey: sortBy === 'alphabetical' && sortDirection === 'desc' 
+        ? 'search.sorting.alphabeticalDesc' 
+        : 'search.sorting.alphabetical', 
+      icon: sortBy === 'alphabetical' && sortDirection === 'desc' ? SortDesc : SortAsc,
+      customLabel: sortBy === 'alphabetical' 
+        ? (sortDirection === 'desc' ? 'Z-A' : 'A-Z')
+        : undefined
+    }
   ];
 
-  // Sort options
-  const sortOptions = [
-    { key: 'relevance' as const, labelKey: 'search.sorting.relevance', icon: Grid3X3 },
-    { key: 'newest' as const, labelKey: 'search.sorting.newest', icon: SortDesc },
-    { key: 'alphabetical' as const, labelKey: 'search.sorting.alphabetical', icon: SortAsc }
-  ];
+  const sortOptions = getSortOptions();
 
   // Handle content type toggle
   const handleContentTypeToggle = (contentType: ContentType) => {
@@ -76,12 +79,11 @@ export function SearchFilters({
   // Clear all filters
   const clearAllFilters = () => {
     onContentTypesChange([]);
-    onCategoryChange('');
     onSortChange('relevance');
   };
 
   // Get active filters count
-  const activeFiltersCount = selectedContentTypes.length + (selectedCategory ? 1 : 0);
+  const activeFiltersCount = selectedContentTypes.length;
 
   return (
     <div className="space-y-6">
@@ -161,7 +163,9 @@ export function SearchFilters({
                   )}
                 >
                   <Icon className="h-4 w-4" />
-                  <span>{t(option.labelKey)}</span>
+                  <span>
+                    {option.customLabel || t(option.labelKey)}
+                  </span>
                   {sortBy === option.key && (
                     <Check className="h-4 w-4 ml-auto" />
                   )}
@@ -198,32 +202,6 @@ export function SearchFilters({
           </div>
         </div>
 
-        {/* Categories */}
-        <div className="space-y-3">
-          <h4 className="font-medium text-gray-900 dark:text-white text-sm">
-            {t('search.filters.category')}
-          </h4>
-          <div className="space-y-1">
-            {categoryOptions.map((option) => (
-              <button
-                key={option.key}
-                onClick={() => onCategoryChange(option.key)}
-                className={cn(
-                  "w-full flex items-center justify-between p-2 rounded-lg text-sm transition-colors text-left",
-                  selectedCategory === option.key
-                    ? "bg-brand-primary text-white"
-                    : "hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
-                )}
-              >
-                <span>{t(option.labelKey)}</span>
-                {selectedCategory === option.key && (
-                  <Check className="h-4 w-4" />
-                )}
-              </button>
-            ))}
-          </div>
-        </div>
-
         {/* Applied Filters */}
         {activeFiltersCount > 0 && (
           <div className="space-y-3 pt-4 border-t border-gray-200 dark:border-gray-700">
@@ -246,16 +224,6 @@ export function SearchFilters({
                   </Badge>
                 ) : null;
               })}
-              {selectedCategory && (
-                <Badge
-                  variant="secondary"
-                  className="bg-brand-primary text-white cursor-pointer hover:bg-brand-primary/90"
-                  onClick={() => onCategoryChange('')}
-                >
-                  {t(categoryOptions.find(opt => opt.key === selectedCategory)?.labelKey || 'search.filters.category')}
-                  <X className="h-3 w-3 ml-1" />
-                </Badge>
-              )}
             </div>
           </div>
         )}

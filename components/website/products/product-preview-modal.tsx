@@ -25,21 +25,35 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
   // Encode the product name for use in URLs
   const encodedProductName = encodeURIComponent(product.name);
   
-  // Collect all available images
+  // Function to clean and validate image URLs
+  const cleanImageUrl = (url: string | null | undefined): string | null => {
+    if (!url) return null;
+    // Remove any trailing curly braces or other invalid characters
+    const cleaned = url.replace(/[{}]/g, '').trim();
+    // Validate it's a proper URL
+    try {
+      new URL(cleaned);
+      return cleaned;
+    } catch {
+      return null;
+    }
+  };
+  
+  // Collect all available images with cleaning
   const allImages = [
-    product.image_url,
-    product.image2_url,
-    product.image3_url,
-    product.image4_url,
-    product.image5_url
+    cleanImageUrl(product.image_url),
+    cleanImageUrl(product.image2_url),
+    cleanImageUrl(product.image3_url),
+    cleanImageUrl(product.image4_url),
+    cleanImageUrl(product.image5_url)
   ].filter(Boolean) as string[];
   
   // State to track the currently selected image
-  const [selectedImage, setSelectedImage] = useState(product.image_url || "");
+  const [selectedImage, setSelectedImage] = useState(allImages[0] || "");
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[800px] max-w-[95vw] p-0 gap-0 bg-white dark:bg-black/50 backdrop-blur-sm border border-gray-100 dark:border-gray-700/50 shadow-2xl max-h-[85vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-[800px] max-w-[95vw] p-0 gap-0 bg-white dark:bg-black/100 backdrop-blur-sm border border-gray-100 dark:border-gray-700/50 shadow-2xl max-h-[85vh] overflow-y-auto">
         
         {/* Header with title and badges */}
         <div className="p-6 pb-4 border-b border-gray-100 dark:border-gray-700/50">

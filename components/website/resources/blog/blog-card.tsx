@@ -141,7 +141,7 @@ export function BlogCard({ post, index, language }: BlogCardProps) {
         <Button 
           variant="default" 
           size="sm" 
-          className="w-full mt-4 bg-gradient-to-r from-brand-primary to-orange-500 hover:from-brand-primary/90 hover:to-orange-500/90 text-white font-medium transition-all duration-300 group-hover:shadow-lg"
+          className="w-full mt-4 bg-[#F28C38] hover:bg-[#F28C38]/90 text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl transform"
           asChild
         >
           <Link href={`/resources/blog/${post.slug}`} className="flex items-center justify-center">

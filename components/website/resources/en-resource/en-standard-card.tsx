@@ -52,12 +52,12 @@ export function EnStandardCard({ standard, index, language }: EnStandardCardProp
       
       {/* Standard Image */}
       <Link href={`/resources/en-resource-centre/${standard.slug}`} className="block overflow-hidden">
-        <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
+        <div className="relative aspect-square w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
           <Image
             src={imageUrl}
             alt={title}
             fill
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            className="object-contain transition-transform duration-300 group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
           <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
@@ -105,12 +105,12 @@ export function EnStandardCard({ standard, index, language }: EnStandardCardProp
           <Button 
             variant="default" 
             size="sm" 
-            className="h-8 text-xs bg-brand-primary text-white hover:bg-brand-primary/90"
+            className="h-8 text-xs bg-[#F28C38] text-white hover:bg-[#F28C38]/90 hover:shadow-lg hover:scale-105 transition-all duration-300 transform"
             asChild
           >
             <Link href={`/resources/en-resource-centre/${standard.slug}`} className="flex items-center justify-center">
               <span>{t('standards.viewStandard')}</span>
-              <ArrowRight className="h-3 w-3 ml-1" />
+              <ArrowRight className="h-3 w-3 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </Button>
           
@@ -118,12 +118,12 @@ export function EnStandardCard({ standard, index, language }: EnStandardCardProp
             <Button
               variant="outline"
               size="sm"
-              className="h-8 text-xs border-brand-primary text-brand-primary hover:bg-brand-primary/10"
+              className="h-8 text-xs border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
               asChild
             >
               <a href={standard.downloads[0].url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
                 <span>{t('standards.download')}</span>
-                <Download className="h-3 w-3 ml-1" />
+                <Download className="h-3 w-3 ml-1 transition-transform duration-300 group-hover:translate-y-[-1px]" />
               </a>
             </Button>
           )}

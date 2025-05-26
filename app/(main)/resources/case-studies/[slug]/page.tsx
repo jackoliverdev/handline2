@@ -10,9 +10,9 @@ import it from '@/lib/translations/it.json';
 import { getCaseStudyBySlug, getRelatedCaseStudies } from '@/lib/case-studies-service';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { CaseStudyCard } from '@/components/website/case-studies/case-study-card';
-import { MarkdownContent } from '@/components/website/case-studies/markdown-content';
-import CaseStudyClient from '@/components/website/case-studies/CaseStudyClient';
+import { CaseStudyCard } from '@/components/website/resources/case-studies/case-study-card';
+import { MarkdownContent } from '@/components/website/resources/case-studies/markdown-content';
+import CaseStudyClient from '@/components/website/resources/case-studies/CaseStudyClient';
 
 interface CaseStudyPageProps {
   params: {

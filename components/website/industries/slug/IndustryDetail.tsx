@@ -8,7 +8,7 @@ import { localiseIndustry } from "@/lib/industries-service";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ProductCard } from "@/components/website/products/product-card";
-import { MarkdownContent } from "@/components/website/blog/markdown-content";
+import { MarkdownContent } from "@/components/website/resources/blog/markdown-content";
 import { FeaturesSection } from "../components/FeaturesSection";
 import { motion } from "framer-motion";
 
@@ -40,14 +40,14 @@ export function IndustryDetail({ industry, relatedProducts }: { industry: any, r
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="relative w-full pt-4 pb-0 md:py-12"
+        className="relative w-full pt-12 pb-8 md:pt-20 md:pb-12"
       >
         {/* Back Button - Floating */}
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
-          className="absolute top-6 left-4 sm:left-6 lg:left-8 z-10"
+          className="absolute top-16 left-4 sm:left-6 lg:left-8 z-10"
         >
           <Button variant="outline" size="sm" asChild className="bg-white/90 dark:bg-black/70 hover:bg-white dark:hover:bg-black/90 border-white/20 dark:border-white/10 hover:border-brand-primary/40 dark:hover:border-brand-primary/50 transition-all duration-200 backdrop-blur-md shadow-lg">
             <Link href="/industries" className="flex items-center gap-1.5 text-brand-dark dark:text-gray-200 hover:text-brand-primary dark:hover:text-brand-primary">
@@ -302,12 +302,13 @@ export function IndustryDetail({ industry, relatedProducts }: { industry: any, r
 
             <div className="mt-8 text-center">
               <Button
-                variant="outline"
+                variant="default"
                 size="lg"
-                className="border-brand-primary text-brand-primary hover:bg-brand-primary/10"
+                className="bg-[#F28C38] hover:bg-[#F28C38]/90 text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl transform"
                 asChild
               >
-                <Link href="/products">
+                <Link href="/products" className="flex items-center gap-2">
+                  <Package className="h-5 w-5" />
                   {t('products.browseTitle')}
                 </Link>
               </Button>

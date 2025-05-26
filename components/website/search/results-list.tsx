@@ -4,7 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Loader2, AlertCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { SearchResultItem } from '@/components/search/search-result-item';
+import { SearchResultItem } from '@/components/website/search/search-result-item';
 import { useLanguage } from '@/lib/context/language-context';
 import type { SearchResult } from '@/lib/search-types';
 import { cn } from '@/lib/utils';
@@ -185,7 +185,7 @@ export function SearchResultsList({
             onClick={() => onLoadMore()}
             disabled={currentPage === 1}
             className={cn(
-              "border-gray-300 text-gray-700 hover:bg-gray-50",
+              "border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white hover:border-gray-400 dark:hover:border-gray-500",
               currentPage === 1 && "opacity-50 cursor-not-allowed"
             )}
           >
@@ -209,7 +209,7 @@ export function SearchResultsList({
                     "w-8 h-8 p-0",
                     pageNum === currentPage 
                       ? "bg-brand-primary text-white hover:bg-brand-primary/90" 
-                      : "text-gray-700 hover:bg-gray-100"
+                      : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white"
                   )}
                 >
                   {pageNum}
@@ -224,7 +224,7 @@ export function SearchResultsList({
             onClick={() => onLoadMore()}
             disabled={!hasMore}
             className={cn(
-              "border-gray-300 text-gray-700 hover:bg-gray-50",
+              "border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white hover:border-gray-400 dark:hover:border-gray-500",
               !hasMore && "opacity-50 cursor-not-allowed"
             )}
           >

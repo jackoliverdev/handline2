@@ -14,10 +14,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import WebsiteSidebar from "@/components/website/sidebar";
-import { SearchDropdown } from "@/components/search/search-dropdown";
+import { SearchDropdown } from "@/components/website/search/search-dropdown";
 
 // Define navigation items structure
 const getNavItems = (t: any) => [
+  { href: "/", label: t("navbar.home") },
   { 
     href: "/products", 
     label: t("navbar.products"),
@@ -74,6 +75,29 @@ export const NavBar = () => {
   // Generate navigation items with translation
   const NAV_ITEMS = getNavItems(t);
 
+  // Helper function to determine if a nav item is active
+  const isNavItemActive = (item: any) => {
+    if (!pathname) return false;
+    
+    // Exact match for home
+    if (item.href === "/" && pathname === "/") return true;
+    
+    // For other items, check if pathname starts with the base path
+    if (item.href !== "/" && pathname.startsWith(item.href)) return true;
+    
+    // Special cases for nested routes
+    if (item.href === "/about" && pathname.startsWith("/careers")) return true;
+    if (item.href === "/resources" && (
+      pathname.startsWith("/resources/blog") || 
+      pathname.startsWith("/resources/case-studies") || 
+      pathname.startsWith("/resources/en-resource-centre") ||
+      pathname.startsWith("/resources/product-disclaimer") ||
+      pathname.startsWith("/resources/declarations")
+    )) return true;
+    
+    return false;
+  };
+
   // Don't render the navbar on dashboard routes
   if (pathname?.startsWith('/dashboard') || pathname?.startsWith('/app')) {
     return null;
@@ -96,8 +120,8 @@ export const NavBar = () => {
     <header className="fixed w-full z-50 top-0 left-0 right-0">
       <nav className={`w-full transition-all duration-300 ${
         scrolled 
-          ? "bg-white/90 dark:bg-black/90 shadow-lg"
-          : "bg-white/90 dark:bg-black/90"
+          ? "bg-white/100 dark:bg-black/100 shadow-lg"
+          : "bg-white/100 dark:bg-black/100"
       }`}>
         {/* Announcement bar */}
         <div className="w-full bg-[#F28C38] text-white py-1.5 text-center font-medium flex items-center justify-center whitespace-nowrap px-4">
@@ -126,7 +150,14 @@ export const NavBar = () => {
                     alt="Hand Line"
                     width={32} 
                     height={32}
-                    className="h-8 w-8" 
+                    className="h-8 w-8 block dark:hidden" 
+                  />
+                  <Image 
+                    src="/LogoWHITE.png" 
+                    alt="Hand Line"
+                    width={32} 
+                    height={32}
+                    className="h-8 w-8 hidden dark:block" 
                   />
                 </div>
               </Link>
@@ -134,14 +165,14 @@ export const NavBar = () => {
               <div className="flex items-center space-x-4">
                 <WebsiteThemeToggle variant="ghost" className={scrolled ? 'text-slate-900 dark:text-white' : 'text-slate-900 dark:text-white'} />
                 <DropdownMenu>
-                  <DropdownMenuTrigger className={scrolled ? 'text-slate-900 dark:text-white' : 'text-white'}>
+                  <DropdownMenuTrigger className="text-slate-900 dark:text-white">
                     <Globe className="h-5 w-5" />
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
-                    <DropdownMenuItem onClick={() => setLanguage('en')} className="text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800">
+                  <DropdownMenuContent align="end" className="bg-white/100 dark:bg-slate-900/100 border-slate-200 dark:border-slate-800">
+                    <DropdownMenuItem onClick={() => setLanguage('en')} className="text-slate-900 dark:text-white hover:bg-slate-100/100 dark:hover:bg-slate-800/100">
                       <span role="img" aria-label="English" className="mr-2">🇬🇧</span> {t('navbar.language.en')}
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setLanguage('it')} className="text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <DropdownMenuItem onClick={() => setLanguage('it')} className="text-slate-900 dark:text-white hover:bg-slate-100/100 dark:hover:bg-slate-800/100">
                       <span role="img" aria-label="Italian" className="mr-2">🇮🇹</span> {t('navbar.language.it')}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
@@ -162,17 +193,31 @@ export const NavBar = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center justify-between py-2">
-              <Link href="/" className="flex-shrink-0">
-                <div className="flex items-center justify-center">
-                  <Image 
-                    src="/Logo-HLC.png" 
-                    alt="Hand Line"
-                    width={40} 
-                    height={40}
-                    className="h-10 w-10" 
-                  />
-                </div>
-              </Link>
+              <div className="flex items-center space-x-3">
+                <Link href="/" className="flex-shrink-0">
+                  <div className="flex items-center justify-center">
+                    <Image 
+                      src="/Logo-HLC.png" 
+                      alt="Hand Line"
+                      width={40} 
+                      height={40}
+                      className="h-10 w-10 block dark:hidden" 
+                    />
+                    <Image 
+                      src="/LogoWHITE.png" 
+                      alt="Hand Line"
+                      width={40} 
+                      height={40}
+                      className="h-10 w-10 hidden dark:block" 
+                    />
+                  </div>
+                </Link>
+                
+                <Link href="/" className="font-bold text-xl tracking-tight">
+                  <span className="text-[#F28C38]">Hand</span>
+                  <span className="text-slate-900 dark:text-white"> Line</span>
+                </Link>
+              </div>
 
               {/* Menu Button */}
               <button 
@@ -206,7 +251,7 @@ export const NavBar = () => {
                       href={item.href}
                       className={`
                         text-sm font-medium transition-colors flex items-center
-                        ${pathname === item.href 
+                        ${isNavItemActive(item) 
                           ? "text-[#F28C38]" 
                           : "text-slate-900 dark:text-white hover:text-[#F28C38] dark:hover:text-[#F28C38]"
                         }
@@ -218,12 +263,12 @@ export const NavBar = () => {
                     
                     {item.hasDropdown && (
                       <div className="absolute left-0 mt-1 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out">
-                        <div className="bg-white/90 dark:bg-black/90 rounded-lg shadow-lg py-1 border border-slate-200 dark:border-[#333333]">
+                        <div className="bg-white/100 dark:bg-black/100 rounded-lg shadow-lg py-1 border border-slate-200 dark:border-[#333333]">
                           {item.dropdownItems?.map((dropdownItem) => (
                             <Link
                               key={dropdownItem.href}
                               href={dropdownItem.href}
-                              className="block px-4 py-2 text-sm text-slate-900 dark:text-white hover:bg-slate-100/90 dark:hover:bg-black/95"
+                              className="block px-4 py-2 text-sm text-slate-900 dark:text-white hover:bg-slate-100/100 dark:hover:bg-black/95"
                             >
                               {dropdownItem.label}
                             </Link>
@@ -241,11 +286,11 @@ export const NavBar = () => {
                     <DropdownMenuTrigger className="text-slate-900 dark:text-white">
                       <Globe className="h-5 w-5" />
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
-                      <DropdownMenuItem onClick={() => setLanguage('en')} className="text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <DropdownMenuContent align="end" className="bg-white/100 dark:bg-slate-900/100 border-slate-200 dark:border-slate-800">
+                      <DropdownMenuItem onClick={() => setLanguage('en')} className="text-slate-900 dark:text-white hover:bg-slate-100/100 dark:hover:bg-slate-800/100">
                         <span role="img" aria-label="English" className="mr-2">🇬🇧</span> {t('navbar.language.en')}
                       </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => setLanguage('it')} className="text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800">
+                      <DropdownMenuItem onClick={() => setLanguage('it')} className="text-slate-900 dark:text-white hover:bg-slate-100/100 dark:hover:bg-slate-800/100">
                         <span role="img" aria-label="Italian" className="mr-2">🇮🇹</span> {t('navbar.language.it')}
                       </DropdownMenuItem>
                     </DropdownMenuContent>

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cookies } from 'next/headers';
-import EnStandardClient from "@/components/website/en-resource/EnStandardClient";
+import EnStandardClient from "@/components/website/resources/en-resource/EnStandardClient";
 import { getEnStandardBySlug, getRelatedEnStandards } from "@/lib/en-standard-service";
 import type { Language } from "@/lib/context/language-context";
 

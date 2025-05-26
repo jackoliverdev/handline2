@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import ENResourceRoot from "@/components/website/en-resource/root";
+import ENResourceRoot from "@/components/website/resources/en-resource/root";
 import { getPublishedEnStandards } from "@/lib/en-standard-service";
 
 export const metadata: Metadata = {

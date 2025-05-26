@@ -31,8 +31,8 @@ function SearchPageContent() {
 
   // Filter states
   const [selectedContentTypes, setSelectedContentTypes] = useState<ContentType[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [sortBy, setSortBy] = useState<'relevance' | 'newest' | 'alphabetical'>('relevance');
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc'); // For alphabetical sorting
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 12;
 
@@ -67,17 +67,14 @@ function SearchPageContent() {
           q: query.trim(),
           limit: resultsPerPage.toString(),
           offset: ((currentPage - 1) * resultsPerPage).toString(),
-          language: language
+          language: language,
+          sort: sortBy,
+          sortDirection: sortDirection
         });
 
         // Add content types filter if any selected
         if (selectedContentTypes.length > 0) {
           searchParams.set('content_types', JSON.stringify(selectedContentTypes));
-        }
-
-        // Add category filter if selected
-        if (selectedCategory) {
-          searchParams.set('category', selectedCategory);
         }
 
         console.log('Calling new search API with params:', searchParams.toString());
@@ -114,7 +111,7 @@ function SearchPageContent() {
 
     const debounceTimer = setTimeout(performSearch, 300);
     return () => clearTimeout(debounceTimer);
-  }, [query, selectedContentTypes, selectedCategory, sortBy, currentPage, language]);
+  }, [query, selectedContentTypes, sortBy, sortDirection, currentPage, language]);
 
   // Handle filter changes
   const handleContentTypesChange = (contentTypes: ContentType[]) => {
@@ -122,13 +119,22 @@ function SearchPageContent() {
     setCurrentPage(1); // Reset to first page
   };
 
-  const handleCategoryChange = (category: string) => {
-    setSelectedCategory(category);
-    setCurrentPage(1); // Reset to first page
-  };
-
   const handleSortChange = (sort: 'relevance' | 'newest' | 'alphabetical') => {
-    setSortBy(sort);
+    if ((sort === 'alphabetical' && sortBy === 'alphabetical') || 
+        (sort === 'newest' && sortBy === 'newest')) {
+      // If already selected (alphabetical or newest), toggle direction
+      setSortDirection(prev => prev === 'asc' ? 'desc' : 'asc');
+    } else {
+      // For new sort type or relevance, reset to ascending
+      setSortBy(sort);
+      setSortDirection('asc');
+    }
+    
+    // If changing sort type (not just direction), update sortBy
+    if (sort !== sortBy) {
+      setSortBy(sort);
+    }
+    
     setCurrentPage(1); // Reset to first page
   };
 
@@ -157,10 +163,9 @@ function SearchPageContent() {
             <aside className="lg:w-80 flex-shrink-0">
               <SearchFilters
                 selectedContentTypes={selectedContentTypes}
-                selectedCategory={selectedCategory}
                 sortBy={sortBy}
+                sortDirection={sortDirection}
                 onContentTypesChange={handleContentTypesChange}
-                onCategoryChange={handleCategoryChange}
                 onSortChange={handleSortChange}
                 totalResults={searchState.totalCount}
                 isLoading={searchState.isLoading}

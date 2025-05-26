@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { X, User, Shield, Menu, ChevronRight, Search, Loader2, ChevronDown, FileText, Users, Factory, Flame, Scissors, Settings, Briefcase, Globe, Newspaper, BookOpen, FileCheck, LayoutDashboard, MessageCircle } from "lucide-react";
+import { X, User, Shield, Menu, ChevronRight, Search, Loader2, ChevronDown, FileText, Users, Factory, Flame, Scissors, Settings, Briefcase, Globe, Newspaper, BookOpen, FileCheck, LayoutDashboard, MessageCircle, Home } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { useLanguage } from "@/lib/context/language-context";
@@ -74,7 +74,7 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
       {/* Sidebar panel */}
       <div 
         className={`
-          fixed inset-y-0 left-0 z-[1001] w-[280px] bg-white/90 dark:bg-black/90
+          fixed inset-y-0 left-0 z-[1001] w-[280px] bg-white/100 dark:bg-black/100
           transform transition-transform duration-300 ease-in-out
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
         `}
@@ -127,6 +127,20 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
         <div className="overflow-y-auto h-[calc(100vh-200px)] pb-16">
           {/* Main navigation sections */}
           <div className="mt-2">
+            {/* Home Section */}
+            <div className="px-3 py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors">
+              <Link 
+                href="/"
+                className="flex items-center"
+                onClick={onClose}
+              >
+                <div className="w-7 h-7 bg-gradient-to-br from-[#F28C38] to-[#E67A2C] text-white rounded-full flex items-center justify-center mr-2.5">
+                  <Home className="h-4 w-4" />
+                </div>
+                <span className="text-sm">{t('navbar.home')}</span>
+              </Link>
+            </div>
+
             {/* Products Section */}
             <div>
               <div

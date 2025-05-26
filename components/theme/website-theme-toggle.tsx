@@ -17,13 +17,13 @@ export function WebsiteThemeToggle({ className, variant = "ghost" }: ThemeToggle
   if (!mounted) {
     return (
       <Button 
-        variant={variant} 
+        variant="outline" 
         size="icon" 
-        className={`focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none ${className}`} 
+        className={`bg-white dark:bg-black border-[#F28C38]/30 dark:border-[#F28C38]/50 hover:bg-[#F28C38] dark:hover:bg-[#F28C38] hover:border-[#F28C38] dark:hover:border-[#F28C38] transition-all duration-300 focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none ${className}`} 
         disabled
       >
-        <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-        <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+        <Sun className="h-[1.2rem] w-[1.2rem] text-[#F28C38] hover:text-white rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+        <Moon className="absolute h-[1.2rem] w-[1.2rem] text-[#F28C38] hover:text-white rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
         <span className="sr-only">Toggle theme</span>
       </Button>
     );
@@ -31,15 +31,15 @@ export function WebsiteThemeToggle({ className, variant = "ghost" }: ThemeToggle
   
   return (
     <Button 
-      variant={variant} 
+      variant="outline" 
       size="icon" 
       onClick={toggleTheme} 
-      className={`focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none ${className}`}
+      className={`bg-white dark:bg-black border-[#F28C38]/30 dark:border-[#F28C38]/50 hover:bg-[#F28C38] dark:hover:bg-[#F28C38] hover:border-[#F28C38] dark:hover:border-[#F28C38] transition-all duration-300 hover:scale-105 hover:shadow-xl group focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none ${className}`}
       aria-label="Toggle theme"
       tabIndex={0}
     >
-      <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 text-brand-primary transition-all dark:-rotate-90 dark:scale-0" />
-      <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 text-brand-primary transition-all dark:rotate-0 dark:scale-100" />
+      <Sun className="h-[1.2rem] w-[1.2rem] text-[#F28C38] group-hover:text-white rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+      <Moon className="absolute h-[1.2rem] w-[1.2rem] text-[#F28C38] group-hover:text-white rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
       <span className="sr-only">Toggle theme</span>
     </Button>
   );

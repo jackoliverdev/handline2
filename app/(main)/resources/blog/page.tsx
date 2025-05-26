@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { getAllBlogs } from '@/lib/blog-service';
-import BlogRoot from '@/components/website/blog/blog-root';
+import BlogRoot from '@/components/website/resources/blog/blog-root';
 
 export const metadata: Metadata = {
   title: 'Blog | HandLine Safety Insights',

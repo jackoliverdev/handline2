@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight, Flame, Scissors, Eye } from "lucide-react";
+import { ChevronRight, Flame, Scissors, Eye, Package } from "lucide-react";
 import { getFeaturedProducts, Product } from "@/lib/products-service";
 import { ProductPreviewModal } from "@/components/website/products/product-preview-modal";
 import { useLanguage } from "@/lib/context/language-context";
@@ -220,7 +220,7 @@ export const FeaturedProducts = () => {
                               transition={{ delay: 0.6 + (index * 0.05), duration: 0.3 }}
                               className="flex items-center"
                             >
-                              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-primary/10 mr-2">
+                              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-primary/10 mr-0">
                                 <Flame className="h-5 w-5 text-brand-primary" />
                               </div>
                               <div>
@@ -236,7 +236,7 @@ export const FeaturedProducts = () => {
                               transition={{ delay: 0.7 + (index * 0.05), duration: 0.3 }}
                               className="flex items-center"
                             >
-                              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10 mr-2">
+                              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10 mr-0">
                                 <div className="relative w-6 h-6">
                                   <Image
                                     src={`/images/standards/${product.en_standard}.png`}
@@ -265,7 +265,7 @@ export const FeaturedProducts = () => {
                           <Button 
                             variant="outline" 
                             size="sm" 
-                            className="flex items-center justify-center text-xs sm:text-sm border-brand-primary/30 text-brand-primary hover:bg-gray-700 hover:text-white hover:border-gray-700 transition-all duration-300"
+                            className="flex items-center justify-center text-xs sm:text-sm border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform"
                             onClick={() => handlePreviewClick(product)}
                           >
                             <Eye className="mr-1 sm:mr-1.5 h-3 w-3 sm:h-4 sm:w-4" />
@@ -275,7 +275,7 @@ export const FeaturedProducts = () => {
                           <Button 
                             variant="default" 
                             size="sm" 
-                            className="bg-gradient-to-r from-brand-primary to-orange-500 hover:from-brand-primary/90 hover:to-orange-500/90 text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl transform text-xs sm:text-sm"
+                            className="bg-[#F28C38] hover:bg-[#F28C38]/90 text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl transform text-xs sm:text-sm"
                             asChild
                           >
                             <Link href={`/products/${encodedProductName}`} className="flex items-center justify-center">
@@ -305,8 +305,9 @@ export const FeaturedProducts = () => {
           variants={itemVariants}
           className="flex justify-center mt-7 sm:mt-9"
         >
-          <Button asChild variant="outline" className="group border-brand-primary text-brand-primary dark:text-white dark:border-white hover:text-brand-primary hover:bg-white/80 dark:hover:bg-white/10">
+          <Button asChild variant="default" className="group bg-[#F28C38] text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:bg-[#F28C38]/90 hover:scale-105 transform">
             <Link href="/products" className="flex items-center gap-1.5">
+              <Package className="h-4 w-4 sm:h-5 sm:w-5" />
               <span>{t('featuredProducts.viewAll')}</span>
               <motion.div
                 whileHover={{ x: 3 }}

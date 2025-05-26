@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import { ProductDisclaimerHero } from "@/components/website/product-disclaimer/hero";
-import { ProductDisclaimerContent } from "@/components/website/product-disclaimer/content";
+import { ProductDisclaimerHero } from "@/components/website/resources/product-disclaimer/hero";
+import { ProductDisclaimerContent } from "@/components/website/resources/product-disclaimer/content";
 
 export const metadata: Metadata = {
   title: "Product Disclaimer | HandLine",

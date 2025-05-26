@@ -155,7 +155,7 @@ export function CTA() {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-brand-primary/30 text-brand-primary hover:bg-gray-700 hover:text-white hover:border-gray-700 transition-all duration-300"
+                  className="border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg transition-all duration-300"
                   asChild
                 >
                   <Link href="/contact" className="flex items-center gap-2">

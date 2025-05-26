@@ -9,12 +9,13 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const query = searchParams.get('q') || '';
     const content_types = searchParams.get('content_types');
-    const category = searchParams.get('category');
+    const sort = searchParams.get('sort') || 'relevance';
+    const sortDirection = searchParams.get('sortDirection') || 'asc';
     const limit = parseInt(searchParams.get('limit') || '50');
     const offset = parseInt(searchParams.get('offset') || '0');
     const language = searchParams.get('language') || 'en';
 
-    console.log('Comprehensive search request:', { query, content_types, category, limit, offset, language });
+    console.log('Comprehensive search request:', { query, content_types, sort, sortDirection, limit, offset, language });
 
     if (!query.trim()) {
       return NextResponse.json({ 
@@ -47,10 +48,6 @@ export async function GET(request: NextRequest) {
         .from('products')
         .select('id, name, description, short_description, category, image_url, created_at, name_locales, description_locales, category_locales')
         .or(`name.ilike.%${searchPattern}%,description.ilike.%${searchPattern}%,category.ilike.%${searchPattern}%`);
-
-      if (category) {
-        productQuery = productQuery.eq('category', category);
-      }
 
       const { data: products, error: productsError } = await productQuery
         .order('created_at', { ascending: false })
@@ -92,7 +89,7 @@ export async function GET(request: NextRequest) {
       );
 
       if (uniqueProducts.length > 0) {
-        allResults.push(...uniqueProducts.map((product: any) => {
+        const productResults = uniqueProducts.map((product: any) => {
           // Extract localized content
           const localizedName = language !== 'en' && product.name_locales?.[language] 
             ? product.name_locales[language] 
@@ -115,7 +112,9 @@ export async function GET(request: NextRequest) {
             published_at: product.created_at,
             relevance_score: localizedName?.toLowerCase().includes(searchPattern.toLowerCase()) ? 1 : 0
           };
-        }));
+        });
+
+        allResults.push(...productResults);
       }
     }
 
@@ -125,7 +124,7 @@ export async function GET(request: NextRequest) {
       
       let blogQuery = supabase
         .from('blog_posts')
-        .select('id, title, summary, content, slug, image_url, featured_image_url, published_at, title_locales, summary_locales, content_locales')
+        .select('id, title, summary, content, slug, image_url, featured_image_url, published_at, title_locales, summary_locales, content_locales, tags, tags_locales')
         .eq('is_published', true)
         .or(`title.ilike.%${searchPattern}%,summary.ilike.%${searchPattern}%,content.ilike.%${searchPattern}%`);
 
@@ -136,13 +135,17 @@ export async function GET(request: NextRequest) {
       console.log('Blog posts query result:', { blogPosts: blogPosts?.length, error: blogError });
 
       if (blogPosts) {
-        allResults.push(...blogPosts.map((post: any) => {
+        const blogResults = blogPosts.map((post: any) => {
           const localizedTitle = language !== 'en' && post.title_locales?.[language] 
             ? post.title_locales[language] 
             : post.title;
           const localizedSummary = language !== 'en' && post.summary_locales?.[language] 
             ? post.summary_locales[language] 
             : post.summary;
+          const tags = post.tags || [];
+          const localizedTags = language !== 'en' && post.tags_locales?.[language] 
+            ? post.tags_locales[language] 
+            : tags;
 
           return {
             id: post.id,
@@ -151,10 +154,14 @@ export async function GET(request: NextRequest) {
             description: localizedSummary || post.content?.substring(0, 200) + '...',
             url: `/resources/blog/${post.slug}`,
             image_url: post.featured_image_url || post.image_url,
+            category: localizedTags.length > 0 ? localizedTags[0] : 'Blog Articles',
+            tags: localizedTags,
             published_at: post.published_at,
             relevance_score: localizedTitle?.toLowerCase().includes(searchPattern.toLowerCase()) ? 1 : 0
           };
-        }));
+        });
+
+        allResults.push(...blogResults);
       }
     }
 
@@ -164,7 +171,7 @@ export async function GET(request: NextRequest) {
       
       let caseStudyQuery = supabase
         .from('case_studies')
-        .select('id, title, summary, content, slug, featured_image_url, published_at, title_locales, summary_locales, content_locales')
+        .select('id, title, summary, content, slug, featured_image_url, published_at, title_locales, summary_locales, content_locales, tags, tags_locales')
         .eq('is_published', true)
         .or(`title.ilike.%${searchPattern}%,summary.ilike.%${searchPattern}%,content.ilike.%${searchPattern}%`);
 
@@ -175,13 +182,17 @@ export async function GET(request: NextRequest) {
       console.log('Case studies query result:', { caseStudies: caseStudies?.length, error: caseStudiesError });
 
       if (caseStudies) {
-        allResults.push(...caseStudies.map((study: any) => {
+        const caseStudyResults = caseStudies.map((study: any) => {
           const localizedTitle = language !== 'en' && study.title_locales?.[language] 
             ? study.title_locales[language] 
             : study.title;
           const localizedSummary = language !== 'en' && study.summary_locales?.[language] 
             ? study.summary_locales[language] 
             : study.summary;
+          const tags = study.tags || [];
+          const localizedTags = language !== 'en' && study.tags_locales?.[language] 
+            ? study.tags_locales[language] 
+            : tags;
 
           return {
             id: study.id,
@@ -190,10 +201,14 @@ export async function GET(request: NextRequest) {
             description: localizedSummary || study.content?.substring(0, 200) + '...',
             url: `/resources/case-studies/${study.slug}`,
             image_url: study.featured_image_url,
+            category: localizedTags.length > 0 ? localizedTags[0] : 'Case Studies',
+            tags: localizedTags,
             published_at: study.published_at,
             relevance_score: localizedTitle?.toLowerCase().includes(searchPattern.toLowerCase()) ? 1 : 0
           };
-        }));
+        });
+
+        allResults.push(...caseStudyResults);
       }
     }
 
@@ -213,7 +228,7 @@ export async function GET(request: NextRequest) {
       console.log('Industry solutions query result:', { industrySolutions: industrySolutions?.length, error: industryError });
 
       if (industrySolutions) {
-        allResults.push(...industrySolutions.map((solution: any) => {
+        const industryResults = industrySolutions.map((solution: any) => {
           const localizedName = language !== 'en' && solution.industry_name_locales?.[language] 
             ? solution.industry_name_locales[language] 
             : solution.industry_name;
@@ -228,10 +243,13 @@ export async function GET(request: NextRequest) {
             description: localizedDescription || solution.content?.substring(0, 200) + '...',
             url: `/industries/${encodeURIComponent(solution.industry_name.toLowerCase().replace(/\s+/g, '-'))}`,
             image_url: solution.feature_image_url || solution.image_url,
+            category: localizedName,
             published_at: solution.created_at,
             relevance_score: localizedName?.toLowerCase().includes(searchPattern.toLowerCase()) ? 1 : 0
           };
-        }));
+        });
+
+        allResults.push(...industryResults);
       }
     }
 
@@ -252,7 +270,7 @@ export async function GET(request: NextRequest) {
       console.log('EN resources query result:', { enResources: enResources?.length, error: enResourcesError });
 
       if (enResources) {
-        allResults.push(...enResources.map((resource: any) => {
+        const enResourceResults = enResources.map((resource: any) => {
           const localizedTitle = language !== 'en' && resource.title_locales?.[language] 
             ? resource.title_locales[language] 
             : resource.title;
@@ -274,7 +292,9 @@ export async function GET(request: NextRequest) {
             published_at: resource.published_at,
             relevance_score: localizedTitle?.toLowerCase().includes(searchPattern.toLowerCase()) ? 1 : 0
           };
-        }));
+        });
+
+        allResults.push(...enResourceResults);
       }
     }
 
@@ -295,7 +315,7 @@ export async function GET(request: NextRequest) {
       console.log('Careers query result:', { careers: careers?.length, error: careersError });
 
       if (careers) {
-        allResults.push(...careers.map((career: any) => {
+        const careerResults = careers.map((career: any) => {
           const localizedTitle = language !== 'en' && career.title_locales?.[language] 
             ? career.title_locales[language] 
             : career.title;
@@ -321,16 +341,33 @@ export async function GET(request: NextRequest) {
             published_at: career.published_at,
             relevance_score: localizedTitle?.toLowerCase().includes(searchPattern.toLowerCase()) ? 1 : 0
           };
-        }));
+        });
+
+        allResults.push(...careerResults);
       }
     }
 
-    // Sort results by relevance (title matches first) then by date
+    // Sort results based on the sort parameter
     allResults.sort((a, b) => {
-      if (a.relevance_score !== b.relevance_score) {
-        return b.relevance_score - a.relevance_score;
+      switch (sort) {
+        case 'newest':
+          // Sort by published date, respecting direction
+          const dateComparison = new Date(b.published_at).getTime() - new Date(a.published_at).getTime();
+          return sortDirection === 'desc' ? -dateComparison : dateComparison;
+        
+        case 'alphabetical':
+          // Sort alphabetically by title, respecting direction
+          const comparison = a.title.localeCompare(b.title);
+          return sortDirection === 'desc' ? -comparison : comparison;
+        
+        case 'relevance':
+        default:
+          // Sort by relevance score first, then by date
+          if (a.relevance_score !== b.relevance_score) {
+            return b.relevance_score - a.relevance_score;
+          }
+          return new Date(b.published_at).getTime() - new Date(a.published_at).getTime();
       }
-      return new Date(b.published_at).getTime() - new Date(a.published_at).getTime();
     });
 
     // Apply pagination
@@ -340,7 +377,9 @@ export async function GET(request: NextRequest) {
     console.log('Final search results:', {
       total: allResults.length,
       returned: paginatedResults.length,
-      hasMore
+      hasMore,
+      sortBy: sort,
+      sortDirection: sortDirection
     });
 
     return NextResponse.json({

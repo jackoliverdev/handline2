@@ -102,10 +102,16 @@ ${salaryRange ? `# ${t('careers.post.salary')}\n\n${salaryRange}` : ''}
       {/* Back Navigation */}
       <div className="bg-[#F5EFE0]/90 dark:bg-background border-b border-brand-primary/20 dark:border-gray-700 backdrop-blur-sm">
         <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <Button variant="ghost" size="sm" asChild className="text-brand-secondary hover:text-brand-dark dark:text-gray-400 dark:hover:text-white">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            asChild 
+            className="mb-6 bg-white/90 dark:bg-black/70 hover:bg-white dark:hover:bg-black/90 border-brand-primary/30 dark:border-brand-primary/50 hover:border-brand-primary text-brand-primary hover:text-brand-primary transition-all duration-300 hover:scale-105 hover:shadow-lg backdrop-blur-sm group"
+          >
             <Link href="/careers" className="flex items-center gap-2">
-              <ChevronLeft className="h-4 w-4" />
-              {t('careers.post.backToCareers')}
+              <ChevronLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
+              <Briefcase className="h-4 w-4" />
+              <span className="font-medium">{t('careers.post.backToCareers')}</span>
             </Link>
           </Button>
         </div>

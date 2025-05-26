@@ -104,7 +104,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
         <div className="grid grid-cols-2 gap-2">
           {product.temperature_rating && (
             <div className="flex items-center">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10 mr-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10 mr-0">
                 <Flame className="h-5 w-5 text-brand-primary" />
               </div>
               <div>
@@ -115,7 +115,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
           )}
           {product.cut_resistance_level && product.en_standard && (
             <div className="flex items-center">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10 mr-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10 mr-0">
                 <div className="relative w-6 h-6">
                   <Image
                     src={`/images/standards/${product.en_standard}.png`}
@@ -157,7 +157,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
           <Button 
             variant="outline" 
             size="sm" 
-            className="flex items-center justify-center border-brand-primary/30 text-brand-primary hover:bg-gray-700 hover:text-white hover:border-gray-700 transition-all duration-300 h-8"
+            className="flex items-center justify-center border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform h-8"
             onClick={handlePreviewClick}
           >
             <Eye className="h-4 w-4 mr-1.5" />
@@ -167,7 +167,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
           <Button 
             variant="default" 
             size="sm" 
-            className="bg-gradient-to-r from-brand-primary to-orange-500 hover:from-brand-primary/90 hover:to-orange-500/90 text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl transform h-8"
+            className="bg-[#F28C38] hover:bg-[#F28C38]/90 text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl transform h-8"
             asChild
           >
             <Link href={`/products/${encodedProductName}`} className="flex items-center justify-center w-full">

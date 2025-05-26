@@ -73,31 +73,6 @@ export function Sidebar({ className }: SidebarProps) {
       href: "/dashboard",
       icon: LayoutDashboard,
     },
-    {
-      name: "Products",
-      href: "/dashboard/products",
-      icon: ShoppingBag,
-    },
-    {
-      name: "Orders",
-      href: "/dashboard/orders",
-      icon: Package,
-    },
-    {
-      name: "Quotes",
-      href: "/dashboard/quotes",
-      icon: ClipboardList,
-    },
-    {
-      name: "Help Center",
-      href: "/dashboard/help",
-      icon: HelpCircle,
-    },
-    {
-      name: "Settings",
-      href: "/dashboard/settings",
-      icon: Settings,
-    },
   ];
   
   // Add admin link if user is admin
@@ -157,15 +132,8 @@ export function Sidebar({ className }: SidebarProps) {
         <nav className="flex-1 px-3 py-2 overflow-y-auto">
           <ul className="space-y-1.5">
             {links.map((link) => {
-              // Special case for Dashboard - only highlight if exactly /dashboard or not matching any other nav items
-              const isDashboardActive = link.href === "/dashboard" 
-                ? pathname === "/dashboard" || (
-                    pathname?.startsWith("/dashboard/") && 
-                    !links.some(l => l.href !== "/dashboard" && pathname?.startsWith(l.href))
-                  )
-                : pathname === link.href || pathname?.startsWith(`${link.href}/`);
-              
-              const isActive = isDashboardActive;
+              // Dashboard is active for /dashboard and any dashboard sub-routes that don't have their own nav items
+              const isActive = pathname === "/dashboard" || pathname?.startsWith("/dashboard");
               const Icon = link.icon;
               
               return (

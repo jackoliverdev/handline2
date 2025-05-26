@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { getAllCaseStudies } from '@/lib/case-studies-service';
-import CaseStudyRoot from '@/components/website/case-studies/case-study-root';
+import CaseStudyRoot from '@/components/website/resources/case-studies/case-study-root';
 
 export const metadata: Metadata = {
   title: 'Case Studies | HandLine Success Stories',
