@@ -42,6 +42,140 @@
     "announcement": "PROTEGGIAMO LE MANI CON SOLUZIONI INNOVATIVE",
     "searchPlaceholder": "Cerca prodotti, settori o articoli..."
   },
+  "search": {
+    "searchPlaceholder": "Cerca prodotti, settori o articoli...",
+    "searchButton": "Cerca",
+    "clearSearch": "Cancella ricerca",
+    "searching": "Ricerca in corso...",
+    "noQuery": "Inserisci un termine di ricerca per iniziare",
+    "dropdown": {
+      "noResults": "Nessun risultato trovato",
+      "noResultsDescription": "Prova un termine di ricerca diverso",
+      "viewAll": "Visualizza tutti i risultati",
+      "viewAllFor": "Visualizza tutti i risultati per \"{query}\"",
+      "suggestions": "Suggerimenti",
+      "recentSearches": "Ricerche Recenti",
+      "popularSearches": "Ricerche Popolari",
+      "clearRecent": "Cancella ricerche recenti"
+    },
+    "results": {
+      "title": "Risultati di Ricerca",
+      "showing": "Visualizzazione di {count} su {total} risultati",
+      "showingFor": "Visualizzazione di {count} su {total} risultati per \"{query}\"",
+      "noResults": "Nessun risultato trovato",
+      "noResultsFor": "Nessun risultato trovato per \"{query}\"",
+      "noResultsDescription": "Non siamo riusciti a trovare nulla che corrisponda a {query}. Prova parole chiave diverse o sfoglia le nostre categorie.",
+      "suggestions": {
+        "title": "Suggerimenti:",
+        "checkSpelling": "Controlla l'ortografia",
+        "tryDifferent": "Prova parole chiave diverse",
+        "useGeneral": "Usa termini più generali",
+        "clearFilters": "Cancella i filtri attivi"
+      },
+      "loadMore": "Carica altri risultati",
+      "loading": "Caricamento di altri risultati...",
+      "searching": "Ricerca in corso...",
+      "searchingDescription": "Attendere mentre cerchiamo tra i nostri prodotti, settori e risorse.",
+      "error": "Errore di Ricerca",
+      "tryAgain": "Riprova",
+      "noQuery": "Inizia la Tua Ricerca",
+      "noQueryDescription": "Inserisci i termini di ricerca sopra per trovare prodotti, settori, articoli e altro.",
+      "pageInfo": "Pagina {current} di {total}",
+      "loadingMore": "Caricamento altri risultati...",
+      "previous": "Precedente",
+      "next": "Successivo"
+    },
+    "filters": {
+      "title": "Filtri",
+      "activeFilters": "Filtri Attivi",
+      "clearAll": "Cancella Tutto",
+      "clearFilter": "Cancella {filter}",
+      "apply": "Applica Filtri",
+      "loading": "Caricamento filtri...",
+      "resultsCount": "{count} risultati",
+      "contentType": "Tipo di Contenuto",
+      "category": "Categoria",
+      "applied": "Filtri Applicati",
+      "allCategories": "Tutte le Categorie",
+      "contentTypes": {
+        "title": "Tipo di Contenuto",
+        "all": "Tutti i Contenuti",
+        "products": "Prodotti",
+        "industries": "Settori",
+        "articles": "Articoli", 
+        "caseStudies": "Casi Studio",
+        "careers": "Carriere",
+        "enStandards": "Standard EN"
+      },
+      "categories": {
+        "title": "Categorie",
+        "all": "Tutte le Categorie"
+      },
+      "sortBy": {
+        "title": "Ordina Per",
+        "relevance": "Rilevanza",
+        "newest": "Più Recenti",
+        "alphabetical": "Alfabetico"
+      }
+    },
+    "contentTypes": {
+      "product": "Prodotto",
+      "industry_solution": "Soluzione per Settore",
+      "blog": "Articolo",
+      "case_study": "Caso Studio",
+      "career": "Carriera",
+      "en_resource": "Standard EN",
+      "category": "Categoria"
+    },
+    "hero": {
+      "badge": "Ricerca Globale",
+      "title": "Ricerca",
+      "titleAccent": "Risultati",
+      "heading": "Ricerca",
+      "headingAccent": "Risultati",
+      "headingWithQuery": "Risultati per",
+      "description": "Trova le soluzioni di sicurezza, approfondimenti settoriali e risorse di cui hai bisogno nella nostra gamma completa di prodotti e base di conoscenze.",
+      "searching": "Ricerca in corso...",
+      "descriptionWithResults": "Trovati {count} risultati per '{query}' tra i nostri prodotti, settori e risorse.",
+      "descriptionNoResults": "Nessun risultato trovato per '{query}'. Prova parole chiave diverse o naviga nelle categorie qui sotto.",
+      "stats": {
+        "results": "Risultati",
+        "categories": "Categorie",
+        "languages": "Lingue",
+        "availability": "Disponibile"
+      },
+      "tips": {
+        "title": "Suggerimenti per la Ricerca",
+        "checkSpelling": "Controlla l'ortografia e riprova",
+        "tryKeywords": "Prova parole chiave diverse o più generali",
+        "useSynonyms": "Usa sinonimi o termini alternativi",
+        "browseCategories": "Sfoglia le categorie qui sotto per ispirazione"
+      }
+    },
+    "categories": {
+      "heatResistant": "Guanti Resistenti al Calore",
+      "cutResistant": "Guanti Resistenti al Taglio",
+      "generalPurpose": "Guanti per Uso Generale",
+      "industrialSwabs": "Tamponi Industriali",
+      "respiratory": "Protezione Respiratoria",
+      "industry": "Soluzioni Settoriali",
+      "blog": "Articoli del Blog",
+      "caseStudy": "Casi di Studio",
+      "career": "Opportunità di Carriera",
+      "enResource": "Standard EN"
+    },
+    "errors": {
+      "general": "Qualcosa è andato storto. Riprova.",
+      "network": "Errore di rete. Controlla la connessione.",
+      "timeout": "Ricerca scaduta. Riprova.",
+      "tooManyRequests": "Troppe richieste di ricerca. Attendi un momento."
+    },
+    "sorting": {
+      "relevance": "Più Rilevanti",
+      "newest": "Più Recenti",
+      "alphabetical": "A-Z"
+    }
+  },
   "sidebar": {
     "categories": "Categorie Prodotti",
     "industries": "Settori",

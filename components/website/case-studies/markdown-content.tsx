@@ -190,7 +190,7 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="prose prose-lg max-w-none bg-white dark:bg-black/50 p-8 rounded-xl border border-brand-primary/10 dark:border-brand-primary/20 shadow-sm backdrop-blur-sm dark:backdrop-blur-none hover:shadow-md transition-shadow duration-300"
+      className="prose prose-lg max-w-none bg-white dark:bg-black/50 p-8 rounded-xl border border-gray-100 dark:border-gray-700/50 shadow-sm backdrop-blur-sm dark:backdrop-blur-none hover:shadow-md transition-shadow duration-300"
     >
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}

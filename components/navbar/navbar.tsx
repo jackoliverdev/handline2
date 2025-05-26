@@ -14,6 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import WebsiteSidebar from "@/components/website/sidebar";
+import { SearchDropdown } from "@/components/search/search-dropdown";
 
 // Define navigation items structure
 const getNavItems = (t: any) => [
@@ -66,6 +67,7 @@ export const NavBar = () => {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { t, language, setLanguage } = useLanguage();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   
@@ -149,16 +151,13 @@ export const NavBar = () => {
 
             {/* Mobile Search Bar */}
             <div className="mt-2 lg:hidden">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder={t('navbar.searchPlaceholder')}
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className={`w-full py-2 px-4 pl-10 rounded-lg bg-white/90 dark:bg-black/90 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 border-slate-200 dark:border-[#333333] border focus:outline-none focus:ring-2 focus:ring-[#F28C38] focus:border-transparent`}
-                />
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400 dark:text-slate-500" />
-              </div>
+              <SearchDropdown
+                query={searchQuery}
+                onQueryChange={setSearchQuery}
+                isOpen={isSearchOpen}
+                onOpenChange={setIsSearchOpen}
+                className="w-full"
+              />
             </div>
 
             {/* Desktop Navigation */}
@@ -190,16 +189,13 @@ export const NavBar = () => {
 
               {/* Desktop Search Bar */}
               <div className="flex-1 max-w-4xl mx-6">
-                <div className="relative">
-                  <input
-                    type="text"
-                    placeholder={t('navbar.searchPlaceholder')}
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className={`w-full py-2 px-4 pl-10 rounded-lg bg-white/90 dark:bg-black/90 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 border-slate-200 dark:border-[#333333] border focus:outline-none focus:ring-2 focus:ring-[#F28C38] focus:border-transparent`}
-                  />
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400 dark:text-slate-500" />
-                </div>
+                <SearchDropdown
+                  query={searchQuery}
+                  onQueryChange={setSearchQuery}
+                  isOpen={isSearchOpen}
+                  onOpenChange={setIsSearchOpen}
+                  className="w-full"
+                />
               </div>
 
               {/* Navigation Items */}

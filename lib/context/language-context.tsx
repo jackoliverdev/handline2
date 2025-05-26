@@ -23,19 +23,27 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguage] = useState<Language>('en');
+  const [isHydrated, setIsHydrated] = useState(false);
 
-  // Load language preference from localStorage on mount
+  // Load language preference from localStorage on mount (client-side only)
   useEffect(() => {
-    const savedLanguage = localStorage.getItem('language') as Language;
-    if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'it')) {
-      setLanguage(savedLanguage);
+    // Ensure we're on the client side
+    if (typeof window !== 'undefined') {
+      const savedLanguage = localStorage.getItem('language') as Language;
+      if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'it')) {
+        setLanguage(savedLanguage);
+      }
+      setIsHydrated(true);
     }
   }, []);
 
-  // Save language preference to localStorage when it changes
+  // Save language preference to localStorage when it changes (client-side only)
   useEffect(() => {
-    localStorage.setItem('language', language);
-  }, [language]);
+    if (isHydrated && typeof window !== 'undefined') {
+      localStorage.setItem('language', language);
+      console.log('Language saved to localStorage:', language);
+    }
+  }, [language, isHydrated]);
 
   // Translation function
   const t = (key: string): string => {
@@ -72,11 +80,15 @@ export function useLanguage() {
 // Helper to get the current language (for server components or SSR)
 export function getCurrentLanguage(): Language {
   if (typeof window !== 'undefined') {
-    const savedLanguage = localStorage.getItem('language') as Language;
-    if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'it')) {
-      return savedLanguage;
+    try {
+      const savedLanguage = localStorage.getItem('language') as Language;
+      if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'it')) {
+        return savedLanguage;
+      }
+    } catch (error) {
+      console.warn('Failed to read from localStorage:', error);
     }
   }
-  // Default to English
+  // Default to English if localStorage is not available or contains invalid data
   return 'en';
 } 

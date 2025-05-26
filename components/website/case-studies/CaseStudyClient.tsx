@@ -93,14 +93,14 @@ export default function CaseStudyClient({ caseStudy, relatedCaseStudies }: { cas
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="relative w-full pt-4 pb-8 md:py-12"
+        className="relative w-full pt-12 pb-8 md:pt-20 md:pb-12"
       >
         {/* Back Button - Floating */}
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
-          className="absolute top-6 left-4 sm:left-6 lg:left-8 z-10"
+          className="absolute top-16 left-4 sm:left-6 lg:left-8 z-10"
         >
           <Button variant="outline" size="sm" asChild className="bg-white/90 dark:bg-black/70 hover:bg-white dark:hover:bg-black/90 border-white/20 dark:border-white/10 hover:border-brand-primary/40 dark:hover:border-brand-primary/50 transition-all duration-200 backdrop-blur-md shadow-lg">
             <Link href="/resources/case-studies" className="flex items-center gap-1.5 text-brand-dark dark:text-gray-200 hover:text-brand-primary dark:hover:text-brand-primary">
@@ -163,7 +163,7 @@ export default function CaseStudyClient({ caseStudy, relatedCaseStudies }: { cas
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
                           >
-                            <Badge className="bg-orange-500/20 text-orange-300 border-orange-400/30 hover:bg-orange-500/30 backdrop-blur-sm">
+                            <Badge className="bg-white/90 text-gray-900 border-white/50 hover:bg-white backdrop-blur-sm font-medium">
                               {tag}
                             </Badge>
                           </motion.div>
@@ -304,7 +304,7 @@ export default function CaseStudyClient({ caseStudy, relatedCaseStudies }: { cas
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ duration: 0.3, delay: 0.3 + index * 0.1 }}
                         >
-                          <Badge variant="outline" className="bg-orange-500/10 text-orange-600 hover:bg-orange-500/20 border-orange-500">
+                          <Badge variant="outline" className="bg-white/80 text-gray-800 hover:bg-white border-gray-300 hover:border-gray-400 font-medium">
                             {tag}
                           </Badge>
                         </motion.div>
@@ -416,7 +416,7 @@ export default function CaseStudyClient({ caseStudy, relatedCaseStudies }: { cas
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="w-full py-8"
+        className="w-full pt-4 pb-8"
       >
         <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -550,7 +550,7 @@ export default function CaseStudyClient({ caseStudy, relatedCaseStudies }: { cas
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="w-full pt-0 md:pt-0 pb-2 md:pb-4"
+        className="w-full pt-0 md:pt-2 pb-2 md:pb-4"
       >
         <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div>

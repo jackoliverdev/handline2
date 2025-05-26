@@ -42,6 +42,140 @@
     "announcement": "PROTECTING HANDS WITH INNOVATIVE SOLUTIONS",
     "searchPlaceholder": "Search products, industries, or articles..."
   },
+  "search": {
+    "searchPlaceholder": "Search products, industries, or articles...",
+    "searchButton": "Search",
+    "clearSearch": "Clear search",
+    "searching": "Searching...",
+    "noQuery": "Enter a search term to begin",
+    "dropdown": {
+      "noResults": "No results found",
+      "noResultsDescription": "Try a different search term",
+      "viewAll": "View all results",
+      "viewAllFor": "View all results for \"{query}\"",
+      "suggestions": "Suggestions",
+      "recentSearches": "Recent Searches",
+      "popularSearches": "Popular Searches",
+      "clearRecent": "Clear recent searches"
+    },
+    "results": {
+      "title": "Search Results",
+      "showing": "Showing {count} of {total} results",
+      "showingFor": "Showing {count} of {total} results for \"{query}\"",
+      "noResults": "No results found",
+      "noResultsFor": "No results found for \"{query}\"",
+      "noResultsDescription": "Try adjusting your search terms or filters",
+      "suggestions": {
+        "title": "Suggestions:",
+        "checkSpelling": "Check your spelling",
+        "tryDifferent": "Try different keywords",
+        "useGeneral": "Use more general terms",
+        "clearFilters": "Clear active filters"
+      },
+      "loadMore": "Load more results",
+      "loading": "Loading more results...",
+      "searching": "Searching...",
+      "searchingDescription": "Please wait while we search through our products, industries, and resources.",
+      "error": "Search Error",
+      "tryAgain": "Try Again",
+      "noQuery": "Start Your Search",
+      "noQueryDescription": "Enter search terms above to find products, industries, articles, and more.",
+      "pageInfo": "Page {current} of {total}",
+      "loadingMore": "Loading more results...",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "filters": {
+      "title": "Filters",
+      "activeFilters": "Active Filters",
+      "clearAll": "Clear All",
+      "clearFilter": "Clear {filter}",
+      "apply": "Apply Filters",
+      "loading": "Loading filters...",
+      "resultsCount": "{count} results",
+      "contentType": "Content Type",
+      "category": "Category",
+      "applied": "Applied Filters",
+      "allCategories": "All Categories",
+      "contentTypes": {
+        "title": "Content Type",
+        "all": "All Content",
+        "products": "Products",
+        "industries": "Industries", 
+        "articles": "Articles",
+        "caseStudies": "Case Studies",
+        "careers": "Careers",
+        "enStandards": "EN Standards"
+      },
+      "categories": {
+        "title": "Categories",
+        "all": "All Categories"
+      },
+      "sortBy": {
+        "title": "Sort By",
+        "relevance": "Relevance",
+        "newest": "Newest First",
+        "alphabetical": "Alphabetical"
+      }
+    },
+    "contentTypes": {
+      "product": "Product",
+      "industry_solution": "Industry Solution",
+      "blog": "Article",
+      "case_study": "Case Study", 
+      "career": "Career",
+      "en_resource": "EN Standard",
+      "category": "Category"
+    },
+    "hero": {
+      "badge": "Global Search",
+      "title": "Search",
+      "titleAccent": "Results", 
+      "heading": "Search",
+      "headingAccent": "Results",
+      "headingWithQuery": "Results for",
+      "description": "Find the safety solutions, industry insights, and resources you need across our complete product range and knowledge base.",
+      "searching": "Searching...",
+      "descriptionWithResults": "Found {count} results for '{query}' across our products, industries, and resources.",
+      "descriptionNoResults": "No results found for '{query}'. Try different keywords or browse our categories below.",
+      "stats": {
+        "results": "Results",
+        "categories": "Categories",
+        "languages": "Languages",
+        "availability": "Available"
+      },
+      "tips": {
+        "title": "Search Tips",
+        "checkSpelling": "Check your spelling and try again",
+        "tryKeywords": "Try different or more general keywords",
+        "useSynonyms": "Use synonyms or alternative terms",
+        "browseCategories": "Browse categories below for inspiration"
+      }
+    },
+    "errors": {
+      "general": "Something went wrong. Please try again.",
+      "network": "Network error. Please check your connection.",
+      "timeout": "Search timed out. Please try again.",
+      "tooManyRequests": "Too many search requests. Please wait a moment."
+    },
+    "categories": {
+      "heatResistant": "Heat-Resistant Gloves",
+      "cutResistant": "Cut-Resistant Gloves", 
+      "generalPurpose": "General Purpose Gloves",
+      "industrialSwabs": "Industrial Swabs",
+      "respiratory": "Respiratory Protection",
+      "industry": "Industry Solutions",
+      "blog": "Blog Articles",
+      "caseStudy": "Case Studies",
+      "career": "Career Opportunities",
+      "enResource": "EN Standards"
+    },
+    "sorting": {
+      "relevance": "Most Relevant",
+      "newest": "Newest First",
+      "alphabetical": "A-Z"
+    }
+  },
   "hero": {
     "expertise": "40+ Years of Expertise",
     "title": "Your Hands Protected",

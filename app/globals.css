@@ -199,3 +199,269 @@
 .light .dashboard-accent {
   color: #0080FF;
 }
+
+/* Search-specific styling */
+@layer components {
+  /* Search dropdown container */
+  .search-dropdown {
+    @apply absolute top-full left-0 right-0 mt-2 bg-white dark:bg-card border border-border rounded-lg shadow-xl z-50 max-h-96 overflow-hidden;
+    animation: search-dropdown-fade-in 0.15s ease-out;
+  }
+
+  /* Search dropdown sections */
+  .search-dropdown-section {
+    @apply border-b border-border last:border-b-0;
+  }
+
+  .search-dropdown-header {
+    @apply px-4 py-3 bg-muted/50 border-b border-border;
+  }
+
+  .search-dropdown-title {
+    @apply text-sm font-medium text-muted-foreground uppercase tracking-wide;
+  }
+
+  /* Search suggestion item */
+  .search-suggestion-item {
+    @apply flex items-center gap-3 p-3 hover:bg-muted/50 cursor-pointer transition-colors duration-150;
+  }
+
+  .search-suggestion-item:hover {
+    @apply bg-accent/10;
+  }
+
+  .search-suggestion-image {
+    @apply w-10 h-10 rounded object-cover bg-muted flex-shrink-0;
+  }
+
+  .search-suggestion-content {
+    @apply flex-1 min-w-0;
+  }
+
+  .search-suggestion-title {
+    @apply text-sm font-medium text-foreground truncate;
+  }
+
+  .search-suggestion-type {
+    @apply text-xs text-muted-foreground capitalize;
+  }
+
+  /* Search filters */
+  .search-filters {
+    @apply space-y-6;
+  }
+
+  .search-filter-group {
+    @apply space-y-3;
+  }
+
+  .search-filter-title {
+    @apply text-sm font-semibold text-foreground;
+  }
+
+  .search-filter-option {
+    @apply flex items-center justify-between p-2 hover:bg-muted/50 rounded-md cursor-pointer transition-colors;
+  }
+
+  .search-filter-option.active {
+    @apply bg-primary/10 text-primary;
+  }
+
+  .search-filter-count {
+    @apply text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full;
+  }
+
+  /* Search results grid */
+  .search-results-grid {
+    @apply grid gap-6;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+
+  .search-result-card {
+    @apply bg-card border border-border rounded-lg overflow-hidden hover:shadow-md transition-shadow duration-200;
+  }
+
+  .search-result-image {
+    @apply w-full h-40 object-cover bg-muted;
+  }
+
+  .search-result-content {
+    @apply p-4;
+  }
+
+  .search-result-type {
+    @apply inline-block px-2 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full mb-2;
+  }
+
+  .search-result-title {
+    @apply text-lg font-semibold text-foreground mb-2 line-clamp-2;
+  }
+
+  .search-result-description {
+    @apply text-sm text-muted-foreground line-clamp-3;
+  }
+
+  /* Search loading states */
+  .search-loading {
+    @apply flex items-center justify-center p-8 text-muted-foreground;
+  }
+
+  .search-loading-spinner {
+    @apply animate-spin h-6 w-6 border-2 border-primary border-t-transparent rounded-full mr-2;
+  }
+
+  /* Search error states */
+  .search-error {
+    @apply text-center p-8;
+  }
+
+  .search-error-icon {
+    @apply mx-auto h-12 w-12 text-muted-foreground mb-4;
+  }
+
+  .search-error-title {
+    @apply text-lg font-semibold text-foreground mb-2;
+  }
+
+  .search-error-description {
+    @apply text-muted-foreground mb-4;
+  }
+
+  /* Search input styling */
+  .search-input-container {
+    @apply relative flex-1;
+  }
+
+  .search-input {
+    @apply w-full h-10 pl-10 pr-4 bg-background border border-input rounded-md text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent;
+  }
+
+  .search-input-icon {
+    @apply absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground;
+  }
+
+  /* Search clear button */
+  .search-clear-button {
+    @apply absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 rounded-full bg-muted hover:bg-muted/80 flex items-center justify-center cursor-pointer transition-colors;
+  }
+
+  /* Recent searches */
+  .recent-search-item {
+    @apply flex items-center gap-3 p-3 hover:bg-muted/50 cursor-pointer transition-colors;
+  }
+
+  .recent-search-icon {
+    @apply h-4 w-4 text-muted-foreground;
+  }
+
+  .recent-search-text {
+    @apply flex-1 text-sm text-foreground;
+  }
+
+  .recent-search-count {
+    @apply text-xs text-muted-foreground;
+  }
+
+  /* Search stats */
+  .search-stats {
+    @apply flex items-center gap-4 text-sm text-muted-foreground mb-6;
+  }
+
+  .search-stat {
+    @apply flex items-center gap-1;
+  }
+
+  /* Line clamp utilities */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+/* Search animations */
+@keyframes search-dropdown-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes search-result-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Search result staggered animation */
+.search-result-card {
+  animation: search-result-fade-in 0.3s ease-out;
+}
+
+.search-result-card:nth-child(1) { animation-delay: 0ms; }
+.search-result-card:nth-child(2) { animation-delay: 50ms; }
+.search-result-card:nth-child(3) { animation-delay: 100ms; }
+.search-result-card:nth-child(4) { animation-delay: 150ms; }
+.search-result-card:nth-child(5) { animation-delay: 200ms; }
+.search-result-card:nth-child(6) { animation-delay: 250ms; }
+
+/* Search responsive adjustments */
+@media (max-width: 768px) {
+  .search-dropdown {
+    @apply left-4 right-4 max-h-80;
+  }
+  
+  .search-results-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .search-filters {
+    @apply space-y-4;
+  }
+}
+
+/* Search accessibility */
+.search-suggestion-item:focus,
+.search-filter-option:focus,
+.recent-search-item:focus {
+  @apply outline-none ring-2 ring-ring ring-offset-2;
+}
+
+/* Search no-results state */
+.search-no-results {
+  @apply text-center py-12;
+}
+
+.search-no-results-icon {
+  @apply mx-auto h-16 w-16 text-muted-foreground/50 mb-4;
+}
+
+.search-no-results-title {
+  @apply text-xl font-semibold text-foreground mb-2;
+}
+
+.search-no-results-description {
+  @apply text-muted-foreground mb-6 max-w-md mx-auto;
+}
+
+/* Search highlight text */
+.search-highlight {
+  @apply bg-yellow-200 dark:bg-yellow-800/50 px-1 rounded;
+}
