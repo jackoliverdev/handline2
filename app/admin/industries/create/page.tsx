@@ -139,6 +139,7 @@ export default function CreateIndustryPage() {
         description: industry.description,
         content: industry.content || null,
         image_url: null, // We'll update this after uploading the image
+        feature_image_url: null, // Add the missing field
         related_products: industry.related_products.length > 0 ? industry.related_products : null
       });
       
