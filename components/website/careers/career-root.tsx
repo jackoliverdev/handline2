@@ -27,7 +27,7 @@ export default function CareerRoot({ careerPosts }: { careerPosts: CareerPost[] 
     <main className="flex flex-col min-h-screen bg-[#F5EFE0]/80 dark:bg-background">
       <CareersHero language={language} />
       {showDebug && (
-        <div className="container mx-auto px-4 mb-8 p-4 bg-red-50 border border-red-200 rounded-md">
+        <div className="container mx-auto px-4 mb-8 p-4 bg-white dark:bg-black/50 border border-gray-100 dark:border-gray-700/50 rounded-md shadow-lg backdrop-blur-sm">
           <h3 className="text-lg font-semibold text-red-700 mb-2">Debug Information</h3>
           <p className="mb-2">Posts received: {careerPosts.length}</p>
           <pre className="bg-white p-3 rounded text-xs overflow-auto max-h-60">

@@ -135,7 +135,7 @@ ${salaryRange ? `# ${t('careers.post.salary')}\n\n${salaryRange}` : ''}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             {/* Job Meta Tiles */}
             <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="bg-white/60 dark:bg-transparent rounded-lg p-4 border border-brand-primary/20 dark:border-gray-700">
+              <div className="bg-white dark:bg-black/50 rounded-lg p-4 border border-gray-100 dark:border-gray-700/50 shadow-lg hover:shadow-2xl transition-all duration-500 backdrop-blur-sm">
                 <div className="flex items-center text-brand-secondary dark:text-gray-300">
                   <MapPin className="mr-3 h-5 w-5 text-brand-primary flex-shrink-0" />
                   <div>
@@ -144,7 +144,7 @@ ${salaryRange ? `# ${t('careers.post.salary')}\n\n${salaryRange}` : ''}
                   </div>
                 </div>
               </div>
-              <div className="bg-white/60 dark:bg-transparent rounded-lg p-4 border border-brand-primary/20 dark:border-gray-700">
+              <div className="bg-white dark:bg-black/50 rounded-lg p-4 border border-gray-100 dark:border-gray-700/50 shadow-lg hover:shadow-2xl transition-all duration-500 backdrop-blur-sm">
                 <div className="flex items-center text-brand-secondary dark:text-gray-300">
                   <Clock className="mr-3 h-5 w-5 text-brand-primary flex-shrink-0" />
                   <div>
@@ -154,7 +154,7 @@ ${salaryRange ? `# ${t('careers.post.salary')}\n\n${salaryRange}` : ''}
                 </div>
               </div>
               {salaryRange && (
-                <div className="bg-white/60 dark:bg-transparent rounded-lg p-4 border border-brand-primary/20 dark:border-gray-700">
+                <div className="bg-white dark:bg-black/50 rounded-lg p-4 border border-gray-100 dark:border-gray-700/50 shadow-lg hover:shadow-2xl transition-all duration-500 backdrop-blur-sm">
                   <div className="flex items-center text-brand-secondary dark:text-gray-300">
                     <Euro className="mr-3 h-5 w-5 text-brand-primary flex-shrink-0" />
                     <div>
@@ -165,7 +165,7 @@ ${salaryRange ? `# ${t('careers.post.salary')}\n\n${salaryRange}` : ''}
                 </div>
               )}
               {post.published_at && (
-                <div className="bg-white/60 dark:bg-transparent rounded-lg p-4 border border-brand-primary/20 dark:border-gray-700">
+                <div className="bg-white dark:bg-black/50 rounded-lg p-4 border border-gray-100 dark:border-gray-700/50 shadow-lg hover:shadow-2xl transition-all duration-500 backdrop-blur-sm">
                   <div className="flex items-center text-brand-secondary dark:text-gray-300">
                     <Calendar className="mr-3 h-5 w-5 text-brand-primary flex-shrink-0" />
                     <div>
@@ -179,7 +179,7 @@ ${salaryRange ? `# ${t('careers.post.salary')}\n\n${salaryRange}` : ''}
             
             {/* Quick Actions Sidebar */}
             <div className="lg:col-span-1">
-              <div className="bg-white/90 dark:bg-transparent rounded-xl p-6 h-full border border-brand-primary/20 dark:border-gray-700 backdrop-blur-sm flex flex-col">
+              <div className="bg-white dark:bg-black/50 rounded-xl p-6 h-full border border-gray-100 dark:border-gray-700/50 shadow-lg hover:shadow-2xl transition-all duration-500 backdrop-blur-sm flex flex-col">
                 <h3 className="text-lg font-semibold text-brand-dark dark:text-white mb-6">
                   {t('careers.post.quickActions')}
                 </h3>
@@ -235,20 +235,48 @@ ${salaryRange ? `# ${t('careers.post.salary')}\n\n${salaryRange}` : ''}
           <CareerMarkdownContent content={fullContent} />
           
           {/* Bottom Apply Section */}
-          <div className="mt-12 text-center bg-white/90 dark:bg-transparent rounded-xl p-8 border border-brand-primary/20 dark:border-gray-700 backdrop-blur-sm">
-            <h3 className="text-2xl font-bold text-brand-dark dark:text-white mb-4">
-              {t('careers.post.readyToJoin')}
-            </h3>
-            <p className="text-brand-secondary dark:text-gray-300 mb-6 max-w-2xl mx-auto">
-              {t('careers.post.excitedToLearn')}
-            </p>
-            <Button 
-              size="lg" 
-              className="bg-brand-primary text-white hover:bg-brand-primary/90 px-8"
-              onClick={() => setIsApplicationModalOpen(true)}
-            >
-              {t('careers.post.applyNow')}
-            </Button>
+          <div className="mt-12 relative overflow-hidden bg-gradient-to-br from-white via-gray-50/50 to-white dark:from-black/50 dark:via-gray-900/50 dark:to-black/50 border border-gray-100 dark:border-gray-700/50 rounded-2xl p-6 md:p-8 backdrop-blur-sm shadow-xl">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 bg-grid-primary/[0.02] [mask-image:radial-gradient(white,transparent_70%)]" />
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-brand-primary/10 to-orange-500/10 rounded-full blur-2xl" />
+            <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-orange-500/10 to-brand-primary/10 rounded-full blur-2xl" />
+            
+            {/* Content */}
+            <div className="relative text-center max-w-3xl mx-auto">
+              {/* Badge */}
+              <div className="inline-flex items-center mb-4 rounded-full bg-gradient-to-r from-brand-primary/10 to-orange-500/10 px-4 py-2 text-sm border border-brand-primary/20 backdrop-blur-sm">
+                <Users className="mr-2 h-4 w-4 text-brand-primary" />
+                <span className="text-brand-dark dark:text-white font-medium">
+                  {t('careers.post.readyToJoinBadge')}
+                </span>
+              </div>
+
+              {/* Title */}
+              <h3 className="text-2xl md:text-3xl font-bold text-brand-dark dark:text-white mb-4 leading-relaxed">
+                {t('careers.post.readyToJoin')}
+              </h3>
+              
+              {/* Description */}
+              <p className="text-brand-secondary dark:text-gray-300 mb-6 max-w-2xl mx-auto">
+                {t('careers.post.excitedToLearn')}
+              </p>
+              
+              {/* Action Button */}
+              <Button 
+                size="lg" 
+                className="bg-brand-primary hover:bg-brand-primary/90 text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl transform px-8"
+                onClick={() => setIsApplicationModalOpen(true)}
+              >
+                {t('careers.post.applyNow')}
+              </Button>
+
+              {/* Trust Indicator */}
+              <div className="pt-4 mt-6 border-t border-gray-200 dark:border-gray-700">
+                <p className="text-sm text-brand-secondary dark:text-gray-400">
+                  {t('careers.post.joinTeamIndicator')}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

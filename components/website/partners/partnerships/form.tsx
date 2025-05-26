@@ -92,7 +92,7 @@ export function PartnershipForm() {
               </a>
             </p>
           </motion.div>
-          <div className="rounded-lg border border-brand-primary/10 dark:border-brand-primary/20 bg-[#F5EFE0]/80 dark:bg-transparent p-6 shadow-sm backdrop-blur-sm">
+          <div className="rounded-lg border border-gray-100 dark:border-gray-700/50 bg-white dark:bg-black/50 p-6 shadow-lg hover:shadow-2xl transition-all duration-500 backdrop-blur-sm">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -106,7 +106,7 @@ export function PartnershipForm() {
                           <Input
                             {...field}
                             placeholder={t("partners.partnerships.form.fullNamePlaceholder")}
-                            className="bg-white/50 dark:bg-gray-800/50 border-brand-primary/20 dark:border-gray-700"
+                            className="bg-white/50 dark:bg-gray-800/50 border-gray-100 dark:border-gray-700/50"
                           />
                         </FormControl>
                         <FormMessage />
@@ -123,7 +123,7 @@ export function PartnershipForm() {
                           <Input
                             {...field}
                             placeholder={t("partners.partnerships.form.companyPlaceholder")}
-                            className="bg-white/50 dark:bg-gray-800/50 border-brand-primary/20 dark:border-gray-700"
+                            className="bg-white/50 dark:bg-gray-800/50 border-gray-100 dark:border-gray-700/50"
                           />
                         </FormControl>
                         <FormMessage />
@@ -144,7 +144,7 @@ export function PartnershipForm() {
                             {...field}
                             type="email"
                             placeholder={t("partners.partnerships.form.emailPlaceholder")}
-                            className="bg-white/50 dark:bg-gray-800/50 border-brand-primary/20 dark:border-gray-700"
+                            className="bg-white/50 dark:bg-gray-800/50 border-gray-100 dark:border-gray-700/50"
                           />
                         </FormControl>
                         <FormMessage />
@@ -161,7 +161,7 @@ export function PartnershipForm() {
                           <Input
                             {...field}
                             placeholder={t("partners.partnerships.form.phonePlaceholder")}
-                            className="bg-white/50 dark:bg-gray-800/50 border-brand-primary/20 dark:border-gray-700"
+                            className="bg-white/50 dark:bg-gray-800/50 border-gray-100 dark:border-gray-700/50"
                           />
                         </FormControl>
                         <FormMessage />
@@ -180,7 +180,7 @@ export function PartnershipForm() {
                         <Textarea
                           {...field}
                           placeholder={t("partners.partnerships.form.detailsPlaceholder")}
-                          className="min-h-[150px] bg-white/50 dark:bg-gray-800/50 border-brand-primary/20 dark:border-gray-700"
+                          className="min-h-[150px] bg-white/50 dark:bg-gray-800/50 border-gray-100 dark:border-gray-700/50"
                         />
                       </FormControl>
                       <FormMessage />

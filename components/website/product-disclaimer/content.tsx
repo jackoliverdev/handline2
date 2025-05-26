@@ -26,13 +26,13 @@ export function ProductDisclaimerContent({ language }: ProductDisclaimerContentP
       viewport={{ once: true, margin: "-100px" }}
       variants={fadeIn}
     >
-      <h3 className="text-xl font-bold mb-3 text-brand-dark dark:text-white border-l-4 border-brand-primary/70 pl-4 py-2 bg-brand-primary/5 rounded-r-md">{title}</h3>
+      <h3 className="text-xl font-bold mb-3 text-brand-dark dark:text-white border-l-4 border-brand-primary pl-4 py-2 bg-brand-primary/10 dark:bg-brand-primary/5 rounded-r-md font-heading">{title}</h3>
       <p className="text-base leading-7 text-brand-secondary dark:text-gray-300 pl-1">{content}</p>
     </motion.div>
   );
 
   return (
-    <section className="py-16 md:py-24 bg-[#F5EFE0]/80 dark:bg-transparent">
+    <section className="py-16 md:py-24 bg-brand-light dark:bg-background">
       <div className="container mx-auto px-4 md:px-6">
         <div 
           id="disclaimer-content" 
@@ -40,7 +40,7 @@ export function ProductDisclaimerContent({ language }: ProductDisclaimerContentP
           style={{ scrollMarginTop: "80px" }}
         >
           <motion.article 
-            className="prose prose-lg max-w-none bg-[#F5EFE0]/50 dark:bg-transparent p-6 rounded-lg border border-brand-primary/10 dark:border-brand-primary/20 shadow-sm"
+            className="prose prose-lg max-w-none bg-white dark:bg-black/50 p-6 rounded-lg border border-brand-primary/20 dark:border-brand-primary/30 shadow-sm backdrop-blur-sm"
             initial="hidden"
             animate="visible"
             variants={{
@@ -49,7 +49,7 @@ export function ProductDisclaimerContent({ language }: ProductDisclaimerContentP
             }}
           >
             <motion.h2 
-              className="text-3xl font-bold mt-0 mb-6 text-brand-dark dark:text-white"
+              className="text-3xl font-bold mt-0 mb-6 text-brand-dark dark:text-white font-heading"
               variants={fadeIn}
             >
               {t('standards.productDisclaimer.sections.usage.title')}
@@ -94,7 +94,7 @@ export function ProductDisclaimerContent({ language }: ProductDisclaimerContentP
               />
               
               <motion.div 
-                className="mt-12 p-6 bg-brand-primary/10 rounded-lg border border-brand-primary/20"
+                className="mt-12 p-6 bg-brand-primary/10 dark:bg-brand-primary/5 rounded-lg border border-brand-primary/30 dark:border-brand-primary/20"
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-50px" }}
@@ -103,7 +103,7 @@ export function ProductDisclaimerContent({ language }: ProductDisclaimerContentP
                   visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } }
                 }}
               >
-                <h3 className="text-xl font-bold mb-3 text-brand-dark dark:text-white">{t('standards.productDisclaimer.sections.legalNotice.title')}</h3>
+                <h3 className="text-xl font-bold mb-3 text-brand-dark dark:text-white font-heading">{t('standards.productDisclaimer.sections.legalNotice.title')}</h3>
                 <p className="text-base leading-7 text-brand-secondary dark:text-gray-300">{t('standards.productDisclaimer.sections.legalNotice.content')}</p>
               </motion.div>
             </div>

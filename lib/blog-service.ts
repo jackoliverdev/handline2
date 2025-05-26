@@ -10,6 +10,7 @@ export interface BlogPost {
   content: string;
   author: string;
   image_url: string | null;
+  featured_image_url?: string | null;
   tags: string[];
   published_at?: string;
   is_published?: boolean;

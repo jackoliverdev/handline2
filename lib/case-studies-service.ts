@@ -10,6 +10,7 @@ export interface CaseStudy {
   content: string;
   author: string;
   image_url: string | null;
+  featured_image_url?: string | null;
   tags: string[];
   published_at?: string;
   is_published?: boolean;
@@ -38,6 +39,10 @@ export interface CaseStudy {
   testimonial_author_locales?: { [lang: string]: string };
   testimonial_position_locales?: { [lang: string]: string };
   metrics_locales?: { [lang: string]: any };
+  showcase_title?: string;
+  showcase_description?: string;
+  showcase_title_locales?: { [lang: string]: string };
+  showcase_description_locales?: { [lang: string]: string };
 }
 
 /**
@@ -342,5 +347,7 @@ export function localiseCaseStudy(caseStudy: CaseStudy, language: Language): Cas
     testimonial_author: caseStudy.testimonial_author_locales?.[language] || caseStudy.testimonial_author_locales?.en || caseStudy.testimonial_author,
     testimonial_position: caseStudy.testimonial_position_locales?.[language] || caseStudy.testimonial_position_locales?.en || caseStudy.testimonial_position,
     metrics: caseStudy.metrics_locales?.[language] || caseStudy.metrics_locales?.en || caseStudy.metrics,
+    showcase_title: caseStudy.showcase_title_locales?.[language] || caseStudy.showcase_title_locales?.en || caseStudy.showcase_title,
+    showcase_description: caseStudy.showcase_description_locales?.[language] || caseStudy.showcase_description_locales?.en || caseStudy.showcase_description,
   };
 } 

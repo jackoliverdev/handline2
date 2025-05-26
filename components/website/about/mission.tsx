@@ -97,7 +97,7 @@ export const Mission = () => {
             <div className="absolute -z-10 -bottom-6 -right-6 w-48 h-48 rounded-full bg-brand-primary/10 blur-xl"></div>
             
             {/* Floating badge */}
-            <div className="absolute -bottom-4 -left-4 md:bottom-6 md:left-6 bg-white dark:bg-gray-900 p-4 rounded-xl shadow-lg border border-brand-primary/20">
+            <div className="absolute -bottom-4 -left-4 md:bottom-6 md:left-6 bg-white dark:bg-black/50 p-4 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm">
               <div className="flex items-center gap-3">
                 <div className="rounded-full bg-brand-primary/10 p-2">
                   <Target className="h-6 w-6 text-brand-primary" />

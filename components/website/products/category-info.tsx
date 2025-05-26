@@ -43,20 +43,31 @@ export const CategoryInfo = ({
   return (
     <section className="py-12 md:py-16">
       <div className="container mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
           {/* Text Content - Left Side */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={SPRING_CONFIG}
-            className="space-y-4 md:space-y-6"
+            className="flex items-center"
           >
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-brand-dark dark:text-white font-heading">
-              {displayTitle}
-            </h2>
-            <p className="text-base md:text-lg text-brand-secondary dark:text-gray-300 leading-relaxed">
-              {displayDescription}
-            </p>
+            <div className="bg-white dark:bg-black/50 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700/50 p-8 md:p-10 h-full flex flex-col justify-center backdrop-blur-sm hover:shadow-xl transition-all duration-500">
+              <div className="space-y-6">
+                <div className="inline-flex items-center rounded-full bg-brand-primary/10 px-4 py-2 text-sm border border-brand-primary/20">
+                  <span className="text-brand-primary font-medium">Category Overview</span>
+                </div>
+                
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-brand-dark dark:text-white font-heading leading-tight">
+                  {displayTitle}
+                </h2>
+                
+                <div className="w-20 h-1 bg-gradient-to-r from-brand-primary to-orange-500 rounded-full"></div>
+                
+                <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                  {displayDescription}
+                </p>
+              </div>
+            </div>
           </motion.div>
 
           {/* Image - Right Side */}
@@ -64,15 +75,22 @@ export const CategoryInfo = ({
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ ...SPRING_CONFIG, delay: 0.1 }}
-            className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-lg"
+            className="flex items-center"
           >
-            <Image
-              src={displayImageSrc}
-              alt={displayImageAlt}
-              fill
-              className="object-cover"
-              priority
-            />
+            <div className="relative w-full h-full min-h-[400px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 bg-white dark:bg-black/50 border border-gray-100 dark:border-gray-700/50 group">
+              <Image
+                src={displayImageSrc}
+                alt={displayImageAlt}
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                priority
+              />
+              {/* Subtle hover overlay */}
+              <div className="absolute inset-0 bg-brand-primary/0 group-hover:bg-brand-primary/5 transition-colors duration-500" />
+              
+              {/* Enhanced gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </div>
           </motion.div>
         </div>
       </div>

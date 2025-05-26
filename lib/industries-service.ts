@@ -8,15 +8,19 @@ export interface Industry {
   description: string;
   content: string | null;
   image_url: string | null;
+  feature_image_url: string | null;
   related_products: string[] | null;
   created_at?: string;
   updated_at?: string;
   slug?: string; // Derived from industry_name
+  is_featured?: boolean;
+  showcase_description?: string;
   // Locale fields
   industry_name_locales?: Record<string, string>;
   description_locales?: Record<string, string>;
   content_locales?: Record<string, string>;
   features_locales?: Record<string, string[]>;
+  showcase_description_locales?: Record<string, string>;
   features?: string[];
 }
 
@@ -26,6 +30,7 @@ export function localiseIndustry(industry: Industry, language: Language): Indust
     industry_name: industry.industry_name_locales?.[language] || industry.industry_name_locales?.en || industry.industry_name,
     description: industry.description_locales?.[language] || industry.description_locales?.en || industry.description,
     content: industry.content_locales?.[language] || industry.content_locales?.en || industry.content,
+    showcase_description: industry.showcase_description_locales?.[language] || industry.showcase_description_locales?.en || industry.showcase_description,
     features: industry.features_locales?.[language] || industry.features_locales?.en || [],
   };
 }

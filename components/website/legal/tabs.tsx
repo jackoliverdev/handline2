@@ -19,7 +19,7 @@ export function LegalTabs() {
       <div className="container py-8 md:py-12">
         <Tabs defaultValue={tab} onValueChange={handleTabChange} className="w-full">
           <div className="flex justify-center mb-8">
-            <TabsList className="grid w-full max-w-lg grid-cols-3 border border-brand-primary/10 dark:border-brand-primary/20 bg-white/70 dark:bg-gray-800/30 backdrop-blur-sm">
+            <TabsList className="grid w-full max-w-lg grid-cols-3 border border-brand-primary/10 dark:border-brand-primary/20 bg-white dark:bg-black/50 backdrop-blur-sm">
               <TabsTrigger 
                 value="terms" 
                 className="data-[state=active]:bg-brand-primary data-[state=active]:text-white dark:data-[state=active]:text-white"
@@ -42,7 +42,7 @@ export function LegalTabs() {
           </div>
 
           <TabsContent value="terms" className="max-w-4xl mx-auto">
-            <div className="rounded-lg p-6 bg-[#F5EFE0]/80 dark:bg-transparent border border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm shadow-sm">
+            <div className="rounded-lg p-6 bg-white dark:bg-black/50 border border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm shadow-sm">
               <h2 className="text-3xl font-bold mb-2 text-brand-dark dark:text-white font-heading">{legalContent.terms.title}</h2>
               <p className="text-brand-secondary dark:text-gray-400 mb-8">{legalContent.terms.lastUpdated}</p>
               
@@ -59,7 +59,7 @@ export function LegalTabs() {
           </TabsContent>
 
           <TabsContent value="privacy" className="max-w-4xl mx-auto">
-            <div className="rounded-lg p-6 bg-[#F5EFE0]/80 dark:bg-transparent border border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm shadow-sm">
+            <div className="rounded-lg p-6 bg-white dark:bg-black/50 border border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm shadow-sm">
               <h2 className="text-3xl font-bold mb-2 text-brand-dark dark:text-white font-heading">{legalContent.privacy.title}</h2>
               <p className="text-brand-secondary dark:text-gray-400 mb-8">{legalContent.privacy.lastUpdated}</p>
               
@@ -76,7 +76,7 @@ export function LegalTabs() {
           </TabsContent>
 
           <TabsContent value="cookies" className="max-w-4xl mx-auto">
-            <div className="rounded-lg p-6 bg-[#F5EFE0]/80 dark:bg-transparent border border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm shadow-sm">
+            <div className="rounded-lg p-6 bg-white dark:bg-black/50 border border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm shadow-sm">
               <h2 className="text-3xl font-bold mb-2 text-brand-dark dark:text-white font-heading">{legalContent.cookies.title}</h2>
               <p className="text-brand-secondary dark:text-gray-400 mb-8">{legalContent.cookies.lastUpdated}</p>
               

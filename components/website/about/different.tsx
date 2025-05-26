@@ -22,7 +22,7 @@ const Differentiator = ({ icon, title, titleAccent, description }: Differentiato
       transition={{ duration: 0.5 }}
       className="flex flex-col items-center text-center"
     >
-      <div className="rounded-full bg-[#F5EFE0] dark:bg-gray-800 p-4 mb-4 shadow-sm">
+      <div className="rounded-full bg-white dark:bg-black/50 p-4 mb-4 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm">
         {icon}
       </div>
       <h3 className="text-lg font-bold text-brand-dark dark:text-white mb-2">

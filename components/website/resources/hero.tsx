@@ -1,29 +1,25 @@
 "use client";
 
 import React from "react";
-import { AlertCircle, FileCheck, BookOpen, ChevronRight, Sparkles, Shield } from "lucide-react";
+import { BookOpen, FileText, Filter, ChevronRight, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { useLanguage } from '@/lib/context/language-context';
+import { useLanguage } from "@/lib/context/language-context";
 
 const SPRING_CONFIG = { stiffness: 100, damping: 30, mass: 1 };
 
-interface DeclarationsHeroProps {
-  language: string;
-}
-
-export function DeclarationsHero({ language }: DeclarationsHeroProps) {
+export const ResourcesHero = () => {
   const { t } = useLanguage();
   const stats = [
-    { value: t('declarations.hero.stats.products'), label: t('declarations.hero.stats.productsLabel') },
-    { value: t('declarations.hero.stats.declarations'), label: t('declarations.hero.stats.declarationsLabel') },
-    { value: t('declarations.hero.stats.compliance'), label: t('standards.hero.stats.resourcesLabel') },
-    { value: t('declarations.hero.stats.certified'), label: t('declarations.hero.stats.certifiedLabel') },
+    { value: "50+", label: "Articles" },
+    { value: "20+", label: "Case Studies" },
+    { value: "100+", label: "Standards" },
+    { value: "40+", label: "Years Experience" },
   ];
 
   return (
-    <section className="relative overflow-hidden bg-[#F5EFE0]/80 dark:bg-transparent pt-28 pb-6 md:pt-32 md:pb-16">
+    <section className="relative overflow-hidden bg-brand-light dark:bg-background pt-28 pb-6 md:pt-32 md:pb-16">
       {/* Decorative Elements */}
       <div className="absolute -top-32 -right-32 h-[300px] w-[300px] md:h-[500px] md:w-[500px] rounded-full bg-brand-primary/5 blur-3xl dark:bg-brand-primary/10"></div>
       <div className="absolute -bottom-32 -left-32 h-[250px] w-[250px] md:h-[400px] md:w-[400px] rounded-full bg-brand-primary/10 blur-3xl dark:bg-brand-primary/5"></div>
@@ -39,9 +35,9 @@ export function DeclarationsHero({ language }: DeclarationsHeroProps) {
             className="mb-4 md:mb-6"
           >
             <div className="inline-flex items-center rounded-full border border-brand-primary px-3 py-1 md:px-4 md:py-1.5 text-xs md:text-sm backdrop-blur-sm">
-              <FileCheck className="mr-1.5 h-3 w-3 md:h-4 md:w-4 text-brand-primary" />
+              <BookOpen className="mr-1.5 h-3 w-3 md:h-4 md:w-4 text-brand-primary" />
               <span className="text-brand-dark dark:text-white font-medium">
-                {t('declarations.hero.badge')}
+                Knowledge & Resources
               </span>
             </div>
           </motion.div>
@@ -54,7 +50,7 @@ export function DeclarationsHero({ language }: DeclarationsHeroProps) {
             className="relative mb-4 md:mb-6"
           >
             <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-brand-dark dark:text-white font-heading">
-              {t('declarations.hero.title')} <span className="text-brand-primary">{t('declarations.hero.titleAccent')}</span>
+              Safety <span className="text-brand-primary">Resources</span>
             </h1>
           </motion.div>
 
@@ -66,7 +62,7 @@ export function DeclarationsHero({ language }: DeclarationsHeroProps) {
             className="mb-6 md:mb-10"
           >
             <p className="max-w-2xl text-base md:text-lg text-brand-secondary dark:text-gray-300">
-              {t('declarations.hero.description')}
+              Access our comprehensive library of safety resources, including expert insights, case studies, compliance documentation, and industry standards to enhance workplace safety.
             </p>
           </motion.div>
 
@@ -97,9 +93,9 @@ export function DeclarationsHero({ language }: DeclarationsHeroProps) {
               className="group font-medium bg-brand-primary hover:bg-brand-primary/90 w-full sm:w-auto text-sm md:text-base h-10 md:h-11"
               asChild
             >
-              <Link href="#declarations-list" className="flex items-center justify-center gap-1.5 md:gap-2">
-                <FileCheck className="h-4 w-4 md:h-5 md:w-5" />
-                <span>{t('declarations.hero.viewDeclarations')}</span>
+              <Link href="#resource-categories" className="flex items-center justify-center gap-1.5 md:gap-2">
+                <FileText className="h-4 w-4 md:h-5 md:w-5" />
+                <span>Browse Resources</span>
                 <ChevronRight className="h-3.5 w-3.5 md:h-4 md:w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
@@ -109,9 +105,9 @@ export function DeclarationsHero({ language }: DeclarationsHeroProps) {
               className="group font-medium border-brand-primary text-brand-primary hover:text-brand-primary hover:bg-white/80 dark:text-white dark:border-white dark:hover:bg-white/10 w-full sm:w-auto text-sm md:text-base h-10 md:h-11"
               asChild
             >
-              <Link href="/resources/en-resource-centre" className="flex items-center justify-center gap-1.5 md:gap-2">
-                <Shield className="h-4 w-4 md:h-5 md:w-5" />
-                <span>{t('navbar.resourcesDropdown.enResourceCentre')}</span>
+              <Link href="/contact" className="flex items-center justify-center gap-1.5 md:gap-2">
+                <Mail className="h-4 w-4 md:h-5 md:w-5" />
+                <span>Contact Us</span>
                 <ChevronRight className="h-3.5 w-3.5 md:h-4 md:w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
@@ -120,4 +116,4 @@ export function DeclarationsHero({ language }: DeclarationsHeroProps) {
       </div>
     </section>
   );
-} 
+}; 

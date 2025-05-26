@@ -2,13 +2,15 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronLeft, Shield } from "lucide-react";
+import { ChevronLeft, Shield, Package, Mail } from "lucide-react";
 import { useLanguage } from "@/lib/context/language-context";
 import { localiseIndustry } from "@/lib/industries-service";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ProductCard } from "@/components/website/products/product-card";
 import { MarkdownContent } from "@/components/website/blog/markdown-content";
+import { FeaturesSection } from "../components/FeaturesSection";
+import { motion } from "framer-motion";
 
 export function IndustryDetail({ industry, relatedProducts }: { industry: any, relatedProducts: any[] }) {
   const { t, language } = useLanguage();
@@ -25,7 +27,7 @@ export function IndustryDetail({ industry, relatedProducts }: { industry: any, r
   const tags = [localisedIndustry.industry_name];
 
   return (
-    <main className="flex flex-col min-h-[100dvh] bg-[#F5EFE0]/80 dark:bg-transparent pt-8 md:pt-12">
+    <main className="flex flex-col min-h-[100dvh] bg-brand-light dark:bg-background pt-8 md:pt-12">
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="bg-grid-primary/[0.02] absolute inset-0 [mask-image:radial-gradient(white,transparent_85%)]" />
@@ -34,61 +36,221 @@ export function IndustryDetail({ industry, relatedProducts }: { industry: any, r
       </div>
 
       {/* Hero Section */}
-      <section className="relative w-full pt-4 pb-8 md:py-12">
-        <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-2 border-b border-brand-primary/10">
-          {/* Back Button */}
-          <div className="mb-6">
-            <Button variant="outline" size="sm" asChild className="bg-[#F5EFE0]/90 hover:bg-[#F5EFE0] dark:bg-transparent dark:hover:bg-black/20 border-brand-primary/20 hover:border-brand-primary/40 dark:border-brand-primary/30 dark:hover:border-brand-primary/50 transition-all duration-200">
-              <Link href="/industries" className="flex items-center gap-1.5 text-brand-dark dark:text-gray-200 hover:text-brand-primary dark:hover:text-brand-primary">
-                <ChevronLeft className="h-4 w-4 text-brand-primary" />
-                {t('navbar.industries')}
-              </Link>
-            </Button>
-          </div>
+      <motion.section 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="relative w-full pt-4 pb-0 md:py-12"
+      >
+        {/* Back Button - Floating */}
+        <motion.div 
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="absolute top-6 left-4 sm:left-6 lg:left-8 z-10"
+        >
+          <Button variant="outline" size="sm" asChild className="bg-white/90 dark:bg-black/70 hover:bg-white dark:hover:bg-black/90 border-white/20 dark:border-white/10 hover:border-brand-primary/40 dark:hover:border-brand-primary/50 transition-all duration-200 backdrop-blur-md shadow-lg">
+            <Link href="/industries" className="flex items-center gap-1.5 text-brand-dark dark:text-gray-200 hover:text-brand-primary dark:hover:text-brand-primary">
+              <ChevronLeft className="h-4 w-4 text-brand-primary" />
+              {t('navbar.industries')}
+            </Link>
+          </Button>
+        </motion.div>
 
-          <div className="space-y-6">
-            {/* Tags */}
-            {tags && tags.length > 0 && (
-              <div className="flex flex-wrap gap-2">
-                {tags.map((tag: string) => (
-                  <Badge key={tag} variant="outline" className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/20 border-brand-primary">
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
-            )}
-
-            {/* Featured Image */}
+        <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Hero Content with Image Overlay */}
+          <div className="relative">
+            {/* Featured Image with Overlay Content */}
             {localisedIndustry.image_url && (
-              <div className="relative aspect-[21/9] w-full overflow-hidden rounded-xl">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="relative aspect-[16/9] md:aspect-[21/9] w-full overflow-hidden rounded-2xl shadow-2xl"
+              >
                 <Image
                   src={localisedIndustry.image_url}
                   alt={localisedIndustry.industry_name}
                   fill
                   priority
-                  className="object-cover transition-all duration-500 hover:scale-105"
+                  className="object-cover transition-all duration-700 hover:scale-110"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 70vw"
                 />
-                <div className="absolute inset-0 rounded-xl border border-brand-primary/10 bg-gradient-to-t from-background/50 via-transparent to-transparent" />
-              </div>
+                
+                {/* Enhanced Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-brand-primary/20 via-transparent to-orange-500/20" />
+                
+                {/* Content Overlay */}
+                <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 lg:p-12">
+                  {/* Tags */}
+                  {tags && tags.length > 0 && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.4 }}
+                      className="flex flex-wrap gap-2 mb-4"
+                    >
+                      {tags.map((tag: string, index) => (
+                        <motion.div
+                          key={tag}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
+                        >
+                          <Badge className="bg-white/10 text-white border-white/20 hover:bg-white/20 backdrop-blur-sm">
+                            {tag}
+                          </Badge>
+                        </motion.div>
+                      ))}
+                    </motion.div>
+                  )}
+
+                  {/* Title */}
+                  <motion.h1
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.6 }}
+                    className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-4 leading-tight"
+                    style={{
+                      textShadow: '0 4px 20px rgba(0,0,0,0.5), 0 2px 10px rgba(0,0,0,0.3)'
+                    }}
+                  >
+                    {localisedIndustry.industry_name}
+                  </motion.h1>
+
+                  {/* Industry Description */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, delay: 0.8 }}
+                    className="max-w-3xl"
+                  >
+                    <p className="text-lg md:text-xl text-white/90 leading-relaxed backdrop-blur-sm">
+                      {mainDescription}
+                    </p>
+                  </motion.div>
+
+                  {/* Action Buttons */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 1.0 }}
+                    className="flex flex-wrap gap-4 mt-6"
+                  >
+                    <Button
+                      size="lg"
+                      className="bg-gradient-to-r from-brand-primary to-orange-500 hover:from-brand-primary/90 hover:to-orange-500/90 text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border-0"
+                      asChild
+                    >
+                      <Link href="/contact">
+                        {t('navbar.contact')}
+                      </Link>
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="bg-white/10 text-white border-white/30 hover:bg-white/20 hover:border-white/50 backdrop-blur-sm font-semibold px-8 py-3 rounded-xl"
+                      asChild
+                    >
+                      <Link href="/products">
+                        {t('industries.viewSolutions')}
+                      </Link>
+                    </Button>
+                  </motion.div>
+                </div>
+
+                {/* Decorative Elements */}
+                <div className="absolute top-4 right-4 w-20 h-20 bg-white/5 rounded-full backdrop-blur-sm" />
+                <div className="absolute bottom-4 left-4 w-12 h-12 bg-brand-primary/20 rounded-full backdrop-blur-sm" />
+              </motion.div>
             )}
 
-            {/* Title */}
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl text-brand-dark dark:text-white">
-              {localisedIndustry.industry_name}
-            </h1>
+            {/* Fallback for no image */}
+            {!localisedIndustry.image_url && (
+              <div className="py-16 md:py-24 text-center">
+                {/* Tags */}
+                {tags && tags.length > 0 && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    className="flex flex-wrap justify-center gap-2 mb-6"
+                  >
+                    {tags.map((tag: string, index) => (
+                      <motion.div
+                        key={tag}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.3, delay: 0.3 + index * 0.1 }}
+                      >
+                        <Badge variant="outline" className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/20 border-brand-primary">
+                          {tag}
+                        </Badge>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                )}
 
-            {/* Industry Description */}
-            <div className="text-lg text-brand-secondary dark:text-gray-300 max-w-3xl">
-              <p>{mainDescription}</p>
-            </div>
+                {/* Title */}
+                <motion.h1
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.4 }}
+                  className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-brand-dark dark:text-white mb-6 leading-tight"
+                >
+                  {localisedIndustry.industry_name}
+                </motion.h1>
+
+                {/* Industry Description */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
+                  className="text-xl text-brand-secondary dark:text-gray-300 max-w-3xl mx-auto mb-8"
+                >
+                  <p>{mainDescription}</p>
+                </motion.div>
+
+                {/* Action Buttons */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.8 }}
+                  className="flex flex-wrap justify-center gap-4"
+                >
+                  <Button
+                    size="lg"
+                    className="bg-gradient-to-r from-brand-primary to-orange-500 hover:from-brand-primary/90 hover:to-orange-500/90 text-white font-semibold px-8 py-3 rounded-xl"
+                    asChild
+                  >
+                    <Link href="/contact">
+                      {t('navbar.contact')}
+                    </Link>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="border-brand-primary text-brand-primary hover:bg-brand-primary/10 font-semibold px-8 py-3 rounded-xl"
+                    asChild
+                  >
+                    <Link href="/products">
+                      {t('industries.viewSolutions')}
+                    </Link>
+                  </Button>
+                </motion.div>
+              </div>
+            )}
           </div>
         </div>
-      </section>
+      </motion.section>
+
+      {/* Features Section */}
+      <FeaturesSection industry={localisedIndustry} />
 
       {/* Content Section */}
       {localisedIndustry.content && (
-        <section className="w-full pt-0 md:pt-0 pb-12 md:pb-16">
+        <section className="w-full pt-0 md:pt-0 pb-6 md:pb-8">
           <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div>
               <MarkdownContent content={localisedIndustry.content} />
@@ -97,32 +259,9 @@ export function IndustryDetail({ industry, relatedProducts }: { industry: any, r
         </section>
       )}
 
-      {/* Features Section - Display only if content is NOT available */}
-      {!localisedIndustry.content && features.length > 0 && (
-        <section className="w-full py-8 md:py-12">
-          <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-brand-dark dark:text-white mb-6">
-              {t('industries.keyFeatures')}
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {features.map((feature, index) => (
-                <div
-                  key={index}
-                  className="flex items-start p-4 rounded-lg bg-white/50 dark:bg-black/20 border border-brand-primary/10 backdrop-blur-sm"
-                >
-                  <Shield className="h-5 w-5 text-brand-primary mr-3 mt-0.5 flex-shrink-0" />
-                  <p className="text-brand-secondary dark:text-gray-300">{feature}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
       {/* Related Products */}
       {relatedProducts.length > 0 && (
-        <section className="py-8 md:py-10">
+        <section className="pt-6 pb-6 md:pt-8 md:pb-6">
           <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="mb-4">
               <h2 className="text-2xl font-bold mb-2 text-brand-dark dark:text-white">{t('relatedProducts.title')}</h2>
@@ -132,7 +271,7 @@ export function IndustryDetail({ industry, relatedProducts }: { industry: any, r
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {relatedProducts.map((product) => {
+              {relatedProducts.map((product, index) => {
                 const name = product.name_locales?.[language] || product.name;
                 const description = product.description_locales?.[language] || product.description;
                 const short_description = product.short_description_locales?.[language] || product.short_description;
@@ -142,20 +281,21 @@ export function IndustryDetail({ industry, relatedProducts }: { industry: any, r
                 const applications = product.applications_locales?.[language] || product.applications;
                 const industries = product.industries_locales?.[language] || product.industries;
                 return (
-                  <ProductCard
-                    key={product.id}
-                    product={{
-                      ...product,
-                      name,
-                      description,
-                      short_description,
-                      category,
-                      sub_category,
-                      features,
-                      applications,
-                      industries,
-                    }}
-                  />
+                  <div key={product.id}>
+                    <ProductCard
+                      product={{
+                        ...product,
+                        name,
+                        description,
+                        short_description,
+                        category,
+                        sub_category,
+                        features,
+                        applications,
+                        industries,
+                      }}
+                    />
+                  </div>
                 );
               })}
             </div>
@@ -177,25 +317,72 @@ export function IndustryDetail({ industry, relatedProducts }: { industry: any, r
       )}
 
       {/* CTA Section */}
-      <section className="w-full py-8 md:py-12">
+      <section className="w-full pt-6 pb-8 md:pt-6 md:pb-12">
         <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-brand-primary/10 border border-brand-primary/20 rounded-xl p-6 md:p-8 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold text-brand-dark dark:text-white mb-4">
-              {t('industries.viewSolutions')}
-            </h2>
-            <p className="text-brand-secondary dark:text-gray-300 max-w-2xl mx-auto mb-6">
-              {t('industries.sectorsDescription')}
-            </p>
-            <Button
-              variant="default"
-              size="lg"
-              className="bg-brand-primary text-white hover:bg-brand-primary/90"
-              asChild
-            >
-              <Link href="/contact">
-                {t('navbar.contact')}
-              </Link>
-            </Button>
+          <div className="relative overflow-hidden bg-gradient-to-br from-white via-gray-50/50 to-white dark:from-black/50 dark:via-gray-900/50 dark:to-black/50 border border-gray-100 dark:border-gray-700/50 rounded-2xl p-6 md:p-8 backdrop-blur-sm shadow-xl">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 bg-grid-primary/[0.02] [mask-image:radial-gradient(white,transparent_70%)]" />
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-brand-primary/10 to-orange-500/10 rounded-full blur-2xl" />
+            <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-orange-500/10 to-brand-primary/10 rounded-full blur-2xl" />
+            
+            {/* Content */}
+            <div className="relative text-center max-w-3xl mx-auto">
+              {/* Badge */}
+              <div className="inline-flex items-center mb-4 rounded-full bg-gradient-to-r from-brand-primary/10 to-orange-500/10 px-4 py-2 text-sm border border-brand-primary/20 backdrop-blur-sm">
+                <Shield className="mr-2 h-4 w-4 text-brand-primary" />
+                <span className="text-brand-dark dark:text-white font-medium">
+                  {t('industryCta.badge')}
+                </span>
+              </div>
+
+              {/* Title */}
+              <h2 className="text-2xl md:text-3xl font-bold text-brand-dark dark:text-white mb-4 leading-relaxed">
+                {t('industryCta.title')}{' '}
+                <span className="text-orange-500">
+                  {localisedIndustry.industry_name}
+                </span>
+                {' '}?
+              </h2>
+
+              {/* Description */}
+              <p className="text-brand-secondary dark:text-gray-300 max-w-2xl mx-auto mb-6">
+                {t('industryCta.description').replace('{industry}', localisedIndustry.industry_name.toLowerCase())}
+              </p>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
+                <Button 
+                  variant="default" 
+                  size="lg" 
+                  className="bg-brand-primary hover:bg-brand-primary/90 text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl transform"
+                  asChild
+                >
+                  <Link href="/products" className="flex items-center gap-2">
+                    <Package className="h-5 w-5" />
+                    {t('industryCta.buttons.browseProducts')}
+                  </Link>
+                </Button>
+                
+                <Button 
+                  variant="outline" 
+                  size="lg" 
+                  className="border-brand-primary/30 text-brand-primary hover:bg-gray-700 hover:text-white hover:border-gray-700 transition-all duration-300"
+                  asChild
+                >
+                  <Link href="/contact" className="flex items-center gap-2">
+                    <Mail className="h-5 w-5" />
+                    {t('industryCta.buttons.contactUs')}
+                  </Link>
+                </Button>
+              </div>
+
+              {/* Trust Indicator */}
+              <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                <p className="text-sm text-brand-secondary dark:text-gray-400">
+                  {t('industryCta.trustIndicator').replace('{industry}', localisedIndustry.industry_name.toLowerCase())}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

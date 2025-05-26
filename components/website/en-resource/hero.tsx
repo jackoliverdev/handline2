@@ -16,10 +16,10 @@ interface ENResourceHeroProps {
 export function ENResourceHero({ language }: ENResourceHeroProps) {
   const { t } = useLanguage();
   const stats = [
-    { value: '50+', label: 'EN Standards' },
-    { value: '100%', label: 'Compliance' },
-    { value: '40+', label: 'Years Expertise' },
-    { value: '15+', label: 'Categories' },
+    { value: t('standards.hero.stats.standards'), label: t('navbar.resourcesDropdown.enResourceCentre') },
+    { value: t('standards.hero.stats.resources'), label: t('standards.hero.stats.resourcesLabel') },
+    { value: t('standards.hero.stats.guides'), label: t('standards.hero.stats.guidesLabel') },
+    { value: t('standards.hero.stats.categories'), label: t('standards.hero.stats.categoriesLabel') },
   ];
 
   return (
@@ -41,7 +41,7 @@ export function ENResourceHero({ language }: ENResourceHeroProps) {
             <div className="inline-flex items-center rounded-full border border-brand-primary px-3 py-1 md:px-4 md:py-1.5 text-xs md:text-sm backdrop-blur-sm">
               <ClipboardCheck className="mr-1.5 h-3 w-3 md:h-4 md:w-4 text-brand-primary" />
               <span className="text-brand-dark dark:text-white font-medium">
-                European Standards
+                {t('standards.hero.badge')}
               </span>
             </div>
           </motion.div>
@@ -54,7 +54,7 @@ export function ENResourceHero({ language }: ENResourceHeroProps) {
             className="relative mb-4 md:mb-6"
           >
             <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-brand-dark dark:text-white font-heading">
-              EN <span className="text-brand-primary">Resource Centre</span>
+              {t('standards.hero.title')} <span className="text-brand-primary">{t('standards.hero.titleAccent')}</span>
             </h1>
           </motion.div>
 
@@ -66,7 +66,7 @@ export function ENResourceHero({ language }: ENResourceHeroProps) {
             className="mb-6 md:mb-10"
           >
             <p className="max-w-2xl text-base md:text-lg text-brand-secondary dark:text-gray-300">
-              Comprehensive information on European safety standards for personal protective equipment. Learn about the regulations that ensure our products meet the highest quality and safety requirements.
+              {t('standards.hero.description')}
             </p>
           </motion.div>
 
@@ -99,7 +99,7 @@ export function ENResourceHero({ language }: ENResourceHeroProps) {
             >
               <Link href="#standards-list" className="flex items-center justify-center gap-1.5 md:gap-2">
                 <ClipboardCheck className="h-4 w-4 md:h-5 md:w-5" />
-                <span>Browse Standards</span>
+                <span>{t('standards.hero.exploreStandards')}</span>
                 <ChevronRight className="h-3.5 w-3.5 md:h-4 md:w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
@@ -111,7 +111,7 @@ export function ENResourceHero({ language }: ENResourceHeroProps) {
             >
               <Link href="/products" className="flex items-center justify-center gap-1.5 md:gap-2">
                 <Shield className="h-4 w-4 md:h-5 md:w-5" />
-                <span>View Our Products</span>
+                <span>{t('productsHero.getInTouch')}</span>
                 <ChevronRight className="h-3.5 w-3.5 md:h-4 md:w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>

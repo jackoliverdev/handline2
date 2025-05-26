@@ -174,6 +174,27 @@
     "learnMore": "Learn more",
     "viewAll": "View all industries"
   },
+  "cta": {
+    "badge": "Specialised Safety Solutions",
+    "title": "Ready to Enhance Workplace",
+    "titleAccent": "Safety",
+    "description": "Discover our comprehensive range of safety solutions designed for diverse industries. From cutting-edge technology to proven safety protocols, we help protect your workforce.",
+    "buttons": {
+      "browseProducts": "Browse Our Products",
+      "contactUs": "Contact Us Today"
+    },
+    "trustIndicator": "Trusted by leading companies worldwide • EN standards • European support"
+  },
+  "industryCta": {
+    "badge": "Specialised Safety Solutions",
+    "title": "Ready to Enhance Safety in",
+    "description": "Discover our comprehensive range of safety solutions specifically designed for the {industry} industry. From cutting-edge technology to proven safety protocols.",
+    "buttons": {
+      "browseProducts": "Browse Our Products",
+      "contactUs": "Contact Us Today"
+    },
+    "trustIndicator": "Trusted by leading companies in {industry} • EN standards • European support"
+  },
   "footer": {
     "companyDescription": "Italian manufacturer specialising in high-performance safety gloves for industrial environments. Protecting hands with innovative solutions since 1982.",
     "address": "via Antonio Bruse 34, 22035, Canzo (CO), Italy",
@@ -360,7 +381,19 @@
     "sectorsDescription": "At Hand Line, we develop specialised safety solutions for a diverse range of industries, each with unique challenges and requirements.",
     "keyFeatures": "Key Features",
     "viewSolutions": "View Solutions",
-    "contactForDetails": "Contact us for details"
+    "contactForDetails": "Contact us for details",
+    "spotlight": {
+      "badge": "Featured Industry",
+      "title": "Industry Spotlight",
+      "description": "Discover how Hand Line's innovative safety solutions are tailored to meet the unique challenges of this industry.",
+      "subtitle": "Specialised Safety Solutions",
+      "cta": "Explore Solutions"
+    },
+    "features": {
+      "title": "Specialised Safety Features",
+      "description": "Discover the advanced safety features that make our {industry} solutions exceptional.",
+      "count": "{count}+ specialised safety features"
+    }
   },
   "about": {
     "est": "Est. 1981",
@@ -633,11 +666,17 @@
       "articles": "articles",
       "noArticles": "No articles found",
       "noArticlesDescription": "Try adjusting your search or filter criteria",
-      "clearFilters": "Clear Filters"
+      "filterByTags": "Tags",
+      "clearFilters": "Clear",
+      "searchFor": "for",
+      "clearAllFilters": "Clear all filters"
     },
     "readArticle": "Read Article",
     "backToBlogs": "Back to Blogs",
-    "minRead": "{count} min read"
+    "minRead": "min read",
+    "featuredArticle": "Featured Article",
+    "featuredTitle": "Expert Insights",
+    "featuredDescription": "Discover the latest insights and innovations in workplace safety and hand protection technology."
   },
   "caseStudies": {
     "hero": {
@@ -663,8 +702,10 @@
       "caseStudies": "case studies",
       "noCaseStudies": "No case studies found",
       "noCaseStudiesDescription": "Try adjusting your search or filter criteria",
-      "filterByTags": "Filter by Tags",
-      "filterByIndustry": "Filter by Industry"
+      "filterByTags": "Tags",
+      "filterByIndustry": "Industries",
+      "clearFilters": "Clear",
+      "clearAllFilters": "Clear all filters"
     },
     "viewCaseStudy": "View Case Study",
     "backToCaseStudies": "Back to Case Studies",
@@ -934,6 +975,36 @@
       }
     }
   },
+  "declarations": {
+    "hero": {
+      "badge": "Compliance Documents",
+      "title": "Compliance",
+      "titleAccent": "Declarations",
+      "description": "Access official declarations of conformity for Hand Line products. These documents certify that our products meet all the requirements of European health, safety, and environmental protection standards.",
+      "viewDeclarations": "View Declarations",
+      "stats": {
+        "products": "200+",
+        "productsLabel": "Products",
+        "declarations": "20+",
+        "declarationsLabel": "Declarations",
+        "compliance": "100%",
+        "certified": "EU",
+        "certifiedLabel": "Certified"
+      }
+    },
+    "grid": {
+      "searchPlaceholder": "Search declarations...",
+      "filterByCategory": "Categories",
+      "categories": "Categories",
+      "declarations": "declarations",
+      "searchFor": "for",
+      "clearFilters": "Clear",
+      "noDeclarations": "No declarations found",
+      "noDeclarationsDescription": "No product declarations match your search criteria. Try adjusting your filters.",
+      "noDeclarationsAvailable": "There are currently no product declarations available.",
+      "clearAllFilters": "Clear all filters"
+    }
+  },
   "careers": {
     "hero": {
       "badge": "Join Our Team",
@@ -988,7 +1059,9 @@
       "sharePosition": "Share this position",
       "backToCareers": "Back to Careers",
       "readyToJoin": "Ready to Join Our Team?",
-      "excitedToLearn": "We're excited to learn more about you and discuss how you can contribute to our mission."
+      "readyToJoinBadge": "Join Our Team",
+      "excitedToLearn": "We're excited to learn more about you and discuss how you can contribute to our mission.",
+      "joinTeamIndicator": "Trusted by professionals worldwide • Competitive benefits • European workplace standards"
     },
     "application": {
       "title": "Apply for Position",

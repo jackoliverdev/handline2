@@ -83,7 +83,7 @@ export const Values = () => {
               }}
             >
               <Card 
-                className="group relative overflow-hidden rounded-lg border bg-[#F5EFE0]/80 dark:bg-transparent shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm dark:backdrop-blur-none"
+                className="group relative overflow-hidden rounded-lg bg-white dark:bg-black/50 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm h-full"
               >
                 <CardContent className="p-4 flex flex-col items-center text-center">
                   <motion.div 

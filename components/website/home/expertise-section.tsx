@@ -139,10 +139,9 @@ export const ExpertiseSection = () => {
             >
               <Link
                 href={feature.link}
-                className="group/card block relative overflow-hidden rounded-xl hover:cursor-pointer h-full"
+                className="group/card block relative overflow-hidden rounded-2xl hover:cursor-pointer h-full"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-[#F28C38]/10 to-[#E67A2C]/10 blur-2xl pointer-events-none"></div>
-                <div className="relative backdrop-blur-xl bg-white/10 border border-white/20 p-6 h-full rounded-xl shadow-[0_8px_32px_0_rgba(31,38,135,0.07)]">
+                <div className="relative bg-white dark:bg-black/50 border border-gray-100 dark:border-gray-700/50 p-6 h-full rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 backdrop-blur-sm group">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0">
                       <motion.div 
@@ -156,10 +155,10 @@ export const ExpertiseSection = () => {
                       </motion.div>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-xl font-semibold text-[#F28C38] mb-2">
+                      <h3 className="text-xl font-semibold text-[#F28C38] mb-2 group-hover:text-[#F28C38]/90 transition-colors duration-300">
                         {t(`expertise.features.${feature.key}.title`)}
                       </h3>
-                      <p className="text-gray-700 dark:text-gray-200 text-sm leading-relaxed mb-3 min-h-[60px]">
+                      <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-3 min-h-[60px]">
                         {t(`expertise.features.${feature.key}.description`)}
                       </p>
                       <div className="relative inline-flex items-center text-[#F28C38] text-sm font-medium">
@@ -175,7 +174,7 @@ export const ExpertiseSection = () => {
                           strokeWidth="2" 
                           strokeLinecap="round" 
                           strokeLinejoin="round"
-                          whileHover={{ x: 3 }}
+                          whileHover={{ x: 3, scale: 1.1 }}
                           transition={{ duration: 0.2 }}
                         >
                           <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -183,6 +182,9 @@ export const ExpertiseSection = () => {
                       </div>
                     </div>
                   </div>
+                  
+                  {/* Hover Effect Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-primary/0 to-brand-primary/0 group-hover:from-brand-primary/5 group-hover:to-transparent transition-all duration-500 pointer-events-none rounded-2xl" />
                 </div>
               </Link>
             </motion.div>
@@ -213,9 +215,8 @@ export const ExpertiseSection = () => {
               </div>
             </div>
           </motion.div>
-          <div className="relative overflow-hidden rounded-xl">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#F28C38]/10 to-[#E67A2C]/10 blur-2xl"></div>
-            <div className="relative backdrop-blur-xl bg-white/10 border border-white/20 p-4 sm:p-6 md:p-8 pt-10 sm:pt-12 rounded-xl shadow-[0_8px_32px_0_rgba(31,38,135,0.07)]">
+          <div className="relative overflow-hidden rounded-2xl">
+            <div className="relative bg-white dark:bg-black/50 border border-gray-100 dark:border-gray-700/50 p-4 sm:p-6 md:p-8 pt-10 sm:pt-12 rounded-2xl shadow-lg backdrop-blur-sm">
               <div className="flex flex-col items-center">
                 <div className="flex items-start w-full max-w-[90%] sm:max-w-2xl md:max-w-4xl mx-auto">
                   <motion.span 
@@ -230,7 +231,7 @@ export const ExpertiseSection = () => {
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.8, duration: 0.5 }}
-                    className="text-sm sm:text-base text-gray-700 dark:text-gray-200 font-medium italic px-1 sm:px-2 text-center flex-1 leading-relaxed"
+                    className="text-sm sm:text-base text-gray-600 dark:text-gray-300 font-medium italic px-1 sm:px-2 text-center flex-1 leading-relaxed"
                   >
                     {t('expertise.quote.text')}
                   </motion.p>

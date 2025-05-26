@@ -65,7 +65,7 @@ export function CareerCard({ post, index, language }: CareerCardProps) {
   return (
     <motion.div
       variants={item}
-      className="group relative overflow-hidden rounded-xl border bg-[#F5EFE0]/80 dark:bg-transparent shadow-sm transition-all duration-300 hover:shadow-lg border-brand-primary/20 dark:border-gray-700 hover:border-brand-primary/40 dark:hover:border-brand-primary/50"
+      className="group relative overflow-hidden rounded-xl border bg-white dark:bg-black/50 shadow-lg hover:shadow-2xl transition-all duration-500 border-gray-100 dark:border-gray-700/50 backdrop-blur-sm"
     >
       {/* New Badge */}
       {isNew && (

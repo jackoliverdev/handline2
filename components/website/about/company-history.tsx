@@ -100,7 +100,7 @@ export const CompanyHistory = () => {
                 style={{ zIndex: 30 - index }}
               >
                 <div className={`w-5/12 ${index % 2 === 0 ? 'pr-6' : 'pl-6'}`}>
-                  <Card className="bg-[#F5EFE0]/80 dark:bg-transparent shadow-sm border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm dark:backdrop-blur-none transition-all duration-300 hover:shadow-md">
+                  <Card className="bg-white dark:bg-black/50 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm">
                     <CardContent className="p-6">
                       <p className="text-sm font-bold text-brand-primary mb-1">{milestone.year}</p>
                       <h3 className="text-lg font-bold text-brand-dark dark:text-white mb-2">{milestone.title}</h3>
@@ -117,7 +117,7 @@ export const CompanyHistory = () => {
                       whileInView={{ scale: 1, opacity: 1 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.3, delay: 0.2 + (index * 0.1) }}
-                      className="w-8 h-8 rounded-full bg-[#F5EFE0] dark:bg-gray-800 border-4 border-brand-primary flex items-center justify-center"
+                      className="w-8 h-8 rounded-full bg-white dark:bg-black/50 border-4 border-brand-primary flex items-center justify-center shadow-lg"
                     >
                       <div className="w-2 h-2 rounded-full bg-brand-primary"></div>
                     </motion.div>
@@ -161,13 +161,13 @@ export const CompanyHistory = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.3, delay: 0.2 + (index * 0.1) }}
                     style={{ marginLeft: '3px' }}
-                    className="w-10 h-10 rounded-full bg-[#F5EFE0] dark:bg-gray-800 border-4 border-brand-primary flex items-center justify-center shadow-md"
+                    className="w-10 h-10 rounded-full bg-white dark:bg-black/50 border-4 border-brand-primary flex items-center justify-center shadow-lg backdrop-blur-sm"
                   >
                     <div className="w-3 h-3 rounded-full bg-brand-primary"></div>
                   </motion.div>
                 </div>
                 
-                <Card className="bg-[#F5EFE0]/80 dark:bg-transparent shadow-sm border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm dark:backdrop-blur-none transition-all duration-300 hover:shadow-md">
+                <Card className="bg-white dark:bg-black/50 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm">
                   <CardContent className="p-4">
                     <p className="text-sm font-bold text-brand-primary mb-1">{milestone.year}</p>
                     <h3 className="text-base font-bold text-brand-dark dark:text-white mb-1">{milestone.title}</h3>

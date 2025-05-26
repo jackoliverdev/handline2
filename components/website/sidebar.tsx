@@ -74,12 +74,12 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
       {/* Sidebar panel */}
       <div 
         className={`
-          fixed inset-y-0 left-0 z-[1001] w-[280px] bg-[#111111] dark:bg-[#111111]
+          fixed inset-y-0 left-0 z-[1001] w-[280px] bg-white/90 dark:bg-black/90
           transform transition-transform duration-300 ease-in-out
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
         `}
       >
-        <div className="flex items-center justify-between p-3 border-b border-[#222222]">
+        <div className="flex items-center justify-between p-3 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center">
             <Link href="/">
               <div className="flex items-center">
@@ -90,7 +90,7 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                   height={32}
                   className="h-8 w-8 mr-2" 
                 />
-                <h2 className="text-base font-bold text-white">
+                <h2 className="text-base font-bold text-slate-900 dark:text-white">
                   Hand <span className="text-[#F28C38]">Line</span>
                 </h2>
               </div>
@@ -98,7 +98,7 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
           </div>
           <button 
             onClick={onClose}
-            className="text-slate-400 hover:text-white transition-colors"
+            className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
           >
             <X className="h-5 w-5" />
           </button>
@@ -112,7 +112,7 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
               placeholder={t('navbar.searchPlaceholder')}
               value={searchQuery}
               onChange={handleSearchChange}
-              className="w-full py-1.5 px-3 pl-8 bg-[#222222] border border-[#333333] text-white rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-[#F28C38]"
+              className="w-full py-1.5 px-3 pl-8 bg-white/80 dark:bg-black/80 border border-gray-200 dark:border-gray-700 text-slate-900 dark:text-white rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-[#F28C38]"
             />
             <div className="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none">
               {isSearching ? (
@@ -130,7 +130,7 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
             {/* Products Section */}
             <div>
               <div
-                className="flex items-center justify-between px-3 py-1.5 text-slate-300 hover:bg-[#222222] transition-colors cursor-pointer"
+                className="flex items-center justify-between px-3 py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors cursor-pointer"
                 onClick={() => toggleSection('products')}
               >
                 <div className="flex items-center">
@@ -147,26 +147,26 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
               </div>
               
               {expandedSection === 'products' && (
-                <div className="ml-10 pl-2 border-l border-[#333333]">
+                <div className="ml-10 pl-2 border-l border-gray-300 dark:border-gray-600">
                   {/* All Products */}
-                  <div className="py-1.5 text-slate-300 hover:bg-[#222222] transition-colors">
+                  <div className="py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors">
                     <Link 
                       href="/products"
                       className="flex items-center"
                       onClick={onClose}
                     >
-                      <LayoutDashboard className="h-4 w-4 text-slate-400 mr-2" />
+                      <LayoutDashboard className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
                       <span className="text-sm">{t('navbar.allProducts')}</span>
                     </Link>
                   </div>
 
                   {/* Gloves */}
                   <div
-                    className="flex items-center justify-between py-1.5 text-slate-300 hover:bg-[#222222] transition-colors cursor-pointer"
+                    className="flex items-center justify-between py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors cursor-pointer"
                     onClick={() => toggleCategory('gloves')}
                   >
                     <div className="flex items-center">
-                      <Shield className="h-4 w-4 text-slate-400 mr-2" />
+                      <Shield className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
                       <span className="text-sm">{t('navbar.safetyGloves')}</span>
                     </div>
                     {expandedCategory === 'gloves' ? (
@@ -177,31 +177,31 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                   </div>
                   
                   {expandedCategory === 'gloves' && (
-                    <div className="ml-6 pl-2 border-l border-[#333333]">
+                    <div className="ml-6 pl-2 border-l border-gray-300 dark:border-gray-600">
                       <Link 
                         href="/products/gloves"
-                        className="block py-1.5 text-xs text-slate-400 hover:text-white"
+                        className="block py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                         onClick={onClose}
                       >
                         {t('navbar.allGloves')}
                       </Link>
                       <Link 
                         href="/products/gloves/heat"
-                        className="block py-1.5 text-xs text-slate-400 hover:text-white"
+                        className="block py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                         onClick={onClose}
                       >
                         {t('navbar.heatResistant')}
                       </Link>
                       <Link 
                         href="/products/gloves/cut"
-                        className="block py-1.5 text-xs text-slate-400 hover:text-white"
+                        className="block py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                         onClick={onClose}
                       >
                         {t('navbar.cutResistant')}
                       </Link>
                       <Link 
                         href="/products/gloves/general"
-                        className="block py-1.5 text-xs text-slate-400 hover:text-white"
+                        className="block py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                         onClick={onClose}
                       >
                         {t('navbar.generalPurpose')}
@@ -210,25 +210,25 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                   )}
 
                   {/* Industrial Swabs */}
-                  <div className="py-1.5 text-slate-300 hover:bg-[#222222] transition-colors">
+                  <div className="py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors">
                     <Link 
                       href="/products/industrial-swabs"
                       className="flex items-center"
                       onClick={onClose}
                     >
-                      <Scissors className="h-4 w-4 text-slate-400 mr-2" />
+                      <Scissors className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
                       <span className="text-sm">{t('navbar.industrialSwabs')}</span>
                     </Link>
                   </div>
 
                   {/* Respiratory Protection */}
-                  <div className="py-1.5 text-slate-300 hover:bg-[#222222] transition-colors">
+                  <div className="py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors">
                     <Link 
                       href="/products/respiratory"
                       className="flex items-center"
                       onClick={onClose}
                     >
-                      <Shield className="h-4 w-4 text-slate-400 mr-2" />
+                      <Shield className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
                       <span className="text-sm">{t('navbar.respiratoryProtection')}</span>
                     </Link>
                   </div>
@@ -239,7 +239,7 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
             {/* Industries Section */}
             <div>
               <div
-                className="flex items-center justify-between px-3 py-1.5 text-slate-300 hover:bg-[#222222] transition-colors cursor-pointer"
+                className="flex items-center justify-between px-3 py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors cursor-pointer"
                 onClick={() => toggleSection('industries')}
               >
                 <div className="flex items-center">
@@ -256,31 +256,31 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
               </div>
               
               {expandedSection === 'industries' && (
-                <div className="ml-10 pl-2 border-l border-[#333333]">
+                <div className="ml-10 pl-2 border-l border-gray-300 dark:border-gray-600">
                   <Link 
                     href="/industries/manufacturing" 
-                    className="flex items-center py-1.5 text-xs text-slate-400 hover:text-white"
+                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     onClick={onClose}
                   >
                     <span>{t('industries.manufacturing')}</span>
                   </Link>
                   <Link 
                     href="/industries/glass" 
-                    className="flex items-center py-1.5 text-xs text-slate-400 hover:text-white"
+                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     onClick={onClose}
                   >
                     <span>{t('footer.sections.industries.links.glass')}</span>
                   </Link>
                   <Link 
                     href="/industries/metalworking" 
-                    className="flex items-center py-1.5 text-xs text-slate-400 hover:text-white"
+                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     onClick={onClose}
                   >
                     <span>{t('footer.sections.industries.links.metalworking')}</span>
                   </Link>
                   <Link 
                     href="/industries/automotive" 
-                    className="flex items-center py-1.5 text-xs text-slate-400 hover:text-white"
+                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     onClick={onClose}
                   >
                     <span>{t('footer.sections.industries.links.automotive')}</span>
@@ -292,7 +292,7 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
             {/* About Section */}
             <div>
               <div
-                className="flex items-center justify-between px-3 py-1.5 text-slate-300 hover:bg-[#222222] transition-colors cursor-pointer"
+                className="flex items-center justify-between px-3 py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors cursor-pointer"
                 onClick={() => toggleSection('about')}
               >
                 <div className="flex items-center">
@@ -309,17 +309,17 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
               </div>
               
               {expandedSection === 'about' && (
-                <div className="ml-10 pl-2 border-l border-[#333333]">
+                <div className="ml-10 pl-2 border-l border-gray-300 dark:border-gray-600">
                   <Link 
                     href="/about" 
-                    className="flex items-center py-1.5 text-xs text-slate-400 hover:text-white"
+                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     onClick={onClose}
                   >
                     <span>{t('navbar.aboutDropdown.ourCompany')}</span>
                   </Link>
                   <Link 
                     href="/careers" 
-                    className="flex items-center py-1.5 text-xs text-slate-400 hover:text-white"
+                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     onClick={onClose}
                   >
                     <span>{t('navbar.aboutDropdown.careers')}</span>
@@ -331,7 +331,7 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
             {/* Partners Section */}
             <div>
               <div
-                className="flex items-center justify-between px-3 py-1.5 text-slate-300 hover:bg-[#222222] transition-colors cursor-pointer"
+                className="flex items-center justify-between px-3 py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors cursor-pointer"
                 onClick={() => toggleSection('partners')}
               >
                 <div className="flex items-center">
@@ -348,17 +348,17 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
               </div>
               
               {expandedSection === 'partners' && (
-                <div className="ml-10 pl-2 border-l border-[#333333]">
+                <div className="ml-10 pl-2 border-l border-gray-300 dark:border-gray-600">
                   <Link 
                     href="/partners/partnerships" 
-                    className="flex items-center py-1.5 text-xs text-slate-400 hover:text-white"
+                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     onClick={onClose}
                   >
                     <span>{t('navbar.partnersDropdown.partnerships')}</span>
                   </Link>
                   <Link 
                     href="/partners/distribution" 
-                    className="flex items-center py-1.5 text-xs text-slate-400 hover:text-white"
+                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     onClick={onClose}
                   >
                     <span>{t('navbar.partnersDropdown.distribution')}</span>
@@ -370,7 +370,7 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
             {/* Resources section */}
             <div>
               <div 
-                className="flex items-center justify-between px-3 py-1.5 text-slate-300 hover:bg-[#222222] transition-colors cursor-pointer"
+                className="flex items-center justify-between px-3 py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors cursor-pointer"
                 onClick={() => toggleSection('resources')}
               >
                 <div className="flex items-center">
@@ -387,38 +387,38 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
               </div>
               
               {expandedSection === 'resources' && (
-                <div className="ml-10 pl-2 border-l border-[#333333]">
+                <div className="ml-10 pl-2 border-l border-gray-300 dark:border-gray-600">
                   <Link 
                     href="/resources/blog" 
-                    className="flex items-center py-1.5 text-xs text-slate-400 hover:text-white"
+                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     onClick={onClose}
                   >
                     <span>{t('navbar.resourcesDropdown.blog')}</span>
                   </Link>
                   <Link 
                     href="/resources/case-studies" 
-                    className="flex items-center py-1.5 text-xs text-slate-400 hover:text-white"
+                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     onClick={onClose}
                   >
                     <span>{t('navbar.resourcesDropdown.caseStudies')}</span>
                   </Link>
                   <Link 
                     href="/resources/en-resource-centre" 
-                    className="flex items-center py-1.5 text-xs text-slate-400 hover:text-white"
+                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     onClick={onClose}
                   >
                     <span>{t('navbar.resourcesDropdown.enResourceCentre')}</span>
                   </Link>
                   <Link 
                     href="/resources/product-disclaimer" 
-                    className="flex items-center py-1.5 text-xs text-slate-400 hover:text-white"
+                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     onClick={onClose}
                   >
                     <span>{t('navbar.resourcesDropdown.productDisclaimer')}</span>
                   </Link>
                   <Link 
                     href="/resources/declarations" 
-                    className="flex items-center py-1.5 text-xs text-slate-400 hover:text-white"
+                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     onClick={onClose}
                   >
                     <span>{t('navbar.resourcesDropdown.declarations')}</span>
@@ -429,23 +429,23 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
           </div>
           
           {/* Language Selector */}
-          <div className="mt-4 pt-4 border-t border-[#222222] px-3">
-            <div className="flex items-center text-slate-300">
-              <Globe className="h-4 w-4 mr-2 text-slate-400" />
-              <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+          <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 px-3">
+            <div className="flex items-center text-slate-700 dark:text-slate-300">
+              <Globe className="h-4 w-4 mr-2 text-slate-500 dark:text-slate-400" />
+              <span className="text-xs font-semibold text-slate-500 dark:text-slate-500 uppercase tracking-wider">
                 {t('navbar.language.toggleLabel')}
               </span>
             </div>
             <div className="mt-2 pl-6">
               <button 
                 onClick={() => setLanguage('en')}
-                className={`block py-1.5 text-xs ${language === 'en' ? 'text-white' : 'text-slate-400'} hover:text-[#F28C38] transition-colors`}
+                className={`block py-1.5 text-xs ${language === 'en' ? 'text-slate-900 dark:text-white' : 'text-slate-600 dark:text-slate-400'} hover:text-[#F28C38] transition-colors`}
               >
                 <span role="img" aria-label="English" className="mr-2">🇬🇧</span> {t('navbar.language.en')}
               </button>
               <button 
                 onClick={() => setLanguage('it')}
-                className={`block py-1.5 text-xs ${language === 'it' ? 'text-white' : 'text-slate-400'} hover:text-[#F28C38] transition-colors`}
+                className={`block py-1.5 text-xs ${language === 'it' ? 'text-slate-900 dark:text-white' : 'text-slate-600 dark:text-slate-400'} hover:text-[#F28C38] transition-colors`}
               >
                 <span role="img" aria-label="Italian" className="mr-2">🇮🇹</span> {t('navbar.language.it')}
               </button>
@@ -454,7 +454,7 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
         </div>
         
         {/* Contact button */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 bg-[#111111] border-t border-[#222222]">
+        <div className="absolute bottom-0 left-0 right-0 p-4 bg-white/90 dark:bg-black/90 border-t border-gray-200 dark:border-gray-700">
           <Link
             href="/contact"
             className="flex items-center justify-center py-3 px-4 bg-gradient-to-r from-[#F28C38] to-[#E67A2C] hover:from-[#E67A2C] hover:to-[#D96920] text-white font-medium rounded-md shadow-md transition-all"

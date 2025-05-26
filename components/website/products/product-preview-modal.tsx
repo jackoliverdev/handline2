@@ -39,65 +39,69 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[600px] max-w-[95vw] p-0 gap-0 bg-[#F5EFE0]/95 dark:bg-black backdrop-blur-sm dark:backdrop-blur-none max-h-[90vh] overflow-y-auto">
-        <div className="sticky top-0 right-0 p-2 z-20 flex justify-end">
-          <DialogClose asChild>
-            <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full bg-brand-primary/10 hover:bg-brand-primary/20 absolute top-2 right-2">
-              <X className="h-4 w-4 text-brand-primary" />
-              <span className="sr-only">Close</span>
-            </Button>
-          </DialogClose>
-        </div>
-        <DialogHeader className="p-4 sm:p-6 pt-8 sm:pt-6 border-b border-brand-primary/10 dark:border-brand-primary/20">
-          <div className="flex flex-wrap items-center gap-2 mb-1 sm:mb-2">
-            <Badge variant="outline" className="border-brand-primary/30 text-brand-secondary dark:text-gray-300 text-xs">
-              {product.category}
-            </Badge>
-            {product.sub_category && (
-              <Badge variant="outline" className="border-brand-primary/30 text-brand-secondary dark:text-gray-300 text-xs">
-                {product.sub_category}
-              </Badge>
+      <DialogContent className="sm:max-w-[800px] max-w-[95vw] p-0 gap-0 bg-white dark:bg-black/50 backdrop-blur-sm border border-gray-100 dark:border-gray-700/50 shadow-2xl max-h-[85vh] overflow-y-auto">
+        
+        {/* Header with title and badges */}
+        <div className="p-6 pb-4 border-b border-gray-100 dark:border-gray-700/50">
+          <div className="flex flex-wrap items-center gap-2 mb-3">
+            {/* Featured Badge - Better contrast */}
+            {product.is_featured && (
+              <div className="bg-brand-primary text-white py-1 px-3 rounded-lg text-sm font-bold shadow-lg border-2 border-brand-primary">
+                Featured
+              </div>
             )}
+            
+            {/* Category Badge */}
+            {product.category && (
+              <div className="bg-white/90 dark:bg-gray-900/90 text-brand-primary py-1 px-3 rounded-lg text-sm font-medium shadow-md border border-brand-primary/20 backdrop-blur-sm">
+                {product.category}
+              </div>
+            )}
+            
+            {product.sub_category && (
+              <div className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 py-1 px-3 rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-700">
+                {product.sub_category}
+              </div>
+            )}
+            
             {product.out_of_stock && (
-              <Badge variant="destructive" className="bg-red-500 text-white text-xs">
+              <div className="bg-gradient-to-r from-red-500 to-red-600 text-white py-1 px-3 rounded-lg text-sm font-medium shadow-lg">
                 Out of Stock
-              </Badge>
+              </div>
             )}
           </div>
-          <DialogTitle className="text-lg sm:text-xl font-bold text-brand-dark dark:text-white">
+          
+          <h2 className="text-xl font-bold text-brand-dark dark:text-white font-heading">
             {product.name}
-          </DialogTitle>
-        </DialogHeader>
+          </h2>
+        </div>
 
-        <div className="flex flex-col sm:grid sm:grid-cols-2 gap-3 sm:gap-4 p-4 sm:p-6">
+        {/* Main Content */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+          {/* Left side - Images */}
           <div className="space-y-3">
             {/* Main Image */}
-            <div className="relative aspect-square bg-black dark:bg-black rounded-md overflow-hidden h-[180px] sm:h-auto">
+            <div className="relative aspect-square bg-white dark:bg-black/30 rounded-xl overflow-hidden border border-gray-100 dark:border-gray-700/50 shadow-md group">
               <Image
                 src={selectedImage}
                 alt={product.name}
                 fill
-                className="object-contain p-3 transition-opacity duration-200"
-                sizes="(max-width: 600px) 100vw, 300px"
+                className="object-contain p-3 transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 350px"
               />
-              
-              {product.is_featured && (
-                <Badge className="absolute left-2 top-2 bg-brand-primary text-white text-xs">
-                  Featured
-                </Badge>
-              )}
+              <div className="absolute inset-0 bg-brand-primary/0 group-hover:bg-brand-primary/5 transition-colors duration-300" />
             </div>
             
             {/* Thumbnails */}
             {allImages.length > 1 && (
-              <div className="flex overflow-x-auto space-x-2 pb-1">
+              <div className="flex space-x-2">
                 {allImages.map((image, index) => (
                   <button
                     key={index}
-                    className={`relative h-12 w-12 flex-shrink-0 rounded-md overflow-hidden border-2 transition-all ${
+                    className={`relative h-12 w-12 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all duration-300 ${
                       selectedImage === image 
-                        ? 'border-brand-primary shadow-sm' 
-                        : 'border-gray-200 dark:border-gray-800 opacity-70 hover:opacity-100'
+                        ? 'border-brand-primary shadow-md scale-105' 
+                        : 'border-gray-200 dark:border-gray-700 opacity-70 hover:opacity-100 hover:scale-105'
                     }`}
                     onClick={() => setSelectedImage(image)}
                   >
@@ -114,70 +118,104 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
             )}
           </div>
 
-          <div className="space-y-2 sm:space-y-4">
-            <div>
-              <p className="text-xs sm:text-sm text-brand-secondary dark:text-gray-300 line-clamp-3">
+          {/* Right side - Details */}
+          <div className="space-y-4">
+            {/* Description */}
+            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-3 border border-gray-100 dark:border-gray-700/50">
+              <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
                 {product.short_description || product.description}
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-2">
-              {product.temperature_rating && (
-                <div className="flex items-center text-xs sm:text-sm text-brand-secondary dark:text-gray-300">
-                  <Flame className="mr-1 h-3 w-3 sm:h-4 sm:w-4 text-brand-primary flex-shrink-0" />
-                  <span>{product.temperature_rating}°C</span>
-                </div>
-              )}
+            {/* Specifications - Compact */}
+            <div className="space-y-3">
+              <h4 className="text-base font-semibold text-brand-dark dark:text-white font-heading">Specifications</h4>
               
-              {product.cut_resistance_level && (
-                <div className="flex items-center text-xs sm:text-sm text-brand-secondary dark:text-gray-300">
-                  <Scissors className="mr-1 h-3 w-3 sm:h-4 sm:w-4 text-brand-primary flex-shrink-0" />
-                  <span>EN388: {product.cut_resistance_level.replace("EN388: ", "")}</span>
-                </div>
-              )}
+              <div className="space-y-2">
+                {product.temperature_rating && (
+                  <div className="flex items-center bg-white dark:bg-black/30 rounded-lg p-3 border border-gray-100 dark:border-gray-700/50 shadow-sm">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10 mr-3">
+                      <Flame className="h-4 w-4 text-brand-primary" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">Temperature Resistance</p>
+                      <p className="text-sm font-semibold text-gray-900 dark:text-white">{product.temperature_rating}°C</p>
+                    </div>
+                  </div>
+                )}
+                
+                {product.cut_resistance_level && product.en_standard && (
+                  <div className="flex items-center bg-white dark:bg-black/30 rounded-lg p-3 border border-gray-100 dark:border-gray-700/50 shadow-sm">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10 mr-3">
+                      <div className="relative w-5 h-5">
+                        <Image
+                          src={`/images/standards/${product.en_standard}.png`}
+                          alt={product.en_standard}
+                          fill
+                          className="object-contain dark:invert"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">EN Standards</p>
+                      <p className="text-sm font-semibold text-gray-900 dark:text-white">{product.en_standard}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
 
+            {/* Industries - Compact */}
             {product.industries && product.industries.length > 0 && (
-              <div>
-                <h4 className="text-xs font-medium text-brand-dark dark:text-white mb-1">{t('products.industries')}</h4>
-                <div className="flex flex-wrap gap-1">
+              <div className="space-y-2">
+                <h4 className="text-base font-semibold text-brand-dark dark:text-white font-heading">Industries</h4>
+                <div className="flex flex-wrap gap-1.5">
                   {product.industries.map((industry) => (
-                    <Badge key={industry} variant="secondary" className="text-[10px] sm:text-xs">
+                    <div key={industry} className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 py-1 px-2 rounded text-xs font-medium border border-gray-200 dark:border-gray-700">
                       {industry}
-                    </Badge>
+                    </div>
                   ))}
                 </div>
               </div>
             )}
 
+            {/* Key Features - Compact */}
             {product.features && product.features.length > 0 && (
-              <div>
-                <h4 className="text-xs font-medium text-brand-dark dark:text-white mb-0.5 sm:mb-1">{t('products.keyFeatures')}</h4>
-                <ul className="list-disc list-inside space-y-0.5 sm:space-y-1 text-xs sm:text-sm text-brand-secondary dark:text-gray-300">
-                  {product.features.slice(0, 2).map((feature, index) => (
-                    <li key={index} className="line-clamp-1">{feature}</li>
-                  ))}
-                  {product.features.length > 2 && (
-                    <li className="text-brand-primary text-xs">{t('products.moreFeatures').replace('{{count}}', String(product.features.length - 2))}</li>
-                  )}
-                </ul>
+              <div className="space-y-2">
+                <h4 className="text-base font-semibold text-brand-dark dark:text-white font-heading">Key Features:</h4>
+                <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-3 border border-gray-100 dark:border-gray-700/50">
+                  <ul className="space-y-1">
+                    {product.features.slice(0, 3).map((feature, index) => (
+                      <li key={index} className="flex items-start">
+                        <div className="w-1.5 h-1.5 bg-brand-primary rounded-full mt-1.5 mr-2 flex-shrink-0"></div>
+                        <span className="text-gray-700 dark:text-gray-300 text-sm">{feature}</span>
+                      </li>
+                    ))}
+                    {product.features.length > 3 && (
+                      <li className="text-brand-primary text-sm font-medium">
+                        +{product.features.length - 3} more
+                      </li>
+                    )}
+                  </ul>
+                </div>
               </div>
             )}
           </div>
         </div>
 
-        <DialogFooter className="p-4 sm:p-6 pt-1 sm:pt-2 flex-col sm:flex-row sm:justify-end items-stretch">
+        {/* Footer */}
+        <div className="p-6 pt-0 border-t border-gray-100 dark:border-gray-700/50">
           <Button 
             variant="default"
-            className="bg-brand-primary hover:bg-brand-primary/90 text-white transition-all duration-300 group w-full sm:w-auto py-4 sm:py-2 text-sm" 
+            className="bg-gradient-to-r from-brand-primary to-orange-500 hover:from-brand-primary/90 hover:to-orange-500/90 text-white font-medium transition-all duration-300 hover:scale-[1.02] hover:shadow-lg w-full py-2.5 text-sm rounded-lg shadow-md" 
             asChild
           >
             <Link href={`/products/${encodedProductName}`} className="flex items-center justify-center">
-              {t('products.viewFullDetails')}
-              <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              <span className="font-semibold">View Full Details</span>
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </Button>
-        </DialogFooter>
+        </div>
       </DialogContent>
     </Dialog>
   );

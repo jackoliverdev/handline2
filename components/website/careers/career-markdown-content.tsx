@@ -12,7 +12,7 @@ interface CareerMarkdownContentProps {
 
 export function CareerMarkdownContent({ content }: CareerMarkdownContentProps) {
   return (
-    <article className="bg-white dark:bg-transparent rounded-xl p-8 lg:p-12 border border-brand-primary/20 dark:border-gray-700 shadow-sm backdrop-blur-sm">
+    <article className="bg-white dark:bg-black/50 rounded-xl p-8 lg:p-12 border border-gray-100 dark:border-gray-700/50 shadow-lg hover:shadow-2xl transition-all duration-500 backdrop-blur-sm">
       <ReactMarkdown
         components={{
           h1: ({ ...props }) => (

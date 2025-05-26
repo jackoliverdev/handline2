@@ -33,7 +33,7 @@ export const AuthCard = () => {
   }, [user, router]);
   
   return (
-    <Card className="w-full border-border/40 shadow-lg">
+    <Card className="w-full border-border/40 shadow-lg bg-white dark:bg-black/50">
       <CardHeader className="space-y-1">
         <CardTitle className="text-2xl font-bold">
           {isShowingSignUp ? t('auth.createAccount') : t('auth.welcomeBack')}

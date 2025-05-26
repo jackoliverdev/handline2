@@ -77,7 +77,7 @@ export function ContactFaq() {
                 <div
                   className={cn(
                     'overflow-hidden rounded-lg',
-                    'bg-[#F5EFE0]/80 dark:bg-transparent shadow-sm',
+                    'bg-white dark:bg-black/50 shadow-sm',
                     'border border-brand-primary/10 dark:border-brand-primary/20',
                     'hover:border-brand-primary/30 transition-colors',
                     openIndex === index && 'border-brand-primary/40'

@@ -98,7 +98,7 @@ export const IndustrySolutions = () => {
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
       variants={sectionVariants}
-      className="pt-4 pb-24 sm:pt-8 sm:pb-24 bg-brand-light dark:bg-background"
+      className="pt-12 pb-12 md:pt-16 md:pb-16 bg-brand-light dark:bg-background"
     >
       <div className="container mx-auto px-4 sm:px-6">
         <motion.div 
@@ -175,7 +175,7 @@ export const IndustrySolutions = () => {
                 variants={cardVariants}
               >
                 <Link href={`/industries/${industry.slug}`}>
-                  <Card className="h-full overflow-hidden group hover:shadow-md transition-all duration-300 border border-brand-primary/10 dark:border-brand-primary/20 bg-[#F5EFE0]/80 dark:bg-transparent rounded-xl backdrop-blur-sm dark:backdrop-blur-none">
+                  <Card className="h-full overflow-hidden group hover:shadow-xl transition-all duration-500 border border-gray-100 dark:border-gray-700/50 bg-white dark:bg-black/50 rounded-2xl backdrop-blur-sm shadow-lg">
                     <div className="relative h-48 overflow-hidden">
                       {industry.image_url ? (
                         <motion.div
@@ -187,7 +187,7 @@ export const IndustrySolutions = () => {
                             src={industry.image_url}
                             alt={industry.industry_name}
                             fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            className="object-cover transition-transform duration-700 group-hover:scale-110"
                           />
                         </motion.div>
                       ) : (
@@ -196,13 +196,14 @@ export const IndustrySolutions = () => {
                         </div>
                       )}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                      <div className="absolute inset-0 bg-brand-primary/0 group-hover:bg-brand-primary/5 transition-colors duration-300" />
                       <motion.div 
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4 + (index * 0.1), duration: 0.3 }}
                         className="absolute bottom-4 left-4 right-4"
                       >
-                        <h3 className="text-xl font-bold text-white mb-1 font-heading">{industry.industry_name}</h3>
+                        <h3 className="text-xl font-bold text-white mb-1 font-heading group-hover:text-white transition-colors duration-200">{industry.industry_name}</h3>
                       </motion.div>
                     </div>
                     <motion.div 
@@ -211,16 +212,16 @@ export const IndustrySolutions = () => {
                       transition={{ delay: 0.5 + (index * 0.1), duration: 0.3 }}
                     >
                       <CardContent className="p-5">
-                        <p className="text-brand-secondary dark:text-gray-300 mb-4 line-clamp-3">
+                        <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
                           {getShortDescription(industry)}
                         </p>
-                        <div className="flex items-center text-brand-primary font-medium group-hover:text-brand-primary/80">
+                        <div className="flex items-center text-brand-primary font-medium group-hover:text-brand-primary/90 transition-colors duration-300">
                           <span className="relative">
                             {t('industrySolutions.learnMore')}
                             <span className="absolute left-0 -bottom-[2px] h-[1px] w-0 bg-brand-primary transition-all duration-300 ease-out group-hover:w-full"></span>
                           </span>
                           <motion.div
-                            whileHover={{ x: 3 }}
+                            whileHover={{ x: 3, scale: 1.1 }}
                             transition={{ duration: 0.2 }}
                           >
                             <ArrowRight className="ml-2 h-4 w-4" />
@@ -228,6 +229,9 @@ export const IndustrySolutions = () => {
                         </div>
                       </CardContent>
                     </motion.div>
+                    
+                    {/* Hover Effect Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-brand-primary/0 to-brand-primary/0 group-hover:from-brand-primary/5 group-hover:to-transparent transition-all duration-500 pointer-events-none rounded-2xl" />
                   </Card>
                 </Link>
               </motion.div>

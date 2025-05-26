@@ -47,7 +47,7 @@ export const ModalForgotPassword: FC<ModalChangePasswordProps> = ({
   return (
     <>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent>
+        <DialogContent className="bg-white dark:bg-gray-900">
           <DialogHeader>
             <DialogTitle>{t('auth.forgotPasswordTitle')}</DialogTitle>
             <DialogDescription>

@@ -57,6 +57,7 @@ export function ContactInfo() {
   const svgContainerRef = useRef<HTMLDivElement>(null);
   const [isDesktop, setIsDesktop] = useState(false);
   const [selectedOffice, setSelectedOffice] = useState<'italy' | 'uk'>('italy');
+  const [isDarkMode, setIsDarkMode] = useState(false);
   
   // Get current office data
   const currentOffice = officeData[selectedOffice];
@@ -69,6 +70,23 @@ export function ContactInfo() {
     checkDesktop();
     window.addEventListener('resize', checkDesktop);
     return () => window.removeEventListener('resize', checkDesktop);
+  }, []);
+
+  // Dark mode check
+  useEffect(() => {
+    const checkDarkMode = () => {
+      setIsDarkMode(document.documentElement.classList.contains('dark'));
+    };
+    checkDarkMode();
+    
+    // Watch for theme changes
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+    
+    return () => observer.disconnect();
   }, []);
 
   // Only initialise map/Commutes on desktop
@@ -368,7 +386,7 @@ export function ContactInfo() {
         <p className="text-brand-secondary dark:text-gray-300 mb-6">{t('contact.info.description')}</p>
       </motion.div>
       <div className="space-y-6">
-        <Card className="p-6 bg-[#F5EFE0]/80 dark:bg-transparent border-brand-primary/10 dark:border-brand-primary/20 shadow-sm backdrop-blur-sm">
+        <Card className="p-6 bg-white dark:bg-black/50 border-brand-primary/10 dark:border-brand-primary/20 shadow-sm backdrop-blur-sm">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-xl font-semibold text-brand-dark dark:text-white">{t('contact.info.contactInfoTitle')}</h3>
             
@@ -429,7 +447,7 @@ export function ContactInfo() {
           </div>
         </Card>
         
-        <Card className="p-6 bg-[#F5EFE0]/80 dark:bg-transparent border-brand-primary/10 dark:border-brand-primary/20 shadow-sm backdrop-blur-sm">
+        <Card className="p-6 bg-white dark:bg-black/50 border-brand-primary/10 dark:border-brand-primary/20 shadow-sm backdrop-blur-sm">
           <h3 className="text-xl font-semibold mb-4 text-brand-dark dark:text-white">{t('contact.info.findUsTitle')}</h3>
           
           {/* Commutes widget container for desktop only */}
@@ -448,7 +466,7 @@ export function ContactInfo() {
                 position: 'absolute',
                 bottom: 0,
                 width: '100%',
-                backgroundColor: 'rgba(245, 239, 224, 0.9)',
+                backgroundColor: isDarkMode ? 'rgba(0, 0, 0, 0.9)' : 'rgba(255, 255, 255, 0.9)',
                 backdropFilter: 'blur(10px)',
                 borderTopLeftRadius: '0.5rem',
                 borderTopRightRadius: '0.5rem',
@@ -459,7 +477,7 @@ export function ContactInfo() {
                   className="commutes-initial-state" 
                   style={{
                     borderRadius: '8px',
-                    border: '1px solid rgba(242, 140, 56, 0.2)',
+                    border: 'none',
                     display: 'flex',
                     height: '80px',
                     marginTop: '8px',
@@ -491,10 +509,10 @@ export function ContactInfo() {
                     </div>
                     
                     <div className="description" style={{ flexGrow: 1, minWidth: 0, padding: '0 10px' }}>
-                      <h1 className="heading" style={{ font: '14px Montserrat, Arial, sans-serif', margin: 0, color: '#1E1E1E', lineHeight: '1.3' }}>
+                      <h1 className="heading" style={{ font: '14px Montserrat, Arial, sans-serif', margin: 0, color: isDarkMode ? '#FFFFFF' : '#1E1E1E', lineHeight: '1.3' }}>
                         {t('contact.info.directionsTitle')}
                       </h1>
-                      <p style={{ color: '#5A5A5A', font: '12px Open Sans, Arial, sans-serif', margin: '4px 0 0 0', lineHeight: '1.3' }}>
+                      <p style={{ color: isDarkMode ? '#D1D5DB' : '#5A5A5A', font: '12px Open Sans, Arial, sans-serif', margin: '4px 0 0 0', lineHeight: '1.3' }}>
                         {selectedOffice === 'italy' ? t('contact.info.directionsDescription') : t('contact.info.directionsDescriptionUK')}
                       </p>
                     </div>

@@ -89,7 +89,7 @@ export function ContactForm() {
             <h2 className="text-2xl font-bold tracking-tight text-brand-dark dark:text-white mb-2">{t('contact.form.title')}</h2>
             <p className="text-brand-secondary dark:text-gray-300 mb-6">{t('contact.form.description')}</p>
           </motion.div>
-          <div id="contact-form" className="rounded-lg border border-brand-primary/10 dark:border-brand-primary/20 bg-[#F5EFE0]/80 dark:bg-transparent p-6 shadow-sm backdrop-blur-sm">
+          <div id="contact-form" className="rounded-xl border border-gray-100 dark:border-gray-700/50 bg-white dark:bg-black/50 p-6 shadow-lg hover:shadow-2xl transition-all duration-500 backdrop-blur-sm">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -103,7 +103,7 @@ export function ContactForm() {
                           <Input
                             {...field}
                             placeholder={t('contact.form.fields.namePlaceholder')}
-                            className="bg-white/50 dark:bg-gray-800/50 border-brand-primary/20 dark:border-gray-700"
+                            className="bg-white dark:bg-black/50 border-gray-200 dark:border-gray-700 focus:border-brand-primary dark:focus:border-brand-primary"
                           />
                         </FormControl>
                         <FormMessage />
@@ -120,7 +120,7 @@ export function ContactForm() {
                           <Input
                             {...field}
                             placeholder={t('contact.form.fields.companyPlaceholder')}
-                            className="bg-white/50 dark:bg-gray-800/50 border-brand-primary/20 dark:border-gray-700"
+                            className="bg-white dark:bg-black/50 border-gray-200 dark:border-gray-700 focus:border-brand-primary dark:focus:border-brand-primary"
                           />
                         </FormControl>
                         <FormMessage />
@@ -140,7 +140,7 @@ export function ContactForm() {
                           {...field}
                           type="email"
                           placeholder={t('contact.form.fields.emailPlaceholder')}
-                          className="bg-white/50 dark:bg-gray-800/50 border-brand-primary/20 dark:border-gray-700"
+                          className="bg-white dark:bg-black/50 border-gray-200 dark:border-gray-700 focus:border-brand-primary dark:focus:border-brand-primary"
                         />
                       </FormControl>
                       <FormMessage />
@@ -158,7 +158,7 @@ export function ContactForm() {
                         <Input
                           {...field}
                           placeholder={t('contact.form.fields.subjectPlaceholder')}
-                          className="bg-white/50 dark:bg-gray-800/50 border-brand-primary/20 dark:border-gray-700"
+                          className="bg-white dark:bg-black/50 border-gray-200 dark:border-gray-700 focus:border-brand-primary dark:focus:border-brand-primary"
                         />
                       </FormControl>
                       <FormMessage />
@@ -176,7 +176,7 @@ export function ContactForm() {
                         <Textarea
                           {...field}
                           placeholder={t('contact.form.fields.messagePlaceholder')}
-                          className="min-h-[150px] bg-white/50 dark:bg-gray-800/50 border-brand-primary/20 dark:border-gray-700"
+                          className="min-h-[150px] bg-white dark:bg-black/50 border-gray-200 dark:border-gray-700 focus:border-brand-primary dark:focus:border-brand-primary"
                         />
                       </FormControl>
                       <FormMessage />

@@ -8,7 +8,7 @@ import { ChevronRight } from "lucide-react";
 
 const SPRING_CONFIG = { stiffness: 100, damping: 30, mass: 1 };
 
-interface CategoryCardProps {
+interface ResourcesCategoryCardProps {
   title: string;
   description: string;
   imageSrc: string;
@@ -17,7 +17,7 @@ interface CategoryCardProps {
   index: number;
 }
 
-export const CategoryCard = ({ title, description, imageSrc, imageAlt, href, index }: CategoryCardProps) => {
+export const ResourcesCategoryCard = ({ title, description, imageSrc, imageAlt, href, index }: ResourcesCategoryCardProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}

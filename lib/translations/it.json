@@ -178,6 +178,27 @@
     "learnMore": "Scopri di più",
     "viewAll": "Vedi tutti i settori"
   },
+  "cta": {
+    "badge": "Soluzioni di Sicurezza Specializzate",
+    "title": "Pronto a Migliorare la",
+    "titleAccent": "Sicurezza",
+    "description": "Scopri la nostra gamma completa di soluzioni di sicurezza progettate per settori diversi. Dalla tecnologia all'avanguardia ai protocolli di sicurezza comprovati, aiutiamo a proteggere la tua forza lavoro.",
+    "buttons": {
+      "browseProducts": "Esplora i Nostri Prodotti",
+      "contactUs": "Contattaci Oggi"
+    },
+    "trustIndicator": "Aziende leader si fidano di noi in tutto il mondo • Standard EN • Supporto europeo"
+  },
+  "industryCta": {
+    "badge": "Soluzioni di Sicurezza Specializzate",
+    "title": "Pronto a Migliorare la Sicurezza nel Settore",
+    "description": "Scopri la nostra gamma completa di soluzioni di sicurezza specificamente progettate per il settore {industry}. Dalla tecnologia all'avanguardia ai protocolli di sicurezza comprovati.",
+    "buttons": {
+      "browseProducts": "Esplora i Nostri Prodotti",
+      "contactUs": "Contattaci Oggi"
+    },
+    "trustIndicator": "Aziende leader del settore {industry} si fidano di noi • Standard EN • Supporto europeo"
+  },
   "footer": {
     "companyDescription": "Produttore italiano specializzato in guanti di sicurezza ad alte prestazioni per ambienti industriali. Proteggiamo le mani con soluzioni innovative dal 1982.",
     "address": "via Antonio Bruse 34, 22035, Canzo (CO), Italia",
@@ -378,7 +399,19 @@
     "sectorsDescription": "In Hand Line sviluppiamo soluzioni di sicurezza specializzate per una vasta gamma di settori, ciascuno con sfide e requisiti unici.",
     "keyFeatures": "Caratteristiche principali",
     "viewSolutions": "Vedi Soluzioni",
-    "contactForDetails": "Contattaci per dettagli"
+    "contactForDetails": "Contattaci per dettagli",
+    "features": {
+      "title": "Caratteristiche di Sicurezza Specializzate",
+      "description": "Scopri le caratteristiche avanzate di sicurezza che rendono eccezionali le nostre soluzioni per {industry}.",
+      "count": "{count}+ caratteristiche di sicurezza specializzate"
+    },
+    "spotlight": {
+      "badge": "Settore in Evidenza",
+      "title": "Settore in Primo Piano",
+      "description": "Scopri come le soluzioni innovative di Hand Line sono progettate per affrontare le sfide uniche di questo settore.",
+      "subtitle": "Soluzioni di Sicurezza Specializzate",
+      "cta": "Esplora Soluzioni"
+    }
   },
   "about": {
     "est": "Fond. 1981",
@@ -651,11 +684,17 @@
       "articles": "articoli",
       "noArticles": "Nessun articolo trovato",
       "noArticlesDescription": "Prova a modificare i criteri di ricerca o filtro",
-      "clearFilters": "Cancella Filtri"
+      "filterByTags": "Tag",
+      "clearFilters": "Cancella",
+      "searchFor": "per",
+      "clearAllFilters": "Cancella tutti i filtri"
     },
     "readArticle": "Leggi l'articolo",
     "backToBlogs": "Torna al notiziario",
-    "minRead": "{count} min di lettura"
+    "minRead": "min di lettura",
+    "featuredArticle": "Articolo in Evidenza",
+    "featuredTitle": "Approfondimenti Esperti",
+    "featuredDescription": "Scopri le ultime novità e innovazioni nella sicurezza sul lavoro e nella tecnologia di protezione delle mani."
   },
   "caseStudies": {
     "hero": {
@@ -681,8 +720,10 @@
       "caseStudies": "casi studio",
       "noCaseStudies": "Nessun caso studio trovato",
       "noCaseStudiesDescription": "Prova a modificare i criteri di ricerca o filtro",
-      "filterByTags": "Filtra per Tag",
-      "filterByIndustry": "Filtra per Settore"
+      "filterByTags": "Tag",
+      "filterByIndustry": "Settori",
+      "clearFilters": "Cancella",
+      "clearAllFilters": "Cancella tutti i filtri"
     },
     "viewCaseStudy": "Vedi Caso Studio",
     "backToCaseStudies": "Torna ai Casi Studio",
@@ -961,6 +1002,36 @@
       }
     }
   },
+  "declarations": {
+    "hero": {
+      "badge": "Documenti di Conformità",
+      "title": "Dichiarazioni di",
+      "titleAccent": "Conformità",
+      "description": "Accedi alle dichiarazioni ufficiali di conformità per i prodotti Hand Line. Questi documenti certificano che i nostri prodotti soddisfano tutti i requisiti degli standard europei di salute, sicurezza e protezione ambientale.",
+      "viewDeclarations": "Visualizza Dichiarazioni",
+      "stats": {
+        "products": "200+",
+        "productsLabel": "Prodotti",
+        "declarations": "20+",
+        "declarationsLabel": "Dichiarazioni",
+        "compliance": "100%",
+        "certified": "EU",
+        "certifiedLabel": "Certificati"
+      }
+    },
+    "grid": {
+      "searchPlaceholder": "Cerca dichiarazioni...",
+      "filterByCategory": "Categorie",
+      "categories": "Categorie",
+      "declarations": "dichiarazioni",
+      "searchFor": "per",
+      "clearFilters": "Cancella",
+      "noDeclarations": "Nessuna dichiarazione trovata",
+      "noDeclarationsDescription": "Nessuna dichiarazione di prodotto corrisponde ai tuoi criteri di ricerca. Prova a modificare i filtri.",
+      "noDeclarationsAvailable": "Attualmente non sono disponibili dichiarazioni di prodotto.",
+      "clearAllFilters": "Cancella tutti i filtri"
+    }
+  },
   "careers": {
     "hero": {
       "badge": "Unisciti al Nostro Team",
@@ -1015,7 +1086,9 @@
       "sharePosition": "Condividi questa posizione",
       "backToCareers": "Torna alle Carriere",
       "readyToJoin": "Pronto a Unirti al Nostro Team?",
-      "excitedToLearn": "Siamo entusiasti di conoscerti meglio e discutere di come puoi contribuire alla nostra missione."
+      "readyToJoinBadge": "Unisciti a Noi",
+      "excitedToLearn": "Siamo entusiasti di conoscerti meglio e discutere di come puoi contribuire alla nostra missione.",
+      "joinTeamIndicator": "Fiducia di professionisti in tutto il mondo • Benefici competitivi • Standard lavorativi europei"
     },
     "application": {
       "title": "Candidati per la Posizione",

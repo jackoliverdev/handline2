@@ -94,8 +94,8 @@ export const NavBar = () => {
     <header className="fixed w-full z-50 top-0 left-0 right-0">
       <nav className={`w-full transition-all duration-300 ${
         scrolled 
-          ? "bg-white dark:bg-[#111111] shadow-lg"
-          : "bg-white dark:bg-[#111111]"
+          ? "bg-white/90 dark:bg-black/90 shadow-lg"
+          : "bg-white/90 dark:bg-black/90"
       }`}>
         {/* Announcement bar */}
         <div className="w-full bg-[#F28C38] text-white py-1.5 text-center font-medium flex items-center justify-center whitespace-nowrap px-4">
@@ -124,11 +124,8 @@ export const NavBar = () => {
                     alt="Hand Line"
                     width={32} 
                     height={32}
-                    className="h-8 w-8 mr-2" 
+                    className="h-8 w-8" 
                   />
-                  <span className={`text-base font-bold ${scrolled ? 'text-slate-900 dark:text-white' : 'text-slate-900 dark:text-white'}`}>
-                    Hand <span className="text-[#F28C38]">Line</span>
-                  </span>
                 </div>
               </Link>
               
@@ -158,7 +155,7 @@ export const NavBar = () => {
                   placeholder={t('navbar.searchPlaceholder')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className={`w-full py-2 px-4 pl-10 rounded-lg bg-white dark:bg-[#222222] text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 border-slate-200 dark:border-[#333333] border focus:outline-none focus:ring-2 focus:ring-[#F28C38] focus:border-transparent`}
+                  className={`w-full py-2 px-4 pl-10 rounded-lg bg-white/90 dark:bg-black/90 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 border-slate-200 dark:border-[#333333] border focus:outline-none focus:ring-2 focus:ring-[#F28C38] focus:border-transparent`}
                 />
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400 dark:text-slate-500" />
               </div>
@@ -173,11 +170,8 @@ export const NavBar = () => {
                     alt="Hand Line"
                     width={40} 
                     height={40}
-                    className="h-10 w-10 mr-2" 
+                    className="h-10 w-10" 
                   />
-                  <span className={`text-lg font-bold ${scrolled ? 'text-slate-900 dark:text-white' : 'text-slate-900 dark:text-white'}`}>
-                    Hand <span className="text-[#F28C38]">Line</span>
-                  </span>
                 </div>
               </Link>
 
@@ -185,8 +179,8 @@ export const NavBar = () => {
               <button 
                 className={`hidden lg:flex items-center px-3 py-1.5 ml-8 rounded-lg border ${
                   scrolled 
-                    ? 'text-slate-900 dark:text-white border-slate-200 dark:border-[#333333] hover:bg-slate-100 dark:hover:bg-[#222222]' 
-                    : 'text-slate-900 dark:text-white border-slate-200 dark:border-[#333333] hover:bg-slate-100 dark:hover:bg-[#222222]'
+                    ? 'text-slate-900 dark:text-white border-slate-200 dark:border-[#333333] hover:bg-slate-100/90 dark:hover:bg-black/95' 
+                    : 'text-slate-900 dark:text-white border-slate-200 dark:border-[#333333] hover:bg-slate-100/90 dark:hover:bg-black/95'
                 } transition-colors`}
                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
               >
@@ -195,14 +189,14 @@ export const NavBar = () => {
               </button>
 
               {/* Desktop Search Bar */}
-              <div className="flex-1 max-w-xl mx-12">
+              <div className="flex-1 max-w-4xl mx-6">
                 <div className="relative">
                   <input
                     type="text"
                     placeholder={t('navbar.searchPlaceholder')}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className={`w-full py-2 px-4 pl-10 rounded-lg bg-white dark:bg-[#222222] text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 border-slate-200 dark:border-[#333333] border focus:outline-none focus:ring-2 focus:ring-[#F28C38] focus:border-transparent`}
+                    className={`w-full py-2 px-4 pl-10 rounded-lg bg-white/90 dark:bg-black/90 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 border-slate-200 dark:border-[#333333] border focus:outline-none focus:ring-2 focus:ring-[#F28C38] focus:border-transparent`}
                   />
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400 dark:text-slate-500" />
                 </div>
@@ -228,12 +222,12 @@ export const NavBar = () => {
                     
                     {item.hasDropdown && (
                       <div className="absolute left-0 mt-1 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out">
-                        <div className="bg-white dark:bg-[#111111] rounded-lg shadow-lg py-1 border border-slate-200 dark:border-[#333333]">
+                        <div className="bg-white/90 dark:bg-black/90 rounded-lg shadow-lg py-1 border border-slate-200 dark:border-[#333333]">
                           {item.dropdownItems?.map((dropdownItem) => (
                             <Link
                               key={dropdownItem.href}
                               href={dropdownItem.href}
-                              className="block px-4 py-2 text-sm text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-[#222222]"
+                              className="block px-4 py-2 text-sm text-slate-900 dark:text-white hover:bg-slate-100/90 dark:hover:bg-black/95"
                             >
                               {dropdownItem.label}
                             </Link>
@@ -260,13 +254,6 @@ export const NavBar = () => {
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
-
-                  <Link 
-                    href="/login" 
-                    className="px-4 py-2 bg-[#F28C38] text-white text-sm font-medium rounded-lg hover:bg-[#F28C38]/90 transition-all"
-                  >
-                    {t('navbar.dashboard')}
-                  </Link>
                 </div>
               </nav>
             </div>

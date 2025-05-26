@@ -39,12 +39,12 @@ export function EnStandardCard({ standard, index, language }: EnStandardCardProp
         delay: Math.min(index * 0.1, 0.8),
         duration: 0.3,
       }}
-      className="group relative overflow-hidden rounded-lg border bg-[#F5EFE0]/80 dark:bg-transparent shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm dark:backdrop-blur-none"
+      className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-lg border-gray-200 dark:border-gray-700 backdrop-blur-sm"
     >
       {/* Featured Badge */}
       {standard.featured && (
         <Badge 
-          className="absolute right-3 top-3 z-10 bg-brand-primary text-white"
+          className="absolute right-2 top-2 z-10 bg-brand-primary text-white text-xs px-2 py-1"
         >
           Featured
         </Badge>
@@ -52,7 +52,7 @@ export function EnStandardCard({ standard, index, language }: EnStandardCardProp
       
       {/* Standard Image */}
       <Link href={`/resources/en-resource-centre/${standard.slug}`} className="block overflow-hidden">
-        <div className="relative aspect-[16/9] w-full overflow-hidden bg-black dark:bg-black">
+        <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
           <Image
             src={imageUrl}
             alt={title}
@@ -60,58 +60,57 @@ export function EnStandardCard({ standard, index, language }: EnStandardCardProp
             className="object-cover transition-transform duration-300 group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-          <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-            <span className="text-2xl text-white font-bold">{formattedCode}</span>
+          <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+            <span className="text-xl font-bold text-white drop-shadow-lg">{formattedCode}</span>
           </div>
         </div>
       </Link>
       
       {/* Standard Details */}
-      <div className="p-4">
-        <div className="mb-2 flex items-center justify-between">
-          {tags && tags.length > 0 && (
-            <div className="flex flex-wrap gap-1">
-              {tags.slice(0, 2).map((tag, idx) => (
-                <Badge key={idx} variant="outline" className="text-xs border-brand-primary/30 text-brand-secondary dark:text-gray-300">
-                  {tag}
-                </Badge>
-              ))}
-              {tags.length > 2 && (
-                <Badge variant="outline" className="text-xs border-brand-primary/30 text-brand-secondary dark:text-gray-300">
-                  +{tags.length - 2}
-                </Badge>
-              )}
-            </div>
-          )}
-        </div>
+      <div className="p-3">
+        {/* Tags */}
+        {tags && tags.length > 0 && (
+          <div className="flex items-center gap-1 mb-2">
+            {tags.slice(0, 1).map((tag, idx) => (
+              <Badge key={idx} variant="outline" className="text-xs border-brand-primary/30 text-brand-primary bg-brand-primary/5 whitespace-nowrap">
+                {tag}
+              </Badge>
+            ))}
+            {tags.length > 1 && (
+              <Badge variant="outline" className="text-xs border-gray-300 text-gray-600 whitespace-nowrap">
+                +{tags.length - 1}
+              </Badge>
+            )}
+          </div>
+        )}
         
         <Link href={`/resources/en-resource-centre/${standard.slug}`}>
-          <h3 className="mb-2 line-clamp-1 text-lg font-bold text-brand-dark hover:text-brand-primary dark:text-white dark:hover:text-brand-primary">
+          <h3 className="mb-2 line-clamp-2 text-base font-bold text-gray-900 dark:text-white hover:text-brand-primary transition-colors">
             {title}
           </h3>
         </Link>
         
-        <p className="mb-3 text-sm text-brand-secondary dark:text-gray-300 line-clamp-2">
+        <p className="mb-3 text-xs text-gray-600 dark:text-gray-300 line-clamp-2 leading-relaxed">
           {summary}
         </p>
         
         {/* Meta info */}
-        <div className="mb-4 flex items-center text-sm text-brand-secondary dark:text-gray-300">
-          <Shield className="mr-1 h-4 w-4 text-brand-primary" />
+        <div className="mb-3 flex items-center text-xs text-gray-500 dark:text-gray-400">
+          <Shield className="mr-1 h-3 w-3 text-brand-primary" />
           <span className="truncate">{category}</span>
         </div>
         
         {/* Action Buttons */}
-        <div className="mt-2 grid grid-cols-1 gap-2">
+        <div className="grid grid-cols-1 gap-1.5">
           <Button 
             variant="default" 
             size="sm" 
-            className="flex items-center justify-between bg-brand-primary text-white hover:bg-brand-primary/90"
+            className="h-8 text-xs bg-brand-primary text-white hover:bg-brand-primary/90"
             asChild
           >
-            <Link href={`/resources/en-resource-centre/${standard.slug}`}>
+            <Link href={`/resources/en-resource-centre/${standard.slug}`} className="flex items-center justify-center">
               <span>{t('standards.viewStandard')}</span>
-              <ArrowRight className="h-4 w-4 ml-1" />
+              <ArrowRight className="h-3 w-3 ml-1" />
             </Link>
           </Button>
           
@@ -119,12 +118,12 @@ export function EnStandardCard({ standard, index, language }: EnStandardCardProp
             <Button
               variant="outline"
               size="sm"
-              className="flex items-center justify-between border-brand-primary text-brand-primary hover:bg-brand-primary/10"
+              className="h-8 text-xs border-brand-primary text-brand-primary hover:bg-brand-primary/10"
               asChild
             >
-              <a href={standard.downloads[0].url} target="_blank" rel="noopener noreferrer">
+              <a href={standard.downloads[0].url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
                 <span>{t('standards.download')}</span>
-                <Download className="h-4 w-4 ml-1" />
+                <Download className="h-3 w-3 ml-1" />
               </a>
             </Button>
           )}

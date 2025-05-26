@@ -340,15 +340,15 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
       {/* Desktop-only left sidebar filters */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-[280px,1fr]">
         <div className="hidden md:block">
-          <div className="sticky top-24 border border-brand-primary/10 dark:border-brand-primary/20 rounded-lg overflow-hidden">
-            <div className="bg-[#F5EFE0]/80 dark:bg-transparent backdrop-blur-sm dark:backdrop-blur-none p-4">
+          <div className="sticky top-24 border border-gray-100 dark:border-gray-700/50 rounded-2xl overflow-hidden shadow-lg">
+            <div className="bg-white dark:bg-black/50 backdrop-blur-sm p-4">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-semibold text-brand-dark dark:text-white">{t('products.filters.title')}</h2>
                 {activeFiltersCount > 0 && (
                   <Button 
                     variant="outline" 
                     size="sm"
-                    className="border-brand-primary/30 text-brand-primary hover:bg-brand-primary/10 hover:border-brand-primary hover:text-black dark:hover:text-white dark:hover:bg-brand-primary/5 transition-all duration-300 group" 
+                    className="border-brand-primary/30 text-brand-primary hover:bg-gray-700 hover:text-white hover:border-gray-700 transition-all duration-300 group" 
                     onClick={clearFilters}
                   >
                     <X className="mr-1.5 h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
@@ -416,13 +416,13 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
                 placeholder={t('products.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full border-brand-primary/20 focus-visible:ring-brand-primary bg-[#F5EFE0]/60 dark:bg-transparent dark:border-brand-primary/20 placeholder:text-brand-secondary/70 dark:placeholder:text-gray-500"
+                className="w-full border-gray-100 dark:border-gray-700/50 focus-visible:ring-brand-primary bg-white dark:bg-black/50 placeholder:text-gray-500 dark:placeholder:text-gray-400 shadow-md hover:shadow-lg transition-all duration-300 rounded-xl"
               />
               {searchQuery && (
                 <Button 
                   variant="ghost" 
                   size="icon" 
-                  className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 text-brand-secondary hover:text-brand-primary hover:bg-white/60 dark:hover:bg-gray-800/60"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 text-gray-500 hover:text-brand-primary hover:bg-brand-primary/10 transition-all duration-300"
                   onClick={() => setSearchQuery("")}
                 >
                   <X className="h-4 w-4" />
@@ -436,7 +436,7 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
                 <SheetTrigger asChild>
                   <Button 
                     variant="outline" 
-                    className="w-full border-brand-primary/20 bg-[#F5EFE0]/60 dark:bg-transparent dark:border-brand-primary/20 flex items-center justify-between hover:bg-white/80 dark:hover:bg-gray-800/40"
+                    className="w-full border-gray-100 dark:border-gray-700/50 bg-white dark:bg-black/50 flex items-center justify-between hover:shadow-lg transition-all duration-300 rounded-xl shadow-md"
                   >
                     <span className="flex items-center">
                       <Filter className="mr-2 h-4 w-4 text-brand-primary" />
@@ -477,14 +477,14 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
             {/* Sort options */}
             <div>
               <Select value={sortOption} onValueChange={setSortOption}>
-                <SelectTrigger className="border-brand-primary/20 focus:ring-brand-primary bg-[#F5EFE0]/60 dark:bg-transparent dark:border-brand-primary/20 hover:bg-white/80 dark:hover:bg-gray-800/40 transition-all duration-300 group">
+                <SelectTrigger className="border-gray-100 dark:border-gray-700/50 focus:ring-brand-primary bg-white dark:bg-black/50 hover:shadow-lg transition-all duration-300 rounded-xl shadow-md group">
                   <SelectValue placeholder={t('products.sortOptions.featured')} />
                 </SelectTrigger>
-                <SelectContent className="border-brand-primary/20 bg-[#F5EFE0]/95 dark:bg-black/95 backdrop-blur-md">
-                  <SelectItem value="featured" className="focus:bg-brand-primary/10 focus:text-brand-primary transition-colors duration-200">{t('products.sortOptions.featured')}</SelectItem>
-                  <SelectItem value="newest" className="focus:bg-brand-primary/10 focus:text-brand-primary transition-colors duration-200">{t('products.sortOptions.newest')}</SelectItem>
-                  <SelectItem value="name-asc" className="focus:bg-brand-primary/10 focus:text-brand-primary transition-colors duration-200">{t('products.sortOptions.name-asc')}</SelectItem>
-                  <SelectItem value="name-desc" className="focus:bg-brand-primary/10 focus:text-brand-primary transition-colors duration-200">{t('products.sortOptions.name-desc')}</SelectItem>
+                <SelectContent className="border-gray-100 dark:border-gray-700/50 bg-white dark:bg-black/90 backdrop-blur-md rounded-xl shadow-xl">
+                  <SelectItem value="featured" className="focus:bg-brand-primary/10 focus:text-brand-primary transition-colors duration-200 rounded-lg">{t('products.sortOptions.featured')}</SelectItem>
+                  <SelectItem value="newest" className="focus:bg-brand-primary/10 focus:text-brand-primary transition-colors duration-200 rounded-lg">{t('products.sortOptions.newest')}</SelectItem>
+                  <SelectItem value="name-asc" className="focus:bg-brand-primary/10 focus:text-brand-primary transition-colors duration-200 rounded-lg">{t('products.sortOptions.name-asc')}</SelectItem>
+                  <SelectItem value="name-desc" className="focus:bg-brand-primary/10 focus:text-brand-primary transition-colors duration-200 rounded-lg">{t('products.sortOptions.name-desc')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -531,10 +531,10 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
                   <Button 
                     variant={isExpanded ? "outline" : "default"}
                     size="lg"
-                    className={`px-6 py-5 font-medium text-base shadow-md hover:shadow-lg transition-all duration-300 ${
+                    className={`px-8 py-6 font-medium text-base shadow-lg hover:shadow-xl transition-all duration-500 rounded-xl ${
                       isExpanded 
-                        ? "border-brand-primary/30 bg-[#F5EFE0]/80 dark:bg-transparent text-brand-primary hover:bg-brand-primary/5 dark:border-brand-primary/30" 
-                        : "bg-brand-primary text-white hover:bg-brand-primary/90"
+                        ? "border-gray-100 dark:border-gray-700/50 bg-white dark:bg-black/50 text-brand-primary hover:bg-gray-700 hover:text-white hover:border-gray-700" 
+                        : "bg-gradient-to-r from-brand-primary to-orange-500 hover:from-brand-primary/90 hover:to-orange-500/90 text-white hover:scale-105 transform"
                     }`}
                     onClick={toggleExpanded}
                   >
@@ -552,15 +552,15 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
               )}
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center py-16 border border-brand-primary/10 dark:border-brand-primary/20 rounded-lg bg-brand-light dark:bg-gray-800/20">
+            <div className="flex flex-col items-center justify-center py-16 border border-gray-100 dark:border-gray-700/50 rounded-2xl bg-white dark:bg-black/50 shadow-lg">
               <SearchX className="mb-4 h-16 w-16 text-brand-primary/50" />
               <h3 className="mb-2 text-xl font-semibold text-brand-dark dark:text-white">{t('products.results.noResults')}</h3>
-              <p className="text-center text-brand-secondary dark:text-gray-400 max-w-md">
+              <p className="text-center text-gray-600 dark:text-gray-400 max-w-md">
                 {t('products.results.noResultsDescription')}
               </p>
               <Button 
                 variant="outline" 
-                className="mt-4 border-brand-primary/30 text-brand-primary hover:bg-brand-primary/10 hover:border-brand-primary hover:text-black dark:hover:text-white dark:hover:bg-brand-primary/5 transition-all duration-300 group" 
+                className="mt-4 border-brand-primary/30 text-brand-primary hover:bg-gray-700 hover:text-white hover:border-gray-700 transition-all duration-300 group" 
                 onClick={clearFilters}
               >
                 <X className="mr-1.5 h-4 w-4 transition-transform duration-300 group-hover:scale-110" />

@@ -50,7 +50,7 @@ export const Certifications = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <Card className="bg-[#F5EFE0]/80 dark:bg-transparent border-brand-primary/10 dark:border-brand-primary/20 shadow-sm mb-5">
+          <Card className="bg-white dark:bg-black/50 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm mb-5">
             <CardContent className="p-3 text-center flex items-center justify-center gap-3">
               <motion.div
                 initial={{ rotate: -15, scale: 0.8 }}
@@ -81,7 +81,7 @@ export const Certifications = () => {
                 ease: "easeOut"
               }}
             >
-              <Card className="bg-[#F5EFE0]/80 dark:bg-transparent border-brand-primary/10 dark:border-brand-primary/20 shadow-sm">
+              <Card className="bg-white dark:bg-black/50 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm">
                 <CardContent className="p-3">
                   <div className="flex items-center gap-2">
                     <motion.div 

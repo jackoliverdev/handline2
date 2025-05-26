@@ -128,7 +128,7 @@ export function CareerGrid({ careerPosts, language }: CareerGridProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="bg-white/90 dark:bg-transparent rounded-xl shadow-sm border border-brand-primary/20 dark:border-gray-700 p-6 mb-8 backdrop-blur-sm"
+          className="bg-white dark:bg-black/50 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-700/50 p-6 mb-8 backdrop-blur-sm"
         >
           {/* Search Bar */}
           <div className="relative mb-6">
@@ -274,7 +274,7 @@ export function CareerGrid({ careerPosts, language }: CareerGridProps) {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="flex flex-col items-center justify-center py-16 text-center"
           >
-            <div className="bg-brand-primary/10 dark:bg-transparent rounded-full p-6 mb-6">
+            <div className="bg-white dark:bg-black/50 rounded-full p-6 mb-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm">
               <Briefcase className="h-12 w-12 text-brand-primary" />
             </div>
             <h3 className="text-xl font-semibold text-brand-dark dark:text-white mb-2">

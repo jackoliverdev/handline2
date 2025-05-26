@@ -6,9 +6,10 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ChevronLeft, Calendar, Clock, User, Share2, Linkedin, Twitter, Facebook, Copy, Check, Briefcase, Building, BarChart2, MessageSquare } from 'lucide-react';
+import { ChevronLeft, Calendar, Clock, User, Share2, Linkedin, Twitter, Facebook, Copy, Check, Briefcase, Building, BarChart2, MessageSquare, ArrowUp, Target, CheckCircle } from 'lucide-react';
 import type { CaseStudy } from '@/lib/case-studies-service';
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,6 +32,8 @@ export default function CaseStudyClient({ caseStudy, relatedCaseStudies }: { cas
   const testimonial = caseStudy.testimonial_locales?.[language] || caseStudy.testimonial;
   const testimonialAuthor = caseStudy.testimonial_author_locales?.[language] || caseStudy.testimonial_author;
   const testimonialPosition = caseStudy.testimonial_position_locales?.[language] || caseStudy.testimonial_position;
+  const showcaseTitle = caseStudy.showcase_title_locales?.[language] || caseStudy.showcase_title;
+  const showcaseDescription = caseStudy.showcase_description_locales?.[language] || caseStudy.showcase_description;
   
   const [currentUrl, setCurrentUrl] = useState<string>('');
   const [copySuccess, setCopySuccess] = useState(false);
@@ -86,201 +89,495 @@ export default function CaseStudyClient({ caseStudy, relatedCaseStudies }: { cas
       </div>
 
       {/* Hero Section */}
-      <section className="relative w-full pt-4 pb-8 md:py-12">
-        <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-2 border-b border-brand-primary/10">
-          {/* Back Button */}
-          <div className="mb-6">
-            <Button variant="outline" size="sm" asChild className="bg-[#F5EFE0]/90 hover:bg-[#F5EFE0] dark:bg-transparent dark:hover:bg-black/20 border-brand-primary/20 hover:border-brand-primary/40 dark:border-brand-primary/30 dark:hover:border-brand-primary/50 transition-all duration-200">
-              <Link href="/resources/case-studies" className="flex items-center gap-1.5 text-brand-dark dark:text-gray-200 hover:text-brand-primary dark:hover:text-brand-primary">
-                <ChevronLeft className="h-4 w-4 text-brand-primary" />
-                {t('caseStudies.backToCaseStudies')}
-              </Link>
-            </Button>
-          </div>
+      <motion.section 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="relative w-full pt-4 pb-8 md:py-12"
+      >
+        {/* Back Button - Floating */}
+        <motion.div 
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="absolute top-6 left-4 sm:left-6 lg:left-8 z-10"
+        >
+          <Button variant="outline" size="sm" asChild className="bg-white/90 dark:bg-black/70 hover:bg-white dark:hover:bg-black/90 border-white/20 dark:border-white/10 hover:border-brand-primary/40 dark:hover:border-brand-primary/50 transition-all duration-200 backdrop-blur-md shadow-lg">
+            <Link href="/resources/case-studies" className="flex items-center gap-1.5 text-brand-dark dark:text-gray-200 hover:text-brand-primary dark:hover:text-brand-primary">
+              <ChevronLeft className="h-4 w-4 text-brand-primary" />
+              {t('caseStudies.backToCaseStudies')}
+            </Link>
+          </Button>
+        </motion.div>
 
-          <div className="space-y-6">
-            {/* Client Logo & Tags */}
-            <div className="flex flex-wrap justify-between items-center gap-4">
-              {caseStudy.client_logo_url && (
-                <div className="relative h-16 w-40">
-                  <Image
-                    src={caseStudy.client_logo_url}
-                    alt={clientName || ''}
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-              )}
-              
-              {tags.length > 0 && (
-                <div className="flex flex-wrap gap-2">
-                  {tags.map((tag: string) => (
-                    <Badge key={tag} variant="outline" className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/20 border-brand-primary">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Featured Image */}
+        <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Hero Content with Image Overlay */}
+          <div className="relative">
+            {/* Featured Image with Overlay Content */}
             {caseStudy.image_url && (
-              <div className="relative aspect-[21/9] w-full overflow-hidden rounded-xl">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="relative aspect-[16/9] md:aspect-[21/9] w-full overflow-hidden rounded-2xl shadow-2xl"
+              >
                 <Image
                   src={caseStudy.image_url}
                   alt={title}
                   fill
                   priority
-                  className="object-cover transition-all duration-500 hover:scale-105"
+                  className="object-cover transition-all duration-700 hover:scale-110"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 70vw"
                 />
-                <div className="absolute inset-0 rounded-xl border border-brand-primary/10 bg-gradient-to-t from-background/50 via-transparent to-transparent" />
-              </div>
+                
+                {/* Enhanced Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-brand-primary/20 via-transparent to-orange-500/20" />
+                
+                {/* Content Overlay */}
+                <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 lg:p-12">
+                  {/* Client Logo & Tags Row */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                    className="flex flex-wrap justify-between items-center gap-4 mb-4"
+                  >
+                    {caseStudy.client_logo_url && (
+                      <div className="relative h-12 w-32 bg-white/10 backdrop-blur-sm rounded-lg p-2">
+                        <Image
+                          src={caseStudy.client_logo_url}
+                          alt={clientName || ''}
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
+                    )}
+                    
+                    {tags.length > 0 && (
+                      <div className="flex flex-wrap gap-2">
+                        {tags.map((tag: string, index) => (
+                          <motion.div
+                            key={tag}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
+                          >
+                            <Badge className="bg-orange-500/20 text-orange-300 border-orange-400/30 hover:bg-orange-500/30 backdrop-blur-sm">
+                              {tag}
+                            </Badge>
+                          </motion.div>
+                        ))}
+                      </div>
+                    )}
+                  </motion.div>
+
+                  {/* Title */}
+                  <motion.h1
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.6 }}
+                    className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-4 leading-tight"
+                    style={{
+                      textShadow: '0 4px 20px rgba(0,0,0,0.5), 0 2px 10px rgba(0,0,0,0.3)'
+                    }}
+                  >
+                    {title}
+                  </motion.h1>
+
+                  {/* Meta Information */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.8 }}
+                    className="flex flex-wrap items-center gap-6 text-white/90"
+                  >
+                    <div className="flex items-center gap-2">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
+                        <Briefcase className="h-4 w-4 text-white" />
+                      </div>
+                      <span>{clientName}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
+                        <Building className="h-4 w-4 text-white" />
+                      </div>
+                      <span>{industry}</span>
+                    </div>
+                    {caseStudy.published_at && (
+                      <div className="flex items-center gap-2">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
+                          <Calendar className="h-4 w-4 text-white" />
+                        </div>
+                        <span>{formatDate(caseStudy.published_at)}</span>
+                      </div>
+                    )}
+                    <div className="ml-auto">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="icon" className="rounded-full hover:bg-white/20 bg-white/10 backdrop-blur-sm">
+                            <Share2 className="h-4 w-4 text-white" />
+                            <span className="sr-only">Share</span>
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-56">
+                          <DropdownMenuItem asChild>
+                            <a 
+                              href={linkedinShareUrl} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="flex cursor-pointer items-center"
+                            >
+                              <Linkedin className="mr-2 h-4 w-4 text-[#0077B5]" />
+                              <span>Share to LinkedIn</span>
+                            </a>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem asChild>
+                            <a 
+                              href={twitterShareUrl} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="flex cursor-pointer items-center"
+                            >
+                              <Twitter className="mr-2 h-4 w-4 text-[#1DA1F2]" />
+                              <span>Share to Twitter</span>
+                            </a>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem asChild>
+                            <a 
+                              href={facebookShareUrl} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="flex cursor-pointer items-center"
+                            >
+                              <Facebook className="mr-2 h-4 w-4 text-[#4267B2]" />
+                              <span>Share to Facebook</span>
+                            </a>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={copyToClipboard} className="flex cursor-pointer items-center">
+                            {copySuccess ? (
+                              <Check className="mr-2 h-4 w-4 text-green-500" />
+                            ) : (
+                              <Copy className="mr-2 h-4 w-4" />
+                            )}
+                            <span>{copySuccess ? "Copied!" : "Copy link"}</span>
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
+                  </motion.div>
+                </div>
+
+                {/* Decorative Elements */}
+                <div className="absolute top-4 right-4 w-20 h-20 bg-white/5 rounded-full backdrop-blur-sm" />
+                <div className="absolute bottom-4 left-4 w-12 h-12 bg-brand-primary/20 rounded-full backdrop-blur-sm" />
+              </motion.div>
             )}
 
-            {/* Title */}
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl text-brand-dark dark:text-white">
-              {title}
-            </h1>
+            {/* Fallback for no image */}
+            {!caseStudy.image_url && (
+              <div className="py-16 md:py-24 text-center">
+                {/* Client Logo & Tags */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  className="flex flex-wrap justify-center items-center gap-4 mb-6"
+                >
+                  {caseStudy.client_logo_url && (
+                    <div className="relative h-16 w-40">
+                      <Image
+                        src={caseStudy.client_logo_url}
+                        alt={clientName || ''}
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                  )}
+                  
+                  {tags.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      {tags.map((tag: string, index) => (
+                        <motion.div
+                          key={tag}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.3, delay: 0.3 + index * 0.1 }}
+                        >
+                          <Badge variant="outline" className="bg-orange-500/10 text-orange-600 hover:bg-orange-500/20 border-orange-500">
+                            {tag}
+                          </Badge>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+                </motion.div>
 
-            {/* Meta */}
-            <div className="flex flex-wrap items-center gap-6 text-brand-secondary dark:text-gray-300">
-              <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10">
-                  <Briefcase className="h-4 w-4 text-brand-primary" />
-                </div>
-                <span>{clientName}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10">
-                  <Building className="h-4 w-4 text-brand-primary" />
-                </div>
-                <span>{industry}</span>
-              </div>
-              {caseStudy.published_at && (
-                <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10">
-                    <Calendar className="h-4 w-4 text-brand-primary" />
+                {/* Title */}
+                <motion.h1
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.4 }}
+                  className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-brand-dark dark:text-white mb-6 leading-tight"
+                >
+                  {title}
+                </motion.h1>
+
+                {/* Meta Information */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
+                  className="flex flex-wrap justify-center items-center gap-6 text-brand-secondary dark:text-gray-300 mb-8"
+                >
+                  <div className="flex items-center gap-2">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10">
+                      <Briefcase className="h-4 w-4 text-brand-primary" />
+                    </div>
+                    <span>{clientName}</span>
                   </div>
-                  <span>{formatDate(caseStudy.published_at)}</span>
-                </div>
-              )}
-              <div className="ml-auto">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon" className="rounded-full hover:bg-brand-primary/10">
-                      <Share2 className="h-4 w-4 text-brand-primary" />
-                      <span className="sr-only">Share</span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56">
-                    <DropdownMenuItem asChild>
-                      <a 
-                        href={linkedinShareUrl} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="flex cursor-pointer items-center"
-                      >
-                        <Linkedin className="mr-2 h-4 w-4 text-[#0077B5]" />
-                        <span>Share to LinkedIn</span>
-                      </a>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <a 
-                        href={twitterShareUrl} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="flex cursor-pointer items-center"
-                      >
-                        <Twitter className="mr-2 h-4 w-4 text-[#1DA1F2]" />
-                        <span>Share to Twitter</span>
-                      </a>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <a 
-                        href={facebookShareUrl} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="flex cursor-pointer items-center"
-                      >
-                        <Facebook className="mr-2 h-4 w-4 text-[#4267B2]" />
-                        <span>Share to Facebook</span>
-                      </a>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={copyToClipboard} className="flex cursor-pointer items-center">
-                      {copySuccess ? (
-                        <Check className="mr-2 h-4 w-4 text-green-500" />
-                      ) : (
-                        <Copy className="mr-2 h-4 w-4" />
-                      )}
-                      <span>{copySuccess ? "Copied!" : "Copy link"}</span>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                  <div className="flex items-center gap-2">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10">
+                      <Building className="h-4 w-4 text-brand-primary" />
+                    </div>
+                    <span>{industry}</span>
+                  </div>
+                  {caseStudy.published_at && (
+                    <div className="flex items-center gap-2">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10">
+                        <Calendar className="h-4 w-4 text-brand-primary" />
+                      </div>
+                      <span>{formatDate(caseStudy.published_at)}</span>
+                    </div>
+                  )}
+                  <div>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon" className="rounded-full hover:bg-brand-primary/10">
+                          <Share2 className="h-4 w-4 text-brand-primary" />
+                          <span className="sr-only">Share</span>
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-56">
+                        <DropdownMenuItem asChild>
+                          <a 
+                            href={linkedinShareUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="flex cursor-pointer items-center"
+                          >
+                            <Linkedin className="mr-2 h-4 w-4 text-[#0077B5]" />
+                            <span>Share to LinkedIn</span>
+                          </a>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <a 
+                            href={twitterShareUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="flex cursor-pointer items-center"
+                          >
+                            <Twitter className="mr-2 h-4 w-4 text-[#1DA1F2]" />
+                            <span>Share to Twitter</span>
+                          </a>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <a 
+                            href={facebookShareUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="flex cursor-pointer items-center"
+                          >
+                            <Facebook className="mr-2 h-4 w-4 text-[#4267B2]" />
+                            <span>Share to Facebook</span>
+                          </a>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={copyToClipboard} className="flex cursor-pointer items-center">
+                          {copySuccess ? (
+                            <Check className="mr-2 h-4 w-4 text-green-500" />
+                          ) : (
+                            <Copy className="mr-2 h-4 w-4" />
+                          )}
+                          <span>{copySuccess ? "Copied!" : "Copy link"}</span>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                </motion.div>
               </div>
-            </div>
+            )}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Summary Section */}
-      <section className="w-full py-8">
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="w-full py-8"
+      >
         <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Challenge */}
             {challenge && (
-              <div className="bg-white dark:bg-gray-800/30 p-6 rounded-lg shadow-sm border border-brand-primary/10">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="bg-white dark:bg-black/20 p-6 rounded-lg shadow-sm border border-brand-primary/10 hover:shadow-md transition-shadow duration-300"
+              >
                 <h3 className="text-xl font-bold mb-3 text-brand-dark dark:text-white flex items-center">
-                  <div className="mr-2 p-1.5 bg-brand-primary/10 rounded-full">
-                    <BarChart2 className="h-5 w-5 text-brand-primary" />
+                  <div className="mr-2 p-1.5 bg-red-100 dark:bg-red-900/30 rounded-full">
+                    <Target className="h-5 w-5 text-red-600 dark:text-red-400" />
                   </div>
                   {t('caseStudies.challenge')}
                 </h3>
                 <p className="text-brand-secondary dark:text-gray-300">{challenge}</p>
-              </div>
+              </motion.div>
             )}
             
             {/* Solution */}
             {solution && (
-              <div className="bg-white dark:bg-gray-800/30 p-6 rounded-lg shadow-sm border border-brand-primary/10">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="bg-white dark:bg-black/20 p-6 rounded-lg shadow-sm border border-brand-primary/10 hover:shadow-md transition-shadow duration-300"
+              >
                 <h3 className="text-xl font-bold mb-3 text-brand-dark dark:text-white flex items-center">
-                  <div className="mr-2 p-1.5 bg-brand-primary/10 rounded-full">
-                    <Briefcase className="h-5 w-5 text-brand-primary" />
+                  <div className="mr-2 p-1.5 bg-blue-100 dark:bg-blue-900/30 rounded-full">
+                    <Briefcase className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                   </div>
                   {t('caseStudies.solution')}
                 </h3>
                 <p className="text-brand-secondary dark:text-gray-300">{solution}</p>
-              </div>
+              </motion.div>
             )}
             
             {/* Results */}
             {results && (
-              <div className="bg-white dark:bg-gray-800/30 p-6 rounded-lg shadow-sm border border-brand-primary/10">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="bg-white dark:bg-black/20 p-6 rounded-lg shadow-sm border border-brand-primary/10 hover:shadow-md transition-shadow duration-300"
+              >
                 <h3 className="text-xl font-bold mb-3 text-brand-dark dark:text-white flex items-center">
-                  <div className="mr-2 p-1.5 bg-brand-primary/10 rounded-full">
-                    <BarChart2 className="h-5 w-5 text-brand-primary" />
+                  <div className="mr-2 p-1.5 bg-green-100 dark:bg-green-900/30 rounded-full">
+                    <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
                   </div>
                   {t('caseStudies.results')}
                 </h3>
                 <p className="text-brand-secondary dark:text-gray-300">{results}</p>
-              </div>
+              </motion.div>
             )}
           </div>
         </div>
-      </section>
+      </motion.section>
+
+      {/* Featured Image Section */}
+      {caseStudy.featured_image_url && (showcaseTitle || showcaseDescription) && (
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="w-full py-8"
+        >
+          <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              {/* Text Content */}
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="space-y-4"
+              >
+                <h2 className="text-2xl md:text-3xl font-bold text-brand-dark dark:text-white">
+                  {showcaseTitle || 'Project Showcase'}
+                </h2>
+                <p className="text-brand-secondary dark:text-gray-300 leading-relaxed">
+                  {showcaseDescription || 'A closer look at the project implementation and results.'}
+                </p>
+                {clientName && (
+                  <div className="flex items-center space-x-3 p-4 bg-white dark:bg-black/50 rounded-lg border border-brand-primary/10">
+                    <Building className="h-6 w-6 text-brand-primary" />
+                    <div>
+                      <div className="font-semibold text-brand-dark dark:text-white text-sm">
+                        {clientName}
+                      </div>
+                      <div className="text-xs text-brand-secondary dark:text-gray-300">
+                        {industry}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+              
+              {/* Featured Image */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="relative"
+              >
+                <div className="aspect-[4/3] w-full overflow-hidden rounded-xl shadow-lg border border-brand-primary/10">
+                  <Image
+                    src={caseStudy.featured_image_url}
+                    alt={`${title} - Featured Image`}
+                    fill
+                    className="object-cover transition-all duration-500 hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/5 via-transparent to-transparent" />
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </motion.section>
+      )}
+
+      {/* Content Section */}
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="w-full pt-0 md:pt-0 pb-2 md:pb-4"
+      >
+        <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div>
+            <MarkdownContent content={content} />
+          </div>
+        </div>
+      </motion.section>
 
       {/* Testimonial Section */}
       {testimonial && (
-        <section className="w-full py-8">
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="w-full pt-4 pb-8"
+        >
           <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-brand-primary/5 p-8 rounded-xl border border-brand-primary/20 relative">
+            <div className="bg-white dark:bg-black/50 p-8 rounded-xl border border-brand-primary/20 relative overflow-hidden">
               <div className="absolute -top-3 -left-3">
                 <MessageSquare className="h-12 w-12 text-brand-primary/40" />
               </div>
-              <blockquote className="text-lg md:text-xl italic text-brand-dark dark:text-white mb-4 pl-6">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-brand-primary/10 to-transparent rounded-bl-full" />
+              <blockquote className="text-base italic text-brand-secondary dark:text-gray-300 mb-4 pl-6 relative z-10">
                 "{testimonial}"
               </blockquote>
-              <div className="flex items-center pl-6">
+              <div className="flex items-center pl-6 relative z-10">
                 {testimonialAuthor && (
                   <div>
                     <div className="font-bold text-brand-dark dark:text-white">{testimonialAuthor}</div>
@@ -292,35 +589,45 @@ export default function CaseStudyClient({ caseStudy, relatedCaseStudies }: { cas
               </div>
             </div>
           </div>
-        </section>
+        </motion.section>
       )}
-
-      {/* Content Section */}
-      <section className="w-full pt-0 md:pt-0 pb-12 md:pb-16">
-        <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div>
-            <MarkdownContent content={content} />
-          </div>
-        </div>
-      </section>
 
       {/* Related Case Studies */}
       {relatedCaseStudies && relatedCaseStudies.length > 0 && (
-        <section className="w-full py-8 md:py-12 bg-white/50 dark:bg-black/20">
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="w-full py-8 md:py-12 bg-white/50 dark:bg-black/20"
+        >
           <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl md:text-3xl font-bold mb-8 text-brand-dark dark:text-white">{t('caseStudies.relatedCaseStudies')}</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
               {relatedCaseStudies.map((relatedCase, index) => (
-                <CaseStudyCard 
-                  key={relatedCase.slug} 
-                  caseStudy={relatedCase} 
-                  index={index} 
-                  language={language} 
-                />
+                <motion.div
+                  key={relatedCase.slug}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                >
+                  <CaseStudyCard 
+                    caseStudy={relatedCase} 
+                    index={index} 
+                    language={language} 
+                  />
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
-        </section>
+        </motion.section>
       )}
     </main>
   );

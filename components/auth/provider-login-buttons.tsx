@@ -101,7 +101,7 @@ export const ProviderLoginButtons: FC<Props> = ({ onSignIn }) => {
     <div className="space-y-3">
       <Button
         variant="outline"
-        className="w-full border-slate-300 bg-white px-6 py-6 text-slate-900 hover:bg-gray-50 flex items-center justify-center relative shadow-sm transition-all"
+        className="w-full border-slate-300 bg-white dark:bg-black/50 px-6 py-6 text-slate-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center justify-center relative shadow-sm transition-all"
         disabled={isLoading}
         onClick={async () => {
           const provider = new GoogleAuthProvider();

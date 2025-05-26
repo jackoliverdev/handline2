@@ -75,7 +75,7 @@ export const JobApplicationModal: React.FC<JobApplicationModalProps> = ({
           </div>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 bg-[#F5EFE0]/95 dark:bg-transparent">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 bg-white dark:bg-black/50">
           <div className="space-y-4">
             {/* Personal Information */}
             <div className="space-y-4">
@@ -92,7 +92,7 @@ export const JobApplicationModal: React.FC<JobApplicationModalProps> = ({
                     id="firstName"
                     name="firstName"
                     required
-                    className="bg-white/50 dark:bg-gray-900/50"
+                    className="bg-white dark:bg-black/50"
                   />
                 </div>
                 <div className="space-y-2">
@@ -101,7 +101,7 @@ export const JobApplicationModal: React.FC<JobApplicationModalProps> = ({
                     id="lastName"
                     name="lastName"
                     required
-                    className="bg-white/50 dark:bg-gray-900/50"
+                    className="bg-white dark:bg-black/50"
                   />
                 </div>
               </div>
@@ -115,7 +115,7 @@ export const JobApplicationModal: React.FC<JobApplicationModalProps> = ({
                     name="email"
                     type="email"
                     required
-                    className="bg-white/50 dark:bg-gray-900/50"
+                    className="bg-white dark:bg-black/50"
                     placeholder={t('forms.emailPlaceholder')}
                   />
                 </div>
@@ -125,7 +125,7 @@ export const JobApplicationModal: React.FC<JobApplicationModalProps> = ({
                     id="phone"
                     name="phone"
                     type="tel"
-                    className="bg-white/50 dark:bg-gray-900/50"
+                    className="bg-white dark:bg-black/50"
                   />
                 </div>
               </div>
@@ -149,7 +149,7 @@ export const JobApplicationModal: React.FC<JobApplicationModalProps> = ({
                     accept=".pdf,.doc,.docx"
                     required
                     onChange={(e) => handleFileUpload(e, 'cv')}
-                    className="bg-white/50 dark:bg-gray-900/50"
+                    className="bg-white dark:bg-black/50"
                   />
                   <Upload className="h-4 w-4 text-brand-primary" />
                 </div>
@@ -170,7 +170,7 @@ export const JobApplicationModal: React.FC<JobApplicationModalProps> = ({
                     type="file"
                     accept=".pdf,.doc,.docx"
                     onChange={(e) => handleFileUpload(e, 'coverLetter')}
-                    className="bg-white/50 dark:bg-gray-900/50"
+                    className="bg-white dark:bg-black/50"
                   />
                   <Upload className="h-4 w-4 text-brand-primary" />
                 </div>
@@ -196,7 +196,7 @@ export const JobApplicationModal: React.FC<JobApplicationModalProps> = ({
                   id="message"
                   name="message"
                   rows={4}
-                  className="bg-white/50 dark:bg-gray-900/50 resize-none"
+                  className="bg-white dark:bg-black/50 resize-none"
                   placeholder={t('careers.application.messagePlaceholder')}
                 />
               </div>
@@ -208,7 +208,7 @@ export const JobApplicationModal: React.FC<JobApplicationModalProps> = ({
                   id="startDate"
                   name="startDate"
                   type="date"
-                  className="bg-white/50 dark:bg-gray-900/50"
+                  className="bg-white dark:bg-black/50"
                 />
               </div>
             </div>
