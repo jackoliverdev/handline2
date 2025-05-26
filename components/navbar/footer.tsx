@@ -48,7 +48,10 @@ export function Footer() {
                 />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white">Hand Line Company</h3>
+                <h3 className="font-semibold text-gray-900 dark:text-white">
+                  <span className="text-[#F28C38]">Hand</span>
+                  <span className="text-gray-900 dark:text-white"> Line Company</span>
+                </h3>
                 <p className="text-xs text-gray-600 dark:text-gray-400">Via Alfonso Salardi, 12, 22100. Como, Italy</p>
                 <a href="https://www.linkedin.com/company/hand-line/?originalSubdomain=it" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs text-gray-600 dark:text-gray-400 hover:text-[#0A66C2] transition-colors mt-0.5">
                   <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 24 24">

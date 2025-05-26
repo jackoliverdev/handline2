@@ -251,56 +251,17 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
             </div>
 
             {/* Industries Section */}
-            <div>
-              <div
-                className="flex items-center justify-between px-3 py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors cursor-pointer"
-                onClick={() => toggleSection('industries')}
+            <div className="px-3 py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors">
+              <Link 
+                href="/industries"
+                className="flex items-center"
+                onClick={onClose}
               >
-                <div className="flex items-center">
-                  <div className="w-7 h-7 bg-gradient-to-br from-[#E67A2C] to-[#D96920] text-white rounded-full flex items-center justify-center mr-2.5">
-                    <Factory className="h-4 w-4" />
-                  </div>
-                  <span className="text-sm">{t('navbar.industries')}</span>
+                <div className="w-7 h-7 bg-gradient-to-br from-[#E67A2C] to-[#D96920] text-white rounded-full flex items-center justify-center mr-2.5">
+                  <Factory className="h-4 w-4" />
                 </div>
-                {expandedSection === 'industries' ? (
-                  <ChevronDown className="h-3.5 w-3.5 text-slate-500" />
-                ) : (
-                  <ChevronRight className="h-3.5 w-3.5 text-slate-500" />
-                )}
-              </div>
-              
-              {expandedSection === 'industries' && (
-                <div className="ml-10 pl-2 border-l border-gray-300 dark:border-gray-600">
-                  <Link 
-                    href="/industries/manufacturing" 
-                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-                    onClick={onClose}
-                  >
-                    <span>{t('industries.manufacturing')}</span>
-                  </Link>
-                  <Link 
-                    href="/industries/glass" 
-                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-                    onClick={onClose}
-                  >
-                    <span>{t('footer.sections.industries.links.glass')}</span>
-                  </Link>
-                  <Link 
-                    href="/industries/metalworking" 
-                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-                    onClick={onClose}
-                  >
-                    <span>{t('footer.sections.industries.links.metalworking')}</span>
-                  </Link>
-                  <Link 
-                    href="/industries/automotive" 
-                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-                    onClick={onClose}
-                  >
-                    <span>{t('footer.sections.industries.links.automotive')}</span>
-                  </Link>
-                </div>
-              )}
+                <span className="text-sm">{t('navbar.industries')}</span>
+              </Link>
             </div>
 
             {/* About Section */}

@@ -94,20 +94,20 @@ export const FeaturedProducts = () => {
             <div className="inline-flex items-center justify-center mb-4">
               <motion.div 
                 initial={{ width: 0 }}
-                whileInView={{ width: "2.5rem" }}
+                whileInView={{ width: "2rem" }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="h-1 w-10 bg-[#F28C38] rounded-full mr-3"
+                className="h-1 w-8 bg-[#F28C38] rounded-full mr-3"
               ></motion.div>
               <h2 className="text-3xl md:text-4xl font-bold text-brand-dark dark:text-white font-heading">
                 {t('featuredProducts.title')}
               </h2>
               <motion.div 
                 initial={{ width: 0 }}
-                whileInView={{ width: "2.5rem" }}
+                whileInView={{ width: "2rem" }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="h-1 w-10 bg-[#F28C38] rounded-full ml-3"
+                className="h-1 w-8 bg-[#F28C38] rounded-full ml-3"
               ></motion.div>
             </div>
             <motion.p 

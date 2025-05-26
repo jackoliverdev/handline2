@@ -121,8 +121,9 @@ export function CutProductsSection({ products }: CutProductsSectionProps) {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="h-1 w-10 bg-[#F28C38] rounded-full mr-3"
               ></motion.div>
-              <h2 className="text-3xl md:text-4xl font-bold text-brand-dark dark:text-white font-heading">
-                {t('products.categories.pages.cut.title')}
+              <h2 className="text-3xl md:text-4xl font-bold text-brand-dark dark:text-white font-heading text-center">
+                {t('products.categories.pages.cut.title').split(' ').slice(0, -1).join(' ')}<br />
+                {t('products.categories.pages.cut.title').split(' ').slice(-1)}
               </h2>
               <motion.div 
                 initial={{ width: 0 }}

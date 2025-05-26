@@ -143,24 +143,31 @@ export const NavBar = () => {
                 <span className="text-xs uppercase ml-1">{t('navbar.menu')}</span>
               </button>
               
-              <Link href="/" className="flex-shrink-0">
-                <div className="flex items-center justify-center">
-                  <Image 
-                    src="/Logo-HLC.png" 
-                    alt="Hand Line"
-                    width={32} 
-                    height={32}
-                    className="h-8 w-8 block dark:hidden" 
-                  />
-                  <Image 
-                    src="/LogoWHITE.png" 
-                    alt="Hand Line"
-                    width={32} 
-                    height={32}
-                    className="h-8 w-8 hidden dark:block" 
-                  />
-                </div>
-              </Link>
+              <div className="flex items-center space-x-2 flex-shrink-0">
+                <Link href="/" className="flex-shrink-0">
+                  <div className="flex items-center justify-center">
+                    <Image 
+                      src="/Logo-HLC.png" 
+                      alt="Hand Line"
+                      width={32} 
+                      height={32}
+                      className="h-8 w-8 block dark:hidden" 
+                    />
+                    <Image 
+                      src="/LogoWHITE.png" 
+                      alt="Hand Line"
+                      width={32} 
+                      height={32}
+                      className="h-8 w-8 hidden dark:block" 
+                    />
+                  </div>
+                </Link>
+                
+                <Link href="/" className="font-bold text-lg tracking-tight">
+                  <span className="text-[#F28C38]">Hand</span>
+                  <span className="text-slate-900 dark:text-white"> Line</span>
+                </Link>
+              </div>
               
               <div className="flex items-center space-x-4">
                 <WebsiteThemeToggle variant="ghost" className={scrolled ? 'text-slate-900 dark:text-white' : 'text-slate-900 dark:text-white'} />
