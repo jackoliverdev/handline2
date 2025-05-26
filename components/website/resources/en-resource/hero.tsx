@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { BookOpen, FileText, ClipboardCheck, ChevronRight, Sparkles, Shield } from "lucide-react";
+import { BookOpen, FileText, ClipboardCheck, ChevronRight, Sparkles, Shield, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -109,9 +109,9 @@ export function ENResourceHero({ language }: ENResourceHeroProps) {
               className="group font-medium border-brand-primary text-brand-primary hover:text-brand-primary hover:bg-white/80 dark:text-white dark:border-white dark:hover:bg-white/10 w-full sm:w-auto text-sm md:text-base h-10 md:h-11"
               asChild
             >
-              <Link href="/products" className="flex items-center justify-center gap-1.5 md:gap-2">
-                <Shield className="h-4 w-4 md:h-5 md:w-5" />
-                <span>{t('productsHero.getInTouch')}</span>
+              <Link href="/about" className="flex items-center justify-center gap-1.5 md:gap-2">
+                <Users className="h-4 w-4 md:h-5 md:w-5" />
+                <span>{t('blog.hero.learnAboutUs')}</span>
                 <ChevronRight className="h-3.5 w-3.5 md:h-4 md:w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
