@@ -61,26 +61,26 @@ export function Footer() {
           </div>
 
           {/* Right side - Collapsible Links */}
-          <div className="lg:flex-1 flex flex-col sm:flex-row gap-8 lg:justify-end lg:items-center">
+          <div className="lg:flex-1 flex flex-row gap-4 sm:gap-8 lg:justify-end lg:items-center">
             
             {/* Products */}
-            <div className="min-w-[120px]">
+            <div className="min-w-[80px] sm:min-w-[120px] flex-1">
               <button 
                 onClick={() => setIsProductsOpen(!isProductsOpen)}
-                className="flex items-center gap-2 font-semibold text-gray-900 dark:text-white hover:text-brand-primary transition-colors"
+                className="flex items-center gap-1 sm:gap-2 font-semibold text-gray-900 dark:text-white hover:text-brand-primary transition-colors text-sm sm:text-base"
               >
                 {t('footer.sections.products.title')}
-                {isProductsOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                {isProductsOpen ? <ChevronUp className="h-3 w-3 sm:h-4 sm:w-4" /> : <ChevronDown className="h-3 w-3 sm:h-4 sm:w-4" />}
               </button>
               {isProductsOpen && (
-                <div className="mt-2 flex flex-col gap-1 text-sm animate-in slide-in-from-top-2 duration-200">
+                <div className="mt-2 flex flex-col gap-1 text-xs sm:text-sm animate-in slide-in-from-top-2 duration-200">
                   <div className="mb-1">
                     <button 
                       onClick={() => setIsGlovesOpen(!isGlovesOpen)}
-                      className="flex items-center gap-2 font-medium text-gray-700 dark:text-gray-300 hover:text-brand-primary transition-colors"
+                      className="flex items-center gap-1 sm:gap-2 font-medium text-gray-700 dark:text-gray-300 hover:text-brand-primary transition-colors"
                     >
                       Safety Gloves
-                      {isGlovesOpen ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
+                      {isGlovesOpen ? <ChevronUp className="h-2 w-2 sm:h-3 sm:w-3" /> : <ChevronDown className="h-2 w-2 sm:h-3 sm:w-3" />}
                     </button>
                     {isGlovesOpen && (
                       <div className="ml-2 mt-1 flex flex-col gap-1 animate-in slide-in-from-top-2 duration-200">
@@ -107,16 +107,16 @@ export function Footer() {
               </div>
               
             {/* Industries */}
-            <div className="min-w-[120px]">
+            <div className="min-w-[80px] sm:min-w-[120px] flex-1">
               <button 
                 onClick={() => setIsIndustriesOpen(!isIndustriesOpen)}
-                className="flex items-center gap-2 font-semibold text-gray-900 dark:text-white hover:text-brand-primary transition-colors"
+                className="flex items-center gap-1 sm:gap-2 font-semibold text-gray-900 dark:text-white hover:text-brand-primary transition-colors text-sm sm:text-base"
               >
                 {t('footer.sections.industries.title')}
-                {isIndustriesOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                {isIndustriesOpen ? <ChevronUp className="h-3 w-3 sm:h-4 sm:w-4" /> : <ChevronDown className="h-3 w-3 sm:h-4 sm:w-4" />}
               </button>
               {isIndustriesOpen && (
-                <div className="mt-2 flex flex-col gap-1 text-sm animate-in slide-in-from-top-2 duration-200">
+                <div className="mt-2 flex flex-col gap-1 text-xs sm:text-sm animate-in slide-in-from-top-2 duration-200">
                   <Link href="/industries/glass" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary transition-colors">
                       {t('footer.sections.industries.links.glass')}
                     </Link>
@@ -134,16 +134,16 @@ export function Footer() {
               </div>
               
             {/* Company */}
-            <div className="min-w-[120px]">
+            <div className="min-w-[80px] sm:min-w-[120px] flex-1">
               <button 
                 onClick={() => setIsCompanyOpen(!isCompanyOpen)}
-                className="flex items-center gap-2 font-semibold text-gray-900 dark:text-white hover:text-brand-primary transition-colors"
+                className="flex items-center gap-1 sm:gap-2 font-semibold text-gray-900 dark:text-white hover:text-brand-primary transition-colors text-sm sm:text-base"
               >
                 {t('footer.sections.company.title')}
-                {isCompanyOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                {isCompanyOpen ? <ChevronUp className="h-3 w-3 sm:h-4 sm:w-4" /> : <ChevronDown className="h-3 w-3 sm:h-4 sm:w-4" />}
               </button>
               {isCompanyOpen && (
-                <div className="mt-2 flex flex-col gap-1 text-sm animate-in slide-in-from-top-2 duration-200">
+                <div className="mt-2 flex flex-col gap-1 text-xs sm:text-sm animate-in slide-in-from-top-2 duration-200">
                   <Link href="/about" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary transition-colors">
                       {t('footer.sections.company.links.about')}
                     </Link>
