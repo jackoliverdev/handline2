@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
-import { ChevronLeft, Flame, Scissors, User2, Link2, Download, ListChecks, ChevronRight, Shield, Home, Package } from "lucide-react";
+import { ChevronLeft, Flame, Scissors, User2, Mail, Download, ListChecks, ChevronRight, Shield, Home, Package } from "lucide-react";
 import { ProductImageGallery } from "@/components/website/products/product-image-gallery";
 import { ProductCard } from "@/components/website/products/product-card";
 import { SampleModal } from "@/components/website/products/sample-modal";
@@ -108,7 +108,36 @@ export function ProductDetail({ product, relatedProducts }: { product: any, rela
             {/* Product details tabs */}
             <div className="pt-2">
               <Tabs defaultValue="specifications" className="w-full">
-                <TabsList className="w-full justify-start bg-white dark:bg-black/50 mb-4 border border-brand-primary/10 dark:border-brand-primary/20 rounded-lg shadow-sm backdrop-blur-sm gap-2 p-2">
+                {/* Mobile: Vertical stacked tabs */}
+                <TabsList className="flex flex-col h-auto w-full bg-white dark:bg-black/50 mb-4 border border-brand-primary/10 dark:border-brand-primary/20 rounded-lg shadow-sm backdrop-blur-sm gap-1 p-2 md:hidden">
+                  <TabsTrigger 
+                    value="specifications" 
+                    className="w-full rounded-lg px-4 py-3 data-[state=active]:bg-brand-primary data-[state=active]:text-white text-left justify-start"
+                  >
+                    {t('productPage.specifications')}
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="features" 
+                    className="w-full rounded-lg px-4 py-3 data-[state=active]:bg-brand-primary data-[state=active]:text-white text-left justify-start"
+                  >
+                    {t('productPage.features')}
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="applications" 
+                    className="w-full rounded-lg px-4 py-3 data-[state=active]:bg-brand-primary data-[state=active]:text-white text-left justify-start"
+                  >
+                    {t('productPage.applications')}
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="documentation" 
+                    className="w-full rounded-lg px-4 py-3 data-[state=active]:bg-brand-primary data-[state=active]:text-white text-left justify-start"
+                  >
+                    Documentation
+                  </TabsTrigger>
+                </TabsList>
+                
+                {/* Desktop: Horizontal tabs */}
+                <TabsList className="hidden md:flex w-full justify-start bg-white dark:bg-black/50 mb-4 border border-brand-primary/10 dark:border-brand-primary/20 rounded-lg shadow-sm backdrop-blur-sm gap-2 p-2">
                   <TabsTrigger 
                     value="specifications" 
                     className="rounded-lg px-4 py-2 data-[state=active]:bg-brand-primary data-[state=active]:text-white"
@@ -277,7 +306,7 @@ export function ProductDetail({ product, relatedProducts }: { product: any, rela
               </Tabs>
             </div>
             {/* Contact and Sample Request Buttons */}
-            <div className="pt-4 grid grid-cols-2 gap-4">
+            <div className="pt-4 flex flex-col sm:grid sm:grid-cols-2 gap-4">
               <Button
                 variant="outline"
                 size="lg"
@@ -285,7 +314,7 @@ export function ProductDetail({ product, relatedProducts }: { product: any, rela
                 asChild
               >
                 <Link href="/contact" className="flex items-center justify-center gap-2">
-                  <Link2 className="h-5 w-5 transition-transform duration-300 group-hover:rotate-45" />
+                  <Mail className="h-5 w-5 transition-transform duration-300 group-hover:rotate-45" />
                   {t('productPage.contactUs')}
                 </Link>
               </Button>

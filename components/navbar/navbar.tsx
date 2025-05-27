@@ -98,6 +98,22 @@ export const NavBar = () => {
     return false;
   };
 
+  // Helper function to determine if a dropdown item is active
+  const isDropdownItemActive = (dropdownItem: any) => {
+    if (!pathname) return false;
+    
+    // Exact match
+    if (dropdownItem.href === pathname) return true;
+    
+    // Special case for "All Products" - should only be active on exact /products page
+    if (dropdownItem.href === "/products" && pathname !== "/products") return false;
+    
+    // For non-root paths, check if pathname starts with the href
+    if (dropdownItem.href !== "/" && pathname.startsWith(dropdownItem.href)) return true;
+    
+    return false;
+  };
+
   // Don't render the navbar on dashboard routes
   if (pathname?.startsWith('/dashboard') || pathname?.startsWith('/app')) {
     return null;
@@ -275,7 +291,13 @@ export const NavBar = () => {
                             <Link
                               key={dropdownItem.href}
                               href={dropdownItem.href}
-                              className="block px-4 py-2 text-sm text-slate-900 dark:text-white hover:bg-slate-100/100 dark:hover:bg-black/95"
+                              className={`
+                                block px-4 py-2 text-sm transition-colors font-medium
+                                ${isDropdownItemActive(dropdownItem) 
+                                  ? "text-[#F28C38]" 
+                                  : "text-slate-900 dark:text-white hover:text-[#F28C38] dark:hover:text-[#F28C38]"
+                                }
+                              `}
                             >
                               {dropdownItem.label}
                             </Link>

@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { X, User, Shield, Menu, ChevronRight, Search, Loader2, ChevronDown, FileText, Users, Factory, Flame, Scissors, Settings, Briefcase, Globe, Newspaper, BookOpen, FileCheck, LayoutDashboard, MessageCircle, Home } from "lucide-react";
+import { X, User, Shield, Menu, ChevronRight, ChevronDown, FileText, Users, Factory, Flame, Scissors, Settings, Briefcase, Globe, Newspaper, BookOpen, FileCheck, LayoutDashboard, MessageCircle, Home } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { useLanguage } from "@/lib/context/language-context";
+import { SearchDropdown } from "@/components/website/search/search-dropdown";
 
 type SidebarProps = {
   isOpen: boolean;
@@ -16,8 +17,7 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname() || "";
   const { t, language, setLanguage } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
-  const [isSearching, setIsSearching] = useState(false);
-  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   
   // Expanded category states
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
@@ -39,26 +39,6 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
     } else {
       setExpandedSection(sectionId);
     }
-  };
-
-  // Handle search input changes with debounce
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const query = e.target.value;
-    setSearchQuery(query);
-    
-    if (searchTimeoutRef.current) {
-      clearTimeout(searchTimeoutRef.current);
-    }
-    
-    if (query.length < 2) {
-      return;
-    }
-    
-    setIsSearching(true);
-    
-    searchTimeoutRef.current = setTimeout(() => {
-      setIsSearching(false);
-    }, 300);
   };
 
   return (
@@ -106,22 +86,13 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
         
         {/* Search Input */}
         <div className="p-2">
-          <div className="relative">
-            <input
-              type="text"
-              placeholder={t('navbar.searchPlaceholder')}
-              value={searchQuery}
-              onChange={handleSearchChange}
-              className="w-full py-1.5 px-3 pl-8 bg-white/80 dark:bg-black/80 border border-gray-200 dark:border-gray-700 text-slate-900 dark:text-white rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-[#F28C38]"
-            />
-            <div className="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none">
-              {isSearching ? (
-                <Loader2 className="h-4 w-4 text-slate-400 animate-spin" />
-              ) : (
-                <Search className="h-4 w-4 text-slate-400" />
-              )}
-            </div>
-          </div>
+          <SearchDropdown
+            query={searchQuery}
+            onQueryChange={setSearchQuery}
+            isOpen={isSearchOpen}
+            onOpenChange={setIsSearchOpen}
+            className="w-full"
+          />
         </div>
         
         <div className="overflow-y-auto h-[calc(100vh-200px)] pb-16">
