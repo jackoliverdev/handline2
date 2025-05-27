@@ -57,7 +57,7 @@ const buttonVariants = {
 };
 
 export function CTA() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   return (
     <motion.section 
@@ -107,11 +107,24 @@ export function CTA() {
               variants={itemVariants}
               className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-brand-dark dark:text-white mb-3 md:mb-4 leading-tight md:leading-relaxed px-2"
             >
-              {t('cta.title')}{' '}
-              <span className="text-orange-500">
-                {t('cta.titleAccent')}
-              </span>
-              {' '}?
+              {language === 'en' ? (
+                <>
+                  Ready to Enhance<br className="block md:hidden" />
+                  <span className="hidden md:inline"> </span>
+                  <span className="text-orange-500">
+                    Workplace Safety
+                  </span>
+                  {' '}?
+                </>
+              ) : (
+                <>
+                  {t('cta.title')}{' '}
+                  <span className="text-orange-500">
+                    {t('cta.titleAccent')}
+                  </span>
+                  {' '}?
+                </>
+              )}
             </motion.h2>
 
             {/* Description */}
