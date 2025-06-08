@@ -83,20 +83,23 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
   // Number of rows to show initially (2 rows = 8 products)
   const INITIAL_ROWS = 2;
   
-  // Localise all products
+  // Localise products for display but keep original categories for sorting
   const localizedProducts = products.map(product => ({
     ...product,
+    // Keep original category for sorting logic
+    original_category: product.category,
+    // Localized fields for display
     name: product.name_locales?.[language] || product.name,
     description: product.description_locales?.[language] || product.description,
     short_description: product.short_description_locales?.[language] || product.short_description,
-    category: product.category_locales?.[language] || product.category,
+    category: product.category_locales?.[language] || product.category, // This is for display
     sub_category: product.sub_category_locales?.[language] || product.sub_category,
     features: product.features_locales?.[language] || product.features,
     applications: product.applications_locales?.[language] || product.applications,
     industries: product.industries_locales?.[language] || product.industries,
   }));
 
-  // Get unique categories from localised products
+  // Get unique categories from localised products for display
   const uniqueCategories = Array.from(
     new Set(localizedProducts.map((product) => product.category || t('products.filters.uncategorised')))
   ).filter((cat): cat is string => Boolean(cat));
@@ -120,7 +123,16 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
   // Get unique industries
   const uniqueIndustries = getUniqueIndustries(localizedProducts);
 
-  // Define preferred category order (localised)
+  // Define preferred category order using ORIGINAL English categories for consistent sorting
+  const originalPreferredOrder = [
+    "Heat Resistant Gloves",
+    "Cut Resistant Gloves", 
+    "General Purpose Gloves",
+    "Industrial Swabs",
+    "Respiratory Protection"
+  ];
+
+  // Define preferred category order (localised) for display
   const preferredOrder = [
     t("products.filters.heatResistantGloves") || "Heat Resistant Gloves",
     t("products.filters.cutResistantGloves") || "Cut Resistant Gloves",
@@ -234,14 +246,14 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
            matchesIndustries;
   });
   
-  // Sort products based on selected option and category order
+  // Sort products based on selected option and category order using ORIGINAL categories
   const sortedProducts = [...filteredProducts].sort((a, b) => {
-    // First sort by category according to preferred order
-    const categoryA = a.category || t('products.filters.uncategorised');
-    const categoryB = b.category || t('products.filters.uncategorised');
+    // Use original English categories for consistent sorting across languages
+    const categoryA = (a as any).original_category || 'Uncategorised';
+    const categoryB = (b as any).original_category || 'Uncategorised';
     
-    const indexA = preferredOrder.indexOf(categoryA);
-    const indexB = preferredOrder.indexOf(categoryB);
+    const indexA = originalPreferredOrder.indexOf(categoryA);
+    const indexB = originalPreferredOrder.indexOf(categoryB);
     
     // If categories are different and both are in preferred order, sort by category
     if (categoryA !== categoryB && indexA !== -1 && indexB !== -1) {
@@ -534,7 +546,7 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
                     className={`px-8 py-6 font-medium text-base shadow-lg hover:shadow-xl transition-all duration-500 rounded-xl ${
                       isExpanded 
                         ? "border-gray-100 dark:border-gray-700/50 bg-white dark:bg-black/50 text-brand-primary hover:bg-gray-700 hover:text-white hover:border-gray-700" 
-                        : "bg-gradient-to-r from-brand-primary to-orange-500 hover:from-brand-primary/90 hover:to-orange-500/90 text-white hover:scale-105 transform"
+                        : "bg-gradient-to-r from-brand-primary to-brand-primary hover:from-brand-primary/90 hover:to-brand-primary/90 text-white hover:scale-105 transform"
                     }`}
                     onClick={toggleExpanded}
                   >

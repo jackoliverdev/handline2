@@ -95,7 +95,7 @@ export default function EnStandardClient({ standard, relatedStandards }: {
                 
                 {/* Enhanced Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-r from-brand-primary/20 via-transparent to-orange-500/20" />
+                <div className="absolute inset-0 bg-gradient-to-r from-brand-primary/20 via-transparent to-brand-primary/20" />
                 
                 {/* Back Button - Top Left of Image */}
                 <motion.div 

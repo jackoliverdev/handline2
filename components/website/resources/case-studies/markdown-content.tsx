@@ -21,7 +21,7 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="text-3xl font-bold mt-8 mb-4 text-brand-dark dark:text-white bg-gradient-to-r from-brand-primary to-orange-500 bg-clip-text text-transparent"
+        className="text-3xl font-bold mt-8 mb-4 text-brand-dark dark:text-white bg-gradient-to-r from-brand-primary to-brand-primary bg-clip-text text-transparent"
       >
         {children}
       </motion.h1>
@@ -34,7 +34,7 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
         transition={{ duration: 0.5 }}
         className="text-2xl font-bold mt-6 mb-4 text-brand-dark dark:text-white relative"
       >
-        <span className="absolute -left-4 top-0 h-full w-1 bg-gradient-to-b from-brand-primary to-orange-500 rounded-full" />
+        <span className="absolute -left-4 top-0 h-full w-1 bg-gradient-to-b from-brand-primary to-brand-primary rounded-full" />
         {children}
       </motion.h2>
     ),
@@ -109,7 +109,7 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
     a: ({ href, children }) => (
       <a 
         href={href} 
-        className="text-brand-primary hover:text-orange-500 underline decoration-brand-primary/30 hover:decoration-orange-500 transition-all duration-200 inline-flex items-center gap-1"
+        className="text-brand-primary hover:text-brand-primary underline decoration-brand-primary/30 hover:decoration-brand-primary transition-all duration-200 inline-flex items-center gap-1"
         target={href?.startsWith('http') ? '_blank' : undefined}
         rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
       >
@@ -173,7 +173,7 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
       </motion.div>
     ),
     th: ({ children }) => (
-      <th className="px-6 py-4 text-left text-sm font-semibold bg-gradient-to-r from-brand-primary/10 to-orange-500/10 text-brand-dark dark:text-white border-b border-brand-primary/20">
+      <th className="px-6 py-4 text-left text-sm font-semibold bg-gradient-to-r from-brand-primary/10 to-brand-primary/10 text-brand-dark dark:text-white border-b border-brand-primary/20">
         {children}
       </th>
     ),

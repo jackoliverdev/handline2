@@ -64,7 +64,7 @@ export function BlogCard({ post, index, language }: BlogCardProps) {
       {/* New Badge */}
       {isNew && (
         <div className="absolute right-4 top-4 z-20">
-          <Badge className="bg-gradient-to-r from-brand-primary to-orange-500 text-white font-medium px-3 py-1 shadow-lg">
+          <Badge className="bg-gradient-to-r from-brand-primary to-brand-primary text-white font-medium px-3 py-1 shadow-lg">
             New
           </Badge>
         </div>
@@ -141,7 +141,7 @@ export function BlogCard({ post, index, language }: BlogCardProps) {
         <Button 
           variant="default" 
           size="sm" 
-          className="w-full mt-4 bg-[#F28C38] hover:bg-[#F28C38]/90 text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl transform"
+          className="w-full mt-4 bg-brand-primary hover:bg-brand-primary/90 text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl transform"
           asChild
         >
           <Link href={`/resources/blog/${post.slug}`} className="flex items-center justify-center">

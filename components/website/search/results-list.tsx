@@ -122,26 +122,34 @@ export function SearchResultsList({
   return (
     <div className="space-y-6">
       {/* Results Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-            {t('search.results.title')} "{query}"
-          </h2>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-            {t('search.results.showing')
-              .replace('{count}', results.length.toString())
-              .replace('{total}', totalCount.toString())}
-          </p>
-        </div>
-
-        {/* Pagination info */}
-        {totalPages > 1 && (
-          <div className="text-sm text-gray-600 dark:text-gray-400">
-            {t('search.results.pageInfo')
-              .replace('{current}', currentPage.toString())
-              .replace('{total}', totalPages.toString())}
+      <div className="bg-white dark:bg-black/50 backdrop-blur-sm border border-gray-100 dark:border-gray-700/50 rounded-xl shadow-md p-5">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="flex items-start gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-primary/10 flex-shrink-0">
+              <div className="text-lg">🔍</div>
+            </div>
+            <div>
+              <h2 className="text-xl font-semibold text-brand-dark dark:text-white">
+                {t('search.results.title')} <span className="text-brand-primary">"{query}"</span>
+              </h2>
+              <p className="text-sm text-brand-secondary dark:text-gray-400 mt-1">
+                <span className="font-medium text-brand-primary">{totalCount.toLocaleString()}</span> results found
+                {results.length !== totalCount && (
+                  <span className="ml-1">• Showing {results.length}</span>
+                )}
+              </p>
+            </div>
           </div>
-        )}
+
+          {/* Pagination info */}
+          {totalPages > 1 && (
+            <div className="bg-gray-50/80 dark:bg-gray-800/50 px-3 py-2 rounded-lg border border-gray-100 dark:border-gray-700/50">
+              <div className="text-xs text-brand-secondary dark:text-gray-400 text-center">
+                <span className="font-medium">Page {currentPage} of {totalPages}</span>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Results Grid */}
@@ -182,7 +190,7 @@ export function SearchResultsList({
           <Button
             variant="outline"
             size="sm"
-            onClick={() => onLoadMore()}
+            onClick={() => onPageChange && onPageChange(currentPage - 1)}
             disabled={currentPage === 1}
             className={cn(
               "border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white hover:border-gray-400 dark:hover:border-gray-500",
@@ -204,7 +212,7 @@ export function SearchResultsList({
                   key={pageNum}
                   variant={pageNum === currentPage ? "default" : "ghost"}
                   size="sm"
-                  onClick={() => onLoadMore()}
+                  onClick={() => onPageChange && onPageChange(pageNum)}
                   className={cn(
                     "w-8 h-8 p-0",
                     pageNum === currentPage 
@@ -221,11 +229,11 @@ export function SearchResultsList({
           <Button
             variant="outline"
             size="sm"
-            onClick={() => onLoadMore()}
-            disabled={!hasMore}
+            onClick={() => onPageChange && onPageChange(currentPage + 1)}
+            disabled={!hasMore || currentPage >= totalPages}
             className={cn(
               "border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white hover:border-gray-400 dark:hover:border-gray-500",
-              !hasMore && "opacity-50 cursor-not-allowed"
+              (!hasMore || currentPage >= totalPages) && "opacity-50 cursor-not-allowed"
             )}
           >
             {t('search.results.next')}

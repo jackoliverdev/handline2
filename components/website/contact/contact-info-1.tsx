@@ -213,8 +213,8 @@ export function ContactInfo() {
           // Create marker for origin
           const originMarkerIcon = {
             ...markerIconConfig,
-            fillColor: '#F28C38',
-            strokeColor: '#D27028',
+            fillColor: '#F08515',
+            strokeColor: '#E07513',
           };
           
           // Initialize the map first
@@ -448,9 +448,9 @@ export function ContactInfo() {
                         fill="none" 
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                        <path d="M38 22H15.6c-9.5 0-10.8 13.5 0 13.5h14.5C38 35.5 38 47 30 47H14.7" stroke="#F28C38" strokeWidth="4"></path>
-                        <path d="M38 24c.2 0 .4 0 .6-.2l.4-.5c.3-1 .7-1.7 1.1-2.5l2-3c.8-1 1.5-2 2-3 .6-1 .9-2.3.9-3.8 0-2-.7-3.6-2-5-1.4-1.3-3-2-5-2s-3.6.7-5 2c-1.3 1.4-2 3-2 5 0 1.4.3 2.6.8 3.6s1.2 2 2 3.2c.9 1 1.6 2 2 2.8.5.9 1 1.7 1.2 2.7l.4.5.6.2Zm0-10.5c-.7 0-1.3-.2-1.8-.7-.5-.5-.7-1.1-.7-1.8s.2-1.3.7-1.8c.5-.5 1.1-.7 1.8-.7s1.3.2 1.8.7c.5.5.7 1.1.7 1.8s-.2 1.3-.7 1.8c-.5.5-1.1.7-1.8.7Z" fill="#F28C38"></path>
-                        <path d="m12 35-7 5v10h4v-6h6v6h4V40l-7-5Z" fill="#F28C38"></path>
+                        <path d="M38 22H15.6c-9.5 0-10.8 13.5 0 13.5h14.5C38 35.5 38 47 30 47H14.7" stroke="#F08515" strokeWidth="4"></path>
+                        <path d="M38 24c.2 0 .4 0 .6-.2l.4-.5c.3-1 .7-1.7 1.1-2.5l2-3c.8-1 1.5-2 2-3 .6-1 .9-2.3.9-3.8 0-2-.7-3.6-2-5-1.4-1.3-3-2-5-2s-3.6.7-5 2c-1.3 1.4-2 3-2 5 0 1.4.3 2.6.8 3.6s1.2 2 2 3.2c.9 1 1.6 2 2 2.8.5.9 1 1.7 1.2 2.7l.4.5.6.2Zm0-10.5c-.7 0-1.3-.2-1.8-.7-.5-.5-.7-1.1-.7-1.8s.2-1.3.7-1.8c.5-.5 1.1-.7 1.8-.7s1.3.2 1.8.7c.5.5.7 1.1.7 1.8s-.2 1.3-.7 1.8c-.5.5-1.1.7-1.8.7Z" fill="#F08515"></path>
+                        <path d="m12 35-7 5v10h4v-6h6v6h4V40l-7-5Z" fill="#F08515"></path>
                       </svg>
                     </div>
                     
@@ -466,8 +466,8 @@ export function ContactInfo() {
                     <button
                       className="add-button"
                       style={{
-                        backgroundColor: '#F28C38',
-                        borderColor: '#F28C38',
+                        backgroundColor: '#F08515',
+                        borderColor: '#F08515',
                         borderRadius: '4px',
                         borderStyle: 'solid',
                         color: '#fff',

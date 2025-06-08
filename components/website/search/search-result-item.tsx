@@ -17,11 +17,11 @@ interface SearchResultItemProps {
 }
 
 const CONTENT_TYPE_COLORS = {
-  product: 'bg-[#F28C38] text-white',
+  product: 'bg-brand-primary text-white',
   industry_solution: 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200',
   blog: 'bg-green-100 dark:bg-green-800/30 text-green-800 dark:text-green-200', 
   case_study: 'bg-purple-100 dark:bg-purple-800/30 text-purple-800 dark:text-purple-200',
-  career: 'bg-orange-100 dark:bg-orange-800/30 text-orange-800 dark:text-orange-200',
+  career: 'bg-brand-primary-100 text-brand-primary-800 dark:bg-brand-primary/10 dark:text-brand-primary-300',
   en_resource: 'bg-amber-100 dark:bg-amber-800/30 text-amber-800 dark:text-amber-200'
 } as const;
 
@@ -94,7 +94,7 @@ export function SearchResultItem({
           "p-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 border-b border-gray-100 dark:border-gray-700/50 last:border-b-0",
           "hover:shadow-sm"
         ] : [
-          "p-4 bg-white dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700/50 hover:border-[#F28C38] dark:hover:border-[#F28C38]",
+          "p-4 bg-white dark:bg-black/50 rounded-lg border border-gray-200 dark:border-gray-700/50 hover:border-brand-primary dark:hover:border-brand-primary",
           "hover:shadow-md backdrop-blur-sm"
         ],
         className
@@ -141,13 +141,13 @@ export function SearchResultItem({
               {contentTypeLabel}
             </Badge>
             {!isDropdown && (
-              <ExternalLink className="w-3 h-3 text-gray-400 dark:text-gray-500 group-hover:text-[#F28C38] dark:group-hover:text-[#F28C38] transition-colors" />
+              <ExternalLink className="w-3 h-3 text-gray-400 dark:text-gray-500 group-hover:text-brand-primary dark:group-hover:text-brand-primary transition-colors" />
             )}
           </div>
 
           {/* Title */}
           <h3 className={cn(
-            "font-semibold text-gray-900 dark:text-white group-hover:text-[#F28C38] dark:group-hover:text-[#F28C38] transition-colors",
+            "font-semibold text-gray-900 dark:text-white group-hover:text-brand-primary dark:group-hover:text-brand-primary transition-colors",
             "line-clamp-1",
             isDropdown ? "text-sm" : "text-base"
           )}>

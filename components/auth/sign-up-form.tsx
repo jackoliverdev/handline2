@@ -318,7 +318,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ onShowLogin, onSignUp }) => {
           <Button 
             variant="link" 
             onClick={onShowLogin}
-            className="p-0 font-semibold text-primary hover:text-primary/80"
+            className="p-0 font-semibold text-brand-primary hover:text-brand-primary/80"
           >
             {t('auth.signInInstead')}
           </Button>

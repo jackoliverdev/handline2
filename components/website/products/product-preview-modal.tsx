@@ -22,7 +22,9 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
   onClose,
 }) => {
   const { t } = useLanguage();
-  // Encode the product name for use in URLs
+  
+  // Use the original English name for URL generation (not localized)
+  // This ensures URLs work consistently across language changes
   const encodedProductName = encodeURIComponent(product.name);
   
   // Function to clean and validate image URLs
@@ -61,7 +63,7 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
             {/* Featured Badge - Better contrast */}
             {product.is_featured && (
               <div className="bg-brand-primary text-white py-1 px-3 rounded-lg text-sm font-bold shadow-lg border-2 border-brand-primary">
-                Featured
+                {t('products.featured')}
               </div>
             )}
             
@@ -80,7 +82,7 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
             
             {product.out_of_stock && (
               <div className="bg-gradient-to-r from-red-500 to-red-600 text-white py-1 px-3 rounded-lg text-sm font-medium shadow-lg">
-                Out of Stock
+                {t('products.outOfStock')}
               </div>
             )}
           </div>
@@ -143,7 +145,7 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
 
             {/* Specifications - Compact */}
             <div className="space-y-3">
-              <h4 className="text-base font-semibold text-brand-dark dark:text-white font-heading">Specifications</h4>
+              <h4 className="text-base font-semibold text-brand-dark dark:text-white font-heading">{t('productPage.specifications')}</h4>
               
               <div className="space-y-2">
                 {product.temperature_rating && (
@@ -182,7 +184,7 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
             {/* Industries - Compact */}
             {product.industries && product.industries.length > 0 && (
               <div className="space-y-2">
-                <h4 className="text-base font-semibold text-brand-dark dark:text-white font-heading">Industries</h4>
+                <h4 className="text-base font-semibold text-brand-dark dark:text-white font-heading">{t('productPage.industries')}</h4>
                 <div className="flex flex-wrap gap-1.5">
                   {product.industries.map((industry) => (
                     <div key={industry} className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 py-1 px-2 rounded text-xs font-medium border border-gray-200 dark:border-gray-700">
@@ -196,7 +198,7 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
             {/* Key Features - Compact */}
             {product.features && product.features.length > 0 && (
               <div className="space-y-2">
-                <h4 className="text-base font-semibold text-brand-dark dark:text-white font-heading">Key Features:</h4>
+                <h4 className="text-base font-semibold text-brand-dark dark:text-white font-heading">{t('products.keyFeatures')}</h4>
                 <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-3 border border-gray-100 dark:border-gray-700/50">
                   <ul className="space-y-1">
                     {product.features.slice(0, 3).map((feature, index) => (
@@ -221,11 +223,11 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
         <div className="p-6 pt-0 border-t border-gray-100 dark:border-gray-700/50">
           <Button 
             variant="default"
-            className="bg-gradient-to-r from-brand-primary to-orange-500 hover:from-brand-primary/90 hover:to-orange-500/90 text-white font-medium transition-all duration-300 hover:scale-[1.02] hover:shadow-lg w-full py-2.5 text-sm rounded-lg shadow-md" 
+            className="bg-gradient-to-r from-brand-primary to-brand-primary hover:from-brand-primary/90 hover:to-brand-primary/90 text-white font-medium transition-all duration-300 hover:scale-[1.02] hover:shadow-lg w-full py-2.5 text-sm rounded-lg shadow-md" 
             asChild
           >
             <Link href={`/products/${encodedProductName}`} className="flex items-center justify-center">
-              <span className="font-semibold">View Full Details</span>
+              <span className="font-semibold">{t('products.viewFullDetails')}</span>
               <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </Button>

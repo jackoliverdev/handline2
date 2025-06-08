@@ -31,7 +31,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
     setShowPreviewModal(false);
   };
 
-  // Encode the product name for use in URLs
+  // Use the original English name for URL generation (not localized)
+  // This ensures URLs work consistently across language changes
   const encodedProductName = encodeURIComponent(product.name);
 
   return (
@@ -56,7 +57,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
         
         {/* New Badge */}
         {isNew && (
-          <Badge className="bg-gradient-to-r from-brand-primary to-orange-500 text-white font-medium px-2 py-1 shadow-lg text-xs">
+          <Badge className="bg-gradient-to-r from-brand-primary to-brand-primary text-white font-medium px-2 py-1 shadow-lg text-xs">
             {t('products.new')}
           </Badge>
         )}
@@ -167,7 +168,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
           <Button 
             variant="default" 
             size="sm" 
-            className="bg-[#F28C38] hover:bg-[#F28C38]/90 text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl transform h-8"
+            className="bg-brand-primary hover:bg-brand-primary/90 text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl transform h-8"
             asChild
           >
             <Link href={`/products/${encodedProductName}`} className="flex items-center justify-center w-full">

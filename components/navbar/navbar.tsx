@@ -1,18 +1,14 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { WebsiteThemeToggle } from "@/components/theme/website-theme-toggle";
+import { WebsiteLanguageToggle } from "@/components/theme/website-language-toggle";
+import { WebsiteSearchToggle } from "@/components/theme/website-search-toggle";
 import { useLanguage } from "@/lib/context/language-context";
-import { Globe, Menu, Search, Shield, ChevronDown } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Menu, ChevronDown } from "lucide-react";
 import WebsiteSidebar from "@/components/website/sidebar";
 import { SearchDropdown } from "@/components/website/search/search-dropdown";
 
@@ -71,6 +67,9 @@ export const NavBar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { t, language, setLanguage } = useLanguage();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const searchOverlayRef = useRef<HTMLDivElement>(null);
+  const searchButtonRef = useRef<HTMLDivElement>(null);
+  const mobileSearchButtonRef = useRef<HTMLDivElement>(null);
   
   // Generate navigation items with translation
   const NAV_ITEMS = getNavItems(t);
@@ -132,6 +131,37 @@ export const NavBar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scrolled]);
 
+  // Handle click outside search overlay
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+      
+      // Don't close if clicking on the search overlay or either search button (mobile/desktop)
+      if (searchOverlayRef.current && !searchOverlayRef.current.contains(target) &&
+          searchButtonRef.current && !searchButtonRef.current.contains(target) &&
+          mobileSearchButtonRef.current && !mobileSearchButtonRef.current.contains(target)) {
+        setIsSearchOpen(false);
+      }
+    };
+
+    if (isSearchOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [isSearchOpen]);
+
+  // Handle escape key to close search
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isSearchOpen) {
+        setIsSearchOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isSearchOpen]);
+
   return (
     <header className="fixed w-full z-50 top-0 left-0 right-0">
       <nav className={`w-full transition-all duration-300 ${
@@ -139,12 +169,6 @@ export const NavBar = () => {
           ? "bg-white/100 dark:bg-black/100 shadow-lg"
           : "bg-white/100 dark:bg-black/100"
       }`}>
-        {/* Announcement bar */}
-        <div className="w-full bg-[#F28C38] text-white py-1.5 text-center font-medium flex items-center justify-center whitespace-nowrap px-4">
-          <Shield className="h-3 w-3 md:h-4 md:w-4 mr-1.5 flex-shrink-0" /> 
-          <span className="text-sm md:text-base">{t('navbar.announcement')}</span>
-        </div>
-
         {/* Main navbar content */}
         <div className="container mx-auto px-4">
           <div className="py-3">
@@ -159,75 +183,71 @@ export const NavBar = () => {
                 <span className="text-xs uppercase ml-1">{t('navbar.menu')}</span>
               </button>
               
-              <div className="flex items-center space-x-2 flex-shrink-0">
+              <div className="flex items-center space-x-1 flex-shrink-0">
                 <Link href="/" className="flex-shrink-0">
                   <div className="flex items-center justify-center">
                     <Image 
-                      src="/Logo-HLC.png" 
-                      alt="Hand Line"
-                      width={32} 
-                      height={32}
-                      className="h-8 w-8 block dark:hidden" 
-                    />
-                    <Image 
-                      src="/LogoWHITE.png" 
-                      alt="Hand Line"
-                      width={32} 
-                      height={32}
-                      className="h-8 w-8 hidden dark:block" 
-                    />
-                  </div>
-                </Link>
-                
-                <Link href="/" className="font-bold text-lg tracking-tight">
-                  <span className="text-[#F28C38]">Hand</span>
-                  <span className="text-slate-900 dark:text-white"> Line</span>
-                </Link>
-              </div>
-              
-              <div className="flex items-center space-x-4">
-                <WebsiteThemeToggle variant="ghost" className={scrolled ? 'text-slate-900 dark:text-white' : 'text-slate-900 dark:text-white'} />
-                <DropdownMenu>
-                  <DropdownMenuTrigger className="text-slate-900 dark:text-white">
-                    <Globe className="h-5 w-5" />
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="bg-white/100 dark:bg-slate-900/100 border-slate-200 dark:border-slate-800">
-                    <DropdownMenuItem onClick={() => setLanguage('en')} className="text-slate-900 dark:text-white hover:bg-slate-100/100 dark:hover:bg-slate-800/100">
-                      <span role="img" aria-label="English" className="mr-2">🇬🇧</span> {t('navbar.language.en')}
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setLanguage('it')} className="text-slate-900 dark:text-white hover:bg-slate-100/100 dark:hover:bg-slate-800/100">
-                      <span role="img" aria-label="Italian" className="mr-2">🇮🇹</span> {t('navbar.language.it')}
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            </div>
-
-            {/* Mobile Search Bar */}
-            <div className="mt-2 lg:hidden">
-              <SearchDropdown
-                query={searchQuery}
-                onQueryChange={setSearchQuery}
-                isOpen={isSearchOpen}
-                onOpenChange={setIsSearchOpen}
-                className="w-full"
-              />
-            </div>
-
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center justify-between py-2">
-              <div className="flex items-center space-x-3">
-                <Link href="/" className="flex-shrink-0">
-                  <div className="flex items-center justify-center">
-                    <Image 
-                      src="/Logo-HLC.png" 
+                      src="/faviconBLACK.png" 
                       alt="Hand Line"
                       width={40} 
                       height={40}
                       className="h-10 w-10 block dark:hidden" 
                     />
                     <Image 
-                      src="/LogoWHITE.png" 
+                      src="/favicon.png" 
+                      alt="Hand Line"
+                      width={40} 
+                      height={40}
+                      className="h-10 w-10 hidden dark:block" 
+                    />
+                  </div>
+                </Link>
+                
+                <Link href="/" className="font-bold text-lg tracking-tight">
+                  <span className="text-slate-900 dark:text-white">Hand Line</span>
+                </Link>
+              </div>
+              
+              <div className="flex items-center space-x-4">
+                <div ref={mobileSearchButtonRef}>
+                  <WebsiteSearchToggle 
+                    className={scrolled ? 'text-slate-900 dark:text-white' : 'text-slate-900 dark:text-white'} 
+                    isOpen={isSearchOpen}
+                    onToggle={() => setIsSearchOpen(!isSearchOpen)}
+                  />
+                </div>
+                <WebsiteThemeToggle variant="ghost" className={scrolled ? 'text-slate-900 dark:text-white' : 'text-slate-900 dark:text-white'} />
+                <WebsiteLanguageToggle className={scrolled ? 'text-slate-900 dark:text-white' : 'text-slate-900 dark:text-white'} />
+              </div>
+            </div>
+
+            {/* Mobile Search Bar */}
+            {isSearchOpen && (
+              <div className="mt-2 lg:hidden">
+                <SearchDropdown
+                  query={searchQuery}
+                  onQueryChange={setSearchQuery}
+                  isOpen={true}
+                  onOpenChange={() => {}} // Don't let SearchDropdown close the navbar overlay
+                  className="w-full"
+                />
+              </div>
+            )}
+
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center justify-between py-2">
+              <div className="flex items-center space-x-1">
+                <Link href="/" className="flex-shrink-0">
+                  <div className="flex items-center justify-center">
+                    <Image 
+                      src="/faviconBLACK.png" 
+                      alt="Hand Line"
+                      width={40} 
+                      height={40}
+                      className="h-10 w-10 block dark:hidden" 
+                    />
+                    <Image 
+                      src="/favicon.png" 
                       alt="Hand Line"
                       width={40} 
                       height={40}
@@ -237,37 +257,12 @@ export const NavBar = () => {
                 </Link>
                 
                 <Link href="/" className="font-bold text-xl tracking-tight">
-                  <span className="text-[#F28C38]">Hand</span>
-                  <span className="text-slate-900 dark:text-white"> Line</span>
+                  <span className="text-slate-900 dark:text-white">Hand Line</span>
                 </Link>
               </div>
 
-              {/* Menu Button */}
-              <button 
-                className={`hidden lg:flex items-center px-3 py-1.5 ml-8 rounded-lg border ${
-                  scrolled 
-                    ? 'text-slate-900 dark:text-white border-slate-200 dark:border-[#333333] hover:bg-slate-100/90 dark:hover:bg-black/95' 
-                    : 'text-slate-900 dark:text-white border-slate-200 dark:border-[#333333] hover:bg-slate-100/90 dark:hover:bg-black/95'
-                } transition-colors`}
-                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              >
-                <Menu className="h-5 w-5 mr-2" />
-                <span className="text-sm font-medium">{t('navbar.menu')}</span>
-              </button>
-
-              {/* Desktop Search Bar */}
-              <div className="flex-1 max-w-4xl mx-6">
-                <SearchDropdown
-                  query={searchQuery}
-                  onQueryChange={setSearchQuery}
-                  isOpen={isSearchOpen}
-                  onOpenChange={setIsSearchOpen}
-                  className="w-full"
-                />
-              </div>
-
               {/* Navigation Items */}
-              <nav className="flex items-center space-x-6">
+              <nav className="flex items-center space-x-8">
                 {NAV_ITEMS.map((item) => (
                   <div key={item.href} className="relative group">
                     <Link
@@ -275,8 +270,8 @@ export const NavBar = () => {
                       className={`
                         text-sm font-medium transition-colors flex items-center
                         ${isNavItemActive(item) 
-                          ? "text-[#F28C38]" 
-                          : "text-slate-900 dark:text-white hover:text-[#F28C38] dark:hover:text-[#F28C38]"
+                          ? "text-brand-primary" 
+                          : "text-slate-900 dark:text-white hover:text-brand-primary dark:hover:text-brand-primary"
                         }
                       `}
                     >
@@ -294,8 +289,8 @@ export const NavBar = () => {
                               className={`
                                 block px-4 py-2 text-sm transition-colors font-medium
                                 ${isDropdownItemActive(dropdownItem) 
-                                  ? "text-[#F28C38]" 
-                                  : "text-slate-900 dark:text-white hover:text-[#F28C38] dark:hover:text-[#F28C38]"
+                                  ? "text-brand-primary" 
+                                  : "text-slate-900 dark:text-white hover:text-brand-primary dark:hover:text-brand-primary"
                                 }
                               `}
                             >
@@ -307,26 +302,44 @@ export const NavBar = () => {
                     )}
                   </div>
                 ))}
-
-                <div className="flex items-center space-x-4 ml-6">
-                  <WebsiteThemeToggle variant="ghost" className="text-slate-900 dark:text-white" />
-                  
-                  <DropdownMenu>
-                    <DropdownMenuTrigger className="text-slate-900 dark:text-white">
-                      <Globe className="h-5 w-5" />
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="bg-white/100 dark:bg-slate-900/100 border-slate-200 dark:border-slate-800">
-                      <DropdownMenuItem onClick={() => setLanguage('en')} className="text-slate-900 dark:text-white hover:bg-slate-100/100 dark:hover:bg-slate-800/100">
-                        <span role="img" aria-label="English" className="mr-2">🇬🇧</span> {t('navbar.language.en')}
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => setLanguage('it')} className="text-slate-900 dark:text-white hover:bg-slate-100/100 dark:hover:bg-slate-800/100">
-                        <span role="img" aria-label="Italian" className="mr-2">🇮🇹</span> {t('navbar.language.it')}
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
               </nav>
+
+              {/* Right Side Actions */}
+              <div className="flex items-center space-x-4">
+                {/* Search */}
+                <div ref={searchButtonRef}>
+                  <WebsiteSearchToggle 
+                    className="text-slate-900 dark:text-white" 
+                    isOpen={isSearchOpen}
+                    onToggle={() => setIsSearchOpen(!isSearchOpen)}
+                  />
+                </div>
+                
+                {/* Settings Group */}
+                <div className="flex items-center space-x-2 pl-4 border-l border-slate-200 dark:border-[#333333]">
+                  <WebsiteThemeToggle variant="ghost" className="text-slate-900 dark:text-white" />
+                  <WebsiteLanguageToggle className="text-slate-900 dark:text-white" />
+                </div>
+              </div>
             </div>
+
+            {/* Desktop Search Dropdown - positioned absolutely when open */}
+            {isSearchOpen && (
+              <div 
+                ref={searchOverlayRef}
+                className="hidden lg:block absolute top-full left-0 right-0 bg-[#F5EFE0]/95 dark:bg-[#121212]/95 backdrop-blur-sm border-b border-slate-200 dark:border-[#333333] shadow-lg"
+              >
+                <div className="container mx-auto px-4 py-4">
+                  <SearchDropdown
+                    query={searchQuery}
+                    onQueryChange={setSearchQuery}
+                    isOpen={true}
+                    onOpenChange={() => {}} // Don't let SearchDropdown close the navbar overlay
+                    className="w-full max-w-2xl mx-auto"
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </nav>

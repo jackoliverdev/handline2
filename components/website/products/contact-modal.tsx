@@ -7,18 +7,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { X } from "lucide-react";
 import { useLanguage } from "@/lib/context/language-context";
 import { Product } from "@/lib/products-service";
 
-interface SampleModalProps {
+interface ContactModalProps {
   product: Product;
   isOpen: boolean;
   onClose: () => void;
 }
 
-export const SampleModal: React.FC<SampleModalProps> = ({
+export const ContactModal: React.FC<ContactModalProps> = ({
   product,
   isOpen,
   onClose,
@@ -45,7 +45,7 @@ export const SampleModal: React.FC<SampleModalProps> = ({
         
         <DialogHeader className="p-4 sm:p-6 pt-8 sm:pt-6 border-b border-brand-primary/10 dark:border-brand-primary/20 bg-white dark:bg-transparent">
           <DialogTitle className="text-lg sm:text-xl font-bold text-brand-dark dark:text-white">
-            {t('productPage.requestSample')} - {product.name}
+            {t('contact.section.title')}
           </DialogTitle>
         </DialogHeader>
 
@@ -53,76 +53,62 @@ export const SampleModal: React.FC<SampleModalProps> = ({
           <div className="space-y-4">
             {/* Name */}
             <div className="space-y-2">
-              <Label htmlFor="name">Name *</Label>
+              <Label htmlFor="name">{t('contact.form.fields.name')} *</Label>
               <Input
                 id="name"
                 name="name"
                 required
                 className="bg-white/50 dark:bg-gray-900/50"
-                placeholder="Your full name"
+                placeholder={t('contact.form.fields.namePlaceholder')}
               />
             </div>
 
-            {/* Company Name */}
+            {/* Company */}
             <div className="space-y-2">
-              <Label htmlFor="company">{t('forms.company')} *</Label>
+              <Label htmlFor="company">{t('contact.form.fields.company')}</Label>
               <Input
                 id="company"
                 name="company"
-                required
                 className="bg-white/50 dark:bg-gray-900/50"
+                placeholder={t('contact.form.fields.companyPlaceholder')}
               />
             </div>
 
-            {/* Role */}
+            {/* Email */}
             <div className="space-y-2">
-              <Label htmlFor="role">Role</Label>
+              <Label htmlFor="email">{t('contact.form.fields.email')} *</Label>
               <Input
-                id="role"
-                name="role"
-                className="bg-white/50 dark:bg-gray-900/50"
-                placeholder="Your job title or role"
-              />
-            </div>
-
-            {/* Contact Details */}
-            <div className="space-y-2">
-              <Label htmlFor="contactDetails">{t('forms.contactDetails')} *</Label>
-              <Input
-                id="contactDetails"
-                name="contactDetails"
+                id="email"
+                name="email"
                 type="email"
                 required
                 className="bg-white/50 dark:bg-gray-900/50"
-                placeholder={t('forms.emailPlaceholder')}
+                placeholder={t('contact.form.fields.emailPlaceholder')}
               />
             </div>
 
-            {/* Company Size */}
+            {/* Subject */}
             <div className="space-y-2">
-              <Label htmlFor="companySize">{t('forms.companySize')} *</Label>
-              <Select name="companySize" required>
-                <SelectTrigger className="bg-white/50 dark:bg-gray-900/50">
-                  <SelectValue placeholder={t('forms.selectCompanySize')} />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="1-10">1-10</SelectItem>
-                  <SelectItem value="11-50">11-50</SelectItem>
-                  <SelectItem value="51-200">51-200</SelectItem>
-                  <SelectItem value="201-500">201-500</SelectItem>
-                  <SelectItem value="501+">501+</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            {/* Size Needed */}
-            <div className="space-y-2">
-              <Label htmlFor="size">{t('forms.sizeNeeded')} *</Label>
+              <Label htmlFor="subject">{t('contact.form.fields.subject')} *</Label>
               <Input
-                id="size"
-                name="size"
+                id="subject"
+                name="subject"
                 required
                 className="bg-white/50 dark:bg-gray-900/50"
+                placeholder={t('contact.form.fields.subjectPlaceholder')}
+                defaultValue={`${t('products.product')}: ${product.name}`}
+              />
+            </div>
+
+            {/* Message */}
+            <div className="space-y-2">
+              <Label htmlFor="message">{t('contact.form.fields.message')} *</Label>
+              <Textarea
+                id="message"
+                name="message"
+                required
+                className="min-h-[150px] bg-white/50 dark:bg-gray-900/50"
+                placeholder={t('contact.form.fields.messagePlaceholder')}
               />
             </div>
 

@@ -64,7 +64,7 @@ export function IndustryDetail({ industry, relatedProducts }: { industry: any, r
                 
                 {/* Enhanced Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-r from-brand-primary/20 via-transparent to-orange-500/20" />
+                <div className="absolute inset-0 bg-gradient-to-r from-brand-primary/20 via-transparent to-brand-primary/20" />
                 
                 {/* Back Button - Top Left of Image */}
                 <motion.div 
@@ -145,7 +145,7 @@ export function IndustryDetail({ industry, relatedProducts }: { industry: any, r
                     >
                       <Button
                         size="default"
-                        className="bg-gradient-to-r from-brand-primary to-orange-500 hover:from-brand-primary/90 hover:to-orange-500/90 text-white font-semibold px-6 py-2.5 sm:px-8 sm:py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border-0 text-sm sm:text-base"
+                        className="bg-gradient-to-r from-brand-primary to-brand-primary hover:from-brand-primary/90 hover:to-brand-primary/90 text-white font-semibold px-6 py-2.5 sm:px-8 sm:py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border-0 text-sm sm:text-base"
                         asChild
                       >
                         <Link href="/contact">
@@ -227,7 +227,7 @@ export function IndustryDetail({ industry, relatedProducts }: { industry: any, r
                 >
                   <Button
                     size="lg"
-                    className="bg-gradient-to-r from-brand-primary to-orange-500 hover:from-brand-primary/90 hover:to-orange-500/90 text-white font-semibold px-8 py-3 rounded-xl"
+                    className="bg-gradient-to-r from-brand-primary to-brand-primary hover:from-brand-primary/90 hover:to-brand-primary/90 text-white font-semibold px-8 py-3 rounded-xl"
                     asChild
                   >
                     <Link href="/contact">
@@ -310,7 +310,7 @@ export function IndustryDetail({ industry, relatedProducts }: { industry: any, r
               <Button
                 variant="default"
                 size="lg"
-                className="bg-[#F28C38] hover:bg-[#F28C38]/90 text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl transform"
+                className="bg-brand-primary hover:bg-brand-primary/90 text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl transform"
                 asChild
               >
                 <Link href="/products" className="flex items-center gap-2">
@@ -329,13 +329,13 @@ export function IndustryDetail({ industry, relatedProducts }: { industry: any, r
           <div className="relative overflow-hidden bg-gradient-to-br from-white via-gray-50/50 to-white dark:from-black/50 dark:via-gray-900/50 dark:to-black/50 border border-gray-100 dark:border-gray-700/50 rounded-2xl p-6 md:p-8 backdrop-blur-sm shadow-xl">
             {/* Background Pattern */}
             <div className="absolute inset-0 bg-grid-primary/[0.02] [mask-image:radial-gradient(white,transparent_70%)]" />
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-brand-primary/10 to-orange-500/10 rounded-full blur-2xl" />
-            <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-orange-500/10 to-brand-primary/10 rounded-full blur-2xl" />
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-brand-primary/10 to-brand-primary/10 rounded-full blur-2xl" />
+            <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-brand-primary/10 to-brand-primary/10 rounded-full blur-2xl" />
             
             {/* Content */}
             <div className="relative text-center max-w-3xl mx-auto">
               {/* Badge */}
-              <div className="inline-flex items-center mb-4 rounded-full bg-gradient-to-r from-brand-primary/10 to-orange-500/10 px-4 py-2 text-sm border border-brand-primary/20 backdrop-blur-sm">
+              <div className="inline-flex items-center mb-4 rounded-full bg-gradient-to-r from-brand-primary/10 to-brand-primary/10 px-4 py-2 text-sm border border-brand-primary/20 backdrop-blur-sm">
                 <Shield className="mr-2 h-4 w-4 text-brand-primary" />
                 <span className="text-brand-dark dark:text-white font-medium">
                   {t('industryCta.badge')}
@@ -345,7 +345,7 @@ export function IndustryDetail({ industry, relatedProducts }: { industry: any, r
               {/* Title */}
               <h2 className="text-2xl md:text-3xl font-bold text-brand-dark dark:text-white mb-4 leading-relaxed">
                 {t('industryCta.title')}{' '}
-                <span className="text-orange-500">
+                <span className="text-brand-primary">
                   {localisedIndustry.industry_name}
                 </span>
                 {' '}?

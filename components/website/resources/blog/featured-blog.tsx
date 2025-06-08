@@ -37,7 +37,7 @@ export function FeaturedBlog({ blog, language, t }: FeaturedBlogProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="py-16 bg-gradient-to-br from-brand-primary/5 via-transparent to-orange-500/5"
+      className="py-16 bg-gradient-to-br from-brand-primary/5 via-transparent to-brand-primary/5"
     >
       <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
@@ -46,7 +46,7 @@ export function FeaturedBlog({ blog, language, t }: FeaturedBlogProps) {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center mb-4 rounded-full bg-gradient-to-r from-brand-primary/10 to-orange-500/10 px-6 py-2 text-sm border border-brand-primary/20 backdrop-blur-sm"
+            className="inline-flex items-center mb-4 rounded-full bg-gradient-to-r from-brand-primary/10 to-brand-primary/10 px-6 py-2 text-sm border border-brand-primary/20 backdrop-blur-sm"
           >
             <Star className="mr-2 h-4 w-4 text-brand-primary" />
             <span className="text-brand-dark dark:text-white font-medium">
@@ -100,7 +100,7 @@ export function FeaturedBlog({ blog, language, t }: FeaturedBlogProps) {
                 {((blog.tags_locales && blog.tags_locales[language]) || blog.tags).slice(0, 3).map((tag: string, index: number) => (
                   <span
                     key={index}
-                    className="px-3 py-1 bg-orange-500/10 text-orange-600 dark:text-orange-300 border border-orange-500/20 rounded-full text-xs font-medium"
+                    className="px-3 py-1 bg-brand-primary/10 text-brand-primary dark:text-brand-primary border border-brand-primary/20 rounded-full text-xs font-medium"
                   >
                     {tag}
                   </span>
@@ -108,7 +108,7 @@ export function FeaturedBlog({ blog, language, t }: FeaturedBlogProps) {
               </div>
             )}
             
-            <Button asChild className="group bg-gradient-to-r from-brand-primary to-orange-500 hover:from-brand-primary/90 hover:to-orange-500/90">
+            <Button asChild className="group bg-gradient-to-r from-brand-primary to-brand-primary hover:from-brand-primary/90 hover:to-brand-primary/90">
               <Link href={`/resources/blog/${blog.slug}`} className="inline-flex items-center">
                 {t('blog.readArticle')}
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />

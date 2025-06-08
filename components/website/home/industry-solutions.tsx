@@ -112,9 +112,9 @@ export const IndustrySolutions = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 0.1 }}
-                className="inline-flex items-center rounded-full bg-white/80 dark:bg-black/60 px-3 py-1 text-xs sm:text-sm border border-[#F28C38] backdrop-blur-sm cursor-pointer"
+                className="inline-flex items-center rounded-full bg-white/80 dark:bg-black/60 px-3 py-1 text-xs sm:text-sm border border-brand-primary backdrop-blur-sm cursor-pointer"
               >
-                <Factory className="mr-1.5 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 text-[#F28C38]" />
+                <Factory className="mr-1.5 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 text-brand-primary" />
                 <span className="text-brand-dark dark:text-white font-medium font-heading">
                   {t('industrySolutions.badge')}
                 </span>
@@ -126,7 +126,7 @@ export const IndustrySolutions = () => {
                 whileInView={{ width: "2.5rem" }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="h-1 w-10 bg-[#F28C38] rounded-full mr-3"
+                className="h-1 w-10 bg-brand-primary rounded-full mr-3"
               ></motion.div>
               <h2 className="text-3xl md:text-4xl font-bold text-brand-dark dark:text-white font-heading">
                 {t('industrySolutions.title')}
@@ -136,7 +136,7 @@ export const IndustrySolutions = () => {
                 whileInView={{ width: "2.5rem" }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="h-1 w-10 bg-[#F28C38] rounded-full ml-3"
+                className="h-1 w-10 bg-brand-primary rounded-full ml-3"
               ></motion.div>
             </div>
             <motion.p 

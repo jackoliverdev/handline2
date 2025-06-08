@@ -127,9 +127,9 @@ export function CaseStudyGrid({ caseStudies, language }: CaseStudyGridProps) {
         id="case-study-articles"
         style={{ scrollMarginTop: "60px" }}
       >
-        <div className="inline-flex items-center mb-6 rounded-full bg-gradient-to-r from-brand-primary/10 to-orange-500/10 px-6 py-2 text-sm border border-brand-primary/20 backdrop-blur-sm">
+        <div className="inline-flex items-center mb-6 rounded-full bg-gradient-to-r from-brand-primary/10 to-brand-primary/10 px-6 py-2 text-sm border border-brand-primary/20 backdrop-blur-sm">
           <Award className="mr-2 h-4 w-4 text-brand-primary" />
-          <span className="text-brand-dark dark:text-white font-medium bg-gradient-to-r from-brand-primary to-orange-500 bg-clip-text text-transparent">
+          <span className="text-brand-dark dark:text-white font-medium bg-gradient-to-r from-brand-primary to-brand-primary bg-clip-text text-transparent">
             {t('caseStudies.grid.badge')}
           </span>
         </div>
@@ -311,7 +311,7 @@ export function CaseStudyGrid({ caseStudies, language }: CaseStudyGridProps) {
                 <Badge
                   key={`tag-${tag}`}
                   variant="secondary"
-                  className="bg-orange-100 text-orange-800 border-orange-200 hover:bg-orange-200 cursor-pointer"
+                  className="bg-brand-primary-100 text-brand-primary-800 border-brand-primary-200 hover:bg-brand-primary-200 cursor-pointer"
                   onClick={() => toggleTag(tag)}
                 >
                   {tag}

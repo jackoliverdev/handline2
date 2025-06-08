@@ -61,7 +61,7 @@ export const CategoryInfo = ({
                   {displayTitle}
                 </h2>
                 
-                <div className="w-20 h-1 bg-gradient-to-r from-brand-primary to-orange-500 rounded-full"></div>
+                <div className="w-20 h-1 bg-gradient-to-r from-brand-primary to-brand-primary rounded-full"></div>
                 
                 <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
                   {displayDescription}

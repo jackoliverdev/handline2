@@ -43,7 +43,7 @@
     "searchPlaceholder": "Search products, industries, or articles..."
   },
   "search": {
-    "searchPlaceholder": "Search products, industries, or articles...",
+    "searchPlaceholder": "Search products or content",
     "searchButton": "Search",
     "clearSearch": "Clear search",
     "searching": "Searching...",
@@ -179,11 +179,11 @@
   "hero": {
     "expertise": "40+ Years of Expertise",
     "title": "Your Hands Protected",
-    "description": "Hand Line Company is an Italian manufacturer specialising in high-performance safety gloves for industrial settings. Our heat-resistant and cut-resistant gloves provide unmatched protection up to 350°C with precision and comfort.",
+    "description": "With over 40 years' experience in designing, manufacturing and distributing safety gloves, we developed tailored solutions for hand protection for heavy duty industries, with particular focus on heat and cut hazards.",
     "exploreProducts": "Explore Products",
     "getInTouch": "Get in Touch",
     "mainTitle": {
-      "handline": "HAND LINE,",
+      "handline": "HAND LINE",
       "weSpeak": "WE SPEAK",
       "safety": "SAFETY"
     }
@@ -268,7 +268,7 @@
     "features": {
       "heatProtection": {
         "title": "Heat Protection Gloves",
-        "description": "Advanced thermal technology provides heat protection whilst maintaining flexibility and comfort for high-temperature tasks.",
+        "description": "Our bread and butter. We design and manufacture gloves to cater for all environments and temperatures, exceeding 1000C",
         "cta": "Explore Heat-Resistant Range"
       },
       "cutResistance": {
@@ -278,8 +278,13 @@
       },
       "customisation": {
         "title": "Product Customisation",
-        "description": "Tailored safety solutions developed to meet your specific requirements whilst ensuring optimal protection and performance.",
+        "description": "We design and tailor products with our customers, starting from the operator's needs. We combine our deep expertise with your input to build the perfect solution.",
         "cta": "Learn About Our Process"
+      },
+      "headToToe": {
+        "title": "Head-to-toe Protection",
+        "description": "We provide full-range safety solutions, both with first party products and partnering with industry leading brands. We offer complete protection at the best prices.",
+        "cta": "Explore Products"
       }
     },
     "quote": {
@@ -309,12 +314,11 @@
     "viewAll": "View all industries"
   },
   "cta": {
-    "badge": "Specialised Safety Solutions",
     "title": "Ready to Enhance Workplace",
     "titleAccent": "Safety",
-    "description": "Discover our comprehensive range of safety solutions designed for diverse industries. From cutting-edge technology to proven safety protocols, we help protect your workforce.",
+    "description": "Our comprehensive range of industry-proven safety solutions is just the starting point. We work hand in hand with our customers to identify the most effective solutions to ensure best-in-class protection and optimal commercial performance.",
     "buttons": {
-      "browseProducts": "Browse Our Products",
+      "browseProducts": "Explore Products",
       "contactUs": "Contact Us Today"
     },
     "trustIndicator": "Trusted by leading companies worldwide • EN standards • European support"
@@ -331,7 +335,7 @@
   },
   "footer": {
     "companyDescription": "Italian manufacturer specialising in high-performance safety gloves for industrial environments. Protecting hands with innovative solutions since 1982.",
-    "address": "via Antonio Bruse 34, 22035, Canzo (CO), Italy",
+    "address": "via Antonio Brusa 34, 22035, Canzo (CO), Italy",
     "phone": "+39 031 123 4567",
     "email": "info@handlineco.com",
     "sections": {
@@ -374,6 +378,7 @@
     }
   },
   "products": {
+    "product": "Product",
     "categories": {
       "main": {
         "badge": "Product Categories",
@@ -1213,6 +1218,43 @@
       "messagePlaceholder": "Tell us why you're interested in this position and what makes you a great fit...",
       "availableFrom": "Available From",
       "submit": "Submit Application"
+    }
+  },
+  "legal": {
+    "hero": {
+      "badge": "Important Documents",
+      "title": "Legal",
+      "titleAccent": "Information",
+      "description": "Our commitment to transparency, protection, and compliance with all relevant laws and regulations.",
+      "browseProducts": "Browse Products",
+      "contactUs": "Contact Us",
+      "stats": {
+        "documents": "3",
+        "documentsLabel": "Legal Documents",
+        "compliance": "100%", 
+        "complianceLabel": "EU Compliant",
+        "updated": "2025",
+        "updatedLabel": "Last Updated"
+      }
+    },
+    "tabs": {
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy", 
+      "cookies": "Cookie Policy"
+    },
+    "content": {
+      "terms": {
+        "title": "Terms of Service",
+        "lastUpdated": "Last updated: 1st May 2025"
+      },
+      "privacy": {
+        "title": "Privacy Policy",
+        "lastUpdated": "Last updated: 1st May 2025"
+      },
+      "cookies": {
+        "title": "Cookie Policy",
+        "lastUpdated": "Last updated: 1st May 2025"
+      }
     }
   }
 } 

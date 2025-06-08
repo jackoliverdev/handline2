@@ -11,6 +11,7 @@ import { ChevronLeft, Flame, Scissors, User2, Mail, Download, ListChecks, Chevro
 import { ProductImageGallery } from "@/components/website/products/product-image-gallery";
 import { ProductCard } from "@/components/website/products/product-card";
 import { SampleModal } from "@/components/website/products/sample-modal";
+import { ContactModal } from "@/components/website/products/contact-modal";
 
 export function ProductDetail({ product, relatedProducts }: { product: any, relatedProducts: any[] }) {
   const { t, language } = useLanguage();
@@ -28,12 +29,13 @@ export function ProductDetail({ product, relatedProducts }: { product: any, rela
   const isNew = new Date(product.created_at).getTime() > Date.now() - (30 * 24 * 60 * 60 * 1000);
   const hasRelatedProducts = relatedProducts && relatedProducts.length > 0;
   const [isSampleModalOpen, setIsSampleModalOpen] = React.useState(false);
+  const [isContactModalOpen, setIsContactModalOpen] = React.useState(false);
 
   return (
-    <main className="bg-brand-light dark:bg-background min-h-screen pt-16">
+    <main className="bg-brand-light dark:bg-background min-h-screen pt-11">
       {/* Breadcrumb */}
-      <div className="bg-white/50 dark:bg-black/30 border-b border-brand-primary/10 dark:border-brand-primary/20 mt-6 backdrop-blur-sm">
-        <div className="container py-4">
+      <div className="bg-white/50 dark:bg-black/30 border-b border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm">
+        <div className="container py-2">
           <nav className="flex items-center space-x-2 text-sm">
             <Link 
               href="/" 
@@ -311,17 +313,17 @@ export function ProductDetail({ product, relatedProducts }: { product: any, rela
                 variant="outline"
                 size="lg"
                 className="w-full border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
-                asChild
+                onClick={() => setIsContactModalOpen(true)}
               >
-                <Link href="/contact" className="flex items-center justify-center gap-2">
+                <span className="flex items-center justify-center gap-2">
                   <Mail className="h-5 w-5 transition-transform duration-300 group-hover:rotate-45" />
                   {t('productPage.contactUs')}
-                </Link>
+                </span>
               </Button>
               <Button
                 variant="default"
                 size="lg"
-                className="w-full bg-[#F28C38] text-white hover:bg-[#F28C38]/90 hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
+                className="w-full bg-brand-primary text-white hover:bg-brand-primary/90 hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
                 onClick={() => setIsSampleModalOpen(true)}
               >
                 <span className="flex items-center justify-center gap-2">
@@ -337,6 +339,11 @@ export function ProductDetail({ product, relatedProducts }: { product: any, rela
         product={product}
         isOpen={isSampleModalOpen}
         onClose={() => setIsSampleModalOpen(false)}
+      />
+      <ContactModal
+        product={product}
+        isOpen={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
       />
     </main>
   );

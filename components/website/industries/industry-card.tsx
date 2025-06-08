@@ -93,7 +93,7 @@ export const IndustryCard: React.FC<IndustryCardProps> = ({ industry, t, index =
         <Button 
           variant="default" 
           size="sm" 
-          className="mt-auto w-full bg-[#F28C38] hover:bg-[#F28C38]/90 text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl transform"
+          className="mt-auto w-full bg-brand-primary hover:bg-brand-primary/90 text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl transform"
           asChild
         >
           <Link href={`/industries/${industry.slug}`} className="flex items-center justify-center">

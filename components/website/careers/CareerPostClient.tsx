@@ -244,13 +244,13 @@ ${salaryRange ? `# ${t('careers.post.salary')}\n\n${salaryRange}` : ''}
           <div className="mt-12 relative overflow-hidden bg-gradient-to-br from-white via-gray-50/50 to-white dark:from-black/50 dark:via-gray-900/50 dark:to-black/50 border border-gray-100 dark:border-gray-700/50 rounded-2xl p-6 md:p-8 backdrop-blur-sm shadow-xl">
             {/* Background Pattern */}
             <div className="absolute inset-0 bg-grid-primary/[0.02] [mask-image:radial-gradient(white,transparent_70%)]" />
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-brand-primary/10 to-orange-500/10 rounded-full blur-2xl" />
-            <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-orange-500/10 to-brand-primary/10 rounded-full blur-2xl" />
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-brand-primary/10 to-brand-primary/10 rounded-full blur-2xl" />
+            <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-brand-primary/10 to-brand-primary/10 rounded-full blur-2xl" />
             
             {/* Content */}
             <div className="relative text-center max-w-3xl mx-auto">
               {/* Badge */}
-              <div className="inline-flex items-center mb-4 rounded-full bg-gradient-to-r from-brand-primary/10 to-orange-500/10 px-4 py-2 text-sm border border-brand-primary/20 backdrop-blur-sm">
+              <div className="inline-flex items-center mb-4 rounded-full bg-gradient-to-r from-brand-primary/10 to-brand-primary/10 px-4 py-2 text-sm border border-brand-primary/20 backdrop-blur-sm">
                 <Users className="mr-2 h-4 w-4 text-brand-primary" />
                 <span className="text-brand-dark dark:text-white font-medium">
                   {t('careers.post.readyToJoinBadge')}

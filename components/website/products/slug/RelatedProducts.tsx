@@ -84,7 +84,7 @@ export const RelatedProducts = ({ relatedProducts }: RelatedProductsProps) => {
                 whileInView={{ width: "2.5rem" }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="h-1 w-10 bg-[#F28C38] rounded-full mr-3"
+                className="h-1 w-10 bg-brand-primary rounded-full mr-3"
               ></motion.div>
               <h2 className="text-2xl md:text-3xl font-bold text-brand-dark dark:text-white font-heading">
                 {t('relatedProducts.title')}
@@ -94,7 +94,7 @@ export const RelatedProducts = ({ relatedProducts }: RelatedProductsProps) => {
                 whileInView={{ width: "2.5rem" }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="h-1 w-10 bg-[#F28C38] rounded-full ml-3"
+                className="h-1 w-10 bg-brand-primary rounded-full ml-3"
               ></motion.div>
             </div>
           </div>
@@ -252,7 +252,7 @@ export const RelatedProducts = ({ relatedProducts }: RelatedProductsProps) => {
                         <Button 
                           variant="default" 
                           size="sm" 
-                          className="bg-[#F28C38] hover:bg-[#F28C38]/90 text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl transform text-xs sm:text-sm"
+                          className="bg-brand-primary hover:bg-brand-primary/90 text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl transform text-xs sm:text-sm"
                           asChild
                         >
                           <Link href={`/products/${encodedProductName}`} className="flex items-center justify-center">
@@ -288,7 +288,7 @@ export const RelatedProducts = ({ relatedProducts }: RelatedProductsProps) => {
           variants={itemVariants}
           className="text-center"
         >
-          <Button asChild variant="default" className="group bg-[#F28C38] text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:bg-[#F28C38]/90 hover:scale-105 transform">
+          <Button asChild variant="default" className="group bg-brand-primary text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:bg-brand-primary/90 hover:scale-105 transform">
             <Link href="/products" className="flex items-center gap-1.5">
               <span>{t('featuredProducts.viewAll')}</span>
               <motion.div

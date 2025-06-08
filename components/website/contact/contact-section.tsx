@@ -20,7 +20,7 @@ export function ContactSection() {
           transition={{ duration: 0.5 }}
           className="mx-auto mb-8 text-center"
         >
-          <div className="mb-4 inline-flex items-center rounded-full bg-brand-primary/10 px-3 py-1 text-sm border border-[#F28C38]/40 backdrop-blur-sm">
+          <div className="mb-4 inline-flex items-center rounded-full bg-brand-primary/10 px-3 py-1 text-sm border border-brand-primary/40 backdrop-blur-sm">
             <MessageCircle className="h-4 w-4 mr-2 text-brand-primary" aria-hidden="true" />
             <span className="text-brand-dark dark:text-white font-medium">
               {t('contact.section.badge')}

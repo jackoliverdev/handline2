@@ -201,7 +201,7 @@ export function SearchDropdown({
     <div ref={dropdownRef} className={cn("relative", className)}>
       {/* Search Input */}
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-[#F28C38] z-10" />
+        <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-brand-primary z-10" />
         <input
           ref={inputRef}
           type="text"
@@ -217,23 +217,28 @@ export function SearchDropdown({
           onBlur={handleBlur}
           onKeyDown={handleKeyDown}
           placeholder={t('search.searchPlaceholder')}
-          className="w-full pl-10 pr-12 py-2.5 border border-gray-300 dark:border-gray-700/50 rounded-lg focus:ring-2 focus:ring-[#F28C38] focus:border-transparent outline-none transition-all duration-200 bg-white dark:bg-black/50 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 backdrop-blur-sm"
+          className="w-full pl-10 pr-12 py-1 border border-gray-300 dark:border-gray-700/50 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent outline-none transition-all duration-200 bg-white dark:bg-black/50 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 backdrop-blur-sm"
         />
-        {/* Loading spinner */}
-        {isLoading && (
-          <Loader2 className="absolute right-8 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400 animate-spin" />
-        )}
-        {/* Clear button */}
-        {query.trim() && !isLoading && (
-          <button
-            onClick={handleClear}
-            className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400 dark:text-gray-300 hover:text-gray-600 dark:hover:text-gray-100 transition-colors"
-            type="button"
-            aria-label="Clear search"
-          >
-            <X className="h-4 w-4" />
-          </button>
-        )}
+        
+        {/* Right side icons container */}
+        <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center">
+          {/* Loading spinner */}
+          {isLoading && (
+            <Loader2 className="h-4 w-4 text-brand-primary animate-spin" />
+          )}
+          
+          {/* Clear button */}
+          {query.trim() && !isLoading && (
+            <button
+              onClick={handleClear}
+              className="h-4 w-4 text-gray-400 dark:text-gray-300 hover:text-gray-600 dark:hover:text-gray-100 transition-colors flex items-center justify-center"
+              type="button"
+              aria-label="Clear search"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Dropdown */}
@@ -242,7 +247,7 @@ export function SearchDropdown({
           {/* Loading state */}
           {isLoading && query.trim() && (
             <div className="p-4 text-center">
-              <Loader2 className="h-5 w-5 animate-spin mx-auto mb-2 text-[#F28C38]" />
+              <Loader2 className="h-5 w-5 animate-spin mx-auto mb-2 text-brand-primary" />
               <p className="text-sm text-gray-500 dark:text-gray-400">{t('search.searching')}</p>
             </div>
           )}

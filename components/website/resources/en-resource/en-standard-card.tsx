@@ -105,7 +105,7 @@ export function EnStandardCard({ standard, index, language }: EnStandardCardProp
           <Button 
             variant="default" 
             size="sm" 
-            className="h-8 text-xs bg-[#F28C38] text-white hover:bg-[#F28C38]/90 hover:shadow-lg hover:scale-105 transition-all duration-300 transform"
+            className="h-8 text-xs bg-brand-primary text-white hover:bg-brand-primary/90 hover:shadow-lg hover:scale-105 transition-all duration-300 transform"
             asChild
           >
             <Link href={`/resources/en-resource-centre/${standard.slug}`} className="flex items-center justify-center">

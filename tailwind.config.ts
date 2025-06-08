@@ -24,7 +24,7 @@ module.exports = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#F28C38",
+          DEFAULT: "#F08515",
           foreground: "#FFFFFF",
         },
         secondary: {
@@ -55,7 +55,7 @@ module.exports = {
         // HandLine Company colour scheme
         brand: {
           // PRIMARY COLORS
-          primary: "#F28C38",     // Primary Orange - Main brand colour
+          primary: "#F08515",     // Primary Orange - Main brand colour
           dark: "#1E1E1E",        // Dark Grey - For headings and primary text
           light: "#F5EFE0",       // Light Beige - For backgrounds and subtle highlights
           white: "#FFFFFF",       // White - For backgrounds and contrast

@@ -160,7 +160,7 @@ export const SignInForm: FC<SignInFormProps> = ({ onShowSignUp }) => {
           <Button 
             variant="link" 
             onClick={onShowSignUp}
-            className="p-0 font-semibold text-primary hover:text-primary/80"
+            className="p-0 font-semibold text-brand-primary hover:text-brand-primary/80"
           >
             {t('auth.signUpInstead')}
           </Button>

@@ -216,7 +216,7 @@ export function ContactForm() {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full sm:w-auto group font-medium rounded-lg bg-[#F28C38] hover:bg-[#F28C38]/90 text-white transition-all duration-300 hover:scale-105 hover:shadow-xl transform"
+                  className="w-full sm:w-auto group font-medium rounded-lg bg-brand-primary hover:bg-brand-primary/90 text-white transition-all duration-300 hover:scale-105 hover:shadow-xl transform"
                 >
                   {isSubmitting ? (
                     <span className="flex items-center gap-2">

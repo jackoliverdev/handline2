@@ -25,9 +25,11 @@ export default async function ProductsPage() {
       {/* Product Grid Section */}
       <section className="py-16">
         <div className="container mx-auto px-4 sm:px-6">
-          <ProductsPageTitle />
-          
-          <ProductGrid products={products} />
+          <div id="product-grid">
+            <ProductsPageTitle />
+            
+            <ProductGrid products={products} />
+          </div>
         </div>
       </section>
     </main>

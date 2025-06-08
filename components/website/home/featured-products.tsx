@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight, Flame, Scissors, Eye, Package } from "lucide-react";
+import { ChevronRight, ChevronLeft, Flame, Scissors, Eye, Package } from "lucide-react";
 import { getFeaturedProducts, Product } from "@/lib/products-service";
 import { ProductPreviewModal } from "@/components/website/products/product-preview-modal";
 import { useLanguage } from "@/lib/context/language-context";
@@ -68,6 +68,70 @@ export const FeaturedProducts = () => {
     
     loadFeaturedProducts();
   }, [language]);
+
+  // Initialize scroll position to middle for infinite scroll
+  useEffect(() => {
+    if (products.length > 0 && scrollContainerRef.current) {
+      const container = scrollContainerRef.current;
+      // Set initial position to start of second set for seamless scrolling
+      container.scrollLeft = container.scrollWidth / 3;
+    }
+  }, [products]);
+
+  const getCardWidth = () => {
+    if (scrollContainerRef.current) {
+      const container = scrollContainerRef.current;
+      const firstCard = container.querySelector('.product-card');
+      if (firstCard) {
+        // Get actual width including margins
+        const cardStyle = getComputedStyle(firstCard);
+        const cardWidth = firstCard.getBoundingClientRect().width;
+        const marginRight = parseFloat(cardStyle.marginRight) || 0;
+        return cardWidth + marginRight;
+      }
+    }
+    // Fallback to calculated width based on responsive classes
+    return window.innerWidth >= 640 ? 288 + 20 : 240 + 16; // sm:w-72 + mr-5 or w-60 + mr-4
+  };
+
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      const container = scrollContainerRef.current;
+      const cardWidth = getCardWidth();
+      
+      container.scrollBy({
+        left: -cardWidth,
+        behavior: 'smooth'
+      });
+      
+      // Check if we need to loop back
+      setTimeout(() => {
+        if (container.scrollLeft <= cardWidth) {
+          container.scrollLeft = container.scrollWidth / 3 + container.scrollLeft;
+        }
+      }, 300);
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      const container = scrollContainerRef.current;
+      const cardWidth = getCardWidth();
+      
+      container.scrollBy({
+        left: cardWidth,
+        behavior: 'smooth'
+      });
+      
+      // Check if we need to loop back
+      setTimeout(() => {
+        const maxScroll = (container.scrollWidth * 2) / 3;
+        if (container.scrollLeft >= maxScroll) {
+          container.scrollLeft = container.scrollLeft - container.scrollWidth / 3;
+        }
+      }, 300);
+    }
+  };
   
   const handlePreviewClick = (product: Product) => {
     setPreviewProduct(product);
@@ -76,6 +140,9 @@ export const FeaturedProducts = () => {
   const handleClosePreview = () => {
     setPreviewProduct(null);
   };
+
+  // Triple the products array for seamless infinite scroll
+  const infiniteProducts = products.length > 0 ? [...products, ...products, ...products] : [];
   
   return (
     <motion.section 
@@ -97,7 +164,7 @@ export const FeaturedProducts = () => {
                 whileInView={{ width: "2rem" }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="h-1 w-8 bg-[#F28C38] rounded-full mr-3"
+                className="h-1 w-8 bg-brand-primary rounded-full mr-3"
               ></motion.div>
               <h2 className="text-3xl md:text-4xl font-bold text-brand-dark dark:text-white font-heading">
                 {t('featuredProducts.title')}
@@ -107,7 +174,7 @@ export const FeaturedProducts = () => {
                 whileInView={{ width: "2rem" }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="h-1 w-8 bg-[#F28C38] rounded-full ml-3"
+                className="h-1 w-8 bg-brand-primary rounded-full ml-3"
               ></motion.div>
             </div>
             <motion.p 
@@ -136,6 +203,36 @@ export const FeaturedProducts = () => {
           </motion.div>
         ) : (
           <div className="relative">
+            {/* Left Arrow */}
+            {products.length > 0 && (
+              <motion.button
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={scrollLeft}
+                className="absolute -left-10 top-[35%] -translate-y-1/2 z-20 bg-[#F5EFE0]/95 dark:bg-[#121212]/95 backdrop-blur-sm shadow-2xl rounded-full p-3 border-2 border-brand-primary/20 dark:border-brand-primary/30 hover:border-brand-primary hover:bg-gradient-to-br hover:from-[#F08515] hover:to-[#E67A2C] dark:hover:bg-brand-primary hover:shadow-2xl transition-all duration-300 group"
+              >
+                <ChevronLeft className="h-6 w-6 text-gray-600 dark:text-gray-300 group-hover:text-white transition-colors duration-300 drop-shadow-sm" />
+              </motion.button>
+            )}
+
+            {/* Right Arrow */}
+            {products.length > 0 && (
+              <motion.button
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={scrollRight}
+                className="absolute -right-10 top-[35%] -translate-y-1/2 z-20 bg-[#F5EFE0]/95 dark:bg-[#121212]/95 backdrop-blur-sm shadow-2xl rounded-full p-3 border-2 border-brand-primary/20 dark:border-brand-primary/30 hover:border-brand-primary hover:bg-gradient-to-br hover:from-[#F08515] hover:to-[#E67A2C] dark:hover:bg-brand-primary hover:shadow-2xl transition-all duration-300 group"
+              >
+                <ChevronRight className="h-6 w-6 text-gray-600 dark:text-gray-300 group-hover:text-white transition-colors duration-300 drop-shadow-sm" />
+              </motion.button>
+            )}
+
             <div 
               ref={scrollContainerRef}
               className="flex overflow-x-auto pb-4 sm:pb-5 -mx-4 px-4 snap-x snap-mandatory scrollbar-hide"
@@ -146,16 +243,17 @@ export const FeaturedProducts = () => {
                   display: none;
                 }
               `}</style>
-              {products.map((product, index) => {
+              {infiniteProducts.map((product, index) => {
                 // Encode the product name for the URL
                 const encodedProductName = encodeURIComponent(product.name);
+                const originalIndex = index % products.length;
                 
                 return (
                   <motion.div 
-                    key={product.id} 
-                    custom={index}
+                    key={`${product.id}-${index}`} 
+                    custom={originalIndex}
                     variants={productCardVariants}
-                    className="min-w-[220px] sm:min-w-[280px] w-60 sm:w-72 flex-shrink-0 snap-start mr-4 sm:mr-5"
+                    className="min-w-[220px] sm:min-w-[280px] w-60 sm:w-72 flex-shrink-0 snap-start mr-4 sm:mr-5 product-card"
                   >
                     <div className="bg-white dark:bg-black/50 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 h-full flex flex-col border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm group">
                       <div className="relative h-44 sm:h-56 overflow-hidden">
@@ -275,7 +373,7 @@ export const FeaturedProducts = () => {
                           <Button 
                             variant="default" 
                             size="sm" 
-                            className="bg-[#F28C38] hover:bg-[#F28C38]/90 text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl transform text-xs sm:text-sm"
+                            className="bg-brand-primary hover:bg-brand-primary/90 text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl transform text-xs sm:text-sm"
                             asChild
                           >
                             <Link href={`/products/${encodedProductName}`} className="flex items-center justify-center">
@@ -305,7 +403,7 @@ export const FeaturedProducts = () => {
           variants={itemVariants}
           className="flex justify-center mt-7 sm:mt-9"
         >
-          <Button asChild variant="default" className="group bg-[#F28C38] text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:bg-[#F28C38]/90 hover:scale-105 transform">
+          <Button asChild variant="default" className="group bg-brand-primary text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:bg-brand-primary/90 hover:scale-105 transform">
             <Link href="/products" className="flex items-center gap-1.5">
               <Package className="h-4 w-4 sm:h-5 sm:w-5" />
               <span>{t('featuredProducts.viewAll')}</span>

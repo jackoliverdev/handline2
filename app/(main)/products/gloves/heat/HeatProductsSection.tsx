@@ -145,7 +145,9 @@ export function HeatProductsSection({ products }: HeatProductsSectionProps) {
           </div>
         </div>
         
-        <ProductGrid products={heatProducts} initialCategory={initialCategory} />
+        <div id="product-grid">
+          <ProductGrid products={heatProducts} initialCategory={initialCategory} />
+        </div>
       </div>
     </section>
   );

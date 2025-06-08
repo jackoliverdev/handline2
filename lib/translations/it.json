@@ -43,7 +43,7 @@
     "searchPlaceholder": "Cerca prodotti, settori o articoli..."
   },
   "search": {
-    "searchPlaceholder": "Cerca prodotti, settori o articoli...",
+    "searchPlaceholder": "Cerca prodotti o contenuti",
     "searchButton": "Cerca",
     "clearSearch": "Cancella ricerca",
     "searching": "Ricerca in corso...",
@@ -194,11 +194,11 @@
   "hero": {
     "expertise": "40+ Anni di Esperienza",
     "title": "Le Tue Mani Protette",
-    "description": "Hand Line Company è un produttore italiano specializzato in guanti di sicurezza ad alte prestazioni per ambienti industriali. I nostri guanti resistenti al calore e al taglio offrono una protezione ineguagliabile fino a 1000°C con precisione e comfort.",
+    "description": "Con oltre 40 anni di esperienza nella progettazione, produzione e distribuzione di guanti di sicurezza, abbiamo sviluppato soluzioni su misura per la protezione delle mani per industrie pesanti, con particolare attenzione ai rischi di calore e taglio.",
     "exploreProducts": "Esplora Prodotti",
     "getInTouch": "Contattaci",
     "mainTitle": {
-      "handline": "HAND LINE,",
+      "handline": "HAND LINE",
       "weSpeak": "PARLIAMO DI",
       "safety": "SICUREZZA"
     }
@@ -269,7 +269,7 @@
     "features": {
       "heatProtection": {
         "title": "Guanti Termoresistenti",
-        "description": "Tecnologia termica avanzata offre protezione dal calore mantenendo flessibilità e comfort per lavori ad alta temperatura.",
+        "description": "Il nostro pane e burro. Progettiamo e produciamo guanti per tutti gli ambienti e temperature, superando i 1000C",
         "cta": "Esplora Gamma Termoresistente"
       },
       "cutResistance": {
@@ -279,8 +279,13 @@
       },
       "customisation": {
         "title": "Personalizzazione Prodotti",
-        "description": "Soluzioni di sicurezza personalizzate sviluppate per soddisfare le tue esigenze specifiche garantendo protezione e prestazioni ottimali.",
+        "description": "Progettiamo e personalizziamo prodotti con i nostri clienti, partendo dalle esigenze dell'operatore. Combiniamo la nostra profonda esperienza con il vostro input per costruire la soluzione perfetta.",
         "cta": "Scopri il Nostro Processo"
+      },
+      "headToToe": {
+        "title": "Protezione Completa",
+        "description": "Forniamo soluzioni di sicurezza complete, sia con prodotti propri che collaborando con marchi leader del settore. Offriamo protezione completa ai migliori prezzi.",
+        "cta": "Esplora Prodotti"
       }
     },
     "quote": {
@@ -313,12 +318,11 @@
     "viewAll": "Vedi tutti i settori"
   },
   "cta": {
-    "badge": "Soluzioni di Sicurezza Specializzate",
     "title": "Pronto a Migliorare la",
     "titleAccent": "Sicurezza",
-    "description": "Scopri la nostra gamma completa di soluzioni di sicurezza progettate per settori diversi. Dalla tecnologia all'avanguardia ai protocolli di sicurezza comprovati, aiutiamo a proteggere la tua forza lavoro.",
+    "description": "La nostra gamma completa di soluzioni di sicurezza comprovate dal settore è solo il punto di partenza. Lavoriamo fianco a fianco con i nostri clienti per identificare le soluzioni più efficaci per garantire una protezione di prima classe e prestazioni commerciali ottimali.",
     "buttons": {
-      "browseProducts": "Esplora i Nostri Prodotti",
+      "browseProducts": "Esplora Prodotti",
       "contactUs": "Contattaci Oggi"
     },
     "trustIndicator": "Aziende leader si fidano di noi in tutto il mondo • Standard EN • Supporto europeo"
@@ -335,7 +339,7 @@
   },
   "footer": {
     "companyDescription": "Produttore italiano specializzato in guanti di sicurezza ad alte prestazioni per ambienti industriali. Proteggiamo le mani con soluzioni innovative dal 1982.",
-    "address": "via Antonio Bruse 34, 22035, Canzo (CO), Italia",
+    "address": "via Antonio Brusa 34, 22035, Canzo (CO), Italia",
     "phone": "+39 031 123 4567",
     "email": "info@handlineco.com",
     "sections": {
@@ -378,6 +382,7 @@
     }
   },
   "products": {
+    "product": "Prodotto",
     "categories": {
       "main": {
         "badge": "Categorie Prodotti",
@@ -1240,6 +1245,43 @@
       "messagePlaceholder": "Raccontaci perché sei interessato a questa posizione e cosa ti rende perfetto per questo ruolo...",
       "availableFrom": "Disponibile dal",
       "submit": "Invia Candidatura"
+    }
+  },
+  "legal": {
+    "hero": {
+      "badge": "Documenti Importanti",
+      "title": "Informazioni",
+      "titleAccent": "Legali",
+      "description": "Il nostro impegno per la trasparenza, la protezione e la conformità a tutte le leggi e normative pertinenti.",
+      "browseProducts": "Esplora Prodotti",
+      "contactUs": "Contattaci",
+      "stats": {
+        "documents": "3",
+        "documentsLabel": "Documenti Legali",
+        "compliance": "100%", 
+        "complianceLabel": "Conforme UE",
+        "updated": "2025",
+        "updatedLabel": "Ultimo Aggiornamento"
+      }
+    },
+    "tabs": {
+      "terms": "Termini di Servizio",
+      "privacy": "Informativa Privacy",
+      "cookies": "Cookie Policy"
+    },
+    "content": {
+      "terms": {
+        "title": "Termini di Servizio",
+        "lastUpdated": "Ultimo aggiornamento: 1° maggio 2025"
+      },
+      "privacy": {
+        "title": "Informativa Privacy",
+        "lastUpdated": "Ultimo aggiornamento: 1° maggio 2025"
+      },
+      "cookies": {
+        "title": "Cookie Policy",
+        "lastUpdated": "Ultimo aggiornamento: 1° maggio 2025"
+      }
     }
   }
 } 

@@ -44,8 +44,8 @@ export const Hero = () => {
                 transition={SPRING_CONFIG}
               >
                 <Link href="/about" className="inline-block hover:scale-105 transition-transform duration-300">
-                  <div className="inline-flex items-center rounded-full bg-white/80 dark:bg-black/60 px-3 py-1 text-xs sm:text-sm border border-[#F28C38] backdrop-blur-sm cursor-pointer hover:shadow-lg transition-all duration-300">
-                    <Award className="mr-1.5 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 text-[#F28C38]" />
+                  <div className="inline-flex items-center rounded-full bg-white/80 dark:bg-black/60 px-3 py-1 text-xs sm:text-sm border border-brand-primary backdrop-blur-sm cursor-pointer hover:shadow-lg transition-all duration-300">
+                    <Award className="mr-1.5 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 text-brand-primary" />
                     <span className="text-brand-dark dark:text-white font-medium font-heading">
                       {t('hero.expertise')}
                     </span>
@@ -62,7 +62,7 @@ export const Hero = () => {
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight font-heading">
                   <span className="text-white drop-shadow-md block">{t('hero.mainTitle.handline')}</span>
                   <span className="text-white drop-shadow-md">{t('hero.mainTitle.weSpeak')} </span>
-                  <span className="text-[#F28C38] drop-shadow-md">{t('hero.mainTitle.safety')}</span>
+                  <span className="text-brand-primary drop-shadow-md">{t('hero.mainTitle.safety')}</span>
                 </h1>
               </motion.div>
               
@@ -86,8 +86,8 @@ export const Hero = () => {
               >
                 {/* Products Button */}
                 <a 
-                  href="/products#product-categories"
-                  className="group flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-[#F28C38] text-white font-medium rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:bg-[#F28C38]/90 hover:scale-105 transform w-full sm:w-auto text-sm md:text-base h-10 md:h-auto"
+                  href="/products#product-grid"
+                  className="group flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-brand-primary text-white font-medium rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:bg-brand-primary/90 hover:scale-105 transform w-full sm:w-auto text-sm md:text-base h-10 md:h-auto"
                 >
                   <Shield className="h-4 w-4 sm:h-5 sm:w-5" />
                   <span>{t('hero.exploreProducts')}</span>
@@ -96,7 +96,7 @@ export const Hero = () => {
                 {/* Get in Touch Button */}
                 <Link 
                   href="/contact" 
-                  className="group flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-2.5 sm:py-3 border-2 border-white text-white hover:bg-white hover:text-[#F28C38] hover:shadow-lg hover:scale-105 transition-all duration-300 rounded-lg font-medium w-full sm:w-auto text-sm md:text-base h-10 md:h-auto transform"
+                  className="group flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-2.5 sm:py-3 border-2 border-white text-white hover:bg-white hover:text-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 rounded-lg font-medium w-full sm:w-auto text-sm md:text-base h-10 md:h-auto transform"
                 >
                   <Mail className="h-4 w-4 sm:h-5 sm:w-5" />
                   <span>{t('hero.getInTouch')}</span>

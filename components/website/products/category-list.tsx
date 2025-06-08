@@ -46,7 +46,7 @@ export const CategoryList = () => {
                 transition={{ duration: 0.4, delay: 0.1 }}
                 className="inline-flex items-center rounded-full bg-white dark:bg-black/50 px-4 py-2 text-xs sm:text-sm border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm cursor-pointer shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 group"
               >
-                <Grid3X3 className="mr-1.5 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 text-[#F28C38] group-hover:scale-110 transition-transform duration-300" />
+                <Grid3X3 className="mr-1.5 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 text-brand-primary group-hover:scale-110 transition-transform duration-300" />
                 <span className="text-brand-dark dark:text-white font-medium font-heading">
                   {t('products.categories.main.badge')}
                 </span>
@@ -58,7 +58,7 @@ export const CategoryList = () => {
                 whileInView={{ width: "2rem" }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="h-1 w-8 bg-[#F28C38] rounded-full mr-3"
+                className="h-1 w-8 bg-brand-primary rounded-full mr-3"
               ></motion.div>
               <h2 className="text-3xl md:text-4xl font-bold text-brand-dark dark:text-white font-heading">
                 {t('products.categories.main.title')}
@@ -68,7 +68,7 @@ export const CategoryList = () => {
                 whileInView={{ width: "2rem" }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="h-1 w-8 bg-[#F28C38] rounded-full ml-3"
+                className="h-1 w-8 bg-brand-primary rounded-full ml-3"
               ></motion.div>
             </div>
             <motion.p 

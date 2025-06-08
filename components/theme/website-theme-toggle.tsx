@@ -19,11 +19,11 @@ export function WebsiteThemeToggle({ className, variant = "ghost" }: ThemeToggle
       <Button 
         variant="outline" 
         size="icon" 
-        className={`bg-white dark:bg-black border-[#F28C38]/30 dark:border-[#F28C38]/50 hover:bg-[#F28C38] dark:hover:bg-[#F28C38] hover:border-[#F28C38] dark:hover:border-[#F28C38] transition-all duration-300 focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none ${className}`} 
+        className={`bg-white dark:bg-black border-slate-200 dark:border-slate-700 hover:bg-brand-primary dark:hover:bg-brand-primary hover:border-brand-primary dark:hover:border-brand-primary transition-all duration-300 focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none ${className}`} 
         disabled
       >
-        <Sun className="h-[1.2rem] w-[1.2rem] text-[#F28C38] hover:text-white rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-        <Moon className="absolute h-[1.2rem] w-[1.2rem] text-[#F28C38] hover:text-white rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+        <Sun className="h-[1.2rem] w-[1.2rem] text-brand-primary hover:text-white rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+        <Moon className="absolute h-[1.2rem] w-[1.2rem] text-brand-primary hover:text-white rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
         <span className="sr-only">Toggle theme</span>
       </Button>
     );
@@ -34,12 +34,12 @@ export function WebsiteThemeToggle({ className, variant = "ghost" }: ThemeToggle
       variant="outline" 
       size="icon" 
       onClick={toggleTheme} 
-      className={`bg-white dark:bg-black border-[#F28C38]/30 dark:border-[#F28C38]/50 hover:bg-[#F28C38] dark:hover:bg-[#F28C38] hover:border-[#F28C38] dark:hover:border-[#F28C38] transition-all duration-300 hover:scale-105 hover:shadow-xl group focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none ${className}`}
+      className={`bg-white dark:bg-black border-slate-200 dark:border-slate-700 hover:bg-brand-primary dark:hover:bg-brand-primary hover:border-brand-primary dark:hover:border-brand-primary transition-all duration-300 hover:scale-105 hover:shadow-xl group focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none ${className}`}
       aria-label="Toggle theme"
       tabIndex={0}
     >
-      <Sun className="h-[1.2rem] w-[1.2rem] text-[#F28C38] group-hover:text-white rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-      <Moon className="absolute h-[1.2rem] w-[1.2rem] text-[#F28C38] group-hover:text-white rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+      <Sun className="h-[1.2rem] w-[1.2rem] text-brand-primary group-hover:text-white rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+      <Moon className="absolute h-[1.2rem] w-[1.2rem] text-brand-primary group-hover:text-white rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
       <span className="sr-only">Toggle theme</span>
     </Button>
   );

@@ -256,7 +256,7 @@ export function ProductList({ products }: ProductListProps) {
                       <div className="flex items-center gap-4">
                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-brand-primary transition-colors duration-300">{product.name}</h3>
                         {product.category && (
-                          <Badge variant="outline" className="bg-orange-50 text-orange-700 border-orange-200 dark:bg-orange-500/10 dark:text-orange-300 dark:border-orange-500/20">
+                          <Badge variant="outline" className="bg-brand-primary-50 text-brand-primary-700 border-brand-primary-200 dark:bg-brand-primary/10 dark:text-brand-primary-300 dark:border-brand-primary/20">
                             {product.category}
                           </Badge>
                         )}

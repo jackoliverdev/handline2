@@ -13,24 +13,24 @@
     --popover: 39 33% 98%; /* #F5EFE0 light beige */
     --popover-foreground: 0 0% 12%; /* #1E1E1E dark grey */
  
-    --primary: 28 87% 59%; /* #F28C38 primary orange */
+    --primary: 31 87% 51%; /* #F08515 primary orange */
     --primary-foreground: 0 0% 100%; /* #FFFFFF white */
  
     --secondary: 0 0% 35%; /* #5A5A5A secondary grey */
-    --secondary-foreground: 0 0% 100%; /* #FFFFFF white */
+    --secondary-foreground: 39 33% 98%; /* #F5EFE0 light beige */
  
-    --muted: 39 20% 93%; /* Lighter version of beige */
-    --muted-foreground: 0 0% 35%; /* #5A5A5A secondary grey */
+    --muted: 0 0% 20%; /* #333333 muted dark grey */
+    --muted-foreground: 0 0% 70%; /* #B3B3B3 muted light grey */
  
-    --accent: 28 87% 65%; /* Lighter version of orange */
+    --accent: 31 60% 40%; /* Darker version of orange */
     --accent-foreground: 0 0% 100%; /* #FFFFFF white */
  
-    --destructive: 0 84% 60%; /* #EF4444 red */
-    --destructive-foreground: 0 0% 100%; /* #FFFFFF white */
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 39 33% 98%; /* #F5EFE0 light beige */
 
-    --border: 28 30% 85%; /* Light orange-tinted border */
-    --input: 28 30% 85%; /* Light orange-tinted input border */
-    --ring: 28 87% 59%; /* #F28C38 primary orange */
+    --border: 0 0% 25%; /* #404040 dark grey border */
+    --input: 0 0% 25%; /* #404040 dark grey input */
+    --ring: 31 87% 51%; /* #F08515 primary orange */
  
     --radius: 0.5rem;
   }
@@ -45,7 +45,7 @@
     --popover: 0 0% 7.1%; /* #121212 charcoal black - reverted to original */
     --popover-foreground: 39 33% 98%; /* #F5EFE0 light beige */
  
-    --primary: 28 87% 59%; /* #F28C38 primary orange */
+    --primary: 31 87% 51%; /* #F08515 primary orange */
     --primary-foreground: 0 0% 100%; /* #FFFFFF white */
  
     --secondary: 0 0% 35%; /* #5A5A5A secondary grey */
@@ -54,7 +54,7 @@
     --muted: 0 0% 20%; /* #333333 muted dark grey */
     --muted-foreground: 0 0% 70%; /* #B3B3B3 muted light grey */
  
-    --accent: 28 60% 40%; /* Darker version of orange */
+    --accent: 31 60% 40%; /* Darker version of orange */
     --accent-foreground: 0 0% 100%; /* #FFFFFF white */
  
     --destructive: 0 62.8% 30.6%;
@@ -62,7 +62,7 @@
  
     --border: 0 0% 25%; /* #404040 dark grey border */
     --input: 0 0% 25%; /* #404040 dark grey input */
-    --ring: 28 87% 59%; /* #F28C38 primary orange */
+    --ring: 31 87% 51%; /* #F08515 primary orange */
   }
 }
  
@@ -80,7 +80,7 @@
 
 /* Custom brand variables */
 :root {
-  --brand-primary: #F28C38; /* Primary Orange */
+  --brand-primary: #F08515; /* Primary Orange */
   --brand-dark: #1E1E1E; /* Dark Grey */
   --brand-light: #F5EFE0; /* Light Beige */
   --brand-white: #FFFFFF; /* White */
@@ -137,8 +137,8 @@
 }
 
 .btn-primary:hover {
-  background-color: #E07A26; /* Darker orange on hover */
-  box-shadow: 0 4px 8px rgba(242, 140, 56, 0.25);
+  background-color: #D6700C; /* Darker orange on hover */
+  box-shadow: 0 4px 8px rgba(240, 133, 21, 0.25);
 }
 
 /* Icon styling for consistent brand appearance */

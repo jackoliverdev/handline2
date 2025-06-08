@@ -47,7 +47,7 @@ export function ContactFaq() {
           transition={{ duration: 0.5 }}
           className="mx-auto mb-8 text-center"
         >
-          <div className="mb-4 inline-flex items-center rounded-full bg-brand-primary/10 px-3 py-1 text-sm border border-[#F28C38]/40 backdrop-blur-sm">
+          <div className="mb-4 inline-flex items-center rounded-full bg-brand-primary/10 px-3 py-1 text-sm border border-brand-primary/40 backdrop-blur-sm">
             <Shield className="mr-2 h-4 w-4 text-brand-primary" />
             <span className="text-brand-dark dark:text-white font-medium">
               {t('contact.faq.badge')}
@@ -126,7 +126,7 @@ export function ContactFaq() {
             transition={{ delay: 0.4, duration: 0.5 }}
             className="mt-12 text-center"
           >
-            <Button asChild variant="default" className="group font-medium rounded-lg bg-[#F28C38] hover:bg-[#F28C38]/90 text-white transition-all duration-300 hover:scale-105 hover:shadow-xl transform">
+            <Button asChild variant="default" className="group font-medium rounded-lg bg-brand-primary hover:bg-brand-primary/90 text-white transition-all duration-300 hover:scale-105 hover:shadow-xl transform">
               <Link
                 href="#contact-form"
                 className="flex items-center gap-2"

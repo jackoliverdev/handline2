@@ -145,7 +145,9 @@ export function CutProductsSection({ products }: CutProductsSectionProps) {
           </div>
         </div>
         
-        <ProductGrid products={cutProducts} initialCategory={initialCategory} />
+        <div id="product-grid">
+          <ProductGrid products={cutProducts} initialCategory={initialCategory} />
+        </div>
       </div>
     </section>
   );

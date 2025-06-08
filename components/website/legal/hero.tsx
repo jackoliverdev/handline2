@@ -5,16 +5,19 @@ import { FileText, Shield, BookOpen, ChevronRight, Package, Mail } from "lucide-
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/lib/context/language-context";
 
 const SPRING_CONFIG = { stiffness: 100, damping: 30, mass: 1 };
 
-const stats = [
-  { value: 'Terms', label: 'of Service' },
-  { value: 'Privacy', label: 'Policy' },
-  { value: 'Cookie', label: 'Policy' },
-];
-
 export function LegalHero() {
+  const { t } = useLanguage();
+
+  const stats = [
+    { value: t('legal.hero.stats.documents'), label: t('legal.hero.stats.documentsLabel') },
+    { value: t('legal.hero.stats.compliance'), label: t('legal.hero.stats.complianceLabel') },
+    { value: t('legal.hero.stats.updated'), label: t('legal.hero.stats.updatedLabel') },
+  ];
+
   return (
     <section className="relative overflow-hidden bg-brand-light dark:bg-background pt-28 pb-8 md:pt-32 md:pb-16">
       {/* Decorative Elements */}
@@ -34,7 +37,7 @@ export function LegalHero() {
             <div className="inline-flex items-center rounded-full border border-brand-primary px-3 py-1 md:px-4 md:py-1.5 text-xs md:text-sm backdrop-blur-sm">
               <Shield className="mr-1.5 h-3 w-3 md:h-4 md:w-4 text-brand-primary" />
               <span className="text-brand-dark dark:text-white font-medium">
-                Important Documents
+                {t('legal.hero.badge')}
               </span>
             </div>
           </motion.div>
@@ -47,7 +50,7 @@ export function LegalHero() {
             className="relative mb-4 md:mb-6"
           >
             <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-brand-dark dark:text-white font-heading">
-              Legal <span className="text-brand-primary">Information</span>
+              {t('legal.hero.title')} <span className="text-brand-primary">{t('legal.hero.titleAccent')}</span>
             </h1>
           </motion.div>
 
@@ -59,7 +62,7 @@ export function LegalHero() {
             className="mb-6 md:mb-10"
           >
             <p className="max-w-2xl text-base md:text-lg text-brand-secondary dark:text-gray-300">
-              Our commitment to transparency, protection, and compliance with all relevant laws and regulations.
+              {t('legal.hero.description')}
             </p>
           </motion.div>
 
@@ -92,7 +95,7 @@ export function LegalHero() {
             >
               <Link href="/products" className="flex items-center justify-center gap-1.5 md:gap-2">
                 <Package className="h-4 w-4 md:h-5 md:w-5" />
-                <span>Browse Products</span>
+                <span>{t('legal.hero.browseProducts')}</span>
                 <ChevronRight className="h-3.5 w-3.5 md:h-4 md:w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
@@ -104,7 +107,7 @@ export function LegalHero() {
             >
               <Link href="/contact" className="flex items-center justify-center gap-1.5 md:gap-2">
                 <Mail className="h-4 w-4 md:h-5 md:w-5" />
-                <span>Contact Us</span>
+                <span>{t('legal.hero.contactUs')}</span>
                 <ChevronRight className="h-3.5 w-3.5 md:h-4 md:w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>

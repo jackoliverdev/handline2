@@ -55,7 +55,7 @@ export function FeaturesSection({ industry }: FeaturesSectionProps) {
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
       variants={containerVariants}
-      className="pt-8 pb-16 bg-gradient-to-br from-brand-primary/5 via-transparent to-orange-500/5"
+      className="pt-8 pb-16 bg-gradient-to-br from-brand-primary/5 via-transparent to-brand-primary/5"
     >
       <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -68,7 +68,7 @@ export function FeaturesSection({ industry }: FeaturesSectionProps) {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center mb-4 rounded-full bg-gradient-to-r from-brand-primary/10 to-orange-500/10 px-6 py-2 text-sm border border-brand-primary/20 backdrop-blur-sm"
+            className="inline-flex items-center mb-4 rounded-full bg-gradient-to-r from-brand-primary/10 to-brand-primary/10 px-6 py-2 text-sm border border-brand-primary/20 backdrop-blur-sm"
           >
             <Star className="mr-2 h-4 w-4 text-brand-primary" />
             <span className="text-brand-dark dark:text-white font-medium">
@@ -98,14 +98,14 @@ export function FeaturesSection({ industry }: FeaturesSectionProps) {
                 className="group relative overflow-hidden rounded-xl bg-white dark:bg-black/50 shadow-lg hover:shadow-xl transition-all duration-500 border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm"
               >
                 {/* Gradient Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/5 to-brand-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 
                 {/* Content */}
                 <div className="relative p-4 space-y-3">
                   {/* Icon and Text - Now Inline */}
                   <div className="flex items-start gap-3">
                     {/* Icon */}
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-brand-primary/10 to-orange-500/10 border border-brand-primary/20 group-hover:from-brand-primary/20 group-hover:to-orange-500/20 transition-all duration-300 flex-shrink-0">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-brand-primary/10 to-brand-primary/10 border border-brand-primary/20 group-hover:from-brand-primary/20 group-hover:to-brand-primary/20 transition-all duration-300 flex-shrink-0">
                       <IconComponent className="h-5 w-5 text-brand-primary" />
                     </div>
                     
@@ -118,7 +118,7 @@ export function FeaturesSection({ industry }: FeaturesSectionProps) {
                   </div>
                   
                   {/* Bottom Border Effect */}
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-primary to-orange-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-primary to-brand-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                 </div>
 
                 {/* Hover Effect Overlay */}
