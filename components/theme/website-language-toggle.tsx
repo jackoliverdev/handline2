@@ -60,9 +60,15 @@ export function WebsiteLanguageToggle({ className }: LanguageToggleProps) {
         <Button 
           variant="outline" 
           size="icon" 
-          className={`bg-white dark:bg-black border-slate-200 dark:border-slate-700 hover:bg-brand-primary dark:hover:bg-brand-primary hover:border-brand-primary dark:hover:border-brand-primary transition-all duration-300 hover:scale-105 hover:shadow-xl group focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none ${className}`}
+          className={`bg-white dark:bg-black border-slate-200 dark:border-slate-700 hover:bg-brand-primary dark:hover:bg-brand-primary hover:border-brand-primary dark:hover:border-brand-primary transition-all duration-300 hover:scale-105 hover:shadow-xl group !focus:ring-0 !focus:ring-offset-0 !focus-visible:ring-0 !focus-visible:ring-offset-0 !focus-visible:outline-none !focus:outline-none !outline-none [&:focus]:outline-none [&:focus-visible]:outline-none [&:focus]:ring-0 [&:focus-visible]:ring-0 ${className}`}
           aria-label={`Current language: ${currentLanguage}. Click to change language`}
           tabIndex={0}
+          style={{ 
+            outline: 'none !important', 
+            boxShadow: 'none !important',
+            border: 'none !important' 
+          }}
+          data-no-focus-ring="true"
         >
           <FlagIcon 
             country={currentFlag} 
