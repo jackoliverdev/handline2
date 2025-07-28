@@ -4,24 +4,22 @@ import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLanguage } from "@/lib/context/language-context";
-import { Shield, Award, CheckCircle } from "lucide-react";
+import { Shield, CheckCircle, Leaf, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
 
 export const Certifications = () => {
   const { t } = useLanguage();
   
   const certTypes = [
     {
-      key: "iso",
-      icon: <Award className="h-5 w-5 text-brand-primary" />,
+      key: "quality",
+      icon: <Image src="/icons/iso-9001.png" alt="ISO 9001" width={24} height={24} className="text-brand-primary" />,
     },
     {
-      key: "ce",
-      icon: <CheckCircle className="h-5 w-5 text-brand-primary" />,
-    },
-    {
-      key: "en",
-      icon: <CheckCircle className="h-5 w-5 text-brand-primary" />,
+      key: "compliance",
+      icon: <CheckCircle className="h-6 w-6 text-brand-primary" />,
     },
   ];
   
@@ -43,32 +41,8 @@ export const Certifications = () => {
           </h2>
         </motion.div>
 
-        {/* Main certification statement */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <Card className="bg-white dark:bg-black/50 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm mb-5">
-            <CardContent className="p-3 text-center flex items-center justify-center gap-3">
-              <motion.div
-                initial={{ rotate: -15, scale: 0.8 }}
-                whileInView={{ rotate: 0, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.3 }}
-              >
-                <Shield className="h-6 w-6 text-brand-primary" />
-              </motion.div>
-              <p className="text-base text-brand-dark dark:text-white">
-                {t('about.certifications.mainStatement')}
-              </p>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        {/* Certification types */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        {/* Certification types - 2 columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
           {certTypes.map((cert, index) => (
             <motion.div
               key={cert.key}
@@ -82,22 +56,22 @@ export const Certifications = () => {
               }}
             >
               <Card className="bg-white dark:bg-black/50 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm">
-                <CardContent className="p-3">
-                  <div className="flex items-center gap-2">
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-3">
                     <motion.div 
                       initial={{ scale: 0.8 }}
                       whileInView={{ scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.3, delay: 0.4 + (index * 0.1) }}
-                      className="rounded-full bg-brand-primary/10 p-2"
+                      className="rounded-full bg-brand-primary/10 p-3"
                     >
                       {cert.icon}
                     </motion.div>
                     <div className="text-left">
-                      <h3 className="text-base font-semibold text-brand-dark dark:text-white">
+                      <h3 className="text-lg font-semibold text-brand-dark dark:text-white mb-1">
                         {t(`about.certifications.types.${cert.key}.title`)}
                       </h3>
-                      <p className="text-xs text-brand-secondary dark:text-gray-300">
+                      <p className="text-sm text-brand-secondary dark:text-gray-300">
                         {t(`about.certifications.types.${cert.key}.description`)}
                       </p>
                     </div>
@@ -108,12 +82,53 @@ export const Certifications = () => {
           ))}
         </div>
 
+        {/* Environmental Commitment Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        >
+          <Card className="bg-white dark:bg-black/50 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm">
+            <CardContent className="p-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <motion.div 
+                    initial={{ scale: 0.8 }}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: 0.6 }}
+                    className="rounded-full bg-green-100 dark:bg-green-900/20 p-2"
+                  >
+                    <Leaf className="h-5 w-5 text-green-600" />
+                  </motion.div>
+                  <div className="text-left">
+                    <h3 className="text-base font-semibold text-brand-dark dark:text-white mb-1">
+                      {t('about.certifications.environmental.title')}
+                    </h3>
+                    <p className="text-sm text-brand-secondary dark:text-gray-300">
+                      {t('about.certifications.environmental.description')}
+                    </p>
+                  </div>
+                </div>
+                <Link 
+                  href="/about/esg"
+                  className="group flex items-center gap-2 text-brand-primary hover:text-brand-primary/80 transition-colors"
+                >
+                  <span className="text-sm font-medium">{t('about.certifications.environmental.learnMore')}</span>
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
         <motion.div 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="mt-3 text-center"
+          transition={{ duration: 0.5, delay: 0.7 }}
+          className="mt-4 text-center"
         >
           <p className="text-xs text-brand-secondary dark:text-gray-400 italic">
             {t('about.certifications.note')}

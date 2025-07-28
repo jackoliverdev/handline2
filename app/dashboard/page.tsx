@@ -9,14 +9,9 @@ export default function DashboardPage() {
     <div className="space-y-8">
       {/* Welcome Banner */}
       <div className="bg-[#F5EFE0] rounded-xl p-6 shadow-sm border border-[#F28C38]/20">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-[#1E1E1E]">Welcome to your HandLine Portal</h1>
-            <p className="text-[#5A5A5A] mt-1">Your industrial safety glove management centre</p>
-          </div>
-          <Button className="mt-4 md:mt-0 bg-[#F28C38] hover:bg-[#F28C38]/90 text-white">
-            Request a Quote
-          </Button>
+        <div>
+          <h1 className="text-2xl font-bold text-[#1E1E1E]">Welcome to your HandLine Portal</h1>
+          <p className="text-[#5A5A5A] mt-1">Your industrial safety glove management centre</p>
         </div>
       </div>
 

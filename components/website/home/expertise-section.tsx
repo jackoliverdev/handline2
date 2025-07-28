@@ -80,7 +80,7 @@ export const ExpertiseSection = () => {
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
       variants={sectionVariants}
-      className="pt-24 md:pt-8 pb-8 md:pb-10 -mt-32 sm:-mt-40 md:-mt-32 relative overflow-hidden bg-brand-light dark:bg-background border-brand-primary/10 dark:border-brand-primary/20" 
+      className="pt-24 md:pt-8 pb-8 md:pb-10 -mt-20 sm:-mt-40 md:-mt-32 relative overflow-hidden bg-brand-light dark:bg-background border-brand-primary/10 dark:border-brand-primary/20" 
       style={{ zIndex: 1 }}
     >
       {/* Background decorations */}

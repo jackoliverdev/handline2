@@ -21,7 +21,7 @@ export const Mission = () => {
   const pointIndices = [0, 1, 2, 3]; // Adjust if you add/remove points
   
   return (
-    <section className="py-16 bg-[#F5EFE0]/80 dark:bg-transparent">
+    <section className="pt-4 pb-16 md:py-16 bg-[#F5EFE0]/80 dark:bg-transparent">
       <div className="container px-4 md:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Text content */}

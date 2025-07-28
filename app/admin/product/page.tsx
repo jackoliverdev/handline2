@@ -831,37 +831,57 @@ export default function ProductManagementPage() {
                           </Badge>
                         )}
                       </div>
-                      <div className="flex items-center justify-between gap-1 pt-2 border-t">
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="h-7 w-7 p-0"
-                          asChild
-                        >
-                          <Link href={`/admin/product/${product.id}`}>
-                            <Edit className="h-4 w-4" />
-                            <span className="sr-only">Edit</span>
-                          </Link>
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="h-7 w-7 p-0 text-destructive hover:bg-destructive/10"
-                          onClick={() => confirmDelete(product)}
-                        >
-                          <Trash className="h-4 w-4" />
-                          <span className="sr-only">Delete</span>
-                        </Button>
-                        <Switch
-                          checked={product.is_featured}
-                          onCheckedChange={() => handleToggleFeatured(product.id)}
-                          className="data-[state=checked]:bg-amber-500 h-5 w-9"
-                        />
-                        <Switch
-                          checked={!product.out_of_stock}
-                          onCheckedChange={() => handleToggleStock(product.id)}
-                          className="data-[state=checked]:bg-green-500 h-5 w-9"
-                        />
+                      <div className="flex items-end justify-between gap-1 pt-2 border-t">
+                        <div className="flex flex-col items-center">
+                          <div className="h-7 flex items-center">
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-7 w-7 p-0"
+                              asChild
+                            >
+                              <Link href={`/admin/product/${product.id}`}>
+                                <Edit className="h-4 w-4" />
+                                <span className="sr-only">Edit</span>
+                              </Link>
+                            </Button>
+                          </div>
+                          <span className="text-[10px] text-muted-foreground mt-1">Edit</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className="h-7 flex items-center">
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-7 w-7 p-0 text-destructive hover:bg-destructive/10"
+                              onClick={() => confirmDelete(product)}
+                            >
+                              <Trash className="h-4 w-4" />
+                              <span className="sr-only">Delete</span>
+                            </Button>
+                          </div>
+                          <span className="text-[10px] text-muted-foreground mt-1">Delete</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className="h-7 flex items-center">
+                            <Switch
+                              checked={product.is_featured}
+                              onCheckedChange={() => handleToggleFeatured(product.id)}
+                              className="data-[state=checked]:bg-amber-500 h-5 w-9"
+                            />
+                          </div>
+                          <span className="text-[10px] text-muted-foreground mt-1">Featured</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className="h-7 flex items-center">
+                            <Switch
+                              checked={!product.out_of_stock}
+                              onCheckedChange={() => handleToggleStock(product.id)}
+                              className="data-[state=checked]:bg-green-500 h-5 w-9"
+                            />
+                          </div>
+                          <span className="text-[10px] text-muted-foreground mt-1">Stock</span>
+                        </div>
                       </div>
                   </div>
                 </Card>

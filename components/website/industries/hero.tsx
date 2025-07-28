@@ -11,12 +11,6 @@ const SPRING_CONFIG = { stiffness: 100, damping: 30, mass: 1 };
 
 export const IndustriesHero = () => {
   const { t } = useLanguage();
-  const stats = [
-    { value: "8+", label: t("industriesHero.stats.industries") },
-    { value: "40+", label: t("industriesHero.stats.years") },
-    { value: "200+", label: t("industriesHero.stats.products") },
-    { value: "1000+", label: t("industriesHero.stats.customers") },
-  ];
 
   return (
     <section className="relative overflow-hidden bg-brand-light dark:bg-background pt-28 pb-6 md:pt-32 md:pb-16">
@@ -59,33 +53,18 @@ export const IndustriesHero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...SPRING_CONFIG, delay: 0.2 }}
-            className="mb-6 md:mb-10"
+            className="mb-8 md:mb-12"
           >
             <p className="max-w-2xl text-base md:text-lg text-brand-secondary dark:text-gray-300">
               {t("industriesHero.description")}
             </p>
           </motion.div>
 
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...SPRING_CONFIG, delay: 0.3 }}
-            className="mx-auto mb-6 md:mb-10 grid max-w-xl grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
-          >
-            {stats.map((stat) => (
-              <div key={stat.label} className="flex flex-col items-center">
-                <div className="text-2xl md:text-3xl font-bold text-brand-primary font-heading">{stat.value}</div>
-                <div className="mt-0.5 md:mt-1 text-xs md:text-sm text-brand-secondary dark:text-gray-400">{stat.label}</div>
-              </div>
-            ))}
-          </motion.div>
-
           {/* Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ ...SPRING_CONFIG, delay: 0.4 }}
+            transition={{ ...SPRING_CONFIG, delay: 0.3 }}
             className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 md:gap-4 w-full"
           >
             <Button 

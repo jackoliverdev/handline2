@@ -92,6 +92,7 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
             isOpen={isSearchOpen}
             onOpenChange={setIsSearchOpen}
             className="w-full"
+            placeholder={t('search.sidebarSearchPlaceholder')}
           />
         </div>
         
@@ -191,10 +192,25 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                       >
                         {t('navbar.generalPurpose')}
                       </Link>
+                      <Link 
+                        href="/products/gloves/mechanical"
+                        className="block py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                        onClick={onClose}
+                      >
+                        {t('navbar.mechanicalHazards')}
+                      </Link>
+                      <Link 
+                        href="/products/gloves/welding"
+                        className="block py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                        onClick={onClose}
+                      >
+                        {t('navbar.welding')}
+                      </Link>
                     </div>
                   )}
 
                   {/* Industrial Swabs */}
+                  {/* 
                   <div className="py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors">
                     <Link 
                       href="/products/industrial-swabs"
@@ -205,8 +221,10 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                       <span className="text-sm">{t('navbar.industrialSwabs')}</span>
                     </Link>
                   </div>
+                  */}
 
                   {/* Respiratory Protection */}
+                  {/* 
                   <div className="py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors">
                     <Link 
                       href="/products/respiratory"
@@ -217,6 +235,7 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                       <span className="text-sm">{t('navbar.respiratoryProtection')}</span>
                     </Link>
                   </div>
+                  */}
                 </div>
               )}
             </div>
@@ -264,11 +283,11 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                     <span>{t('navbar.aboutDropdown.ourCompany')}</span>
                   </Link>
                   <Link 
-                    href="/careers" 
+                    href="/about/esg" 
                     className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     onClick={onClose}
                   >
-                    <span>{t('navbar.aboutDropdown.careers')}</span>
+                    <span>{t('navbar.aboutDropdown.esg')}</span>
                   </Link>
                 </div>
               )}
@@ -314,6 +333,7 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
             </div>
             
             {/* Resources section */}
+            {/*
             <div>
               <div 
                 className="flex items-center justify-between px-3 py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors cursor-pointer"
@@ -372,6 +392,7 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                 </div>
               )}
             </div>
+            */}
           </div>
           
           {/* Language Selector */}

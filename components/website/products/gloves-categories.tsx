@@ -14,23 +14,37 @@ export const GlovesCategories = () => {
     {
       title: t('products.categories.main.gloves.subcategories.heat.title'),
       description: t('products.categories.main.gloves.subcategories.heat.description'),
-      imageSrc: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/products/Categories/heat_resistant_gloves.png",
+      imageSrc: "/glovecats/152-14 3L20_A.webp",
       imageAlt: t('products.categories.main.gloves.subcategories.heat.title'),
       href: "/products/gloves/heat"
     },
     {
+      title: t('products.categories.main.gloves.subcategories.mechanical.title'),
+      description: t('products.categories.main.gloves.subcategories.mechanical.description'),
+      imageSrc: "/glovecats/HL1001B_A.webp",
+      imageAlt: t('products.categories.main.gloves.subcategories.mechanical.title'),
+      href: "/products/gloves/mechanical"
+    },
+    {
       title: t('products.categories.main.gloves.subcategories.cut.title'),
       description: t('products.categories.main.gloves.subcategories.cut.description'),
-      imageSrc: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/products/Categories/cut_resistant_gloves.png",
+      imageSrc: "/glovecats/HL8801 DSR_A.webp",
       imageAlt: t('products.categories.main.gloves.subcategories.cut.title'), 
       href: "/products/gloves/cut"
     },
     {
       title: t('products.categories.main.gloves.subcategories.general.title'),
       description: t('products.categories.main.gloves.subcategories.general.description'),
-      imageSrc: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/products/Categories/general_purpose_gloves.png",
+      imageSrc: "/glovecats/HL 6WWG_A.webp",
       imageAlt: t('products.categories.main.gloves.subcategories.general.title'),
       href: "/products/gloves/general"
+    },
+    {
+      title: t('products.categories.main.gloves.subcategories.welding.title'),
+      description: t('products.categories.main.gloves.subcategories.welding.description'),
+      imageSrc: "/glovecats/49K-C_A.webp",
+      imageAlt: t('products.categories.main.gloves.subcategories.welding.title'),
+      href: "/products/gloves/welding"
     }
   ];
 
@@ -84,7 +98,7 @@ export const GlovesCategories = () => {
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 lg:gap-8">
           {subcategories.map((subcategory, index) => (
             <CategoryCard
               key={subcategory.href}

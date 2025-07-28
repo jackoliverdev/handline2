@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { CalendarDays, Flag, Award, Globe, Lightbulb, Cpu } from "lucide-react";
+import { CalendarDays, Flag, Award, Globe, Lightbulb, Cpu, Building, Factory } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLanguage } from "@/lib/context/language-context";
@@ -18,28 +18,40 @@ export const CompanyHistory = () => {
   const { t } = useLanguage();
   const milestones = [
     {
-      year: "1981",
-      title: t('about.history.1981.title'),
-      description: t('about.history.1981.description'),
+      year: "1977",
+      title: t('about.history.1977.title'),
+      description: t('about.history.1977.description'),
       icon: <Flag className="h-8 w-8 text-brand-primary" />,
     },
     {
-      year: "1992",
-      title: t('about.history.1992.title'),
-      description: t('about.history.1992.description'),
+      year: "1980",
+      title: t('about.history.1980.title'),
+      description: t('about.history.1980.description'),
+      icon: <Lightbulb className="h-8 w-8 text-brand-primary" />,
+    },
+    {
+      year: "1996",
+      title: t('about.history.1996.title'),
+      description: t('about.history.1996.description'),
       icon: <Award className="h-8 w-8 text-brand-primary" />,
     },
     {
-      year: "2000",
-      title: t('about.history.2000.title'),
-      description: t('about.history.2000.description'),
+      year: "2002",
+      title: t('about.history.2002.title'),
+      description: t('about.history.2002.description'),
       icon: <Globe className="h-8 w-8 text-brand-primary" />,
     },
     {
-      year: "2008",
-      title: t('about.history.2008.title'),
-      description: t('about.history.2008.description'),
-      icon: <Lightbulb className="h-8 w-8 text-brand-primary" />,
+      year: "2003",
+      title: t('about.history.2003.title'),
+      description: t('about.history.2003.description'),
+      icon: <Building className="h-8 w-8 text-brand-primary" />,
+    },
+    {
+      year: "2005",
+      title: t('about.history.2005.title'),
+      description: t('about.history.2005.description'),
+      icon: <Factory className="h-8 w-8 text-brand-primary" />,
     },
     {
       year: "2015",
@@ -51,7 +63,13 @@ export const CompanyHistory = () => {
       year: "2023",
       title: t('about.history.2023.title'),
       description: t('about.history.2023.description'),
-      icon: <Cpu className="h-8 w-8 text-brand-primary" />,
+      icon: <Building className="h-8 w-8 text-brand-primary" />,
+    },
+    {
+      year: "2025",
+      title: t('about.history.2025.title'),
+      description: t('about.history.2025.description'),
+      icon: <Globe className="h-8 w-8 text-brand-primary" />,
     },
   ];
 
@@ -65,15 +83,10 @@ export const CompanyHistory = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-10"
         >
-          <Badge className="mb-2 bg-brand-primary/10 text-brand-primary border-brand-primary/20">
-            {t('about.history.badge')}
-          </Badge>
-          <h2 className="text-3xl font-bold text-brand-dark dark:text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-brand-dark dark:text-white tracking-tight leading-tight">
             {t('about.history.heading')}
           </h2>
-          <p className="text-lg text-brand-secondary dark:text-gray-300 max-w-2xl mx-auto">
-            {t('about.history.description')}
-          </p>
+          <div className="w-20 h-1 bg-brand-primary rounded-full mx-auto mt-4"></div>
         </motion.div>
 
         {/* Desktop Timeline */}

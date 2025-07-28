@@ -135,47 +135,49 @@ export const RelatedProducts = ({ relatedProducts }: RelatedProductsProps) => {
                   className="w-full"
                 >
                   <div className="bg-white dark:bg-black/50 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 h-full flex flex-col border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm group">
-                    <div className="relative h-44 sm:h-56 overflow-hidden">
-                      {product.image_url ? (
-                        <motion.div
-                          initial={{ scale: 1.1, opacity: 0 }}
-                          animate={{ scale: 1, opacity: 1 }}
-                          transition={{ duration: 0.5, delay: 0.3 + (index * 0.1) }}
-                        >
-                          <Image
-                            src={product.image_url}
-                            alt={name}
-                            fill
-                            className="object-contain p-4 transition-transform duration-700 group-hover:scale-110"
-                          />
-                        </motion.div>
-                      ) : (
-                        <div className="flex h-full w-full items-center justify-center bg-gray-100 dark:bg-gray-800">
-                          <span className="text-gray-400 dark:text-gray-500 font-medium">No image</span>
-                        </div>
-                      )}
-                      <div className="absolute inset-0 bg-brand-primary/0 group-hover:bg-brand-primary/5 transition-colors duration-300" />
-                      {category && (
-                        <motion.div 
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.4 + (index * 0.1), duration: 0.3 }}
-                          className="absolute top-3 left-3 bg-white/90 dark:bg-gray-900/90 text-brand-primary dark:text-brand-primary py-1 px-2.5 rounded-md text-xs font-medium shadow-md border border-brand-primary/20 backdrop-blur-sm"
-                        >
-                          {category}
-                        </motion.div>
-                      )}
-                      {product.out_of_stock && (
-                        <motion.div 
-                          initial={{ opacity: 0, x: 10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.4 + (index * 0.1), duration: 0.3 }}
-                          className="absolute top-3 right-3 bg-gradient-to-r from-red-500 to-red-600 text-white py-1 px-2.5 rounded-md text-xs font-medium shadow-lg"
-                        >
-                          Out of Stock
-                        </motion.div>
-                      )}
-                    </div>
+                    <Link href={`/products/${encodedProductName}`} className="block">
+                      <div className="relative h-44 sm:h-56 overflow-hidden cursor-pointer">
+                        {product.image_url ? (
+                          <motion.div
+                            initial={{ scale: 1.1, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ duration: 0.5, delay: 0.3 + (index * 0.1) }}
+                          >
+                            <Image
+                              src={product.image_url}
+                              alt={name}
+                              fill
+                              className="object-contain p-4 transition-transform duration-700 group-hover:scale-110"
+                            />
+                          </motion.div>
+                        ) : (
+                          <div className="flex h-full w-full items-center justify-center bg-gray-100 dark:bg-gray-800">
+                            <span className="text-gray-400 dark:text-gray-500 font-medium">No image</span>
+                          </div>
+                        )}
+                        <div className="absolute inset-0 bg-brand-primary/0 group-hover:bg-brand-primary/5 transition-colors duration-300" />
+                        {category && (
+                          <motion.div 
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.4 + (index * 0.1), duration: 0.3 }}
+                            className="absolute top-3 left-3 bg-white/90 dark:bg-gray-900/90 text-brand-primary dark:text-brand-primary py-1 px-2.5 rounded-md text-xs font-medium shadow-md border border-brand-primary/20 backdrop-blur-sm"
+                          >
+                            {category}
+                          </motion.div>
+                        )}
+                        {product.out_of_stock && (
+                          <motion.div 
+                            initial={{ opacity: 0, x: 10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.4 + (index * 0.1), duration: 0.3 }}
+                            className="absolute top-3 right-3 bg-gradient-to-r from-red-500 to-red-600 text-white py-1 px-2.5 rounded-md text-xs font-medium shadow-lg"
+                          >
+                            Out of Stock
+                          </motion.div>
+                        )}
+                      </div>
+                    </Link>
                     
                     <motion.div 
                       initial={{ opacity: 0 }}
@@ -183,7 +185,9 @@ export const RelatedProducts = ({ relatedProducts }: RelatedProductsProps) => {
                       transition={{ delay: 0.5 + (index * 0.1), duration: 0.3 }}
                       className="p-4 sm:p-5 flex flex-col flex-grow space-y-3"
                     >
-                      <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-1 font-heading group-hover:text-brand-primary transition-colors duration-200">{name}</h3>
+                      <Link href={`/products/${encodedProductName}`}>
+                        <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-1 font-heading group-hover:text-brand-primary transition-colors duration-200 cursor-pointer hover:text-brand-primary">{name}</h3>
+                      </Link>
                       
                       <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 mb-3 line-clamp-2">
                         {short_description || description}

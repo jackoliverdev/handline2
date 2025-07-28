@@ -16,48 +16,15 @@ export function GeneralProductsSection({ products }: GeneralProductsSectionProps
   const { t, language } = useLanguage();
   const [initialCategory, setInitialCategory] = useState<string | undefined>(undefined);
   
-  // Filter products for general category - very strict filtering to match heat/cut-resistant behavior
+  // Filter products for general category - now using subcategory
   const generalProducts = products.filter(product => {
-    // Primary check: Must explicitly mention "general purpose" in category or subcategory
-    const explicitGeneralPurpose = 
-      product.category?.toLowerCase().includes('general purpose') ||
-      product.category_locales?.it?.toLowerCase().includes('uso generale') ||
-      product.sub_category?.toLowerCase().includes('general purpose') ||
-      product.sub_category_locales?.it?.toLowerCase().includes('uso generale');
+    // Check if subcategory matches general use gloves
+    const isGeneralUse = 
+      product.sub_category === "Gloves for general use" ||
+      product.sub_category_locales?.it === "Guanti per uso generale" ||
+      product.sub_category_locales?.en === "Gloves for general use";
     
-    if (explicitGeneralPurpose) {
-      // Ensure it's not primarily categorized as something more specific
-      const notSpecializedCategory = 
-        !product.category?.toLowerCase().includes('cut resistant') &&
-        !product.category_locales?.it?.toLowerCase().includes('antitaglio') &&
-        !product.category?.toLowerCase().includes('heat resistant') &&
-        !product.category_locales?.it?.toLowerCase().includes('termoresistenti');
-      
-      return notSpecializedCategory;
-    }
-    
-    // Secondary check: Products with general/construction terms but no specialized indicators
-    const hasGeneralTerms = 
-      product.category?.toLowerCase().includes('general') ||
-      product.category_locales?.it?.toLowerCase().includes('generale') ||
-      product.sub_category?.toLowerCase().includes('general') ||
-      product.sub_category_locales?.it?.toLowerCase().includes('generale');
-    
-    if (hasGeneralTerms) {
-      // Must not have specialized indicators
-      const notSpecialized = 
-        !product.en_standard && 
-        !product.cut_resistance_level &&
-        !product.temperature_rating &&
-        !product.category?.toLowerCase().includes('cut resistant') &&
-        !product.category_locales?.it?.toLowerCase().includes('antitaglio') &&
-        !product.category?.toLowerCase().includes('heat resistant') &&
-        !product.category_locales?.it?.toLowerCase().includes('termoresistenti');
-      
-      return notSpecialized;
-    }
-    
-    return false;
+    return isGeneralUse;
   });
 
   // Get the correct general purpose category name for initialCategory - recalculates when language or products change

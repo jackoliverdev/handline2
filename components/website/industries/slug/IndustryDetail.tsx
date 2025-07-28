@@ -9,15 +9,14 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ProductCard } from "@/components/website/products/product-card";
 import { MarkdownContent } from "@/components/website/resources/blog/markdown-content";
-import { FeaturesSection } from "../components/FeaturesSection";
 import { motion } from "framer-motion";
 
 export function IndustryDetail({ industry, relatedProducts }: { industry: any, relatedProducts: any[] }) {
   const { t, language } = useLanguage();
   const localisedIndustry = localiseIndustry(industry, language);
 
-  // Extract main description
-  const mainDescription = localisedIndustry.description.split('\n\n')[0] || localisedIndustry.description;
+  // Use showcase description instead of the long description
+  const mainDescription = localisedIndustry.showcase_description || localisedIndustry.description.split('\n\n')[0] || localisedIndustry.description;
   // Use features array if present
   const features = localisedIndustry.features && localisedIndustry.features.length > 0
     ? localisedIndustry.features
@@ -250,9 +249,6 @@ export function IndustryDetail({ industry, relatedProducts }: { industry: any, r
           </div>
         </div>
       </motion.section>
-
-      {/* Features Section */}
-      <FeaturesSection industry={localisedIndustry} />
 
       {/* Content Section */}
       {localisedIndustry.content && (

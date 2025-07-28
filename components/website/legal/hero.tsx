@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { FileText, Shield, BookOpen, ChevronRight, Package, Mail } from "lucide-react";
+import { Shield, ChevronRight, Package, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -11,12 +11,6 @@ const SPRING_CONFIG = { stiffness: 100, damping: 30, mass: 1 };
 
 export function LegalHero() {
   const { t } = useLanguage();
-
-  const stats = [
-    { value: t('legal.hero.stats.documents'), label: t('legal.hero.stats.documentsLabel') },
-    { value: t('legal.hero.stats.compliance'), label: t('legal.hero.stats.complianceLabel') },
-    { value: t('legal.hero.stats.updated'), label: t('legal.hero.stats.updatedLabel') },
-  ];
 
   return (
     <section className="relative overflow-hidden bg-brand-light dark:bg-background pt-28 pb-8 md:pt-32 md:pb-16">
@@ -64,21 +58,6 @@ export function LegalHero() {
             <p className="max-w-2xl text-base md:text-lg text-brand-secondary dark:text-gray-300">
               {t('legal.hero.description')}
             </p>
-          </motion.div>
-
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...SPRING_CONFIG, delay: 0.3 }}
-            className="mx-auto mb-6 md:mb-10 grid max-w-xl grid-cols-3 gap-4 md:gap-6"
-          >
-            {stats.map((stat) => (
-              <div key={stat.label} className="flex flex-col items-center">
-                <div className="text-2xl md:text-3xl font-bold text-brand-primary font-heading">{stat.value}</div>
-                <div className="mt-0.5 md:mt-1 text-xs md:text-sm text-brand-secondary dark:text-gray-400">{stat.label}</div>
-              </div>
-            ))}
           </motion.div>
 
           {/* Buttons */}

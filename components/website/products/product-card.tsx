@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Flame, Scissors, ArrowRight, Eye } from "lucide-react";
+import { Flame, Scissors, ArrowRight, Eye, ListChecks } from "lucide-react";
 import { Product } from "@/lib/products-service";
 import { ProductPreviewModal } from "./product-preview-modal";
 import { useLanguage } from "@/lib/context/language-context";
@@ -34,6 +34,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
   // Use the original English name for URL generation (not localized)
   // This ensures URLs work consistently across language changes
   const encodedProductName = encodeURIComponent(product.name);
+
+  // Get top 2 applications
+  const topApplications = product.applications ? product.applications.slice(0, 2) : [];
 
   return (
     <motion.div
@@ -102,49 +105,88 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
         </Link>
         
         {/* Key Specifications */}
-        <div className="grid grid-cols-2 gap-2">
-          {product.temperature_rating && (
-            <div className="flex items-center">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10 mr-0">
-                <Flame className="h-5 w-5 text-brand-primary" />
+        <div className="space-y-2">
+          {(product.temperature_rating || (product.cut_resistance_level && product.en_standard)) && (
+            <>
+              {/* Titles Row */}
+              <div className="grid grid-cols-2 gap-2 -ml-2">
+                {product.temperature_rating && (
+                  <div className="flex items-center gap-0">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-primary/10">
+                      <Flame className="h-4 w-4 text-brand-primary" />
+                    </div>
+                    <p className="text-[10px] sm:text-xs text-gray-600 dark:text-gray-400">
+                      <span className="sm:hidden">{t('products.temperatureMobile')}</span>
+                      <span className="hidden sm:inline">{t('products.temperature')}</span>
+                    </p>
+                  </div>
+                )}
+                {product.cut_resistance_level && product.en_standard && (
+                  <div className="flex items-center gap-0">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-primary/10">
+                      <div className="relative w-5 h-5">
+                        <Image
+                          src={`/images/standards/${product.en_standard}.png`}
+                          alt={product.en_standard}
+                          fill
+                          className="object-contain dark:invert"
+                        />
+                      </div>
+                    </div>
+                    <p className="text-[10px] sm:text-xs text-gray-600 dark:text-gray-400">
+                      <span className="sm:hidden">{t('products.enStandardsMobile')}</span>
+                      <span className="hidden sm:inline">{t('products.enStandards')}</span>
+                    </p>
+                  </div>
+                )}
               </div>
-              <div>
-                <p className="text-xs text-gray-600 dark:text-gray-400">Temperature</p>
-                <p className="text-xs font-medium text-gray-900 dark:text-white">{product.temperature_rating}°C</p>
+              
+              {/* Values Row */}
+              <div className="grid grid-cols-2 gap-2">
+                {product.temperature_rating && (
+                  <p className="text-[11px] sm:text-xs font-medium text-gray-900 dark:text-white">
+                    {product.temperature_rating}°C
+                  </p>
+                )}
+                {product.cut_resistance_level && product.en_standard && (
+                  <p className="text-[11px] sm:text-xs font-medium text-gray-900 dark:text-white truncate">
+                    {product.en_standard}
+                  </p>
+                )}
               </div>
-            </div>
-          )}
-          {product.cut_resistance_level && product.en_standard && (
-            <div className="flex items-center">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10 mr-0">
-                <div className="relative w-6 h-6">
-                  <Image
-                    src={`/images/standards/${product.en_standard}.png`}
-                    alt={product.en_standard}
-                    fill
-                    className="object-contain dark:invert"
-                  />
-                </div>
-              </div>
-              <div>
-                <p className="text-xs text-gray-600 dark:text-gray-400 whitespace-nowrap">EN Standards</p>
-                <p className="text-xs font-medium text-gray-900 dark:text-white">{product.en_standard}</p>
-              </div>
-            </div>
+            </>
           )}
         </div>
+
+        {/* Top 2 Applications */}
+        {topApplications.length > 0 && (
+          <div className="space-y-2">
+            <div className="flex items-center gap-1">
+              <ListChecks className="h-3 w-3 text-brand-primary" />
+              <p className="text-xs text-gray-600 dark:text-gray-400 font-medium">{t('products.applications')}</p>
+            </div>
+            <ul className="space-y-1">
+              {topApplications.map((application, index) => (
+                <li key={index} className="text-xs text-gray-600 dark:text-gray-300 flex items-start">
+                  <span className="text-brand-primary mr-1">•</span>
+                  <span className="line-clamp-1">{application}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         
         {/* Industries */}
         {product.industries && product.industries.length > 0 && (
-          <div className="flex flex-wrap gap-1">
-            {product.industries.slice(0, 2).map((industry) => (
-              <Badge key={industry} variant="secondary" className="text-xs bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-gray-700 dark:text-gray-300">
+          <div className="flex gap-1 overflow-hidden">
+            {product.industries.slice(0, 1).map((industry) => (
+              <Badge key={industry} variant="secondary" className="text-xs bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-gray-700 dark:text-gray-300 truncate min-w-0 flex-1">
                 {industry}
               </Badge>
             ))}
-            {product.industries.length > 2 && (
-              <Badge variant="secondary" className="text-xs bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
-                +{product.industries.length - 2}
+            {product.industries.length > 1 && (
+              <Badge variant="secondary" className="text-xs bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 flex-shrink-0">
+                +{product.industries.length - 1}
               </Badge>
             )}
           </div>

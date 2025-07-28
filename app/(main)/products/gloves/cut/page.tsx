@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { getAllProducts } from "@/lib/products-service";
-import { GlovesHero } from "@/components/website/products/hero-gloves";
+import { ProductsHero } from "@/components/website/products/hero";
 import { CategoryInfo } from "@/components/website/products/category-info";
 import { CutProductsSection } from "./CutProductsSection";
 
@@ -18,7 +18,7 @@ export default async function CutGlovesPage() {
 
   return (
     <main className="bg-brand-light dark:bg-background">
-      <GlovesHero />
+      <ProductsHero />
       
       <CategoryInfo categoryType="cut" />
       

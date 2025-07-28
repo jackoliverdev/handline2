@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { GlovesHero } from "@/components/website/products/hero-gloves";
+import { ProductsHero } from "@/components/website/products/hero";
 import { CategoryInfo } from "@/components/website/products/category-info";
 import { GlovesCategories } from "@/components/website/products/gloves-categories";
 
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function GlovesPage() {
   return (
     <main className="bg-brand-light dark:bg-background">
-      <GlovesHero />
+      <ProductsHero />
       
       <CategoryInfo categoryType="gloves" />
       

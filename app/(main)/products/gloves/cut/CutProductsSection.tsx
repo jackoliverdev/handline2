@@ -16,45 +16,15 @@ export function CutProductsSection({ products }: CutProductsSectionProps) {
   const { t, language } = useLanguage();
   const [initialCategory, setInitialCategory] = useState<string | undefined>(undefined);
   
-  // Filter products for cut category - very strict filtering to match heat-resistant behavior
+  // Filter products for cut category - now using subcategory
   const cutProducts = products.filter(product => {
-    // Primary indicators - these are the most reliable
-    const hasEN388 = product.en_standard === 'EN388';
-    const hasCutLevel = product.cut_resistance_level && 
-        (typeof product.cut_resistance_level === 'number' ? product.cut_resistance_level > 0 : 
-         product.cut_resistance_level.length > 0);
+    // Check if subcategory matches cut resistant gloves
+    const isCutResistant = 
+      product.sub_category === "Cut resistant gloves" ||
+      product.sub_category_locales?.it === "Guanti antitaglio" ||
+      product.sub_category_locales?.en === "Cut resistant gloves";
     
-    // If it has EN388 or cut resistance level, it's likely cut-resistant
-    if (hasEN388 || hasCutLevel) {
-      // But also ensure it's not primarily categorized as something else
-      const notPrimarilyOtherCategory = 
-        !product.category?.toLowerCase().includes('general purpose') &&
-        !product.category_locales?.it?.toLowerCase().includes('uso generale') &&
-        !product.category?.toLowerCase().includes('heat resistant') &&
-        !product.category_locales?.it?.toLowerCase().includes('termoresistenti');
-      
-      if (notPrimarilyOtherCategory) {
-        return true;
-      }
-    }
-    
-    // Secondary check: Must explicitly mention cut resistance in category or subcategory
-    const explicitCutResistant = 
-      product.category?.toLowerCase().includes('cut resistant') ||
-      product.category_locales?.it?.toLowerCase().includes('antitaglio') ||
-      product.sub_category?.toLowerCase().includes('cut resistant') ||
-      product.sub_category_locales?.it?.toLowerCase().includes('antitaglio');
-    
-    // Only include if explicitly cut-resistant and not general purpose
-    if (explicitCutResistant) {
-      const notGeneralPurpose = 
-        !product.category?.toLowerCase().includes('general purpose') &&
-        !product.category_locales?.it?.toLowerCase().includes('uso generale');
-      
-      return notGeneralPurpose;
-    }
-    
-    return false;
+    return isCutResistant;
   });
 
   // Get the correct cut-resistant category name for initialCategory - recalculates when language or products change

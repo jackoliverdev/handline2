@@ -22,8 +22,8 @@ const getNavItems = (t: any) => [
     dropdownItems: [
       { href: "/products", label: t("navbar.allProducts") },
       { href: "/products/gloves", label: t("navbar.safetyGloves") },
-      { href: "/products/industrial-swabs", label: t("navbar.industrialSwabs") },
-      { href: "/products/respiratory", label: t("navbar.respiratoryProtection") },
+      // { href: "/products/industrial-swabs", label: t("navbar.industrialSwabs") },
+      // { href: "/products/respiratory", label: t("navbar.respiratoryProtection") },
     ]
   },
   { href: "/industries", label: t("navbar.industries") },
@@ -33,7 +33,8 @@ const getNavItems = (t: any) => [
     hasDropdown: true,
     dropdownItems: [
       { href: "/about", label: t("navbar.aboutDropdown.ourCompany") },
-      { href: "/careers", label: t("navbar.aboutDropdown.careers") },
+      { href: "/about/esg", label: t("navbar.aboutDropdown.esg") },
+      // { href: "/careers", label: t("navbar.aboutDropdown.careers") },
     ]
   },
   { 
@@ -45,6 +46,7 @@ const getNavItems = (t: any) => [
       { href: "/partners/distribution", label: t("navbar.partnersDropdown.distribution") },
     ]
   },
+  /*
   { 
     href: "/resources", 
     label: t("navbar.resources"),
@@ -57,6 +59,7 @@ const getNavItems = (t: any) => [
       { href: "/resources/declarations", label: t("navbar.resourcesDropdown.declarations") },
     ]
   },
+  */
   { href: "/contact", label: t("navbar.contact") },
 ];
 
@@ -69,7 +72,6 @@ export const NavBar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const searchOverlayRef = useRef<HTMLDivElement>(null);
   const searchButtonRef = useRef<HTMLDivElement>(null);
-  const mobileSearchButtonRef = useRef<HTMLDivElement>(null);
   
   // Generate navigation items with translation
   const NAV_ITEMS = getNavItems(t);
@@ -107,6 +109,9 @@ export const NavBar = () => {
     // Special case for "All Products" - should only be active on exact /products page
     if (dropdownItem.href === "/products" && pathname !== "/products") return false;
     
+    // Special case for "Our Company" - should only be active on exact /about page
+    if (dropdownItem.href === "/about" && pathname !== "/about") return false;
+    
     // For non-root paths, check if pathname starts with the href
     if (dropdownItem.href !== "/" && pathname.startsWith(dropdownItem.href)) return true;
     
@@ -136,10 +141,9 @@ export const NavBar = () => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Node;
       
-      // Don't close if clicking on the search overlay or either search button (mobile/desktop)
+      // Don't close if clicking on the search overlay or desktop search button
       if (searchOverlayRef.current && !searchOverlayRef.current.contains(target) &&
-          searchButtonRef.current && !searchButtonRef.current.contains(target) &&
-          mobileSearchButtonRef.current && !mobileSearchButtonRef.current.contains(target)) {
+          searchButtonRef.current && !searchButtonRef.current.contains(target)) {
         setIsSearchOpen(false);
       }
     };
@@ -209,30 +213,13 @@ export const NavBar = () => {
               </div>
               
               <div className="flex items-center space-x-4">
-                <div ref={mobileSearchButtonRef}>
-                  <WebsiteSearchToggle 
-                    className={scrolled ? 'text-slate-900 dark:text-white' : 'text-slate-900 dark:text-white'} 
-                    isOpen={isSearchOpen}
-                    onToggle={() => setIsSearchOpen(!isSearchOpen)}
-                  />
-                </div>
                 <WebsiteThemeToggle variant="ghost" className={scrolled ? 'text-slate-900 dark:text-white' : 'text-slate-900 dark:text-white'} />
                 <WebsiteLanguageToggle className={scrolled ? 'text-slate-900 dark:text-white' : 'text-slate-900 dark:text-white'} />
               </div>
             </div>
 
             {/* Mobile Search Bar */}
-            {isSearchOpen && (
-              <div className="mt-2 lg:hidden">
-                <SearchDropdown
-                  query={searchQuery}
-                  onQueryChange={setSearchQuery}
-                  isOpen={true}
-                  onOpenChange={() => {}} // Don't let SearchDropdown close the navbar overlay
-                  className="w-full"
-                />
-              </div>
-            )}
+            {/* Search is now only available in the mobile sidebar menu */}
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center justify-between py-2">
