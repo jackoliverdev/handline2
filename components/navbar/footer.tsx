@@ -81,29 +81,29 @@ export function Footer() {
                       onClick={() => setIsGlovesOpen(!isGlovesOpen)}
                       className="flex items-center gap-2 font-medium text-gray-700 dark:text-gray-300 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 group"
                     >
-                      Safety Gloves
+                      {t('footer.sections.products.links.safetyGloves')}
                       {isGlovesOpen ? <ChevronUp className="h-3 w-3 transition-transform duration-200 group-hover:scale-110" /> : <ChevronDown className="h-3 w-3 transition-transform duration-200 group-hover:scale-110" />}
                     </button>
                     {isGlovesOpen && (
                       <div className="ml-2 mt-1 flex flex-col gap-1 animate-in slide-in-from-top-2 duration-200">
                         <Link href="/products/gloves/heat" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
-                          Heat-Resistant
+                          {t('footer.sections.products.links.heatResistant')}
                         </Link>
                         <Link href="/products/gloves/cut" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
-                          Cut-Resistant
+                          {t('footer.sections.products.links.cutResistant')}
                         </Link>
                         <Link href="/products/gloves/general" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
-                          General Purpose
+                          {t('footer.sections.products.links.generalPurpose')}
+                        </Link>
+                        <Link href="/products/gloves/mechanical" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                          {t('footer.sections.products.links.mechanical')}
+                        </Link>
+                        <Link href="/products/gloves/welding" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                          {t('footer.sections.products.links.welding')}
                         </Link>
                       </div>
                     )}
                   </div>
-                  <Link href="/products/industrial-swabs" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
-                    Industrial Swabs
-                  </Link>
-                  <Link href="/products/respiratory" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
-                    Respiratory Protection
-                  </Link>
                 </div>
               )}
             </div>
@@ -119,17 +119,8 @@ export function Footer() {
               </button>
               {isIndustriesOpen && (
                 <div className="mt-2 flex flex-col gap-1 text-sm animate-in slide-in-from-top-2 duration-200">
-                  <Link href="/industries/glass" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
-                    {t('footer.sections.industries.links.glass')}
-                  </Link>
-                  <Link href="/industries/metal" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
-                    {t('footer.sections.industries.links.metalworking')}
-                  </Link>
-                  <Link href="/industries/welding" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
-                    {t('footer.sections.industries.links.welding')}
-                  </Link>
-                  <Link href="/industries/automotive" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
-                    {t('footer.sections.industries.links.automotive')}
+                  <Link href="/industries/glass-manufacturing" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                    {t('footer.sections.industries.links.glassManufacturing')}
                   </Link>
                 </div>
               )}
@@ -149,14 +140,11 @@ export function Footer() {
                   <Link href="/about" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
                     {t('footer.sections.company.links.about')}
                   </Link>
-                  <Link href="/about#certifications" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
-                    {t('footer.sections.company.links.certifications')}
-                  </Link>
-                  <Link href="/resources/blog" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
-                    {t('footer.sections.company.links.blog')}
-                  </Link>
                   <Link href="/contact" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
-                    {t('footer.sections.company.links.contact')}
+                    {t('footer.sections.company.links.contactUs')}
+                  </Link>
+                  <Link href="/about/esg" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                    {t('footer.sections.company.links.esg')}
                   </Link>
                 </div>
               )}

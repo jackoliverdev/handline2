@@ -11,25 +11,39 @@ export const CategoryList = () => {
   
   const categories = [
     {
-      title: t('products.categories.main.gloves.title'),
-      description: t('products.categories.main.gloves.description'),
-      imageSrc: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/products/Categories/Safety_Gloves.png",
-      imageAlt: t('products.categories.main.gloves.title'),
-      href: "/products/gloves"
+      title: t('products.categories.main.gloves.subcategories.heat.title'),
+      description: t('products.categories.main.gloves.subcategories.heat.description'),
+      imageSrc: "/glovecats/152-14 3L20_A.webp",
+      imageAlt: t('products.categories.main.gloves.subcategories.heat.title'),
+      href: "/products/gloves/heat"
     },
     {
-      title: t('products.categories.main.industrialSwabs.title'),
-      description: t('products.categories.main.industrialSwabs.description'),
-      imageSrc: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/products/Categories/Industrial_swabs.png", 
-      imageAlt: t('products.categories.main.industrialSwabs.title'),
-      href: "/products/industrial-swabs"
+      title: t('products.categories.main.gloves.subcategories.mechanical.title'),
+      description: t('products.categories.main.gloves.subcategories.mechanical.description'),
+      imageSrc: "/glovecats/HL1001B_A.webp",
+      imageAlt: t('products.categories.main.gloves.subcategories.mechanical.title'),
+      href: "/products/gloves/mechanical"
     },
     {
-      title: t('products.categories.main.respiratory.title'),
-      description: t('products.categories.main.respiratory.description'),
-      imageSrc: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/products/Categories/respiratory_protection.png",
-      imageAlt: t('products.categories.main.respiratory.title'),
-      href: "/products/respiratory"
+      title: t('products.categories.main.gloves.subcategories.cut.title'),
+      description: t('products.categories.main.gloves.subcategories.cut.description'),
+      imageSrc: "/glovecats/HL8801 DSR_A.webp",
+      imageAlt: t('products.categories.main.gloves.subcategories.cut.title'),
+      href: "/products/gloves/cut"
+    },
+    {
+      title: t('products.categories.main.gloves.subcategories.general.title'),
+      description: t('products.categories.main.gloves.subcategories.general.description'),
+      imageSrc: "/glovecats/HL 6WWG_A.webp",
+      imageAlt: t('products.categories.main.gloves.subcategories.general.title'),
+      href: "/products/gloves/general"
+    },
+    {
+      title: t('products.categories.main.gloves.subcategories.welding.title'),
+      description: t('products.categories.main.gloves.subcategories.welding.description'),
+      imageSrc: "/glovecats/49K-C_A.webp",
+      imageAlt: t('products.categories.main.gloves.subcategories.welding.title'),
+      href: "/products/gloves/welding"
     }
   ];
 
@@ -83,7 +97,7 @@ export const CategoryList = () => {
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 lg:gap-8">
           {categories.map((category, index) => (
             <CategoryCard
               key={category.href}

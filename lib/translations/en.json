@@ -16,11 +16,14 @@
     "heatResistant": "Heat-Resistant",
     "cutResistant": "Cut-Resistant",
     "generalPurpose": "General Purpose",
+    "mechanicalHazards": "Mechanical Hazards",
+    "welding": "Welding",
     "industrialSwabs": "Industrial Swabs",
     "respiratoryProtection": "Respiratory Protection",
     "aboutDropdown": {
       "ourCompany": "Our Company",
-      "careers": "Careers"
+      "careers": "Careers",
+      "esg": "ESG Commitment"
     },
     "resourcesDropdown": {
       "blog": "Blog",
@@ -44,6 +47,7 @@
   },
   "search": {
     "searchPlaceholder": "Search products or content",
+    "sidebarSearchPlaceholder": "Search products...",
     "searchButton": "Search",
     "clearSearch": "Clear search",
     "searching": "Searching...",
@@ -190,9 +194,15 @@
   },
   "productsHero": {
     "badge": "Industrial Safety",
-    "heading": "Safety",
-    "headingAccent": "Products",
-    "description": "Explore our comprehensive range of high-performance industrial safety products, designed to provide superior protection against heat, cuts, respiratory hazards, and other workplace risks.",
+    "heading": {
+      "line1Start": "We",
+      "line1Highlight": "protect the people",
+      "line1End": "that",
+      "line2": "build our world"
+    },
+    "headingAccent": "",
+    "description": "The right PPE is a critical line of defence that protects workers from hazards, prevents injuries, and saves lives. Research shows that effective PPE usage can reduce workplace injury rates by up to 60%, underscoring how crucial the right equipment is to a safer, more productive work environment. Poorly fitted or inadequate PPE, on the other hand, is demonstrated to be a concurring factor to the majority of registered injuries.",
+    "secondDescription": "With over 40 years of industry expertise, we specialise in designing and distributing top-quality products that meet rigorous industry standards, ensuring the perfect fit and protection tailored to your unique challenges. We offer comprehensive head-to-toe safety solutions with particular expertise in hand protection.",
     "browseProducts": "Browse Products",
     "getInTouch": "Get in Touch",
     "stats": {
@@ -201,6 +211,25 @@
       "cutValue": "Level 5",
       "certified": "Certified",
       "years": "Years Experience"
+    }
+  },
+  "productsDesignPrinciples": {
+    "title": "Our product design principles",
+    "protection": {
+      "title": "Protection",
+      "description": "Safety is our core objective and every product we design starts with protecting people"
+    },
+    "comfort": {
+      "title": "Comfort",
+      "description": "From material selection to task-specific customisation, we make our product fit the operators' needs, not the opposite."
+    },
+    "quality": {
+      "title": "Quality",
+      "description": "Consistent quality is ensured by stringent checks and certified production chain to ensure compliance."
+    },
+    "affordability": {
+      "title": "Affordability",
+      "description": "Meticulous production planning and strong international partnerships allow us to offer our quality products at competitive price."
     }
   },
   "glovesHero": {
@@ -342,28 +371,26 @@
       "products": {
         "title": "Products",
         "links": {
-          "heatResistant": "Heat Resistant",
-          "cutResistant": "Cut Resistant",
-          "welding": "Welding",
-          "chemical": "Chemical"
+          "safetyGloves": "Safety Gloves",
+          "heatResistant": "Heat-Resistant",
+          "cutResistant": "Cut-Resistant",
+          "generalPurpose": "General Purpose",
+          "mechanical": "Mechanical",
+          "welding": "Welding"
         }
       },
       "industries": {
         "title": "Industries",
         "links": {
-          "glass": "Glass",
-          "metalworking": "Metalworking",
-          "welding": "Welding",
-          "automotive": "Automotive"
+          "glassManufacturing": "Glass Manufacturing"
         }
       },
       "company": {
         "title": "Company",
         "links": {
           "about": "About Us",
-          "certifications": "Certifications",
-          "blog": "Blog",
-          "contact": "Contact"
+          "contactUs": "Contact Us",
+          "esg": "ESG Commitment"
         }
       }
     },
@@ -395,13 +422,21 @@
               "title": "Heat-Resistant Gloves",
               "description": "Advanced thermal protection for high-temperature environments up to 350°C"
             },
+            "mechanical": {
+              "title": "Mechanical Hazards Gloves",
+              "description": "Superior protection against mechanical risks and general workplace hazards"
+            },
             "cut": {
               "title": "Cut-Resistant Gloves", 
               "description": "Superior protection against cuts and lacerations with Level 5 resistance"
             },
             "general": {
-              "title": "General Purpose Gloves",
+              "title": "General Use Gloves",
               "description": "Versatile protection for everyday industrial tasks and construction work"
+            },
+            "welding": {
+              "title": "Welding Gloves",
+              "description": "Specialised protection for welding and high-heat metalworking tasks"
             }
           }
         },
@@ -436,6 +471,18 @@
           "title": "General Purpose Products",
           "description": "Browse our complete range of general purpose gloves designed for everyday industrial tasks.",
           "detailedDescription": "Our general purpose gloves provide reliable protection for everyday industrial tasks and construction work. Designed for versatility and comfort, these gloves offer excellent grip, durability, and protection for a wide range of applications including assembly work, material handling, maintenance tasks, and general construction activities."
+        },
+        "mechanical": {
+          "badge": "Mechanical Protection",
+          "title": "Mechanical Hazards Products",
+          "description": "Browse our complete range of mechanical hazards gloves designed for superior workplace protection.",
+          "detailedDescription": "Our mechanical hazards gloves provide superior protection against mechanical risks and general workplace hazards whilst maintaining exceptional dexterity and comfort. Engineered with advanced materials and tested to meet EN388 standards, these gloves are essential for workers in manufacturing, assembly, construction, and general industrial environments."
+        },
+        "welding": {
+          "badge": "Welding Protection",
+          "title": "Welding Products",
+          "description": "Browse our complete range of welding gloves designed for high-heat metalworking tasks.",
+          "detailedDescription": "Our welding gloves provide specialised protection for welding and high-heat metalworking tasks with superior durability and comfort. Engineered with heat-resistant materials and designed for demanding welding environments, these gloves offer excellent protection against sparks, spatter, and high temperatures whilst maintaining the dexterity needed for precision work."
         },
         "respiratory": {
           "badge": "Respiratory Safety",
@@ -495,13 +542,20 @@
     "featured": "Featured",
     "industries": "Industries",
     "keyFeatures": "Key Features:",
-    "moreFeatures": "+{{count}} more"
+    "moreFeatures": "+{{count}} more",
+    "temperature": "Temperature",
+    "temperatureMobile": "Temp",
+    "enStandards": "EN Standards",
+    "enStandardsMobile": "EN",
+    "applications": "Applications"
   },
   "productPage": {
     "backToProducts": "Back to products",
     "specifications": "Specifications",
     "features": "Features",
     "applications": "Applications",
+    "safety": "Safety",
+    "documentation": "Documentation",
     "productDetails": "Product Details",
     "technicalSpecifications": "Technical Specifications",
     "temperatureRating": "Temperature Rating",
@@ -509,7 +563,19 @@
     "industries": "Industries",
     "submitEnquiry": "Submit Enquiry",
     "contactUs": "Contact Us",
-    "requestSample": "Request Sample"
+    "requestSample": "Request Sample",
+    "productInfo": {
+      "availability": "Availability",
+      "brand": "Brand", 
+      "size": "Size",
+      "length": "Length"
+    },
+    "ceCategory": "CE Category",
+    "category": "Category",
+    "technicalSheets": "Technical Sheets",
+    "productDeclarations": "Product Declarations",
+    "englishDocument": "English",
+    "italianDocument": "Italiano"
   },
   "relatedProducts": {
     "title": "Related Products"
@@ -540,6 +606,20 @@
     "description": "For over four decades, Hand Line has been at the forefront of industrial safety, designing and manufacturing premium protective gloves that combine innovation, comfort, and uncompromising protection.",
     "ourStory": "Our Story",
     "getInTouch": "Get in Touch",
+    "hero": {
+      "badge": "Our mission since 1977",
+      "title": "We protect the",
+      "titleHighlight1": "Hands",
+      "titleMiddle": "that build our",
+      "titleHighlight2": "World",
+      "subtitle": "We believe \"Zero Accident\" is more than a vision, it's a need.",
+      "descriptionMobile": "We envision a world where every organisation equips its workforce with custom-engineered equipment, meticulously designed to address the unique requirements of their employees.",
+      "descriptionDesktop": " We strive to be the catalyst for a safer and more comfortable workplace, where businesses prioritise individual well-being and productivity through personalised protection solutions, ultimately setting new standards for safety and comfort in the industrial sector.",
+      "buttons": {
+        "ourStory": "Our Story",
+        "getInTouch": "Get in Touch"
+      }
+    },
     "stats": {
       "years": "Years' Experience",
       "team": "Team Members",
@@ -548,31 +628,43 @@
     },
     "history": {
       "badge": "Our Journey",
-      "heading": "Hand Line Through the Years",
+      "heading": "Our History",
       "description": "From our beginnings in Milan to becoming a leading safety equipment manufacturer, discover key moments that shaped our company.",
-      "1981": {
+      "1977": {
         "title": "Foundation",
-        "description": "Hand Line was founded in Milan, Italy with a vision to create superior safety gloves for industrial workers."
+        "description": "Our history starts as Italian manufacturer of leather and work gloves with a distinctively artisanal footprint based on craftsmanship and high quality products"
       },
-      "1992": {
-        "title": "First Patent",
-        "description": "Developed and patented our first cut-resistant glove technology, setting new industry standards for protection."
+      "1980": {
+        "title": "First Innovation",
+        "description": "We develop the first wool mitten for high-temperature mould handling in the hot end of the glass manufacturing process"
       },
-      "2000": {
-        "title": "International Expansion",
-        "description": "Expanded operations to serve clients across Europe, with distribution networks in 12 countries."
+      "1996": {
+        "title": "Standards Certification",
+        "description": "We led the way in adapting to newly introduced EN388 and EN407 standards bringing certified products to all our customers. Our products are widely adopted across major glass manufacturing and automotive plants in Italy"
       },
-      "2008": {
-        "title": "Thermal Technology",
-        "description": "Introduced advanced thermal protection technology, revolutionising safety in extreme temperature environments."
+      "2002": {
+        "title": "Portfolio Expansion",
+        "description": "We enlarge our product portfolio dedicated to the glass and metallurgy industries with many gloves certified over 350°C. Our geographical expansion starts across 6 markets in Europe and Middle East, driven by our existing Italian customers."
+      },
+      "2003": {
+        "title": "Company Incorporation",
+        "description": "Hand Line Company is incorporated, marking the shift from artisanal firm into business enterprise that has flourished, has won credibility, and inspired confidence to a wider number of clients. We supply gloves and other PPE across 10 markets in Europe and the East"
+      },
+      "2005": {
+        "title": "Extreme Heat Innovation",
+        "description": "We develop and certify a unique glove able to withstand over 1,000°C contact heat for extreme conditions: HL 1000"
       },
       "2015": {
-        "title": "Sustainability Initiative",
-        "description": "Launched eco-friendly production processes and sustainable materials for our premium glove lines."
+        "title": "Digital Transformation",
+        "description": "Hand Line embarks in its digitalisation of processes and marks the change with a brand re-design"
       },
       "2023": {
-        "title": "Digital Transformation",
-        "description": "Implemented Industry 4.0 manufacturing solutions and launched a comprehensive digital product catalogue."
+        "title": "Infrastructure Expansion",
+        "description": "We invest in a significant expansion of our HQ and Warehouse in northern Italy, driven by increased portfolio of customers and international footprint"
+      },
+      "2025": {
+        "title": "UK Market Entry",
+        "description": "Hand Line announces its expansion in the UK market with the launch of a subsidiary in London to further support the growing market in England, Wales and Ireland"
       }
     },
     "different": {
@@ -662,22 +754,84 @@
       "badge": "Quality Standards",
       "heading": "Our Certifications",
       "description": "Hand Line meets and exceeds the highest safety and quality standards in the industry, ensuring reliable protection for all users.",
-      "mainStatement": "Our production follows the highest quality standard with ISO certifications across the production and value chain.",
+      "mainStatement": "Our production follows the highest quality standards with ISO certification across production and value chain.",
       "types": {
-        "iso": {
-          "title": "ISO Certification",
-          "description": "Meeting international standards for quality management systems, ensuring consistent production excellence."
+        "quality": {
+          "title": "Quality",
+          "description": "Our production follows the highest quality standards with ISO certification."
         },
-        "ce": {
-          "title": "CE Marking",
-          "description": "Compliance with European health, safety, and environmental protection standards for all our products."
-        },
-        "en": {
-          "title": "EN Standards",
-          "description": "Adherence to specific European protective equipment norms, including EN 388 for mechanical risks and EN 407 for heat resistance."
+        "compliance": {
+          "title": "Compliance",
+          "description": "All our products are certified to guarantee protection and compliance."
         }
       },
-      "note": "Our certification documentation is available upon request. Product logos and certification marks will be updated soon."
+      "environmental": {
+        "title": "Environmental Commitment",
+        "description": "Our commitment to help our planet through sustainable practices and responsible manufacturing.",
+        "learnMore": "Learn about our ESG initiatives"
+      },
+      "note": "Our certification documentation is available upon request."
+    },
+    "esg": {
+      "hero": {
+        "badge": "ESG Commitment",
+        "title": "We protect the Hands that build our World.",
+        "titleAccent": "And our Planet.",
+        "description": "Our mission goes beyond providing world-class Personal Protective Equipment. We believe true protection includes a responsibility to the environment, to society, and to ethical governance. That's why we are actively aligning our operations with ESG (Environmental, Social, and Governance) principles."
+      },
+      "environmental": {
+        "badge": "Environmental",
+        "title": "Environmental Stewardship",
+        "description": "We are taking meaningful steps to reduce our environmental footprint:",
+        "points": {
+          "0": "Transitioning to sustainable materials and eco-friendly packaging.",
+          "1": "Reducing waste through lean manufacturing and recycling programmes.",
+          "2": "Minimising carbon emissions across our supply chain and logistics.",
+          "3": "Minimising shipping volumes and waste."
+        },
+        "closing": "While our ESG journey has just begun, sustainability is no longer optional—it's essential."
+      },
+      "social": {
+        "badge": "Social",
+        "title": "Social Responsibility",
+        "description": "Our commitment to people drives everything we do:",
+        "points": {
+          "0": "We prioritise worker safety and fair labour practices across our global supply chain.",
+          "1": "We are building strong relationships with our local communities through education, donations, and volunteer programmes.",
+          "2": "Internally, we foster a culture of diversity, equity, and inclusion, ensuring a safe and respectful workplace."
+        }
+      },
+      "governance": {
+        "badge": "Governance",
+        "title": "Transparent Governance",
+        "description": "Integrity guides our actions:",
+        "points": {
+          "0": "We're implementing clear, accountable policies that ensure ethical business practices.",
+          "1": "Our leadership is focused on long-term impact, not just short-term profit.",
+          "2": "We are increasing transparency by tracking and reporting ESG metrics across our operations."
+        }
+      },
+      "certification": {
+        "badge": "Our Journey",
+        "title": "Our Path to Certification",
+        "description": "We are in the initial phases of ESG certification preparation and working with recognised frameworks, we are:",
+        "points": {
+          "0": "Auditing current practices.",
+          "1": "Identifying key performance indicators.",
+          "2": "Building ESG reporting systems."
+        },
+        "closing": "This is a long-term journey, and we're committed to real, measurable progress—not just box-checking."
+      },
+      "cta": {
+        "badge": "Join Our Mission",
+        "title": "Let's Build a Safer, More Sustainable",
+        "titleAccent": "Future",
+        "description": "We invite our partners, customers, and community to join us in creating a more sustainable and ethical future in PPE. If you have questions about our ESG practices or want to collaborate, contact us here.",
+        "buttons": {
+          "contact": "Contact Us",
+          "learnMore": "Explore Our Products"
+        }
+      }
     }
   },
   "contact": {
@@ -1256,5 +1410,18 @@
         "lastUpdated": "Last updated: 1st May 2025"
       }
     }
+  },
+  "common": {
+    "and": "and"
+  },
+  "productCategories": {
+    "handProtection": "Hand protection",
+    "heatResistantGloves": "Heat resistant gloves", 
+    "cutResistantGloves": "Cut resistant gloves",
+    "generalPurposeGloves": "General purpose gloves",
+    "weldingGloves": "Welding gloves",
+    "mechanicalHazardsGloves": "Mechanical hazards gloves",
+    "industrialSwabs": "Industrial swabs",
+    "respiratoryProtection": "Respiratory protection"
   }
 } 

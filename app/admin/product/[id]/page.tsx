@@ -9,15 +9,18 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Badge } from "@/components/ui/badge";
 import { toast } from "@/components/ui/use-toast";
 import { getProductById, updateProduct, deleteProduct, uploadProductImage, Product } from "@/lib/products-service";
-import { ArrowLeft, Save, Trash, Upload, Info, X, Image as ImageIcon, Plus, Thermometer, Scissors, Factory, ExternalLink } from "lucide-react";
+import { ArrowLeft, Save, Trash, Upload, Info, X, Image as ImageIcon, Plus, Thermometer, Scissors, Factory, ExternalLink, Shield, Zap, Snowflake, Flame, Eye, Tag, FileText, Package } from "lucide-react";
 import Link from "next/link";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from "next/image";
 import { MiniProductCard } from "@/components/app/mini-product-card";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
 
 interface ProductEditPageProps {
   params: {
@@ -34,6 +37,10 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
   const router = useRouter();
   const { id } = params;
   
+  // Language management state
+  const [currentLanguage, setCurrentLanguage] = useState<'en' | 'it'>('en');
+  
+  // Legacy fields (kept for compatibility, but will be auto-populated from locales)
   const [name, setName] = useState("");
   const [shortDescription, setShortDescription] = useState("");
   const [description, setDescription] = useState("");
@@ -46,9 +53,69 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
   const [features, setFeatures] = useState<string[]>([]);
   const [applications, setApplications] = useState<string[]>([]);
   const [industries, setIndustries] = useState<string[]>([]);
+  
+  // Locale-aware state for multi-language fields
+  const [nameLocales, setNameLocales] = useState<{en: string, it: string}>({en: '', it: ''});
+  const [descriptionLocales, setDescriptionLocales] = useState<{en: string, it: string}>({en: '', it: ''});
+  const [shortDescriptionLocales, setShortDescriptionLocales] = useState<{en: string, it: string}>({en: '', it: ''});
+  const [categoryLocales, setCategoryLocales] = useState<{en: string, it: string}>({en: '', it: ''});
+  const [subCategoryLocales, setSubCategoryLocales] = useState<{en: string, it: string}>({en: '', it: ''});
+  const [featuresLocales, setFeaturesLocales] = useState<{en: string[], it: string[]}>({en: [], it: []});
+  const [applicationsLocales, setApplicationsLocales] = useState<{en: string[], it: string[]}>({en: [], it: []});
+  const [industriesLocales, setIndustriesLocales] = useState<{en: string[], it: string[]}>({en: [], it: []});
+  const [tagsLocales, setTagsLocales] = useState<{en: string[], it: string[]}>({en: [], it: []});
+  const [sizeLocales, setSizeLocales] = useState<{en: string, it: string}>({en: '', it: ''});
+  
+  // New fields from database schema
+  const [published, setPublished] = useState(false);
+  const [comingSoon, setComingSoon] = useState(false);
+  const [availabilityStatus, setAvailabilityStatus] = useState<'in_stock' | 'out_of_stock' | 'coming_soon' | 'made_to_order'>('in_stock');
+  const [brands, setBrands] = useState<string[]>([]);
+  const [lengthCm, setLengthCm] = useState<number | null>(null);
+  const [ceCategory, setCeCategory] = useState<string>('');
+  const [enStandard, setEnStandard] = useState<string>('');
+  const [orderPriority, setOrderPriority] = useState<number>(0);
+  
+  // Safety standards state
+  const [safety, setSafety] = useState<any>({
+    en_388: { enabled: false, abrasion: null, cut: null, tear: null, puncture: null, iso_13997: null, impact_en_13594: null },
+    en_407: { enabled: false, contact_heat: null, convective_heat: null, radiant_heat: null, limited_flame_spread: null, small_splashes_molten_metal: null, large_quantities_molten_metal: null },
+    en_421: false,
+    en_511: { enabled: false, contact_cold: null, convective_cold: null, water_permeability: null },
+    en_659: false,
+    en_12477: false,
+    en_16350: false,
+    en_374_1: { enabled: false, type: null, chemicals_tested: null },
+    en_374_5: false,
+    en_381_7: false,
+    en_60903: false,
+    en_1082_1: false,
+    food_grade: false,
+    en_iso_21420: true,
+    ionising_radiation: null,
+    radioactive_contamination: null
+  });
+  
+  // Environment pictograms state  
+  const [environmentPictograms, setEnvironmentPictograms] = useState<any>({
+    dry: false,
+    wet: false,
+    dust: false,
+    chemical: false,
+    biological: false,
+    oily_grease: false
+  });
+  
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  
+  // Temporary input fields for adding items
+  const [newFeature, setNewFeature] = useState("");
+  const [newApplication, setNewApplication] = useState("");
+  const [newIndustry, setNewIndustry] = useState("");
+  const [newTag, setNewTag] = useState("");
+  const [newBrand, setNewBrand] = useState("");
   
   // Image state
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -57,14 +124,21 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
   const [image4Url, setImage4Url] = useState<string | null>(null);
   const [image5Url, setImage5Url] = useState<string | null>(null);
   const [technicalSheetUrl, setTechnicalSheetUrl] = useState<string | null>(null);
+  const [technicalSheetUrlIt, setTechnicalSheetUrlIt] = useState<string | null>(null);
+  const [declarationSheetUrl, setDeclarationSheetUrl] = useState<string | null>(null);
+  const [declarationSheetUrlIt, setDeclarationSheetUrlIt] = useState<string | null>(null);
   const [coverImage, setCoverImage] = useState<ImageUploadState>({ file: null, previewUrl: null });
   const [additionalImage, setAdditionalImage] = useState<ImageUploadState>({ file: null, previewUrl: null });
-  const [newFeature, setNewFeature] = useState("");
-  const [newApplication, setNewApplication] = useState("");
-  const [newIndustry, setNewIndustry] = useState("");
   const coverInputRef = useRef<HTMLInputElement>(null);
   const additionalInputRef = useRef<HTMLInputElement>(null);
   const supabase = createClientComponentClient();
+  
+  // Document upload refs
+  const techSheetEnRef = useRef<HTMLInputElement>(null);
+  const techSheetItRef = useRef<HTMLInputElement>(null);
+  const declSheetEnRef = useRef<HTMLInputElement>(null);
+  const declSheetItRef = useRef<HTMLInputElement>(null);
+  const [isUploadingDocs, setIsUploadingDocs] = useState(false);
   
   // Related product state
   const [relatedProductId1, setRelatedProductId1] = useState<string | null>(null);
@@ -329,24 +403,261 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
     }
   };
 
+  // Upload document to Supabase storage
+  const uploadDocument = async (file: File, type: 'technical' | 'declaration', language: 'en' | 'it'): Promise<string | null> => {
+    if (!file) return null;
+    
+    try {
+      setIsUploadingDocs(true);
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${id}_${type}_${language}.${fileExt}`;
+      
+      const { data, error } = await supabase
+        .storage
+        .from('technical-sheets')
+        .upload(fileName, file, {
+          cacheControl: '3600',
+          upsert: true
+        });
+      
+      if (error) {
+        throw error;
+      }
+      
+      // Get public URL
+      const { data: urlData } = supabase
+        .storage
+        .from('technical-sheets')
+        .getPublicUrl(fileName);
+      
+      return urlData.publicUrl;
+    } catch (error) {
+      console.error("Error uploading document:", error);
+      toast({
+        title: "Upload Error",
+        description: "Failed to upload document",
+        variant: "destructive"
+      });
+      return null;
+    } finally {
+      setIsUploadingDocs(false);
+    }
+  };
+  
+  // Handle document uploads
+  const handleDocumentUpload = async (e: React.ChangeEvent<HTMLInputElement>, type: 'technical' | 'declaration', language: 'en' | 'it') => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    // Check file type
+    if (file.type !== 'application/pdf') {
+      toast({
+        title: "Invalid file type",
+        description: "Please select a PDF file",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    // Check file size (limit to 10MB)
+    if (file.size > 10 * 1024 * 1024) {
+      toast({
+        title: "File too large",
+        description: "PDF must be less than 10MB",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    try {
+      const newDocUrl = await uploadDocument(file, type, language);
+      
+      if (newDocUrl) {
+        // Update the appropriate state and database
+        const updates: Record<string, any> = {};
+        
+        if (type === 'technical' && language === 'en') {
+          setTechnicalSheetUrl(newDocUrl);
+          updates.technical_sheet_url = newDocUrl;
+        } else if (type === 'technical' && language === 'it') {
+          setTechnicalSheetUrlIt(newDocUrl);
+          updates.technical_sheet_url_it = newDocUrl;
+        } else if (type === 'declaration' && language === 'en') {
+          setDeclarationSheetUrl(newDocUrl);
+          updates.declaration_sheet_url = newDocUrl;
+        } else if (type === 'declaration' && language === 'it') {
+          setDeclarationSheetUrlIt(newDocUrl);
+          updates.declaration_sheet_url_it = newDocUrl;
+        }
+        
+        await updateProduct(id, updates);
+        
+        toast({
+          title: "Success",
+          description: "Document uploaded successfully!"
+        });
+      }
+    } catch (error) {
+      console.error("Error uploading document:", error);
+      toast({
+        title: "Error",
+        description: "Failed to upload document.",
+        variant: "destructive"
+      });
+    }
+  };
+  
+  // Remove document
+  const removeDocument = async (type: 'technical' | 'declaration', language: 'en' | 'it') => {
+    try {
+      const updates: Record<string, any> = {};
+      
+      if (type === 'technical' && language === 'en') {
+        setTechnicalSheetUrl(null);
+        updates.technical_sheet_url = null;
+      } else if (type === 'technical' && language === 'it') {
+        setTechnicalSheetUrlIt(null);
+        updates.technical_sheet_url_it = null;
+      } else if (type === 'declaration' && language === 'en') {
+        setDeclarationSheetUrl(null);
+        updates.declaration_sheet_url = null;
+      } else if (type === 'declaration' && language === 'it') {
+        setDeclarationSheetUrlIt(null);
+        updates.declaration_sheet_url_it = null;
+      }
+      
+      await updateProduct(id, updates);
+      
+      toast({
+        title: "Success",
+        description: "Document removed successfully"
+      });
+    } catch (error) {
+      console.error("Error removing document:", error);
+      toast({
+        title: "Error",
+        description: "Failed to remove document.",
+        variant: "destructive"
+      });
+    }
+  };
+  
   // Load product data
   useEffect(() => {
     async function loadProduct() {
       try {
         const { product } = await getProductById(id);
         if (product) {
+          // Set locale-aware fields from JSON locales
+          setNameLocales({ 
+            en: product.name_locales?.en || product.name || '', 
+            it: product.name_locales?.it || '' 
+          });
+          setDescriptionLocales({ 
+            en: product.description_locales?.en || product.description || '', 
+            it: product.description_locales?.it || '' 
+          });
+          setShortDescriptionLocales({ 
+            en: product.short_description_locales?.en || product.short_description || '', 
+            it: product.short_description_locales?.it || '' 
+          });
+          setCategoryLocales({ 
+            en: product.category_locales?.en || product.category || '', 
+            it: product.category_locales?.it || '' 
+          });
+          setSubCategoryLocales({ 
+            en: product.sub_category_locales?.en || product.sub_category || '', 
+            it: product.sub_category_locales?.it || '' 
+          });
+          setFeaturesLocales({ 
+            en: product.features_locales?.en || product.features || [], 
+            it: product.features_locales?.it || [] 
+          });
+          setApplicationsLocales({ 
+            en: product.applications_locales?.en || product.applications || [], 
+            it: product.applications_locales?.it || [] 
+          });
+          setIndustriesLocales({ 
+            en: product.industries_locales?.en || product.industries || [], 
+            it: product.industries_locales?.it || [] 
+          });
+          setTagsLocales({ 
+            en: product.tags_locales?.en || [], 
+            it: product.tags_locales?.it || [] 
+          });
+          setSizeLocales({ 
+            en: product.size_locales?.en || '', 
+            it: product.size_locales?.it || '' 
+          });
+
+          // Set legacy fields for backwards compatibility
           setName(product.name);
           setDescription(product.description);
           setShortDescription(product.short_description || "");
           setCategory(product.category || "");
           setSubCategory(product.sub_category || "");
+          setFeatures(product.features || []);
+          setApplications(product.applications || []);
+          setIndustries(product.industries || []);
+          
           setTemperatureRating(product.temperature_rating ?? null);
           setCutResistanceLevel(product.cut_resistance_level || "");
           setIsFeatured(product.is_featured);
           setIsOutOfStock(product.out_of_stock || false);
-          setFeatures(product.features || []);
-          setApplications(product.applications || []);
-          setIndustries(product.industries || []);
+          
+          // Set new fields
+          setPublished(product.published || false);
+          setComingSoon(product.coming_soon || false);
+          setAvailabilityStatus(product.availability_status || 'in_stock');
+          setBrands(product.brands || []);
+          setLengthCm(product.length_cm ?? null);
+          setCeCategory(product.ce_category || '');
+          setEnStandard(product.en_standard || '');
+          setOrderPriority(product.order_priority || 0);
+
+          // Set safety standards
+          const defaultSafety = {
+            en_388: { enabled: false, abrasion: null, cut: null, tear: null, puncture: null, iso_13997: null, impact_en_13594: null },
+            en_407: { enabled: false, contact_heat: null, convective_heat: null, radiant_heat: null, limited_flame_spread: null, small_splashes_molten_metal: null, large_quantities_molten_metal: null },
+            en_421: false,
+            en_511: { enabled: false, contact_cold: null, convective_cold: null, water_permeability: null },
+            en_659: false,
+            en_12477: false,
+            en_16350: false,
+            en_374_1: { enabled: false, type: null, chemicals_tested: null },
+            en_374_5: false,
+            en_381_7: false,
+            en_60903: false,
+            en_1082_1: false,
+            food_grade: false,
+            en_iso_21420: true,
+            ionising_radiation: null,
+            radioactive_contamination: null
+          };
+
+          setSafety({
+            ...defaultSafety,
+            ...product.safety,
+            en_388: { ...defaultSafety.en_388, ...product.safety?.en_388 },
+            en_407: { ...defaultSafety.en_407, ...product.safety?.en_407 },
+            en_511: { ...defaultSafety.en_511, ...product.safety?.en_511 },
+            en_374_1: { ...defaultSafety.en_374_1, ...product.safety?.en_374_1 }
+          });
+
+          // Set environment pictograms
+          const defaultEnvironment = {
+            dry: false,
+            wet: false,
+            dust: false,
+            chemical: false,
+            biological: false,
+            oily_grease: false
+          };
+          
+          setEnvironmentPictograms({
+            ...defaultEnvironment,
+            ...product.environment_pictograms
+          });
           
           // Set image URLs if they exist
           if (product.image_url) {
@@ -371,6 +682,18 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
           
           if (product.technical_sheet_url) {
             setTechnicalSheetUrl(product.technical_sheet_url);
+          }
+          
+          if (product.technical_sheet_url_it) {
+            setTechnicalSheetUrlIt(product.technical_sheet_url_it);
+          }
+
+          if (product.declaration_sheet_url) {
+            setDeclarationSheetUrl(product.declaration_sheet_url);
+          }
+
+          if (product.declaration_sheet_url_it) {
+            setDeclarationSheetUrlIt(product.declaration_sheet_url_it);
           }
           
           // Set related product IDs
@@ -421,7 +744,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
     
     loadProduct();
     loadAvailableProducts();
-  }, [id, router]);
+  }, [id, router, currentLanguage]);
   
   // Remove a related product
   const removeRelatedProduct = async (productId: string) => {
@@ -551,10 +874,11 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!name || !description) {
+    // Check required fields
+    if (!nameLocales.en || !descriptionLocales.en) {
       toast({
         title: "Validation Error",
-        description: "Please fill in all required fields.",
+        description: "Please fill in Product Name and Description in English (required fields).",
         variant: "destructive"
       });
       return;
@@ -570,28 +894,61 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
       }
       
       const productData = {
-        name,
-        description,
-        short_description: shortDescription,
-        category,
-        sub_category: subCategory,
+        // Legacy fields (auto-populated from current language)
+        name: nameLocales.en, // Always use English for legacy name field
+        description: descriptionLocales.en, // Always use English for legacy description field
+        short_description: shortDescriptionLocales.en || shortDescriptionLocales.it || '',
+        category: categoryLocales.en || categoryLocales.it || '',
+        sub_category: subCategoryLocales.en || subCategoryLocales.it || '',
+        features: featuresLocales.en.length > 0 ? featuresLocales.en : featuresLocales.it,
+        applications: applicationsLocales.en.length > 0 ? applicationsLocales.en : applicationsLocales.it,
+        industries: industriesLocales.en.length > 0 ? industriesLocales.en : industriesLocales.it,
+        
+        // JSON locale fields - only include if they have content
+        name_locales: (nameLocales.en || nameLocales.it) ? nameLocales : undefined,
+        description_locales: (descriptionLocales.en || descriptionLocales.it) ? descriptionLocales : undefined,
+        short_description_locales: (shortDescriptionLocales.en || shortDescriptionLocales.it) ? shortDescriptionLocales : undefined,
+        category_locales: (categoryLocales.en || categoryLocales.it) ? categoryLocales : undefined,
+        sub_category_locales: (subCategoryLocales.en || subCategoryLocales.it) ? subCategoryLocales : undefined,
+        features_locales: (featuresLocales.en.length > 0 || featuresLocales.it.length > 0) ? featuresLocales : undefined,
+        applications_locales: (applicationsLocales.en.length > 0 || applicationsLocales.it.length > 0) ? applicationsLocales : undefined,
+        industries_locales: (industriesLocales.en.length > 0 || industriesLocales.it.length > 0) ? industriesLocales : undefined,
+        tags_locales: (tagsLocales.en.length > 0 || tagsLocales.it.length > 0) ? tagsLocales : {},
+        size_locales: (sizeLocales.en || sizeLocales.it) ? sizeLocales : undefined,
+        
+        // Other fields
         temperature_rating: temperatureRating,
         cut_resistance_level: cutResistanceLevel,
         is_featured: isFeatured,
         out_of_stock: isOutOfStock,
-        features,
-        applications,
-        industries,
+        published: published,
+        coming_soon: comingSoon,
+        availability_status: availabilityStatus,
+        brands: brands,
+        length_cm: lengthCm,
+        ce_category: ceCategory || undefined,
+        en_standard: (enStandard === "EN388" || enStandard === "EN407") ? enStandard as "EN388" | "EN407" : undefined,
+        order_priority: orderPriority,
+        safety: safety,
+        environment_pictograms: environmentPictograms,
+        
+        // Image fields
         image_url: newImageUrl,
         image2_url: image2Url,
         image3_url: image3Url,
         image4_url: image4Url,
         image5_url: image5Url,
         technical_sheet_url: technicalSheetUrl,
+        technical_sheet_url_it: technicalSheetUrlIt,
+        declaration_sheet_url: declarationSheetUrl,
+        declaration_sheet_url_it: declarationSheetUrlIt,
+        
+        // Related products
         related_product_id_1: relatedProductId1,
         related_product_id_2: relatedProductId2,
         related_product_id_3: relatedProductId3,
         related_product_id_4: relatedProductId4,
+        
         updated_at: new Date().toISOString()
       };
       
@@ -655,13 +1012,15 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
   };
   
   const categories = [
-    { value: "Heat Resistant Gloves", label: "Heat Resistant Gloves" },
-    { value: "Cut Resistant Gloves", label: "Cut Resistant Gloves" },
-    { value: "Welding Gloves", label: "Welding Gloves" },
-    { value: "Chemical Resistant Gloves", label: "Chemical Resistant Gloves" },
-    { value: "General Purpose Gloves", label: "General Purpose Gloves" },
-    { value: "Industrial Swabs", label: "Industrial Swabs" },
-    { value: "Respiratory Protection", label: "Respiratory Protection" }
+    { value: "Hand protection", label: "Hand Protection" }
+  ];
+  
+  const subcategories = [
+    { value: "Cut resistant gloves", label: "Cut Resistant Gloves" },
+    { value: "Gloves for general use", label: "Gloves for General Use" },
+    { value: "Heat resistant gloves", label: "Heat Resistant Gloves" },
+    { value: "Mechanical hazards gloves", label: "Mechanical Hazards Gloves" },
+    { value: "Welding glove", label: "Welding Glove" }
   ];
   
   if (isLoading) {
@@ -690,23 +1049,36 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
         </Button>
       </div>
       
-      <Tabs defaultValue="details">
+      <Tabs defaultValue="information">
         <TabsList className="flex overflow-x-auto whitespace-nowrap flex-nowrap scrollbar-hide px-1 sm:px-0">
-          <TabsTrigger value="details">Product Details</TabsTrigger>
-          <TabsTrigger value="features">Features & Applications</TabsTrigger>
+          <TabsTrigger value="information">Product Information</TabsTrigger>
+          <TabsTrigger value="content">Features & Content</TabsTrigger>
+          <TabsTrigger value="safety">Safety & Standards</TabsTrigger>
           <TabsTrigger value="images">Images</TabsTrigger>
+          <TabsTrigger value="documents">Documents</TabsTrigger>
           <TabsTrigger value="related">Related Products</TabsTrigger>
         </TabsList>
         
-        <TabsContent value="details" className="space-y-4 mt-4">
+        {/* Tab 1: Product Information */}
+        <TabsContent value="information" className="space-y-4 mt-4">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold">Product Information</h2>
+            <LanguageSwitcher 
+              currentLanguage={currentLanguage} 
+              onLanguageChange={setCurrentLanguage}
+            />
+          </div>
+          
           <form onSubmit={handleSubmit}>
             <div className="grid gap-6 md:grid-cols-6">
               {/* Main content area - 4 columns */}
               <div className="md:col-span-4 space-y-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-lg sm:text-xl">Product Information</CardTitle>
-                    <CardDescription className="text-xs sm:text-sm">Edit your product details here.</CardDescription>
+                    <CardTitle className="text-lg sm:text-xl">Basic Information</CardTitle>
+                    <CardDescription className="text-xs sm:text-sm">
+                      Enter product details in {currentLanguage === 'en' ? 'English' : 'Italian'}
+                    </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3 sm:space-y-4">
@@ -715,8 +1087,8 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                         <Input
                           id="name"
                           placeholder="Enter product name"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
+                          value={nameLocales[currentLanguage]}
+                          onChange={(e) => setNameLocales({ ...nameLocales, [currentLanguage]: e.target.value })}
                           required
                           className="text-xs sm:text-sm h-8 sm:h-10"
                         />
@@ -726,8 +1098,8 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                         <Input
                           id="shortDescription"
                           placeholder="Brief product description"
-                          value={shortDescription}
-                          onChange={(e) => setShortDescription(e.target.value)}
+                          value={shortDescriptionLocales[currentLanguage]}
+                          onChange={(e) => setShortDescriptionLocales({ ...shortDescriptionLocales, [currentLanguage]: e.target.value })}
                           className="text-xs sm:text-sm h-8 sm:h-10"
                         />
                       </div>
@@ -736,8 +1108,8 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                         <Textarea
                           id="description"
                           placeholder="Enter a detailed description of your product"
-                          value={description}
-                          onChange={(e) => setDescription(e.target.value)}
+                          value={descriptionLocales[currentLanguage]}
+                          onChange={(e) => setDescriptionLocales({ ...descriptionLocales, [currentLanguage]: e.target.value })}
                           rows={4}
                           required
                           className="text-xs sm:text-sm"
@@ -745,26 +1117,92 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                       </div>
                       <div className="grid gap-3 sm:gap-4 sm:grid-cols-2">
                         <div className="space-y-1 sm:space-y-2">
-                          <Label htmlFor="temperature" className="text-xs sm:text-sm">Temperature Rating (°C)</Label>
-                          <Input
-                            id="temperature"
-                            type="number"
-                            placeholder="e.g. 500"
-                            value={temperatureRating === null ? "" : temperatureRating}
-                            onChange={(e) => setTemperatureRating(e.target.value === "" ? null : Number(e.target.value))}
-                            className="text-xs sm:text-sm h-8 sm:h-10"
-                          />
+                          <Label htmlFor="category">Category</Label>
+                          <Select value={categoryLocales[currentLanguage]} onValueChange={(value) => setCategoryLocales({ ...categoryLocales, [currentLanguage]: value })}>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select a category" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {categories.map((cat) => (
+                                <SelectItem key={cat.value} value={cat.value}>
+                                  {cat.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
                         </div>
                         <div className="space-y-1 sm:space-y-2">
-                          <Label htmlFor="cutResistance" className="text-xs sm:text-sm">Cut Resistance Level</Label>
-                          <Input
-                            id="cutResistance"
-                            placeholder="e.g. Level 5"
-                            value={cutResistanceLevel}
-                            onChange={(e) => setCutResistanceLevel(e.target.value)}
-                            className="text-xs sm:text-sm h-8 sm:h-10"
-                          />
+                          <Label htmlFor="subCategory">Sub-Category</Label>
+                          <Select value={subCategoryLocales[currentLanguage]} onValueChange={(value) => setSubCategoryLocales({ ...subCategoryLocales, [currentLanguage]: value })}>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select a sub-category" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {subcategories.map((subcat) => (
+                                <SelectItem key={subcat.value} value={subcat.value}>
+                                  {subcat.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
                         </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg sm:text-xl">Technical Specifications</CardTitle>
+                    <CardDescription className="text-xs sm:text-sm">Configure technical specifications and standards.</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid gap-3 sm:gap-4 sm:grid-cols-2">
+                      <div className="space-y-1 sm:space-y-2">
+                        <Label htmlFor="temperature" className="text-xs sm:text-sm">Temperature Rating (°C)</Label>
+                        <Input
+                          id="temperature"
+                          type="number"
+                          placeholder="e.g. 500"
+                          value={temperatureRating === null ? "" : temperatureRating}
+                          onChange={(e) => setTemperatureRating(e.target.value === "" ? null : Number(e.target.value))}
+                          className="text-xs sm:text-sm h-8 sm:h-10"
+                        />
+                      </div>
+                      <div className="space-y-1 sm:space-y-2">
+                        <Label htmlFor="cutResistance" className="text-xs sm:text-sm">Cut Resistance Level</Label>
+                        <Input
+                          id="cutResistance"
+                          placeholder="e.g. Level 5"
+                          value={cutResistanceLevel}
+                          onChange={(e) => setCutResistanceLevel(e.target.value)}
+                          className="text-xs sm:text-sm h-8 sm:h-10"
+                        />
+                      </div>
+                      <div className="space-y-1 sm:space-y-2">
+                        <Label htmlFor="ceCategory" className="text-xs sm:text-sm">CE Category</Label>
+                        <Select value={ceCategory} onValueChange={setCeCategory}>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select CE category" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="I">Category I</SelectItem>
+                            <SelectItem value="II">Category II</SelectItem>
+                            <SelectItem value="III">Category III</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="space-y-1 sm:space-y-2">
+                        <Label htmlFor="enStandard" className="text-xs sm:text-sm">EN Standard</Label>
+                        <Select value={enStandard} onValueChange={setEnStandard}>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select EN standard" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="EN388">EN388</SelectItem>
+                            <SelectItem value="EN407">EN407</SelectItem>
+                          </SelectContent>
+                        </Select>
                       </div>
                     </div>
                   </CardContent>
@@ -775,34 +1213,51 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
               <div className="md:col-span-2 space-y-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Product Settings</CardTitle>
+                    <CardTitle>Product Status</CardTitle>
                     <CardDescription>Configure how your product appears.</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-6">
+                      <div className="flex items-center justify-between">
+                        <div className="space-y-0.5">
+                          <Label htmlFor="published">Published</Label>
+                          <p className="text-xs text-muted-foreground">
+                            Make this product visible on the website.
+                          </p>
+                        </div>
+                        <Switch
+                          id="published"
+                          checked={published}
+                          onCheckedChange={setPublished}
+                        />
+                      </div>
+                      
                       <div className="space-y-2">
-                        <Label htmlFor="category">Category</Label>
-                        <Select value={category} onValueChange={setCategory}>
+                        <Label htmlFor="availabilityStatus">Availability Status</Label>
+                        <Select value={availabilityStatus} onValueChange={(value: any) => setAvailabilityStatus(value)}>
                           <SelectTrigger>
-                            <SelectValue placeholder="Select a category" />
+                            <SelectValue placeholder="Select availability" />
                           </SelectTrigger>
                           <SelectContent>
-                            {categories.map((cat) => (
-                              <SelectItem key={cat.value} value={cat.value}>
-                                {cat.label}
-                              </SelectItem>
-                            ))}
+                            <SelectItem value="in_stock">In Stock</SelectItem>
+                            <SelectItem value="out_of_stock">Out of Stock</SelectItem>
+                            <SelectItem value="coming_soon">Coming Soon</SelectItem>
+                            <SelectItem value="made_to_order">Made to Order</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
                       
-                      <div className="space-y-2">
-                        <Label htmlFor="subCategory">Sub-Category</Label>
-                        <Input
-                          id="subCategory"
-                          placeholder="Optional sub-category"
-                          value={subCategory}
-                          onChange={(e) => setSubCategory(e.target.value)}
+                      <div className="flex items-center justify-between">
+                        <div className="space-y-0.5">
+                          <Label htmlFor="comingSoon">Coming Soon</Label>
+                          <p className="text-xs text-muted-foreground">
+                            Mark this product as coming soon.
+                          </p>
+                        </div>
+                        <Switch
+                          id="comingSoon"
+                          checked={comingSoon}
+                          onCheckedChange={setComingSoon}
                         />
                       </div>
                       
@@ -820,79 +1275,19 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                         />
                       </div>
                       
-                      <div className="flex items-center justify-between">
-                        <div className="space-y-0.5">
-                          <Label htmlFor="outOfStock">Out of Stock</Label>
-                          <p className="text-xs text-muted-foreground">
-                            Mark this product as out of stock.
-                          </p>
-                        </div>
-                        <Switch
-                          id="outOfStock"
-                          checked={isOutOfStock}
-                          onCheckedChange={setIsOutOfStock}
-                        />
-                      </div>
-                      
                       <div className="space-y-2">
-                        <Label htmlFor="cover">Product Image</Label>
-                        <input
-                          ref={coverInputRef}
-                          type="file"
-                          id="cover"
-                          accept="image/*"
-                          className="hidden"
-                          onChange={handleCoverImageChange}
+                        <Label htmlFor="orderPriority">Order Priority</Label>
+                        <Input
+                          id="orderPriority"
+                          type="number"
+                          placeholder="0"
+                          value={orderPriority}
+                          onChange={(e) => setOrderPriority(Number(e.target.value))}
+                          className="text-xs sm:text-sm h-8 sm:h-10"
                         />
-                        
-                        {coverImage.previewUrl ? (
-                          <div className="relative rounded-md overflow-hidden border">
-                            <img 
-                              src={coverImage.previewUrl} 
-                              alt="Cover preview" 
-                              className="w-full h-48 object-contain"
-                            />
-                            <Button
-                              type="button"
-                              variant="destructive"
-                              size="icon"
-                              className="absolute top-2 right-2"
-                              onClick={removeCoverImage}
-                            >
-                              <X className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        ) : imageUrl ? (
-                          <div className="relative rounded-md overflow-hidden border">
-                            <img 
-                              src={imageUrl} 
-                              alt="Product image" 
-                              className="w-full h-48 object-contain"
-                            />
-                            <Button
-                              type="button"
-                              variant="destructive"
-                              size="icon"
-                              className="absolute top-2 right-2"
-                              onClick={removeCoverImageUrl}
-                            >
-                              <X className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        ) : (
-                          <div 
-                            className="border-2 border-dashed rounded-md p-6 text-center cursor-pointer hover:bg-muted/50 transition-colors"
-                            onClick={() => coverInputRef.current?.click()}
-                          >
-                            <ImageIcon className="mx-auto h-8 w-8 text-muted-foreground" />
-                            <p className="mt-2 text-sm text-muted-foreground">
-                              Click to upload a product image
-                            </p>
-                            <p className="text-xs text-muted-foreground">
-                              PNG, JPG, GIF up to 5MB
-                            </p>
-                          </div>
-                        )}
+                        <p className="text-xs text-muted-foreground">
+                          Lower numbers appear first in listings.
+                        </p>
                       </div>
                     </div>
                   </CardContent>
@@ -920,12 +1315,22 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
           </form>
         </TabsContent>
         
-        <TabsContent value="features" className="mt-4">
+        <TabsContent value="content" className="mt-4">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold">Features & Content</h2>
+            <LanguageSwitcher 
+              currentLanguage={currentLanguage} 
+              onLanguageChange={setCurrentLanguage}
+            />
+          </div>
+          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
                 <CardTitle>Features</CardTitle>
-                <CardDescription>Add key features of this product.</CardDescription>
+                <CardDescription>
+                  Add key features of this product in {currentLanguage === 'en' ? 'English' : 'Italian'}.
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -934,31 +1339,56 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                       placeholder="Add a feature"
                       value={newFeature}
                       onChange={(e) => setNewFeature(e.target.value)}
-                      onKeyDown={(e) => e.key === 'Enter' && addFeature()}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          if (newFeature.trim()) {
+                            setFeaturesLocales({
+                              ...featuresLocales,
+                              [currentLanguage]: [...featuresLocales[currentLanguage], newFeature.trim()]
+                            });
+                            setNewFeature("");
+                          }
+                        }
+                      }}
                     />
                     <Button 
                       type="button" 
                       size="sm" 
-                      onClick={addFeature}
+                      onClick={() => {
+                        if (newFeature.trim()) {
+                          setFeaturesLocales({
+                            ...featuresLocales,
+                            [currentLanguage]: [...featuresLocales[currentLanguage], newFeature.trim()]
+                          });
+                          setNewFeature("");
+                        }
+                      }}
                     >
                       <Plus className="h-4 w-4" />
                     </Button>
                   </div>
                   
-                  {features.length === 0 ? (
+                  {featuresLocales[currentLanguage].length === 0 ? (
                     <p className="text-sm text-muted-foreground py-4 text-center">
                       No features added yet. Add some to highlight your product's capabilities.
                     </p>
                   ) : (
                     <div className="space-y-2">
-                      {features.map((feature, index) => (
+                      {featuresLocales[currentLanguage].map((feature, index) => (
                         <div key={index} className="flex items-center justify-between py-2 px-3 border rounded-md">
                           <span className="text-sm">{feature}</span>
                           <Button 
                             variant="ghost" 
                             size="sm" 
                             className="h-8 w-8 p-0"
-                            onClick={() => removeFeature(index)}
+                            onClick={() => {
+                              const newFeatures = featuresLocales[currentLanguage].filter((_, i) => i !== index);
+                              setFeaturesLocales({
+                                ...featuresLocales,
+                                [currentLanguage]: newFeatures
+                              });
+                            }}
                           >
                             <X className="h-4 w-4" />
                           </Button>
@@ -973,7 +1403,9 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
             <Card>
               <CardHeader>
                 <CardTitle>Applications</CardTitle>
-                <CardDescription>Add recommended applications for this product.</CardDescription>
+                <CardDescription>
+                  Add recommended applications for this product in {currentLanguage === 'en' ? 'English' : 'Italian'}.
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -982,31 +1414,56 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                       placeholder="Add an application"
                       value={newApplication}
                       onChange={(e) => setNewApplication(e.target.value)}
-                      onKeyDown={(e) => e.key === 'Enter' && addApplication()}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          if (newApplication.trim()) {
+                            setApplicationsLocales({
+                              ...applicationsLocales,
+                              [currentLanguage]: [...applicationsLocales[currentLanguage], newApplication.trim()]
+                            });
+                            setNewApplication("");
+                          }
+                        }
+                      }}
                     />
                     <Button 
                       type="button" 
                       size="sm" 
-                      onClick={addApplication}
+                      onClick={() => {
+                        if (newApplication.trim()) {
+                          setApplicationsLocales({
+                            ...applicationsLocales,
+                            [currentLanguage]: [...applicationsLocales[currentLanguage], newApplication.trim()]
+                          });
+                          setNewApplication("");
+                        }
+                      }}
                     >
                       <Plus className="h-4 w-4" />
                     </Button>
                   </div>
                   
-                  {applications.length === 0 ? (
+                  {applicationsLocales[currentLanguage].length === 0 ? (
                     <p className="text-sm text-muted-foreground py-4 text-center">
                       No applications added yet. Add some to guide customers on proper product usage.
                     </p>
                   ) : (
                     <div className="space-y-2">
-                      {applications.map((application, index) => (
+                      {applicationsLocales[currentLanguage].map((application, index) => (
                         <div key={index} className="flex items-center justify-between py-2 px-3 border rounded-md">
                           <span className="text-sm">{application}</span>
                           <Button 
                             variant="ghost" 
                             size="sm" 
                             className="h-8 w-8 p-0"
-                            onClick={() => removeApplication(index)}
+                            onClick={() => {
+                              const newApplications = applicationsLocales[currentLanguage].filter((_, i) => i !== index);
+                              setApplicationsLocales({
+                                ...applicationsLocales,
+                                [currentLanguage]: newApplications
+                              });
+                            }}
                           >
                             <X className="h-4 w-4" />
                           </Button>
@@ -1018,10 +1475,12 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
               </CardContent>
             </Card>
             
-            <Card className="md:col-span-2">
+            <Card>
               <CardHeader>
                 <CardTitle>Industries</CardTitle>
-                <CardDescription>Add industries where this product is applicable.</CardDescription>
+                <CardDescription>
+                  Add industries where this product is applicable in {currentLanguage === 'en' ? 'English' : 'Italian'}.
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -1030,24 +1489,43 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                       placeholder="Add an industry"
                       value={newIndustry}
                       onChange={(e) => setNewIndustry(e.target.value)}
-                      onKeyDown={(e) => e.key === 'Enter' && addIndustry()}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          if (newIndustry.trim()) {
+                            setIndustriesLocales({
+                              ...industriesLocales,
+                              [currentLanguage]: [...industriesLocales[currentLanguage], newIndustry.trim()]
+                            });
+                            setNewIndustry("");
+                          }
+                        }
+                      }}
                     />
                     <Button 
                       type="button" 
                       size="sm" 
-                      onClick={addIndustry}
+                      onClick={() => {
+                        if (newIndustry.trim()) {
+                          setIndustriesLocales({
+                            ...industriesLocales,
+                            [currentLanguage]: [...industriesLocales[currentLanguage], newIndustry.trim()]
+                          });
+                          setNewIndustry("");
+                        }
+                      }}
                     >
                       <Plus className="h-4 w-4" />
                     </Button>
                   </div>
                   
-                  {industries.length === 0 ? (
+                  {industriesLocales[currentLanguage].length === 0 ? (
                     <p className="text-sm text-muted-foreground py-4 text-center">
                       No industries added yet. Add some to help customers identify relevant products.
                     </p>
                   ) : (
                     <div className="flex flex-wrap gap-2 py-2">
-                      {industries.map((industry, index) => (
+                      {industriesLocales[currentLanguage].map((industry, index) => (
                         <div key={index} className="flex items-center border rounded-full px-3 py-1">
                           <Factory className="h-3 w-3 mr-1" />
                           <span className="text-sm">{industry}</span>
@@ -1055,7 +1533,13 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                             variant="ghost" 
                             size="sm" 
                             className="h-5 w-5 p-0 ml-1"
-                            onClick={() => removeIndustry(index)}
+                            onClick={() => {
+                              const newIndustries = industriesLocales[currentLanguage].filter((_, i) => i !== index);
+                              setIndustriesLocales({
+                                ...industriesLocales,
+                                [currentLanguage]: newIndustries
+                              });
+                            }}
                           >
                             <X className="h-3 w-3" />
                           </Button>
@@ -1063,6 +1547,167 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                       ))}
                     </div>
                   )}
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Tags & Metadata</CardTitle>
+                <CardDescription>
+                  Add search tags and product metadata in {currentLanguage === 'en' ? 'English' : 'Italian'}.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="tags">Tags</Label>
+                    <div className="flex gap-2 mt-2">
+                      <Input 
+                        placeholder="Add a tag"
+                        value={newTag}
+                        onChange={(e) => setNewTag(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault();
+                            if (newTag.trim()) {
+                              setTagsLocales({
+                                ...tagsLocales,
+                                [currentLanguage]: [...tagsLocales[currentLanguage], newTag.trim()]
+                              });
+                              setNewTag("");
+                            }
+                          }
+                        }}
+                      />
+                      <Button 
+                        type="button" 
+                        size="sm" 
+                        onClick={() => {
+                          if (newTag.trim()) {
+                            setTagsLocales({
+                              ...tagsLocales,
+                              [currentLanguage]: [...tagsLocales[currentLanguage], newTag.trim()]
+                            });
+                            setNewTag("");
+                          }
+                        }}
+                      >
+                        <Plus className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    
+                    {tagsLocales[currentLanguage].length > 0 && (
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {tagsLocales[currentLanguage].map((tag, index) => (
+                          <Badge key={index} variant="secondary" className="flex items-center gap-1">
+                            <Tag className="h-3 w-3" />
+                            {tag}
+                            <Button 
+                              variant="ghost" 
+                              size="sm" 
+                              className="h-4 w-4 p-0 ml-1"
+                              onClick={() => {
+                                const newTags = tagsLocales[currentLanguage].filter((_, i) => i !== index);
+                                setTagsLocales({
+                                  ...tagsLocales,
+                                  [currentLanguage]: newTags
+                                });
+                              }}
+                            >
+                              <X className="h-3 w-3" />
+                            </Button>
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="size">Size Information</Label>
+                    <Input
+                      id="size"
+                      placeholder="e.g., One size, 7-11, etc."
+                      value={sizeLocales[currentLanguage]}
+                      onChange={(e) => setSizeLocales({ ...sizeLocales, [currentLanguage]: e.target.value })}
+                      className="mt-2"
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Product Specifications</CardTitle>
+                <CardDescription>Physical characteristics and brand information.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="brands">Brands</Label>
+                    <div className="flex gap-2 mt-2">
+                      <Input 
+                        placeholder="Add a brand"
+                        value={newBrand}
+                        onChange={(e) => setNewBrand(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault();
+                            if (newBrand.trim() && !brands.includes(newBrand.trim())) {
+                              setBrands([...brands, newBrand.trim()]);
+                              setNewBrand("");
+                            }
+                          }
+                        }}
+                      />
+                      <Button 
+                        type="button" 
+                        size="sm" 
+                        onClick={() => {
+                          if (newBrand.trim() && !brands.includes(newBrand.trim())) {
+                            setBrands([...brands, newBrand.trim()]);
+                            setNewBrand("");
+                          }
+                        }}
+                      >
+                        <Plus className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    
+                    {brands.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {brands.map((brand, index) => (
+                          <Badge key={index} variant="outline" className="flex items-center gap-1">
+                            <Shield className="h-3 w-3" />
+                            {brand}
+                            <Button 
+                              variant="ghost" 
+                              size="sm" 
+                              className="h-4 w-4 p-0 ml-1"
+                              onClick={() => {
+                                setBrands(brands.filter((_, i) => i !== index));
+                              }}
+                            >
+                              <X className="h-3 w-3" />
+                            </Button>
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="lengthCm">Length (cm)</Label>
+                    <Input
+                      id="lengthCm"
+                      type="number"
+                      placeholder="e.g., 27"
+                      value={lengthCm === null ? "" : lengthCm}
+                      onChange={(e) => setLengthCm(e.target.value === "" ? null : Number(e.target.value))}
+                      className="mt-2"
+                    />
+                  </div>
                 </div>
               </CardContent>
               <CardFooter>
@@ -1079,13 +1724,362 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                   ) : (
                     <>
                       <Save className="mr-2 h-4 w-4" />
-                      Save All Changes
+                      Save Changes
                     </>
                   )}
                 </Button>
               </CardFooter>
             </Card>
           </div>
+        </TabsContent>
+        
+        <TabsContent value="safety" className="mt-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Safety & Standards</CardTitle>
+              <CardDescription>Configure safety standards and environmental pictograms.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="safety">Safety Standards</Label>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="en_388">EN 388</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Abrasion, cut, tear, puncture, ISO 13997, impact EN 13594
+                        </p>
+                      </div>
+                      <Switch
+                        id="en_388"
+                        checked={safety.en_388.enabled}
+                        onCheckedChange={(value) => setSafety({ ...safety, en_388: { ...safety.en_388, enabled: value } })}
+                      />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="en_407">EN 407</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Contact heat, convective heat, radiant heat, limited flame spread, small splashes molten metal, large quantities molten metal
+                        </p>
+                      </div>
+                      <Switch
+                        id="en_407"
+                        checked={safety.en_407.enabled}
+                        onCheckedChange={(value) => setSafety({ ...safety, en_407: { ...safety.en_407, enabled: value } })}
+                      />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="en_421">EN 421</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Contact cold, convective cold, water permeability
+                        </p>
+                      </div>
+                      <Switch
+                        id="en_421"
+                        checked={safety.en_421}
+                        onCheckedChange={(value) => setSafety({ ...safety, en_421: value })}
+                      />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="en_511">EN 511</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Contact cold, convective cold, water permeability
+                        </p>
+                      </div>
+                      <Switch
+                        id="en_511"
+                        checked={safety.en_511.enabled}
+                        onCheckedChange={(value) => setSafety({ ...safety, en_511: { ...safety.en_511, enabled: value } })}
+                      />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="en_659">EN 659</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Food grade, EN ISO 21420, ionising radiation, radioactive contamination
+                        </p>
+                      </div>
+                      <Switch
+                        id="en_659"
+                        checked={safety.en_659}
+                        onCheckedChange={(value) => setSafety({ ...safety, en_659: value })}
+                      />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="en_12477">EN 12477</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Not applicable
+                        </p>
+                      </div>
+                      <Switch
+                        id="en_12477"
+                        checked={safety.en_12477}
+                        onCheckedChange={(value) => setSafety({ ...safety, en_12477: value })}
+                      />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="en_16350">EN 16350</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Not applicable
+                        </p>
+                      </div>
+                      <Switch
+                        id="en_16350"
+                        checked={safety.en_16350}
+                        onCheckedChange={(value) => setSafety({ ...safety, en_16350: value })}
+                      />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="en_374_1">EN 374-1</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Type, chemicals tested
+                        </p>
+                      </div>
+                      <Switch
+                        id="en_374_1"
+                        checked={safety.en_374_1.enabled}
+                        onCheckedChange={(value) => setSafety({ ...safety, en_374_1: { ...safety.en_374_1, enabled: value } })}
+                      />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="en_374_5">EN 374-5</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Not applicable
+                        </p>
+                      </div>
+                      <Switch
+                        id="en_374_5"
+                        checked={safety.en_374_5}
+                        onCheckedChange={(value) => setSafety({ ...safety, en_374_5: value })}
+                      />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="en_381_7">EN 381-7</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Not applicable
+                        </p>
+                      </div>
+                      <Switch
+                        id="en_381_7"
+                        checked={safety.en_381_7}
+                        onCheckedChange={(value) => setSafety({ ...safety, en_381_7: value })}
+                      />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="en_60903">EN 60903</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Not applicable
+                        </p>
+                      </div>
+                      <Switch
+                        id="en_60903"
+                        checked={safety.en_60903}
+                        onCheckedChange={(value) => setSafety({ ...safety, en_60903: value })}
+                      />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="en_1082_1">EN 1082-1</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Not applicable
+                        </p>
+                      </div>
+                      <Switch
+                        id="en_1082_1"
+                        checked={safety.en_1082_1}
+                        onCheckedChange={(value) => setSafety({ ...safety, en_1082_1: value })}
+                      />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="food_grade">Food Grade</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Not applicable
+                        </p>
+                      </div>
+                      <Switch
+                        id="food_grade"
+                        checked={safety.food_grade}
+                        onCheckedChange={(value) => setSafety({ ...safety, food_grade: value })}
+                      />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="en_iso_21420">EN ISO 21420</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Not applicable
+                        </p>
+                      </div>
+                      <Switch
+                        id="en_iso_21420"
+                        checked={safety.en_iso_21420}
+                        onCheckedChange={(value) => setSafety({ ...safety, en_iso_21420: value })}
+                      />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="ionising_radiation">Ionising Radiation</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Not applicable
+                        </p>
+                      </div>
+                      <Switch
+                        id="ionising_radiation"
+                        checked={safety.ionising_radiation}
+                        onCheckedChange={(value) => setSafety({ ...safety, ionising_radiation: value })}
+                      />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="radioactive_contamination">Radioactive Contamination</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Not applicable
+                        </p>
+                      </div>
+                      <Switch
+                        id="radioactive_contamination"
+                        checked={safety.radioactive_contamination}
+                        onCheckedChange={(value) => setSafety({ ...safety, radioactive_contamination: value })}
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="environmentPictograms">Environment Pictograms</Label>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="dry">Dry</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Not applicable
+                        </p>
+                      </div>
+                      <Switch
+                        id="dry"
+                        checked={environmentPictograms.dry}
+                        onCheckedChange={(value) => setEnvironmentPictograms({ ...environmentPictograms, dry: value })}
+                      />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="wet">Wet</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Not applicable
+                        </p>
+                      </div>
+                      <Switch
+                        id="wet"
+                        checked={environmentPictograms.wet}
+                        onCheckedChange={(value) => setEnvironmentPictograms({ ...environmentPictograms, wet: value })}
+                      />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="dust">Dust</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Not applicable
+                        </p>
+                      </div>
+                      <Switch
+                        id="dust"
+                        checked={environmentPictograms.dust}
+                        onCheckedChange={(value) => setEnvironmentPictograms({ ...environmentPictograms, dust: value })}
+                      />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="chemical">Chemical</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Not applicable
+                        </p>
+                      </div>
+                      <Switch
+                        id="chemical"
+                        checked={environmentPictograms.chemical}
+                        onCheckedChange={(value) => setEnvironmentPictograms({ ...environmentPictograms, chemical: value })}
+                      />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="biological">Biological</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Not applicable
+                        </p>
+                      </div>
+                      <Switch
+                        id="biological"
+                        checked={environmentPictograms.biological}
+                        onCheckedChange={(value) => setEnvironmentPictograms({ ...environmentPictograms, biological: value })}
+                      />
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="oily_grease">Oily Grease</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Not applicable
+                        </p>
+                      </div>
+                      <Switch
+                        id="oily_grease"
+                        checked={environmentPictograms.oily_grease}
+                        onCheckedChange={(value) => setEnvironmentPictograms({ ...environmentPictograms, oily_grease: value })}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button 
+                className="w-full" 
+                onClick={handleSubmit} 
+                disabled={isSaving}
+              >
+                {isSaving ? (
+                  <>
+                    <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                    Saving...
+                  </>
+                ) : (
+                  <>
+                    <Save className="mr-2 h-4 w-4" />
+                    Save Changes
+                  </>
+                )}
+              </Button>
+            </CardFooter>
+          </Card>
         </TabsContent>
         
         <TabsContent value="images" className="mt-4">
@@ -1208,17 +2202,322 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                   You can upload up to 5 product images. The first image will be used as the main product image.
                 </p>
               </div>
+            </CardContent>
+            <CardFooter>
+              <Button 
+                className="w-full" 
+                onClick={handleSubmit} 
+                disabled={isSaving}
+              >
+                {isSaving ? (
+                  <>
+                    <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                    Saving...
+                  </>
+                ) : (
+                  <>
+                    <Save className="mr-2 h-4 w-4" />
+                    Save Changes
+                  </>
+                )}
+              </Button>
+            </CardFooter>
+          </Card>
+        </TabsContent>
+        
+        <TabsContent value="documents" className="mt-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Product Documentation</CardTitle>
+              <CardDescription>Upload technical sheets and declaration documents for this product.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-6">
+                {/* Technical Sheet English */}
+                <div className="space-y-4">
+                  <Label>Technical Sheet (English)</Label>
+                  <input
+                    ref={techSheetEnRef}
+                    type="file"
+                    accept=".pdf"
+                    className="hidden"
+                    onChange={(e) => handleDocumentUpload(e, 'technical', 'en')}
+                  />
+                  
+                  {technicalSheetUrl ? (
+                    <div className="border rounded-lg p-4 bg-gray-50 dark:bg-gray-800">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center">
+                            <svg className="w-5 h-5 text-red-600 dark:text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
+                            </svg>
+                          </div>
+                          <div>
+                            <p className="font-medium text-sm">Technical Sheet (EN)</p>
+                            <p className="text-xs text-muted-foreground">PDF Document</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <a 
+                            href={technicalSheetUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 text-sm"
+                          >
+                            Download
+                          </a>
+                          <Button
+                            type="button"
+                            variant="destructive"
+                            size="sm"
+                            onClick={() => removeDocument('technical', 'en')}
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div 
+                      className="border-2 border-dashed rounded-md p-6 text-center cursor-pointer hover:bg-muted/50 transition-colors"
+                      onClick={() => techSheetEnRef.current?.click()}
+                    >
+                      {isUploadingDocs ? (
+                        <div className="flex flex-col items-center">
+                          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-brand-primary"></div>
+                          <p className="mt-2 text-sm text-muted-foreground">Uploading...</p>
+                        </div>
+                      ) : (
+                        <>
+                          <Upload className="mx-auto h-8 w-8 text-muted-foreground" />
+                          <p className="mt-2 text-sm text-muted-foreground">
+                            Click to upload Technical Sheet (English)
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            PDF up to 10MB
+                          </p>
+                        </>
+                      )}
+                    </div>
+                  )}
+                </div>
+                
+                {/* Technical Sheet Italian */}
+                <div className="space-y-4">
+                  <Label>Technical Sheet (Italian)</Label>
+                  <input
+                    ref={techSheetItRef}
+                    type="file"
+                    accept=".pdf"
+                    className="hidden"
+                    onChange={(e) => handleDocumentUpload(e, 'technical', 'it')}
+                  />
+                  
+                  {technicalSheetUrlIt ? (
+                    <div className="border rounded-lg p-4 bg-gray-50 dark:bg-gray-800">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center">
+                            <svg className="w-5 h-5 text-red-600 dark:text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
+                            </svg>
+                          </div>
+                          <div>
+                            <p className="font-medium text-sm">Technical Sheet (IT)</p>
+                            <p className="text-xs text-muted-foreground">PDF Document</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <a 
+                            href={technicalSheetUrlIt} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 text-sm"
+                          >
+                            Download
+                          </a>
+                          <Button
+                            type="button"
+                            variant="destructive"
+                            size="sm"
+                            onClick={() => removeDocument('technical', 'it')}
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div 
+                      className="border-2 border-dashed rounded-md p-6 text-center cursor-pointer hover:bg-muted/50 transition-colors"
+                      onClick={() => techSheetItRef.current?.click()}
+                    >
+                      {isUploadingDocs ? (
+                        <div className="flex flex-col items-center">
+                          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-brand-primary"></div>
+                          <p className="mt-2 text-sm text-muted-foreground">Uploading...</p>
+                        </div>
+                      ) : (
+                        <>
+                          <Upload className="mx-auto h-8 w-8 text-muted-foreground" />
+                          <p className="mt-2 text-sm text-muted-foreground">
+                            Click to upload Technical Sheet (Italian)
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            PDF up to 10MB
+                          </p>
+                        </>
+                      )}
+                    </div>
+                  )}
+                </div>
+                
+                {/* Declaration Sheet English */}
+                <div className="space-y-4">
+                  <Label>Declaration Sheet (English)</Label>
+                  <input
+                    ref={declSheetEnRef}
+                    type="file"
+                    accept=".pdf"
+                    className="hidden"
+                    onChange={(e) => handleDocumentUpload(e, 'declaration', 'en')}
+                  />
+                  
+                  {declarationSheetUrl ? (
+                    <div className="border rounded-lg p-4 bg-gray-50 dark:bg-gray-800">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                            <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
+                            </svg>
+                          </div>
+                          <div>
+                            <p className="font-medium text-sm">Declaration Sheet (EN)</p>
+                            <p className="text-xs text-muted-foreground">PDF Document</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <a 
+                            href={declarationSheetUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 text-sm"
+                          >
+                            Download
+                          </a>
+                          <Button
+                            type="button"
+                            variant="destructive"
+                            size="sm"
+                            onClick={() => removeDocument('declaration', 'en')}
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div 
+                      className="border-2 border-dashed rounded-md p-6 text-center cursor-pointer hover:bg-muted/50 transition-colors"
+                      onClick={() => declSheetEnRef.current?.click()}
+                    >
+                      {isUploadingDocs ? (
+                        <div className="flex flex-col items-center">
+                          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-brand-primary"></div>
+                          <p className="mt-2 text-sm text-muted-foreground">Uploading...</p>
+                        </div>
+                      ) : (
+                        <>
+                          <Upload className="mx-auto h-8 w-8 text-muted-foreground" />
+                          <p className="mt-2 text-sm text-muted-foreground">
+                            Click to upload Declaration Sheet (English)
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            PDF up to 10MB
+                          </p>
+                        </>
+                      )}
+                    </div>
+                  )}
+                </div>
+                
+                {/* Declaration Sheet Italian */}
+                <div className="space-y-4">
+                  <Label>Declaration Sheet (Italian)</Label>
+                  <input
+                    ref={declSheetItRef}
+                    type="file"
+                    accept=".pdf"
+                    className="hidden"
+                    onChange={(e) => handleDocumentUpload(e, 'declaration', 'it')}
+                  />
+                  
+                  {declarationSheetUrlIt ? (
+                    <div className="border rounded-lg p-4 bg-gray-50 dark:bg-gray-800">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                            <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
+                            </svg>
+                          </div>
+                          <div>
+                            <p className="font-medium text-sm">Declaration Sheet (IT)</p>
+                            <p className="text-xs text-muted-foreground">PDF Document</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <a 
+                            href={declarationSheetUrlIt} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 text-sm"
+                          >
+                            Download
+                          </a>
+                          <Button
+                            type="button"
+                            variant="destructive"
+                            size="sm"
+                            onClick={() => removeDocument('declaration', 'it')}
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div 
+                      className="border-2 border-dashed rounded-md p-6 text-center cursor-pointer hover:bg-muted/50 transition-colors"
+                      onClick={() => declSheetItRef.current?.click()}
+                    >
+                      {isUploadingDocs ? (
+                        <div className="flex flex-col items-center">
+                          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-brand-primary"></div>
+                          <p className="mt-2 text-sm text-muted-foreground">Uploading...</p>
+                        </div>
+                      ) : (
+                        <>
+                          <Upload className="mx-auto h-8 w-8 text-muted-foreground" />
+                          <p className="mt-2 text-sm text-muted-foreground">
+                            Click to upload Declaration Sheet (Italian)
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            PDF up to 10MB
+                          </p>
+                        </>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
               
-              <div className="mt-8 space-y-4">
-                <Label htmlFor="technical_sheet">Technical Sheet URL</Label>
-                <Input
-                  id="technical_sheet"
-                  placeholder="URL to PDF technical sheet"
-                  value={technicalSheetUrl || ""}
-                  onChange={(e) => setTechnicalSheetUrl(e.target.value || null)}
-                />
-                <p className="text-xs text-muted-foreground">
-                  Provide a link to a downloadable PDF with detailed technical specifications
+              <div className="flex items-center gap-2 rounded-md bg-blue-50 p-3 text-blue-900 dark:bg-blue-900/30 dark:text-blue-100 mt-6">
+                <Info className="h-4 w-4" />
+                <p className="text-xs">
+                  Upload PDF documents for technical specifications and product declarations. Documents will be available for download on the product detail pages.
                 </p>
               </div>
             </CardContent>
@@ -1236,7 +2535,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                 ) : (
                   <>
                     <Save className="mr-2 h-4 w-4" />
-                    Save All Changes
+                    Save Changes
                   </>
                 )}
               </Button>
@@ -1331,7 +2630,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
             <DialogTitle>Are you sure you want to delete this product?</DialogTitle>
             <DialogDescription>
               This action cannot be undone. This will permanently delete the product
-              &quot;{name}&quot; and remove it from our servers.
+              &quot;{nameLocales[currentLanguage]}&quot; and remove it from our servers.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>

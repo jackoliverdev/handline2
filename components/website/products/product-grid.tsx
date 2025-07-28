@@ -53,8 +53,8 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
   
   // Track expanded filter sections - adjust based on whether we're on a specific category page
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
-    category: !initialCategory, // Close category if we have an initial category
-    subCategory: !!initialCategory, // Open sub-category if we have an initial category
+    category: false, // Always close category since we only have one
+    subCategory: true, // Always open sub-category as the main filter
     temperature: false,
     cutLevel: false,
     industries: false
@@ -71,8 +71,8 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
   
   // Track expanded sections for mobile
   const [expandedMobileSections, setExpandedMobileSections] = useState<Record<string, boolean>>({
-    category: false, // Keep closed on mobile by default
-    subCategory: !!initialCategory, // Open sub-category if we have an initial category
+    category: false, // Always closed since we only have one category
+    subCategory: true, // Always open sub-category as the main filter
     temperature: false,
     cutLevel: false,
     industries: false
@@ -99,12 +99,12 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
     industries: product.industries_locales?.[language] || product.industries,
   }));
 
-  // Get unique categories from localised products for display
+  // Get unique categories (now just "Hand protection")
   const uniqueCategories = Array.from(
-    new Set(localizedProducts.map((product) => product.category || t('products.filters.uncategorised')))
-  ).filter((cat): cat is string => Boolean(cat));
+    new Set(localizedProducts.map(p => p.category).filter(Boolean))
+  );
 
-  // Get unique subcategories based on selected category
+  // Get unique subcategories based on selected category (now this is the main filter)
   const uniqueSubCategories = Array.from(
     new Set(
       localizedProducts
@@ -123,26 +123,26 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
   // Get unique industries
   const uniqueIndustries = getUniqueIndustries(localizedProducts);
 
-  // Define preferred category order using ORIGINAL English categories for consistent sorting
+  // Define preferred subcategory order using ORIGINAL English subcategories for consistent sorting
   const originalPreferredOrder = [
-    "Heat Resistant Gloves",
-    "Cut Resistant Gloves", 
-    "General Purpose Gloves",
-    "Industrial Swabs",
-    "Respiratory Protection"
+    "Heat resistant gloves",
+    "Cut resistant gloves", 
+    "Gloves for general use",
+    "Mechanical hazards gloves",
+    "Welding glove"
   ];
 
-  // Define preferred category order (localised) for display
+  // Define preferred subcategory order (localised) for display
   const preferredOrder = [
-    t("products.filters.heatResistantGloves") || "Heat Resistant Gloves",
-    t("products.filters.cutResistantGloves") || "Cut Resistant Gloves",
-    t("products.filters.generalPurposeGloves") || "General Purpose Gloves",
-    t("products.filters.industrialSwabs") || "Industrial Swabs",
-    t("products.filters.respiratoryProtection") || "Respiratory Protection"
+    t("products.filters.heatResistantGloves") || "Heat resistant gloves",
+    t("products.filters.cutResistantGloves") || "Cut resistant gloves",
+    t("products.filters.generalPurposeGloves") || "Gloves for general use",
+    t("products.filters.mechanicalHazardsGloves") || "Mechanical hazards gloves",
+    t("products.filters.weldingGlove") || "Welding glove"
   ];
 
-  // Sort categories based on preferred order
-  const categories = sortCategoriesByPreference(uniqueCategories, preferredOrder);
+  // Sort subcategories based on preferred order (now this is the main filter)
+  const subcategories = sortCategoriesByPreference(uniqueSubCategories, preferredOrder);
   
   // Update active filters count when filters change
   useEffect(() => {
@@ -330,15 +330,6 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
     }));
   };
 
-  // Force category section to be open by default
-  useEffect(() => {
-    // Explicitly open the category section when component mounts
-    const categoryHeader = document.querySelector('button[aria-controls="category-content"]');
-    if (categoryHeader && categoryHeader.getAttribute('aria-expanded') === 'false') {
-      (categoryHeader as HTMLButtonElement).click();
-    }
-  }, []);
-
   // Toggle mobile section expansion
   const toggleMobileSection = (section: string) => {
     setExpandedMobileSections(prev => ({
@@ -372,7 +363,7 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
               <div className="space-y-6">
                 {/* Category Filter */}
                 <CategoryFilter
-                  categories={categories}
+                  categories={uniqueCategories}
                   selectedCategory={selectedCategory}
                   setSelectedCategory={setSelectedCategory}
                   isExpanded={expandedSections.category}
@@ -381,7 +372,7 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
                 
                 {/* Sub-Category Filter */}
                 <SubCategoryFilter
-                  subCategories={uniqueSubCategories}
+                  subCategories={subcategories}
                   selectedSubCategories={selectedSubCategories}
                   toggleSubCategory={toggleSubCategory}
                   isExpanded={expandedSections.subCategory}
@@ -463,10 +454,10 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
                 <MobileFilterSheet
                   isOpen={isFiltersOpen}
                   setIsOpen={setIsFiltersOpen}
-                  categories={categories}
+                  categories={uniqueCategories}
                   selectedCategory={selectedCategory}
                   setSelectedCategory={setSelectedCategory}
-                  subCategories={uniqueSubCategories}
+                  subCategories={subcategories}
                   selectedSubCategories={selectedSubCategories}
                   toggleSubCategory={toggleSubCategory}
                   tempRatings={uniqueTempRatings}

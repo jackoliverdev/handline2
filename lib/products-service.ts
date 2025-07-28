@@ -1,6 +1,70 @@
 import { supabase } from './supabase';
 import type { Language } from './context/language-context';
 
+// Safety Standards interfaces
+export interface SafetyEN388 {
+  enabled: boolean;
+  abrasion: number | null;
+  cut: number | null;
+  tear: number | null;
+  puncture: number | null;
+  iso_13997: string | null;
+  impact_en_13594: string | null;
+}
+
+export interface SafetyEN407 {
+  enabled: boolean;
+  contact_heat: number | null;
+  radiant_heat: number | null;
+  convective_heat: number | null;
+  limited_flame_spread: number | null;
+  small_splashes_molten_metal: number | null;
+  large_quantities_molten_metal: string | null;
+}
+
+export interface SafetyEN511 {
+  enabled: boolean;
+  contact_cold: number | null;
+  convective_cold: number | null;
+  water_permeability: number | null;
+}
+
+export interface SafetyEN374_1 {
+  enabled: boolean;
+  type: string | null;
+  chemicals_tested: string[] | null;
+}
+
+export interface SafetyStandards {
+  en_388?: SafetyEN388;
+  en_407?: SafetyEN407;
+  en_421?: boolean;
+  en_511?: SafetyEN511;
+  en_659?: boolean;
+  en_12477?: boolean;
+  en_16350?: boolean;
+  en_374_1?: SafetyEN374_1;
+  en_374_5?: boolean;
+  en_381_7?: boolean;
+  en_60903?: boolean;
+  en_1082_1?: boolean;
+  food_grade?: boolean;
+  en_iso_21420?: boolean;
+  ionising_radiation?: string | null;
+  radioactive_contamination?: string | null;
+}
+
+export interface EnvironmentPictograms {
+  dry?: boolean;
+  wet?: boolean;
+  dust?: boolean;
+  chemical?: boolean;
+  biological?: boolean;
+  oily_grease?: boolean;
+}
+
+export type AvailabilityStatus = 'in_stock' | 'made_to_order' | 'out_of_stock' | 'coming_soon';
+
 export interface Product {
   id: string;
   name: string;
@@ -22,6 +86,8 @@ export interface Product {
   additional_images?: string[] | null;
   technical_sheet_url?: string | null;
   declaration_sheet_url?: string | null;
+  technical_sheet_url_it?: string | null;
+  declaration_sheet_url_it?: string | null;
   is_featured: boolean;
   out_of_stock: boolean;
   order_priority: number;
@@ -31,6 +97,17 @@ export interface Product {
   related_product_id_4?: string | null;
   created_at: string;
   updated_at: string;
+  // New extended fields
+  brands: string[];
+  tags_locales: Record<string, string[]>;
+  size_locales?: Record<string, string> | null;
+  length_cm?: number | null;
+  ce_category?: string | null;
+  published: boolean;
+  coming_soon: boolean;
+  availability_status: AvailabilityStatus;
+  safety: SafetyStandards;
+  environment_pictograms: EnvironmentPictograms;
   // Locales fields (optional for typing)
   name_locales?: Record<string, string>;
   description_locales?: Record<string, string>;
@@ -53,6 +130,13 @@ export function localiseProduct(product: Product, language: Language): Product {
     features: product.features_locales?.[language] || product.features_locales?.en || product.features,
     applications: product.applications_locales?.[language] || product.applications_locales?.en || product.applications,
     industries: product.industries_locales?.[language] || product.industries_locales?.en || product.industries,
+    // New localised fields
+    tags_locales: {
+      [language]: product.tags_locales?.[language] || product.tags_locales?.en || []
+    },
+    size_locales: product.size_locales ? {
+      [language]: product.size_locales?.[language] || product.size_locales?.en || ''
+    } : null,
   };
 }
 
@@ -82,7 +166,18 @@ export async function getAllProducts(): Promise<{ products: Product[] }> {
       features: Array.isArray(product.features) ? product.features : [],
       applications: Array.isArray(product.applications) ? product.applications : [],
       industries: Array.isArray(product.industries) ? product.industries : [],
-      additional_images: Array.isArray(product.additional_images) ? product.additional_images : []
+      additional_images: Array.isArray(product.additional_images) ? product.additional_images : [],
+      // New extended fields with proper defaults
+      brands: Array.isArray(product.brands) ? product.brands : [],
+      tags_locales: product.tags_locales && typeof product.tags_locales === 'object' ? product.tags_locales : {},
+      size_locales: product.size_locales && typeof product.size_locales === 'object' ? product.size_locales : null,
+      length_cm: product.length_cm || null,
+      ce_category: product.ce_category || null,
+      published: product.published ?? false,
+      coming_soon: product.coming_soon ?? false,
+      availability_status: product.availability_status || 'in_stock',
+      safety: product.safety && typeof product.safety === 'object' ? product.safety : {},
+      environment_pictograms: product.environment_pictograms && typeof product.environment_pictograms === 'object' ? product.environment_pictograms : {}
     }));
     
     console.log(`Fetched ${products.length} products at ${new Date().toISOString()}`);
@@ -150,7 +245,18 @@ export async function getProductBySlug(slug: string): Promise<{ product: Product
       features: Array.isArray(data.features) ? data.features : [],
       applications: Array.isArray(data.applications) ? data.applications : [],
       industries: Array.isArray(data.industries) ? data.industries : [],
-      additional_images: Array.isArray(data.additional_images) ? data.additional_images : []
+      additional_images: Array.isArray(data.additional_images) ? data.additional_images : [],
+      // New extended fields with proper defaults
+      brands: Array.isArray(data.brands) ? data.brands : [],
+      tags_locales: data.tags_locales && typeof data.tags_locales === 'object' ? data.tags_locales : {},
+      size_locales: data.size_locales && typeof data.size_locales === 'object' ? data.size_locales : null,
+      length_cm: data.length_cm || null,
+      ce_category: data.ce_category || null,
+      published: data.published ?? false,
+      coming_soon: data.coming_soon ?? false,
+      availability_status: data.availability_status || 'in_stock',
+      safety: data.safety && typeof data.safety === 'object' ? data.safety : {},
+      environment_pictograms: data.environment_pictograms && typeof data.environment_pictograms === 'object' ? data.environment_pictograms : {}
     };
     
     console.log(`Fetched product: ${product.name} at ${new Date().toISOString()}`);
@@ -185,7 +291,18 @@ export async function getProductById(id: string): Promise<{ product: Product | n
       features: Array.isArray(data.features) ? data.features : [],
       applications: Array.isArray(data.applications) ? data.applications : [],
       industries: Array.isArray(data.industries) ? data.industries : [],
-      additional_images: Array.isArray(data.additional_images) ? data.additional_images : []
+      additional_images: Array.isArray(data.additional_images) ? data.additional_images : [],
+      // New extended fields with proper defaults
+      brands: Array.isArray(data.brands) ? data.brands : [],
+      tags_locales: data.tags_locales && typeof data.tags_locales === 'object' ? data.tags_locales : {},
+      size_locales: data.size_locales && typeof data.size_locales === 'object' ? data.size_locales : null,
+      length_cm: data.length_cm || null,
+      ce_category: data.ce_category || null,
+      published: data.published ?? false,
+      coming_soon: data.coming_soon ?? false,
+      availability_status: data.availability_status || 'in_stock',
+      safety: data.safety && typeof data.safety === 'object' ? data.safety : {},
+      environment_pictograms: data.environment_pictograms && typeof data.environment_pictograms === 'object' ? data.environment_pictograms : {}
     };
     
     console.log(`Fetched product: ${product.name}`);

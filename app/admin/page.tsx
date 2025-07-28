@@ -268,7 +268,7 @@ export default function AdminDashboardPage() {
         <div>
           <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
           <p className="text-muted-foreground">
-            Welcome to your HandLine safety gloves dashboard. Here's what's happening today.
+            Welcome to your Hand Line Admin dashboard. Here's a quick overview of your website:
           </p>
         </div>
         <div className="flex items-center gap-3">

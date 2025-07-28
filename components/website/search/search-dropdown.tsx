@@ -16,6 +16,7 @@ interface SearchDropdownProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
   className?: string;
+  placeholder?: string;
 }
 
 export function SearchDropdown({
@@ -23,7 +24,8 @@ export function SearchDropdown({
   onQueryChange,
   isOpen,
   onOpenChange,
-  className
+  className,
+  placeholder
 }: SearchDropdownProps) {
   const { t, language } = useLanguage();
   const router = useRouter();
@@ -216,7 +218,7 @@ export function SearchDropdown({
           onFocus={handleFocus}
           onBlur={handleBlur}
           onKeyDown={handleKeyDown}
-          placeholder={t('search.searchPlaceholder')}
+          placeholder={placeholder || t('search.searchPlaceholder')}
           className="w-full pl-10 pr-12 py-1 border border-gray-300 dark:border-gray-700/50 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent outline-none transition-all duration-200 bg-white dark:bg-black/50 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 backdrop-blur-sm"
         />
         

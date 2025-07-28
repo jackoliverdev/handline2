@@ -15,6 +15,8 @@ import { getBlogById, updateBlog, deleteBlog, uploadBlogCoverImage } from "@/lib
 import { ArrowLeft, Save, Trash, Upload, X, Tag as TagIcon } from "lucide-react";
 import Link from "next/link";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface BlogEditPageProps {
   params: {
@@ -181,11 +183,7 @@ export default function BlogEditPage({ params }: BlogEditPageProps) {
     }
   };
   
-  // Render markdown preview
-  const renderMarkdown = (content: string) => {
-    return { __html: content };
-  };
-  
+  // Suggested tags for easy selection
   const suggestedTags = [
     "heat resistant", "cut resistance", "safety standards", 
     "industrial safety", "PPE", "thermal protection", 
@@ -336,9 +334,26 @@ export default function BlogEditPage({ params }: BlogEditPageProps) {
                           className="font-mono text-xs sm:text-sm"
                         />
                       </TabsContent>
-                      <TabsContent value="preview" className="p-4 border rounded-md min-h-[200px] sm:min-h-[300px] markdown-preview text-xs sm:text-sm">
+                      <TabsContent value="preview" className="p-4 border rounded-md min-h-[200px] sm:min-h-[300px] markdown-preview text-xs sm:text-sm prose prose-sm max-w-none">
                         {content ? (
-                          <div dangerouslySetInnerHTML={renderMarkdown(content)} />
+                          <ReactMarkdown 
+                            remarkPlugins={[remarkGfm]}
+                            components={{
+                              a: ({ node, ...props }) => <a className="text-blue-600 hover:text-blue-800 underline" target="_blank" rel="noopener noreferrer" {...props} />,
+                              img: ({ node, ...props }) => <img className="max-w-full h-auto rounded-md" alt={props.alt || ''} {...props} />,
+                              h1: ({ node, ...props }) => <h1 className="text-2xl font-bold mb-4 mt-6" {...props} />,
+                              h2: ({ node, ...props }) => <h2 className="text-xl font-bold mb-3 mt-5" {...props} />,
+                              h3: ({ node, ...props }) => <h3 className="text-lg font-bold mb-2 mt-4" {...props} />,
+                              p: ({ node, ...props }) => <p className="mb-4 leading-relaxed" {...props} />,
+                              ul: ({ node, ...props }) => <ul className="list-disc pl-6 mb-4 space-y-1" {...props} />,
+                              ol: ({ node, ...props }) => <ol className="list-decimal pl-6 mb-4 space-y-1" {...props} />,
+                              blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-gray-300 pl-4 italic text-gray-600 my-4" {...props} />,
+                              code: ({ node, ...props }) => 
+                                <code className="bg-gray-100 px-2 py-1 rounded text-sm font-mono" {...props} />
+                            }}
+                          >
+                            {content}
+                          </ReactMarkdown>
                         ) : (
                           <p className="text-muted-foreground">Nothing to preview yet...</p>
                         )}

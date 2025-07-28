@@ -165,8 +165,10 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    // Search Case Studies
-    if (contentTypesArray.length === 0 || contentTypesArray.includes('case_study')) {
+    // Toggle case study results via env variable
+    const DISABLE_CASE_STUDY_SEARCH = process.env.DISABLE_CASE_STUDY_SEARCH === 'true';
+    // Search Case Studies (can be disabled via env flag)
+    if (!DISABLE_CASE_STUDY_SEARCH && (contentTypesArray.length === 0 || contentTypesArray.includes('case_study'))) {
       console.log('Searching case studies...');
       
       let caseStudyQuery = supabase
@@ -253,8 +255,10 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    // Search EN Resources
-    if (contentTypesArray.length === 0 || contentTypesArray.includes('en_resource')) {
+    // Toggle EN resource results via env variable
+    const DISABLE_EN_RESOURCE_SEARCH = process.env.DISABLE_EN_RESOURCE_SEARCH === 'true';
+    // Search EN Resources (can be disabled via env flag)
+    if (!DISABLE_EN_RESOURCE_SEARCH && (contentTypesArray.length === 0 || contentTypesArray.includes('en_resource'))) {
       console.log('Searching EN resources...');
       
       let enResourceQuery = supabase
@@ -298,8 +302,10 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    // Search Careers
-    if (contentTypesArray.length === 0 || contentTypesArray.includes('career')) {
+    // Toggle career results via environment variable for quick on/off control
+    const DISABLE_CAREER_SEARCH = process.env.DISABLE_CAREER_SEARCH === 'true';
+    // Search Careers (can be disabled via env flag)
+    if (!DISABLE_CAREER_SEARCH && (contentTypesArray.length === 0 || contentTypesArray.includes('career'))) {
       console.log('Searching careers...');
       
       let careerQuery = supabase

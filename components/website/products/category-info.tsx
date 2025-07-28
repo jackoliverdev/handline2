@@ -12,7 +12,7 @@ interface CategoryInfoProps {
   description?: string;
   imageSrc?: string;
   imageAlt?: string;
-  categoryType?: 'gloves' | 'respiratory' | 'industrialSwabs' | 'heat' | 'cut' | 'general';
+  categoryType?: 'gloves' | 'respiratory' | 'industrialSwabs' | 'heat' | 'cut' | 'general' | 'mechanical' | 'welding';
 }
 
 export const CategoryInfo = ({ 
@@ -26,13 +26,13 @@ export const CategoryInfo = ({
   
   // Use localized content if categoryType is provided, otherwise use props
   const displayTitle = categoryType 
-    ? ((['heat', 'cut', 'general'].includes(categoryType)) 
+    ? ((['heat', 'cut', 'general', 'mechanical', 'welding'].includes(categoryType)) 
         ? t(`products.categories.main.gloves.subcategories.${categoryType}.title`)
         : t(`products.categories.main.${categoryType}.title`))
     : title;
     
   const displayDescription = categoryType
-    ? ((['heat', 'cut', 'general'].includes(categoryType))
+    ? ((['heat', 'cut', 'general', 'mechanical', 'welding'].includes(categoryType))
         ? t(`products.categories.pages.${categoryType}.detailedDescription`) 
         : t(`products.categories.main.${categoryType}.detailedDescription`))
     : description;
@@ -43,13 +43,13 @@ export const CategoryInfo = ({
   return (
     <section className="py-12 md:py-16">
       <div className="container mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
-          {/* Text Content - Left Side */}
+        <div className="grid grid-cols-1 lg:grid-cols-10 gap-8 lg:gap-12 items-stretch">
+          {/* Text Content - Left Side (70% width) */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={SPRING_CONFIG}
-            className="flex items-center"
+            className="flex items-center lg:col-span-7"
           >
             <div className="bg-white dark:bg-black/50 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700/50 p-8 md:p-10 h-full flex flex-col justify-center backdrop-blur-sm hover:shadow-xl transition-all duration-500">
               <div className="space-y-6">
@@ -70,19 +70,19 @@ export const CategoryInfo = ({
             </div>
           </motion.div>
 
-          {/* Image - Right Side */}
+          {/* Image - Right Side (30% width) */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ ...SPRING_CONFIG, delay: 0.1 }}
-            className="flex items-center"
+            className="flex items-center lg:col-span-3"
           >
             <div className="relative w-full h-full min-h-[400px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 bg-white dark:bg-black/50 border border-gray-100 dark:border-gray-700/50 group">
               <Image
                 src={displayImageSrc}
                 alt={displayImageAlt}
                 fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                className="object-contain transition-transform duration-700 group-hover:scale-105"
                 priority
               />
               {/* Subtle hover overlay */}
@@ -104,9 +104,11 @@ function getDefaultImageForCategory(categoryType: string): string {
     gloves: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/products/Categories/Safety_Gloves.png",
     respiratory: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/products/Categories/respiratory_protection.png",
     industrialSwabs: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/products/Categories/Industrial_swabs.png",
-    heat: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/products/Categories/heat_resistant_gloves.png",
-    cut: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/products/Categories/cut_resistant_gloves.png",
-    general: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/products/Categories/general_purpose_gloves.png"
+    heat: "/glovecats/152-14 3L20_A.webp",
+    cut: "/glovecats/HL8801 DSR_A.webp",
+    general: "/glovecats/HL 6WWG_A.webp",
+    mechanical: "/glovecats/HL1001B_A.webp",
+    welding: "/glovecats/49K-C_A.webp"
   };
   
   return imageMap[categoryType as keyof typeof imageMap] || "";

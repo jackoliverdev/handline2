@@ -16,46 +16,15 @@ export function HeatProductsSection({ products }: HeatProductsSectionProps) {
   const { t, language } = useLanguage();
   const [initialCategory, setInitialCategory] = useState<string | undefined>(undefined);
   
-  // Filter products for heat category - improved filtering with multilingual support
+  // Filter products for heat category - now using subcategory
   const heatProducts = products.filter(product => {
-    // Check EN standard for heat resistance (most reliable)
-    if (product.en_standard === 'EN407') {
-      return true;
-    }
+    // Check if subcategory matches heat resistant gloves
+    const isHeatResistant = 
+      product.sub_category === "Heat resistant gloves" ||
+      product.sub_category_locales?.it === "Guanti termoresistenti" ||
+      product.sub_category_locales?.en === "Heat resistant gloves";
     
-    // Check if product has temperature rating (good indicator)
-    if (product.temperature_rating) {
-      return true;
-    }
-    
-    // Check for specific heat-related terms (more specific than before)
-    const englishHeatTerms = ['heat resistant', 'heat protection', 'thermal protection', 'temperature resistant', 'high temperature'];
-    const englishMatch = 
-      englishHeatTerms.some(term => 
-        product.category?.toLowerCase().includes(term) ||
-        product.sub_category?.toLowerCase().includes(term) ||
-        product.name?.toLowerCase().includes(term) ||
-        product.features?.some(feature => feature.toLowerCase().includes(term))
-      );
-    
-    // Check Italian heat-specific terms
-    const italianHeatTerms = ['termoresistenti', 'protezione termica', 'resistente al calore', 'alta temperatura', 'termico'];
-    const italianMatch = 
-      italianHeatTerms.some(term => 
-        product.category_locales?.it?.toLowerCase().includes(term) ||
-        product.sub_category_locales?.it?.toLowerCase().includes(term) ||
-        product.name_locales?.it?.toLowerCase().includes(term) ||
-        product.features_locales?.it?.some(feature => feature.toLowerCase().includes(term))
-      );
-    
-    // Check for specific heat resistant category names
-    const categoryMatch = 
-      product.category?.toLowerCase().includes('heat resistant') ||
-      product.category_locales?.it?.toLowerCase().includes('termoresistenti') ||
-      product.sub_category?.toLowerCase().includes('heat resistant') ||
-      product.sub_category_locales?.it?.toLowerCase().includes('termoresistenti');
-    
-    return englishMatch || italianMatch || categoryMatch;
+    return isHeatResistant;
   });
 
   // Get the correct heat-resistant category name for initialCategory - recalculates when language or products change
