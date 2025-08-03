@@ -23,11 +23,11 @@ export const AboutHero = () => {
         {/* Background Image */}
         <div className="absolute inset-0 w-full h-full" style={{ zIndex: -1 }}>
           <Image 
-            src="/heroimg.png" 
+            src="/herotry4.png" 
             alt="Worker with child - Hand Line about us"
             fill
             className="object-cover object-center"
-            style={{ objectPosition: '50% 25%' }}
+            style={{ objectPosition: '20% 40%' }}
             priority
           />
           <div className="absolute inset-0 bg-black/30"></div>

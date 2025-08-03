@@ -337,47 +337,57 @@ export const FeaturedProducts = () => {
                           {product.short_description || product.description}
                         </p>
                         
-                        <div className="grid grid-cols-2 gap-1.5 sm:gap-3 mb-2 sm:mb-3">
-                          {product.temperature_rating && (
-                            <motion.div 
-                              initial={{ opacity: 0, y: 5 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: 0.6 + (index * 0.05), duration: 0.3 }}
-                              className="flex items-center"
-                            >
-                              <div className="flex h-6 sm:h-7 w-6 sm:w-7 items-center justify-center rounded-full bg-brand-primary/10 mr-1 sm:mr-0">
-                                <Flame className="h-3 sm:h-5 w-3 sm:w-5 text-brand-primary" />
-                              </div>
-                              <div className="min-w-0 flex-1">
-                                <p className="text-[9px] sm:text-xs text-gray-600 dark:text-gray-400 truncate">{t('featuredProducts.specs.temperature')}</p>
-                                <p className="text-[11px] sm:text-sm font-medium text-gray-900 dark:text-white">{product.temperature_rating}°C</p>
-                              </div>
-                            </motion.div>
-                          )}
-                          {product.cut_resistance_level && product.en_standard && (
-                            <motion.div 
-                              initial={{ opacity: 0, y: 5 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: 0.7 + (index * 0.05), duration: 0.3 }}
-                              className="flex items-center"
-                            >
-                              <div className="flex h-6 sm:h-8 w-6 sm:w-8 items-center justify-center rounded-full bg-brand-primary/10 mr-1 sm:mr-0">
-                                <div className="relative w-3 sm:w-6 h-3 sm:h-6">
-                                  <Image
-                                    src={`/images/standards/${product.en_standard}.png`}
-                                    alt={product.en_standard}
-                                    fill
-                                    className="object-contain dark:invert"
-                                  />
+                        {/* EN Standards - Same as product cards */}
+                        {(product.cut_resistance_level || product.heat_resistance_level) && (
+                          <div className="space-y-1 sm:space-y-2 mb-2 sm:mb-3">
+                            {/* EN Standards Title */}
+                            <div className="flex items-center gap-1">
+                              <p className="text-[10px] sm:text-xs text-brand-primary font-medium">EN Standards</p>
+                            </div>
+                            
+                            {/* EN Standards Values - Responsive Grid */}
+                            <div className={`grid gap-1 ${
+                              product.cut_resistance_level && product.heat_resistance_level 
+                                ? 'grid-cols-2' 
+                                : 'grid-cols-1'
+                            }`}>
+                              {product.cut_resistance_level && (
+                                <div className="flex items-center gap-0.5 -ml-0.5">
+                                  <div className="flex h-3 w-3 sm:h-4 sm:w-4 items-center justify-center">
+                                    <div className="relative w-3 h-3 sm:w-4 sm:h-4">
+                                      <Image
+                                        src="/images/standards/EN388.png"
+                                        alt="EN388"
+                                        fill
+                                        className="object-contain dark:invert"
+                                      />
+                                    </div>
+                                  </div>
+                                  <p className="text-[9px] sm:text-xs font-medium text-gray-900 dark:text-white truncate ml-1">
+                                    {product.cut_resistance_level}
+                                  </p>
                                 </div>
-                              </div>
-                              <div className="min-w-0 flex-1">
-                                <p className="text-[9px] sm:text-xs text-gray-600 dark:text-gray-400 truncate">EN Standards</p>
-                                <p className="text-[10px] sm:text-sm font-medium text-gray-900 dark:text-white truncate">{product.en_standard}</p>
-                              </div>
-                            </motion.div>
-                          )}
-                        </div>
+                              )}
+                              {product.heat_resistance_level && (
+                                <div className="flex items-center gap-0.5 -ml-0.5">
+                                  <div className="flex h-3 w-3 sm:h-4 sm:w-4 items-center justify-center">
+                                    <div className="relative w-3 h-3 sm:w-4 sm:h-4">
+                                      <Image
+                                        src="/images/standards/EN407.png"
+                                        alt="EN407"
+                                        fill
+                                        className="object-contain dark:invert"
+                                      />
+                                    </div>
+                                  </div>
+                                  <p className="text-[9px] sm:text-xs font-medium text-gray-900 dark:text-white truncate ml-1">
+                                    {product.heat_resistance_level}
+                                  </p>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )}
                         
                         <div className="flex-1" />
                         

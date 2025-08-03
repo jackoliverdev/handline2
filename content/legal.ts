@@ -8,7 +8,7 @@ export const legalContent = {
           title: "1. Introduction",
           content: `
             <p>Welcome to HandLine Company. These Terms of Service ("Terms") govern your use of our website, products, and services ("Services"). By accessing or using our Services, you agree to be bound by these Terms.</p>
-            <p>HandLine Company is a company registered in Italy with company number 12345678. Our registered office is at Via Antonio Brusa 34, 22035, Canzo (CO), Italy.</p>
+            <p>HandLine Company is a company registered in Italy with company number 12345678. Our registered office is at Viale Varese 83, 22100 Como (CO), Italy.</p>
           `
         },
         {
@@ -67,9 +67,10 @@ export const legalContent = {
         {
           title: "9. Contact Us",
           content: `
-            <p>If you have any questions about these Terms, please contact us at:</p>
-            <p>HandLine Company<br>Via Antonio Brusa 34<br>22035, Canzo (CO)<br>Italy</p>
-            <p>Email: legal@handlinecompany.com</p>
+            <h2>Contact Information</h2>
+            <p>If you have questions about these Terms, please contact us at:</p>
+            <p>HandLine Company<br>via Antonio Brusa 34<br>22035, Canzo (CO)<br>Italy</p>
+            <p>Email: info@handlineco.com</p>
           `
         }
       ]
@@ -162,9 +163,10 @@ export const legalContent = {
         {
           title: "9. Contact Us",
           content: `
-            <p>If you have any questions about this Privacy Policy, please contact us:</p>
-            <p>HandLine Company<br>Via Antonio Brusa 34<br>22035, Canzo (CO)<br>Italy</p>
-            <p>Email: privacy@handlinecompany.com</p>
+            <h2>Contact Information</h2>
+            <p>If you have questions about this Privacy Policy, please contact us at:</p>
+            <p>HandLine Company<br>via Antonio Brusa 34<br>22035, Canzo (CO)<br>Italy</p>
+            <p>Email: info@handlineco.com</p>
           `
         }
       ]
@@ -227,9 +229,10 @@ export const legalContent = {
         {
           title: "7. Contact Us",
           content: `
-            <p>If you have any questions about our Cookie Policy, please contact us:</p>
-            <p>HandLine Company<br>Via Antonio Brusa 34<br>22035, Canzo (CO)<br>Italy</p>
-            <p>Email: privacy@handlinecompany.com</p>
+            <h2>Contact Information</h2>
+            <p>If you have questions about this Cookie Policy, please contact us at:</p>
+            <p>HandLine Company<br>via Antonio Brusa 34<br>22035, Canzo (CO)<br>Italy</p>
+            <p>Email: info@handlineco.com</p>
           `
         }
       ]
@@ -244,7 +247,7 @@ export const legalContent = {
           title: "1. Introduzione",
           content: `
             <p>Benvenuti in HandLine Company. Questi Termini di Servizio ("Termini") disciplinano l'uso del nostro sito web, prodotti e servizi ("Servizi"). Accedendo o utilizzando i nostri Servizi, accetti di essere vincolato da questi Termini.</p>
-            <p>HandLine Company è una società registrata in Italia con numero di società 12345678. La nostra sede legale è in Via Antonio Brusa 34, 22035, Canzo (CO), Italia.</p>
+            <p>HandLine Company è una società registrata in Italia con numero di società 12345678. La nostra sede legale è in Viale Varese 83, 22100 Como (CO), Italia.</p>
           `
         },
         {
@@ -303,9 +306,10 @@ export const legalContent = {
         {
           title: "9. Contattaci",
           content: `
+            <h2>Informazioni di Contatto</h2>
             <p>Se hai domande su questi Termini, ti preghiamo di contattarci a:</p>
-            <p>HandLine Company<br>Via Antonio Brusa 34<br>22035, Canzo (CO)<br>Italia</p>
-            <p>Email: legal@handlinecompany.com</p>
+            <p>HandLine Company<br>via Antonio Brusa 34<br>22035, Canzo (CO)<br>Italia</p>
+            <p>Email: info@handlineco.com</p>
           `
         }
       ]
@@ -400,7 +404,7 @@ export const legalContent = {
           content: `
             <p>Se hai domande su questa Informativa Privacy, ti preghiamo di contattarci:</p>
             <p>HandLine Company<br>Via Antonio Brusa 34<br>22035, Canzo (CO)<br>Italia</p>
-            <p>Email: privacy@handlinecompany.com</p>
+            <p>Email: info@handlineco.com</p>
           `
         }
       ]
@@ -465,7 +469,7 @@ export const legalContent = {
           content: `
             <p>Se hai domande sulla nostra Cookie Policy, ti preghiamo di contattarci:</p>
             <p>HandLine Company<br>Via Antonio Brusa 34<br>22035, Canzo (CO)<br>Italia</p>
-            <p>Email: privacy@handlinecompany.com</p>
+            <p>Email: info@handlineco.com</p>
           `
         }
       ]

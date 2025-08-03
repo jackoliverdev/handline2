@@ -2,13 +2,13 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronLeft, Shield, Package, Mail } from "lucide-react";
+import { ChevronLeft, Shield, Package, Mail, FileText } from "lucide-react";
 import { useLanguage } from "@/lib/context/language-context";
 import { localiseIndustry } from "@/lib/industries-service";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ProductCard } from "@/components/website/products/product-card";
-import { MarkdownContent } from "@/components/website/resources/blog/markdown-content";
+import { IndustrySection } from "@/components/website/industries/IndustrySection";
+import { RelatedProducts } from "@/components/website/products/slug/RelatedProducts";
 import { motion } from "framer-motion";
 
 export function IndustryDetail({ industry, relatedProducts }: { industry: any, relatedProducts: any[] }) {
@@ -41,7 +41,7 @@ export function IndustryDetail({ industry, relatedProducts }: { industry: any, r
         transition={{ duration: 0.6 }}
         className="relative w-full pt-20 pb-8 md:pt-28 md:pb-12"
       >
-        <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero Content with Image Overlay */}
           <div className="relative">
             {/* Featured Image with Overlay Content */}
@@ -50,7 +50,7 @@ export function IndustryDetail({ industry, relatedProducts }: { industry: any, r
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="relative aspect-[5/4] sm:aspect-[4/3] md:aspect-[16/9] w-full overflow-hidden rounded-2xl shadow-2xl"
+                className="relative aspect-[2/1] sm:aspect-[5/2] md:aspect-[3/1] w-full overflow-hidden rounded-2xl shadow-2xl"
               >
                 <Image
                   src={localisedIndustry.image_url}
@@ -251,72 +251,105 @@ export function IndustryDetail({ industry, relatedProducts }: { industry: any, r
       </motion.section>
 
       {/* Content Section */}
-      {localisedIndustry.content && (
-        <section className="w-full pt-0 md:pt-0 pb-6 md:pb-8">
-          <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div>
-              <MarkdownContent content={localisedIndustry.content} />
-            </div>
+      {(localisedIndustry.summary_content || localisedIndustry.sections || localisedIndustry.content) && (
+        <section className="w-full pt-6 md:pt-8 pb-6 md:pb-8">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            
+            {/* Industry Summary Section */}
+            {localisedIndustry.summary_content && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="mb-12"
+              >
+                <div className="bg-white dark:bg-black/50 rounded-2xl p-6 md:p-8 shadow-lg border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm">
+                  <h2 className="text-2xl md:text-3xl font-bold text-brand-dark dark:text-white mb-6">
+                    {localisedIndustry.industry_name} Industry Overview
+                  </h2>
+                  
+                  <div className="prose prose-gray dark:prose-invert max-w-none">
+                    <p className="text-brand-secondary dark:text-gray-300 leading-relaxed text-lg">
+                      {localisedIndustry.summary_content}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Industry Sections */}
+            {localisedIndustry.sections && localisedIndustry.sections.length > 0 ? (
+              <div className="space-y-8">
+                {localisedIndustry.sections.map((section, index) => (
+                  <IndustrySection
+                    key={index}
+                    section={section}
+                    index={index}
+                  />
+                ))}
+              </div>
+            ) : localisedIndustry.content && (
+              // Fallback to old content structure if no new sections available
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="mb-12"
+              >
+                <div className="bg-white dark:bg-black/50 rounded-2xl p-6 md:p-8 shadow-lg border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm">
+                  <div className="flex items-center gap-3 mb-6">
+                    <motion.div 
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      whileInView={{ scale: 1, opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.2, duration: 0.4 }}
+                      className="p-2 rounded-lg bg-gradient-to-br from-brand-primary to-brand-primary/80"
+                    >
+                      <FileText className="h-5 w-5 text-white" />
+                    </motion.div>
+                    <h2 className="text-2xl md:text-3xl font-bold text-brand-dark dark:text-white">
+                      {t('industries.summary')}
+                    </h2>
+                  </div>
+                  
+                  <div className="prose prose-gray dark:prose-invert max-w-none">
+                    <div className="text-brand-secondary dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
+                      {localisedIndustry.content}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* No Content Fallback */}
+            {!localisedIndustry.summary_content && !localisedIndustry.sections && !localisedIndustry.content && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center py-16"
+              >
+                <div className="bg-white dark:bg-black/50 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm">
+                  <FileText className="h-12 w-12 text-brand-primary mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-brand-dark dark:text-white mb-2">
+                    {t('industries.summary')}
+                  </h3>
+                  <p className="text-brand-secondary dark:text-gray-300">
+                    {t('industries.noSectionsAvailable')}
+                  </p>
+                </div>
+              </motion.div>
+            )}
           </div>
         </section>
       )}
 
       {/* Related Products */}
       {relatedProducts.length > 0 && (
-        <section className="pt-6 pb-6 md:pt-8 md:pb-6">
-          <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="mb-4">
-              <h2 className="text-2xl font-bold mb-2 text-brand-dark dark:text-white">{t('relatedProducts.title')}</h2>
-              <p className="text-brand-secondary dark:text-gray-300">
-                {t('industries.keyFeatures')} {localisedIndustry.industry_name}
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {relatedProducts.map((product, index) => {
-                const name = product.name_locales?.[language] || product.name;
-                const description = product.description_locales?.[language] || product.description;
-                const short_description = product.short_description_locales?.[language] || product.short_description;
-                const category = product.category_locales?.[language] || product.category;
-                const sub_category = product.sub_category_locales?.[language] || product.sub_category;
-                const features = product.features_locales?.[language] || product.features;
-                const applications = product.applications_locales?.[language] || product.applications;
-                const industries = product.industries_locales?.[language] || product.industries;
-                return (
-                  <div key={product.id}>
-                    <ProductCard
-                      product={{
-                        ...product,
-                        name,
-                        description,
-                        short_description,
-                        category,
-                        sub_category,
-                        features,
-                        applications,
-                        industries,
-                      }}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="mt-8 text-center">
-              <Button
-                variant="default"
-                size="lg"
-                className="bg-brand-primary hover:bg-brand-primary/90 text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl transform"
-                asChild
-              >
-                <Link href="/products" className="flex items-center gap-2">
-                  <Package className="h-5 w-5" />
-                  {t('products.browseTitle')}
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </section>
+        <RelatedProducts relatedProducts={relatedProducts} />
       )}
 
       {/* CTA Section */}

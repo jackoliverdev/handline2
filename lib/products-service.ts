@@ -74,6 +74,7 @@ export interface Product {
   sub_category?: string | null;
   temperature_rating?: number | null;
   cut_resistance_level?: string | null;
+  heat_resistance_level?: string | null;
   en_standard?: 'EN388' | 'EN407' | null;
   features: string[];
   applications: string[];
@@ -88,6 +89,8 @@ export interface Product {
   declaration_sheet_url?: string | null;
   technical_sheet_url_it?: string | null;
   declaration_sheet_url_it?: string | null;
+  manufacturers_instruction_url?: string | null;
+  manufacturers_instruction_url_it?: string | null;
   is_featured: boolean;
   out_of_stock: boolean;
   order_priority: number;

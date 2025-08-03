@@ -4,18 +4,18 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
+  Sun, 
   Droplets, 
   Wind, 
-  Sun, 
   FlaskConical, 
   Bug, 
-  Zap 
+  Zap
 } from "lucide-react";
 import { EnvironmentPictograms } from "@/lib/products-service";
 import { useLanguage } from "@/lib/context/language-context";
 
 interface EnvironmentPictogramsDisplayProps {
-  environment: EnvironmentPictograms;
+  environment_pictograms: EnvironmentPictograms;
   className?: string;
 }
 
@@ -26,137 +26,106 @@ interface EnvironmentItem {
   description: string;
 }
 
-export const EnvironmentPictogramsDisplay: React.FC<EnvironmentPictogramsDisplayProps> = ({ 
-  environment, 
+export function EnvironmentPictogramsDisplay({ 
+  environment_pictograms, 
   className = "" 
-}) => {
+}: EnvironmentPictogramsDisplayProps) {
   const { t } = useLanguage();
-  
-  // Environment conditions mapping
-  const environmentItems: EnvironmentItem[] = [
+
+  const pictogramConfig = [
     {
       key: 'dry',
-      icon: <Sun className="h-5 w-5" />,
-      label: 'Dry Conditions',
-      description: 'Suitable for dry work environments'
+      icon: Sun,
+      title: t('productPage.dryConditions'),
+      description: `${t('productPage.suitableFor')} ${t('productPage.dryConditions').toLowerCase()} ${t('productPage.workEnvironments')}`,
+      enabled: environment_pictograms.dry,
     },
     {
       key: 'wet',
-      icon: <Droplets className="h-5 w-5" />,
-      label: 'Wet Conditions',
-      description: 'Suitable for wet work environments'
+      icon: Droplets,
+      title: t('productPage.wetConditions'),
+      description: `${t('productPage.suitableFor')} ${t('productPage.wetConditions').toLowerCase()} ${t('productPage.workEnvironments')}`,
+      enabled: environment_pictograms.wet,
     },
     {
       key: 'dust',
-      icon: <Wind className="h-5 w-5" />,
-      label: 'Dusty Conditions',
-      description: 'Suitable for dusty work environments'
+      icon: Wind,
+      title: t('productPage.dustyConditions'),
+      description: `${t('productPage.suitableFor')} ${t('productPage.dustyConditions').toLowerCase()} ${t('productPage.workEnvironments')}`,
+      enabled: environment_pictograms.dust,
     },
     {
       key: 'chemical',
-      icon: <FlaskConical className="h-5 w-5" />,
-      label: 'Chemical Exposure',
-      description: 'Suitable for chemical work environments'
+      icon: FlaskConical,
+      title: t('productPage.chemicalExposure'),
+      description: `${t('productPage.suitableFor')} ${t('productPage.chemicalExposure').toLowerCase()} ${t('productPage.workEnvironments')}`,
+      enabled: environment_pictograms.chemical,
     },
     {
       key: 'biological',
-      icon: <Bug className="h-5 w-5" />,
-      label: 'Biological Hazards',
-      description: 'Suitable for biological work environments'
+      icon: Bug,
+      title: t('productPage.biologicalHazards'),
+      description: `${t('productPage.suitableFor')} ${t('productPage.biologicalHazards').toLowerCase()} ${t('productPage.workEnvironments')}`,
+      enabled: environment_pictograms.biological,
     },
     {
       key: 'oily_grease',
-      icon: <Zap className="h-5 w-5" />,
-      label: 'Oily/Greasy',
-      description: 'Suitable for oily/greasy work environments'
-    }
+      icon: Zap,
+      title: t('productPage.oilyGreasy'),
+      description: `${t('productPage.suitableFor')} ${t('productPage.oilyGreasy').toLowerCase()} ${t('productPage.workEnvironments')}`,
+      enabled: environment_pictograms.oily_grease,
+    },
   ];
-  
-  // Check if any environment conditions are specified
-  const hasEnvironmentData = environmentItems.some(item => environment[item.key] !== undefined);
-  
-  if (!hasEnvironmentData) {
-    return null;
-  }
-  
-  // Filter to show defined conditions
-  const definedConditions = environmentItems.filter(item => environment[item.key] !== undefined);
-  
+
   return (
-    <Card className={`border-brand-primary/10 dark:border-brand-primary/20 ${className}`}>
-      <CardHeader className="pb-3">
-        <CardTitle className="flex items-center gap-2 text-lg">
-          <Sun className="h-5 w-5 text-brand-primary" />
-          Work Environment Suitability
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {definedConditions.map((item) => {
-            const isSupported = environment[item.key];
-            
-            return (
-              <div 
-                key={item.key}
-                className={`
-                  flex items-center gap-3 p-3 rounded-lg border transition-all duration-200
-                  ${isSupported 
-                    ? 'bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-800' 
-                    : 'bg-red-50 border-red-200 dark:bg-red-900/20 dark:border-red-800'
-                  }
-                `}
-              >
-                <div 
-                  className={`
-                    flex items-center justify-center w-10 h-10 rounded-full
-                    ${isSupported 
-                      ? 'bg-green-100 text-green-600 dark:bg-green-800 dark:text-green-400' 
-                      : 'bg-red-100 text-red-600 dark:bg-red-800 dark:text-red-400'
-                    }
-                  `}
-                >
-                  {item.icon}
+    <div className={`space-y-4 ${className}`}>
+      <h3 className="text-lg font-semibold text-brand-dark dark:text-white mb-4">
+        {t('productPage.workEnvironmentSuitability')}
+      </h3>
+      
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {pictogramConfig.map((pictogram) => {
+          const IconComponent = pictogram.icon;
+          const isEnabled = pictogram.enabled;
+          
+          return (
+            <div
+              key={pictogram.key}
+              className={`group relative overflow-hidden rounded-lg border shadow-sm transition-all duration-300 hover:shadow-md backdrop-blur-sm p-3 ${
+                isEnabled
+                  ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
+                  : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <IconComponent 
+                    className={`h-4 w-4 ${
+                      isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
+                    }`} 
+                  />
+                  <h4 className={`font-medium text-sm ${
+                    isEnabled ? 'text-green-800 dark:text-green-200' : 'text-red-800 dark:text-red-200'
+                  }`}>
+                    {pictogram.title}
+                  </h4>
                 </div>
-                
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className={`
-                      text-sm font-medium
-                      ${isSupported 
-                        ? 'text-green-800 dark:text-green-300' 
-                        : 'text-red-800 dark:text-red-300'
-                      }
-                    `}>
-                      {item.label}
-                    </span>
-                    <Badge 
-                      variant="outline" 
-                      className={`
-                        text-xs border-0
-                        ${isSupported 
-                          ? 'bg-green-100 text-green-800 dark:bg-green-800/50 dark:text-green-300' 
-                          : 'bg-red-100 text-red-800 dark:bg-red-800/50 dark:text-red-300'
-                        }
-                      `}
-                    >
-                      {isSupported ? 'Yes' : 'No'}
-                    </Badge>
-                  </div>
-                  <p className={`
-                    text-xs leading-tight
-                    ${isSupported 
-                      ? 'text-green-600 dark:text-green-400' 
-                      : 'text-red-600 dark:text-red-400'
-                    }
-                  `}>
-                    {item.description}
-                  </p>
+                <div className={`text-sm font-bold ${
+                  isEnabled ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'
+                }`}>
+                  {isEnabled ? t('productPage.yes') : t('productPage.no')}
                 </div>
               </div>
-            );
-          })}
-        </div>
-      </CardContent>
-    </Card>
+              
+              <p className={`text-xs ${
+                isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
+              }`}>
+                {pictogram.description}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
-}; 
+} 

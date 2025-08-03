@@ -23,6 +23,9 @@ interface MobileFilterSheetProps {
   cutLevels: string[];
   selectedCutLevels: string[];
   toggleCutLevel: (level: string) => void;
+  heatLevels: string[];
+  selectedHeatLevels: string[];
+  toggleHeatLevel: (level: string) => void;
   industries: string[];
   selectedIndustries: string[];
   toggleIndustry: (industry: string) => void;
@@ -47,6 +50,9 @@ export const MobileFilterSheet = ({
   cutLevels,
   selectedCutLevels,
   toggleCutLevel,
+  heatLevels,
+  selectedHeatLevels,
+  toggleHeatLevel,
   industries,
   selectedIndustries,
   toggleIndustry,
@@ -237,6 +243,49 @@ export const MobileFilterSheet = ({
                       />
                       <label 
                         htmlFor={`cutLevel-${level}`}
+                        className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer"
+                      >
+                        {formatCutLevel(level)}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+          
+          {/* Heat Resistance Level Filter */}
+          {heatLevels.length > 0 && (
+            <div>
+              <button 
+                className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"
+                onClick={() => toggleSection('heatLevel')}
+              >
+                <span className="flex items-center">
+                  {t('products.filters.heatLevel')}
+                  {selectedHeatLevels.length > 0 && (
+                    <Badge className="ml-2 bg-brand-primary text-white">{selectedHeatLevels.length}</Badge>
+                  )}
+                </span>
+                <ChevronDown 
+                  className={`h-4 w-4 text-brand-primary transition-transform ${
+                    expandedSections.heatLevel ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+              
+              {expandedSections.heatLevel && (
+                <div className="space-y-2 max-h-40 overflow-y-auto pr-2 mt-2">
+                  {heatLevels.map((level) => (
+                    <div key={level} className="flex items-center space-x-2">
+                      <Checkbox 
+                        id={`heatLevel-${level}`} 
+                        checked={selectedHeatLevels.includes(level)}
+                        onCheckedChange={() => toggleHeatLevel(level)}
+                        className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary"
+                      />
+                      <label 
+                        htmlFor={`heatLevel-${level}`}
                         className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer"
                       >
                         {formatCutLevel(level)}

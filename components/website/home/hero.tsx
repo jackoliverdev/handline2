@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { Award, ArrowRight, ChevronRight, Shield, Clock, Factory, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { GlovesModel } from "./3d-model";
 import { useLanguage } from "@/lib/context/language-context";
 
 const SPRING_CONFIG = { stiffness: 100, damping: 30, mass: 1 };
@@ -17,17 +16,17 @@ export const Hero = () => {
     <div className="relative mb-6 sm:mb-16 md:mb-32 bg-[#F5EFE0] dark:bg-background">
       {/* Background section with slanted edge */}
       <section 
-        className="relative pt-28 md:pt-32 pb-0 md:pb-16 bg-[#F5EFE0] dark:bg-background [clip-path:polygon(0_0,100%_0,100%_82%,0_72%)] md:[clip-path:polygon(0_0,100%_0,100%_95%,0_82%)]"
+        className="relative pt-28 md:pt-32 pb-16 md:pb-32 bg-[#F5EFE0] dark:bg-background [clip-path:polygon(0_0,100%_0,100%_82%,0_72%)] md:[clip-path:polygon(0_0,100%_0,100%_95%,0_82%)]"
         style={{ zIndex: 1 }}
       >
         {/* Background Image */}
         <div className="absolute inset-0 w-full h-full" style={{ zIndex: -1 }}>
           <Image 
-            src="/heroimg.png" 
+            src="/herotry4.png" 
             alt="Construction worker background"
             fill
             className="object-cover object-center"
-            style={{ objectPosition: '50% 25%' }}
+            style={{ objectPosition: '20% 40%' }}
             priority
           />
           <div className="absolute inset-0 bg-black/30"></div>
@@ -111,9 +110,9 @@ export const Hero = () => {
         </div>
       </section>
       
-      {/* 3D Gloves Model - positioned outside the clipped section */}
+      {/* Static Gloves Image - positioned outside the clipped section */}
       <div 
-        className="absolute left-1/2 -translate-x-1/2 top-[58%] md:translate-x-0 md:left-auto md:right-[15%] lg:right-[18%] md:top-[15%]"
+        className="absolute left-1/2 -translate-x-1/2 top-[48%] md:translate-x-0 md:left-auto md:right-[10%] lg:right-[12%] md:top-12"
         style={{ 
           zIndex: 2,
           pointerEvents: 'auto'
@@ -123,9 +122,17 @@ export const Hero = () => {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ ...SPRING_CONFIG, delay: 0.4 }}
-          className="w-[370px] h-[390px] sm:w-[420px] sm:h-[450px] md:w-[550px] md:h-[550px] lg:w-[600px] lg:h-[600px]"
+          className="w-[420px] h-[440px] sm:w-[500px] sm:h-[530px] md:w-[650px] md:h-[650px] lg:w-[700px] lg:h-[700px] relative"
         >
-          <GlovesModel />
+          <Image
+            src="/glovecats/49K-C_A.webp"
+            alt="Professional Safety Gloves"
+            fill
+            className="object-contain drop-shadow-2xl"
+            priority
+          />
+          {/* Subtle glow effect */}
+          <div className="absolute inset-0 bg-brand-primary/5 rounded-full blur-3xl scale-75 -z-10"></div>
         </motion.div>
       </div>
     </div>

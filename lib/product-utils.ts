@@ -66,6 +66,21 @@ export const getUniqueCutLevels = (products: Product[]): string[] => {
 };
 
 /**
+ * Extracts unique heat resistance levels from products
+ * @param products Array of products
+ * @returns Array of unique heat resistance levels
+ */
+export const getUniqueHeatLevels = (products: Product[]): string[] => {
+  return Array.from(
+    new Set(
+      products
+        .filter(product => product.heat_resistance_level)
+        .map(product => product.heat_resistance_level)
+    )
+  ) as string[];
+};
+
+/**
  * Extracts unique industries from all products
  * @param products Array of products
  * @returns Sorted array of unique industries

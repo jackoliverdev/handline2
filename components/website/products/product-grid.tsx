@@ -17,6 +17,7 @@ import {
   formatCutLevel,
   getUniqueTempRatings,
   getUniqueCutLevels,
+  getUniqueHeatLevels,
   getUniqueIndustries,
   getUniqueSubCategories,
   sortCategoriesByPreference,
@@ -27,6 +28,7 @@ import { CategoryFilter } from "./filters/CategoryFilter";
 import { SubCategoryFilter } from "./filters/SubCategoryFilter";
 import { TemperatureFilter } from "./filters/TemperatureFilter";
 import { CutLevelFilter } from "./filters/CutLevelFilter";
+import { HeatLevelFilter } from "./filters/HeatLevelFilter";
 import { IndustryFilter } from "./filters/IndustryFilter";
 import { FilterBadges } from "./filters/FilterBadges";
 import { MobileFilterSheet } from "./filters/MobileFilterSheet";
@@ -44,6 +46,7 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
   const [selectedSubCategories, setSelectedSubCategories] = useState<string[]>([]);
   const [selectedTempRatings, setSelectedTempRatings] = useState<string[]>([]);
   const [selectedCutLevels, setSelectedCutLevels] = useState<string[]>([]);
+  const [selectedHeatLevels, setSelectedHeatLevels] = useState<string[]>([]);
   const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState<string>("featured");
   const [previewProduct, setPreviewProduct] = useState<Product | null>(null);
@@ -57,6 +60,7 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
     subCategory: true, // Always open sub-category as the main filter
     temperature: false,
     cutLevel: false,
+    heatLevel: false,
     industries: false
   });
   
@@ -75,6 +79,7 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
     subCategory: true, // Always open sub-category as the main filter
     temperature: false,
     cutLevel: false,
+    heatLevel: false,
     industries: false
   });
   
@@ -120,6 +125,9 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
   // Get unique cut resistance levels
   const uniqueCutLevels = getUniqueCutLevels(localizedProducts);
 
+  // Get unique heat resistance levels
+  const uniqueHeatLevels = getUniqueHeatLevels(localizedProducts);
+
   // Get unique industries
   const uniqueIndustries = getUniqueIndustries(localizedProducts);
 
@@ -151,9 +159,10 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
     if (selectedSubCategories.length > 0) count++;
     if (selectedTempRatings.length > 0) count++;
     if (selectedCutLevels.length > 0) count++;
+    if (selectedHeatLevels.length > 0) count++;
     if (selectedIndustries.length > 0) count++;
     setActiveFiltersCount(count);
-  }, [selectedCategory, selectedSubCategories, selectedTempRatings, selectedCutLevels, selectedIndustries]);
+  }, [selectedCategory, selectedSubCategories, selectedTempRatings, selectedCutLevels, selectedHeatLevels, selectedIndustries]);
   
   // Handle industry selection
   const toggleIndustry = (industry: string) => {
@@ -189,12 +198,21 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
     );
   };
   
+  const toggleHeatLevel = (level: string) => {
+    setSelectedHeatLevels(prev => 
+      prev.includes(level)
+        ? prev.filter(i => i !== level)
+        : [...prev, level]
+    );
+  };
+  
   // Clear all filters
   const clearFilters = () => {
     setSelectedCategory("");
     setSelectedSubCategories([]);
     setSelectedTempRatings([]);
     setSelectedCutLevels([]);
+    setSelectedHeatLevels([]);
     setSelectedIndustries([]);
   };
   
@@ -230,6 +248,12 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
       (product.cut_resistance_level && 
        selectedCutLevels.includes(product.cut_resistance_level));
     
+    // Match heat resistance level
+    const matchesHeatLevel =
+      selectedHeatLevels.length === 0 ||
+      (product.heat_resistance_level && 
+       selectedHeatLevels.includes(product.heat_resistance_level));
+    
     // Match industries
     const matchesIndustries =
       selectedIndustries.length === 0 ||
@@ -243,6 +267,7 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
            matchesSubCategory && 
            matchesTempRating && 
            matchesCutLevel && 
+           matchesHeatLevel && 
            matchesIndustries;
   });
   
@@ -397,6 +422,15 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
                   toggleSection={toggleSection}
                 />
                 
+                {/* Heat Resistance Level Filter */}
+                <HeatLevelFilter
+                  heatLevels={uniqueHeatLevels}
+                  selectedHeatLevels={selectedHeatLevels}
+                  toggleHeatLevel={toggleHeatLevel}
+                  isExpanded={expandedSections.heatLevel}
+                  toggleSection={toggleSection}
+                />
+                
                 {/* Industries Filter */}
                 <IndustryFilter
                   industries={uniqueIndustries}
@@ -466,6 +500,9 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
                   cutLevels={uniqueCutLevels}
                   selectedCutLevels={selectedCutLevels}
                   toggleCutLevel={toggleCutLevel}
+                  heatLevels={uniqueHeatLevels}
+                  selectedHeatLevels={selectedHeatLevels}
+                  toggleHeatLevel={toggleHeatLevel}
                   industries={uniqueIndustries}
                   selectedIndustries={selectedIndustries}
                   toggleIndustry={toggleIndustry}

@@ -2,6 +2,19 @@ import { supabase } from './supabase';
 import { v4 as uuidv4 } from 'uuid';
 import type { Language } from './context/language-context';
 
+// New interfaces for the structured content
+export interface IndustrySection {
+  title: string;
+  description: string;
+  key_hazards: string[];
+  ppe_solutions: string[];
+}
+
+export interface IndustrySummaryContent {
+  summary: string;
+  sections: IndustrySection[];
+}
+
 export interface Industry {
   id: string;
   industry_name: string;
@@ -22,9 +35,23 @@ export interface Industry {
   features_locales?: Record<string, string[]>;
   showcase_description_locales?: Record<string, string>;
   features?: string[];
+  // New structured content fields
+  summary_content_locales?: Record<string, string>;
+  sections_locales?: Record<string, IndustrySection[]>;
+  // Computed fields after localisation
+  summary_content?: string;
+  sections?: IndustrySection[];
+  // New related product ID fields (same as products table)
+  related_product_id_1?: string | null;
+  related_product_id_2?: string | null;
+  related_product_id_3?: string | null;
+  related_product_id_4?: string | null;
 }
 
 export function localiseIndustry(industry: Industry, language: Language): Industry {
+  const localisedSummaryContent = industry.summary_content_locales?.[language] || industry.summary_content_locales?.en;
+  const localisedSections = industry.sections_locales?.[language] || industry.sections_locales?.en || [];
+
   return {
     ...industry,
     industry_name: industry.industry_name_locales?.[language] || industry.industry_name_locales?.en || industry.industry_name,
@@ -32,6 +59,8 @@ export function localiseIndustry(industry: Industry, language: Language): Indust
     content: industry.content_locales?.[language] || industry.content_locales?.en || industry.content,
     showcase_description: industry.showcase_description_locales?.[language] || industry.showcase_description_locales?.en || industry.showcase_description,
     features: industry.features_locales?.[language] || industry.features_locales?.en || [],
+    summary_content: localisedSummaryContent,
+    sections: localisedSections,
   };
 }
 
@@ -230,7 +259,35 @@ export async function uploadIndustryImage(industryId: string, file: File): Promi
 }
 
 /**
- * Get related products for an industry
+ * Get related products for an industry using individual product IDs
+ */
+export async function getRelatedProductsByIds(industry: Industry) {
+  const productIds = [
+    industry.related_product_id_1,
+    industry.related_product_id_2, 
+    industry.related_product_id_3,
+    industry.related_product_id_4
+  ].filter(Boolean) as string[];
+
+  if (productIds.length === 0) return [];
+  
+  try {
+    const { data, error } = await supabase
+      .from('products')
+      .select('*')
+      .in('id', productIds)
+      .eq('published', true);
+    
+    if (error) throw error;
+    return data || [];
+  } catch (error) {
+    console.error('Error getting related products by IDs:', error);
+    return [];
+  }
+}
+
+/**
+ * Get related products for an industry (legacy method using array)
  */
 export async function getRelatedProducts(productIds: string[]) {
   if (!productIds || productIds.length === 0) return [];
@@ -242,7 +299,7 @@ export async function getRelatedProducts(productIds: string[]) {
       .in('id', productIds);
     
     if (error) throw error;
-    return data;
+    return data || [];
   } catch (error) {
     console.error('Error getting related products:', error);
     return [];

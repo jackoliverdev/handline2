@@ -350,7 +350,7 @@
       "browseProducts": "Explore Products",
       "contactUs": "Contact Us Today"
     },
-    "trustIndicator": "Trusted by leading companies worldwide • EN standards • European support"
+    "trustIndicator": "Trusted by leading companies worldwide"
   },
   "industryCta": {
     "badge": "Specialised Safety Solutions",
@@ -360,7 +360,7 @@
       "browseProducts": "Browse Our Products",
       "contactUs": "Contact Us Today"
     },
-    "trustIndicator": "Trusted by leading companies in {industry} • EN standards • European support"
+    "trustIndicator": "Trusted by leading companies in {industry}"
   },
   "footer": {
     "companyDescription": "Italian manufacturer specialising in high-performance safety gloves for industrial environments. Protecting hands with innovative solutions since 1982.",
@@ -515,6 +515,7 @@
       "subCategory": "Sub-Category",
       "temperature": "Temperature Rating",
       "cutLevel": "Cut Resistance Level",
+      "heatLevel": "Heat Resistance Level",
       "industries": "Industries",
       "allCategories": "All Categories",
       "uncategorised": "Uncategorised",
@@ -554,26 +555,58 @@
     "specifications": "Specifications",
     "features": "Features",
     "applications": "Applications",
-    "safety": "Safety",
-    "documentation": "Documentation",
+    "safety": "EN Standards",
+    "documentation": "Documents",
+    "declarationOfConformity": "Declaration of Conformity",
+    "download": "Download",
+    "noDocuments": "No documents available",
     "productDetails": "Product Details",
     "technicalSpecifications": "Technical Specifications",
+    "materials": "Materials",
+    "dimensions": "Dimensions",
     "temperatureRating": "Temperature Rating",
     "cutResistanceLevel": "Cut Resistance Level",
     "industries": "Industries",
+    "keyIndustries": "Key Industries",
     "submitEnquiry": "Submit Enquiry",
     "contactUs": "Contact Us",
     "requestSample": "Request Sample",
     "productInfo": {
-      "availability": "Availability",
       "brand": "Brand", 
       "size": "Size",
       "length": "Length"
     },
     "ceCategory": "CE Category",
     "category": "Category",
-    "technicalSheets": "Technical Sheets",
-    "productDeclarations": "Product Declarations",
+    "technicalSheets": "Technical Sheet",
+    "productDeclarations": "Declaration of Conformity",
+    "manufacturersInstruction": "Manufacturers Instruction",
+    "safetyStandards": "Protection Levels",
+    "cut": "Cut",
+    "largeSplashes": "Large Splashes",
+    "workEnvironmentSuitability": "Work Environment Suitability",
+    "dryConditions": "Dry Conditions",
+    "wetConditions": "Wet Conditions", 
+    "dustyConditions": "Dusty Conditions",
+    "chemicalExposure": "Chemical Exposure",
+    "biologicalHazards": "Biological Hazards",
+    "oilyGreasy": "Oily / Greasy",
+    "suitableFor": "Suitable for",
+    "workEnvironments": "work environments",
+    "yes": "Yes",
+    "no": "No",
+    "mechanicalRisks": "Mechanical Risks",
+    "thermalRisks": "Thermal Risks",
+    "abrasion": "Abrasion",
+    "tear": "Tear", 
+    "puncture": "Puncture",
+    "impact": "Impact",
+    "flammability": "Flammability",
+    "contactHeat": "Contact Heat",
+    "convectiveHeat": "Convective Heat", 
+    "radiantHeat": "Radiant Heat",
+    "smallSplashes": "Small Splashes",
+    "additionalStandards": "Additional Standards",
     "englishDocument": "English",
     "italianDocument": "Italiano"
   },
@@ -585,6 +618,11 @@
     "sectorsWeServe": "Sectors We Serve",
     "sectorsDescription": "At Hand Line, we develop specialised safety solutions for a diverse range of industries, each with unique challenges and requirements.",
     "keyFeatures": "Key Features",
+    "summary": "Industry Overview",
+    "keyHazards": "Key Hazards",
+    "ppeSolutions": "PPE Solutions",
+    "noSectionsAvailable": "Detailed industry information is being updated. Please check back soon.",
+    "industrySummary": "Industry Summary",
     "viewSolutions": "View Solutions",
     "contactForDetails": "Contact us for details",
     "spotlight": {
@@ -866,18 +904,21 @@
       "description": "Reach us at our headquarters or using the details below.",
       "offices": {
         "switchLabel": "Office Location",
-        "italy": "Italy Office",
-        "uk": "UK Office"
+        "italy": "Italy",
+        "uk": "UK"
       },
       "address": {
         "title": "Registered Office",
-        "content": "via Antonio Bruse 34, 22035, Canzo (CO), Italy",
-        "contentUK": "121 London Road, London, EC1V 2NX"
+        "content": "Viale Varese 83, 22100 Como (CO), Italy",
+        "contentUK": "London, United Kingdom",
+        "operationalTitle": "Operational Location",
+        "operationalContent": "via Antonio Brusa 34, 22035, Canzo (CO), Italy",
+        "operationalContentUK": "London, United Kingdom"
       },
       "phone": {
         "title": "Telephone",
         "content": "+39 031 123 4567",
-        "contentUK": "+44 1279 421947"
+        "contentUK": "+39 031 123 4567"
       },
       "email": {
         "title": "Email",

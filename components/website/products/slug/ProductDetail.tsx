@@ -7,14 +7,13 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
-import { ChevronLeft, Flame, Scissors, User2, Mail, Download, ListChecks, ChevronRight, Shield, Home, Package, Ruler } from "lucide-react";
+import { ChevronLeft, Flame, Scissors, User2, Mail, Download, ListChecks, ChevronRight, Shield, Home, Package, Ruler, Hammer, Settings, Snowflake, Layers, Move } from "lucide-react";
 import { ProductImageGallery } from "@/components/website/products/product-image-gallery";
 import { ProductCard } from "@/components/website/products/product-card";
 import { SampleModal } from "@/components/website/products/sample-modal";
 import { ContactModal } from "@/components/website/products/contact-modal";
 import { SafetyStandardsDisplay } from "@/components/website/products/safety-standards-display";
 import { EnvironmentPictogramsDisplay } from "@/components/website/products/environment-pictograms";
-import { ProductInfoDisplay } from "@/components/website/products/product-info-display";
 import { Product } from "@/lib/products-service";
 
 // Flag components for flag icons
@@ -51,48 +50,92 @@ const FlagIcon = ({ country, className }: { country: 'GB' | 'IT', className?: st
   return flags[country];
 };
 
+// Brand logo mapping
+const getBrandLogo = (brandName: string) => {
+  const normalizedBrand = brandName.toLowerCase();
+  
+  if (normalizedBrand.includes('hand line') || normalizedBrand.includes('handline')) {
+    return '/brands/logoHLC.png';
+  }
+  
+  if (normalizedBrand.includes('progloves heat') || (normalizedBrand.includes('proglov') && normalizedBrand.includes('heat'))) {
+    return '/brands/proheatnobg.png';
+  }
+  
+  if (normalizedBrand.includes('progloves cut') || (normalizedBrand.includes('proglov') && normalizedBrand.includes('cut'))) {
+    return '/brands/procutnobg.png';
+  }
+  
+  return null;
+};
+
 export function ProductDetail({ product, relatedProducts }: { product: Product, relatedProducts: any[] }) {
   const { t, language } = useLanguage();
   
-  // Get localized product content
-  const name = product.name_locales?.[language] || product.name || '';
-  const description = product.description_locales?.[language] || product.description || '';
-  const features = product.features_locales?.[language] || product.features || [];
-  const applications = product.applications_locales?.[language] || product.applications || [];
-  const industries = product.industries_locales?.[language] || product.industries || [];
-  
-  // Map category names to translation keys
-  const getCategoryTranslation = (category: string) => {
-    const categoryMap: Record<string, string> = {
-      'Hand protection': 'productCategories.handProtection',
-      'Heat resistant gloves': 'productCategories.heatResistantGloves',
-      'Cut resistant gloves': 'productCategories.cutResistantGloves', 
-      'General purpose gloves': 'productCategories.generalPurposeGloves',
-      'Welding gloves': 'productCategories.weldingGloves',
-      'Mechanical hazards gloves': 'productCategories.mechanicalHazardsGloves',
-      'Industrial swabs': 'productCategories.industrialSwabs',
-      'Respiratory protection': 'productCategories.respiratoryProtection'
-    };
-    
-    return categoryMap[category] ? t(categoryMap[category]) : category;
-  };
-  
-  const category = getCategoryTranslation(product.category || '');
-  const sub_category = product.sub_category ? getCategoryTranslation(product.sub_category) : null;
-  
-  // Check if the product is new (created within the last 30 days)
-  const isNew = new Date(product.created_at).getTime() > Date.now() - (30 * 24 * 60 * 60 * 1000);
-  const hasRelatedProducts = relatedProducts && relatedProducts.length > 0;
+  // Get localized content based on current language
+  const currentFeatures = product.features_locales?.[language] || product.features || [];
+  const currentApplications = product.applications_locales?.[language] || product.applications || [];
+  const currentIndustries = product.industries_locales?.[language] || product.industries || [];
+
+  // Modal state variables
   const [isSampleModalOpen, setIsSampleModalOpen] = React.useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = React.useState(false);
 
-  // Check if extended data is available
-  const hasExtendedData = product.safety || product.environment_pictograms || product.brands?.length > 0;
+  // Get localised size and other info
+  const size = product.size_locales?.[language] || product.size_locales?.en || null;
+
+  // Extract materials information from features
+  const extractMaterials = (features: string[]) => {
+    const materials: string[] = [];
+    
+    features.forEach(feature => {
+      const lowerFeature = feature.toLowerCase();
+      
+      // Extract material types
+      if (lowerFeature.includes('cotton')) {
+        if (lowerFeature.includes('100%') || lowerFeature.includes('continuous')) {
+          materials.push('100% Cotton');
+        } else {
+          materials.push('Cotton');
+        }
+      }
+      
+      // Extract construction details
+      if (lowerFeature.includes('double-layer') || lowerFeature.includes('double layer')) {
+        materials.push('Double-layer');
+      }
+      if (lowerFeature.includes('continuous-yarn') || lowerFeature.includes('continuous yarn')) {
+        materials.push('Continuous-yarn');
+      }
+      if (lowerFeature.includes('seamless')) {
+        materials.push('Seamless');
+      }
+      
+      // Extract weight
+      const weightMatch = feature.match(/(\d+)\s*[gG]/);
+      if (weightMatch) {
+        materials.push(`${weightMatch[1]}g`);
+      }
+      
+      // Extract specific constructions
+      if (lowerFeature.includes('knitted') || lowerFeature.includes('knit')) {
+        materials.push('Knitted');
+      }
+      if (lowerFeature.includes('brushed')) {
+        materials.push('Brushed');
+      }
+    });
+    
+    // Remove duplicates and return max 3-4 items
+    return Array.from(new Set(materials)).slice(0, 4);
+  };
+
+  const materialsInfo = extractMaterials(product.features || []);
 
   return (
     <main className="bg-brand-light dark:bg-background min-h-screen pt-11">
       {/* Breadcrumb */}
-      <div className="bg-white/50 dark:bg-black/30 border-b border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm">
+      <div className="bg-brand-light dark:bg-background border-b border-brand-primary/10 dark:border-brand-primary/20">
         <div className="container py-2">
           <nav className="flex items-center space-x-2 text-sm">
             <Link 
@@ -112,7 +155,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
             </Link>
             <ChevronRight className="h-4 w-4 text-brand-primary/60" />
             <span className="text-brand-dark dark:text-white font-semibold bg-brand-primary/10 dark:bg-brand-primary/20 px-3 py-1 rounded-full text-xs uppercase tracking-wide">
-              {name}
+              {product.name_locales?.[language] || product.name || ''}
             </span>
           </nav>
         </div>
@@ -141,9 +184,9 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
             image3={product.image3_url}
             image4={product.image4_url}
             additionalImages={product.additional_images}
-            productName={name}
+            productName={product.name_locales?.[language] || product.name || ''}
             isFeatured={product.is_featured}
-            isNew={isNew}
+            isNew={new Date(product.created_at).getTime() > Date.now() - (30 * 24 * 60 * 60 * 1000)}
             outOfStock={product.out_of_stock}
           />
           
@@ -152,35 +195,71 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
             <div>
               <div className="flex items-center gap-2 mb-2 overflow-x-auto pb-1 scrollbar-hide max-w-full">
                 <Badge variant="outline" className="border-brand-primary/30 text-brand-secondary dark:text-gray-300 whitespace-nowrap flex-shrink-0">
-                  {category}
+                  {product.category_locales?.[language] || product.category || ''}
                 </Badge>
-                {sub_category && (
+                {product.sub_category && (
                   <Badge variant="outline" className="border-brand-primary/30 text-brand-secondary dark:text-gray-300 whitespace-nowrap flex-shrink-0">
-                    {sub_category}
+                    {product.sub_category_locales?.[language] || product.sub_category}
                   </Badge>
                 )}
               </div>
-              <h1 className="text-3xl font-bold tracking-tight md:text-4xl text-brand-dark dark:text-white">{name}</h1>
+              
+              {/* Product title with brand positioned inline right-aligned */}
+              <div className="flex items-start justify-between gap-4 mb-4">
+                <h1 className="text-3xl font-bold tracking-tight md:text-4xl text-brand-dark dark:text-white flex-1">{product.name_locales?.[language] || product.name || ''}</h1>
+                
+                {/* Brand display - right aligned */}
+                {product.brands && product.brands.length > 0 && (
+                  <div className="flex items-center gap-1.5 flex-shrink-0">
+                    {product.brands.map((brand, index) => {
+                      const logoPath = getBrandLogo(brand);
+                      
+                      if (logoPath) {
+                        return (
+                          <div 
+                            key={index}
+                            className="relative flex items-center bg-white dark:bg-black/50 border border-brand-primary/20 rounded px-2 py-1 h-8"
+                          >
+                            {/* Light mode image */}
+                            <Image
+                              src={logoPath}
+                              alt={brand}
+                              width={60}
+                              height={24}
+                              className="object-contain block dark:hidden"
+                            />
+                            {/* Dark mode image */}
+                            <Image
+                              src={logoPath}
+                              alt={brand}
+                              width={60}
+                              height={24}
+                              className="object-contain hidden dark:block invert"
+                            />
+                          </div>
+                        );
+                      } else {
+                        return (
+                          <Badge 
+                            key={index}
+                            variant="outline" 
+                            className="text-sm py-1 px-2 bg-brand-primary/5 border-brand-primary/20 text-brand-dark dark:text-white"
+                          >
+                            {brand}
+                          </Badge>
+                        );
+                      }
+                    })}
+                  </div>
+                )}
+              </div>
             </div>
             
             <div className="pt-0.5">
               <p className="text-brand-secondary dark:text-gray-300 leading-relaxed">
-                {description}
+                {product.description_locales?.[language] || product.description || ''}
               </p>
             </div>
-            
-            {/* Extended Product Information - Back on right side */}
-            {hasExtendedData && (
-              <ProductInfoDisplay
-                brands={product.brands || []}
-                tags_locales={product.tags_locales || {}}
-                size_locales={product.size_locales}
-                length_cm={product.length_cm}
-                ce_category={product.ce_category}
-                availability_status={product.availability_status}
-                coming_soon={product.coming_soon}
-              />
-            )}
 
             <Separator className="my-6 border-brand-primary/10 dark:border-brand-primary/20" />
             
@@ -261,101 +340,150 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                 
                 <TabsContent value="specifications" className="mt-0">
                   <div className="space-y-4">
-                    {/* Technical Specifications */}
-                    <h4 className="text-lg font-medium text-brand-dark dark:text-white mt-4 mb-2">{t('productPage.technicalSpecifications')}</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      {product.temperature_rating && (
-                        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-                          <div className="flex items-center justify-center gap-2 mb-3">
-                            <Flame className="h-5 w-5 text-brand-primary" />
-                            <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.temperatureRating')}</h3>
-                          </div>
-                          <div className="flex items-center justify-center h-12">
-                            <p className="text-brand-secondary dark:text-gray-300 font-medium text-lg">{product.temperature_rating}°C</p>
-                          </div>
+                    {/* Technical Specifications - New 3-tile layout */}
+                    <h3 className="text-lg font-semibold text-brand-dark dark:text-white mb-4">
+                      {t('productPage.technicalSpecifications')}
+                    </h3>
+                    <div className="grid grid-cols-3 gap-4">
+                      {/* Materials Tile */}
+                      <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+                        <div className="flex items-center justify-center gap-2 mb-2">
+                          <Layers className="h-5 w-5 text-brand-primary hidden sm:block" />
+                          <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.materials')}</h3>
                         </div>
-                      )}
-                      
-                      {product.cut_resistance_level && product.en_standard && (
-                        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-                          <div className="flex items-center justify-center gap-3 mb-3">
-                            <Shield className="h-5 w-5 text-brand-primary" />
-                            <h3 className="text-sm font-medium text-brand-dark dark:text-white">
-                              EN Standards
-                            </h3>
-                          </div>
-                          <div className="flex items-center justify-center gap-3 h-12">
-                            <div className="relative w-12 h-12 flex-shrink-0">
-                              <Image
-                                src={`/images/standards/${product.en_standard}.png`}
-                                alt={product.en_standard}
-                                fill
-                                className="object-contain dark:invert"
-                              />
+                        <div className="flex items-center justify-center">
+                          {materialsInfo && materialsInfo.length > 0 ? (
+                            <div className="text-center">
+                              <div className="text-brand-dark dark:text-white font-medium text-md">
+                                {materialsInfo[0]}
+                              </div>
+                              {materialsInfo.length > 1 && (
+                                <div className="text-sm text-brand-secondary dark:text-gray-300">
+                                  +{materialsInfo.length - 1} more
+                                </div>
+                              )}
                             </div>
-                            <div>
-                              <p className="text-brand-secondary dark:text-gray-300 font-medium text-lg">
-                                {product.en_standard}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-
-                      {/* CE Category */}
-                      {product.ce_category && (
-                        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-                          <div className="flex items-center justify-center gap-2 mb-3">
-                            <Shield className="h-5 w-5 text-brand-primary" />
-                            <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.ceCategory')}</h3>
-                          </div>
-                          <div className="flex items-center justify-center h-12">
-                            <Badge 
-                              variant="outline" 
-                              className="bg-brand-primary/10 border-brand-primary/30 text-brand-primary font-bold text-lg"
-                            >
-                              Category {product.ce_category}
-                            </Badge>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                    
-                    <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-                      <div className="flex items-center gap-2 mb-3">
-                        <User2 className="h-5 w-5 text-brand-primary" />
-                        <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.industries')}</h3>
-                      </div>
-                      
-                      {/* Product Tags */}
-                      {product.tags_locales?.[language]?.length > 0 || product.tags_locales?.en?.length > 0 && (
-                        <div className="mb-3">
-                          <h4 className="text-sm font-medium text-brand-secondary dark:text-gray-400 mb-2">Product Tags</h4>
-                          <div className="flex flex-wrap gap-1 mb-3">
-                            {(product.tags_locales?.[language] || product.tags_locales?.en || []).map((tag: string, index: number) => (
-                              <Badge key={index} variant="outline" className="text-xs bg-brand-primary/5 border-brand-primary/20">
-                                {tag}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                      
-                      {/* Industries */}
-                      <div>
-                        <div className="flex flex-wrap gap-2">
-                          {industries && industries.length > 0 ? (
-                            industries.map((industry: string) => (
-                              <Badge key={industry} variant="outline" className="bg-brand-primary/5 border-brand-primary/20">
-                                {industry}
-                              </Badge>
-                            ))
                           ) : (
-                            <span className="text-brand-secondary dark:text-gray-400">-</span>
+                            <span className="text-brand-dark dark:text-white font-medium text-md">-</span>
                           )}
                         </div>
                       </div>
+                      
+                      {/* Size */}
+                      <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+                        <div className="flex items-center justify-center gap-2 mb-2">
+                          <Move className="h-5 w-5 text-brand-primary hidden sm:block" />
+                          <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.productInfo.size')}</h3>
+                        </div>
+                        <div className="flex items-center justify-center">
+                          <span className="text-brand-dark dark:text-white font-medium text-md">
+                            {size || '-'}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Length */}
+                      <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+                        <div className="flex items-center justify-center gap-2 mb-2">
+                          <Ruler className="h-5 w-5 text-brand-primary hidden sm:block" />
+                          <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.productInfo.length')}</h3>
+                        </div>
+                        <div className="flex items-center justify-center">
+                          <span className="text-brand-dark dark:text-white font-medium text-md">
+                            {product.length_cm ? `${product.length_cm} cm` : '-'}
+                          </span>
+                        </div>
+                      </div>
                     </div>
+                    
+                    {/* CE Category and EN Standards */}
+                    <div className="space-y-4">
+                      {/* CE Category and EN Standard - Side by Side Tiles */}
+                      <div className="grid grid-cols-2 gap-4">
+                        {product.ce_category && (
+                          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4 flex flex-col">
+                            <div className="flex items-center justify-center gap-2 mb-2">
+                              <Shield className="h-5 w-5 text-brand-primary" />
+                              <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.ceCategory')}</h3>
+                            </div>
+                            <div className="flex-1 flex items-center justify-center">
+                              <span className="text-brand-dark dark:text-white font-medium text-md">Category {product.ce_category}</span>
+                            </div>
+                          </div>
+                        )}
+                        
+                        {/* EN Standards from Safety JSON */}
+                        {product.safety && (product.safety.en_388?.enabled || product.safety.en_407?.enabled || product.safety.en_511?.enabled) && (
+                          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+                            <div className="flex items-center justify-center gap-2 mb-2">
+                              <Shield className="h-5 w-5 text-brand-primary" />
+                              <h3 className="text-sm font-medium text-brand-dark dark:text-white">EN Standards</h3>
+                            </div>
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-3">
+                              {/* EN 388 - Mechanical Risks */}
+                              {product.safety.en_388?.enabled && (
+                                <div className="flex items-center gap-1">
+                                  <Image
+                                    src="/images/standards/EN388.png"
+                                    alt="EN388"
+                                    width={20}
+                                    height={20}
+                                    className="object-contain"
+                                  />
+                                  <span className="text-brand-dark dark:text-white font-medium text-md">EN388</span>
+                                </div>
+                              )}
+                              
+                              {/* EN 407 - Thermal Risks */}
+                              {product.safety.en_407?.enabled && (
+                                <>
+                                  {product.safety.en_388?.enabled && <span className="text-brand-secondary dark:text-gray-400 hidden sm:inline">•</span>}
+                                  <div className="flex items-center gap-1">
+                                    <Image
+                                      src="/images/standards/EN407.png"
+                                      alt="EN407"
+                                      width={20}
+                                      height={20}
+                                      className="object-contain"
+                                    />
+                                    <span className="text-brand-dark dark:text-white font-medium text-md">EN407</span>
+                                  </div>
+                                </>
+                              )}
+                              
+                              {/* EN 511 - Cold Risks */}
+                              {product.safety.en_511?.enabled && (
+                                <>
+                                  {(product.safety.en_388?.enabled || product.safety.en_407?.enabled) && <span className="text-brand-secondary dark:text-gray-400 hidden sm:inline">•</span>}
+                                  <div className="flex items-center gap-1">
+                                    <Snowflake className="h-5 w-5 text-blue-500" />
+                                    <span className="text-brand-dark dark:text-white font-medium text-md">EN511</span>
+                                  </div>
+                                </>
+                              )}
+                            </div>
+                          </div>
+                        )}
+                        
+                        {/* Fallback when safety exists but no standards are enabled, or when no safety data exists */}
+                        {((product.safety && !product.safety.en_388?.enabled && !product.safety.en_407?.enabled && !product.safety.en_511?.enabled) || !product.safety) && product.en_standard && (
+                          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+                            <div className="flex items-center justify-center gap-2 mb-2">
+                              <Shield className="h-5 w-5 text-brand-primary" />
+                              <h3 className="text-sm font-medium text-brand-dark dark:text-white">EN Standard</h3>
+                            </div>
+                            <div className="flex items-center justify-center">
+                              <span className="text-brand-dark dark:text-white font-medium text-md">{product.en_standard}</span>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    
+                    {/* Work Environment Suitability */}
+                    {product.environment_pictograms && (
+                      <EnvironmentPictogramsDisplay environment_pictograms={product.environment_pictograms} />
+                    )}
                   </div>
                 </TabsContent>
                 
@@ -367,8 +495,8 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                         <h3 className="font-medium text-brand-dark dark:text-white">{t('productPage.features')}</h3>
                       </div>
                       <ul className="list-disc list-inside space-y-1 text-brand-secondary dark:text-gray-300">
-                        {features && features.length > 0 ? (
-                          features.map((feature: string, idx: number) => (
+                        {currentFeatures && currentFeatures.length > 0 ? (
+                          currentFeatures.map((feature: string, idx: number) => (
                             <li key={idx}>{feature}</li>
                           ))
                         ) : (
@@ -381,14 +509,15 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                 
                 <TabsContent value="applications" className="mt-0">
                   <div className="space-y-4">
+                    {/* Applications */}
                     <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
                       <div className="flex items-center gap-2 mb-2">
                         <ListChecks className="h-5 w-5 text-brand-primary" />
                         <h3 className="font-medium text-brand-dark dark:text-white">{t('productPage.applications')}</h3>
                       </div>
                       <ul className="list-disc list-inside space-y-1 text-brand-secondary dark:text-gray-300">
-                        {applications && applications.length > 0 ? (
-                          applications.map((application: string, idx: number) => (
+                        {currentApplications && currentApplications.length > 0 ? (
+                          currentApplications.map((application: string, idx: number) => (
                             <li key={idx}>{application}</li>
                           ))
                         ) : (
@@ -396,20 +525,35 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                         )}
                       </ul>
                     </div>
+                    
+                    {/* Key Industries - Moved from Specifications tab */}
+                    {/* Key Industries Section */}
+                    {currentIndustries && currentIndustries.length > 0 && (
+                      <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+                        <div className="flex items-center gap-2 mb-4">
+                          <User2 className="h-5 w-5 text-brand-primary" />
+                          <h3 className="font-medium text-brand-dark dark:text-white">
+                            {t('productPage.keyIndustries')}
+                          </h3>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {currentIndustries.map((industry: string) => (
+                            <Badge key={industry} variant="outline" className="bg-brand-primary/5 border-brand-primary/20">
+                              {industry}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </TabsContent>
                 
-                {(product.safety || product.environment_pictograms) && (
+                {(product.safety) && (
                   <TabsContent value="safety" className="mt-0">
                     <div className="space-y-6">
-                      {/* Safety Standards */}
+                      {/* Safety Standards - Environment pictograms moved to specifications */}
                       {product.safety && (
                         <SafetyStandardsDisplay safety={product.safety} />
-                      )}
-                      
-                      {/* Environment Pictograms */}
-                      {product.environment_pictograms && (
-                        <EnvironmentPictogramsDisplay environment={product.environment_pictograms} />
                       )}
                     </div>
                   </TabsContent>
@@ -417,13 +561,12 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                 
                 <TabsContent value="documentation" className="mt-0">
                   <div className="space-y-4">
-                    {/* Technical Sheets */}
-                    {(product.technical_sheet_url || product.technical_sheet_url_it) && (
+                    {/* Technical Sheet - Dynamic language display */}
+                    {((language === 'en' && product.technical_sheet_url) || (language === 'it' && product.technical_sheet_url_it)) && (
                       <div className="space-y-3">
-                        <h4 className="text-md font-medium text-brand-dark dark:text-white">{t('productPage.technicalSheets')}</h4>
-                        <div className="grid gap-3 md:grid-cols-2">
-                          {/* English Technical Sheet */}
-                          {product.technical_sheet_url && (
+                        <h3 className="text-lg font-semibold text-brand-dark dark:text-white">{t('productPage.technicalSheets')}</h3>
+                        <div className="grid gap-3">
+                          {language === 'en' && product.technical_sheet_url && (
                             <Button
                               variant="outline"
                               size="lg"
@@ -431,15 +574,13 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                               asChild
                             >
                               <a href={product.technical_sheet_url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
-                                <FlagIcon country="GB" className="h-4 w-4" />
                                 <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
-                                {t('productPage.englishDocument')}
+                                {t('productPage.download')}
                               </a>
                             </Button>
                           )}
                           
-                          {/* Italian Technical Sheet */}
-                          {product.technical_sheet_url_it && (
+                          {language === 'it' && product.technical_sheet_url_it && (
                             <Button
                               variant="outline"
                               size="lg"
@@ -447,9 +588,8 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                               asChild
                             >
                               <a href={product.technical_sheet_url_it} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
-                                <FlagIcon country="IT" className="h-4 w-4" />
                                 <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
-                                {t('productPage.italianDocument')}
+                                {t('productPage.download')}
                               </a>
                             </Button>
                           )}
@@ -457,13 +597,12 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                       </div>
                     )}
                     
-                    {/* Declaration Sheets */}
-                    {(product.declaration_sheet_url || product.declaration_sheet_url_it) && (
+                    {/* Declaration of Conformity - Dynamic language display */}
+                    {((language === 'en' && product.declaration_sheet_url) || (language === 'it' && product.declaration_sheet_url_it)) && (
                       <div className="space-y-3">
-                        <h4 className="text-md font-medium text-brand-dark dark:text-white">{t('productPage.productDeclarations')}</h4>
-                        <div className="grid gap-3 md:grid-cols-2">
-                          {/* English Declaration Sheet */}
-                          {product.declaration_sheet_url && (
+                        <h3 className="text-lg font-semibold text-brand-dark dark:text-white">{t('productPage.productDeclarations')}</h3>
+                        <div className="grid gap-3">
+                          {language === 'en' && product.declaration_sheet_url && (
                             <Button
                               variant="outline"
                               size="lg"
@@ -471,15 +610,13 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                               asChild
                             >
                               <a href={product.declaration_sheet_url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
-                                <FlagIcon country="GB" className="h-4 w-4" />
                                 <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
-                                {t('productPage.englishDocument')}
+                                {t('productPage.download')}
                               </a>
                             </Button>
                           )}
                           
-                          {/* Italian Declaration Sheet */}
-                          {product.declaration_sheet_url_it && (
+                          {language === 'it' && product.declaration_sheet_url_it && (
                             <Button
                               variant="outline"
                               size="lg"
@@ -487,9 +624,44 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                               asChild
                             >
                               <a href={product.declaration_sheet_url_it} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
-                                <FlagIcon country="IT" className="h-4 w-4" />
                                 <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
-                                {t('productPage.italianDocument')}
+                                {t('productPage.download')}
+                              </a>
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Manufacturers Instruction - Dynamic language display */}
+                    {((language === 'en' && product.manufacturers_instruction_url) || (language === 'it' && product.manufacturers_instruction_url_it)) && (
+                      <div className="space-y-3">
+                        <h3 className="text-lg font-semibold text-brand-dark dark:text-white">{t('productPage.manufacturersInstruction')}</h3>
+                        <div className="grid gap-3">
+                          {language === 'en' && product.manufacturers_instruction_url && (
+                            <Button
+                              variant="outline"
+                              size="lg"
+                              className="w-full border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
+                              asChild
+                            >
+                              <a href={product.manufacturers_instruction_url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                                <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
+                                {t('productPage.download')}
+                              </a>
+                            </Button>
+                          )}
+                          
+                          {language === 'it' && product.manufacturers_instruction_url_it && (
+                            <Button
+                              variant="outline"
+                              size="lg"
+                              className="w-full border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
+                              asChild
+                            >
+                              <a href={product.manufacturers_instruction_url_it} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                                <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
+                                {t('productPage.download')}
                               </a>
                             </Button>
                           )}
@@ -498,7 +670,8 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                     )}
                     
                     {/* Show message if no documents available */}
-                    {!product.technical_sheet_url && !product.technical_sheet_url_it && !product.declaration_sheet_url && !product.declaration_sheet_url_it && (
+                    {!((language === 'en' && (product.technical_sheet_url || product.declaration_sheet_url || product.manufacturers_instruction_url)) || 
+                        (language === 'it' && (product.technical_sheet_url_it || product.declaration_sheet_url_it || product.manufacturers_instruction_url_it))) && (
                       <div className="text-center py-8 text-brand-secondary dark:text-gray-400">
                         <Download className="h-8 w-8 mx-auto mb-2 opacity-50" />
                         <p>No documentation available for this product.</p>
