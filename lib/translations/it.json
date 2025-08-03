@@ -354,7 +354,7 @@
       "browseProducts": "Esplora Prodotti",
       "contactUs": "Contattaci Oggi"
     },
-    "trustIndicator": "Aziende leader si fidano di noi in tutto il mondo • Standard EN • Supporto europeo"
+    "trustIndicator": "Aziende leader si fidano di noi in tutto il mondo"
   },
   "industryCta": {
     "badge": "Soluzioni di Sicurezza Specializzate",
@@ -364,7 +364,7 @@
       "browseProducts": "Esplora i Nostri Prodotti",
       "contactUs": "Contattaci Oggi"
     },
-    "trustIndicator": "Aziende leader del settore {industry} si fidano di noi • Standard EN • Supporto europeo"
+    "trustIndicator": "Aziende leader del settore {industry} si fidano di noi"
   },
   "footer": {
     "companyDescription": "Produttore italiano specializzato in guanti di sicurezza ad alte prestazioni per ambienti industriali. Proteggiamo le mani con soluzioni innovative dal 1982.",
@@ -513,22 +513,16 @@
       "name-desc": "Nome: Z-A"
     },
     "filters": {
-      "title": "Filtri",
       "category": "Categoria",
       "subCategory": "Sottocategoria",
-      "temperature": "Resistenza al Calore",
-      "cutLevel": "Livello di Resistenza al Taglio",
-      "industries": "Settori",
-      "allCategories": "Tutte le categorie",
-      "uncategorised": "Senza categoria",
-      "activeFilters": "Filtri attivi:",
+      "temperatureRating": "Valutazione Temperatura",
+      "cutLevel": "Livello Resistenza Taglio",
+      "heatLevel": "Livello Resistenza Calore",
+      "industries": "Industrie",
       "clearAll": "Cancella Tutto",
-      "apply": "Applica",
-      "heatResistantGloves": "Guanti Termoresistenti",
-      "cutResistantGloves": "Guanti Antitaglio",
-      "generalPurposeGloves": "Guanti Uso Generale",
-      "industrialSwabs": "Tamponi Industriali",
-      "respiratoryProtection": "Protezione Respiratoria"
+      "showMore": "Mostra Di Più",
+      "showLess": "Mostra Meno",
+      "uncategorised": "Non Categorizzato"
     },
     "results": {
       "showing": "Mostrando {current} di {total} prodotti",
@@ -558,28 +552,60 @@
     "specifications": "Specifiche",
     "features": "Caratteristiche",
     "applications": "Applicazioni",
-    "safety": "Sicurezza",
-    "documentation": "Documentazione",
+    "safety": "Standard EN",
+    "documentation": "Documenti",
     "productDetails": "Dettagli Prodotto",
     "technicalSpecifications": "Specifiche Tecniche",
+    "materials": "Materiali",
+    "dimensions": "Dimensioni",
     "temperatureRating": "Resistenza al Calore",
     "cutResistanceLevel": "Livello di Resistenza al Taglio",
     "industries": "Settori",
+    "keyIndustries": "Settori Chiave",
     "submitEnquiry": "Invia richiesta",
     "contactUs": "Contattaci",
     "requestSample": "Richiedi Campione",
     "productInfo": {
-      "availability": "Disponibilità",
       "brand": "Marca", 
       "size": "Taglia",
       "length": "Lunghezza"
     },
     "ceCategory": "Categoria CE",
     "category": "Categoria",
-    "technicalSheets": "Schede Tecniche",
-    "productDeclarations": "Dichiarazioni di Prodotto",
+    "technicalSheets": "Scheda Tecnica",
+    "productDeclarations": "Dichiarazione di Conformità",
+    "manufacturersInstruction": "Istruzioni del Produttore",
+    "safetyStandards": "Livelli di Protezione",
+    "cut": "Taglio",
+    "largeSplashes": "Grandi Schizzi",
     "englishDocument": "English",
-    "italianDocument": "Italiano"
+    "italianDocument": "Italiano",
+    "declarationOfConformity": "Dichiarazione di Conformità",
+    "download": "Scarica",
+    "noDocuments": "Nessun documento disponibile",
+    "workEnvironmentSuitability": "Idoneità Ambiente di Lavoro",
+    "dryConditions": "Condizioni Asciutte",
+    "wetConditions": "Condizioni Umide",
+    "dustyConditions": "Condizioni Polverose", 
+    "chemicalExposure": "Esposizione Chimica",
+    "biologicalHazards": "Rischi Biologici",
+    "oilyGreasy": "Oleoso / Grasso",
+    "suitableFor": "Adatto per",
+    "workEnvironments": "ambienti di lavoro",
+    "yes": "Sì",
+    "no": "No",
+    "mechanicalRisks": "Rischi Meccanici",
+    "thermalRisks": "Rischi Termici",
+    "abrasion": "Abrasione",
+    "tear": "Strappo",
+    "puncture": "Perforazione", 
+    "impact": "Impatto",
+    "flammability": "Infiammabilità",
+    "contactHeat": "Calore da Contatto",
+    "convectiveHeat": "Calore Convettivo",
+    "radiantHeat": "Calore Radiante", 
+    "smallSplashes": "Piccoli Schizzi",
+    "additionalStandards": "Standard Aggiuntivi"
   },
   "relatedProducts": {
     "title": "Prodotti correlati"
@@ -603,6 +629,11 @@
     "sectorsWeServe": "Settori Serviti",
     "sectorsDescription": "In Hand Line sviluppiamo soluzioni di sicurezza specializzate per una vasta gamma di settori, ciascuno con sfide e requisiti unici.",
     "keyFeatures": "Caratteristiche principali",
+    "summary": "Panoramica del Settore",
+    "keyHazards": "Rischi Principali",
+    "ppeSolutions": "Soluzioni DPI",
+    "noSectionsAvailable": "Le informazioni dettagliate del settore sono in aggiornamento. Si prega di riprovare presto.",
+    "industrySummary": "Riassunto del Settore",
     "viewSolutions": "Vedi Soluzioni",
     "contactForDetails": "Contattaci per dettagli",
     "features": {
@@ -884,18 +915,21 @@
       "description": "Puoi raggiungerci presso la nostra sede o utilizzando i dettagli qui sotto.",
       "offices": {
         "switchLabel": "Sede",
-        "italy": "Sede Italia",
-        "uk": "Sede Regno Unito"
+        "italy": "Italia",
+        "uk": "Regno Unito"
       },
       "address": {
-        "title": "Sede Legale",
-        "content": "via Antonio Bruse 34, 22035, Canzo (CO), Italia",
-        "contentUK": "121 London Road, London, EC1V 2NX"
+        "title": "Sede Amministrativa",
+        "content": "Viale Varese 83, 22100 Como (CO), Italia",
+        "contentUK": "Londra, Regno Unito",
+        "operationalTitle": "Sede Operativa",
+        "operationalContent": "via Antonio Brusa 34, 22035, Canzo (CO), Italia",
+        "operationalContentUK": "Londra, Regno Unito"
       },
       "phone": {
         "title": "Telefono",
         "content": "+39 031 123 4567",
-        "contentUK": "+44 1279 421947"
+        "contentUK": "+39 031 123 4567"
       },
       "email": {
         "title": "Email",

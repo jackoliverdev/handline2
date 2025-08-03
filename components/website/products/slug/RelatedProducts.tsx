@@ -7,7 +7,7 @@ import { ProductPreviewModal } from "@/components/website/products/product-previ
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight, Flame, Scissors, Eye } from "lucide-react";
+import { ChevronRight, Eye } from "lucide-react";
 import { motion } from "framer-motion";
 
 // Animation variants
@@ -193,47 +193,57 @@ export const RelatedProducts = ({ relatedProducts }: RelatedProductsProps) => {
                         {short_description || description}
                       </p>
                       
-                      <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-3">
-                        {product.temperature_rating && (
-                          <motion.div 
-                            initial={{ opacity: 0, y: 5 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.6 + (index * 0.05), duration: 0.3 }}
-                            className="flex items-center"
-                          >
-                            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-primary/10 mr-0">
-                              <Flame className="h-5 w-5 text-brand-primary" />
-                            </div>
-                            <div>
-                              <p className="text-xs text-gray-600 dark:text-gray-400">{t('featuredProducts.specs.temperature')}</p>
-                              <p className="text-xs sm:text-sm font-medium text-gray-900 dark:text-white">{product.temperature_rating}°C</p>
-                            </div>
-                          </motion.div>
-                        )}
-                        {product.cut_resistance_level && product.en_standard && (
-                          <motion.div 
-                            initial={{ opacity: 0, y: 5 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.7 + (index * 0.05), duration: 0.3 }}
-                            className="flex items-center"
-                          >
-                            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10 mr-0">
-                              <div className="relative w-6 h-6">
-                                <Image
-                                  src={`/images/standards/${product.en_standard}.png`}
-                                  alt={product.en_standard}
-                                  fill
-                                  className="object-contain dark:invert"
-                                />
+                      {/* EN Standards - Same as product cards */}
+                      {(product.cut_resistance_level || product.heat_resistance_level) && (
+                        <div className="space-y-2 mb-3">
+                          {/* EN Standards Title */}
+                          <div className="flex items-center gap-1">
+                            <p className="text-xs text-brand-primary font-medium">EN Standards</p>
+                          </div>
+                          
+                          {/* EN Standards Values - Responsive Grid */}
+                          <div className={`grid gap-1 ${
+                            product.cut_resistance_level && product.heat_resistance_level 
+                              ? 'grid-cols-2' 
+                              : 'grid-cols-1'
+                          }`}>
+                            {product.cut_resistance_level && (
+                              <div className="flex items-center gap-0.5 -ml-0.5">
+                                <div className="flex h-4 w-4 items-center justify-center">
+                                  <div className="relative w-4 h-4">
+                                    <Image
+                                      src="/images/standards/EN388.png"
+                                      alt="EN388"
+                                      fill
+                                      className="object-contain dark:invert"
+                                    />
+                                  </div>
+                                </div>
+                                <p className="text-xs font-medium text-gray-900 dark:text-white truncate ml-1">
+                                  {product.cut_resistance_level}
+                                </p>
                               </div>
-                            </div>
-                            <div>
-                              <p className="text-xs text-gray-600 dark:text-gray-400 whitespace-nowrap">EN Standards</p>
-                              <p className="text-xs sm:text-sm font-medium text-gray-900 dark:text-white">{product.en_standard}</p>
-                            </div>
-                          </motion.div>
-                        )}
-                      </div>
+                            )}
+                            {product.heat_resistance_level && (
+                              <div className="flex items-center gap-0.5 -ml-0.5">
+                                <div className="flex h-4 w-4 items-center justify-center">
+                                  <div className="relative w-4 h-4">
+                                    <Image
+                                      src="/images/standards/EN407.png"
+                                      alt="EN407"
+                                      fill
+                                      className="object-contain dark:invert"
+                                    />
+                                  </div>
+                                </div>
+                                <p className="text-xs font-medium text-gray-900 dark:text-white truncate ml-1">
+                                  {product.heat_resistance_level}
+                                </p>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      )}
                       
                       <div className="flex-1" />
                       

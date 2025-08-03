@@ -52,7 +52,7 @@ export const CategoryInfo = ({
             className="flex items-center lg:col-span-7"
           >
             <div className="bg-white dark:bg-black/50 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700/50 p-8 md:p-10 h-full flex flex-col justify-center backdrop-blur-sm hover:shadow-xl transition-all duration-500">
-              <div className="space-y-6">
+              <div className="space-y-4">
                 <div className="inline-flex items-center rounded-full bg-brand-primary/10 px-4 py-2 text-sm border border-brand-primary/20">
                   <span className="text-brand-primary font-medium">Category Overview</span>
                 </div>
@@ -101,7 +101,7 @@ export const CategoryInfo = ({
 // Helper function to get default images for category types
 function getDefaultImageForCategory(categoryType: string): string {
   const imageMap = {
-    gloves: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/products/Categories/Safety_Gloves.png",
+    gloves: "/glovecats/49K-C_A.webp",
     respiratory: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/products/Categories/respiratory_protection.png",
     industrialSwabs: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/products/Categories/Industrial_swabs.png",
     heat: "/glovecats/152-14 3L20_A.webp",

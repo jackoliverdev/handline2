@@ -1,9 +1,7 @@
 "use client";
 
 import React from "react";
-import { MessageSquare, PhoneCall, Mail, Sparkles, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/context/language-context";
 
@@ -13,7 +11,7 @@ export function ContactHero() {
   const { t } = useLanguage();
 
   return (
-    <section className="relative overflow-hidden bg-[#F5EFE0]/80 dark:bg-transparent pt-28 pb-6 md:pt-32 md:pb-16">
+    <section className="relative overflow-hidden bg-[#F5EFE0]/80 dark:bg-transparent pt-28 pb-2 md:pt-32 md:pb-4">
       {/* Decorative Elements */}
       <div className="absolute -top-32 -right-32 h-[300px] w-[300px] md:h-[500px] md:w-[500px] rounded-full bg-brand-primary/5 blur-3xl dark:bg-brand-primary/10"></div>
       <div className="absolute -bottom-32 -left-32 h-[250px] w-[250px] md:h-[400px] md:w-[400px] rounded-full bg-brand-primary/10 blur-3xl dark:bg-brand-primary/5"></div>
@@ -53,43 +51,11 @@ export function ContactHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...SPRING_CONFIG, delay: 0.2 }}
-            className="mb-8 md:mb-12"
+            className="mb-6 md:mb-8"
           >
             <p className="max-w-2xl text-base md:text-lg text-brand-secondary dark:text-gray-300">
               {t('contact.hero.description')}
             </p>
-          </motion.div>
-
-          {/* Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...SPRING_CONFIG, delay: 0.3 }}
-            className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 md:gap-4 w-full"
-          >
-            <Button 
-              size="default" 
-              className="group font-medium bg-brand-primary hover:bg-brand-primary/90 w-full sm:w-auto text-sm md:text-base h-10 md:h-11"
-              asChild
-            >
-              <a href="#contact-form" className="flex items-center justify-center gap-1.5 md:gap-2">
-                <MessageSquare className="h-4 w-4 md:h-5 md:w-5" />
-                <span>{t('contact.hero.buttons.sendMessage')}</span>
-                <ChevronRight className="h-3.5 w-3.5 md:h-4 md:w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </a>
-            </Button>
-            <Button 
-              size="default" 
-              variant="outline" 
-              className="group font-medium border-brand-primary text-brand-primary hover:text-brand-primary hover:bg-white/80 dark:text-white dark:border-white dark:hover:bg-white/10 w-full sm:w-auto text-sm md:text-base h-10 md:h-11"
-              asChild
-            >
-              <a href="#contact-information" className="flex items-center justify-center gap-1.5 md:gap-2">
-                <PhoneCall className="h-4 w-4 md:h-5 md:w-5" />
-                <span>{t('contact.hero.buttons.ourInfo')}</span>
-                <ChevronRight className="h-3.5 w-3.5 md:h-4 md:w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </a>
-            </Button>
           </motion.div>
         </div>
       </div>

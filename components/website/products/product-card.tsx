@@ -35,8 +35,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
   // This ensures URLs work consistently across language changes
   const encodedProductName = encodeURIComponent(product.name);
 
-  // Get top 2 applications
-  const topApplications = product.applications ? product.applications.slice(0, 2) : [];
+  // Get top 4 applications
+  const topApplications = product.applications ? product.applications.slice(0, 4) : [];
 
   return (
     <motion.div
@@ -106,52 +106,52 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
         
         {/* Key Specifications */}
         <div className="space-y-2">
-          {(product.temperature_rating || (product.cut_resistance_level && product.en_standard)) && (
+          {(product.cut_resistance_level || product.heat_resistance_level) && (
             <>
-              {/* Titles Row */}
-              <div className="grid grid-cols-2 gap-2 -ml-2">
-                {product.temperature_rating && (
-                  <div className="flex items-center gap-0">
-                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-primary/10">
-                      <Flame className="h-4 w-4 text-brand-primary" />
-                    </div>
-                    <p className="text-[10px] sm:text-xs text-gray-600 dark:text-gray-400">
-                      <span className="sm:hidden">{t('products.temperatureMobile')}</span>
-                      <span className="hidden sm:inline">{t('products.temperature')}</span>
-                    </p>
-                  </div>
-                )}
-                {product.cut_resistance_level && product.en_standard && (
-                  <div className="flex items-center gap-0">
-                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-primary/10">
-                      <div className="relative w-5 h-5">
+              {/* EN Standards Title */}
+              <div className="flex items-center gap-1">
+                <p className="text-xs text-brand-primary font-medium">{t('products.enStandards')}</p>
+              </div>
+              
+              {/* EN Standards Values - Responsive Grid */}
+              <div className={`grid gap-1 ${
+                product.cut_resistance_level && product.heat_resistance_level 
+                  ? 'grid-cols-2' 
+                  : 'grid-cols-1'
+              }`}>
+                {product.cut_resistance_level && (
+                  <div className="flex items-center gap-0.5 -ml-0.5">
+                    <div className="flex h-4 w-4 items-center justify-center">
+                      <div className="relative w-4 h-4">
                         <Image
-                          src={`/images/standards/${product.en_standard}.png`}
-                          alt={product.en_standard}
+                          src="/images/standards/EN388.png"
+                          alt="EN388"
                           fill
                           className="object-contain dark:invert"
                         />
                       </div>
                     </div>
-                    <p className="text-[10px] sm:text-xs text-gray-600 dark:text-gray-400">
-                      <span className="sm:hidden">{t('products.enStandardsMobile')}</span>
-                      <span className="hidden sm:inline">{t('products.enStandards')}</span>
+                    <p className="text-[11px] sm:text-xs font-medium text-gray-900 dark:text-white truncate ml-1">
+                      {product.cut_resistance_level}
                     </p>
                   </div>
                 )}
-              </div>
-              
-              {/* Values Row */}
-              <div className="grid grid-cols-2 gap-2">
-                {product.temperature_rating && (
-                  <p className="text-[11px] sm:text-xs font-medium text-gray-900 dark:text-white">
-                    {product.temperature_rating}°C
-                  </p>
-                )}
-                {product.cut_resistance_level && product.en_standard && (
-                  <p className="text-[11px] sm:text-xs font-medium text-gray-900 dark:text-white truncate">
-                    {product.en_standard}
-                  </p>
+                {product.heat_resistance_level && (
+                  <div className="flex items-center gap-0.5 -ml-0.5">
+                    <div className="flex h-4 w-4 items-center justify-center">
+                      <div className="relative w-4 h-4">
+                        <Image
+                          src="/images/standards/EN407.png"
+                          alt="EN407"
+                          fill
+                          className="object-contain dark:invert"
+                        />
+                      </div>
+                    </div>
+                    <p className="text-[11px] sm:text-xs font-medium text-gray-900 dark:text-white truncate ml-1">
+                      {product.heat_resistance_level}
+                    </p>
+                  </div>
                 )}
               </div>
             </>
@@ -173,22 +173,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
                 </li>
               ))}
             </ul>
-          </div>
-        )}
-        
-        {/* Industries */}
-        {product.industries && product.industries.length > 0 && (
-          <div className="flex gap-1 overflow-hidden">
-            {product.industries.slice(0, 1).map((industry) => (
-              <Badge key={industry} variant="secondary" className="text-xs bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-gray-700 dark:text-gray-300 truncate min-w-0 flex-1">
-                {industry}
-              </Badge>
-            ))}
-            {product.industries.length > 1 && (
-              <Badge variant="secondary" className="text-xs bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 flex-shrink-0">
-                +{product.industries.length - 1}
-              </Badge>
-            )}
           </div>
         )}
         

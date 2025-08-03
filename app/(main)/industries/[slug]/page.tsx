@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { getIndustryBySlug, getRelatedProducts } from '@/lib/industries-service';
+import { getIndustryBySlug, getRelatedProducts, getRelatedProductsByIds } from '@/lib/industries-service';
 import { cookies } from 'next/headers';
 import { IndustryDetail } from '@/components/website/industries/slug/IndustryDetail';
 
@@ -36,11 +36,21 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
   if (!industry) {
     notFound();
   }
-  // Get related products if any are specified
-  const relatedProducts = industry.related_products && industry.related_products.length > 0
+  
+  // Get related products from both sources
+  const legacyRelatedProducts = industry.related_products && industry.related_products.length > 0
     ? await getRelatedProducts(industry.related_products)
     : [];
+    
+  const newRelatedProducts = await getRelatedProductsByIds(industry);
+  
+  // Combine and deduplicate related products
+  const allRelatedProducts = [...legacyRelatedProducts, ...newRelatedProducts];
+  const uniqueRelatedProducts = allRelatedProducts.filter((product, index, self) => 
+    index === self.findIndex(p => p.id === product.id)
+  );
+  
   return (
-    <IndustryDetail industry={industry} relatedProducts={relatedProducts} />
+    <IndustryDetail industry={industry} relatedProducts={uniqueRelatedProducts} />
   );
 } 

@@ -335,11 +335,6 @@ export function ContactInfo() {
   
   const contactInfo = [
     {
-      icon: Building2,
-      title: t('contact.info.address.title'),
-      content: t('contact.info.address.content'),
-    },
-    {
       icon: Phone,
       title: t('contact.info.phone.title'),
       content: t('contact.info.phone.content'),
@@ -369,11 +364,21 @@ export function ContactInfo() {
         <Card className="p-6 bg-white dark:bg-black/50 border-brand-primary/10 dark:border-brand-primary/20 shadow-sm backdrop-blur-sm">
           <h3 className="text-xl font-semibold mb-4 text-brand-dark dark:text-white">{t('contact.info.contactInfoTitle')}</h3>
           <div className="space-y-2">
+            {/* Registered Office */}
             <div className="flex items-start gap-3">
               <Building2 className="h-5 w-5 text-brand-primary mt-1" />
               <div>
                 <div className="font-medium text-brand-dark dark:text-white">{t('contact.info.address.title')}</div>
                 <div className="text-brand-secondary dark:text-gray-300">{t('contact.info.address.content')}</div>
+              </div>
+            </div>
+            
+            {/* Operational Location */}
+            <div className="flex items-start gap-3">
+              <Building2 className="h-5 w-5 text-brand-primary mt-1" />
+              <div>
+                <div className="font-medium text-brand-dark dark:text-white">{t('contact.info.address.operationalTitle')}</div>
+                <div className="text-brand-secondary dark:text-gray-300">{t('contact.info.address.operationalContent')}</div>
               </div>
             </div>
             <div className="flex items-start gap-3">
