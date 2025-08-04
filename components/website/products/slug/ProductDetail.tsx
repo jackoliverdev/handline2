@@ -76,6 +76,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
   const currentFeatures = product.features_locales?.[language] || product.features || [];
   const currentApplications = product.applications_locales?.[language] || product.applications || [];
   const currentIndustries = product.industries_locales?.[language] || product.industries || [];
+  const currentMaterials = product.materials_locales?.[language] || [];
 
   // Modal state variables
   const [isSampleModalOpen, setIsSampleModalOpen] = React.useState(false);
@@ -83,54 +84,6 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
 
   // Get localised size and other info
   const size = product.size_locales?.[language] || product.size_locales?.en || null;
-
-  // Extract materials information from features
-  const extractMaterials = (features: string[]) => {
-    const materials: string[] = [];
-    
-    features.forEach(feature => {
-      const lowerFeature = feature.toLowerCase();
-      
-      // Extract material types
-      if (lowerFeature.includes('cotton')) {
-        if (lowerFeature.includes('100%') || lowerFeature.includes('continuous')) {
-          materials.push('100% Cotton');
-        } else {
-          materials.push('Cotton');
-        }
-      }
-      
-      // Extract construction details
-      if (lowerFeature.includes('double-layer') || lowerFeature.includes('double layer')) {
-        materials.push('Double-layer');
-      }
-      if (lowerFeature.includes('continuous-yarn') || lowerFeature.includes('continuous yarn')) {
-        materials.push('Continuous-yarn');
-      }
-      if (lowerFeature.includes('seamless')) {
-        materials.push('Seamless');
-      }
-      
-      // Extract weight
-      const weightMatch = feature.match(/(\d+)\s*[gG]/);
-      if (weightMatch) {
-        materials.push(`${weightMatch[1]}g`);
-      }
-      
-      // Extract specific constructions
-      if (lowerFeature.includes('knitted') || lowerFeature.includes('knit')) {
-        materials.push('Knitted');
-      }
-      if (lowerFeature.includes('brushed')) {
-        materials.push('Brushed');
-      }
-    });
-    
-    // Remove duplicates and return max 3-4 items
-    return Array.from(new Set(materials)).slice(0, 4);
-  };
-
-  const materialsInfo = extractMaterials(product.features || []);
 
   return (
     <main className="bg-brand-light dark:bg-background min-h-screen pt-11">
@@ -352,14 +305,14 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                           <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.materials')}</h3>
                         </div>
                         <div className="flex items-center justify-center">
-                          {materialsInfo && materialsInfo.length > 0 ? (
+                          {currentMaterials && currentMaterials.length > 0 ? (
                             <div className="text-center">
                               <div className="text-brand-dark dark:text-white font-medium text-md">
-                                {materialsInfo[0]}
+                                {currentMaterials[0]}
                               </div>
-                              {materialsInfo.length > 1 && (
+                              {currentMaterials.length > 1 && (
                                 <div className="text-sm text-brand-secondary dark:text-gray-300">
-                                  +{materialsInfo.length - 1} more
+                                  +{currentMaterials.length - 1} more
                                 </div>
                               )}
                             </div>

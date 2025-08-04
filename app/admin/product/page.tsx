@@ -12,7 +12,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
 import { getAllProducts, toggleProductFeatured, toggleProductStock, deleteProduct } from "@/lib/products-service";
-import { ShoppingBag, Plus, Edit, Trash, Star, Tag, Thermometer, Scissors, ChevronDown, ChevronUp, Filter, X, SearchX } from "lucide-react";
+import { ShoppingBag, Plus, Edit, Trash, Star, Tag, Thermometer, Scissors, ChevronDown, ChevronUp, Filter, X, SearchX, Flame } from "lucide-react";
 import Link from "next/link";
 import { Product } from "@/lib/products-service";
 import {
@@ -36,6 +36,7 @@ export default function ProductManagementPage() {
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>("none");
   const [selectedTempRating, setSelectedTempRating] = useState<string>("none");
   const [selectedCutLevel, setSelectedCutLevel] = useState<string>("none");
+  const [selectedHeatLevel, setSelectedHeatLevel] = useState<string>("none");
   const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState<string>("featured");
   const [activeFiltersCount, setActiveFiltersCount] = useState(0);
@@ -102,6 +103,15 @@ export default function ProductManagementPage() {
     )
   ) as string[];
   
+  // Get unique heat resistance levels
+  const uniqueHeatLevels = Array.from(
+    new Set(
+      products
+        .filter(product => product.heat_resistance_level)
+        .map(product => product.heat_resistance_level)
+    )
+  ) as string[];
+  
   // Get unique industries
   const uniqueIndustries = Array.from(
     new Set(
@@ -150,9 +160,10 @@ export default function ProductManagementPage() {
     if (selectedSubCategory && selectedSubCategory !== "none") count++;
     if (selectedTempRating && selectedTempRating !== "none") count++;
     if (selectedCutLevel && selectedCutLevel !== "none") count++;
+    if (selectedHeatLevel && selectedHeatLevel !== "none") count++;
     if (selectedIndustries.length > 0) count++;
     setActiveFiltersCount(count);
-  }, [selectedCategory, selectedSubCategory, selectedTempRating, selectedCutLevel, selectedIndustries]);
+  }, [selectedCategory, selectedSubCategory, selectedTempRating, selectedCutLevel, selectedHeatLevel, selectedIndustries]);
   
   // Handle industry selection
   const toggleIndustry = (industry: string) => {
@@ -169,6 +180,7 @@ export default function ProductManagementPage() {
     setSelectedSubCategory("none");
     setSelectedTempRating("none");
     setSelectedCutLevel("none");
+    setSelectedHeatLevel("none");
     setSelectedIndustries([]);
   };
   
@@ -206,6 +218,12 @@ export default function ProductManagementPage() {
       selectedCutLevel === "none" ||
       product.cut_resistance_level === selectedCutLevel;
     
+    // Match heat resistance level
+    const matchesHeatLevel =
+      !selectedHeatLevel ||
+      selectedHeatLevel === "none" ||
+      product.heat_resistance_level === selectedHeatLevel;
+    
     // Match industries
     const matchesIndustries =
       selectedIndustries.length === 0 ||
@@ -219,6 +237,7 @@ export default function ProductManagementPage() {
            matchesSubCategory && 
            matchesTempRating && 
            matchesCutLevel && 
+           matchesHeatLevel && 
            matchesIndustries;
   });
   
@@ -560,6 +579,40 @@ export default function ProductManagementPage() {
                     </AccordionItem>
                   )}
                   
+                  {/* Heat Resistance Level Filter */}
+                  {uniqueHeatLevels.length > 0 && (
+                    <AccordionItem value="heatlevel" className="border-b border-brand-primary/10 dark:border-brand-primary/20">
+                      <AccordionTrigger className="text-sm font-medium text-brand-dark dark:text-white hover:text-brand-primary dark:hover:text-brand-primary">Heat Resistance Level</AccordionTrigger>
+                      <AccordionContent>
+                        <div className="max-h-[200px] overflow-y-auto pr-1 space-y-2 mt-2">
+                          <div 
+                            className={`px-3 py-1.5 rounded-md cursor-pointer transition-all duration-200 ${
+                              !selectedHeatLevel || selectedHeatLevel === "none"
+                                ? "bg-brand-primary/10 text-brand-primary font-medium" 
+                                : "text-brand-secondary dark:text-gray-300 hover:bg-white/60 dark:hover:bg-gray-800/60"
+                            }`}
+                            onClick={() => setSelectedHeatLevel("none")}
+                          >
+                            Any Heat Level
+                          </div>
+                          {uniqueHeatLevels.map((level) => (
+                            <div 
+                              key={level} 
+                              className={`px-3 py-1.5 rounded-md cursor-pointer transition-all duration-200 ${
+                                selectedHeatLevel === level 
+                                  ? "bg-brand-primary/10 text-brand-primary font-medium" 
+                                  : "text-brand-secondary dark:text-gray-300 hover:bg-white/60 dark:hover:bg-gray-800/60"
+                              }`}
+                              onClick={() => setSelectedHeatLevel(level)}
+                            >
+                              {level}
+                            </div>
+                          ))}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  )}
+                  
                   {/* Industries Filter */}
                   {uniqueIndustries.length > 0 && (
                     <AccordionItem value="industries" className="border-b border-brand-primary/10 dark:border-brand-primary/20">
@@ -712,6 +765,23 @@ export default function ProductManagementPage() {
                 </Badge>
               )}
               
+              {selectedHeatLevel && selectedHeatLevel !== "none" && (
+                <Badge 
+                  variant="secondary" 
+                  className="flex items-center gap-1"
+                >
+                  {selectedHeatLevel}
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="h-4 w-4 p-0 hover:bg-transparent"
+                    onClick={() => setSelectedHeatLevel("none")}
+                  >
+                    <X className="h-3 w-3" />
+                  </Button>
+                </Badge>
+              )}
+              
               {selectedIndustries.map(industry => (
                 <Badge 
                   key={industry}
@@ -828,6 +898,12 @@ export default function ProductManagementPage() {
                           <Badge variant="outline" className="gap-1 h-5 px-1.5 text-[10px] sm:text-xs">
                             <Scissors className="h-3 w-3" />
                             {product.cut_resistance_level}
+                          </Badge>
+                        )}
+                        {product.heat_resistance_level && (
+                          <Badge variant="outline" className="gap-1 h-5 px-1.5 text-[10px] sm:text-xs">
+                            <Flame className="h-3 w-3" />
+                            {product.heat_resistance_level}
                           </Badge>
                         )}
                       </div>

@@ -13,7 +13,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "@/components/ui/use-toast";
 import { getProductById, updateProduct, deleteProduct, uploadProductImage, Product } from "@/lib/products-service";
-import { ArrowLeft, Save, Trash, Upload, Info, X, Image as ImageIcon, Plus, Thermometer, Scissors, Factory, ExternalLink, Shield, Zap, Snowflake, Flame, Eye, Tag, FileText, Package } from "lucide-react";
+import { ArrowLeft, Save, Trash, Upload, Info, X, Image as ImageIcon, Plus, Thermometer, Scissors, Factory, ExternalLink, Shield, Zap, Snowflake, Flame, Eye, Tag, FileText, Package, Layers } from "lucide-react";
 import Link from "next/link";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -48,6 +48,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
   const [subCategory, setSubCategory] = useState("");
   const [temperatureRating, setTemperatureRating] = useState<number | null>(null);
   const [cutResistanceLevel, setCutResistanceLevel] = useState("");
+  const [heatResistanceLevel, setHeatResistanceLevel] = useState("");
   const [isFeatured, setIsFeatured] = useState(false);
   const [isOutOfStock, setIsOutOfStock] = useState(false);
   const [features, setFeatures] = useState<string[]>([]);
@@ -63,6 +64,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
   const [featuresLocales, setFeaturesLocales] = useState<{en: string[], it: string[]}>({en: [], it: []});
   const [applicationsLocales, setApplicationsLocales] = useState<{en: string[], it: string[]}>({en: [], it: []});
   const [industriesLocales, setIndustriesLocales] = useState<{en: string[], it: string[]}>({en: [], it: []});
+  const [materialsLocales, setMaterialsLocales] = useState<{en: string[], it: string[]}>({en: [], it: []});
   const [tagsLocales, setTagsLocales] = useState<{en: string[], it: string[]}>({en: [], it: []});
   const [sizeLocales, setSizeLocales] = useState<{en: string, it: string}>({en: '', it: ''});
   
@@ -114,6 +116,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
   const [newFeature, setNewFeature] = useState("");
   const [newApplication, setNewApplication] = useState("");
   const [newIndustry, setNewIndustry] = useState("");
+  const [newMaterial, setNewMaterial] = useState("");
   const [newTag, setNewTag] = useState("");
   const [newBrand, setNewBrand] = useState("");
   
@@ -127,6 +130,8 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
   const [technicalSheetUrlIt, setTechnicalSheetUrlIt] = useState<string | null>(null);
   const [declarationSheetUrl, setDeclarationSheetUrl] = useState<string | null>(null);
   const [declarationSheetUrlIt, setDeclarationSheetUrlIt] = useState<string | null>(null);
+  const [manufacturersInstructionUrl, setManufacturersInstructionUrl] = useState<string | null>(null);
+  const [manufacturersInstructionUrlIt, setManufacturersInstructionUrlIt] = useState<string | null>(null);
   const [coverImage, setCoverImage] = useState<ImageUploadState>({ file: null, previewUrl: null });
   const [additionalImage, setAdditionalImage] = useState<ImageUploadState>({ file: null, previewUrl: null });
   const coverInputRef = useRef<HTMLInputElement>(null);
@@ -138,6 +143,8 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
   const techSheetItRef = useRef<HTMLInputElement>(null);
   const declSheetEnRef = useRef<HTMLInputElement>(null);
   const declSheetItRef = useRef<HTMLInputElement>(null);
+  const manuInstructionEnRef = useRef<HTMLInputElement>(null);
+  const manuInstructionItRef = useRef<HTMLInputElement>(null);
   const [isUploadingDocs, setIsUploadingDocs] = useState(false);
   
   // Related product state
@@ -404,7 +411,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
   };
 
   // Upload document to Supabase storage
-  const uploadDocument = async (file: File, type: 'technical' | 'declaration', language: 'en' | 'it'): Promise<string | null> => {
+  const uploadDocument = async (file: File, type: 'technical' | 'declaration' | 'manufacturers', language: 'en' | 'it'): Promise<string | null> => {
     if (!file) return null;
     
     try {
@@ -445,7 +452,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
   };
   
   // Handle document uploads
-  const handleDocumentUpload = async (e: React.ChangeEvent<HTMLInputElement>, type: 'technical' | 'declaration', language: 'en' | 'it') => {
+  const handleDocumentUpload = async (e: React.ChangeEvent<HTMLInputElement>, type: 'technical' | 'declaration' | 'manufacturers', language: 'en' | 'it') => {
     const file = e.target.files?.[0];
     if (!file) return;
     
@@ -488,6 +495,12 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
         } else if (type === 'declaration' && language === 'it') {
           setDeclarationSheetUrlIt(newDocUrl);
           updates.declaration_sheet_url_it = newDocUrl;
+        } else if (type === 'manufacturers' && language === 'en') {
+          setManufacturersInstructionUrl(newDocUrl);
+          updates.manufacturers_instruction_url = newDocUrl;
+        } else if (type === 'manufacturers' && language === 'it') {
+          setManufacturersInstructionUrlIt(newDocUrl);
+          updates.manufacturers_instruction_url_it = newDocUrl;
         }
         
         await updateProduct(id, updates);
@@ -508,7 +521,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
   };
   
   // Remove document
-  const removeDocument = async (type: 'technical' | 'declaration', language: 'en' | 'it') => {
+  const removeDocument = async (type: 'technical' | 'declaration' | 'manufacturers', language: 'en' | 'it') => {
     try {
       const updates: Record<string, any> = {};
       
@@ -524,6 +537,12 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
       } else if (type === 'declaration' && language === 'it') {
         setDeclarationSheetUrlIt(null);
         updates.declaration_sheet_url_it = null;
+      } else if (type === 'manufacturers' && language === 'en') {
+        setManufacturersInstructionUrl(null);
+        updates.manufacturers_instruction_url = null;
+      } else if (type === 'manufacturers' && language === 'it') {
+        setManufacturersInstructionUrlIt(null);
+        updates.manufacturers_instruction_url_it = null;
       }
       
       await updateProduct(id, updates);
@@ -581,6 +600,10 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
             en: product.industries_locales?.en || product.industries || [], 
             it: product.industries_locales?.it || [] 
           });
+          setMaterialsLocales({ 
+            en: product.materials_locales?.en || [], 
+            it: product.materials_locales?.it || [] 
+          });
           setTagsLocales({ 
             en: product.tags_locales?.en || [], 
             it: product.tags_locales?.it || [] 
@@ -602,6 +625,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
           
           setTemperatureRating(product.temperature_rating ?? null);
           setCutResistanceLevel(product.cut_resistance_level || "");
+          setHeatResistanceLevel(product.heat_resistance_level || "");
           setIsFeatured(product.is_featured);
           setIsOutOfStock(product.out_of_stock || false);
           
@@ -694,6 +718,14 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
 
           if (product.declaration_sheet_url_it) {
             setDeclarationSheetUrlIt(product.declaration_sheet_url_it);
+          }
+
+          if (product.manufacturers_instruction_url) {
+            setManufacturersInstructionUrl(product.manufacturers_instruction_url);
+          }
+
+          if (product.manufacturers_instruction_url_it) {
+            setManufacturersInstructionUrlIt(product.manufacturers_instruction_url_it);
           }
           
           // Set related product IDs
@@ -913,12 +945,14 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
         features_locales: (featuresLocales.en.length > 0 || featuresLocales.it.length > 0) ? featuresLocales : undefined,
         applications_locales: (applicationsLocales.en.length > 0 || applicationsLocales.it.length > 0) ? applicationsLocales : undefined,
         industries_locales: (industriesLocales.en.length > 0 || industriesLocales.it.length > 0) ? industriesLocales : undefined,
+        materials_locales: (materialsLocales.en.length > 0 || materialsLocales.it.length > 0) ? materialsLocales : undefined,
         tags_locales: (tagsLocales.en.length > 0 || tagsLocales.it.length > 0) ? tagsLocales : {},
         size_locales: (sizeLocales.en || sizeLocales.it) ? sizeLocales : undefined,
         
         // Other fields
         temperature_rating: temperatureRating,
         cut_resistance_level: cutResistanceLevel,
+        heat_resistance_level: heatResistanceLevel,
         is_featured: isFeatured,
         out_of_stock: isOutOfStock,
         published: published,
@@ -1176,6 +1210,16 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                           placeholder="e.g. Level 5"
                           value={cutResistanceLevel}
                           onChange={(e) => setCutResistanceLevel(e.target.value)}
+                          className="text-xs sm:text-sm h-8 sm:h-10"
+                        />
+                      </div>
+                      <div className="space-y-1 sm:space-y-2">
+                        <Label htmlFor="heatResistance" className="text-xs sm:text-sm">Heat Resistance Level</Label>
+                        <Input
+                          id="heatResistance"
+                          placeholder="e.g. Level 5"
+                          value={heatResistanceLevel}
+                          onChange={(e) => setHeatResistanceLevel(e.target.value)}
                           className="text-xs sm:text-sm h-8 sm:h-10"
                         />
                       </div>
@@ -1538,6 +1582,82 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                               setIndustriesLocales({
                                 ...industriesLocales,
                                 [currentLanguage]: newIndustries
+                              });
+                            }}
+                          >
+                            <X className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Materials</CardTitle>
+                <CardDescription>
+                  Add materials used in this product in {currentLanguage === 'en' ? 'English' : 'Italian'}.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex gap-2">
+                    <Input 
+                      placeholder="Add a material"
+                      value={newMaterial}
+                      onChange={(e) => setNewMaterial(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          if (newMaterial.trim()) {
+                            setMaterialsLocales({
+                              ...materialsLocales,
+                              [currentLanguage]: [...materialsLocales[currentLanguage], newMaterial.trim()]
+                            });
+                            setNewMaterial("");
+                          }
+                        }
+                      }}
+                    />
+                    <Button 
+                      type="button" 
+                      size="sm" 
+                      onClick={() => {
+                        if (newMaterial.trim()) {
+                          setMaterialsLocales({
+                            ...materialsLocales,
+                            [currentLanguage]: [...materialsLocales[currentLanguage], newMaterial.trim()]
+                          });
+                          setNewMaterial("");
+                        }
+                      }}
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  
+                  {materialsLocales[currentLanguage].length === 0 ? (
+                    <p className="text-sm text-muted-foreground py-4 text-center">
+                      No materials added yet. Add materials to highlight product composition.
+                    </p>
+                  ) : (
+                    <div className="flex flex-wrap gap-2 py-2">
+                      {materialsLocales[currentLanguage].map((material, index) => (
+                        <div key={index} className="flex items-center border rounded-full px-3 py-1">
+                          <Layers className="h-3 w-3 mr-1" />
+                          <span className="text-sm">{material}</span>
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="h-5 w-5 p-0 ml-1"
+                            onClick={() => {
+                              const newMaterials = materialsLocales[currentLanguage].filter((_, i) => i !== index);
+                              setMaterialsLocales({
+                                ...materialsLocales,
+                                [currentLanguage]: newMaterials
                               });
                             }}
                           >
@@ -2229,7 +2349,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
           <Card>
             <CardHeader>
               <CardTitle>Product Documentation</CardTitle>
-              <CardDescription>Upload technical sheets and declaration documents for this product.</CardDescription>
+              <CardDescription>Upload technical sheets, declaration documents, and manufacturers instructions for this product.</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
@@ -2512,12 +2632,152 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                     </div>
                   )}
                 </div>
+                
+                {/* Manufacturers Instruction English */}
+                <div className="space-y-4">
+                  <Label>Manufacturers Instruction (English)</Label>
+                  <input
+                    ref={manuInstructionEnRef}
+                    type="file"
+                    accept=".pdf"
+                    className="hidden"
+                    onChange={(e) => handleDocumentUpload(e, 'manufacturers', 'en')}
+                  />
+                  
+                  {manufacturersInstructionUrl ? (
+                    <div className="border rounded-lg p-4 bg-gray-50 dark:bg-gray-800">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                            <svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
+                            </svg>
+                          </div>
+                          <div>
+                            <p className="font-medium text-sm">Manufacturers Instruction (EN)</p>
+                            <p className="text-xs text-muted-foreground">PDF Document</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <a 
+                            href={manufacturersInstructionUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 text-sm"
+                          >
+                            Download
+                          </a>
+                          <Button
+                            type="button"
+                            variant="destructive"
+                            size="sm"
+                            onClick={() => removeDocument('manufacturers', 'en')}
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div 
+                      className="border-2 border-dashed rounded-md p-6 text-center cursor-pointer hover:bg-muted/50 transition-colors"
+                      onClick={() => manuInstructionEnRef.current?.click()}
+                    >
+                      {isUploadingDocs ? (
+                        <div className="flex flex-col items-center">
+                          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-brand-primary"></div>
+                          <p className="mt-2 text-sm text-muted-foreground">Uploading...</p>
+                        </div>
+                      ) : (
+                        <>
+                          <Upload className="mx-auto h-8 w-8 text-muted-foreground" />
+                          <p className="mt-2 text-sm text-muted-foreground">
+                            Click to upload Manufacturers Instruction (English)
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            PDF up to 10MB
+                          </p>
+                        </>
+                      )}
+                    </div>
+                  )}
+                </div>
+                
+                {/* Manufacturers Instruction Italian */}
+                <div className="space-y-4">
+                  <Label>Manufacturers Instruction (Italian)</Label>
+                  <input
+                    ref={manuInstructionItRef}
+                    type="file"
+                    accept=".pdf"
+                    className="hidden"
+                    onChange={(e) => handleDocumentUpload(e, 'manufacturers', 'it')}
+                  />
+                  
+                  {manufacturersInstructionUrlIt ? (
+                    <div className="border rounded-lg p-4 bg-gray-50 dark:bg-gray-800">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                            <svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
+                            </svg>
+                          </div>
+                          <div>
+                            <p className="font-medium text-sm">Manufacturers Instruction (IT)</p>
+                            <p className="text-xs text-muted-foreground">PDF Document</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <a 
+                            href={manufacturersInstructionUrlIt} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 text-sm"
+                          >
+                            Download
+                          </a>
+                          <Button
+                            type="button"
+                            variant="destructive"
+                            size="sm"
+                            onClick={() => removeDocument('manufacturers', 'it')}
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div 
+                      className="border-2 border-dashed rounded-md p-6 text-center cursor-pointer hover:bg-muted/50 transition-colors"
+                      onClick={() => manuInstructionItRef.current?.click()}
+                    >
+                      {isUploadingDocs ? (
+                        <div className="flex flex-col items-center">
+                          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-brand-primary"></div>
+                          <p className="mt-2 text-sm text-muted-foreground">Uploading...</p>
+                        </div>
+                      ) : (
+                        <>
+                          <Upload className="mx-auto h-8 w-8 text-muted-foreground" />
+                          <p className="mt-2 text-sm text-muted-foreground">
+                            Click to upload Manufacturers Instruction (Italian)
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            PDF up to 10MB
+                          </p>
+                        </>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
               
               <div className="flex items-center gap-2 rounded-md bg-blue-50 p-3 text-blue-900 dark:bg-blue-900/30 dark:text-blue-100 mt-6">
                 <Info className="h-4 w-4" />
                 <p className="text-xs">
-                  Upload PDF documents for technical specifications and product declarations. Documents will be available for download on the product detail pages.
+                  Upload PDF documents for technical specifications, product declarations, and manufacturers instructions. Documents will be available for download on the product detail pages.
                 </p>
               </div>
             </CardContent>

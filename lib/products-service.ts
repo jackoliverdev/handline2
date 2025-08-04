@@ -120,6 +120,7 @@ export interface Product {
   features_locales?: Record<string, string[]>;
   applications_locales?: Record<string, string[]>;
   industries_locales?: Record<string, string[]>;
+  materials_locales?: Record<string, string[]>;
 }
 
 export function localiseProduct(product: Product, language: Language): Product {

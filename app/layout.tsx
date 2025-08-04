@@ -28,10 +28,7 @@ export const metadata: Metadata = {
     "HandLine Company - Italian manufacturer of high-performance safety gloves and hand protection for industrial settings. 40+ years of expertise in heat-resistant and cut-resistant gloves.",
   viewport: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
   icons: {
-    icon: [
-      { url: "/Logo-HLC.png", type: "image/png" },
-      { url: "/favicon.png", type: "image/png" },
-    ],
+    icon: "/Logo-HLC.png",
     shortcut: "/Logo-HLC.png",
     apple: "/Logo-HLC.png",
   },
