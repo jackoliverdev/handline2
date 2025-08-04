@@ -83,7 +83,7 @@ export const Mission = () => {
           >
             <div className="relative w-full h-[400px] md:h-[450px] overflow-hidden rounded-2xl">
               <Image
-                src="/images/about/mission.png"
+                src="/heroimg.png"
                 alt="HandLine's mission - protecting hands in industrial environments"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"

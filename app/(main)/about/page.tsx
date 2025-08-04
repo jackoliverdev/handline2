@@ -1,13 +1,13 @@
 import { Metadata } from "next";
 import { AboutHero } from "@/components/website/about/hero";
+// import { Mission } from "@/components/website/about/mission";
+import { Different } from "@/components/website/about/different";
 import { CompanyHistory } from "@/components/website/about/company-history";
 import { Certifications } from "@/components/website/about/certifications";
-import { Mission } from "@/components/website/about/mission";
-import { Different } from "@/components/website/about/different";
 
 export const metadata: Metadata = {
-  title: "About HandLine | Italian Safety Glove Manufacturer",
-  description: "Discover HandLine's 40+ year history of designing and manufacturing premium safety gloves and protective equipment for industrial applications across Europe.",
+  title: "About Us - Hand Line | Safety Gloves & Industrial PPE",
+  description: "Learn about Hand Line's commitment to safety innovation and quality manufacturing since 1981.",
 };
 
 export default function AboutPage() {
@@ -15,7 +15,7 @@ export default function AboutPage() {
     <main className="flex flex-col min-h-screen">
       <AboutHero />
       
-      <Mission />
+      {/* <Mission /> */}
       
       <Different />
       

@@ -73,8 +73,8 @@ export const Different = () => {
   const allDifferentiators = [...topRow, ...bottomRow];
 
   return (
-    <section className="py-16 bg-[#F5EFE0]/80 dark:bg-transparent">
-      <div className="container px-4 md:px-6">
+    <section className="py-16 -mt-40 sm:-mt-48 md:-mt-40 bg-[#F5EFE0]/80 dark:bg-transparent relative">
+      <div className="container px-4 md:px-6 relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

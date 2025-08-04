@@ -47,6 +47,19 @@ const productCardVariants = {
   })
 };
 
+const buttonVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: 0.4,
+      duration: 0.5,
+      ease: "easeOut"
+    }
+  }
+};
+
 export const FeaturedProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -435,7 +448,7 @@ export const FeaturedProducts = () => {
         )}
         
         <motion.div 
-          variants={itemVariants}
+          variants={buttonVariants}
           className="flex justify-center mt-7 sm:mt-9"
         >
           <Button asChild variant="default" className="group bg-brand-primary text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:bg-brand-primary/90 hover:scale-105 transform">

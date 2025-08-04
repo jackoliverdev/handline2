@@ -14,29 +14,29 @@ export const AboutHero = () => {
   const { t } = useLanguage();
 
   return (
-    <div className="relative mb-0 sm:mb-8 md:mb-16 bg-[#F5EFE0] dark:bg-background">
+    <div className="relative mb-6 sm:mb-16 md:mb-32 bg-[#F5EFE0] dark:bg-background">
       {/* Background section with slanted edge */}
       <section 
-        className="relative pt-8 pb-20 md:pt-32 md:pb-16 bg-[#F5EFE0] dark:bg-background [clip-path:polygon(0_0,100%_0,100%_95%,0_85%)] md:[clip-path:polygon(0_0,100%_0,100%_100%,0_88%)]"
+        className="relative pt-28 md:pt-32 pb-48 md:pb-32 bg-[#F5EFE0] dark:bg-background [clip-path:polygon(0_0,100%_0,100%_82%,0_72%)] md:[clip-path:polygon(0_0,100%_0,100%_95%,0_82%)]"
         style={{ zIndex: 1 }}
       >
         {/* Background Image */}
         <div className="absolute inset-0 w-full h-full" style={{ zIndex: -1 }}>
           <Image 
-            src="/herotry4.png" 
+            src="/aboutheronew.png" 
             alt="Worker with child - Hand Line about us"
             fill
             className="object-cover object-center"
-            style={{ objectPosition: '20% 40%' }}
+            style={{ objectPosition: '50% 40%' }}
             priority
           />
           <div className="absolute inset-0 bg-black/30"></div>
         </div>
         
         <div className="container mx-auto px-6 relative">
-          <div className="flex flex-col items-start gap-6">
-            {/* Text Content - Full Width */}
-            <div className="flex flex-col space-y-3 mb-2 sm:mb-0 w-full max-w-5xl">
+          <div className="flex flex-col lg:grid lg:grid-cols-2 items-center gap-6">
+            {/* Text Content */}
+            <div className="flex flex-col space-y-3 mb-2 sm:mb-0 w-full">
               {/* Badge */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.5 }}
