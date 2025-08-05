@@ -113,15 +113,32 @@ export function ContactInfo() {
               </div>
             )}
             
-            <div className="flex items-start gap-3">
-              <Phone className="h-5 w-5 text-brand-primary mt-1" />
-              <div>
-                <div className="font-medium text-brand-dark dark:text-white">{t('contact.info.phone.title')}</div>
-                <div className="text-brand-secondary dark:text-gray-300">
-                  {selectedOffice === 'italy' ? t('contact.info.phone.content') : t('contact.info.phone.contentUK')}
+            {/* Phone Number - Only show for Italy office for now */}
+            {selectedOffice === 'italy' && (
+              <div className="flex items-start gap-3">
+                <Phone className="h-5 w-5 text-brand-primary mt-1" />
+                <div>
+                  <div className="font-medium text-brand-dark dark:text-white">{t('contact.info.phone.title')}</div>
+                  <div className="text-brand-secondary dark:text-gray-300">
+                    {t('contact.info.phone.content')}
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
+            
+            {/* UK Phone - Temporarily disabled
+            {selectedOffice === 'uk' && (
+              <div className="flex items-start gap-3">
+                <Phone className="h-5 w-5 text-brand-primary mt-1" />
+                <div>
+                  <div className="font-medium text-brand-dark dark:text-white">{t('contact.info.phone.title')}</div>
+                  <div className="text-brand-secondary dark:text-gray-300">
+                    Coming soon
+                  </div>
+                </div>
+              </div>
+            )}
+            */}
             
             <div className="flex items-start gap-3">
               <Mail className="h-5 w-5 text-brand-primary mt-1" />

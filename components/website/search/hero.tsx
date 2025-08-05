@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Search, Filter, TrendingUp, Loader2 } from "lucide-react";
+import { Search, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/context/language-context";
 
@@ -15,33 +15,6 @@ interface SearchHeroProps {
 
 export const SearchHero = ({ query, totalResults, isLoading }: SearchHeroProps) => {
   const { t } = useLanguage();
-
-  // Format results count for display
-  const formatResultsCount = (count: number) => {
-    if (count === 0) return "0";
-    if (count < 1000) return count.toString();
-    if (count < 1000000) return `${(count / 1000).toFixed(1)}K`;
-    return `${(count / 1000000).toFixed(1)}M`;
-  };
-
-  const stats = [
-    { 
-      value: isLoading ? "..." : formatResultsCount(totalResults), 
-      label: t("search.hero.stats.results") 
-    },
-    { 
-      value: "6", 
-      label: t("search.hero.stats.categories") 
-    },
-    { 
-      value: "2", 
-      label: t("search.hero.stats.languages") 
-    },
-    { 
-      value: "24/7", 
-      label: t("search.hero.stats.availability") 
-    },
-  ];
 
   return (
     <section className="relative overflow-hidden bg-brand-light dark:bg-background pt-28 pb-6 md:pt-32 md:pb-16">
@@ -85,53 +58,6 @@ export const SearchHero = ({ query, totalResults, isLoading }: SearchHeroProps) 
                 </>
               )}
             </h1>
-          </motion.div>
-
-          {/* Description */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...SPRING_CONFIG, delay: 0.2 }}
-            className="mb-6 md:mb-10"
-          >
-            <p className="max-w-2xl text-base md:text-lg text-brand-secondary dark:text-gray-300">
-              {isLoading ? (
-                <span className="flex items-center justify-center gap-2">
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  {t("search.hero.searching")}
-                </span>
-              ) : query ? (
-                totalResults > 0 ? (
-                  t("search.hero.descriptionWithResults")
-                    .replace('{count}', totalResults.toString())
-                    .replace('{query}', query)
-                ) : (
-                  t("search.hero.descriptionNoResults").replace('{query}', query)
-                )
-              ) : (
-                t("search.hero.description")
-              )}
-            </p>
-          </motion.div>
-
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...SPRING_CONFIG, delay: 0.3 }}
-            className="mx-auto mb-6 md:mb-10 grid max-w-xl grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
-          >
-            {stats.map((stat) => (
-              <div key={stat.label} className="flex flex-col items-center">
-                <div className="text-2xl md:text-3xl font-bold text-brand-primary font-heading flex items-center gap-1">
-                  {stat.value}
-                  {isLoading && stat.label === t("search.hero.stats.results") && (
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                  )}
-                </div>
-                <div className="mt-0.5 md:mt-1 text-xs md:text-sm text-brand-secondary dark:text-gray-400">{stat.label}</div>
-              </div>
-            ))}
           </motion.div>
 
           {/* Search Tips */}

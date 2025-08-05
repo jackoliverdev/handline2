@@ -37,15 +37,22 @@ export interface Industry {
   features?: string[];
   // New structured content fields
   summary_content_locales?: Record<string, string>;
+  summary_content_image_url?: string | null;
   sections_locales?: Record<string, IndustrySection[]>;
   // Computed fields after localisation
   summary_content?: string;
   sections?: IndustrySection[];
-  // New related product ID fields (same as products table)
+  // New related product ID fields (same as products table) - expanded to 10
   related_product_id_1?: string | null;
   related_product_id_2?: string | null;
   related_product_id_3?: string | null;
   related_product_id_4?: string | null;
+  related_product_id_5?: string | null;
+  related_product_id_6?: string | null;
+  related_product_id_7?: string | null;
+  related_product_id_8?: string | null;
+  related_product_id_9?: string | null;
+  related_product_id_10?: string | null;
 }
 
 export function localiseIndustry(industry: Industry, language: Language): Industry {
@@ -266,7 +273,13 @@ export async function getRelatedProductsByIds(industry: Industry) {
     industry.related_product_id_1,
     industry.related_product_id_2, 
     industry.related_product_id_3,
-    industry.related_product_id_4
+    industry.related_product_id_4,
+    industry.related_product_id_5,
+    industry.related_product_id_6,
+    industry.related_product_id_7,
+    industry.related_product_id_8,
+    industry.related_product_id_9,
+    industry.related_product_id_10
   ].filter(Boolean) as string[];
 
   if (productIds.length === 0) return [];

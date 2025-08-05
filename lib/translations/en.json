@@ -516,6 +516,7 @@
       "temperature": "Temperature Rating",
       "cutLevel": "Cut Resistance Level",
       "heatLevel": "Heat Resistance Level",
+      "hazardProtection": "Hazard Protection",
       "industries": "Industries",
       "allCategories": "All Categories",
       "uncategorised": "Uncategorised",
@@ -524,6 +525,8 @@
       "heatResistantGloves": "Heat-Resistant Gloves",
       "cutResistantGloves": "Cut-Resistant Gloves",
       "generalPurposeGloves": "General Purpose Gloves",
+      "mechanicalHazardsGloves": "Mechanical Hazards Gloves",
+      "weldingGlove": "Welding Gloves",
       "industrialSwabs": "Industrial Swabs",
       "respiratoryProtection": "Respiratory Protection"
     },
@@ -937,27 +940,38 @@
       "description": "Find quick answers to common questions about our safety gloves and services",
       "questions": [
         {
-          "question": "What types of safety gloves do you offer?",
-          "answer": "Hand Line manufactures a comprehensive range of safety gloves including heat-resistant gloves (up to 350°C), cut-resistant gloves (up to Level 5), general-purpose work gloves, chemical-resistant gloves, and specialised gloves for various industries."
+          "question": "How do I choose the right PPE?",
+          "answer": "Selecting the right PPE is crucial to ensure the safety and wellbeing of your employees. Firstly, we recommend gathering detailed information of the working conditions and risk exposure in the most extreme conditions encountered. That will give an indication of the protection levels and practical requirements for the PPE. Our website includes a wide range of products that you can filter by requirements, environment conditions, risk category, or protection level. We always recommend contacting our team to discuss and recommend the most suitable PPE based on your work environment and required protection. We are just one click away."
         },
         {
-          "question": "How do I choose the right safety gloves for my application?",
-          "answer": "We recommend assessing the specific hazards in your workplace (heat, cuts, chemicals, etc.), considering comfort and dexterity requirements, and ensuring proper sizing. Our team can provide personalised recommendations based on your industry and specific needs."
+          "question": "Are you able to customise and design bespoke PPE?",
+          "answer": "Yes, we can create tailored hand protection solutions based on your specific requirements. We have the capability of creating samples within weeks. Many of the products we offer today were initially created for our customers' specifications."
         },
         {
-          "question": "Are your gloves CE certified?",
-          "answer": "Yes, all Hand Line safety gloves are CE certified and comply with relevant European standards including EN 388 for mechanical risks, EN 407 for thermal risks, and other applicable safety standards."
+          "question": "Can I request product samples for testing?",
+          "answer": "Yes, we offer samples for industrial customers and distributors. Please contact us with your company details and application requirements to arrange a sample pack."
         },
         {
-          "question": "Do you offer custom solutions for specific industries?",
-          "answer": "Absolutely! We work closely with clients in various industries to develop tailored hand protection solutions. Contact our team to discuss your specific requirements, and we can develop or recommend products that meet your exact needs."
+          "question": "Do you ship internationally?",
+          "answer": "Yes, we currently supply PPE in over 15 market across EMEA and have the capability to deliver globally."
         },
         {
-          "question": "How can I request product samples?",
-          "answer": "You can request product samples by contacting our sales team through our contact form. Please specify which products you're interested in, your industry, and intended application. We typically provide samples for evaluation within 1-2 weeks."
+          "question": "What industries do you serve?",
+          "answer": "Our products are designed for a wide range of industries including glass manufacturing, metal production, construction, automotive, food processing, logistics, and metalworking. We have developed deep industry expertise in glass and metal manufacturing and heavy industry with over 40 years of experience serving large international customers. We are both a reliable supplier and a trusted advisor to our customers."
+        },
+        {
+          "question": "Do you offer OEM or private label options?",
+          "answer": "Yes, we can support OEM and private label manufacturing for partners looking to customise gloves, garments, etc with their own branding, packaging, or specifications. Contact us to discuss your requirements."
+        },
+        {
+          "question": "What standards do your product comply with?",
+          "answer": "All our products are certified according to European PPE Regulation (EU) 2016/425 and comply with relevant EN standards."
+        },
+        {
+          "question": "How do I become a distributor or reseller of your products?",
+          "answer": "Please fill out our distributor application form or contact our team directly at distribution@handlineco.com. We support resellers with marketing materials, technical training, and flexible ordering options."
         }
-      ],
-      "cta": "Need more information? Contact our experts"
+      ]
     },
     "hero": {
       "badge": "We're Here To Help",
@@ -1069,12 +1083,12 @@
     "description": "Join our global network of partners and distributors to bring Hand Line's innovative safety solutions to more workers around the world.",
     "strategic": {
       "title": "Strategic Partnerships",
-      "description": "We're looking for industry leaders to collaborate on innovative safety solutions. Build a strategic alliance with Hand Line to enhance worker protection and productivity.",
+      "description": "We're looking for industry leaders to collaborate on innovative safety solutions. Build a strategic alliance with Hand Line.",
       "cta": "Explore Partnerships"
     },
     "distribution": {
       "title": "Distribution Network",
-      "description": "Join our growing network of distributors to bring Hand Line's safety products to your region. We offer exclusive territories, competitive margins and comprehensive support.",
+      "description": "Join our growing network of distributors to bring Hand Line's safety products to your region. We provide comprehensive support and competitive margins.",
       "cta": "Become a Distributor"
     },
     "partnerships": {
@@ -1132,7 +1146,7 @@
         "emailPlaceholder": "your.email@company.com",
         "phone": "Phone (Optional)",
         "phonePlaceholder": "Your phone number",
-        "country": "Country/Region",
+        "country": "Country",
         "countryPlaceholder": "Your country or region of operation",
         "details": "Distribution Details",
         "detailsPlaceholder": "Please tell us about your distribution capabilities, market reach, and why you're interested in Hand Line products...",
@@ -1421,8 +1435,6 @@
       "title": "Legal",
       "titleAccent": "Information",
       "description": "Our commitment to transparency, protection, and compliance with all relevant laws and regulations.",
-      "browseProducts": "Browse Products",
-      "contactUs": "Contact Us",
       "stats": {
         "documents": "3",
         "documentsLabel": "Legal Documents",
@@ -1440,15 +1452,15 @@
     "content": {
       "terms": {
         "title": "Terms of Service",
-        "lastUpdated": "Last updated: 1st May 2025"
+        "lastUpdated": "Last updated: 4th August 2025"
       },
       "privacy": {
         "title": "Privacy Policy",
-        "lastUpdated": "Last updated: 1st May 2025"
+        "lastUpdated": "Last updated: 4th August 2025"
       },
       "cookies": {
         "title": "Cookie Policy",
-        "lastUpdated": "Last updated: 1st May 2025"
+        "lastUpdated": "Last updated: 4th August 2025"
       }
     }
   },

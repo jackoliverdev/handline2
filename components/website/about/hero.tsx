@@ -27,7 +27,7 @@ export const AboutHero = () => {
             alt="Worker with child - Hand Line about us"
             fill
             className="object-cover object-center"
-            style={{ objectPosition: '50% 40%' }}
+            style={{ objectPosition: '50% 60%' }}
             priority
           />
           <div className="absolute inset-0 bg-black/30"></div>

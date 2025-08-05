@@ -10,6 +10,87 @@ import { ProductPreviewModal } from "@/components/website/products/product-previ
 import { useLanguage } from "@/lib/context/language-context";
 import { motion } from "framer-motion";
 
+// Green color scheme function for safety standards (scaled down version)
+const getGreenPerformanceColour = (value: number | string | null): string => {
+  if (value === null || value === 'X' || value === '') {
+    return 'bg-white border border-gray-300 text-gray-900'; // White background with grey border for X
+  }
+  
+  // Handle letter grades A-F (A is best = darkest green, F is worst = lightest green)
+  if (typeof value === 'string' && /^[A-F]$/.test(value)) {
+    switch (value) {
+      case 'A':
+        return 'bg-emerald-700 text-white'; // Darkest green for best performance
+      case 'B':
+        return 'bg-emerald-600 text-white';
+      case 'C':
+        return 'bg-emerald-500 text-white';
+      case 'D':
+        return 'bg-emerald-400 text-white';
+      case 'E':
+        return 'bg-emerald-300 text-white';
+      case 'F':
+        return 'bg-emerald-200 text-white'; // Lightest green for worst performance
+      default:
+        return 'bg-gray-400 text-white';
+    }
+  }
+  
+  const numValue = typeof value === 'number' ? value : parseInt(value.toString());
+  if (isNaN(numValue)) {
+    return 'bg-gray-400 text-white';
+  }
+  
+  // Professional green color scheme - higher levels get darker green
+  switch (numValue) {
+    case 1:
+      return 'bg-emerald-200 text-white'; // Light professional green
+    case 2:
+      return 'bg-emerald-300 text-white'; 
+    case 3:
+      return 'bg-emerald-500 text-white'; // Medium green
+    case 4:
+      return 'bg-emerald-600 text-white';
+    case 5:
+      return 'bg-emerald-700 text-white'; // Darkest green for highest performance
+    default:
+      if (numValue > 5) return 'bg-emerald-800 text-white'; // Even darker for values above 5
+      return 'bg-emerald-200 text-white'; // Default to light green
+  }
+};
+
+// Parse EN388 values from string like "EN388: 3544CX"
+const parseEN388 = (cutLevel: string): (string | number)[] => {
+  const match = cutLevel.match(/EN388:\s*(\d|X)(\d|X)(\d|X)(\d|X)([A-F]|X)?([A-F]|X)?/);
+  if (match) {
+    return [
+      match[1] === 'X' ? 'X' : parseInt(match[1]), // abrasion
+      match[2] === 'X' ? 'X' : parseInt(match[2]), // cut
+      match[3] === 'X' ? 'X' : parseInt(match[3]), // tear
+      match[4] === 'X' ? 'X' : parseInt(match[4]), // puncture
+      match[5] || 'X', // iso_13997
+      match[6] || 'X'  // impact
+    ];
+  }
+  return [];
+};
+
+// Parse EN407 values from string like "EN407: 422241"
+const parseEN407 = (heatLevel: string): (string | number)[] => {
+  const match = heatLevel.match(/EN407:\s*(\d|X)(\d|X)(\d|X)(\d|X)(\d|X)?(\d|X)?/);
+  if (match) {
+    return [
+      match[1] === 'X' ? 'X' : parseInt(match[1]), // flame
+      match[2] === 'X' ? 'X' : parseInt(match[2]), // contact
+      match[3] === 'X' ? 'X' : parseInt(match[3]), // convective
+      match[4] === 'X' ? 'X' : parseInt(match[4]), // radiant
+      match[5] === 'X' ? 'X' : parseInt(match[5] || '0'), // small splashes
+      match[6] === 'X' ? 'X' : parseInt(match[6] || '0')  // large splashes
+    ];
+  }
+  return [];
+};
+
 // Animation variants
 const sectionVariants = {
   hidden: { opacity: 0 },
@@ -350,24 +431,16 @@ export const FeaturedProducts = () => {
                           {product.short_description || product.description}
                         </p>
                         
-                        {/* EN Standards - Same as product cards */}
+                        {/* Safety Standards with Green Squares - Same as product cards */}
                         {(product.cut_resistance_level || product.heat_resistance_level) && (
-                          <div className="space-y-1 sm:space-y-2 mb-2 sm:mb-3">
-                            {/* EN Standards Title */}
-                            <div className="flex items-center gap-1">
-                              <p className="text-[10px] sm:text-xs text-brand-primary font-medium">EN Standards</p>
-                            </div>
-                            
-                            {/* EN Standards Values - Responsive Grid */}
-                            <div className={`grid gap-1 ${
-                              product.cut_resistance_level && product.heat_resistance_level 
-                                ? 'grid-cols-2' 
-                                : 'grid-cols-1'
-                            }`}>
+                          <div className="space-y-2">
+                            {/* EN Standards - Stacked vertically */}
+                            <div className="space-y-1.5">
+                              {/* EN388 Standard */}
                               {product.cut_resistance_level && (
-                                <div className="flex items-center gap-0.5 -ml-0.5">
-                                  <div className="flex h-3 w-3 sm:h-4 sm:w-4 items-center justify-center">
-                                    <div className="relative w-3 h-3 sm:w-4 sm:h-4">
+                                <div className="flex items-center gap-1.5">
+                                  <div className="flex h-3 w-3 items-center justify-center">
+                                    <div className="relative w-3 h-3">
                                       <Image
                                         src="/images/standards/EN388.png"
                                         alt="EN388"
@@ -376,15 +449,27 @@ export const FeaturedProducts = () => {
                                       />
                                     </div>
                                   </div>
-                                  <p className="text-[9px] sm:text-xs font-medium text-gray-900 dark:text-white truncate ml-1">
-                                    {product.cut_resistance_level}
-                                  </p>
+                                  <span className="text-[10px] font-medium text-gray-700 dark:text-gray-300 min-w-[32px]">
+                                    EN388
+                                  </span>
+                                  <div className="flex gap-0.5">
+                                    {parseEN388(product.cut_resistance_level).map((value, index) => (
+                                      <span
+                                        key={index}
+                                        className={`text-[10px] px-0.5 py-0.5 rounded w-4 h-4 flex items-center justify-center font-medium ${getGreenPerformanceColour(value)}`}
+                                      >
+                                        {value}
+                                      </span>
+                                    ))}
+                                  </div>
                                 </div>
                               )}
+                              
+                              {/* EN407 Standard */}
                               {product.heat_resistance_level && (
-                                <div className="flex items-center gap-0.5 -ml-0.5">
-                                  <div className="flex h-3 w-3 sm:h-4 sm:w-4 items-center justify-center">
-                                    <div className="relative w-3 h-3 sm:w-4 sm:h-4">
+                                <div className="flex items-center gap-1.5">
+                                  <div className="flex h-3 w-3 items-center justify-center">
+                                    <div className="relative w-3 h-3">
                                       <Image
                                         src="/images/standards/EN407.png"
                                         alt="EN407"
@@ -393,9 +478,19 @@ export const FeaturedProducts = () => {
                                       />
                                     </div>
                                   </div>
-                                  <p className="text-[9px] sm:text-xs font-medium text-gray-900 dark:text-white truncate ml-1">
-                                    {product.heat_resistance_level}
-                                  </p>
+                                  <span className="text-[10px] font-medium text-gray-700 dark:text-gray-300 min-w-[32px]">
+                                    EN407
+                                  </span>
+                                  <div className="flex gap-0.5">
+                                    {parseEN407(product.heat_resistance_level).map((value, index) => (
+                                      <span
+                                        key={index}
+                                        className={`text-[10px] px-0.5 py-0.5 rounded w-4 h-4 flex items-center justify-center font-medium ${getGreenPerformanceColour(value)}`}
+                                      >
+                                        {value}
+                                      </span>
+                                    ))}
+                                  </div>
                                 </div>
                               )}
                             </div>

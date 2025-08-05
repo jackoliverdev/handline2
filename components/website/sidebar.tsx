@@ -295,41 +295,16 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
 
             {/* Partners Section */}
             <div>
-              <div
-                className="flex items-center justify-between px-3 py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors cursor-pointer"
-                onClick={() => toggleSection('partners')}
+              <Link 
+                href="/partners" 
+                className="flex items-center px-3 py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors"
+                onClick={onClose}
               >
-                <div className="flex items-center">
-                  <div className="w-7 h-7 bg-gradient-to-br from-[#E67A2C] to-[#D96920] text-white rounded-full flex items-center justify-center mr-2.5">
-                    <Briefcase className="h-4 w-4" />
-                  </div>
-                  <span className="text-sm">{t('navbar.partners')}</span>
+                <div className="w-7 h-7 bg-gradient-to-br from-[#E67A2C] to-[#D96920] text-white rounded-full flex items-center justify-center mr-2.5">
+                  <Briefcase className="h-4 w-4" />
                 </div>
-                {expandedSection === 'partners' ? (
-                  <ChevronDown className="h-3.5 w-3.5 text-slate-500" />
-                ) : (
-                  <ChevronRight className="h-3.5 w-3.5 text-slate-500" />
-                )}
-              </div>
-              
-              {expandedSection === 'partners' && (
-                <div className="ml-10 pl-2 border-l border-gray-300 dark:border-gray-600">
-                  <Link 
-                    href="/partners/partnerships" 
-                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-                    onClick={onClose}
-                  >
-                    <span>{t('navbar.partnersDropdown.partnerships')}</span>
-                  </Link>
-                  <Link 
-                    href="/partners/distribution" 
-                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-                    onClick={onClose}
-                  >
-                    <span>{t('navbar.partnersDropdown.distribution')}</span>
-                  </Link>
-                </div>
-              )}
+                <span className="text-sm">{t('navbar.partners')}</span>
+              </Link>
             </div>
             
             {/* Resources section */}

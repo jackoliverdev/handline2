@@ -1,12 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { HelpCircle, ChevronDown, ArrowRight, Shield } from 'lucide-react';
-import Link from 'next/link';
+import { ChevronDown, Shield } from 'lucide-react';
 import * as React from 'react';
 import { useLanguage } from "@/lib/context/language-context";
 
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 // Define the component props with the motion div capabilities
@@ -18,25 +16,14 @@ export function ContactFaq() {
   const { t } = useLanguage();
   const [openIndex, setOpenIndex] = React.useState<number | null>(null);
 
-  // Get FAQ questions from translations
-  const faqs = [
-    {
-      question: t('contact.faq.questions.1.question'),
-      answer: t('contact.faq.questions.1.answer'),
-    },
-    {
-      question: t('contact.faq.questions.2.question'),
-      answer: t('contact.faq.questions.2.answer'),
-    },
-    {
-      question: t('contact.faq.questions.3.question'),
-      answer: t('contact.faq.questions.3.answer'),
-    },
-    {
-      question: t('contact.faq.questions.4.question'),
-      answer: t('contact.faq.questions.4.answer'),
-    },
-  ];
+  // Hardcode 8 FAQs by accessing translation keys directly
+  const faqs = [];
+  for (let i = 0; i < 8; i++) {
+    faqs.push({
+      question: t(`contact.faq.questions.${i}.question`),
+      answer: t(`contact.faq.questions.${i}.answer`)
+    });
+  }
 
   return (
     <section className="pt-8 pb-16 md:pt-12 md:pb-24 bg-[#F5EFE0]/80 dark:bg-transparent">
@@ -118,24 +105,6 @@ export function ContactFaq() {
               </motion.div>
             ))}
           </div>
-
-          {/* Support CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="mt-12 text-center"
-          >
-            <Button asChild variant="default" className="group font-medium rounded-lg bg-brand-primary hover:bg-brand-primary/90 text-white transition-all duration-300 hover:scale-105 hover:shadow-xl transform">
-              <Link
-                href="#contact-form"
-                className="flex items-center gap-2"
-              >
-                {t('contact.faq.cta')}
-                <ArrowRight className="h-4 w-4 transition-all duration-300 group-hover:translate-x-1" />
-              </Link>
-            </Button>
-          </motion.div>
         </div>
       </div>
     </section>

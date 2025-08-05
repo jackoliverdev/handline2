@@ -270,9 +270,22 @@ export function IndustryDetail({ industry, relatedProducts }: { industry: any, r
                   </h2>
                   
                   <div className="prose prose-gray dark:prose-invert max-w-none">
-                    <p className="text-brand-secondary dark:text-gray-300 leading-relaxed text-lg">
+                    <p className="text-brand-secondary dark:text-gray-300 leading-relaxed text-lg mb-6">
                       {localisedIndustry.summary_content}
                     </p>
+                    
+                    {/* Summary Content Image */}
+                    {localisedIndustry.summary_content_image_url && (
+                      <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-lg">
+                        <Image
+                          src={localisedIndustry.summary_content_image_url}
+                          alt={`${localisedIndustry.industry_name} industry overview`}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
               </motion.div>
@@ -354,7 +367,7 @@ export function IndustryDetail({ industry, relatedProducts }: { industry: any, r
 
       {/* CTA Section */}
       <section className="w-full pt-6 pb-8 md:pt-6 md:pb-12">
-        <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative overflow-hidden bg-gradient-to-br from-white via-gray-50/50 to-white dark:from-black/50 dark:via-gray-900/50 dark:to-black/50 border border-gray-100 dark:border-gray-700/50 rounded-2xl p-6 md:p-8 backdrop-blur-sm shadow-xl">
             {/* Background Pattern */}
             <div className="absolute inset-0 bg-grid-primary/[0.02] [mask-image:radial-gradient(white,transparent_70%)]" />
