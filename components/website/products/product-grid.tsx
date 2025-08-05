@@ -27,11 +27,13 @@ import {
 import { CategoryFilter } from "./filters/CategoryFilter";
 import { SubCategoryFilter } from "./filters/SubCategoryFilter";
 import { TemperatureFilter } from "./filters/TemperatureFilter";
-import { CutLevelFilter } from "./filters/CutLevelFilter";
-import { HeatLevelFilter } from "./filters/HeatLevelFilter";
+import { HazardProtectionFilter } from "./filters/HazardProtectionFilter";
 import { IndustryFilter } from "./filters/IndustryFilter";
 import { FilterBadges } from "./filters/FilterBadges";
 import { MobileFilterSheet } from "./filters/MobileFilterSheet";
+
+// Import hazard protection helpers
+import { matchesHazardProtection } from "@/content/hazardfilters";
 
 interface ProductGridProps {
   products: Product[];
@@ -48,6 +50,7 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
   const [selectedCutLevels, setSelectedCutLevels] = useState<string[]>([]);
   const [selectedHeatLevels, setSelectedHeatLevels] = useState<string[]>([]);
   const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
+  const [selectedHazardProtections, setSelectedHazardProtections] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState<string>("featured");
   const [previewProduct, setPreviewProduct] = useState<Product | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -61,6 +64,7 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
     temperature: false,
     cutLevel: false,
     heatLevel: false,
+    hazardProtection: false,
     industries: false
   });
   
@@ -80,6 +84,7 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
     temperature: false,
     cutLevel: false,
     heatLevel: false,
+    hazardProtection: false,
     industries: false
   });
   
@@ -160,9 +165,10 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
     if (selectedTempRatings.length > 0) count++;
     if (selectedCutLevels.length > 0) count++;
     if (selectedHeatLevels.length > 0) count++;
+    if (selectedHazardProtections.length > 0) count++;
     if (selectedIndustries.length > 0) count++;
     setActiveFiltersCount(count);
-  }, [selectedCategory, selectedSubCategories, selectedTempRatings, selectedCutLevels, selectedHeatLevels, selectedIndustries]);
+  }, [selectedCategory, selectedSubCategories, selectedTempRatings, selectedCutLevels, selectedHeatLevels, selectedHazardProtections, selectedIndustries]);
   
   // Handle industry selection
   const toggleIndustry = (industry: string) => {
@@ -206,6 +212,14 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
     );
   };
   
+  const toggleHazardProtection = (hazard: string) => {
+    setSelectedHazardProtections(prev => 
+      prev.includes(hazard)
+        ? prev.filter(i => i !== hazard)
+        : [...prev, hazard]
+    );
+  };
+  
   // Clear all filters
   const clearFilters = () => {
     setSelectedCategory("");
@@ -213,6 +227,7 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
     setSelectedTempRatings([]);
     setSelectedCutLevels([]);
     setSelectedHeatLevels([]);
+    setSelectedHazardProtections([]);
     setSelectedIndustries([]);
   };
   
@@ -254,6 +269,13 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
       (product.heat_resistance_level && 
        selectedHeatLevels.includes(product.heat_resistance_level));
     
+    // Match hazard protection
+    const matchesHazardProtectionFilter =
+      selectedHazardProtections.length === 0 ||
+      selectedHazardProtections.some(hazardId => 
+        matchesHazardProtection(product.safety, hazardId)
+      );
+    
     // Match industries
     const matchesIndustries =
       selectedIndustries.length === 0 ||
@@ -268,6 +290,7 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
            matchesTempRating && 
            matchesCutLevel && 
            matchesHeatLevel && 
+           matchesHazardProtectionFilter && 
            matchesIndustries;
   });
   
@@ -404,30 +427,20 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
                   toggleSection={toggleSection}
                 />
                 
+                {/* Hazard Protection Filter */}
+                <HazardProtectionFilter
+                  selectedHazardProtections={selectedHazardProtections}
+                  toggleHazardProtection={toggleHazardProtection}
+                  isExpanded={expandedSections.hazardProtection}
+                  toggleSection={toggleSection}
+                />
+                
                 {/* Temperature Rating Filter */}
                 <TemperatureFilter
                   tempRatings={uniqueTempRatings}
                   selectedTempRatings={selectedTempRatings}
                   toggleTempRating={toggleTempRating}
                   isExpanded={expandedSections.temperature}
-                  toggleSection={toggleSection}
-                />
-                
-                {/* Cut Resistance Level Filter */}
-                <CutLevelFilter
-                  cutLevels={uniqueCutLevels}
-                  selectedCutLevels={selectedCutLevels}
-                  toggleCutLevel={toggleCutLevel}
-                  isExpanded={expandedSections.cutLevel}
-                  toggleSection={toggleSection}
-                />
-                
-                {/* Heat Resistance Level Filter */}
-                <HeatLevelFilter
-                  heatLevels={uniqueHeatLevels}
-                  selectedHeatLevels={selectedHeatLevels}
-                  toggleHeatLevel={toggleHeatLevel}
-                  isExpanded={expandedSections.heatLevel}
                   toggleSection={toggleSection}
                 />
                 
@@ -497,12 +510,8 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
                   tempRatings={uniqueTempRatings}
                   selectedTempRatings={selectedTempRatings}
                   toggleTempRating={toggleTempRating}
-                  cutLevels={uniqueCutLevels}
-                  selectedCutLevels={selectedCutLevels}
-                  toggleCutLevel={toggleCutLevel}
-                  heatLevels={uniqueHeatLevels}
-                  selectedHeatLevels={selectedHeatLevels}
-                  toggleHeatLevel={toggleHeatLevel}
+                  selectedHazardProtections={selectedHazardProtections}
+                  toggleHazardProtection={toggleHazardProtection}
                   industries={uniqueIndustries}
                   selectedIndustries={selectedIndustries}
                   toggleIndustry={toggleIndustry}
@@ -535,12 +544,12 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
             selectedCategory={selectedCategory}
             selectedSubCategories={selectedSubCategories}
             selectedTempRatings={selectedTempRatings}
-            selectedCutLevels={selectedCutLevels}
+            selectedHazardProtections={selectedHazardProtections}
             selectedIndustries={selectedIndustries}
             setSelectedCategory={setSelectedCategory}
             toggleSubCategory={toggleSubCategory}
             toggleTempRating={toggleTempRating}
-            toggleCutLevel={toggleCutLevel}
+            toggleHazardProtection={toggleHazardProtection}
             toggleIndustry={toggleIndustry}
             clearFilters={clearFilters}
           />
@@ -549,7 +558,7 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
           <div className="mb-6">
             <p className="text-sm text-brand-secondary dark:text-gray-400">
               {t('products.results.showing')
-                .replace('{current}', String(isExpanded ? localizedProducts.length : Math.min(displayedProducts.length, initialProductsCount)))
+                .replace('{current}', String(isExpanded ? sortedProducts.length : Math.min(displayedProducts.length, initialProductsCount)))
                 .replace('{total}', String(localizedProducts.length))}
             </p>
           </div>

@@ -91,36 +91,25 @@
     },
     "filters": {
       "title": "Filtri",
-      "activeFilters": "Filtri Attivi",
-      "clearAll": "Cancella Tutto",
-      "clearFilter": "Cancella {filter}",
-      "apply": "Applica Filtri",
-      "loading": "Caricamento filtri...",
-      "resultsCount": "{count} risultati",
-      "contentType": "Tipo di Contenuto",
+      "clearAll": "Cancella Tutti i Filtri",
       "category": "Categoria",
-      "applied": "Filtri Applicati",
+      "subCategory": "Sottocategoria",
+      "temperature": "Valutazione Temperatura",
+      "cutLevel": "Livello Resistenza Taglio",
+      "heatLevel": "Livello Resistenza Calore",
+      "hazardProtection": "Protezione dai Rischi",
+      "industries": "Industrie",
       "allCategories": "Tutte le Categorie",
-      "contentTypes": {
-        "title": "Tipo di Contenuto",
-        "all": "Tutti i Contenuti",
-        "products": "Prodotti",
-        "industries": "Settori",
-        "articles": "Articoli", 
-        "caseStudies": "Casi Studio",
-        "careers": "Carriere",
-        "enStandards": "Standard EN"
-      },
-      "categories": {
-        "title": "Categorie",
-        "all": "Tutte le Categorie"
-      },
-      "sortBy": {
-        "title": "Ordina Per",
-        "relevance": "Rilevanza",
-        "newest": "Più Recenti",
-        "alphabetical": "Alfabetico"
-      }
+      "uncategorised": "Non Categorizzato",
+      "activeFilters": "Filtri attivi:",
+      "apply": "Applica",
+      "heatResistantGloves": "Guanti Resistenti al Calore",
+      "cutResistantGloves": "Guanti Resistenti al Taglio",
+      "generalPurposeGloves": "Guanti Uso Generale",
+      "mechanicalHazardsGloves": "Guanti per Rischi Meccanici",
+      "weldingGlove": "Guanti da Saldatura",
+      "industrialSwabs": "Tamponi Industriali",
+      "respiratoryProtection": "Protezione Respiratoria"
     },
     "contentTypes": {
       "product": "Prodotto",
@@ -402,7 +391,7 @@
       "copyright": "Tutti i diritti riservati.",
       "links": {
         "privacy": "Privacy",
-        "terms": "Termini di Servizio",
+        "terms": "Termini di Utilizzo",
         "cookies": "Cookie",
         "standards": "Standard EN"
       }
@@ -513,16 +502,31 @@
       "name-desc": "Nome: Z-A"
     },
     "filters": {
+      "title": "Filtri",
+      "clearAll": "Cancella Tutto",
+      "clearFilter": "Cancella {filter}",
+      "loading": "Caricamento filtri...",
+      "resultsCount": "{count} risultati",
+      "contentType": "Tipo di Contenuto", 
       "category": "Categoria",
+      "temperature": "Valutazione Temperatura",
       "subCategory": "Sottocategoria",
       "temperatureRating": "Valutazione Temperatura",
       "cutLevel": "Livello Resistenza Taglio",
       "heatLevel": "Livello Resistenza Calore",
+      "hazardProtection": "Protezione dai Rischi",
       "industries": "Industrie",
-      "clearAll": "Cancella Tutto",
-      "showMore": "Mostra Di Più",
-      "showLess": "Mostra Meno",
-      "uncategorised": "Non Categorizzato"
+      "allCategories": "Tutte le Categorie",
+      "uncategorised": "Non Categorizzato",
+      "activeFilters": "Filtri attivi:",
+      "apply": "Applica",
+      "heatResistantGloves": "Guanti Resistenti al Calore",
+      "cutResistantGloves": "Guanti Resistenti al Taglio",
+      "generalPurposeGloves": "Guanti Uso Generale",
+      "mechanicalHazardsGloves": "Guanti per Rischi Meccanici",
+      "weldingGlove": "Guanti da Saldatura",
+      "industrialSwabs": "Tamponi Industriali",
+      "respiratoryProtection": "Protezione Respiratoria"
     },
     "results": {
       "showing": "Mostrando {current} di {total} prodotti",
@@ -948,27 +952,38 @@
       "description": "Trova risposte rapide alle domande comuni sui nostri guanti di sicurezza e servizi",
       "questions": [
         {
-          "question": "Che tipi di guanti di sicurezza offrite?",
-          "answer": "Hand Line produce una gamma completa di guanti di sicurezza, inclusi guanti resistenti al calore (fino a 350°C), guanti resistenti ai tagli (fino al Livello 5), guanti da lavoro generici, guanti resistenti alle sostanze chimiche e guanti specializzati per vari settori."
+          "question": "Come posso scegliere il DPI giusto?",
+          "answer": "La scelta corretta del DPI è fondamentale per garantire la sicurezza e il benessere dei lavoratori. Per prima cosa, raccomandiamo di raccogliere informazioni dettagliate sulle condizioni di lavoro e sull'esposizione ai rischi nelle situazioni più estreme. Questo aiuterà a determinare i livelli di protezione e i requisiti pratici necessari per il DPI. Il nostro sito include un'ampia gamma di prodotti filtrabili per requisiti, condizioni ambientali, categoria di rischio o livello di protezione. Consigliamo sempre di contattare il nostro team per ricevere una consulenza e individuare il DPI più adatto alle vostre esigenze. Siamo a un clic di distanza."
         },
         {
-          "question": "Come scelgo i guanti di sicurezza giusti per la mia applicazione?",
-          "answer": "Consigliamo di valutare i rischi specifici nel tuo ambiente di lavoro (calore, tagli, sostanze chimiche, ecc.), considerare i requisiti di comfort e destrezza, e assicurare la giusta misura. Il nostro team può fornire raccomandazioni personalizzate in base al tuo settore e alle tue esigenze specifiche."
+          "question": "Potete personalizzare o progettare DPI su misura?",
+          "answer": "Sì, possiamo creare soluzioni di protezione per le mani personalizzate in base alle vostre esigenze specifiche e produrre campioni in poche settimane. Molti dei nostri prodotti attuali sono nati da richieste specifiche dei nostri clienti."
         },
         {
-          "question": "I vostri guanti sono certificati CE?",
-          "answer": "Sì, tutti i guanti di sicurezza Hand Line sono certificati CE e conformi alle normative europee pertinenti, inclusi EN 388 per i rischi meccanici, EN 407 per i rischi termici e altri standard di sicurezza applicabili."
+          "question": "Posso richiedere campioni per test?",
+          "answer": "Sì, offriamo campioni per clienti industriali e distributori. Contattateci con i dettagli della vostra azienda e delle vostre applicazioni per richiedere un kit di campioni."
         },
         {
-          "question": "Offrite soluzioni personalizzate per settori specifici?",
-          "answer": "Assolutamente! Lavoriamo a stretto contatto con i clienti di vari settori per sviluppare soluzioni di protezione delle mani su misura. Contatta il nostro team per discutere delle tue esigenze specifiche, e possiamo sviluppare o raccomandare prodotti che soddisfino le tue esigenze esatte."
+          "question": "Effettuate spedizioni internazionali?",
+          "answer": "Sì, forniamo DPI a decine di clienti in oltre 15 mercati nell'area EMEA e siamo in grado di effettuare consegne a livello globale."
         },
         {
-          "question": "Come posso richiedere campioni di prodotti?",
-          "answer": "Puoi richiedere campioni di prodotti contattando il nostro team commerciale tramite il modulo di contatto. Specifica quali prodotti ti interessano, il tuo settore e l'applicazione prevista. In genere forniamo campioni per la valutazione entro 1-2 settimane."
+          "question": "Per quali settori industriali fornite DPI?",
+          "answer": "I nostri prodotti sono progettati per un'ampia varietà di settori, tra cui vetrerie, metallurgia, edilizia, automotive, industria alimentare, logistica e lavorazione dei metalli. Abbiamo maturato una profonda esperienza nei settori della produzione del vetro e dei metalli e nell'industria pesante, con oltre 40 anni di attività al servizio di grandi clienti internazionali. La nostra ambizione e' di essere un fornitore affidabile e al tempo stesso un consulente di fiducia."
+        },
+        {
+          "question": "Offrite servizi OEM o private label?",
+          "answer": "Sì, supportiamo la produzione in OEM e private label per partner interessati a personalizzare guanti, indumenti, ecc., con il proprio marchio, packaging o specifiche tecniche. Contattateci per discutere le vostre esigenze."
+        },
+        {
+          "question": "A quali norme sono conformi i vostri prodotti?",
+          "answer": "Tutti i nostri prodotti sono certificati secondo il Regolamento Europeo DPI (UE) 2016/425 e rispettano le norme EN applicabili."
+        },
+        {
+          "question": "Come posso diventare un distributore o rivenditore dei vostri prodotti?",
+          "answer": "Potete compilare il modulo di richiesta per distributori o contattate direttamente il nostro team all'indirizzo distribution@handlineco.com. Supportiamo i rivenditori con materiale marketing, formazione tecnica e modalità di ordinazione flessibili."
         }
-      ],
-      "cta": "Hai bisogno di maggiori informazioni? Contatta i nostri esperti"
+      ]
     },
     "hero": {
       "badge": "Siamo Qui Per Aiutarti",
@@ -1080,12 +1095,12 @@
     "description": "Unisciti alla nostra rete globale di partner e distributori per portare le soluzioni di sicurezza innovative di Hand Line a più lavoratori in tutto il mondo.",
     "strategic": {
       "title": "Partnership Strategiche",
-      "description": "Cerchiamo leader del settore per collaborare a soluzioni di sicurezza innovative. Costruisci un'alleanza strategica con Hand Line per migliorare la protezione e la produttività dei lavoratori.",
+      "description": "Cerchiamo leader del settore per collaborare a soluzioni di sicurezza innovative. Costruisci un'alleanza strategica con Hand Line.",
       "cta": "Esplora Partnership"
     },
     "distribution": {
       "title": "Rete di Distribuzione",
-      "description": "Unisciti alla nostra crescente rete di distributori per portare i prodotti di sicurezza Hand Line nella tua regione. Offriamo territori esclusivi, margini competitivi e supporto completo.",
+      "description": "Unisciti alla nostra crescente rete di distributori per portare i prodotti di sicurezza Hand Line nella tua regione. Forniamo supporto completo e margini competitivi.",
       "cta": "Diventa Distributore"
     },
     "partnerships": {
@@ -1143,7 +1158,7 @@
         "emailPlaceholder": "tua.email@azienda.com",
         "phone": "Telefono (Opzionale)",
         "phonePlaceholder": "Il tuo numero di telefono",
-        "country": "Paese/Regione",
+        "country": "Paese",
         "countryPlaceholder": "Il tuo paese o regione di operatività",
         "details": "Dettagli Distribuzione",
         "detailsPlaceholder": "Parlaci delle tue capacità di distribuzione, della tua portata di mercato e del motivo per cui sei interessato ai prodotti Hand Line...",
@@ -1213,5 +1228,40 @@
     "mechanicalHazardsGloves": "Guanti per rischi meccanici",
     "industrialSwabs": "Tamponi industriali",
     "respiratoryProtection": "Protezione respiratoria"
+  },
+  "legal": {
+    "hero": {
+      "badge": "Documenti Importanti",
+      "title": "Informazioni",
+      "titleAccent": "Legali",
+      "description": "Il nostro impegno per la trasparenza, la protezione e la conformità con tutte le leggi e i regolamenti pertinenti.",
+      "stats": {
+        "documents": "3",
+        "documentsLabel": "Documenti Legali",
+        "compliance": "100%", 
+        "complianceLabel": "Conforme UE",
+        "updated": "2025",
+        "updatedLabel": "Ultimo Aggiornamento"
+      }
+    },
+    "tabs": {
+      "terms": "Termini di Utilizzo",
+      "privacy": "Informativa Privacy", 
+      "cookies": "Informativa Cookie"
+    },
+    "content": {
+      "terms": {
+        "title": "Termini di Utilizzo",
+        "lastUpdated": "Ultimo aggiornamento: 4 agosto 2025"
+      },
+      "privacy": {
+        "title": "Informativa sulla Privacy",
+        "lastUpdated": "Ultimo aggiornamento: 4 agosto 2025"
+      },
+      "cookies": {
+        "title": "Informativa sui Cookie",
+        "lastUpdated": "Ultimo aggiornamento: 4 agosto 2025"
+      }
+    }
   }
 } 

@@ -5,8 +5,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { X } from "lucide-react";
-import { formatCutLevel } from "@/lib/product-utils";
 import { useLanguage } from "@/lib/context/language-context";
+import { hazardProtectionFilters } from "@/content/hazardfilters";
 
 interface MobileFilterSheetProps {
   isOpen: boolean;
@@ -20,12 +20,8 @@ interface MobileFilterSheetProps {
   tempRatings: number[];
   selectedTempRatings: string[];
   toggleTempRating: (temp: string) => void;
-  cutLevels: string[];
-  selectedCutLevels: string[];
-  toggleCutLevel: (level: string) => void;
-  heatLevels: string[];
-  selectedHeatLevels: string[];
-  toggleHeatLevel: (level: string) => void;
+  selectedHazardProtections: string[];
+  toggleHazardProtection: (hazard: string) => void;
   industries: string[];
   selectedIndustries: string[];
   toggleIndustry: (industry: string) => void;
@@ -47,12 +43,8 @@ export const MobileFilterSheet = ({
   tempRatings,
   selectedTempRatings,
   toggleTempRating,
-  cutLevels,
-  selectedCutLevels,
-  toggleCutLevel,
-  heatLevels,
-  selectedHeatLevels,
-  toggleHeatLevel,
+  selectedHazardProtections,
+  toggleHazardProtection,
   industries,
   selectedIndustries,
   toggleIndustry,
@@ -168,6 +160,47 @@ export const MobileFilterSheet = ({
             </div>
           )}
           
+          {/* Hazard Protection Filter */}
+          <div>
+            <button 
+              className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"
+              onClick={() => toggleSection('hazardProtection')}
+            >
+              <span className="flex items-center">
+                {t('products.filters.hazardProtection')}
+                {selectedHazardProtections.length > 0 && (
+                  <Badge className="ml-2 bg-brand-primary text-white">{selectedHazardProtections.length}</Badge>
+                )}
+              </span>
+              <ChevronDown 
+                className={`h-4 w-4 text-brand-primary transition-transform ${
+                  expandedSections.hazardProtection ? 'rotate-180' : ''
+                }`}
+              />
+            </button>
+            
+            {expandedSections.hazardProtection && (
+              <div className="space-y-2 max-h-40 overflow-y-auto pr-2 mt-2">
+                {hazardProtectionFilters.map((filter) => (
+                  <div key={filter.id} className="flex items-center space-x-2">
+                    <Checkbox 
+                      id={`hazardProtection-${filter.id}`} 
+                      checked={selectedHazardProtections.includes(filter.id)}
+                      onCheckedChange={() => toggleHazardProtection(filter.id)}
+                      className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary"
+                    />
+                    <label 
+                      htmlFor={`hazardProtection-${filter.id}`}
+                      className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer"
+                    >
+                      {filter.name}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          
           {/* Temperature Rating Filter */}
           {tempRatings.length > 0 && (
             <div>
@@ -203,92 +236,6 @@ export const MobileFilterSheet = ({
                         className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer"
                       >
                         {temp}°C
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-          
-          {/* Cut Resistance Level Filter */}
-          {cutLevels.length > 0 && (
-            <div>
-              <button 
-                className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"
-                onClick={() => toggleSection('cutLevel')}
-              >
-                <span className="flex items-center">
-                  {t('products.filters.cutLevel')}
-                  {selectedCutLevels.length > 0 && (
-                    <Badge className="ml-2 bg-brand-primary text-white">{selectedCutLevels.length}</Badge>
-                  )}
-                </span>
-                <ChevronDown 
-                  className={`h-4 w-4 text-brand-primary transition-transform ${
-                    expandedSections.cutLevel ? 'rotate-180' : ''
-                  }`}
-                />
-              </button>
-              
-              {expandedSections.cutLevel && (
-                <div className="space-y-2 max-h-40 overflow-y-auto pr-2 mt-2">
-                  {cutLevels.map((level) => (
-                    <div key={level} className="flex items-center space-x-2">
-                      <Checkbox 
-                        id={`cutLevel-${level}`} 
-                        checked={selectedCutLevels.includes(level)}
-                        onCheckedChange={() => toggleCutLevel(level)}
-                        className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary"
-                      />
-                      <label 
-                        htmlFor={`cutLevel-${level}`}
-                        className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer"
-                      >
-                        {formatCutLevel(level)}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-          
-          {/* Heat Resistance Level Filter */}
-          {heatLevels.length > 0 && (
-            <div>
-              <button 
-                className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"
-                onClick={() => toggleSection('heatLevel')}
-              >
-                <span className="flex items-center">
-                  {t('products.filters.heatLevel')}
-                  {selectedHeatLevels.length > 0 && (
-                    <Badge className="ml-2 bg-brand-primary text-white">{selectedHeatLevels.length}</Badge>
-                  )}
-                </span>
-                <ChevronDown 
-                  className={`h-4 w-4 text-brand-primary transition-transform ${
-                    expandedSections.heatLevel ? 'rotate-180' : ''
-                  }`}
-                />
-              </button>
-              
-              {expandedSections.heatLevel && (
-                <div className="space-y-2 max-h-40 overflow-y-auto pr-2 mt-2">
-                  {heatLevels.map((level) => (
-                    <div key={level} className="flex items-center space-x-2">
-                      <Checkbox 
-                        id={`heatLevel-${level}`} 
-                        checked={selectedHeatLevels.includes(level)}
-                        onCheckedChange={() => toggleHeatLevel(level)}
-                        className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary"
-                      />
-                      <label 
-                        htmlFor={`heatLevel-${level}`}
-                        className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer"
-                      >
-                        {formatCutLevel(level)}
                       </label>
                     </div>
                   ))}

@@ -31,7 +31,7 @@ interface ProductInfoDisplayProps {
 const getBrandLogo = (brandName: string) => {
   switch (brandName) {
     case 'Hand Line':
-      return '/brands/logoHLC.png';
+      return '/brands/HLC_Scritta.png';
     case 'ProGloves Heat':
       return '/brands/proheat.png';
     case 'ProGloves Cut':

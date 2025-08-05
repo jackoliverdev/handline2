@@ -85,7 +85,7 @@ const SafetyEN388Display: React.FC<{ data: SafetyEN388 }> = ({ data }) => {
         </h3>
       </div>
       
-      <div className="grid grid-cols-4 gap-4 mb-4">
+      <div className="grid grid-cols-3 gap-4">
         <div className="text-center">
           <div className="text-xs text-brand-secondary dark:text-gray-400 mb-1">{t('productPage.abrasion')}</div>
           <div 
@@ -121,10 +121,7 @@ const SafetyEN388Display: React.FC<{ data: SafetyEN388 }> = ({ data }) => {
             {getEN388PerformanceLevel(data.puncture)}
           </div>
         </div>
-      </div>
-      
-      {/* ISO 13997 and Impact Protection */}
-      <div className="grid grid-cols-2 gap-4">
+        
         <div className="text-center">
           <div className="text-xs text-brand-secondary dark:text-gray-400 mb-1">{t('productPage.cut')}</div>
           <div 
@@ -291,22 +288,22 @@ export const SafetyStandardsDisplay: React.FC<SafetyStandardsDisplayProps> = ({
           <CardContent>
             <div className="flex flex-wrap gap-2">
               {safety.en_421 && (
-                <Badge className="bg-brand-primary/10 text-brand-primary border-brand-primary/20 hover:bg-brand-primary/10 text-sm px-3 py-1">
+                <Badge className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/10 text-sm px-3 py-1">
                   EN 421 - Ionising Radiation
                 </Badge>
               )}
               {safety.en_659 && (
-                <Badge className="bg-brand-primary/10 text-brand-primary border-brand-primary/20 hover:bg-brand-primary/10 text-sm px-3 py-1">
+                <Badge className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/10 text-sm px-3 py-1">
                   EN 659 - Firefighters
                 </Badge>
               )}
               {safety.food_grade && (
-                <Badge className="bg-brand-primary/10 text-brand-primary border-brand-primary/20 hover:bg-brand-primary/10 text-sm px-3 py-1">
+                <Badge className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/10 text-sm px-3 py-1">
                   Food Grade
                 </Badge>
               )}
               {safety.en_iso_21420 && (
-                <Badge className="bg-brand-primary/10 text-brand-primary border-brand-primary/20 hover:bg-brand-primary/10 text-sm px-3 py-1">
+                <Badge className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/10 text-sm px-3 py-1">
                   EN ISO 21420 - General Requirements
                 </Badge>
               )}

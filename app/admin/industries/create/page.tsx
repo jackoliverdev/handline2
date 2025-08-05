@@ -40,16 +40,24 @@ export default function CreateIndustryPage() {
     description_locales: {} as Record<string, string>,
     // New structured content fields
     summary_content_locales: {} as Record<string, string>,
+    summary_content_image_url: "",
     sections_locales: {} as Record<string, any[]>,
-    // New individual related product fields
+    // New individual related product fields - expanded to 10
     related_product_id_1: null as string | null,
     related_product_id_2: null as string | null,
     related_product_id_3: null as string | null,
-    related_product_id_4: null as string | null
+    related_product_id_4: null as string | null,
+    related_product_id_5: null as string | null,
+    related_product_id_6: null as string | null,
+    related_product_id_7: null as string | null,
+    related_product_id_8: null as string | null,
+    related_product_id_9: null as string | null,
+    related_product_id_10: null as string | null
   });
   const [isCreating, setIsCreating] = useState(false);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [previewCoverImage, setPreviewCoverImage] = useState<string | null>(null);
+  const [previewSummaryImage, setPreviewSummaryImage] = useState<string | null>(null);
   const [availableProducts, setAvailableProducts] = useState<Product[]>([]);
   const [errors, setErrors] = useState({
     industry_name: false,
@@ -57,6 +65,7 @@ export default function CreateIndustryPage() {
   });
   const fileInputRef = useRef<HTMLInputElement>(null);
   const coverImageInputRef = useRef<HTMLInputElement>(null);
+  const summaryImageInputRef = useRef<HTMLInputElement>(null);
 
   // New state for structured content management
   const [currentLanguage, setCurrentLanguage] = useState<'en' | 'it'>('en');
@@ -165,6 +174,18 @@ export default function CreateIndustryPage() {
       setIndustry(prev => ({ ...prev, related_product_id_3: productId }));
     } else if (industry.related_product_id_4 === null) {
       setIndustry(prev => ({ ...prev, related_product_id_4: productId }));
+    } else if (industry.related_product_id_5 === null) {
+      setIndustry(prev => ({ ...prev, related_product_id_5: productId }));
+    } else if (industry.related_product_id_6 === null) {
+      setIndustry(prev => ({ ...prev, related_product_id_6: productId }));
+    } else if (industry.related_product_id_7 === null) {
+      setIndustry(prev => ({ ...prev, related_product_id_7: productId }));
+    } else if (industry.related_product_id_8 === null) {
+      setIndustry(prev => ({ ...prev, related_product_id_8: productId }));
+    } else if (industry.related_product_id_9 === null) {
+      setIndustry(prev => ({ ...prev, related_product_id_9: productId }));
+    } else if (industry.related_product_id_10 === null) {
+      setIndustry(prev => ({ ...prev, related_product_id_10: productId }));
     }
   };
 
@@ -177,6 +198,18 @@ export default function CreateIndustryPage() {
       setIndustry(prev => ({ ...prev, related_product_id_3: null }));
     } else if (industry.related_product_id_4 === productId) {
       setIndustry(prev => ({ ...prev, related_product_id_4: null }));
+    } else if (industry.related_product_id_5 === productId) {
+      setIndustry(prev => ({ ...prev, related_product_id_5: null }));
+    } else if (industry.related_product_id_6 === productId) {
+      setIndustry(prev => ({ ...prev, related_product_id_6: null }));
+    } else if (industry.related_product_id_7 === productId) {
+      setIndustry(prev => ({ ...prev, related_product_id_7: null }));
+    } else if (industry.related_product_id_8 === productId) {
+      setIndustry(prev => ({ ...prev, related_product_id_8: null }));
+    } else if (industry.related_product_id_9 === productId) {
+      setIndustry(prev => ({ ...prev, related_product_id_9: null }));
+    } else if (industry.related_product_id_10 === productId) {
+      setIndustry(prev => ({ ...prev, related_product_id_10: null }));
     }
   };
 
@@ -185,7 +218,13 @@ export default function CreateIndustryPage() {
       industry.related_product_id_1,
       industry.related_product_id_2,
       industry.related_product_id_3,
-      industry.related_product_id_4
+      industry.related_product_id_4,
+      industry.related_product_id_5,
+      industry.related_product_id_6,
+      industry.related_product_id_7,
+      industry.related_product_id_8,
+      industry.related_product_id_9,
+      industry.related_product_id_10
     ].filter(Boolean) as string[];
   };
 
@@ -270,6 +309,26 @@ export default function CreateIndustryPage() {
     }
   };
 
+  const handleSummaryImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast({
+          title: "Error",
+          description: "Summary image must be less than 5MB",
+          variant: "destructive"
+        });
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewSummaryImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -343,11 +402,18 @@ export default function CreateIndustryPage() {
         industry_name_locales: industry.industry_name_locales || null,
         description_locales: industry.description_locales || null,
         summary_content_locales: industry.summary_content_locales || null,
+        summary_content_image_url: industry.summary_content_image_url || null,
         sections_locales: industry.sections_locales || null,
         related_product_id_1: industry.related_product_id_1 || null,
         related_product_id_2: industry.related_product_id_2 || null,
         related_product_id_3: industry.related_product_id_3 || null,
-        related_product_id_4: industry.related_product_id_4 || null
+        related_product_id_4: industry.related_product_id_4 || null,
+        related_product_id_5: industry.related_product_id_5 || null,
+        related_product_id_6: industry.related_product_id_6 || null,
+        related_product_id_7: industry.related_product_id_7 || null,
+        related_product_id_8: industry.related_product_id_8 || null,
+        related_product_id_9: industry.related_product_id_9 || null,
+        related_product_id_10: industry.related_product_id_10 || null
       });
       
       // If there's an image to upload
@@ -365,6 +431,15 @@ export default function CreateIndustryPage() {
         if (url) {
           // Update the industry with the cover image URL
           await updateIndustry(newIndustry.id, { feature_image_url: url });
+        }
+      }
+
+      // If there's a summary image to upload
+      if (previewSummaryImage && summaryImageInputRef.current?.files?.[0]) {
+        const { url } = await uploadIndustryImage(newIndustry.id, summaryImageInputRef.current.files[0]);
+        if (url) {
+          // Update the industry with the summary image URL
+          await updateIndustry(newIndustry.id, { summary_content_image_url: url });
         }
       }
       
@@ -518,6 +593,67 @@ export default function CreateIndustryPage() {
                   />
                   <p className="text-xs text-muted-foreground">
                     This will appear as the "{currentIndustryName || 'Industry'} Industry Overview" section.
+                  </p>
+                </div>
+
+                {/* Summary Image Upload */}
+                <div className="space-y-2">
+                  <Label htmlFor="summary_image" className="text-xs sm:text-sm">
+                    Industry Overview Image
+                  </Label>
+                  <div className="rounded-lg border-2 border-dashed border-gray-300 p-2 sm:p-4 text-center">
+                    {previewSummaryImage ? (
+                      <div className="relative aspect-video w-full overflow-hidden rounded-md">
+                        <Image
+                          src={previewSummaryImage}
+                          alt="Summary image preview"
+                          fill
+                          className="object-cover"
+                        />
+                        <Button
+                          type="button"
+                          variant="destructive"
+                          size="sm"
+                          className="absolute top-2 right-2"
+                          onClick={() => {
+                            setPreviewSummaryImage(null);
+                            if (summaryImageInputRef.current) {
+                              summaryImageInputRef.current.value = "";
+                            }
+                          }}
+                        >
+                          <Trash className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    ) : (
+                      <div className="py-2 sm:py-4">
+                        <Factory className="mx-auto h-8 w-8 sm:h-12 sm:w-12 text-gray-400" />
+                        <p className="mt-2 text-xs sm:text-sm text-gray-500">
+                          Recommended size: 1200 x 630 pixels
+                        </p>
+                      </div>
+                    )}
+                    
+                    <input
+                      ref={summaryImageInputRef}
+                      type="file"
+                      accept="image/*"
+                      onChange={handleSummaryImageChange}
+                      className="hidden"
+                      id="summary-image"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => summaryImageInputRef.current?.click()}
+                      className="mt-2 sm:mt-4 w-full"
+                    >
+                      <Upload className="h-4 w-4 mr-2" />
+                      {previewSummaryImage ? "Change Image" : "Upload Image"}
+                    </Button>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Maximum file size: 5MB. Supported formats: JPEG, PNG, WebP.
                   </p>
                 </div>
 
@@ -799,14 +935,14 @@ export default function CreateIndustryPage() {
               <CardHeader>
                 <CardTitle className="text-base sm:text-lg">Related Products</CardTitle>
                 <CardDescription className="text-xs sm:text-sm">
-                  Select up to 4 products that are relevant to this industry
+                  Select up to 10 products that are relevant to this industry
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 {availableProducts.length > 0 ? (
                   <div className="space-y-4">
                     <p className="text-xs sm:text-sm mb-2">
-                      Currently this industry has {getRelatedProductIds().length} related products (max 4)
+                      Currently this industry has {getRelatedProductIds().length} related products (max 10)
                     </p>
                     <div className="grid gap-2">
                       {getRelatedProductIds().map(productId => {
@@ -823,7 +959,7 @@ export default function CreateIndustryPage() {
                         <p className="text-xs sm:text-sm text-muted-foreground">No related products selected.</p>
                       )}
                     </div>
-                    {getRelatedProductIds().length < 4 && getAvailableRelatedProducts().length > 0 && (
+                    {getRelatedProductIds().length < 10 && getAvailableRelatedProducts().length > 0 && (
                       <div className="mt-2 sm:mt-4">
                         <Label htmlFor="product-select" className="text-xs sm:text-sm">Add a product:</Label>
                         <Select
@@ -846,8 +982,8 @@ export default function CreateIndustryPage() {
                         </Select>
                       </div>
                     )}
-                    {getRelatedProductIds().length >= 4 && (
-                      <p className="text-xs text-muted-foreground">Maximum of 4 related products reached.</p>
+                    {getRelatedProductIds().length >= 10 && (
+                      <p className="text-xs text-muted-foreground">Maximum of 10 related products reached.</p>
                     )}
                   </div>
                 ) : (

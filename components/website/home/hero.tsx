@@ -26,7 +26,7 @@ export const Hero = () => {
             alt="Construction worker background"
             fill
             className="object-cover object-center"
-            style={{ objectPosition: '20% 40%' }}
+            style={{ objectPosition: '20% 50%' }}
             priority
           />
           <div className="absolute inset-0 bg-black/30"></div>

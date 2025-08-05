@@ -3,6 +3,7 @@ import React from 'react';
 import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/lib/context/language-context";
+import { useAnalytics } from "@/hooks/useAnalytics";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -55,7 +56,7 @@ const getBrandLogo = (brandName: string) => {
   const normalizedBrand = brandName.toLowerCase();
   
   if (normalizedBrand.includes('hand line') || normalizedBrand.includes('handline')) {
-    return '/brands/logoHLC.png';
+    return '/brands/HLC_Scritta.png';
   }
   
   if (normalizedBrand.includes('progloves heat') || (normalizedBrand.includes('proglov') && normalizedBrand.includes('heat'))) {
@@ -71,6 +72,7 @@ const getBrandLogo = (brandName: string) => {
 
 export function ProductDetail({ product, relatedProducts }: { product: Product, relatedProducts: any[] }) {
   const { t, language } = useLanguage();
+  const { trackProductView, trackSampleRequest, trackContactSubmission, trackDownload } = useAnalytics();
   
   // Get localized content based on current language
   const currentFeatures = product.features_locales?.[language] || product.features || [];
@@ -84,6 +86,34 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
 
   // Get localised size and other info
   const size = product.size_locales?.[language] || product.size_locales?.en || null;
+
+  // Track product view on component mount
+  React.useEffect(() => {
+    if (product) {
+      trackProductView(
+        product.name_locales?.[language] || product.name || '',
+        product.id
+      );
+    }
+  }, [product, language, trackProductView]);
+
+  // Handle sample request with analytics
+  const handleSampleRequest = () => {
+    setIsSampleModalOpen(true);
+    trackSampleRequest(product.name_locales?.[language] || product.name || '');
+  };
+
+  // Handle contact request with analytics
+  const handleContactRequest = () => {
+    setIsContactModalOpen(true);
+    trackContactSubmission('product_inquiry');
+  };
+
+  // Handle document download with analytics
+  const handleDocumentDownload = (url: string, fileName: string, fileType: string) => {
+    trackDownload(fileName, fileType);
+    // The actual download is handled by the link
+  };
 
   return (
     <main className="bg-brand-light dark:bg-background min-h-screen pt-11">
@@ -526,7 +556,13 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                               className="w-full border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
                               asChild
                             >
-                              <a href={product.technical_sheet_url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                              <a 
+                                href={product.technical_sheet_url} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="flex items-center justify-center gap-2"
+                                onClick={() => handleDocumentDownload(product.technical_sheet_url!, 'Technical Sheet (EN)', 'technical_sheet')}
+                              >
                                 <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
                                 {t('productPage.download')}
                               </a>
@@ -540,7 +576,13 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                               className="w-full border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
                               asChild
                             >
-                              <a href={product.technical_sheet_url_it} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                              <a 
+                                href={product.technical_sheet_url_it} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="flex items-center justify-center gap-2"
+                                onClick={() => handleDocumentDownload(product.technical_sheet_url_it!, 'Technical Sheet (IT)', 'technical_sheet')}
+                              >
                                 <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
                                 {t('productPage.download')}
                               </a>
@@ -562,7 +604,13 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                               className="w-full border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
                               asChild
                             >
-                              <a href={product.declaration_sheet_url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                              <a 
+                                href={product.declaration_sheet_url} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="flex items-center justify-center gap-2"
+                                onClick={() => handleDocumentDownload(product.declaration_sheet_url!, 'Declaration of Conformity (EN)', 'declaration')}
+                              >
                                 <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
                                 {t('productPage.download')}
                               </a>
@@ -576,7 +624,13 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                               className="w-full border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
                               asChild
                             >
-                              <a href={product.declaration_sheet_url_it} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                              <a 
+                                href={product.declaration_sheet_url_it} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="flex items-center justify-center gap-2"
+                                onClick={() => handleDocumentDownload(product.declaration_sheet_url_it!, 'Declaration of Conformity (IT)', 'declaration')}
+                              >
                                 <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
                                 {t('productPage.download')}
                               </a>
@@ -598,7 +652,13 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                               className="w-full border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
                               asChild
                             >
-                              <a href={product.manufacturers_instruction_url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                              <a 
+                                href={product.manufacturers_instruction_url} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="flex items-center justify-center gap-2"
+                                onClick={() => handleDocumentDownload(product.manufacturers_instruction_url!, 'Manufacturers Instruction (EN)', 'instruction')}
+                              >
                                 <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
                                 {t('productPage.download')}
                               </a>
@@ -612,7 +672,13 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                               className="w-full border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
                               asChild
                             >
-                              <a href={product.manufacturers_instruction_url_it} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                              <a 
+                                href={product.manufacturers_instruction_url_it} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="flex items-center justify-center gap-2"
+                                onClick={() => handleDocumentDownload(product.manufacturers_instruction_url_it!, 'Manufacturers Instruction (IT)', 'instruction')}
+                              >
                                 <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
                                 {t('productPage.download')}
                               </a>
@@ -641,7 +707,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                 variant="outline"
                 size="lg"
                 className="w-full border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
-                onClick={() => setIsContactModalOpen(true)}
+                onClick={handleContactRequest}
               >
                 <span className="flex items-center justify-center gap-2">
                   <Mail className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
@@ -652,7 +718,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                 variant="default"
                 size="lg"
                 className="w-full bg-brand-primary text-white hover:bg-brand-primary/90 hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
-                onClick={() => setIsSampleModalOpen(true)}
+                onClick={handleSampleRequest}
               >
                 <span className="flex items-center justify-center gap-2">
                   <Package className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />

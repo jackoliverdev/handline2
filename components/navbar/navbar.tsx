@@ -39,12 +39,7 @@ const getNavItems = (t: any) => [
   },
   { 
     href: "/partners", 
-    label: t("navbar.partners"),
-    hasDropdown: true,
-    dropdownItems: [
-      { href: "/partners/partnerships", label: t("navbar.partnersDropdown.partnerships") },
-      { href: "/partners/distribution", label: t("navbar.partnersDropdown.distribution") },
-    ]
+    label: t("navbar.partners")
   },
   /*
   { 
