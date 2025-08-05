@@ -7,6 +7,7 @@ import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/com
 import { X } from "lucide-react";
 import { useLanguage } from "@/lib/context/language-context";
 import { hazardProtectionFilters } from "@/content/hazardfilters";
+import { workEnvironmentFilters } from "@/content/workenvironmentfilters";
 
 interface MobileFilterSheetProps {
   isOpen: boolean;
@@ -22,6 +23,8 @@ interface MobileFilterSheetProps {
   toggleTempRating: (temp: string) => void;
   selectedHazardProtections: string[];
   toggleHazardProtection: (hazard: string) => void;
+  selectedWorkEnvironments: string[];
+  toggleWorkEnvironment: (environment: string) => void;
   industries: string[];
   selectedIndustries: string[];
   toggleIndustry: (industry: string) => void;
@@ -45,6 +48,8 @@ export const MobileFilterSheet = ({
   toggleTempRating,
   selectedHazardProtections,
   toggleHazardProtection,
+  selectedWorkEnvironments,
+  toggleWorkEnvironment,
   industries,
   selectedIndustries,
   toggleIndustry,
@@ -193,13 +198,56 @@ export const MobileFilterSheet = ({
                       htmlFor={`hazardProtection-${filter.id}`}
                       className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer"
                     >
-                      {filter.name}
+                      {t(filter.translationKey)}
                     </label>
                   </div>
                 ))}
               </div>
             )}
           </div>
+          
+          {/* Work Environment Filter */}
+          {workEnvironmentFilters.length > 0 && (
+            <div>
+              <button 
+                className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"
+                onClick={() => toggleSection('workEnvironment')}
+              >
+                <span className="flex items-center">
+                  {t('products.filters.workEnvironment')}
+                  {selectedWorkEnvironments.length > 0 && (
+                    <Badge className="ml-2 bg-brand-primary text-white">{selectedWorkEnvironments.length}</Badge>
+                  )}
+                </span>
+                <ChevronDown 
+                  className={`h-4 w-4 text-brand-primary transition-transform ${
+                    expandedSections.workEnvironment ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+              
+              {expandedSections.workEnvironment && (
+                <div className="space-y-2 max-h-40 overflow-y-auto pr-2 mt-2">
+                  {workEnvironmentFilters.map((filter) => (
+                    <div key={filter.id} className="flex items-center space-x-2">
+                      <Checkbox 
+                        id={`workEnvironment-${filter.id}`} 
+                        checked={selectedWorkEnvironments.includes(filter.id)}
+                        onCheckedChange={() => toggleWorkEnvironment(filter.id)}
+                        className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary"
+                      />
+                      <label 
+                        htmlFor={`workEnvironment-${filter.id}`}
+                        className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer"
+                      >
+                        {t(filter.translationKey)}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
           
           {/* Temperature Rating Filter */}
           {tempRatings.length > 0 && (

@@ -28,12 +28,14 @@ import { CategoryFilter } from "./filters/CategoryFilter";
 import { SubCategoryFilter } from "./filters/SubCategoryFilter";
 import { TemperatureFilter } from "./filters/TemperatureFilter";
 import { HazardProtectionFilter } from "./filters/HazardProtectionFilter";
+import { WorkEnvironmentFilter } from "./filters/WorkEnvironmentFilter";
 import { IndustryFilter } from "./filters/IndustryFilter";
 import { FilterBadges } from "./filters/FilterBadges";
 import { MobileFilterSheet } from "./filters/MobileFilterSheet";
 
 // Import hazard protection helpers
 import { matchesHazardProtection } from "@/content/hazardfilters";
+import { matchesWorkEnvironment } from "@/content/workenvironmentfilters";
 
 interface ProductGridProps {
   products: Product[];
@@ -51,6 +53,7 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
   const [selectedHeatLevels, setSelectedHeatLevels] = useState<string[]>([]);
   const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
   const [selectedHazardProtections, setSelectedHazardProtections] = useState<string[]>([]);
+  const [selectedWorkEnvironments, setSelectedWorkEnvironments] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState<string>("featured");
   const [previewProduct, setPreviewProduct] = useState<Product | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -65,6 +68,7 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
     cutLevel: false,
     heatLevel: false,
     hazardProtection: false,
+    workEnvironment: false,
     industries: false
   });
   
@@ -85,6 +89,7 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
     cutLevel: false,
     heatLevel: false,
     hazardProtection: false,
+    workEnvironment: false,
     industries: false
   });
   
@@ -166,9 +171,10 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
     if (selectedCutLevels.length > 0) count++;
     if (selectedHeatLevels.length > 0) count++;
     if (selectedHazardProtections.length > 0) count++;
+    if (selectedWorkEnvironments.length > 0) count++;
     if (selectedIndustries.length > 0) count++;
     setActiveFiltersCount(count);
-  }, [selectedCategory, selectedSubCategories, selectedTempRatings, selectedCutLevels, selectedHeatLevels, selectedHazardProtections, selectedIndustries]);
+  }, [selectedCategory, selectedSubCategories, selectedTempRatings, selectedCutLevels, selectedHeatLevels, selectedHazardProtections, selectedWorkEnvironments, selectedIndustries]);
   
   // Handle industry selection
   const toggleIndustry = (industry: string) => {
@@ -220,6 +226,14 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
     );
   };
   
+  const toggleWorkEnvironment = (environment: string) => {
+    setSelectedWorkEnvironments(prev => 
+      prev.includes(environment)
+        ? prev.filter(i => i !== environment)
+        : [...prev, environment]
+    );
+  };
+  
   // Clear all filters
   const clearFilters = () => {
     setSelectedCategory("");
@@ -228,6 +242,7 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
     setSelectedCutLevels([]);
     setSelectedHeatLevels([]);
     setSelectedHazardProtections([]);
+    setSelectedWorkEnvironments([]);
     setSelectedIndustries([]);
   };
   
@@ -276,6 +291,13 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
         matchesHazardProtection(product.safety, hazardId)
       );
     
+    // Match work environment
+    const matchesWorkEnvironmentFilter =
+      selectedWorkEnvironments.length === 0 ||
+      selectedWorkEnvironments.some(environmentId => 
+        matchesWorkEnvironment(product.environment_pictograms, environmentId)
+      );
+    
     // Match industries
     const matchesIndustries =
       selectedIndustries.length === 0 ||
@@ -291,6 +313,7 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
            matchesCutLevel && 
            matchesHeatLevel && 
            matchesHazardProtectionFilter && 
+           matchesWorkEnvironmentFilter &&
            matchesIndustries;
   });
   
@@ -435,6 +458,14 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
                   toggleSection={toggleSection}
                 />
                 
+                {/* Work Environment Filter */}
+                <WorkEnvironmentFilter
+                  selectedWorkEnvironments={selectedWorkEnvironments}
+                  toggleWorkEnvironment={toggleWorkEnvironment}
+                  isExpanded={expandedSections.workEnvironment}
+                  toggleSection={toggleSection}
+                />
+                
                 {/* Temperature Rating Filter */}
                 <TemperatureFilter
                   tempRatings={uniqueTempRatings}
@@ -512,6 +543,8 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
                   toggleTempRating={toggleTempRating}
                   selectedHazardProtections={selectedHazardProtections}
                   toggleHazardProtection={toggleHazardProtection}
+                  selectedWorkEnvironments={selectedWorkEnvironments}
+                  toggleWorkEnvironment={toggleWorkEnvironment}
                   industries={uniqueIndustries}
                   selectedIndustries={selectedIndustries}
                   toggleIndustry={toggleIndustry}
@@ -545,11 +578,13 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
             selectedSubCategories={selectedSubCategories}
             selectedTempRatings={selectedTempRatings}
             selectedHazardProtections={selectedHazardProtections}
+            selectedWorkEnvironments={selectedWorkEnvironments}
             selectedIndustries={selectedIndustries}
             setSelectedCategory={setSelectedCategory}
             toggleSubCategory={toggleSubCategory}
             toggleTempRating={toggleTempRating}
             toggleHazardProtection={toggleHazardProtection}
+            toggleWorkEnvironment={toggleWorkEnvironment}
             toggleIndustry={toggleIndustry}
             clearFilters={clearFilters}
           />

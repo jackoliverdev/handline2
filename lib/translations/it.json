@@ -98,6 +98,18 @@
       "cutLevel": "Livello Resistenza Taglio",
       "heatLevel": "Livello Resistenza Calore",
       "hazardProtection": "Protezione dai Rischi",
+      "hazardProtectionItems": {
+        "generalMechanical": "Rischi meccanici generali",
+        "highCutRisks": "Rischi di taglio elevati",
+        "abrasionProtection": "Protezione dall'abrasione",
+        "highContactTemperature": "Temperatura di contatto elevata",
+        "highHeatTemperature": "Calore/temperatura elevata",
+        "hotSplashes": "Schizzi caldi",
+        "highCutAndHeat": "Taglio e Calore Elevati",
+        "heavyDutyWelding": "Saldatura pesante",
+        "precisionWelding": "Saldatura di precisione"
+      },
+      "workEnvironment": "Ambiente di Lavoro",
       "industries": "Industrie",
       "allCategories": "Tutte le Categorie",
       "uncategorised": "Non Categorizzato",
@@ -399,6 +411,7 @@
   },
   "products": {
     "product": "Prodotto",
+    "categoryOverview": "Panoramica Categoria",
     "categories": {
       "main": {
         "badge": "Categorie Prodotti",
@@ -515,6 +528,18 @@
       "cutLevel": "Livello Resistenza Taglio",
       "heatLevel": "Livello Resistenza Calore",
       "hazardProtection": "Protezione dai Rischi",
+      "hazardProtectionItems": {
+        "generalMechanical": "Rischi meccanici generali",
+        "highCutRisks": "Rischi di taglio elevati",
+        "abrasionProtection": "Protezione dall'abrasione",
+        "highContactTemperature": "Temperatura di contatto elevata",
+        "highHeatTemperature": "Calore/temperatura elevata",
+        "hotSplashes": "Schizzi caldi",
+        "highCutAndHeat": "Taglio e Calore Elevati",
+        "heavyDutyWelding": "Saldatura pesante",
+        "precisionWelding": "Saldatura di precisione"
+      },
+      "workEnvironment": "Ambiente di Lavoro",
       "industries": "Industrie",
       "allCategories": "Tutte le Categorie",
       "uncategorised": "Non Categorizzato",

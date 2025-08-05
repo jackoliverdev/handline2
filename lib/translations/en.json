@@ -406,6 +406,7 @@
   },
   "products": {
     "product": "Product",
+    "categoryOverview": "Category Overview",
     "categories": {
       "main": {
         "badge": "Product Categories",
@@ -517,6 +518,18 @@
       "cutLevel": "Cut Resistance Level",
       "heatLevel": "Heat Resistance Level",
       "hazardProtection": "Hazard Protection",
+      "hazardProtectionItems": {
+        "generalMechanical": "General mechanical risks",
+        "highCutRisks": "High cut risks",
+        "abrasionProtection": "Abrasion protection",
+        "highContactTemperature": "High contact temperature",
+        "highHeatTemperature": "High heat/temperature",
+        "hotSplashes": "Hot splashes",
+        "highCutAndHeat": "High Cut and Heat",
+        "heavyDutyWelding": "Heavy-duty welding",
+        "precisionWelding": "Precision welding"
+      },
+      "workEnvironment": "Work Environment",
       "industries": "Industries",
       "allCategories": "All Categories",
       "uncategorised": "Uncategorised",

@@ -1,6 +1,7 @@
 export interface HazardProtectionFilter {
   id: string;
   name: string;
+  translationKey: string;
   description: string;
   logic: (safety: any) => boolean;
 }
@@ -8,7 +9,8 @@ export interface HazardProtectionFilter {
 export const hazardProtectionFilters: HazardProtectionFilter[] = [
   {
     id: 'general_mechanical',
-    name: 'General mechanical risks',
+    name: 'General mechanical risks', // Fallback for backwards compatibility
+    translationKey: 'products.filters.hazardProtectionItems.generalMechanical',
     description: 'Abrasion, tear and puncture >= 2 AND either cut >=2 or ISO cut >= C',
     logic: (safety) => {
       if (!safety?.en_388?.enabled) return false;
@@ -28,6 +30,7 @@ export const hazardProtectionFilters: HazardProtectionFilter[] = [
   {
     id: 'high_cut_risks',
     name: 'High cut risks',
+    translationKey: 'products.filters.hazardProtectionItems.highCutRisks',
     description: 'Cut >= 3 OR ISO cut >= C',
     logic: (safety) => {
       if (!safety?.en_388?.enabled) return false;
@@ -41,6 +44,7 @@ export const hazardProtectionFilters: HazardProtectionFilter[] = [
   {
     id: 'abrasion_protection',
     name: 'Abrasion protection',
+    translationKey: 'products.filters.hazardProtectionItems.abrasionProtection',
     description: 'Abrasion >= 3',
     logic: (safety) => {
       if (!safety?.en_388?.enabled) return false;
@@ -52,6 +56,7 @@ export const hazardProtectionFilters: HazardProtectionFilter[] = [
   {
     id: 'high_contact_temperature',
     name: 'High contact temperature',
+    translationKey: 'products.filters.hazardProtectionItems.highContactTemperature',
     description: 'EN407 contact heat >= 2',
     logic: (safety) => {
       if (!safety?.en_407?.enabled) return false;
@@ -63,6 +68,7 @@ export const hazardProtectionFilters: HazardProtectionFilter[] = [
   {
     id: 'high_heat_temperature',
     name: 'High heat/temperature',
+    translationKey: 'products.filters.hazardProtectionItems.highHeatTemperature',
     description: 'ALL first 4 values of EN407 >= 2',
     logic: (safety) => {
       if (!safety?.en_407?.enabled) return false;
@@ -78,6 +84,7 @@ export const hazardProtectionFilters: HazardProtectionFilter[] = [
   {
     id: 'hot_splashes',
     name: 'Hot splashes',
+    translationKey: 'products.filters.hazardProtectionItems.hotSplashes',
     description: 'EITHER small or large splashes (EN407) values >= 3',
     logic: (safety) => {
       if (!safety?.en_407?.enabled) return false;
@@ -91,6 +98,7 @@ export const hazardProtectionFilters: HazardProtectionFilter[] = [
   {
     id: 'high_cut_and_heat',
     name: 'High Cut and Heat',
+    translationKey: 'products.filters.hazardProtectionItems.highCutAndHeat',
     description: 'BOTH cut >=3 (or ISO cut >=D) AND flame (EN407) >=3 AND contact (EN407) >=2',
     logic: (safety) => {
       if (!safety?.en_388?.enabled || !safety?.en_407?.enabled) return false;
@@ -111,6 +119,7 @@ export const hazardProtectionFilters: HazardProtectionFilter[] = [
   {
     id: 'heavy_duty_welding',
     name: 'Heavy-duty welding',
+    translationKey: 'products.filters.hazardProtectionItems.heavyDutyWelding',
     description: '(EN388) Abrasion, tear and puncture >=2, cut >=1 AND (EN407) flame and small splashes >=3, contact >=1, convective >=2',
     logic: (safety) => {
       if (!safety?.en_388?.enabled || !safety?.en_407?.enabled) return false;
@@ -135,6 +144,7 @@ export const hazardProtectionFilters: HazardProtectionFilter[] = [
   {
     id: 'precision_welding',
     name: 'Precision welding',
+    translationKey: 'products.filters.hazardProtectionItems.precisionWelding',
     description: '(EN388) Abrasion, cut, tear, puncture >=1, cut >=1 AND (EN407) flame >=3, contact and convective >=1, small splashes >=2',
     logic: (safety) => {
       if (!safety?.en_388?.enabled || !safety?.en_407?.enabled) return false;
