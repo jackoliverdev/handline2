@@ -15,6 +15,10 @@ import { getAllProducts, toggleProductFeatured, toggleProductStock, deleteProduc
 import { ShoppingBag, Plus, Edit, Trash, Star, Tag, Thermometer, Scissors, ChevronDown, ChevronUp, Filter, X, SearchX, Flame } from "lucide-react";
 import Link from "next/link";
 import { Product } from "@/lib/products-service";
+import { matchesHazardProtection } from "@/content/hazardfilters";
+import { matchesWorkEnvironment } from "@/content/workenvironmentfilters";
+import { hazardProtectionFilters } from "@/content/hazardfilters";
+import { workEnvironmentFilters } from "@/content/workenvironmentfilters";
 import {
   Accordion,
   AccordionContent,
@@ -35,8 +39,8 @@ export default function ProductManagementPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>("none");
   const [selectedTempRating, setSelectedTempRating] = useState<string>("none");
-  const [selectedCutLevel, setSelectedCutLevel] = useState<string>("none");
-  const [selectedHeatLevel, setSelectedHeatLevel] = useState<string>("none");
+  const [selectedHazardProtections, setSelectedHazardProtections] = useState<string[]>([]);
+  const [selectedWorkEnvironments, setSelectedWorkEnvironments] = useState<string[]>([]);
   const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState<string>("featured");
   const [activeFiltersCount, setActiveFiltersCount] = useState(0);
@@ -94,24 +98,6 @@ export default function ProductManagementPage() {
     )
   ).sort((a, b) => Number(a) - Number(b)) as number[];
   
-  // Get unique cut resistance levels
-  const uniqueCutLevels = Array.from(
-    new Set(
-      products
-        .filter(product => product.cut_resistance_level)
-        .map(product => product.cut_resistance_level)
-    )
-  ) as string[];
-  
-  // Get unique heat resistance levels
-  const uniqueHeatLevels = Array.from(
-    new Set(
-      products
-        .filter(product => product.heat_resistance_level)
-        .map(product => product.heat_resistance_level)
-    )
-  ) as string[];
-  
   // Get unique industries
   const uniqueIndustries = Array.from(
     new Set(
@@ -159,11 +145,11 @@ export default function ProductManagementPage() {
     if (selectedCategory && selectedCategory !== "all") count++;
     if (selectedSubCategory && selectedSubCategory !== "none") count++;
     if (selectedTempRating && selectedTempRating !== "none") count++;
-    if (selectedCutLevel && selectedCutLevel !== "none") count++;
-    if (selectedHeatLevel && selectedHeatLevel !== "none") count++;
+    if (selectedHazardProtections.length > 0) count++;
+    if (selectedWorkEnvironments.length > 0) count++;
     if (selectedIndustries.length > 0) count++;
     setActiveFiltersCount(count);
-  }, [selectedCategory, selectedSubCategory, selectedTempRating, selectedCutLevel, selectedHeatLevel, selectedIndustries]);
+  }, [selectedCategory, selectedSubCategory, selectedTempRating, selectedHazardProtections, selectedWorkEnvironments, selectedIndustries]);
   
   // Handle industry selection
   const toggleIndustry = (industry: string) => {
@@ -173,14 +159,32 @@ export default function ProductManagementPage() {
         : [...prev, industry]
     );
   };
+
+  // Handle hazard protection selection
+  const toggleHazardProtection = (hazard: string) => {
+    setSelectedHazardProtections(prev => 
+      prev.includes(hazard)
+        ? prev.filter(i => i !== hazard)
+        : [...prev, hazard]
+    );
+  };
+
+  // Handle work environment selection
+  const toggleWorkEnvironment = (environment: string) => {
+    setSelectedWorkEnvironments(prev => 
+      prev.includes(environment)
+        ? prev.filter(i => i !== environment)
+        : [...prev, environment]
+    );
+  };
   
   // Clear all filters
   const clearFilters = () => {
     setSelectedCategory("");
     setSelectedSubCategory("none");
     setSelectedTempRating("none");
-    setSelectedCutLevel("none");
-    setSelectedHeatLevel("none");
+    setSelectedHazardProtections([]);
+    setSelectedWorkEnvironments([]);
     setSelectedIndustries([]);
   };
   
@@ -212,17 +216,19 @@ export default function ProductManagementPage() {
        product.temperature_rating !== undefined && 
        product.temperature_rating.toString() === selectedTempRating);
     
-    // Match cut resistance level
-    const matchesCutLevel =
-      !selectedCutLevel ||
-      selectedCutLevel === "none" ||
-      product.cut_resistance_level === selectedCutLevel;
+    // Match hazard protection
+    const matchesHazardProtectionFilter =
+      selectedHazardProtections.length === 0 ||
+      selectedHazardProtections.some(hazardId => 
+        matchesHazardProtection(product.safety, hazardId)
+      );
     
-    // Match heat resistance level
-    const matchesHeatLevel =
-      !selectedHeatLevel ||
-      selectedHeatLevel === "none" ||
-      product.heat_resistance_level === selectedHeatLevel;
+    // Match work environment
+    const matchesWorkEnvironmentFilter =
+      selectedWorkEnvironments.length === 0 ||
+      selectedWorkEnvironments.some(environmentId => 
+        matchesWorkEnvironment(product.environment_pictograms, environmentId)
+      );
     
     // Match industries
     const matchesIndustries =
@@ -236,8 +242,8 @@ export default function ProductManagementPage() {
            matchesCategory && 
            matchesSubCategory && 
            matchesTempRating && 
-           matchesCutLevel && 
-           matchesHeatLevel && 
+           matchesHazardProtectionFilter && 
+           matchesWorkEnvironmentFilter && 
            matchesIndustries;
   });
   
@@ -394,18 +400,6 @@ export default function ProductManagementPage() {
     setIsExpanded(!isExpanded);
   };
 
-  // Format EN388 rating for display
-  const formatCutLevel = (level: string) => {
-    if (level === "CE Category I") return level;
-    
-    const match = level.match(/EN388: (\d{4})/);
-    if (match) {
-      const code = match[1];
-      return `EN388: ${code}`;
-    }
-    return level;
-  };
-  
   return (
     <div className="space-y-6">
       {/* Header with search and create button */}
@@ -545,33 +539,26 @@ export default function ProductManagementPage() {
                     </AccordionItem>
                   )}
                   
-                  {/* Cut Resistance Level Filter */}
-                  {uniqueCutLevels.length > 0 && (
-                    <AccordionItem value="cutlevel" className="border-b border-brand-primary/10 dark:border-brand-primary/20">
-                      <AccordionTrigger className="text-sm font-medium text-brand-dark dark:text-white hover:text-brand-primary dark:hover:text-brand-primary">Cut Resistance Level</AccordionTrigger>
+                  {/* Hazard Protection Filter */}
+                  {hazardProtectionFilters.length > 0 && (
+                    <AccordionItem value="hazardprotection" className="border-b border-brand-primary/10 dark:border-brand-primary/20">
+                      <AccordionTrigger className="text-sm font-medium text-brand-dark dark:text-white hover:text-brand-primary dark:hover:text-brand-primary">Hazard Protection</AccordionTrigger>
                       <AccordionContent>
                         <div className="max-h-[200px] overflow-y-auto pr-1 space-y-2 mt-2">
-                          <div 
-                            className={`px-3 py-1.5 rounded-md cursor-pointer transition-all duration-200 ${
-                              !selectedCutLevel || selectedCutLevel === "none"
-                                ? "bg-brand-primary/10 text-brand-primary font-medium" 
-                                : "text-brand-secondary dark:text-gray-300 hover:bg-white/60 dark:hover:bg-gray-800/60"
-                            }`}
-                            onClick={() => setSelectedCutLevel("none")}
-                          >
-                            Any Cut Level
-                          </div>
-                          {uniqueCutLevels.map((level) => (
-                            <div 
-                              key={level} 
-                              className={`px-3 py-1.5 rounded-md cursor-pointer transition-all duration-200 ${
-                                selectedCutLevel === level 
-                                  ? "bg-brand-primary/10 text-brand-primary font-medium" 
-                                  : "text-brand-secondary dark:text-gray-300 hover:bg-white/60 dark:hover:bg-gray-800/60"
-                              }`}
-                              onClick={() => setSelectedCutLevel(level)}
-                            >
-                              {formatCutLevel(level)}
+                          {hazardProtectionFilters.map((hazard) => (
+                            <div key={hazard.id} className="flex items-center space-x-2">
+                              <Checkbox 
+                                id={`hazard-sidebar-${hazard.id}`} 
+                                checked={selectedHazardProtections.includes(hazard.id)}
+                                onCheckedChange={() => toggleHazardProtection(hazard.id)}
+                                className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary"
+                              />
+                              <label 
+                                htmlFor={`hazard-sidebar-${hazard.id}`}
+                                className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer hover:text-brand-primary transition-colors duration-200"
+                              >
+                                {hazard.name}
+                              </label>
                             </div>
                           ))}
                         </div>
@@ -579,33 +566,26 @@ export default function ProductManagementPage() {
                     </AccordionItem>
                   )}
                   
-                  {/* Heat Resistance Level Filter */}
-                  {uniqueHeatLevels.length > 0 && (
-                    <AccordionItem value="heatlevel" className="border-b border-brand-primary/10 dark:border-brand-primary/20">
-                      <AccordionTrigger className="text-sm font-medium text-brand-dark dark:text-white hover:text-brand-primary dark:hover:text-brand-primary">Heat Resistance Level</AccordionTrigger>
+                  {/* Work Environment Filter */}
+                  {workEnvironmentFilters.length > 0 && (
+                    <AccordionItem value="workenvironment" className="border-b border-brand-primary/10 dark:border-brand-primary/20">
+                      <AccordionTrigger className="text-sm font-medium text-brand-dark dark:text-white hover:text-brand-primary dark:hover:text-brand-primary">Work Environment</AccordionTrigger>
                       <AccordionContent>
                         <div className="max-h-[200px] overflow-y-auto pr-1 space-y-2 mt-2">
-                          <div 
-                            className={`px-3 py-1.5 rounded-md cursor-pointer transition-all duration-200 ${
-                              !selectedHeatLevel || selectedHeatLevel === "none"
-                                ? "bg-brand-primary/10 text-brand-primary font-medium" 
-                                : "text-brand-secondary dark:text-gray-300 hover:bg-white/60 dark:hover:bg-gray-800/60"
-                            }`}
-                            onClick={() => setSelectedHeatLevel("none")}
-                          >
-                            Any Heat Level
-                          </div>
-                          {uniqueHeatLevels.map((level) => (
-                            <div 
-                              key={level} 
-                              className={`px-3 py-1.5 rounded-md cursor-pointer transition-all duration-200 ${
-                                selectedHeatLevel === level 
-                                  ? "bg-brand-primary/10 text-brand-primary font-medium" 
-                                  : "text-brand-secondary dark:text-gray-300 hover:bg-white/60 dark:hover:bg-gray-800/60"
-                              }`}
-                              onClick={() => setSelectedHeatLevel(level)}
-                            >
-                              {level}
+                          {workEnvironmentFilters.map((environment) => (
+                            <div key={environment.id} className="flex items-center space-x-2">
+                              <Checkbox 
+                                id={`environment-sidebar-${environment.id}`} 
+                                checked={selectedWorkEnvironments.includes(environment.id)}
+                                onCheckedChange={() => toggleWorkEnvironment(environment.id)}
+                                className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary"
+                              />
+                              <label 
+                                htmlFor={`environment-sidebar-${environment.id}`}
+                                className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer hover:text-brand-primary transition-colors duration-200"
+                              >
+                                {environment.name}
+                              </label>
                             </div>
                           ))}
                         </div>
@@ -748,39 +728,41 @@ export default function ProductManagementPage() {
                 </Badge>
               )}
               
-              {selectedCutLevel && selectedCutLevel !== "none" && (
+              {selectedHazardProtections.map(hazard => (
                 <Badge 
+                  key={hazard}
                   variant="secondary" 
                   className="flex items-center gap-1"
                 >
-                  {formatCutLevel(selectedCutLevel)}
+                  {hazardProtectionFilters.find(h => h.id === hazard)?.name}
                   <Button 
                     variant="ghost" 
                     size="icon" 
                     className="h-4 w-4 p-0 hover:bg-transparent"
-                    onClick={() => setSelectedCutLevel("none")}
+                    onClick={() => toggleHazardProtection(hazard)}
                   >
                     <X className="h-3 w-3" />
                   </Button>
                 </Badge>
-              )}
+              ))}
               
-              {selectedHeatLevel && selectedHeatLevel !== "none" && (
+              {selectedWorkEnvironments.map(environment => (
                 <Badge 
+                  key={environment}
                   variant="secondary" 
                   className="flex items-center gap-1"
                 >
-                  {selectedHeatLevel}
+                  {workEnvironmentFilters.find(e => e.id === environment)?.name}
                   <Button 
                     variant="ghost" 
                     size="icon" 
                     className="h-4 w-4 p-0 hover:bg-transparent"
-                    onClick={() => setSelectedHeatLevel("none")}
+                    onClick={() => toggleWorkEnvironment(environment)}
                   >
                     <X className="h-3 w-3" />
                   </Button>
                 </Badge>
-              )}
+              ))}
               
               {selectedIndustries.map(industry => (
                 <Badge 

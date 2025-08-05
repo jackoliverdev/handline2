@@ -54,7 +54,7 @@ export const CategoryInfo = ({
             <div className="bg-white dark:bg-black/50 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700/50 p-8 md:p-10 h-full flex flex-col justify-center backdrop-blur-sm hover:shadow-xl transition-all duration-500">
               <div className="space-y-4">
                 <div className="inline-flex items-center rounded-full bg-brand-primary/10 px-4 py-2 text-sm border border-brand-primary/20">
-                  <span className="text-brand-primary font-medium">Category Overview</span>
+                  <span className="text-brand-primary font-medium">{t('products.categoryOverview')}</span>
                 </div>
                 
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-brand-dark dark:text-white font-heading leading-tight">

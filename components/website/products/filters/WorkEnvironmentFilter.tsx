@@ -3,35 +3,35 @@
 import { useLanguage } from "@/lib/context/language-context";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ChevronDown } from "lucide-react";
-import { hazardProtectionFilters } from "@/content/hazardfilters";
+import { workEnvironmentFilters } from "@/content/workenvironmentfilters";
 
-interface HazardProtectionFilterProps {
-  selectedHazardProtections: string[];
-  toggleHazardProtection: (hazard: string) => void;
+interface WorkEnvironmentFilterProps {
+  selectedWorkEnvironments: string[];
+  toggleWorkEnvironment: (environment: string) => void;
   isExpanded: boolean;
   toggleSection: (section: string) => void;
   isMobile?: boolean;
 }
 
-export const HazardProtectionFilter = ({
-  selectedHazardProtections,
-  toggleHazardProtection,
+export const WorkEnvironmentFilter = ({
+  selectedWorkEnvironments,
+  toggleWorkEnvironment,
   isExpanded,
   toggleSection,
   isMobile = false
-}: HazardProtectionFilterProps) => {
+}: WorkEnvironmentFilterProps) => {
   const { t } = useLanguage();
   
-  if (hazardProtectionFilters.length === 0) return null;
+  if (workEnvironmentFilters.length === 0) return null;
 
   return (
     <div className="border-b border-brand-primary/10 dark:border-brand-primary/20 pb-4">
       <button
         className="flex w-full items-center justify-between mb-2"
-        onClick={() => toggleSection('hazardProtection')}
+        onClick={() => toggleSection('workEnvironment')}
       >
         <h3 className="text-sm font-medium text-brand-dark dark:text-white">
-          Hazard Protection
+          {t('products.filters.workEnvironment')}
         </h3>
         <ChevronDown
           className={`h-4 w-4 text-brand-primary transition-transform ${
@@ -42,19 +42,19 @@ export const HazardProtectionFilter = ({
       
       <div className={isExpanded ? "block" : "hidden"}>
         <div className={`max-h-[240px] overflow-y-auto pr-1 space-y-3 mt-2 ${isMobile ? 'px-2' : ''}`}>
-          {hazardProtectionFilters.map((hazard) => (
-            <div key={hazard.id} className="flex items-center space-x-3 group">
+          {workEnvironmentFilters.map((environment) => (
+            <div key={environment.id} className="flex items-center space-x-3 group">
               <Checkbox
-                id={`hazard-${isMobile ? 'mobile-' : ''}${hazard.id}`}
-                checked={selectedHazardProtections.includes(hazard.id)}
-                onCheckedChange={() => toggleHazardProtection(hazard.id)}
+                id={`environment-${isMobile ? 'mobile-' : ''}${environment.id}`}
+                checked={selectedWorkEnvironments.includes(environment.id)}
+                onCheckedChange={() => toggleWorkEnvironment(environment.id)}
                 className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary"
               />
               <label
-                htmlFor={`hazard-${isMobile ? 'mobile-' : ''}${hazard.id}`}
+                htmlFor={`environment-${isMobile ? 'mobile-' : ''}${environment.id}`}
                 className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer"
               >
-                {t(hazard.translationKey)}
+                {t(environment.translationKey)}
               </label>
             </div>
           ))}
