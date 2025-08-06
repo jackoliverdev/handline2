@@ -55,8 +55,18 @@ export function ContactForm() {
     setIsSubmitting(true);
 
     try {
-      // Simulate form submission
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+
       toast({
         title: t('contact.form.success.title'),
         description: t('contact.form.success.description'),
@@ -64,8 +74,8 @@ export function ContactForm() {
       form.reset();
     } catch (error) {
       toast({
-        title: t('contact.form.error.title'),
-        description: t('contact.form.error.description'),
+        title: 'Error',
+        description: 'Failed to send message. Please try again.',
         variant: 'destructive',
       });
     } finally {
@@ -98,11 +108,11 @@ export function ContactForm() {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('contact.form.fields.name')}</FormLabel>
+                        <FormLabel>{t('contact.form.name')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
-                            placeholder={t('contact.form.fields.namePlaceholder')}
+                            placeholder={t('contact.form.namePlaceholder')}
                             className="bg-white dark:bg-black/50 border-gray-200 dark:border-gray-700 focus:border-brand-primary dark:focus:border-brand-primary"
                           />
                         </FormControl>
@@ -115,11 +125,11 @@ export function ContactForm() {
                     name="company"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('contact.form.fields.company')}</FormLabel>
+                        <FormLabel>{t('contact.form.company')}</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
-                            placeholder={t('contact.form.fields.companyPlaceholder')}
+                            placeholder={t('contact.form.companyPlaceholder')}
                             className="bg-white dark:bg-black/50 border-gray-200 dark:border-gray-700 focus:border-brand-primary dark:focus:border-brand-primary"
                           />
                         </FormControl>
@@ -134,12 +144,11 @@ export function ContactForm() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('contact.form.fields.email')}</FormLabel>
+                      <FormLabel>{t('contact.form.email')}</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
-                          type="email"
-                          placeholder={t('contact.form.fields.emailPlaceholder')}
+                          placeholder={t('contact.form.emailPlaceholder')}
                           className="bg-white dark:bg-black/50 border-gray-200 dark:border-gray-700 focus:border-brand-primary dark:focus:border-brand-primary"
                         />
                       </FormControl>
@@ -153,11 +162,11 @@ export function ContactForm() {
                   name="subject"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('contact.form.fields.subject')}</FormLabel>
+                      <FormLabel>{t('contact.form.subject')}</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
-                          placeholder={t('contact.form.fields.subjectPlaceholder')}
+                          placeholder={t('contact.form.subjectPlaceholder')}
                           className="bg-white dark:bg-black/50 border-gray-200 dark:border-gray-700 focus:border-brand-primary dark:focus:border-brand-primary"
                         />
                       </FormControl>
@@ -171,12 +180,13 @@ export function ContactForm() {
                   name="message"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('contact.form.fields.message')}</FormLabel>
+                      <FormLabel>{t('contact.form.message')}</FormLabel>
                       <FormControl>
                         <Textarea
                           {...field}
-                          placeholder={t('contact.form.fields.messagePlaceholder')}
-                          className="min-h-[150px] bg-white dark:bg-black/50 border-gray-200 dark:border-gray-700 focus:border-brand-primary dark:focus:border-brand-primary"
+                          placeholder={t('contact.form.messagePlaceholder')}
+                          rows={5}
+                          className="bg-white dark:bg-black/50 border-gray-200 dark:border-gray-700 focus:border-brand-primary dark:focus:border-brand-primary resize-none"
                         />
                       </FormControl>
                       <FormMessage />
@@ -215,39 +225,11 @@ export function ContactForm() {
 
                 <Button
                   type="submit"
+                  size="lg"
                   disabled={isSubmitting}
-                  className="w-full sm:w-auto group font-medium rounded-lg bg-brand-primary hover:bg-brand-primary/90 text-white transition-all duration-300 hover:scale-105 hover:shadow-xl transform"
+                  className="w-full bg-brand-primary hover:bg-brand-primary/90 text-white font-medium py-3 px-8 rounded-lg transition-colors duration-200"
                 >
-                  {isSubmitting ? (
-                    <span className="flex items-center gap-2">
-                      <svg
-                        className="animate-spin h-4 w-4"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <circle
-                          className="opacity-25"
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                        />
-                        <path
-                          className="opacity-75"
-                          fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                        />
-                      </svg>
-                      {t('contact.form.submitting')}
-                    </span>
-                  ) : (
-                    <span className="flex items-center gap-2">
-                      {t('contact.form.submit')}
-                      <Send className="h-4 w-4 transition-all duration-300 group-hover:translate-x-1" />
-                    </span>
-                  )}
+                  {isSubmitting ? t('contact.form.submitting') : t('contact.form.submit')}
                 </Button>
               </form>
             </Form>

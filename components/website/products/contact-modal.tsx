@@ -25,10 +25,38 @@ export const ContactModal: React.FC<ContactModalProps> = ({
 }) => {
   const { t } = useLanguage();
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
-    onClose();
+    
+    const formData = new FormData(e.target as HTMLFormElement);
+    const data = {
+      name: formData.get('name') as string,
+      company: formData.get('company') as string,
+      email: formData.get('email') as string,
+      phone: formData.get('phone') as string,
+      message: formData.get('message') as string,
+      productName: product.name,
+    };
+
+    try {
+      const response = await fetch('/api/product-inquiry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send inquiry');
+      }
+
+      // Show success message
+      alert('Your inquiry has been sent successfully! We will contact you soon.');
+      onClose();
+    } catch (error) {
+      alert('Failed to send inquiry. Please try again or contact us directly.');
+    }
   };
 
   return (

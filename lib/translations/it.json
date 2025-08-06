@@ -919,24 +919,25 @@
       "description": "Il nostro team è a tua disposizione per ogni esigenza di guanti di sicurezza industriale."
     },
     "form": {
-      "title": "Inviaci un Messaggio",
-      "description": "Compila il modulo e i nostri esperti ti risponderanno rapidamente.",
-      "fields": {
-        "name": "Nome",
-        "namePlaceholder": "Il tuo nome",
-        "company": "Azienda",
-        "companyPlaceholder": "La tua organizzazione",
-        "email": "Email",
-        "emailPlaceholder": "tua.email@azienda.com",
-        "subject": "Oggetto",
-        "subjectPlaceholder": "Richiesta di informazioni o supporto",
-        "message": "Messaggio",
-        "messagePlaceholder": "Parlaci delle tue esigenze di sicurezza o delle tue domande sui nostri prodotti..."
-      },
+      "name": "Nome Completo",
+      "namePlaceholder": "Inserisci il tuo nome completo",
+      "company": "Azienda",
+      "companyPlaceholder": "Inserisci il nome della tua azienda (opzionale)",
+      "email": "Indirizzo Email",
+      "emailPlaceholder": "Inserisci il tuo indirizzo email",
+      "subject": "Oggetto",
+      "subjectPlaceholder": "Di cosa si tratta?",
+      "message": "Messaggio",
+      "messagePlaceholder": "Dicci come possiamo aiutarti...",
       "submit": "Invia Messaggio",
+      "submitting": "Invio in corso...",
       "success": {
-        "title": "Messaggio inviato!",
-        "description": "Ti risponderemo il prima possibile."
+        "title": "Messaggio Inviato!",
+        "description": "Grazie per averci contattato. Ti risponderemo entro 24 ore."
+      },
+      "error": {
+        "title": "Errore",
+        "description": "Invio del messaggio fallito. Riprova o contattaci direttamente."
       }
     },
     "info": {
