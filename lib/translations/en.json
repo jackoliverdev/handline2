@@ -895,24 +895,25 @@
       "description": "Our team is ready to assist with your industrial safety glove requirements."
     },
     "form": {
-      "title": "Send Us a Message",
-      "description": "Complete the form and our experts will respond promptly.",
-      "fields": {
-        "name": "Name",
-        "namePlaceholder": "Your name",
-        "company": "Company Name",
-        "companyPlaceholder": "Your organisation",
-        "email": "Email",
-        "emailPlaceholder": "your.email@company.com",
-        "subject": "Subject",
-        "subjectPlaceholder": "Product inquiry or support request",
-        "message": "Message",
-        "messagePlaceholder": "Tell us about your safety requirements or questions about our products..."
-      },
+      "name": "Full Name",
+      "namePlaceholder": "Enter your full name",
+      "company": "Company",
+      "companyPlaceholder": "Enter your company name (optional)",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email address",
+      "subject": "Subject",
+      "subjectPlaceholder": "What is this regarding?",
+      "message": "Message",
+      "messagePlaceholder": "Tell us how we can help you...",
       "submit": "Send Message",
+      "submitting": "Sending...",
       "success": {
-        "title": "Message sent!",
-        "description": "We'll get back to you as soon as possible."
+        "title": "Message Sent!",
+        "description": "Thank you for contacting us. We'll get back to you within 24 hours."
+      },
+      "error": {
+        "title": "Error",
+        "description": "Failed to send message. Please try again or contact us directly."
       }
     },
     "info": {

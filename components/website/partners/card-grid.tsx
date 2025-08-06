@@ -68,7 +68,18 @@ function PartnershipSection() {
   async function onSubmit(data: PartnershipFormValues) {
     setIsSubmitting(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const response = await fetch('/api/partnership', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send partnership inquiry');
+      }
+
       toast({
         title: t("partners.partnerships.form.successTitle"),
         description: t("partners.partnerships.form.successMessage") + data.email,
@@ -272,7 +283,18 @@ function DistributionSection() {
   async function onSubmit(data: DistributionFormValues) {
     setIsSubmitting(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const response = await fetch('/api/distribution', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send distribution inquiry');
+      }
+
       toast({
         title: t("partners.distributionPage.form.successTitle"),
         description: t("partners.distributionPage.form.successMessage") + data.email,
