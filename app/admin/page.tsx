@@ -373,7 +373,7 @@ export default function AdminDashboardPage() {
       <Card className="mt-4 sm:mt-6">
         <CardHeader className="pb-2 sm:pb-3">
           <CardTitle className="text-lg sm:text-xl">Product Management</CardTitle>
-          <CardDescription className="text-sm sm:text-base">Manage your HandLine safety glove products</CardDescription>
+          <CardDescription className="text-sm sm:text-base">Manage your Hand Line safety glove products</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="mt-4">
@@ -470,7 +470,7 @@ export default function AdminDashboardPage() {
       <Card className="mt-6">
         <CardHeader className="pb-3">
           <CardTitle>Blog Management</CardTitle>
-          <CardDescription>Manage your HandLine blog content</CardDescription>
+          <CardDescription>Manage your Hand Line blog content</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex justify-between items-center mb-4">

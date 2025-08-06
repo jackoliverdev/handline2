@@ -124,7 +124,7 @@ export default function CreateBlogPage() {
         content,
         tags,
         is_published: isPublished,
-        author: "HandLine Team", // Default author, can be updated later
+        author: "Hand Line Team", // Default author, can be updated later
         image_url: imageUrl
       };
       

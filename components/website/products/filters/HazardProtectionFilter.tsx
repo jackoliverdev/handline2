@@ -31,7 +31,7 @@ export const HazardProtectionFilter = ({
         onClick={() => toggleSection('hazardProtection')}
       >
         <h3 className="text-sm font-medium text-brand-dark dark:text-white">
-          Hazard Protection
+          {t('products.filters.hazardProtection')}
         </h3>
         <ChevronDown
           className={`h-4 w-4 text-brand-primary transition-transform ${

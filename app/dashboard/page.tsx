@@ -10,7 +10,7 @@ export default function DashboardPage() {
       {/* Welcome Banner */}
       <div className="bg-[#F5EFE0] rounded-xl p-6 shadow-sm border border-[#F28C38]/20">
         <div>
-          <h1 className="text-2xl font-bold text-[#1E1E1E]">Welcome to your HandLine Portal</h1>
+          <h1 className="text-2xl font-bold text-[#1E1E1E]">Welcome to your Hand Line Portal</h1>
           <p className="text-[#5A5A5A] mt-1">Your industrial safety glove management centre</p>
         </div>
       </div>

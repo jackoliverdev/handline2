@@ -38,6 +38,9 @@ export default function CreateIndustryPage() {
     // Locale fields for basic info
     industry_name_locales: {} as Record<string, string>,
     description_locales: {} as Record<string, string>,
+    // Showcase fields
+    showcase_description: "",
+    showcase_description_locales: {} as Record<string, string>,
     // New structured content fields
     summary_content_locales: {} as Record<string, string>,
     summary_content_image_url: "",
@@ -75,6 +78,7 @@ export default function CreateIndustryPage() {
   // State for basic info with language switching
   const [currentIndustryName, setCurrentIndustryName] = useState('');
   const [currentDescription, setCurrentDescription] = useState('');
+  const [currentShowcaseDescription, setCurrentShowcaseDescription] = useState('');
   
   // Helper functions for structured content
   const updateSummaryContent = (lang: 'en' | 'it', content: string) => {
@@ -164,6 +168,17 @@ export default function CreateIndustryPage() {
     }));
   };
 
+  // Helper functions for showcase description localized content
+  const updateShowcaseDescription = (lang: 'en' | 'it', description: string) => {
+    setIndustry(prev => ({
+      ...prev,
+      showcase_description_locales: {
+        ...prev.showcase_description_locales,
+        [lang]: description
+      }
+    }));
+  };
+
   // Helper functions for individual related products
   const addRelatedProduct = (productId: string) => {
     if (industry.related_product_id_1 === null) {
@@ -243,7 +258,8 @@ export default function CreateIndustryPage() {
     setCurrentSections(industry.sections_locales[currentLanguage] || []);
     setCurrentIndustryName(industry.industry_name_locales[currentLanguage] || '');
     setCurrentDescription(industry.description_locales[currentLanguage] || '');
-  }, [currentLanguage, industry.summary_content_locales, industry.sections_locales, industry.industry_name_locales, industry.description_locales]);
+    setCurrentShowcaseDescription(industry.showcase_description_locales[currentLanguage] || '');
+  }, [currentLanguage, industry.summary_content_locales, industry.sections_locales, industry.industry_name_locales, industry.description_locales, industry.showcase_description_locales]);
 
   // Fetch products for related products selection
   useEffect(() => {
@@ -359,6 +375,12 @@ export default function CreateIndustryPage() {
     updateDescription(currentLanguage, value);
   };
 
+  const handleShowcaseDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    setCurrentShowcaseDescription(value);
+    updateShowcaseDescription(currentLanguage, value);
+  };
+
   const handleRelatedProductsChange = (selectedValues: string[]) => {
     setIndustry((prev) => ({
       ...prev,
@@ -398,6 +420,8 @@ export default function CreateIndustryPage() {
         content: null, // No longer used but required by interface
         image_url: null, // We'll update this after uploading the image
         feature_image_url: null, // Add the missing field
+        showcase_description: currentShowcaseDescription, // Add showcase_description
+        showcase_description_locales: industry.showcase_description_locales || null,
         related_products: getRelatedProductIds(),
         industry_name_locales: industry.industry_name_locales || null,
         description_locales: industry.description_locales || null,
@@ -495,6 +519,49 @@ export default function CreateIndustryPage() {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {/* Main Content Column */}
           <div className="md:col-span-2 space-y-6">
+            {/* Showcase Details Card */}
+            <Card className="p-2 sm:p-0">
+              <CardHeader>
+                <CardTitle className="text-base sm:text-lg">Showcase Details</CardTitle>
+                <CardDescription className="text-xs sm:text-sm">
+                  Content displayed on the front-end industry showcase and hero sections
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {/* Language Selector */}
+                <div className="flex items-center gap-2">
+                  <Label className="text-xs sm:text-sm">Language:</Label>
+                  <Select value={currentLanguage} onValueChange={(value: 'en' | 'it') => setCurrentLanguage(value)}>
+                    <SelectTrigger className="w-32 text-xs sm:text-sm h-8 sm:h-10">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="en">English</SelectItem>
+                      <SelectItem value="it">Italian</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="showcase_description" className="text-xs sm:text-sm">
+                    Showcase Description
+                  </Label>
+                  <Textarea
+                    id="showcase_description"
+                    name="showcase_description"
+                    value={currentShowcaseDescription}
+                    onChange={handleShowcaseDescriptionChange}
+                    placeholder="Enter a brief, compelling description for the industry showcase/hero section..."
+                    className="min-h-[80px] sm:min-h-[100px] text-xs sm:text-sm"
+                  />
+                  <p className="text-xs sm:text-sm text-muted-foreground">
+                    This description appears in hero sections and industry showcases. Keep it concise and engaging.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Industry Details Card */}
             <Card className="p-2 sm:p-0">
               <CardHeader>
                 <CardTitle className="text-base sm:text-lg">Industry Details</CardTitle>

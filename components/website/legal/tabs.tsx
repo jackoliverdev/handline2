@@ -50,7 +50,7 @@ export function LegalTabs() {
           </div>
 
           <TabsContent value="terms" className="max-w-4xl mx-auto">
-            <div className="rounded-lg p-6 bg-white dark:bg-black/50 border border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm shadow-sm">
+            <div className="rounded-lg p-6 md:p-8 bg-white dark:bg-black/50 border border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm shadow-sm">
               <h2 className="text-3xl font-bold mb-2 text-brand-dark dark:text-white font-heading">{t('legal.content.terms.title')}</h2>
               <p className="text-brand-secondary dark:text-gray-400 mb-8">{t('legal.content.terms.lastUpdated')}</p>
               
@@ -59,7 +59,12 @@ export function LegalTabs() {
                   <h3 className="text-xl font-semibold mb-4 text-brand-dark dark:text-white font-heading">{section.title}</h3>
                   <div 
                     dangerouslySetInnerHTML={{ __html: section.content }} 
-                    className="prose prose-slate dark:prose-invert max-w-none text-brand-secondary dark:text-gray-300" 
+                    className="legal-content prose prose-slate dark:prose-invert max-w-none text-brand-secondary dark:text-gray-300 
+                               prose-p:mb-4 prose-p:leading-relaxed prose-p:text-base
+                               prose-ul:mb-4 prose-ul:pl-6 prose-li:mb-2 prose-li:leading-relaxed 
+                               prose-ol:mb-4 prose-ol:pl-6 prose-ol:list-decimal
+                               prose-strong:text-brand-dark dark:prose-strong:text-white prose-strong:font-semibold
+                               prose-h4:text-lg prose-h4:font-semibold prose-h4:text-brand-dark dark:prose-h4:text-white prose-h4:mb-3 prose-h4:mt-6" 
                   />
                 </div>
               ))}
@@ -67,7 +72,7 @@ export function LegalTabs() {
           </TabsContent>
 
           <TabsContent value="privacy" className="max-w-4xl mx-auto">
-            <div className="rounded-lg p-6 bg-white dark:bg-black/50 border border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm shadow-sm">
+            <div className="rounded-lg p-6 md:p-8 bg-white dark:bg-black/50 border border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm shadow-sm">
               <h2 className="text-3xl font-bold mb-2 text-brand-dark dark:text-white font-heading">{t('legal.content.privacy.title')}</h2>
               <p className="text-brand-secondary dark:text-gray-400 mb-8">{t('legal.content.privacy.lastUpdated')}</p>
               
@@ -76,7 +81,12 @@ export function LegalTabs() {
                   <h3 className="text-xl font-semibold mb-4 text-brand-dark dark:text-white font-heading">{section.title}</h3>
                   <div 
                     dangerouslySetInnerHTML={{ __html: section.content }} 
-                    className="prose prose-slate dark:prose-invert max-w-none text-brand-secondary dark:text-gray-300" 
+                    className="legal-content prose prose-slate dark:prose-invert max-w-none text-brand-secondary dark:text-gray-300 
+                               prose-p:mb-4 prose-p:leading-relaxed prose-p:text-base
+                               prose-ul:mb-4 prose-ul:pl-6 prose-li:mb-2 prose-li:leading-relaxed 
+                               prose-ol:mb-4 prose-ol:pl-6 prose-ol:list-decimal
+                               prose-strong:text-brand-dark dark:prose-strong:text-white prose-strong:font-semibold
+                               prose-h4:text-lg prose-h4:font-semibold prose-h4:text-brand-dark dark:prose-h4:text-white prose-h4:mb-3 prose-h4:mt-6" 
                   />
                 </div>
               ))}
@@ -84,7 +94,7 @@ export function LegalTabs() {
           </TabsContent>
 
           <TabsContent value="cookies" className="max-w-4xl mx-auto">
-            <div className="rounded-lg p-6 bg-white dark:bg-black/50 border border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm shadow-sm">
+            <div className="rounded-lg p-6 md:p-8 bg-white dark:bg-black/50 border border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm shadow-sm">
               <h2 className="text-3xl font-bold mb-2 text-brand-dark dark:text-white font-heading">{t('legal.content.cookies.title')}</h2>
               <p className="text-brand-secondary dark:text-gray-400 mb-8">{t('legal.content.cookies.lastUpdated')}</p>
               
@@ -93,7 +103,12 @@ export function LegalTabs() {
                   <h3 className="text-xl font-semibold mb-4 text-brand-dark dark:text-white font-heading">{section.title}</h3>
                   <div 
                     dangerouslySetInnerHTML={{ __html: section.content }} 
-                    className="prose prose-slate dark:prose-invert max-w-none text-brand-secondary dark:text-gray-300" 
+                    className="legal-content prose prose-slate dark:prose-invert max-w-none text-brand-secondary dark:text-gray-300 
+                               prose-p:mb-4 prose-p:leading-relaxed prose-p:text-base
+                               prose-ul:mb-4 prose-ul:pl-6 prose-li:mb-2 prose-li:leading-relaxed 
+                               prose-ol:mb-4 prose-ol:pl-6 prose-ol:list-decimal
+                               prose-strong:text-brand-dark dark:prose-strong:text-white prose-strong:font-semibold
+                               prose-h4:text-lg prose-h4:font-semibold prose-h4:text-brand-dark dark:prose-h4:text-white prose-h4:mb-3 prose-h4:mt-6" 
                   />
                 </div>
               ))}

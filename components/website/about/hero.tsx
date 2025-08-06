@@ -17,7 +17,7 @@ export const AboutHero = () => {
     <div className="relative mb-6 sm:mb-16 md:mb-32 bg-[#F5EFE0] dark:bg-background">
       {/* Background section with slanted edge */}
       <section 
-        className="relative pt-28 md:pt-32 pb-48 md:pb-32 bg-[#F5EFE0] dark:bg-background [clip-path:polygon(0_0,100%_0,100%_82%,0_72%)] md:[clip-path:polygon(0_0,100%_0,100%_95%,0_82%)]"
+        className="relative pt-28 md:pt-32 pb-48 md:pb-40 lg:pb-32 bg-[#F5EFE0] dark:bg-background [clip-path:polygon(0_0,100%_0,100%_82%,0_72%)] md:[clip-path:polygon(0_0,100%_0,100%_95%,0_82%)]"
         style={{ zIndex: 1 }}
       >
         {/* Background Image */}
@@ -27,16 +27,16 @@ export const AboutHero = () => {
             alt="Worker with child - Hand Line about us"
             fill
             className="object-cover object-center"
-            style={{ objectPosition: '50% 60%' }}
+            style={{ objectPosition: '20% 50%' }}
             priority
           />
           <div className="absolute inset-0 bg-black/30"></div>
         </div>
         
-        <div className="container mx-auto px-6 relative">
-          <div className="flex flex-col lg:grid lg:grid-cols-2 items-center gap-6">
+        <div className="container mx-auto px-6 relative max-w-7xl">
+          <div className="flex flex-col lg:grid lg:grid-cols-3 items-center gap-6">
             {/* Text Content */}
-            <div className="flex flex-col space-y-3 mb-2 sm:mb-0 w-full">
+            <div className="flex flex-col space-y-4 mb-8 sm:mb-0 w-full lg:col-span-2">
               {/* Badge */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.5 }}
@@ -59,7 +59,7 @@ export const AboutHero = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ ...SPRING_CONFIG, delay: 0.1 }}
               >
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight font-heading">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight font-heading">
                   <span className="text-white drop-shadow-md">{t('about.hero.title')} </span>
                   <span className="text-brand-primary drop-shadow-md">{t('about.hero.titleHighlight1')}</span>
                   <br />
@@ -85,7 +85,7 @@ export const AboutHero = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ ...SPRING_CONFIG, delay: 0.3 }}
               >
-                <p className="text-base md:text-lg text-white/90 drop-shadow-sm">
+                <p className="max-w-2xl xl:max-w-none text-base md:text-lg text-white/90 drop-shadow-sm">
                   <span className="block sm:inline">{t('about.hero.descriptionMobile')}</span>
                   <span className="hidden sm:inline">{t('about.hero.descriptionDesktop')}</span>
                 </p>
@@ -96,12 +96,12 @@ export const AboutHero = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ ...SPRING_CONFIG, delay: 0.4 }}
-                className="flex flex-col space-y-3 sm:flex-row sm:space-x-6 sm:space-y-0 pt-1 w-full"
+                className="flex flex-col space-y-4 sm:flex-row sm:space-x-6 sm:space-y-0 pt-4 w-full"
               >
                 {/* Our Story Button */}
                 <Link 
                   href="#our-story"
-                  className="group flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-brand-primary text-white font-medium rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:bg-brand-primary/90 hover:scale-105 transform w-full sm:w-auto text-sm md:text-base h-10 md:h-auto"
+                  className="group flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-3 sm:py-3.5 bg-brand-primary text-white font-medium rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:bg-brand-primary/90 hover:scale-105 transform w-full sm:w-auto text-sm md:text-base min-h-[44px]"
                 >
                   <Building className="h-4 w-4 sm:h-5 sm:w-5" />
                   <span>{t('about.hero.buttons.ourStory')}</span>
@@ -110,7 +110,7 @@ export const AboutHero = () => {
                 {/* Get in Touch Button */}
                 <Link 
                   href="/contact" 
-                  className="group flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-2.5 sm:py-3 border-2 border-white text-white hover:bg-white hover:text-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 rounded-lg font-medium w-full sm:w-auto text-sm md:text-base h-10 md:h-auto transform"
+                  className="group flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-3 sm:py-3.5 border-2 border-white text-white hover:bg-white hover:text-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 rounded-lg font-medium w-full sm:w-auto text-sm md:text-base min-h-[44px] transform"
                 >
                   <Mail className="h-4 w-4 sm:h-5 sm:w-5" />
                   <span>{t('about.hero.buttons.getInTouch')}</span>

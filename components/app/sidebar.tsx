@@ -122,7 +122,7 @@ export function Sidebar({ className }: SidebarProps) {
                 <AvatarFallback>HL</AvatarFallback>
               </Avatar>
               {!isCollapsed && (
-                <span className="text-lg font-semibold text-[#121926] dark:text-[#E0E0E0]">HandLine</span>
+                <span className="text-lg font-semibold text-[#121926] dark:text-[#E0E0E0]">Hand Line</span>
               )}
             </Link>
           </div>

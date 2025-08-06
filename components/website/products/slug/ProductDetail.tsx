@@ -56,7 +56,7 @@ const getBrandLogo = (brandName: string) => {
   const normalizedBrand = brandName.toLowerCase();
   
   if (normalizedBrand.includes('hand line') || normalizedBrand.includes('handline')) {
-    return '/brands/HLC_Scritta.png';
+    return '/brands/HL_word_logo.PNG';
   }
   
   if (normalizedBrand.includes('progloves heat') || (normalizedBrand.includes('proglov') && normalizedBrand.includes('heat'))) {
@@ -211,14 +211,33 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                               height={24}
                               className="object-contain block dark:hidden"
                             />
-                            {/* Dark mode image */}
-                            <Image
-                              src={logoPath}
-                              alt={brand}
-                              width={60}
-                              height={24}
-                              className="object-contain hidden dark:block invert"
-                            />
+                            {/* Dark mode image with partial invert */}
+                            <div className="hidden dark:block relative">
+                              <Image
+                                src={logoPath}
+                                alt={brand}
+                                width={60}
+                                height={24}
+                                className="object-contain"
+                              />
+                              {/* Invert overlay for left 55% */}
+                              <div 
+                                className="absolute inset-0 invert"
+                                style={{
+                                  clipPath: 'inset(0 45% 0 0)',
+                                  width: '60px',
+                                  height: '24px'
+                                }}
+                              >
+                                <Image
+                                  src={logoPath}
+                                  alt={brand}
+                                  width={60}
+                                  height={24}
+                                  className="object-contain"
+                                />
+                              </div>
+                            </div>
                           </div>
                         );
                       } else {

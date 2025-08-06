@@ -63,7 +63,7 @@ export const NavbarMobile = () => {
                     />
                   </div>
                 </div>
-                <span className="font-semibold text-lg text-brand-primary">HandLine</span>
+                <span className="font-semibold text-lg text-brand-primary">Hand Line</span>
               </div>
               <Button 
                 size="icon" 

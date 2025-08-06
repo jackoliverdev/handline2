@@ -42,7 +42,7 @@ export const PartnersHero = () => {
             className="relative mb-4 md:mb-6"
           >
             <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-brand-dark dark:text-white font-heading">
-              {t('partners.hero.title')} <span className="text-brand-primary">HandLine</span>
+              {t('partners.hero.title')} <span className="text-brand-primary">Hand Line</span>
             </h1>
           </motion.div>
 

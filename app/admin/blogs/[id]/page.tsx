@@ -56,7 +56,7 @@ export default function BlogEditPage({ params }: BlogEditPageProps) {
           setContent(blog.content);
           setTags(blog.tags || []);
           setIsPublished(blog.is_published || false);
-          setAuthor(blog.author || "HandLine Team");
+          setAuthor(blog.author || "Hand Line Team");
           setImageUrl(blog.image_url);
         } else {
           toast({
