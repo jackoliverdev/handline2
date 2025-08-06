@@ -24,9 +24,9 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "HandLine Company | Industrial Safety Gloves",
+  title: "Hand Line Company | Industrial Safety Gloves",
   description:
-    "HandLine Company - Italian manufacturer of high-performance safety gloves and hand protection for industrial settings. 40+ years of expertise in heat-resistant and cut-resistant gloves.",
+    "Hand Line Company - Italian manufacturer of high-performance safety gloves and hand protection for industrial settings. 40+ years of expertise in heat-resistant and cut-resistant gloves.",
   viewport: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
   icons: {
     icon: "/Logo-HLC.png",

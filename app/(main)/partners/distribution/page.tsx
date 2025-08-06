@@ -3,8 +3,8 @@ import { DistributionHero } from "@/components/website/partners/distribution/her
 import { DistributionForm } from "@/components/website/partners/distribution/form";
 
 export const metadata: Metadata = {
-  title: "Become a Distributor | HandLine",
-  description: "Join HandLine's global distribution network. Bring industry-leading safety solutions to your market.",
+  title: "Become a Distributor | Hand Line",
+  description: "Join Hand Line's global distribution network. Bring industry-leading safety solutions to your market.",
 };
 
 export default function DistributionPage() {

@@ -3,8 +3,8 @@ import { PartnershipsHero } from "@/components/website/partners/partnerships/her
 import { PartnershipForm } from "@/components/website/partners/partnerships/form";
 
 export const metadata: Metadata = {
-  title: "Strategic Partnerships | HandLine",
-  description: "Explore partnership opportunities with HandLine. Build strategic alliances for innovative safety solutions.",
+  title: "Strategic Partnerships | Hand Line",
+  description: "Explore partnership opportunities with Hand Line. Build strategic alliances for innovative safety solutions.",
 };
 
 export default function PartnershipsPage() {

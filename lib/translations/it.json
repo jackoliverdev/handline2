@@ -6,19 +6,19 @@
     "about": "Chi Siamo",
     "blog": "Blog",
     "contact": "Contatti",
-    "dashboard": "Pannello",
+    "dashboard": "Pannello di controllo",
     "menu": "Menu",
     "partners": "Partner",
     "resources": "Risorse",
     "allProducts": "Tutti i Prodotti",
     "safetyGloves": "Guanti di Sicurezza",
     "allGloves": "Tutti i Guanti",
-    "heatResistant": "Termoresistenti",
+    "heatResistant": "Anticalore",
     "cutResistant": "Antitaglio",
     "generalPurpose": "Uso Generale",
     "mechanicalHazards": "Rischi Meccanici",
     "welding": "Saldatura",
-    "industrialSwabs": "Tamponi Industriali",
+    "industrialSwabs": "Scovoli Industriali",
     "respiratoryProtection": "Protezione Respiratoria",
     "aboutDropdown": {
       "ourCompany": "La Nostra Azienda",
@@ -29,8 +29,8 @@
       "blog": "Blog",
       "caseStudies": "Casi Studio",
       "enResourceCentre": "Centro Risorse EN",
-      "productDisclaimer": "Disclaimer Prodotti",
-      "declarations": "Dichiarazioni"
+      "productDisclaimer": "Dichiarazione sui Prodotti",
+      "declarations": "Dichiarazioni di conformitá"
     },
     "partnersDropdown": {
       "partnerships": "Partnership",
@@ -68,7 +68,7 @@
       "showingFor": "Visualizzazione di {count} su {total} risultati per \"{query}\"",
       "noResults": "Nessun risultato trovato",
       "noResultsFor": "Nessun risultato trovato per \"{query}\"",
-      "noResultsDescription": "Non siamo riusciti a trovare nulla che corrisponda a {query}. Prova parole chiave diverse o sfoglia le nostre categorie.",
+      "noResultsDescription": "Non siamo riusciti a trovare nulla che corrisponda a {query}. Prova a cercare con parole diverse o sfoglia le nostre categorie.",
       "suggestions": {
         "title": "Suggerimenti:",
         "checkSpelling": "Controlla l'ortografia",
@@ -139,9 +139,9 @@
       "heading": "Ricerca",
       "headingAccent": "Risultati",
       "headingWithQuery": "Risultati per",
-      "description": "Trova le soluzioni di sicurezza, approfondimenti settoriali e risorse di cui hai bisogno nella nostra gamma completa di prodotti e base di conoscenze.",
+      "description": "Trova le soluzioni di sicurezza, approfondimenti settoriali e risorse di cui hai bisogno nella nostra gamma completa di prodotti e contenuti.",
       "searching": "Ricerca in corso...",
-      "descriptionWithResults": "Trovati {count} risultati per '{query}' tra i nostri prodotti, settori e risorse.",
+      "descriptionWithResults": "Trovati {count} risultati per '{query}' tra i nostri prodotti e risorse.",
       "descriptionNoResults": "Nessun risultato trovato per '{query}'. Prova parole chiave diverse o naviga nelle categorie qui sotto.",
       "stats": {
         "results": "Risultati",
@@ -161,11 +161,11 @@
       "heatResistant": "Guanti Resistenti al Calore",
       "cutResistant": "Guanti Resistenti al Taglio",
       "generalPurpose": "Guanti per Uso Generale",
-      "industrialSwabs": "Tamponi Industriali",
-      "respiratory": "Protezione Respiratoria",
+      "industrialSwabs": "Scovoli Industriali",
+      "respiratory": "Protezione Vie Respiratorie",
       "industry": "Soluzioni Settoriali",
       "blog": "Articoli del Blog",
-      "caseStudy": "Casi di Studio",
+      "caseStudy": "Casi Studio",
       "career": "Opportunità di Carriera",
       "enResource": "Standard EN"
     },
@@ -187,8 +187,8 @@
     "resources": "Risorse",
     "products": {
       "categories": {
-        "heatResistantGloves": "Guanti Termoresistenti",
-        "heatResistantSleeves": "Manicotti Termoresistenti",
+        "heatResistantGloves": "Guanti Anticalore",
+        "heatResistantSleeves": "Manicotti Anticalore",
         "cutResistantGloves": "Guanti Antitaglio",
         "cutResistantSleeves": "Manicotti Antitaglio",
         "corporateCustomisation": "Soluzioni Aziendali",
@@ -204,7 +204,7 @@
     "getInTouch": "Contattaci",
     "mainTitle": {
       "handline": "HAND LINE",
-      "weSpeak": "PARLIAMO DI",
+      "weSpeak": "ESPERTI DI",
       "safety": "SICUREZZA"
     }
   },
@@ -217,8 +217,8 @@
       "line2": "costruiscono il nostro mondo"
     },
     "headingAccent": "",
-    "description": "I DPI adeguati sono una linea di difesa critica che protegge i lavoratori dai pericoli, previene gli infortuni e salva vite. La ricerca dimostra che l'uso efficace dei DPI può ridurre i tassi di infortuni sul lavoro fino al 60%, sottolineando quanto sia cruciale l'attrezzatura giusta per un ambiente di lavoro più sicuro e produttivo. I DPI mal adattati o inadeguati, d'altra parte, sono dimostrati essere un fattore concorrente per la maggioranza degli infortuni registrati.",
-    "secondDescription": "Con oltre 40 anni di competenza nel settore, ci specializziamo nella progettazione e distribuzione di prodotti di alta qualità che soddisfano rigorosi standard industriali, garantendo la perfetta vestibilità e protezione su misura per le vostre sfide uniche. Offriamo soluzioni di sicurezza complete dalla testa ai piedi con particolare competenza nella protezione delle mani.",
+    "description": "I DPI adeguati sono la linea di difesa critica che protegge i lavoratori dai pericoli, previene gli infortuni e salva vite. La ricerca dimostra che l'uso efficace dei DPI può ridurre i tassi di infortuni sul lavoro fino al 60%, sottolineando quanto sia cruciale l'attrezzatura giusta per un ambiente di lavoro più sicuro e produttivo. I DPI mal adattati o inadeguati, d'altra parte, sono un fattore concorrente per la maggioranza degli infortuni registrati.",
+    "secondDescription": "Con oltre 40 anni di competenza nel settore, ci specializziamo nella progettazione e distribuzione di prodotti di alta qualità che soddisfano rigorosi standard industriali, garantendo la perfetta vestibilità e protezione su misura per le vostre esigenze. Offriamo soluzioni di sicurezza complete dalla testa ai piedi con particolare competenza nella protezione delle mani.",
     "browseProducts": "Esplora Prodotti",
     "getInTouch": "Contattaci",
     "stats": {
@@ -230,18 +230,18 @@
     }
   },
   "productsDesignPrinciples": {
-    "title": "I nostri principi di progettazione del prodotto",
+    "title": "I nostri principi di progettazione",
     "protection": {
       "title": "Protezione",
       "description": "La sicurezza è il nostro obiettivo principale e ogni prodotto che progettiamo inizia con la protezione delle persone"
     },
     "comfort": {
       "title": "Comfort",
-      "description": "Dalla selezione dei materiali alla personalizzazione specifica per attività, facciamo in modo che il nostro prodotto si adatti alle esigenze degli operatori, non il contrario."
+      "description": "Dalla selezione dei materiali alla modifica in base alle attività, facciamo in modo che il nostro prodotto si adatti alle esigenze degli operatori, non il contrario."
     },
     "quality": {
       "title": "Qualità",
-      "description": "La qualità costante è garantita da controlli rigorosi e catena di produzione certificata per garantire la conformità."
+      "description": "La qualità consistente è garantita da controlli rigorosi e catene di produzione certificate per garantire la conformità."
     },
     "affordability": {
       "title": "Convenienza",
@@ -264,14 +264,14 @@
     }
   },
   "industrialSwabsHero": {
-    "badge": "Pulizia Precisione",
-    "heading": "Tamponi",
+    "badge": "Pulizia di precisione",
+    "heading": "Scovoli",
     "headingAccent": "Industriali",
-    "description": "Esplora la nostra gamma specializzata di tamponi industriali e soluzioni di pulizia, progettati per attività di pulizia di precisione in ambienti industriali impegnativi.",
-    "browseProducts": "Esplora Tamponi",
+    "description": "Esplora la nostra gamma specializzata di scovoli industriali e soluzioni di pulizia, progettati per attività di pulizia e lubrificazione di precisione in ambienti industriali impegnativi.",
+    "browseProducts": "Esplora Scovoli",
     "getInTouch": "Contattaci",
     "stats": {
-      "precision": "Pulizia Precisione",
+      "precision": "Pulizia di precisione",
       "applications": "Applicazioni",
       "applicationsValue": "500+",
       "certified": "Certificato",
@@ -279,7 +279,7 @@
     }
   },
   "respiratoryHero": {
-    "badge": "Sicurezza Respiratoria",
+    "badge": "Protezione vie respiratorie",
     "heading": "Protezione",
     "headingAccent": "Respiratoria",
     "description": "Scopri la nostra attrezzatura avanzata per la protezione respiratoria, progettata per fornire una protezione superiore contro i rischi aerodispersi in ambienti industriali.",
@@ -298,24 +298,24 @@
     "description": "Con oltre quattro decenni di esperienza, Hand Line Company si è affermata come leader nelle soluzioni innovative di protezione delle mani per ambienti industriali.",
     "features": {
       "heatProtection": {
-        "title": "Guanti Termoresistenti",
+        "title": "Guanti Anticalore",
         "description": "Il nostro pane e burro. Progettiamo e produciamo guanti per tutti gli ambienti e temperature, superando i 1000C",
-        "cta": "Esplora Gamma Termoresistente"
+        "cta": "Esplora le soluzioni Anticalore"
       },
       "cutResistance": {
         "title": "Guanti Antitaglio",
         "description": "Materiali avanzati offrono una protezione superiore contro i tagli mantenendo destrezza e comfort per lavori di precisione.",
-        "cta": "Scopri Soluzioni Antitaglio"
+        "cta": "Scopri le soluzioni Antitaglio"
       },
       "customisation": {
         "title": "Personalizzazione Prodotti",
-        "description": "Progettiamo e personalizziamo prodotti con i nostri clienti, partendo dalle esigenze dell'operatore. Combiniamo la nostra profonda esperienza con il vostro input per costruire la soluzione perfetta.",
+        "description": "Progettiamo e personalizziamo prodotti con i nostri clienti, partendo dalle esigenze dell'operatore e combinando la nostra profonda esperienza con il vostro input per costruire la soluzione perfetta.",
         "cta": "Scopri il Nostro Processo"
       },
       "headToToe": {
-        "title": "Protezione Completa",
+        "title": "Protezione Completa dalla testa ai pied",
         "description": "Forniamo soluzioni di sicurezza complete, sia con prodotti propri che collaborando con marchi leader del settore. Offriamo protezione completa ai migliori prezzi.",
-        "cta": "Esplora Prodotti"
+        "cta": "Esplora tutti i prodotti"
       }
     },
     "quote": {
@@ -329,7 +329,7 @@
     "noProducts": "Nessun prodotto in evidenza disponibile al momento.",
     "preview": "Anteprima",
     "details": "Dettagli",
-    "viewAll": "Vedi tutti i prodotti",
+    "viewAll": "Scopri tutti i prodotti",
     "specs": {
       "temperature": "Temperatura",
       "cutLevel": "Livello Taglio"
@@ -353,19 +353,19 @@
     "description": "La nostra gamma completa di soluzioni di sicurezza comprovate dal settore è solo il punto di partenza. Lavoriamo fianco a fianco con i nostri clienti per identificare le soluzioni più efficaci per garantire una protezione di prima classe e prestazioni commerciali ottimali.",
     "buttons": {
       "browseProducts": "Esplora Prodotti",
-      "contactUs": "Contattaci Oggi"
+      "contactUs": "Contattaci"
     },
-    "trustIndicator": "Aziende leader si fidano di noi in tutto il mondo"
+    "trustIndicator": "Fornitore di aziende leader in tutto il mondo"
   },
   "industryCta": {
-    "badge": "Soluzioni di Sicurezza Specializzate",
+    "badge": "Specialisti nel settore",
     "title": "Pronto a Migliorare la Sicurezza nel Settore",
     "description": "Scopri la nostra gamma completa di soluzioni di sicurezza specificamente progettate per il settore {industry}. Dalla tecnologia all'avanguardia ai protocolli di sicurezza comprovati.",
     "buttons": {
       "browseProducts": "Esplora i Nostri Prodotti",
-      "contactUs": "Contattaci Oggi"
+      "contactUs": "Contattaci"
     },
-    "trustIndicator": "Aziende leader del settore {industry} si fidano di noi"
+    "trustIndicator": "Fornitore di aziende leader {industry}"
   },
   "footer": {
     "companyDescription": "Produttore italiano specializzato in guanti di sicurezza ad alte prestazioni per ambienti industriali. Proteggiamo le mani con soluzioni innovative dal 1982.",
@@ -377,11 +377,11 @@
         "title": "Prodotti",
         "links": {
           "safetyGloves": "Guanti di Sicurezza",
-          "heatResistant": "Termoresistenti",
+          "heatResistant": "Anticalore",
           "cutResistant": "Antitaglio",
-          "generalPurpose": "Uso Generale",
-          "mechanical": "Meccanici",
-          "welding": "Saldatura"
+          "generalPurpose": "Guanti per uso generale",
+          "mechanical": "Guanti per rischi meccanici",
+          "welding": "Guanti per saldatori"
         }
       },
       "industries": {
@@ -414,81 +414,81 @@
     "categoryOverview": "Panoramica Categoria",
     "categories": {
       "main": {
-        "badge": "Categorie Prodotti",
+        "badge": "Catalogo",
         "title": "Categorie Prodotti",
-        "description": "Esplora la nostra gamma completa di prodotti di sicurezza industriale progettati per proteggere i lavoratori in vari settori.",
+        "description": "Esplora la nostra gamma completa di prodotti di sicurezza industriale progettati per proteggere i lavoratori da capo a piedi.",
         "gloves": {
           "badge": "Guanti di Sicurezza",
           "title": "Guanti di Sicurezza",
           "description": "Guanti protettivi ad alte prestazioni per tutte le applicazioni industriali",
           "categoriesDescription": "Scegli dalla nostra gamma specializzata di guanti di sicurezza progettati per specifiche applicazioni industriali.",
-          "detailedDescription": "La nostra gamma completa di guanti di sicurezza offre una protezione superiore in tutte le applicazioni industriali. Dalla resistenza al calore estremo alla protezione avanzata contro i tagli, i nostri guanti sono progettati con ingegneria di precisione e testati per superare gli standard del settore. Ogni categoria è specificamente adattata per affrontare le sfide uniche di diversi ambienti di lavoro mantenendo comfort e destrezza.",
+          "detailedDescription": "La nostra gamma completa di guanti di sicurezza offre una protezione superiore in tutte le applicazioni industriali. Dalla resistenza al calore estremo alla protezione avanzata contro i tagli e i rischi meccanici, i nostri guanti sono progettati con ingegneria di precisione e testati per superare gli standard del settore. Ogni categoria è specificamente adattata per affrontare le sfide uniche di diversi ambienti di lavoro mantenendo comfort e destrezza.",
           "subcategories": {
             "heat": {
-              "title": "Guanti Termoresistenti",
+              "title": "Guanti Anticalore",
               "description": "Protezione termica avanzata per ambienti ad alta temperatura fino a 350°C"
             },
             "mechanical": {
-              "title": "Guanti Rischi Meccanici",
+              "title": "Guanti per Rischi Meccanici",
               "description": "Protezione superiore contro rischi meccanici e pericoli industriali"
             },
             "cut": {
               "title": "Guanti Antitaglio",
-              "description": "Protezione superiore contro tagli e lacerazioni con resistenza Livello 5"
+              "description": "Protezione in ambienti ad elevato rischio di tagli e lacerazioni e per operazioni con materiali taglienti"
             },
             "general": {
-              "title": "Guanti Uso Generale",
-              "description": "Protezione versatile per attività industriali quotidiane e costruzioni"
+              "title": "Guanti per Uso Generale",
+              "description": "Protezione versatile per attività industriali quotidiane, imballaggio ed edilizia"
             },
             "welding": {
-              "title": "Guanti per Saldatura",
+              "title": "Guanti per Saldatori",
               "description": "Protezione specializzata per saldatura e lavorazioni metalliche intense"
             }
           }
         },
         "industrialSwabs": {
-          "badge": "Tamponi Industriali",
-          "title": "Tamponi Industriali",
-          "description": "Soluzioni specializzate di pulizia e manutenzione per ambienti industriali",
-          "detailedDescription": "I nostri tamponi industriali forniscono soluzioni specializzate di pulizia e manutenzione per ambienti industriali impegnativi. Progettati per attività di pulizia di precisione, questi tamponi di alta qualità sono essenziali per la produzione elettronica, l'assemblaggio automobilistico, le applicazioni aerospaziali e la manutenzione industriale generale dove pulizia e precisione sono critiche."
+          "badge": "Scovoli Industriali",
+          "title": "Scovoli Industriali",
+          "description": "Soluzioni specializzate di pulizia, lubrificazione e manutenzione per ambienti industriali",
+          "detailedDescription": "I nostri scovoli industriali forniscono soluzioni di pulizia, lubrificazione e manutenzione per ambienti industriali impegnativi. Progettati per attività di di precisione, questi scovoli di alta qualità sono essenziali per la produzione elettronica, l'assemblaggio automobilistico, le applicazioni aerospaziali e la manutenzione industriale in presenza di stampi caldi."
         },
         "respiratory": {
-          "badge": "Protezione Respiratoria",
-          "title": "Protezione Respiratoria",
-          "description": "Dispositivi avanzati di protezione respiratoria per ambienti pericolosi",
-          "detailedDescription": "Le nostre attrezzature per la protezione respiratoria forniscono una protezione avanzata contro i rischi aerodispersi in ambienti industriali. Dalle maschere antipolvere ai respiratori facciali completi, i nostri prodotti sono progettati per soddisfare i più alti standard di sicurezza garantendo comfort durante l'uso prolungato. Essenziali per costruzioni, produzione, lavorazione chimica e qualsiasi ambiente con contaminanti aerodispersi."
+          "badge": "Protezione vie respiratorie",
+          "title": "Protezione vie respiratorie",
+          "description": "Dispositivi di protezione respiratoria avanzati per ambienti pericolosi",
+          "detailedDescription": "I nostri dispositivi per la protezione delle vie respiratorie forniscono una protezione avanzata contro i contaminanti aerodispersi in ambienti industriali. Dalle maschere antipolvere ai respiratori facciali completi, i nostri prodotti sono progettati per soddisfare i più alti standard di sicurezza garantendo comfort durante l'uso prolungato. Essenziali per costruzioni, produzione, lavorazione chimica e qualsiasi ambiente con contaminanti aerodispersi."
         }
       },
       "pages": {
         "heat": {
-          "badge": "Protezione Termica",
-          "title": "Prodotti Termoresistenti",
-          "description": "Sfoglia la nostra gamma completa di guanti termoresistenti progettati per la protezione da temperature estreme.",
-          "detailedDescription": "I nostri guanti termoresistenti forniscono una protezione termica eccezionale per i lavoratori in ambienti ad alta temperatura. Progettati con materiali avanzati e testati per resistere a temperature fino a 350°C, questi guanti offrono una protezione superiore senza compromettere la destrezza. Perfetti per la produzione del vetro, la lavorazione dei metalli, la saldatura e altre applicazioni industriali ad alto calore."
+          "badge": "Protezione da rischi termici",
+          "title": "Prodotti Anticalore",
+          "description": "Sfoglia la nostra gamma completa di guanti anticalore progettati per la protezione da temperature estreme.",
+          "detailedDescription": "I nostri guanti anticalore forniscono una protezione termica eccezionale per i lavoratori in ambienti ad alta temperatura. Progettati con materiali avanzati e testati per resistere a temperature fino a oltre 1,000°C, i nostri guanti offrono una protezione superiore senza compromettere la destrezza. Perfetti per la produzione del vetro, la lavorazione dei metalli, la saldatura e altre applicazioni industriali ad alto calore."
         },
         "cut": {
           "badge": "Protezione dal Taglio",
           "title": "Prodotti Antitaglio",
-          "description": "Sfoglia la nostra gamma completa di guanti antitaglio progettati per la massima protezione contro oggetti taglienti.",
-          "detailedDescription": "I nostri guanti antitaglio forniscono una protezione superiore contro tagli e lacerazioni mantenendo una destrezza e un comfort eccezionali. Progettati con materiali avanzati e testati per raggiungere la resistenza al taglio di Livello 5, questi guanti sono essenziali per i lavoratori che maneggiano materiali taglienti, vetro, fabbricazione di metalli e operazioni di assemblaggio di precisione."
+          "description": "Sfoglia la nostra gamma completa di guanti antitaglio progettati per la massima protezione contro i rischi da taglio.",
+          "detailedDescription": "I nostri guanti antitaglio forniscono una protezione superiore contro tagli e lacerazioni mantenendo una destrezza e un comfort eccezionali. Progettati con materiali avanzati e testati per raggiungere la resistenza al taglio fino a Livello 5, questi guanti sono essenziali per i lavoratori che maneggiano materiali taglienti, vetro, metalli e per operazioni di assemblaggio di precisione."
         },
         "general": {
           "badge": "Uso Generale",
-          "title": "Prodotti Uso Generale",
+          "title": "Prodotti per Uso Generale",
           "description": "Sfoglia la nostra gamma completa di guanti uso generale progettati per attività industriali quotidiane.",
-          "detailedDescription": "I nostri guanti per uso generale forniscono una protezione affidabile per attività industriali quotidiane e lavori di costruzione. Progettati per versatilità e comfort, questi guanti offrono eccellente presa, durata e protezione per un'ampia gamma di applicazioni inclusi lavori di assemblaggio, movimentazione materiali, attività di manutenzione e attività generali di costruzione."
+          "detailedDescription": "I nostri guanti per uso generale forniscono affidabile protezione per attività industriali quotidiane e lavori di costruzione. Progettati per versatilità e comfort, questi guanti offrono eccellente presa, durata e protezione per un'ampia gamma di applicazioni inclusi lavori di assemblaggio, movimentazione materiali, attività di manutenzione e attività generali di costruzione."
         },
         "mechanical": {
-          "badge": "Protezione Meccanica",
-          "title": "Prodotti Rischi Meccanici",
+          "badge": "Protezione dai rischi meccanici",
+          "title": "Prodotti per rischi Meccanici",
           "description": "Sfoglia la nostra gamma completa di guanti per rischi meccanici progettati per una protezione superiore sul lavoro.",
-          "detailedDescription": "I nostri guanti per rischi meccanici forniscono una protezione superiore contro i rischi meccanici e i pericoli generali del posto di lavoro mantenendo una destrezza e un comfort eccezionali. Progettati con materiali avanzati e testati per soddisfare gli standard EN388, questi guanti sono essenziali per i lavoratori nella produzione, assemblaggio, costruzione e ambienti industriali generali."
+          "detailedDescription": "I nostri guanti per rischi meccanici forniscono una protezione superiore contro i rischi meccanici e i pericoli generali del posto di lavoro mantenendo una destrezza e un comfort eccezionali. Progettati con materiali avanzati e testati per soddisfare gli standard EN388, questi guanti sono essenziali per i lavoratori nella produzione, assemblaggio, costruzione e ambienti industriali generici."
         },
         "welding": {
-          "badge": "Protezione Saldatura",
-          "title": "Prodotti Saldatura",
+          "badge": "Linea per saldatori",
+          "title": "Prodotti per saldatori",
           "description": "Sfoglia la nostra gamma completa di guanti per saldatura progettati per attività di lavorazione metalli ad alto calore.",
-          "detailedDescription": "I nostri guanti per saldatura forniscono una protezione specializzata per la saldatura e attività di lavorazione metalli ad alto calore con durata e comfort superiori. Progettati con materiali resistenti al calore e pensati per ambienti di saldatura impegnativi, questi guanti offrono un'eccellente protezione contro scintille, spruzzi e alte temperature mantenendo la destrezza necessaria per il lavoro di precisione."
+          "detailedDescription": "I nostri guanti per saldatori forniscono una protezione specializzata per le attività di saldatura e di lavorazione dei metalli, sia ad elevato rischio meccanico e termico che in ambienti di saldatura di precisione. Progettati con materiali resistenti al calore e agli stress meccanici, questi guanti offrono un'eccellente protezione contro scintille, spruzzi e alte temperature mantenendo la destrezza necessaria per il lavoro di precisione."
         },
         "respiratory": {
           "badge": "Sicurezza Respiratoria",
@@ -554,7 +554,7 @@
       "respiratoryProtection": "Protezione Respiratoria"
     },
     "results": {
-      "showing": "Mostrando {current} di {total} prodotti",
+      "showing": "{current} di {total} prodotti visualizzati",
       "noResults": "Nessun prodotto trovato",
       "noResultsDescription": "Non abbiamo trovato prodotti corrispondenti ai tuoi criteri di ricerca.",
       "clearFilters": "Cancella Filtri",
@@ -572,7 +572,7 @@
     "moreFeatures": "+{{count}} altre",
     "temperature": "Temperatura",
     "temperatureMobile": "Temp",
-    "enStandards": "Standard EN",
+    "enStandards": "Livelli di protezione",
     "enStandardsMobile": "EN",
     "applications": "Applicazioni"
   },
@@ -581,7 +581,7 @@
     "specifications": "Specifiche",
     "features": "Caratteristiche",
     "applications": "Applicazioni",
-    "safety": "Standard EN",
+    "safety": "Livelli di protezione",
     "documentation": "Documenti",
     "productDetails": "Dettagli Prodotto",
     "technicalSpecifications": "Specifiche Tecniche",
@@ -590,7 +590,7 @@
     "temperatureRating": "Resistenza al Calore",
     "cutResistanceLevel": "Livello di Resistenza al Taglio",
     "industries": "Settori",
-    "keyIndustries": "Settori Chiave",
+    "keyIndustries": "Indicato per i settori",
     "submitEnquiry": "Invia richiesta",
     "contactUs": "Contattaci",
     "requestSample": "Richiedi Campione",
@@ -612,13 +612,13 @@
     "declarationOfConformity": "Dichiarazione di Conformità",
     "download": "Scarica",
     "noDocuments": "Nessun documento disponibile",
-    "workEnvironmentSuitability": "Idoneità Ambiente di Lavoro",
-    "dryConditions": "Condizioni Asciutte",
-    "wetConditions": "Condizioni Umide",
-    "dustyConditions": "Condizioni Polverose", 
+    "workEnvironmentSuitability": "Idoneità ambiente di lavoro",
+    "dryConditions": "Ambiente asciutto",
+    "wetConditions": "Ambiente umido",
+    "dustyConditions": "Presenza di polveri", 
     "chemicalExposure": "Esposizione Chimica",
     "biologicalHazards": "Rischi Biologici",
-    "oilyGreasy": "Oleoso / Grasso",
+    "oilyGreasy": "Ambiente Oleoso / Grasso",
     "suitableFor": "Adatto per",
     "workEnvironments": "ambienti di lavoro",
     "yes": "Sì",
@@ -634,16 +634,16 @@
     "convectiveHeat": "Calore Convettivo",
     "radiantHeat": "Calore Radiante", 
     "smallSplashes": "Piccoli Schizzi",
-    "additionalStandards": "Standard Aggiuntivi"
+    "additionalStandards": "Conformità standard aggiuntivi"
   },
   "relatedProducts": {
     "title": "Prodotti correlati"
   },
   "industriesHero": {
     "badge": "Soluzioni per Settori",
-    "heading": "Soluzioni",
-    "headingAccent": "Industriali",
-    "description": "Scopri come le soluzioni innovative di Hand Line sono progettate per rispondere alle sfide uniche dei diversi settori, offrendo protezione e prestazioni quando conta di più.",
+    "heading": "Esperti di",
+    "headingAccent": "Settore",
+    "description": "Grazie ad anni di esperienza ed un focus strategico su alcuni settori industriali, abbiamo sviluppato soluzioni innovative ed efficaci per rispondere alle sfide uniche dei nostri clienti. La nostra esperienza ci permette di aggiungere valore non solo nella fornitura dei DPI ma anche durante la fase di identificazione e creazione delle soluzioni di protezione.",
     "stats": {
       "industries": "Settori Serviti",
       "years": "Anni di Esperienza",
@@ -651,7 +651,7 @@
       "customers": "Clienti Soddisfatti"
     },
     "exploreIndustries": "Esplora Settori",
-    "viewProducts": "Vedi Prodotti"
+    "viewProducts": "Prodotti"
   },
   "industries": {
     "manufacturing": "Manifattura",
@@ -671,11 +671,11 @@
       "count": "{count}+ caratteristiche di sicurezza specializzate"
     },
     "spotlight": {
-      "badge": "Settore in Evidenza",
-      "title": "Settore in Primo Piano",
+      "badge": "In primo piano",
+      "title": "Settore in evidenza",
       "description": "Scopri come le soluzioni innovative di Hand Line sono progettate per affrontare le sfide uniche di questo settore.",
-      "subtitle": "Soluzioni di Sicurezza Specializzate",
-      "cta": "Esplora Soluzioni"
+      "subtitle": "Soluzioni per l'industria",
+      "cta": "Eplora le soluzioni"
     }
   },
   "about": {
@@ -690,7 +690,7 @@
       "titleHighlight1": "Mani",
       "titleMiddle": "che costruiscono il nostro",
       "titleHighlight2": "Mondo",
-      "subtitle": "Crediamo che \"Zero Incidenti\" sia più di una visione, è un bisogno.",
+      "subtitle": "Crediamo che \"Zero Infortuni\" non sia solo una visione ma un bisogno.",
       "descriptionMobile": "Immaginiamo un mondo dove ogni organizzazione equipaggia la propria forza lavoro con attrezzature progettate su misura, meticolosamente create per soddisfare i requisiti unici dei loro dipendenti.",
       "descriptionDesktop": " Ci impegniamo ad essere il catalizzatore per un ambiente di lavoro più sicuro e confortevole, dove le aziende danno priorità al benessere individuale e alla produttività attraverso soluzioni di protezione personalizzate, stabilendo infine nuovi standard per sicurezza e comfort nel settore industriale.",
       "buttons": {
@@ -707,7 +707,7 @@
     "history": {
       "badge": "Il Nostro Percorso",
       "heading": "La Nostra Storia",
-      "description": "Dalle origini a Milano fino a diventare un produttore leader di dispositivi di protezione, scopri i momenti chiave che hanno plasmato la nostra azienda.",
+      "description": "Dalle origini in Lombardia (Italia) fino a diventare un produttore e fornitore internazionale di dispositivi di protezione, scopri i momenti chiave che hanno plasmato la nostra azienda e la nostra cultura.",
       "1977": {
         "title": "Fondazione",
         "description": "La nostra storia inizia come produttore italiano di guanti in pelle e da lavoro con un'impronta distintamente artigianale basata sulla maestria e prodotti di alta qualità"
@@ -717,11 +717,11 @@
         "description": "Sviluppiamo il primo guanto di lana per la manipolazione di stampi ad alta temperatura nella parte calda del processo di produzione del vetro"
       },
       "1996": {
-        "title": "Certificazione Standard",
-        "description": "Abbiamo aperto la strada nell'adattamento ai nuovi standard EN388 ed EN407 introdotti, portando prodotti certificati a tutti i nostri clienti. I nostri prodotti sono ampiamente adottati nei principali impianti di produzione del vetro e automobilistici in Italia"
+        "title": "Certificazione e norme EN",
+        "description": "Abbiamo aperto la strada nell'adattamento ai nuovi standard EN388 ed EN407 introdotti, portando prodotti certificati a tutti i nostri clienti. I nostri prodotti diventano ampiamente adottati nei principali impianti di produzione del vetro e automobilistici in Italia"
       },
       "2002": {
-        "title": "Espansione Portfolio",
+        "title": "Espansione del Catalogo",
         "description": "Ampliamo il nostro portfolio di prodotti dedicato alle industrie del vetro e della metallurgia con molti guanti certificati oltre i 350°C. La nostra espansione geografica inizia in 6 mercati in Europa e Medio Oriente, guidata dai nostri clienti italiani esistenti."
       },
       "2003": {
@@ -742,22 +742,22 @@
       },
       "2025": {
         "title": "Ingresso Mercato UK",
-        "description": "Hand Line annuncia la sua espansione nel mercato del Regno Unito con il lancio di una filiale a Londra per supportare ulteriormente il crescente mercato in Inghilterra, Galles e Irlanda"
+        "description": "Hand Line annuncia la sua espansione nel mercato del Regno Unito con il lancio di una filiale a Londra per supportare ulteriormente il crescente mercato internazionale"
       }
     },
     "different": {
       "badge": "I Nostri Vantaggi",
-      "heading": "COSA CI RENDE DIVERSI",
-      "description": "In Hand Line, siamo orgogliosi di diversi elementi chiave che ci distinguono nel settore delle attrezzature di sicurezza.",
+      "heading": "Cosa ci rende Diversi",
+      "description": "Hand Line si distingue nel settore dei DPI con fucs strategici chiari.",
       "productQuality": {
         "title": "Eccellenza nella",
         "titleAccent": "Qualità del Prodotto",
-        "description": "Oltre 40 anni di esperienza tecnica nella produzione di guanti di sicurezza con rigoroso controllo qualità durante tutta la produzione."
+        "description": "Oltre 40 anni di esperienza con rigoroso controllo qualità sui materiali e durante tutta la produzione."
       },
       "customisation": {
         "title": "Impareggiabile",
         "titleAccent": "Personalizzazione",
-        "description": "Prodotti su misura in base alle esigenze dell'utente. Nessuno conosce i prodotti meglio del nostro cliente."
+        "description": "Prodotti su misura in base alle esigenze dell'utente. Nessuno conosce i prodotti meglio dei nostri clienti."
       },
       "pricing": {
         "title": "Prezzi",
@@ -772,12 +772,12 @@
       "flexibility": {
         "title": "Flessibilità",
         "titleAccent": "del Prodotto",
-        "description": "Nessun limite o restrizione sugli ordini, garantendo piena flessibilità per gestire esigenze imprevedibili."
+        "description": "Offriamo soluzioni di ordini flessibili e assicuriamo coperura di magazzino per gestire ogni esigenza."
       },
       "service": {
         "title": "Servizio",
-        "titleAccent": "di Prima Classe",
-        "description": "Gestione delle scorte per coprire le esigenze in rapida evoluzione del cliente, garantendo tempi di consegna eccellenti."
+        "titleAccent": "d'eccellenza",
+        "description": "Offriamo consulenza nell'identificazione e creazione di prodotti su misura e offriamo le prime consegne entro poche settimane."
       }
     },
     "mission": {
@@ -829,8 +829,8 @@
       "description": "I nostri professionisti uniscono decenni di esperienza a una passione per l'innovazione nella sicurezza."
     },
     "certifications": {
-      "badge": "Standard di Qualità",
-      "heading": "Le Nostre Certificazioni",
+      "badge": "Garanzia di Qualità",
+      "heading": "I nostri impegni",
       "description": "Hand Line soddisfa e supera i più elevati standard di sicurezza e qualità del settore, garantendo una protezione affidabile per tutti gli utenti.",
       "mainStatement": "La nostra produzione segue i più alti standard di qualità con certificazioni ISO in tutta la catena di produzione e di valore.",
       "types": {
@@ -848,17 +848,17 @@
         "description": "Il nostro impegno per aiutare il nostro pianeta attraverso pratiche sostenibili e produzione responsabile.",
         "learnMore": "Scopri le nostre iniziative ESG"
       },
-      "note": "La documentazione delle certificazioni è disponibile su richiesta."
+      "note": "Documentazione disponibile su richiesta."
     },
     "esg": {
       "hero": {
         "badge": "Impegno ESG",
         "title": "Proteggiamo le Mani che costruiscono il nostro Mondo.",
         "titleAccent": "E il nostro Pianeta.",
-        "description": "La nostra missione va oltre la fornitura di Dispositivi di Protezione Individuale di classe mondiale. Crediamo che la vera protezione includa una responsabilità verso l'ambiente, la società e la governance etica. Ecco perché stiamo allineando attivamente le nostre operazioni con i principi ESG (Environmental, Social, and Governance)."
+        "description": "La nostra missione va oltre la fornitura di Dispositivi di Protezione Individuale di eccellenza. Crediamo che la vera protezione includa una responsabilità verso l'ambiente, la società ed una governance etica. Ecco perché stiamo allineando attivamente le nostre operazioni con i principi ESG (Environmental, Social, and Governance)."
       },
       "environmental": {
-        "badge": "Ambientale",
+        "badge": "Environment",
         "title": "Responsabilità Ambientale",
         "description": "Stiamo adottando misure significative per ridurre la nostra impronta ambientale:",
         "points": {
@@ -867,15 +867,15 @@
           "2": "Minimizzazione delle emissioni di carbonio nella nostra catena di fornitura e logistica.",
           "3": "Minimizzazione dei volumi di spedizione e degli sprechi."
         },
-        "closing": "Mentre il nostro percorso ESG è appena iniziato, la sostenibilità non è più opzionale—è essenziale."
+        "closing": "Sebbene il nostro percorso ESG sia nelle fasi iniziali, la sostenibilità è un parametro essenziale."
       },
       "social": {
-        "badge": "Sociale",
+        "badge": "Social",
         "title": "Responsabilità Sociale",
         "description": "Il nostro impegno verso le persone guida tutto ciò che facciamo:",
         "points": {
           "0": "Prioritizziamo la sicurezza dei lavoratori e pratiche lavorative eque in tutta la nostra catena di fornitura globale.",
-          "1": "Stiamo costruendo relazioni solide con le nostre comunità locali attraverso educazione, donazioni e programmi di volontariato.",
+          "1": "Verifichiamo che gli stessi standard vengano estesi alla catena del valore, assicurandoci che i nostri fornitori di materiali, prodotti e servizi condividano la nostra visione.",
           "2": "Internamente, promuoviamo una cultura di diversità, equità e inclusione, garantendo un ambiente di lavoro sicuro e rispettoso."
         }
       },
@@ -898,7 +898,7 @@
           "1": "Identificando indicatori chiave di performance.",
           "2": "Costruendo sistemi di reporting ESG."
         },
-        "closing": "Questo è un percorso a lungo termine, e siamo impegnati a un progresso reale e misurabile—non solo al completamento di caselle."
+        "closing": "Questo è un percorso a lungo termine, e siamo impegnati a un progresso reale e misurabile, non solo a spuntare una casella."
       },
       "cta": {
         "badge": "Unisciti alla Nostra Missione",
@@ -924,7 +924,7 @@
       "fields": {
         "name": "Nome",
         "namePlaceholder": "Il tuo nome",
-        "company": "Nome Azienda",
+        "company": "Azienda",
         "companyPlaceholder": "La tua organizzazione",
         "email": "Email",
         "emailPlaceholder": "tua.email@azienda.com",
@@ -941,7 +941,7 @@
     },
     "info": {
       "title": "Informazioni di Contatto",
-      "description": "Puoi raggiungerci presso la nostra sede o utilizzando i dettagli qui sotto.",
+      "description": "Puoi raggiungerci presso la nostra sede utilizzando i dettagli qui sotto.",
       "offices": {
         "switchLabel": "Sede",
         "italy": "Italia",
@@ -972,9 +972,9 @@
       "directionsButton": "Ottieni indicazioni"
     },
     "faq": {
-      "badge": "Sicurezza Prima di Tutto",
+      "badge": "FAQ",
       "title": "Domande Frequenti",
-      "description": "Trova risposte rapide alle domande comuni sui nostri guanti di sicurezza e servizi",
+      "description": "Trova risposte rapide alle domande comuni sui nostri prodotti e servizi",
       "questions": [
         {
           "question": "Come posso scegliere il DPI giusto?",
@@ -1012,9 +1012,9 @@
     },
     "hero": {
       "badge": "Siamo Qui Per Aiutarti",
-      "title": "Contattaci",
+      "title": "Contatta",
       "titleAccent": "Hand Line",
-      "description": "Siamo qui per aiutarti con qualsiasi domanda tu possa avere sui nostri prodotti e soluzioni di sicurezza. Contatta il nostro team e ti risponderemo il prima possibile.",
+      "description": "Il nostro team é a disposizione per qualsiasi richiesta sui nostri prodotti e soluzioni di sicurezza. Contattaci e ti risponderemo il prima possibile.",
       "stats": {
         "support": "Supporto 24/7",
         "response": "Tempo di risposta medio: 1 ora",
@@ -1104,9 +1104,9 @@
   },
   "partners": {
     "hero": {
-      "badge": "Partnership Globali",
+      "badge": "Piú forti insieme",
       "title": "Collabora con",
-      "description": "Unisciti alla nostra rete globale di partner per portare le soluzioni di sicurezza innovative di Hand Line a più lavoratori in tutto il mondo. Scopri le opportunità di partnership strategiche e distribuzione.",
+      "description": "Scopri le opportunità di partnership strategiche e distribuzione dei prodotti Hand Line e unisciti alla nostra rete di partner.",
       "partnerships": "Partnership Strategiche",
       "distribution": "Rete di Distribuzione",
       "stats": {
@@ -1120,11 +1120,11 @@
     "description": "Unisciti alla nostra rete globale di partner e distributori per portare le soluzioni di sicurezza innovative di Hand Line a più lavoratori in tutto il mondo.",
     "strategic": {
       "title": "Partnership Strategiche",
-      "description": "Cerchiamo leader del settore per collaborare a soluzioni di sicurezza innovative. Costruisci un'alleanza strategica con Hand Line.",
+      "description": "Vuoi promuovere e vendere i tuoi DPI attraverso Hand Line? Cerchiamo leader del settore per ampliare la nostra offerta con soluzioni di sicurezza innovative.",
       "cta": "Esplora Partnership"
     },
     "distribution": {
-      "title": "Rete di Distribuzione",
+      "title": "Distribuzione prodotti Hand Line",
       "description": "Unisciti alla nostra crescente rete di distributori per portare i prodotti di sicurezza Hand Line nella tua regione. Forniamo supporto completo e margini competitivi.",
       "cta": "Diventa Distributore"
     },
@@ -1142,7 +1142,7 @@
         "description": "Compila il modulo sottostante per discutere opportunità di partnership con il nostro team.",
         "emailAlternative": "In alternativa, inviaci un'email direttamente a",
         "emailAddress": "partnerships@handlineco.com",
-        "fullName": "Nome Completo",
+        "fullName": "Nome",
         "fullNamePlaceholder": "Il tuo nome completo",
         "company": "Azienda",
         "companyPlaceholder": "Il nome della tua azienda",
@@ -1150,9 +1150,9 @@
         "emailPlaceholder": "tua.email@azienda.com",
         "phone": "Telefono (Opzionale)",
         "phonePlaceholder": "Il tuo numero di telefono",
-        "details": "Dettagli Partnership",
+        "details": "Messaggio",
         "detailsPlaceholder": "Parlaci dei tuoi interessi di partnership e di come potremmo collaborare...",
-        "submit": "Invia Richiesta Partnership",
+        "submit": "Invia Richiesta",
         "submitting": "Invio in corso...",
         "successTitle": "Richiesta partnership inviata",
         "successMessage": "Grazie per il tuo interesse. Ti contatteremo presto all'indirizzo ",
@@ -1175,7 +1175,7 @@
         "description": "Compila il modulo sottostante per discutere opportunità di distribuzione nella tua regione.",
         "emailAlternative": "In alternativa, inviaci un'email direttamente a",
         "emailAddress": "distribution@handlineco.com",
-        "fullName": "Nome Completo",
+        "fullName": "Nome",
         "fullNamePlaceholder": "Il tuo nome completo",
         "company": "Azienda",
         "companyPlaceholder": "Il nome della tua azienda",
@@ -1185,9 +1185,9 @@
         "phonePlaceholder": "Il tuo numero di telefono",
         "country": "Paese",
         "countryPlaceholder": "Il tuo paese o regione di operatività",
-        "details": "Dettagli Distribuzione",
+        "details": "Messaggio",
         "detailsPlaceholder": "Parlaci delle tue capacità di distribuzione, della tua portata di mercato e del motivo per cui sei interessato ai prodotti Hand Line...",
-        "submit": "Invia Richiesta Distribuzione",
+        "submit": "Invia Richiesta",
         "submitting": "Invio in corso...",
         "successTitle": "Richiesta distribuzione inviata",
         "successMessage": "Grazie per il tuo interesse. Ti contatteremo presto all'indirizzo ",
@@ -1288,5 +1288,12 @@
         "lastUpdated": "Ultimo aggiornamento: 4 agosto 2025"
       }
     }
+  },
+  "forms": {
+    "privacyConsent": "Accetto l'",
+    "privacyPolicy": "Informativa sulla Privacy",
+    "and": "e i",
+    "terms": "Termini di Servizio",
+    "privacyConsentError": "Devi accettare l'informativa sulla privacy e i termini di servizio"
   }
 } 

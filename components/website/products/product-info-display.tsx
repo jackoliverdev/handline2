@@ -31,7 +31,7 @@ interface ProductInfoDisplayProps {
 const getBrandLogo = (brandName: string) => {
   switch (brandName) {
     case 'Hand Line':
-      return '/brands/HLC_Scritta.png';
+      return '/brands/HL_word_logo.PNG';
     case 'ProGloves Heat':
       return '/brands/proheat.png';
     case 'ProGloves Cut':
@@ -151,13 +151,41 @@ export const ProductInfoDisplay: React.FC<ProductInfoDisplayProps> = ({
                       key={index}
                       className="relative flex items-center bg-white dark:bg-gray-800 border border-brand-primary/20 rounded px-2 py-1 h-6 w-auto"
                     >
+                      {/* Light mode image */}
                       <Image
                         src={logoPath}
                         alt={brand}
                         width={60}
                         height={20}
-                        className="object-contain dark:invert"
+                        className="object-contain block dark:hidden"
                       />
+                      {/* Dark mode image with partial invert */}
+                      <div className="hidden dark:block relative">
+                        <Image
+                          src={logoPath}
+                          alt={brand}
+                          width={60}
+                          height={20}
+                          className="object-contain"
+                        />
+                        {/* Invert overlay for left 55% */}
+                        <div 
+                          className="absolute inset-0 invert"
+                          style={{
+                            clipPath: 'inset(0 45% 0 0)',
+                            width: '60px',
+                            height: '20px'
+                          }}
+                        >
+                          <Image
+                            src={logoPath}
+                            alt={brand}
+                            width={60}
+                            height={20}
+                            className="object-contain"
+                          />
+                        </div>
+                      </div>
                     </div>
                   );
                 } else {

@@ -19,6 +19,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/context/language-context";
+import { Checkbox } from "@/components/ui/checkbox";
+import Link from "next/link";
 
 // Partnership form schema
 const partnershipFormSchema = z.object({
@@ -27,6 +29,9 @@ const partnershipFormSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
   phone: z.string().optional(),
   message: z.string().min(10, 'Message must be at least 10 characters'),
+  privacyConsent: z.boolean().refine(val => val === true, {
+    message: 'You must agree to the privacy policy and terms of service',
+  }),
 });
 
 // Distribution form schema
@@ -36,6 +41,9 @@ const distributionFormSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
   phone: z.string().optional(),
   message: z.string().min(10, 'Message must be at least 10 characters'),
+  privacyConsent: z.boolean().refine(val => val === true, {
+    message: 'You must agree to the privacy policy and terms of service',
+  }),
 });
 
 type PartnershipFormValues = z.infer<typeof partnershipFormSchema>;
@@ -53,6 +61,7 @@ function PartnershipSection() {
       email: '',
       phone: '',
       message: '',
+      privacyConsent: false,
     },
   });
 
@@ -188,6 +197,35 @@ function PartnershipSection() {
               )}
             />
 
+            <FormField
+              control={form.control}
+              name="privacyConsent"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 pt-2">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                      className="mt-1"
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel className="text-sm text-brand-secondary dark:text-gray-300 leading-relaxed font-normal">
+                      {t('forms.privacyConsent')}{' '}
+                      <Link href="/legal?tab=privacy" className="text-brand-primary hover:underline">
+                        {t('forms.privacyPolicy')}
+                      </Link>{' '}
+                      {t('forms.and')}{' '}
+                      <Link href="/legal?tab=terms" className="text-brand-primary hover:underline">
+                        {t('forms.terms')}
+                      </Link>
+                    </FormLabel>
+                    <FormMessage />
+                  </div>
+                </FormItem>
+              )}
+            />
+
             <Button
               type="submit"
               disabled={isSubmitting}
@@ -227,6 +265,7 @@ function DistributionSection() {
       email: '',
       phone: '',
       message: '',
+      privacyConsent: false,
     },
   });
 
@@ -358,6 +397,35 @@ function DistributionSection() {
                     />
                   </FormControl>
                   <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="privacyConsent"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 pt-2">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                      className="mt-1"
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel className="text-sm text-brand-secondary dark:text-gray-300 leading-relaxed font-normal">
+                      {t('forms.privacyConsent')}{' '}
+                      <Link href="/legal?tab=privacy" className="text-brand-primary hover:underline">
+                        {t('forms.privacyPolicy')}
+                      </Link>{' '}
+                      {t('forms.and')}{' '}
+                      <Link href="/legal?tab=terms" className="text-brand-primary hover:underline">
+                        {t('forms.terms')}
+                      </Link>
+                    </FormLabel>
+                    <FormMessage />
+                  </div>
                 </FormItem>
               )}
             />

@@ -214,7 +214,18 @@ export async function getFeaturedProducts(language: Language): Promise<{ product
       features: Array.isArray(product.features) ? product.features : [],
       applications: Array.isArray(product.applications) ? product.applications : [],
       industries: Array.isArray(product.industries) ? product.industries : [],
-      additional_images: Array.isArray(product.additional_images) ? product.additional_images : []
+      additional_images: Array.isArray(product.additional_images) ? product.additional_images : [],
+      // New extended fields with proper defaults
+      brands: Array.isArray(product.brands) ? product.brands : [],
+      tags_locales: product.tags_locales && typeof product.tags_locales === 'object' ? product.tags_locales : {},
+      size_locales: product.size_locales && typeof product.size_locales === 'object' ? product.size_locales : null,
+      length_cm: product.length_cm || null,
+      ce_category: product.ce_category || null,
+      published: product.published ?? false,
+      coming_soon: product.coming_soon ?? false,
+      availability_status: product.availability_status || 'in_stock',
+      safety: product.safety && typeof product.safety === 'object' ? product.safety : {},
+      environment_pictograms: product.environment_pictograms && typeof product.environment_pictograms === 'object' ? product.environment_pictograms : {}
     }, language));
     console.log(`Fetched ${products.length} featured products`);
     return { products };

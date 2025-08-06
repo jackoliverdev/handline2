@@ -43,6 +43,9 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
     // Locale fields for basic info
     industry_name_locales: Record<string, string>;
     description_locales: Record<string, string>;
+    // Showcase fields
+    showcase_description: string;
+    showcase_description_locales: Record<string, string>;
     // New structured content fields
     summary_content_locales: Record<string, string>;
     summary_content_image_url: string;
@@ -68,6 +71,9 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
     // Locale fields for basic info
     industry_name_locales: {},
     description_locales: {},
+    // Showcase fields
+    showcase_description: "",
+    showcase_description_locales: {},
     // New structured content fields
     summary_content_locales: {},
     summary_content_image_url: "",
@@ -108,6 +114,7 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
   // State for basic info with language switching
   const [currentIndustryName, setCurrentIndustryName] = useState('');
   const [currentDescription, setCurrentDescription] = useState('');
+  const [currentShowcaseDescription, setCurrentShowcaseDescription] = useState('');
   
   // Helper functions for basic info localized content
   const updateIndustryName = (lang: 'en' | 'it', name: string) => {
@@ -125,6 +132,16 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
       ...prev,
       description_locales: {
         ...prev.description_locales,
+        [lang]: description
+      }
+    }));
+  };
+
+  const updateShowcaseDescription = (lang: 'en' | 'it', description: string) => {
+    setIndustry(prev => ({
+      ...prev,
+      showcase_description_locales: {
+        ...prev.showcase_description_locales,
         [lang]: description
       }
     }));
@@ -203,7 +220,8 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
     setCurrentSections(industry.sections_locales[currentLanguage] || []);
     setCurrentIndustryName(industry.industry_name_locales[currentLanguage] || '');
     setCurrentDescription(industry.description_locales[currentLanguage] || '');
-  }, [currentLanguage, industry.summary_content_locales, industry.sections_locales, industry.industry_name_locales, industry.description_locales]);
+    setCurrentShowcaseDescription(industry.showcase_description_locales[currentLanguage] || '');
+  }, [currentLanguage, industry.summary_content_locales, industry.sections_locales, industry.industry_name_locales, industry.description_locales, industry.showcase_description_locales]);
 
   // Helper functions for individual related products
   const addRelatedProduct = (productId: string) => {
@@ -295,6 +313,9 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
             // Locale fields for basic info
             industry_name_locales: data.industry_name_locales || {},
             description_locales: data.description_locales || {},
+            // Showcase fields
+            showcase_description: data.showcase_description || "",
+            showcase_description_locales: data.showcase_description_locales || {},
             // New structured content fields
             summary_content_locales: data.summary_content_locales || {},
             summary_content_image_url: data.summary_content_image_url || "",
@@ -379,6 +400,7 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
       JSON.stringify(industry.related_products) !== JSON.stringify(originalIndustry.related_products) ||
       JSON.stringify(industry.industry_name_locales) !== JSON.stringify(originalIndustry.industry_name_locales) ||
       JSON.stringify(industry.description_locales) !== JSON.stringify(originalIndustry.description_locales) ||
+      JSON.stringify(industry.showcase_description_locales) !== JSON.stringify(originalIndustry.showcase_description_locales) ||
       JSON.stringify(industry.summary_content_locales) !== JSON.stringify(originalIndustry.summary_content_locales) ||
       JSON.stringify(industry.sections_locales) !== JSON.stringify(originalIndustry.sections_locales) ||
       industry.related_product_id_1 !== originalIndustry.related_product_id_1 ||
@@ -485,6 +507,12 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
     updateDescription(currentLanguage, value);
   };
 
+  const handleShowcaseDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    setCurrentShowcaseDescription(value);
+    updateShowcaseDescription(currentLanguage, value);
+  };
+
   const handleRelatedProductsChange = (selectedValue: string) => {
     setIndustry((prev) => ({
       ...prev,
@@ -557,25 +585,26 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
       const updatedIndustry = await updateIndustry(industry.id, {
         industry_name: industry.industry_name,
         description: industry.description,
-        content: null, // No longer used but kept for interface compatibility
-        image_url: industry.image_url || null,
-        feature_image_url: industry.feature_image_url || null,
-        summary_content_image_url: industry.summary_content_image_url || null,
-        related_products: industry.related_products || null,
+        image_url: industry.image_url,
+        feature_image_url: industry.feature_image_url,
+        related_products: industry.related_products,
         industry_name_locales: industry.industry_name_locales || null,
         description_locales: industry.description_locales || null,
+        showcase_description: industry.showcase_description || undefined,
+        showcase_description_locales: industry.showcase_description_locales || null,
         summary_content_locales: industry.summary_content_locales || null,
         sections_locales: industry.sections_locales || null,
-        related_product_id_1: industry.related_product_id_1 || null,
-        related_product_id_2: industry.related_product_id_2 || null,
-        related_product_id_3: industry.related_product_id_3 || null,
-        related_product_id_4: industry.related_product_id_4 || null,
-        related_product_id_5: industry.related_product_id_5 || null,
-        related_product_id_6: industry.related_product_id_6 || null,
-        related_product_id_7: industry.related_product_id_7 || null,
-        related_product_id_8: industry.related_product_id_8 || null,
-        related_product_id_9: industry.related_product_id_9 || null,
-        related_product_id_10: industry.related_product_id_10 || null
+        summary_content_image_url: industry.summary_content_image_url || null,
+        related_product_id_1: industry.related_product_id_1,
+        related_product_id_2: industry.related_product_id_2,
+        related_product_id_3: industry.related_product_id_3,
+        related_product_id_4: industry.related_product_id_4,
+        related_product_id_5: industry.related_product_id_5,
+        related_product_id_6: industry.related_product_id_6,
+        related_product_id_7: industry.related_product_id_7,
+        related_product_id_8: industry.related_product_id_8,
+        related_product_id_9: industry.related_product_id_9,
+        related_product_id_10: industry.related_product_id_10
       });
       
       setOriginalIndustry({
@@ -661,6 +690,49 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {/* Main Content Column */}
           <div className="md:col-span-2 space-y-6">
+            {/* Showcase Details Card */}
+            <Card className="p-2 sm:p-0">
+              <CardHeader>
+                <CardTitle className="text-base sm:text-lg">Showcase Details</CardTitle>
+                <CardDescription className="text-xs sm:text-sm">
+                  Content displayed on the front-end industry showcase and hero sections
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {/* Language Selector */}
+                <div className="flex items-center gap-2">
+                  <Label className="text-xs sm:text-sm">Language:</Label>
+                  <Select value={currentLanguage} onValueChange={(value: 'en' | 'it') => setCurrentLanguage(value)}>
+                    <SelectTrigger className="w-32 text-xs sm:text-sm h-8 sm:h-10">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="en">English</SelectItem>
+                      <SelectItem value="it">Italian</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="showcase_description" className="text-xs sm:text-sm">
+                    Showcase Description
+                  </Label>
+                  <Textarea
+                    id="showcase_description"
+                    name="showcase_description"
+                    value={currentShowcaseDescription}
+                    onChange={handleShowcaseDescriptionChange}
+                    placeholder="Enter a brief, compelling description for the industry showcase/hero section..."
+                    className="min-h-[80px] sm:min-h-[100px] text-xs sm:text-sm"
+                  />
+                  <p className="text-xs sm:text-sm text-muted-foreground">
+                    This description appears in hero sections and industry showcases. Keep it concise and engaging.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Industry Details Card */}
             <Card className="p-2 sm:p-0">
               <CardHeader>
                 <CardTitle className="text-base sm:text-lg">Industry Details</CardTitle>

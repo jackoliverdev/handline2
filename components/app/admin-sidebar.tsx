@@ -144,7 +144,7 @@ export function AdminSidebar({ className }: AdminSidebarProps) {
             </div>
             {!isCollapsed && (
               <div className="flex items-center">
-                <span className="text-lg font-semibold text-[#121926] dark:text-[#E0E0E0]">HandLine</span>
+                <span className="text-lg font-semibold text-[#121926] dark:text-[#E0E0E0]">Hand Line</span>
                 <span className="text-xs ml-1 px-1.5 py-0.5 rounded-sm bg-[#F1F5F9] text-brand-primary dark:bg-[#212121] dark:text-brand-primary font-medium">Admin Panel</span>
               </div>
             )}

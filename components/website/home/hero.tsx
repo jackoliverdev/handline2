@@ -13,7 +13,7 @@ export const Hero = () => {
   const { t } = useLanguage();
 
   return (
-    <div className="relative mb-6 sm:mb-16 md:mb-32 bg-[#F5EFE0] dark:bg-background">
+    <div className="relative mb-6 sm:mb-16 md:mb-32 pb-8 sm:pb-6 md:pb-4 lg:pb-2 xl:pb-0 bg-[#F5EFE0] dark:bg-background">
       {/* Background section with slanted edge */}
       <section 
         className="relative pt-28 md:pt-32 pb-16 md:pb-32 bg-[#F5EFE0] dark:bg-background [clip-path:polygon(0_0,100%_0,100%_82%,0_72%)] md:[clip-path:polygon(0_0,100%_0,100%_95%,0_82%)]"
@@ -32,10 +32,10 @@ export const Hero = () => {
           <div className="absolute inset-0 bg-black/30"></div>
         </div>
         
-        <div className="container mx-auto px-6 relative">
-          <div className="flex flex-col lg:grid lg:grid-cols-2 items-center gap-6">
+        <div className="container mx-auto px-6 relative max-w-7xl">
+          <div className="flex flex-col xl:grid xl:grid-cols-2 items-center gap-6 xl:gap-16">
             {/* Text Content */}
-            <div className="flex flex-col space-y-3 mb-2 sm:mb-0 w-full">
+            <div className="flex flex-col space-y-3 md:space-y-4 mb-2 sm:mb-0 w-full xl:pr-12">
               {/* Badge */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.5 }}
@@ -58,7 +58,7 @@ export const Hero = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ ...SPRING_CONFIG, delay: 0.1 }}
               >
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight font-heading">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight font-heading">
                   <span className="text-white drop-shadow-md block">{t('hero.mainTitle.handline')}</span>
                   <span className="text-white drop-shadow-md">{t('hero.mainTitle.weSpeak')} </span>
                   <span className="text-brand-primary drop-shadow-md">{t('hero.mainTitle.safety')}</span>
@@ -71,7 +71,7 @@ export const Hero = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ ...SPRING_CONFIG, delay: 0.2 }}
               >
-                <p className="max-w-2xl text-base md:text-lg text-white/90 drop-shadow-sm">
+                <p className="max-w-2xl xl:max-w-none text-base md:text-lg xl:text-xl text-white/90 drop-shadow-sm">
                   {t('hero.description')}
                 </p>
               </motion.div>
@@ -105,14 +105,14 @@ export const Hero = () => {
             </div>
             
             {/* Placeholder for gloves */}
-            <div className="relative w-full h-[300px] sm:h-[350px] md:h-[400px]"></div>
+            <div className="relative w-full h-[300px] sm:h-[350px] md:h-[450px] lg:h-[500px] xl:h-[550px]"></div>
           </div>
         </div>
       </section>
       
       {/* Static Gloves Image - positioned outside the clipped section */}
       <div 
-        className="absolute left-1/2 -translate-x-1/2 top-[48%] md:translate-x-0 md:left-auto md:right-[10%] lg:right-[12%] md:top-12"
+        className="absolute left-1/2 -translate-x-1/2 top-[48%] xl:translate-x-0 xl:left-auto xl:right-[8%] 2xl:right-[12%] xl:top-24"
         style={{ 
           zIndex: 2,
           pointerEvents: 'auto'
@@ -122,7 +122,7 @@ export const Hero = () => {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ ...SPRING_CONFIG, delay: 0.4 }}
-          className="w-[420px] h-[440px] sm:w-[500px] sm:h-[530px] md:w-[650px] md:h-[650px] lg:w-[700px] lg:h-[700px] relative"
+          className="w-[520px] h-[540px] sm:w-[600px] sm:h-[630px] md:w-[820px] md:h-[680px] lg:w-[900px] lg:h-[740px] xl:w-[950px] xl:h-[780px] 2xl:w-[1000px] 2xl:h-[820px] relative"
         >
           <Image
             src="/glovecats/49K-C_A.webp"
