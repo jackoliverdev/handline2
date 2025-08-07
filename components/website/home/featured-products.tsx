@@ -513,7 +513,7 @@ export const FeaturedProducts = () => {
                           >
                             <Eye className="mr-0.5 sm:mr-1.5 h-3 w-3 sm:h-4 sm:w-4" />
                             <span className="hidden sm:inline">{t('featuredProducts.preview')}</span>
-                            <span className="sm:hidden">View</span>
+                            <span className="sm:hidden">{t('featuredProducts.previewShort')}</span>
                           </Button>
                           
                           <Button 

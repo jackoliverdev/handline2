@@ -326,6 +326,7 @@
     "description": "Discover our most popular safety gloves, designed to provide superior protection and comfort across different industrial applications.",
     "noProducts": "No featured products available at the moment.",
     "preview": "Preview",
+    "previewShort": "View",
     "details": "Details",
     "viewAll": "View all products",
     "specs": {
@@ -895,6 +896,8 @@
       "description": "Our team is ready to assist with your industrial safety glove requirements."
     },
     "form": {
+      "title": "Get in Touch",
+      "description": "Fill out the form below and we'll get back to you as soon as possible.",
       "name": "Full Name",
       "namePlaceholder": "Enter your full name",
       "company": "Company",
@@ -907,6 +910,18 @@
       "messagePlaceholder": "Tell us how we can help you...",
       "submit": "Send Message",
       "submitting": "Sending...",
+      "fields": {
+        "name": "Full Name",
+        "namePlaceholder": "Enter your full name",
+        "company": "Company",
+        "companyPlaceholder": "Enter your company name (optional)",
+        "email": "Email Address",
+        "emailPlaceholder": "Enter your email address",
+        "subject": "Subject",
+        "subjectPlaceholder": "What is this regarding?",
+        "message": "Message",
+        "messagePlaceholder": "Tell us how we can help you..."
+      },
       "success": {
         "title": "Message Sent!",
         "description": "Thank you for contacting us. We'll get back to you within 24 hours."
