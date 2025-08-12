@@ -5,7 +5,7 @@ import { SectorsSection } from "@/components/website/industries/components/Secto
 import { cookies } from "next/headers";
 
 export const metadata: Metadata = {
-  title: "Industry Solutions | HandLine Company",
+  title: "Industry Solutions | Hand Line",
   description: "Explore HandLine's tailored safety solutions for a wide range of industries, including manufacturing, construction, chemical processing, and more.",
 };
 

@@ -490,7 +490,7 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
         
         <div>
           {/* Filters and sorting */}
-          <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-[1fr,auto]">
+          <div id="product-grid" className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-[1fr,auto]" style={{ scrollMarginTop: '100px' }}>
             {/* Search */}
             <div className="relative">
               <Input

@@ -157,7 +157,7 @@ export function IndustryDetail({ industry, relatedProducts }: { industry: any, r
                         className="bg-white/10 text-white border-white/30 hover:bg-white/20 hover:border-white/50 backdrop-blur-sm font-semibold px-6 py-2.5 sm:px-8 sm:py-3 rounded-xl text-sm sm:text-base"
                         asChild
                       >
-                        <Link href="/products">
+                         <Link href="/products#product-grid">
                           {t('industries.viewSolutions')}
                         </Link>
                       </Button>
@@ -239,7 +239,7 @@ export function IndustryDetail({ industry, relatedProducts }: { industry: any, r
                     className="border-brand-primary text-brand-primary hover:bg-brand-primary/10 font-semibold px-8 py-3 rounded-xl"
                     asChild
                   >
-                    <Link href="/products">
+                     <Link href="/products#product-grid">
                       {t('industries.viewSolutions')}
                     </Link>
                   </Button>
@@ -406,7 +406,7 @@ export function IndustryDetail({ industry, relatedProducts }: { industry: any, r
                   className="bg-brand-primary hover:bg-brand-primary/90 text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl transform"
                   asChild
                 >
-                  <Link href="/products" className="flex items-center gap-2">
+                    <Link href="/products#product-grid" className="flex items-center gap-2">
                     <Package className="h-5 w-5" />
                     {t('industryCta.buttons.browseProducts')}
                   </Link>

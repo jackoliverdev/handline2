@@ -6,7 +6,7 @@ import { useLanguage } from "@/lib/context/language-context";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Zap } from "lucide-react";
-import Link from "next/link";
+// Removed Link; badge should not be clickable
 
 interface WeldingProductsSectionProps {
   products: Product[];
@@ -69,20 +69,18 @@ export function WeldingProductsSection({ products }: WeldingProductsSectionProps
       <div className="container mx-auto px-4 sm:px-6">
         <div className="text-center mb-12">
           <div className="flex flex-col items-center">
-            <Link href="/products/gloves/welding" className="inline-block transition-transform duration-300 mb-4">
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.1 }}
-                className="inline-flex items-center rounded-full bg-white/80 dark:bg-black/60 px-3 py-1 text-xs sm:text-sm border border-[#F28C38] backdrop-blur-sm cursor-pointer"
-              >
-                <Zap className="mr-1.5 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 text-[#F28C38]" />
-                <span className="text-brand-dark dark:text-white font-medium font-heading">
-                  {t('products.categories.pages.welding.badge')}
-                </span>
-              </motion.div>
-            </Link>
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="inline-flex items-center rounded-full bg-white/80 dark:bg-black/60 px-3 py-1 text-xs sm:text-sm border border-[#F28C38] backdrop-blur-sm mb-4"
+            >
+              <Zap className="mr-1.5 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 text-[#F28C38]" />
+              <span className="text-brand-dark dark:text-white font-medium font-heading">
+                {t('products.categories.pages.welding.badge')}
+              </span>
+            </motion.div>
             <div className="inline-flex items-center justify-center mb-4">
               <motion.div 
                 initial={{ width: 0 }}

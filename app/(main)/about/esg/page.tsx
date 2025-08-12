@@ -5,7 +5,7 @@ import { EsgCertification } from "@/components/website/about/esg-certification";
 import { EsgCta } from "@/components/website/about/esg-cta";
 
 export const metadata: Metadata = {
-  title: "ESG Commitment | HandLine Company",
+  title: "ESG Commitment | Hand Line",
   description: "Discover HandLine's commitment to Environmental, Social, and Governance principles. Learn about our sustainability initiatives and ethical business practices.",
 };
 

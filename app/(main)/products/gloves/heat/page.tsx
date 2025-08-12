@@ -5,7 +5,7 @@ import { CategoryInfo } from "@/components/website/products/category-info";
 import { ProductGrid } from "@/components/website/products/product-grid";
 
 export const metadata: Metadata = {
-  title: "Heat-Resistant Gloves | HandLine Company",
+  title: "Heat-Resistant Gloves | Hand Line",
   description: "Advanced thermal protection gloves for high-temperature environments up to 350°C. Superior heat resistance with comfort and dexterity.",
 };
 

@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { ReactNode } from "react";
 import { LanguageProvider } from "@/lib/context/language-context";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
+import CookieConsent from "@/components/website/common/cookie-consent";
 
 // Load Montserrat font for headings (weights: 600, 700)
 const montserrat = Montserrat({
@@ -24,9 +25,9 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Hand Line Company | Industrial Safety Gloves",
+  title: "Hand Line | Safety Gloves and PPE",
   description:
-    "Hand Line Company - Italian manufacturer of high-performance safety gloves and hand protection for industrial settings. 40+ years of expertise in heat-resistant and cut-resistant gloves.",
+    "Hand Line – Italian manufacturer of high-performance safety gloves and PPE for industrial settings. 40+ years of expertise in heat-resistant and cut-resistant gloves.",
   viewport: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
   icons: {
     icon: "/Logo-HLC.png",
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <RoleProvider>
               {children}
               <Toaster />
+              <CookieConsent />
             </RoleProvider>
           </MyFirebaseProvider>
         </LanguageProvider>

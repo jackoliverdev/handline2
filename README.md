@@ -1,34 +1,103 @@
-# Venefish 🐟
+# Hand Line Company – Website
 
-### Boilerplate for React TypeScript projects using Next.js, shadcn/ui, Tailwind and Firebase on Vercel!
+Modern, multilingual website for Hand Line Company, an Italian manufacturer of industrial safety gloves. Built with Next.js (App Router), TypeScript, Tailwind CSS, shadcn/ui, Firebase (authentication), Supabase (data), Resend (email), and Google Maps for contact and location features.
 
-> Now using Next.js app router!
+We speak SAFETY. Design is clear, just like our mission. We protect your hands – evolution, not revolution.
 
-This stack is 🔥 because projects can be built and deployed for free until you get to higher tiers within Vercel/Firebase which only happens once you get lots of DAUs.
+## Tech stack
 
-- **Ve**rcel for cloud and automated deployments
-- **Ne**xt.js for better React
-- **Fi**rebase for auth and database (Firestore)
-- **Sh**adcn and Tailwind for UI/styling
+- Next.js (App Router) and React with TypeScript
+- Tailwind CSS and shadcn/ui
+- Firebase Authentication and optional Firebase Admin SDK
+- Supabase (PostgreSQL) for structured data
+- Resend for transactional emails (contact, partnerships, distribution, product enquiries)
+- Google Maps JavaScript & Static Maps APIs for the contact map
+- Deployed to Vercel
 
-**Let me know if you have any questions! Godspeed.**
+## Getting started
 
-## Setup
+1. Ensure you have Node.js LTS installed.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create `.env.local` at the project root and populate the environment variables below.
+4. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-1. Make sure your Firebase project has authentication added
-1. Get your public Firebase config and paste it into `components\firebase-providers.tsx`
-1. `npm i` and `npm run dev`
+## Environment variables (.env.local)
 
-The following is only needed if you want to use `firebase/admin` (not part of this project by default)
+Set the following variables for local development and in your Vercel project settings for production. Never expose server-only secrets (e.g. service role keys) to the client.
 
-1. Create a new file at the root level called `.env.local`
-1. Define a new variable there called `FIREBASE_ADMIN_SDK`
-1. Get your Firebase service account private key and stringify it then set the above variable to that string
-   > e.g.: `FIREBASE_ADMIN_SDK={"type":"service_account","project_id":"sleeptoken",...}`
+### Firebase Admin (server-only)
 
-### Notes
+Used when initialising `firebase-admin` for server-side tasks.
 
-- You can use `api/test.ts` to stringify your private key so you can use in in the environment
-- You need to define the same `FIREBASE_ADMIN_SDK` environment variable in Vercel
+```bash
+# JSON string of your Firebase service account
+FIREBASE_ADMIN_SDK={"type":"service_account","project_id":"your-project-id","private_key":"-----BEGIN PRIVATE KEY-----\\n...\\n-----END PRIVATE KEY-----\\n","client_email":"firebase-adminsdk@your-project-id.iam.gserviceaccount.com"}
+```
 
-**Created by [⬡ Enesien Software](https://enesien.com)**
+### Firebase client config (recommended)
+
+If you prefer not to hard-code the Firebase web config, move it to environment variables and update `components/firebase-providers.tsx` to read from these variables:
+
+```bash
+NEXT_PUBLIC_FIREBASE_API_KEY=
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
+NEXT_PUBLIC_FIREBASE_APP_ID=
+# Optional
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=
+```
+
+### Supabase
+
+The client uses the public URL and anon key. The service role key is optional for server-side admin tasks only.
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+
+# Server-only (never expose to the browser)
+SUPABASE_SERVICE_ROLE_KEY=
+```
+
+### Google Maps API
+
+Required for the contact map (`components/website/contact/contact-info-1.tsx`).
+
+```bash
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=
+```
+
+### Resend API (emails)
+
+Used for contact, partnership, distribution, and product enquiry forms handled via server routes.
+
+```bash
+RESEND_API_KEY=
+```
+
+## Scripts
+
+```bash
+npm run dev    # Start development server
+npm run build  # Build for production
+npm run start  # Start production server
+npm run lint   # Lint the codebase
+```
+
+## Notes
+
+- Keep server-only secrets (`FIREBASE_ADMIN_SDK`, `SUPABASE_SERVICE_ROLE_KEY`, etc.) off the client. Do not prefix them with `NEXT_PUBLIC_`.
+- Ensure rate limiting and validation on API routes handling form submissions.
+- For production, configure the same environment variables in Vercel.
+
+---
+
+Created by [Jack Oliver Dev](https://jackodev.vercel.app/)

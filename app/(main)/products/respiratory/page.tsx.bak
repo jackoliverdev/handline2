@@ -5,7 +5,7 @@ import { CategoryInfo } from "@/components/website/products/category-info";
 import { RespiratoryProductsSection } from "./RespiratoryProductsSection";
 
 export const metadata: Metadata = {
-  title: "Respiratory Protection | HandLine Company",
+  title: "Respiratory Protection | Hand Line",
   description: "Advanced respiratory protection equipment for hazardous environments. Professional-grade masks and breathing apparatus.",
 };
 

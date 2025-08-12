@@ -10,10 +10,12 @@ export function LegalTabs() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { t, language } = useLanguage();
-  const tab = searchParams?.get("tab") || "terms";
+  const tabParam = searchParams?.get("tab") || "terms";
+  const validTabs = ["terms", "privacy", "cookies"] as const;
+  const tab = (validTabs as readonly string[]).includes(tabParam) ? tabParam : "terms";
 
   const handleTabChange = (value: string) => {
-    router.push(`/legal?tab=${value}`);
+    router.push(`/legal?tab=${value}` , { scroll: false });
   };
 
   // Get content based on current language
@@ -25,7 +27,7 @@ export function LegalTabs() {
   return (
     <div className="w-full bg-brand-light dark:bg-background pb-16">
       <div className="container py-4 md:py-6">
-        <Tabs defaultValue={tab} onValueChange={handleTabChange} className="w-full">
+        <Tabs value={tab} onValueChange={handleTabChange} className="w-full">
           <div className="flex justify-center mb-8">
             <TabsList className="grid w-full max-w-lg grid-cols-3 border border-brand-primary/10 dark:border-brand-primary/20 bg-white dark:bg-black/50 backdrop-blur-sm">
               <TabsTrigger 

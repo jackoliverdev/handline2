@@ -5,7 +5,7 @@ import { CategoryInfo } from "@/components/website/products/category-info";
 import { IndustrialSwabsProductsSection } from "./IndustrialSwabsProductsSection";
 
 export const metadata: Metadata = {
-  title: "Industrial Swabs | HandLine Company",
+  title: "Industrial Swabs | Hand Line",
   description: "Specialised cleaning and maintenance solutions for industrial environments. High-quality swabs for precision cleaning tasks.",
 };
 

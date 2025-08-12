@@ -6,7 +6,7 @@ import { ProductGrid } from "@/components/website/products/product-grid";
 import { getAllProducts } from "@/lib/products-service";
 
 export const metadata: Metadata = {
-  title: "Product Categories | HandLine Company",
+  title: "Product Categories | Hand Line",
   description: "Explore our comprehensive range of industrial safety products including safety gloves, industrial swabs, and respiratory protection.",
 };
 
@@ -26,9 +26,7 @@ export default async function ProductsPage() {
       {/* Product Grid Section */}
       <section className="py-16">
         <div className="container mx-auto px-4 sm:px-6">
-          <div id="product-grid">            
-            <ProductGrid products={products} />
-          </div>
+          <ProductGrid products={products} />
         </div>
       </section>
     </main>

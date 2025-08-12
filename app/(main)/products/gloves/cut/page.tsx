@@ -5,7 +5,7 @@ import { CategoryInfo } from "@/components/website/products/category-info";
 import { CutProductsSection } from "./CutProductsSection";
 
 export const metadata: Metadata = {
-  title: "Cut-Resistant Gloves | HandLine Company",
+  title: "Cut-Resistant Gloves | Hand Line",
   description: "Superior cut protection gloves with Level 5 resistance. Advanced materials for maximum safety without compromising dexterity.",
 };
 

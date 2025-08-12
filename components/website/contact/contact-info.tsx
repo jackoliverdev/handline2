@@ -56,7 +56,7 @@ export function ContactInfo() {
         <p className="text-brand-secondary dark:text-gray-300 mb-6">{t('contact.info.description')}</p>
       </motion.div>
       <div className="space-y-6">
-        <Card className="p-6 bg-white dark:bg-black/50 border-brand-primary/10 dark:border-brand-primary/20 shadow-sm backdrop-blur-sm">
+        <Card className="p-6 bg-white dark:bg-black/50 border-0 shadow-sm backdrop-blur-sm">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-xl font-semibold text-brand-dark dark:text-white">{t('contact.info.contactInfoTitle')}</h3>
             
@@ -150,7 +150,7 @@ export function ContactInfo() {
           </div>
         </Card>
         
-        <Card className="p-6 bg-white dark:bg-black/50 border-brand-primary/10 dark:border-brand-primary/20 shadow-sm backdrop-blur-sm">
+        <Card className="p-6 bg-white dark:bg-black/50 border-0 shadow-sm backdrop-blur-sm">
           <h3 className="text-xl font-semibold mb-4 text-brand-dark dark:text-white">{t('contact.info.findUsTitle')}</h3>
 
           {/* OpenStreetMap iframe replacing Google Maps */}

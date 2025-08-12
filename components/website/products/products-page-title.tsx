@@ -3,7 +3,7 @@
 import { useLanguage } from '@/lib/context/language-context';
 import { motion } from "framer-motion";
 import { Package } from "lucide-react";
-import Link from "next/link";
+// Removed Link; the badge should not be clickable
 
 export function ProductsPageTitle() {
   const { t } = useLanguage();
@@ -11,20 +11,18 @@ export function ProductsPageTitle() {
   return (
     <div className="text-center mb-12">
       <div className="flex flex-col items-center">
-        <Link href="/products" className="inline-block transition-transform duration-300 mb-4">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.1 }}
-            className="inline-flex items-center rounded-full bg-white/80 dark:bg-black/60 px-3 py-1 text-xs sm:text-sm border border-brand-primary backdrop-blur-sm cursor-pointer"
-          >
-            <Package className="mr-1.5 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 text-brand-primary" />
-            <span className="text-brand-dark dark:text-white font-medium font-heading">
-              {t('products.badge')}
-            </span>
-          </motion.div>
-        </Link>
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="inline-flex items-center rounded-full bg-white/80 dark:bg-black/60 px-3 py-1 text-xs sm:text-sm border border-brand-primary backdrop-blur-sm mb-4"
+        >
+          <Package className="mr-1.5 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 text-brand-primary" />
+          <span className="text-brand-dark dark:text-white font-medium font-heading">
+            {t('products.badge')}
+          </span>
+        </motion.div>
         <div className="inline-flex items-center justify-center mb-4">
           <motion.div 
             initial={{ width: 0 }}

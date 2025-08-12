@@ -366,7 +366,7 @@
   "footer": {
     "companyDescription": "Italian manufacturer specialising in high-performance safety gloves for industrial environments. Protecting hands with innovative solutions since 1982.",
     "address": "via Antonio Brusa 34, 22035, Canzo (CO), Italy",
-    "phone": "+39 031 123 4567",
+      "phone": "T: (+39) 031 6121961 | (+39) 031 526733",
     "email": "info@handlineco.com",
     "sections": {
       "products": {
@@ -724,7 +724,7 @@
     },
     "different": {
       "badge": "Our Advantages",
-      "heading": "WHAT MAKES US DIFFERENT",
+      "heading": "What Makes Us Different",
       "description": "At Hand Line, we pride ourselves on several key differentiators that set us apart in the safety equipment industry.",
       "productQuality": {
         "title": "Excellence in",
@@ -807,7 +807,7 @@
     },
     "certifications": {
       "badge": "Quality Standards",
-      "heading": "Our Certifications",
+      "heading": "Our Commitments",
       "description": "Hand Line meets and exceeds the highest safety and quality standards in the industry, ensuring reliable protection for all users.",
       "mainStatement": "Our production follows the highest quality standards with ISO certification across production and value chain.",
       "types": {
@@ -949,8 +949,8 @@
       },
       "phone": {
         "title": "Telephone",
-        "content": "+39 031 123 4567",
-        "contentUK": "+39 031 123 4567"
+        "content": "T: (+39) 031 6121961 | (+39) 031 526733",
+        "contentUK": "T: (+39) 031 6121961 | (+39) 031 526733"
       },
       "email": {
         "title": "Email",

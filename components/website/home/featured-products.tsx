@@ -165,12 +165,46 @@ export const FeaturedProducts = () => {
 
   // Initialize scroll position to middle for infinite scroll
   useEffect(() => {
-    if (products.length > 0 && scrollContainerRef.current) {
-      const container = scrollContainerRef.current;
-      // Set initial position to start of second set for seamless scrolling
-      container.scrollLeft = container.scrollWidth / 3;
-    }
+    if (!scrollContainerRef.current) return;
+    const container = scrollContainerRef.current;
+    // Defer to next frame to ensure layout is measured correctly on bfcache restore
+    const id = requestAnimationFrame(() => {
+      if (!container) return;
+      if (products.length > 0) {
+        try {
+          const target = Math.floor(container.scrollWidth / 3);
+          // Only set if different to avoid layout thrash
+          if (Math.abs(container.scrollLeft - target) > 1) {
+            container.scrollLeft = target;
+          }
+        } catch {}
+      } else {
+        container.scrollLeft = 0;
+      }
+    });
+    return () => cancelAnimationFrame(id);
   }, [products]);
+
+  // Fix bfcache/back-button restoring a stale scrollLeft which hides cards
+  useEffect(() => {
+    const handlePageshow = (e: PageTransitionEvent) => {
+      if ((e as any).persisted && scrollContainerRef.current) {
+        // Force reflow/reset
+        scrollContainerRef.current.style.transform = 'translateZ(0)';
+        // Re-init scroll position after a tick
+        setTimeout(() => {
+          if (!scrollContainerRef.current) return;
+          const container = scrollContainerRef.current;
+          const target = Math.floor(container.scrollWidth / 3);
+          container.scrollLeft = products.length > 0 ? target : 0;
+          // Clear transform
+          container.style.transform = '';
+        }, 0);
+      }
+    };
+    window.addEventListener('pageshow', handlePageshow);
+    return () => window.removeEventListener('pageshow', handlePageshow);
+  }, [products.length]);
 
   // Handle infinite scroll on mobile touch scrolling
   useEffect(() => {
@@ -258,13 +292,12 @@ export const FeaturedProducts = () => {
   };
 
   // Triple the products array for seamless infinite scroll
-  const infiniteProducts = products.length > 0 ? [...products, ...products, ...products] : [];
+  const infiniteProducts = products.length > 0 ? [...products, ...products, ...products] : products;
   
   return (
     <motion.section 
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
+      animate="visible"
       variants={sectionVariants}
       className="pt-12 pb-12 md:pt-16 md:pb-16"
     >
@@ -360,7 +393,7 @@ export const FeaturedProducts = () => {
                 }
               `}</style>
               
-              {infiniteProducts.map((product, index) => {
+              {infiniteProducts.length === 0 ? null : infiniteProducts.map((product, index) => {
                 // Encode the product name for the URL
                 const encodedProductName = encodeURIComponent(product.name);
                 const originalIndex = index % products.length;
@@ -373,7 +406,7 @@ export const FeaturedProducts = () => {
                     className="min-w-[200px] sm:min-w-[280px] w-52 sm:w-72 flex-shrink-0 snap-start mr-3 sm:mr-5 product-card"
                   >
                     <div className="bg-white dark:bg-black/50 rounded-2xl overflow-hidden transition-all duration-500 h-full flex flex-col border border-gray-100 dark:border-gray-700/50 group">
-                      <Link href={`/products/${encodedProductName}`} className="block">
+                      <Link href={`/products/${encodedProductName}`} className="block" prefetch={false}>
                         <div className="relative h-40 sm:h-56 overflow-hidden cursor-pointer">
                           {product.image_url ? (
                             <motion.div
@@ -547,7 +580,7 @@ export const FeaturedProducts = () => {
           className="flex justify-center mt-7 sm:mt-9"
         >
           <Button asChild variant="default" className="group bg-brand-primary text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:bg-brand-primary/90 hover:scale-105 transform">
-            <Link href="/products" className="flex items-center gap-1.5">
+            <Link href="/products#product-grid" className="flex items-center gap-1.5">
               <Package className="h-4 w-4 sm:h-5 sm:w-5" />
               <span>{t('featuredProducts.viewAll')}</span>
               <motion.div
