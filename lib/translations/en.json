@@ -1493,6 +1493,11 @@
       }
     }
   },
+  "cookies": {
+    "message": "We use essential cookies to make this website work. With your consent, we will use analytics cookies to understand how you use our site and to improve our services. You can change your choice at any time in our",
+    "accept": "Accept",
+    "decline": "Decline"
+  },
   "common": {
     "and": "and"
   },

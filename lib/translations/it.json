@@ -1312,5 +1312,10 @@
     "terms": "Termini di Servizio",
     "privacyConsentError": "Devi accettare l'informativa sulla privacy e i termini di servizio",
     "submit": "Invia Richiesta"
+  },
+  "cookies": {
+    "message": "Utilizziamo cookie essenziali per il corretto funzionamento del sito. Con il tuo consenso useremo cookie di analisi per capire come utilizzi il sito e migliorare i nostri servizi. Puoi modificare la tua scelta in qualsiasi momento nella nostra",
+    "accept": "Accetta",
+    "decline": "Rifiuta"
   }
 } 
