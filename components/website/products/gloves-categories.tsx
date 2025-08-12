@@ -5,7 +5,6 @@ import { CategoryCard } from "./category-card";
 import { useLanguage } from "@/lib/context/language-context";
 import { motion } from "framer-motion";
 import { Shield } from "lucide-react";
-import Link from "next/link";
 
 export const GlovesCategories = () => {
   const { t } = useLanguage();
@@ -53,20 +52,18 @@ export const GlovesCategories = () => {
       <div className="container mx-auto px-4 sm:px-6">
         <div className="text-center mb-12">
           <div className="flex flex-col items-center">
-            <Link href="/products/gloves" className="inline-block transition-transform duration-300 mb-4">
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.1 }}
-                className="inline-flex items-center rounded-full bg-white dark:bg-black/50 px-4 py-2 text-xs sm:text-sm border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm cursor-pointer shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 group"
-              >
-                <Shield className="mr-1.5 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 text-brand-primary group-hover:scale-110 transition-transform duration-300" />
-                <span className="text-brand-dark dark:text-white font-medium font-heading">
-                  {t('products.categories.main.gloves.badge')}
-                </span>
-              </motion.div>
-            </Link>
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="inline-flex items-center rounded-full bg-white dark:bg-black/50 px-4 py-2 text-xs sm:text-sm border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm shadow-md transition-all duration-300 mb-4"
+            >
+              <Shield className="mr-1.5 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 text-brand-primary" />
+              <span className="text-brand-dark dark:text-white font-medium font-heading">
+                {t('products.categories.main.gloves.badge')}
+              </span>
+            </motion.div>
             <div className="inline-flex items-center justify-center mb-4">
               <motion.div 
                 initial={{ width: 0 }}

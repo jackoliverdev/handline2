@@ -1,7 +1,6 @@
 "use client";
 
 import { SignInForm } from "@/components/auth/sign-in-form";
-import { SignUpForm } from "@/components/auth/sign-up-form";
 import {
   Card,
   CardContent,
@@ -16,7 +15,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useLanguage } from '@/lib/context/language-context';
 
 export const AuthCard = () => {
-  const [isShowingSignUp, setIsShowingSignUp] = useState<boolean>(false);
+  // Temporarily disable sign-up — only show sign-in form
   const { data: user } = useUser();
   const router = useRouter();
   const { t } = useLanguage();
@@ -36,28 +35,22 @@ export const AuthCard = () => {
     <Card className="w-full border-border/40 shadow-lg bg-white dark:bg-black/50">
       <CardHeader className="space-y-1">
         <CardTitle className="text-2xl font-bold">
-          {isShowingSignUp ? t('auth.createAccount') : t('auth.welcomeBack')}
+          {t('auth.welcomeBack')}
         </CardTitle>
         <CardDescription className="text-sm text-muted-foreground">
-          {isShowingSignUp 
-            ? t('auth.signUpDesc')
-            : t('auth.signInDesc')}
+          {t('auth.signInDesc')}
         </CardDescription>
       </CardHeader>
       <CardContent>
         <AnimatePresence mode="wait">
           <motion.div
-            key={isShowingSignUp ? "signup" : "signin"}
+            key={"signin"}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
           >
-            {isShowingSignUp ? (
-              <SignUpForm onShowLogin={() => setIsShowingSignUp(false)} />
-            ) : (
-              <SignInForm onShowSignUp={() => setIsShowingSignUp(true)} />
-            )}
+            <SignInForm />
           </motion.div>
         </AnimatePresence>
       </CardContent>

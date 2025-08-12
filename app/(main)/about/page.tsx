@@ -6,7 +6,7 @@ import { CompanyHistory } from "@/components/website/about/company-history";
 import { Certifications } from "@/components/website/about/certifications";
 
 export const metadata: Metadata = {
-  title: "About Us - Hand Line | Safety Gloves & Industrial PPE",
+  title: "About Us | Hand Line",
   description: "Learn about Hand Line's commitment to safety innovation and quality manufacturing since 1981.",
 };
 

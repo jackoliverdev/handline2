@@ -130,7 +130,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
             </Link>
             <ChevronRight className="h-4 w-4 text-brand-primary/60" />
             <Link 
-              href="/products" 
+              href="/products#product-grid" 
               className="inline-flex items-center gap-1.5 text-brand-secondary hover:text-brand-primary dark:text-gray-400 dark:hover:text-brand-primary transition-colors duration-200 group"
             >
               <Package className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
@@ -152,7 +152,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
           asChild 
           className="mb-6 bg-white/90 dark:bg-black/70 hover:bg-white dark:hover:bg-black/90 border-brand-primary/30 dark:border-brand-primary/50 hover:border-brand-primary text-brand-primary hover:text-brand-primary transition-all duration-300 hover:scale-105 hover:shadow-lg backdrop-blur-sm group"
         >
-          <Link href="/products" className="flex items-center gap-2">
+          <Link href="/products#product-grid" className="flex items-center gap-2">
             <ChevronLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
             <Package className="h-4 w-4" />
             <span className="font-medium">{t('productPage.backToProducts')}</span>
@@ -408,9 +408,9 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                               <Shield className="h-5 w-5 text-brand-primary" />
                               <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.ceCategory')}</h3>
                             </div>
-                            <div className="flex-1 flex items-center justify-center">
-                              <span className="text-brand-dark dark:text-white font-medium text-md">Category {product.ce_category}</span>
-                            </div>
+                          <div className="flex-1 flex items-center justify-center">
+                            <span className="text-brand-dark dark:text-white font-medium text-md">{t('productPage.category')} {product.ce_category}</span>
+                          </div>
                           </div>
                         )}
                         

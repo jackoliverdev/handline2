@@ -5,7 +5,7 @@ import { CategoryInfo } from "@/components/website/products/category-info";
 import { GeneralProductsSection } from "./GeneralProductsSection";
 
 export const metadata: Metadata = {
-  title: "General Purpose Gloves | HandLine Company",
+  title: "General Purpose Gloves | Hand Line",
   description: "Versatile protective gloves for everyday industrial tasks and construction work. Reliable protection with superior comfort.",
 };
 

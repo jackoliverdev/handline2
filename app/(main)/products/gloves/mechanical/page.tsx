@@ -5,7 +5,7 @@ import { CategoryInfo } from "@/components/website/products/category-info";
 import { ProductGrid } from "@/components/website/products/product-grid";
 
 export const metadata: Metadata = {
-  title: "Mechanical Hazards Gloves | HandLine Company",
+  title: "Mechanical Hazards Gloves | Hand Line",
   description: "Superior protection against mechanical risks and general workplace hazards with comfort and dexterity.",
 };
 

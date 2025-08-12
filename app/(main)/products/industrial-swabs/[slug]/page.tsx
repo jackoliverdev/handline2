@@ -17,13 +17,13 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   
   if (!product) {
     return {
-      title: "Product Not Found | HandLine Company",
+      title: "Product Not Found | Hand Line",
       description: "The requested product could not be found.",
     };
   }
   
   return {
-    title: `${product.name} | Industrial Swabs | HandLine Company`,
+    title: `${product.name} | Industrial Swabs | Hand Line`,
     description: product.short_description || product.description.substring(0, 160),
   };
 }

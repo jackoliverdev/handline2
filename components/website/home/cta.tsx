@@ -130,7 +130,7 @@ export function CTA() {
                   className="w-full sm:w-auto bg-brand-primary hover:bg-brand-primary/90 text-white font-medium transition-all duration-300 hover:shadow-xl transform text-sm md:text-base h-11 md:h-12"
                   asChild
                 >
-                  <Link href="/products" className="flex items-center justify-center gap-2">
+                  <Link href="/products#product-grid" className="flex items-center justify-center gap-2">
                     <Shield className="h-4 w-4 md:h-5 md:w-5" />
                     {t('cta.buttons.browseProducts')}
                   </Link>

@@ -6,8 +6,8 @@ import { ContactSection } from "@/components/website/contact/contact-section";
 import { ContactFaq } from "@/components/website/contact/faq";
 
 export const metadata: Metadata = {
-  title: "Contact Hand Line | Industrial Safety Gloves",
-  description: "Get in touch with Hand Line for all your industrial safety glove requirements. Our experts are here to help with your protective equipment needs.",
+  title: "Contact | Hand Line",
+  description: "Get in touch with Hand Line for industrial safety gloves and PPE. Our experts are here to help with your protective equipment needs.",
 };
 
 export default function ContactPage() {

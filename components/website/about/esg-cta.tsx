@@ -92,7 +92,7 @@ export const EsgCta = () => {
               className="w-full sm:w-auto"
             >
               <Link 
-                href="/products"
+                href="/products#product-grid"
                 className="group flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-2.5 sm:py-3 border-2 border-white text-white hover:bg-white hover:text-green-700 hover:shadow-lg hover:scale-105 transition-all duration-300 rounded-lg font-medium w-full sm:w-auto text-sm md:text-base h-10 md:h-auto transform"
               >
                 <Shield className="h-4 w-4 sm:h-5 sm:w-5" />

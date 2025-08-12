@@ -18,7 +18,7 @@ export default function ProductNotFound() {
       
       <div className="flex flex-col gap-4 sm:flex-row">
         <Button asChild>
-          <Link href="/products">
+          <Link href="/products#product-grid">
             Browse Products
           </Link>
         </Button>

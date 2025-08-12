@@ -29,7 +29,7 @@ const formSchema = z.object({
 });
 
 interface SignInFormProps {
-  onShowSignUp: () => void;
+  onShowSignUp?: () => void;
 }
 
 export const SignInForm: FC<SignInFormProps> = ({ onShowSignUp }) => {
@@ -154,18 +154,20 @@ export const SignInForm: FC<SignInFormProps> = ({ onShowSignUp }) => {
         </form>
       </Form>
       
-      <div className="mt-6 text-center text-sm">
-        <p className="text-muted-foreground">
-          {t('auth.notAMember')} {" "}
-          <Button 
-            variant="link" 
-            onClick={onShowSignUp}
-            className="p-0 font-semibold text-brand-primary hover:text-brand-primary/80"
-          >
-            {t('auth.signUpInstead')}
-          </Button>
-        </p>
-      </div>
+      {onShowSignUp && (
+        <div className="mt-6 text-center text-sm">
+          <p className="text-muted-foreground">
+            {t('auth.notAMember')} {" "}
+            <Button 
+              variant="link" 
+              onClick={onShowSignUp}
+              className="p-0 font-semibold text-brand-primary hover:text-brand-primary/80"
+            >
+              {t('auth.signUpInstead')}
+            </Button>
+          </p>
+        </div>
+      )}
       
       <ModalForgotPassword isOpen={isResetOpen} setIsOpen={setIsResetOpen} />
     </>
