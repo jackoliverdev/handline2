@@ -39,14 +39,14 @@ export default function CaseStudyRoot({ caseStudies }: { caseStudies: CaseStudy[
               >
                 <Star className="mr-2 h-4 w-4 text-brand-primary" />
                 <span className="text-brand-dark dark:text-white font-medium">
-                  Featured Case Study
+                  {t('caseStudies.featured.badge')}
                 </span>
               </motion.div>
               <h2 className="text-3xl md:text-4xl font-bold text-brand-dark dark:text-white mb-4">
-                Success in Action
+                {t('caseStudies.featured.title')}
               </h2>
               <p className="text-lg text-brand-secondary dark:text-gray-300 max-w-2xl mx-auto">
-                Discover how we've helped businesses transform their operations and achieve remarkable results.
+                {t('caseStudies.featured.description')}
               </p>
             </div>
             
@@ -83,7 +83,7 @@ export default function CaseStudyRoot({ caseStudies }: { caseStudies: CaseStudy[
                 
                 <Button asChild className="group bg-gradient-to-r from-brand-primary to-brand-primary hover:from-brand-primary/90 hover:to-brand-primary/90">
                   <Link href={`/resources/case-studies/${featuredCaseStudy.slug}`} className="inline-flex items-center">
-                    Read Full Case Study
+                    {t('caseStudies.buttons.readFull')}
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </Button>

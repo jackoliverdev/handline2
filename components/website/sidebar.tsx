@@ -210,7 +210,6 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                   )}
 
                   {/* Industrial Swabs */}
-                  {/* 
                   <div className="py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors">
                     <Link 
                       href="/products/industrial-swabs"
@@ -221,10 +220,8 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                       <span className="text-sm">{t('navbar.industrialSwabs')}</span>
                     </Link>
                   </div>
-                  */}
 
                   {/* Respiratory Protection */}
-                  {/* 
                   <div className="py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors">
                     <Link 
                       href="/products/respiratory"
@@ -235,7 +232,6 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                       <span className="text-sm">{t('navbar.respiratoryProtection')}</span>
                     </Link>
                   </div>
-                  */}
                 </div>
               )}
             </div>
@@ -308,7 +304,6 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
             </div>
             
             {/* Resources section */}
-            {/*
             <div>
               <div 
                 className="flex items-center justify-between px-3 py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors cursor-pointer"
@@ -367,7 +362,6 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                 </div>
               )}
             </div>
-            */}
           </div>
           
           {/* Language Selector */}

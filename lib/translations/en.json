@@ -1064,6 +1064,18 @@
       "exploreCaseStudies": "Explore Case Studies",
       "learnAboutUs": "Learn About Us"
     },
+    "featured": {
+      "badge": "Featured Case Study",
+      "title": "Success in Action",
+      "description": "Discover how we've helped businesses transform their operations and achieve remarkable results."
+    },
+    "buttons": {
+      "readFull": "Read Full Case Study",
+      "read": "Read Case Study"
+    },
+    "labels": {
+      "challenge": "Challenge"
+    },
     "stats": {
       "caseStudies": "Case Studies",
       "industries": "Industries",

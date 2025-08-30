@@ -88,29 +88,7 @@ export function BlogGrid({ blogPosts, language }: BlogGridProps) {
 
   return (
     <section className="container py-8 md:py-12">
-      {/* Section Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="mb-12 text-center"
-        id="blog-articles"
-        style={{ scrollMarginTop: "60px" }}
-      >
-        <div className="inline-flex items-center mb-6 rounded-full bg-gradient-to-r from-brand-primary/10 to-brand-primary/10 px-6 py-2 text-sm border border-brand-primary/20 backdrop-blur-sm">
-          <BookOpen className="mr-2 h-4 w-4 text-brand-primary" />
-          <span className="text-brand-dark dark:text-white font-medium bg-gradient-to-r from-brand-primary to-brand-primary bg-clip-text text-transparent">
-            {t('blog.grid.badge')}
-          </span>
-        </div>
-        <h2 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-100 dark:to-white bg-clip-text text-transparent">
-          {t('blog.grid.title')}
-        </h2>
-        <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-          {t('blog.grid.description')}
-        </p>
-      </motion.div>
+      {/* Removed header above search to streamline the layout */}
 
       {/* Enhanced Search and Filters - Single Row */}
       <motion.div
