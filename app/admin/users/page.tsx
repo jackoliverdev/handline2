@@ -26,16 +26,7 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+// Removed delete user confirmation as deletion is disabled for now
 import { toast } from "@/components/ui/use-toast";
 import { 
   Search, 
@@ -43,7 +34,6 @@ import {
   MoreVertical, 
   Shield, 
   User as UserIcon,
-  UserX,
   Mail,
   Trash,
   Loader2,
@@ -52,7 +42,7 @@ import {
   CheckCircle
 } from "lucide-react";
 import Link from "next/link";
-import { getAllUsers, updateUserRole, updateUserStatus, deleteUser } from "@/lib/user-service";
+import { getAllUsers, updateUserRole, updateUserStatus } from "@/lib/user-service";
 
 interface User {
   id: string;
@@ -74,11 +64,12 @@ export default function UserManagementPage() {
   const [roleFilter, setRoleFilter] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<string | null>(null);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isRoleDialogOpen, setIsRoleDialogOpen] = useState(false);
   const [isResetPasswordDialogOpen, setIsResetPasswordDialogOpen] = useState(false);
   const [isStatusDialogOpen, setIsStatusDialogOpen] = useState(false);
   const [processingAction, setProcessingAction] = useState(false);
+  const [openMenuForUserId, setOpenMenuForUserId] = useState<string | null>(null);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   
   useEffect(() => {
     loadUsers();
@@ -217,10 +208,13 @@ export default function UserManagementPage() {
     try {
       // We need to use Firebase Admin SDK for this
       // Since this is client-side, we'll need to call a server API
+      const { getAuth } = await import('firebase/auth');
+      const adminToken = await getAuth().currentUser?.getIdToken(true);
       const response = await fetch('/api/admin/reset-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          ...(adminToken ? { 'Authorization': `Bearer ${adminToken}` } : {})
         },
         body: JSON.stringify({ 
           email: selectedUser.email
@@ -230,10 +224,25 @@ export default function UserManagementPage() {
       const result = await response.json();
       
       if (result.success) {
-        toast({
-          title: "Success",
-          description: "Password reset email sent successfully."
-        });
+        if (result.link) {
+          try {
+            await navigator.clipboard.writeText(result.link as string);
+            toast({
+              title: "Password reset link generated",
+              description: "Link copied to clipboard. Paste it into an email or browser.",
+            });
+          } catch {
+            toast({
+              title: "Password reset link generated",
+              description: "Copy the link from the Network response if it wasn't copied.",
+            });
+          }
+        } else {
+          toast({
+            title: "Success",
+            description: "Password reset email sent successfully.",
+          });
+        }
       } else {
         throw new Error(result.message || "Failed to send password reset email");
       }
@@ -250,57 +259,30 @@ export default function UserManagementPage() {
     }
   };
   
-  // Handle user deletion
+  // Handle user deletion (Supabase + Firebase)
   const handleDeleteUser = async () => {
     if (!selectedUser) return;
-    
     setProcessingAction(true);
     try {
-      // First, try to delete from Supabase
-      const { success, error } = await deleteUser(selectedUser.id);
-      
-      if (!success) {
-        throw new Error(error?.toString() || "Failed to delete user from database");
-      }
-      
-      // Now try to delete from Firebase
+      const { getAuth } = await import('firebase/auth');
+      const adminToken = await getAuth().currentUser?.getIdToken(true);
       const response = await fetch('/api/admin/delete-user', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          ...(adminToken ? { 'Authorization': `Bearer ${adminToken}` } : {})
         },
-        body: JSON.stringify({ 
-          firebaseUid: selectedUser.firebase_uid 
-        }),
+        body: JSON.stringify({ firebaseUid: selectedUser.firebase_uid, supabaseId: selectedUser.id })
       });
-      
       const result = await response.json();
-      
-      if (result.success) {
-        // Update local state
-        setUsers(users.filter(user => user.id !== selectedUser.id));
-        
-        toast({
-          title: "Success",
-          description: "User deleted successfully."
-        });
-      } else {
-        // If Firebase delete fails but Supabase succeeded
-        toast({
-          title: "Partial Success",
-          description: "User removed from database but not from authentication system."
-        });
-        
-        // Still update local state
-        setUsers(users.filter(user => user.id !== selectedUser.id));
-      }
+      if (!response.ok || !result.success) throw new Error(result.message || 'Failed to delete user');
+
+      setUsers(prev => prev.filter(u => u.id !== selectedUser.id));
+      setFilteredUsers(prev => prev.filter(u => u.id !== selectedUser.id));
+      toast({ title: 'User deleted', description: `${selectedUser.email} was removed.` });
     } catch (error) {
-      console.error("Error deleting user:", error);
-      toast({
-        title: "Error",
-        description: "Failed to delete user. Please try again.",
-        variant: "destructive"
-      });
+      console.error('Error deleting user:', error);
+      toast({ title: 'Error', description: 'Failed to delete user.', variant: 'destructive' });
     } finally {
       setProcessingAction(false);
       setIsDeleteDialogOpen(false);
@@ -522,7 +504,7 @@ export default function UserManagementPage() {
                       {formatDate(user.created_at)}
                     </div>
                     <div className="col-span-1 text-right">
-                      <DropdownMenu>
+                      <DropdownMenu open={openMenuForUserId === user.id} onOpenChange={(open) => setOpenMenuForUserId(open ? user.id : null)}>
                         <DropdownMenuTrigger asChild>
                           <Button variant="ghost" size="icon">
                             <MoreVertical className="h-4 w-4" />
@@ -539,7 +521,8 @@ export default function UserManagementPage() {
                             </Link>
                           </DropdownMenuItem>
                           <DropdownMenuItem
-                            onClick={() => {
+                            onSelect={() => {
+                              setOpenMenuForUserId(null);
                               setSelectedUser(user);
                               setIsRoleDialogOpen(true);
                             }}
@@ -548,7 +531,8 @@ export default function UserManagementPage() {
                             Change Role
                           </DropdownMenuItem>
                           <DropdownMenuItem
-                            onClick={() => {
+                            onSelect={() => {
+                              setOpenMenuForUserId(null);
                               setSelectedUser(user);
                               setIsStatusDialogOpen(true);
                             }}
@@ -562,7 +546,8 @@ export default function UserManagementPage() {
                           </DropdownMenuItem>
                           <DropdownMenuSeparator />
                           <DropdownMenuItem
-                            onClick={() => {
+                            onSelect={() => {
+                              setOpenMenuForUserId(null);
                               setSelectedUser(user);
                               setIsResetPasswordDialogOpen(true);
                             }}
@@ -572,7 +557,8 @@ export default function UserManagementPage() {
                           </DropdownMenuItem>
                           <DropdownMenuSeparator />
                           <DropdownMenuItem
-                            onClick={() => {
+                            onSelect={() => {
+                              setOpenMenuForUserId(null);
                               setSelectedUser(user);
                               setIsDeleteDialogOpen(true);
                             }}
@@ -721,36 +707,22 @@ export default function UserManagementPage() {
       </Dialog>
       
       {/* Delete Confirmation Dialog */}
-      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This will permanently delete the user {selectedUser?.email} and remove their account from both the database and authentication system.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={processingAction}>Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={(e) => {
-                e.preventDefault();
-                handleDeleteUser();
-              }}
-              disabled={processingAction}
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-            >
-              {processingAction ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Deleting...
-                </>
-              ) : (
-                "Delete User"
-              )}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete user?</DialogTitle>
+            <DialogDescription>
+              This removes {selectedUser?.email} from Firebase Auth and your Supabase users table.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="secondary" onClick={() => setIsDeleteDialogOpen(false)} disabled={processingAction}>Cancel</Button>
+            <Button variant="destructive" onClick={handleDeleteUser} disabled={processingAction}>
+              {processingAction ? (<><Loader2 className="mr-2 h-4 w-4 animate-spin" />Deleting...</>) : (<>Delete User</>)}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 } 

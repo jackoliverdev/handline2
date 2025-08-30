@@ -5,6 +5,7 @@ import { AdminSidebar } from "@/components/app/admin-sidebar";
 import { usePathname, useRouter } from "next/navigation";
 import { useUser } from "reactfire";
 import { getUserProfile } from "@/lib/user-service";
+import { getUserRole } from "@/lib/auth";
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -13,17 +14,19 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   
-  // Check if user has admin access
+  // Check if user has admin access (role-based)
   useEffect(() => {
-    if (status === "success" && user) {
-      // Only allow jackoliverdev@gmail.com to access admin pages
-      if (user.email !== "jackoliverdev@gmail.com") {
-        router.push('/dashboard');
+    const checkAdmin = async () => {
+      if (status === "success" && user) {
+        const role = await getUserRole(user);
+        if (role !== 'admin') {
+          router.push('/dashboard');
+        }
+      } else if (status === "success" && !user) {
+        router.push('/');
       }
-    } else if (status === "success" && !user) {
-      // If not logged in, redirect to home
-      router.push('/');
-    }
+    };
+    checkAdmin();
   }, [user, status, router]);
 
   // Check localStorage for saved collapse state on component mount
@@ -107,7 +110,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   }, [darkMode]);
 
   // Show loading state while checking authentication
-  if (status === "loading" || (status === "success" && user && user.email !== "jackoliverdev@gmail.com")) {
+  if (status === "loading") {
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600"></div>

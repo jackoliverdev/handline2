@@ -18,7 +18,7 @@ export default async function GeneralGlovesPage() {
 
   return (
     <main className="bg-brand-light dark:bg-background">
-      <ProductsHero />
+      <ProductsHero showDescription={false} />
       
       <CategoryInfo categoryType="general" />
       

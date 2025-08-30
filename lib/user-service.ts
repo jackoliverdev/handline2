@@ -238,12 +238,14 @@ export async function createUserProfile(userData: UserProfile) {
       display_name: userData.display_name || null
     }));
     
-    // Use only essential fields to avoid schema mismatches
+    // Use essential fields but include role/status when provided
     const essentialUserData = {
       firebase_uid: userData.firebase_uid,
       email: userData.email,
       display_name: userData.display_name || null,
       photo_url: userData.photo_url || null,
+      role: userData.role || 'user',
+      status: userData.status || 'active',
       id: userData.id || uuidv4(),
       created_at: userData.created_at || new Date().toISOString()
     };
@@ -279,6 +281,8 @@ export async function createUserProfile(userData: UserProfile) {
       const minimalData = { 
         firebase_uid: userData.firebase_uid, 
         email: userData.email,
+        role: userData.role || 'user',
+        status: userData.status || 'active',
         id: userData.id || uuidv4()
       };
       
@@ -298,8 +302,25 @@ export async function createUserProfile(userData: UserProfile) {
       return minimalData2?.[0] || minimalData;
     }
     
-    console.log("User profile created successfully:", data);
-    return data?.[0] || essentialUserData;
+    let inserted = data?.[0] || essentialUserData;
+    // Enforce role/status if DB defaults overrode requested values
+    try {
+      const desiredRole = userData.role || 'user';
+      const desiredStatus = userData.status || 'active';
+      if ((inserted.role ?? 'user') !== desiredRole || (inserted.status ?? 'active') !== desiredStatus) {
+        const { data: fixed, error: fixErr } = await supabase
+          .from('users')
+          .update({ role: desiredRole, status: desiredStatus })
+          .eq('firebase_uid', userData.firebase_uid)
+          .select()
+          .single();
+        if (!fixErr && fixed) inserted = fixed;
+      }
+    } catch (fixError) {
+      console.warn('Post-insert role/status enforcement skipped:', fixError);
+    }
+    console.log("User profile created successfully:", inserted);
+    return inserted;
   } catch (error) {
     console.error('Error creating user profile:', error);
     throw error;

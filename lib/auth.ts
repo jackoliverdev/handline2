@@ -1,5 +1,6 @@
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 import { User } from "firebase/auth";
+import { getUserProfile } from "./user-service";
 
 export type UserRole = "user" | "admin";
 
@@ -11,15 +12,26 @@ export interface UserData {
 
 export async function getUserRole(user: User): Promise<UserRole> {
   if (!user) return "user";
-  
-  // Check if this is your admin email - exact match only
+
+  try {
+    // Primary source of truth: Supabase users table
+    const profile = await getUserProfile(user.uid);
+    const roleFromDb = (profile?.role as string | undefined)?.toLowerCase();
+    if (roleFromDb === "admin") {
+      return "admin";
+    }
+  } catch (e) {
+    // Non-fatal: fall back to email check below
+    console.warn("Failed to load role from Supabase, falling back to email check", e);
+  }
+
+  // Legacy fallback: allow your admin email
   if (user.email === "jackoliverdev@gmail.com") {
     return "admin";
   }
-  
-  // All other users are regular users
+
   return "user";
-} 
+}
 
 /**
  * Save user data to Firestore

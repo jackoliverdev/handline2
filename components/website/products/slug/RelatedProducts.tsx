@@ -16,21 +16,21 @@ const getGreenPerformanceColour = (value: number | string | null): string => {
     return 'bg-white border border-gray-300 text-gray-900'; // White background with grey border for X
   }
   
-  // Handle letter grades A-F (A is best = darkest green, F is worst = lightest green)
+  // Handle letter grades A-F for EN388 ISO 13997: F is highest protection (darkest), A is lowest (lightest)
   if (typeof value === 'string' && /^[A-F]$/.test(value)) {
     switch (value) {
       case 'A':
-        return 'bg-emerald-700 text-white'; // Darkest green for best performance
+        return 'bg-emerald-200 text-white';
       case 'B':
-        return 'bg-emerald-600 text-white';
-      case 'C':
-        return 'bg-emerald-500 text-white';
-      case 'D':
-        return 'bg-emerald-400 text-white';
-      case 'E':
         return 'bg-emerald-300 text-white';
+      case 'C':
+        return 'bg-emerald-400 text-white';
+      case 'D':
+        return 'bg-emerald-500 text-white';
+      case 'E':
+        return 'bg-emerald-600 text-white';
       case 'F':
-        return 'bg-emerald-200 text-white'; // Lightest green for worst performance
+        return 'bg-emerald-700 text-white'; // Darkest green for highest performance
       default:
         return 'bg-gray-400 text-white';
     }

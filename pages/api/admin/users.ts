@@ -1,21 +1,17 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import admin from "firebase-admin";
-
-// Initialize Firebase Admin if not already initialized
-if (!admin.apps.length) {
-  try {
-    admin.initializeApp({
-      credential: admin.credential.cert(JSON.parse(process.env.FIREBASE_ADMIN_SDK || '{}'))
-    });
-  } catch (error) {
-    console.log('Firebase admin initialization error', error);
-  }
-}
+import { initializeFirebaseAdmin } from "@/lib/firebase-admin";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  try {
+    initializeFirebaseAdmin();
+  } catch (e) {
+    console.error('Firebase Admin init failed:', e);
+    return res.status(500).json({ error: 'Firebase Admin init failed' });
+  }
   // Check if the request is from an admin
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
