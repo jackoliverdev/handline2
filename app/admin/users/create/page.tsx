@@ -79,11 +79,14 @@ export default function CreateUserPage() {
     setIsSubmitting(true);
     
     try {
-      // Call Firebase Admin API to create user
+      // Admin route using Firebase Admin SDK ensures role/status + claims are set
+      const { getAuth } = await import('firebase/auth');
+      const adminToken = await getAuth().currentUser?.getIdToken(true);
       const response = await fetch('/api/admin/create-user', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          ...(adminToken ? { 'Authorization': `Bearer ${adminToken}` } : {})
         },
         body: JSON.stringify({
           email,
@@ -96,31 +99,13 @@ export default function CreateUserPage() {
             notifications,
             marketing_emails: marketingEmails
           }
-        }),
+        })
       });
-      
       const result = await response.json();
+      console.log('[admin/users/create] create-user response', result);
+      if (!response.ok || !result.success) throw new Error(result.message || 'Failed to create user');
       
-      if (!result.success) {
-        throw new Error(result.message || "Failed to create user");
-      }
-      
-      // Create user profile in Supabase
-      await createUserProfile({
-        firebase_uid: result.data.uid,
-        email,
-        display_name: displayName,
-        role,
-        status,
-        dark_mode: darkMode,
-        notifications,
-        marketing_emails: marketingEmails
-      });
-      
-      toast({
-        title: "Success",
-        description: "User created successfully."
-      });
+      toast({ title: "Success", description: "User created successfully." });
       
       // Redirect to user list
       router.push('/admin/users');

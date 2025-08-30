@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function GlovesPage() {
   return (
     <main className="bg-brand-light dark:bg-background">
-      <ProductsHero />
+      <ProductsHero showDescription={false} />
       
       <CategoryInfo categoryType="gloves" />
       

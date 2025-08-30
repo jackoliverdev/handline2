@@ -9,7 +9,11 @@ import { useLanguage } from "@/lib/context/language-context";
 
 const SPRING_CONFIG = { stiffness: 100, damping: 30, mass: 1 };
 
-export const ProductsHero = () => {
+type ProductsHeroProps = {
+  showDescription?: boolean;
+};
+
+export const ProductsHero = ({ showDescription = true }: ProductsHeroProps) => {
   const { t } = useLanguage();
 
   return (
@@ -35,19 +39,21 @@ export const ProductsHero = () => {
           </motion.div>
 
           {/* Description */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...SPRING_CONFIG, delay: 0.2 }}
-            className="mb-6 md:mb-8"
-          >
-            <p className="max-w-4xl text-base md:text-lg text-brand-secondary dark:text-gray-300 mb-4 md:mb-6">
-              {t("productsHero.description")}
-            </p>
-            <p className="max-w-4xl text-base md:text-lg text-brand-secondary dark:text-gray-300">
-              {t("productsHero.secondDescription")}
-            </p>
-          </motion.div>
+          {showDescription && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ ...SPRING_CONFIG, delay: 0.2 }}
+              className="mb-6 md:mb-8"
+            >
+              <p className="max-w-4xl text-base md:text-lg text-brand-secondary dark:text-gray-300 mb-4 md:mb-6">
+                {t("productsHero.description")}
+              </p>
+              <p className="max-w-4xl text-base md:text-lg text-brand-secondary dark:text-gray-300">
+                {t("productsHero.secondDescription")}
+              </p>
+            </motion.div>
+          )}
         </div>
       </div>
     </section>

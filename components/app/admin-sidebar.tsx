@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
 import { useAuth, useUser } from "reactfire";
+import { useRole } from "@/components/role-provider";
 import Link from "next/link";
 import { 
   LayoutDashboard, 
@@ -38,6 +39,7 @@ export function AdminSidebar({ className }: AdminSidebarProps) {
   const auth = useAuth();
   const { data: user } = useUser();
   const router = useRouter();
+  const { isAdmin } = useRole();
   
   // Check localStorage for saved collapse state on component mount
   useEffect(() => {

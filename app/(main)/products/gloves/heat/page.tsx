@@ -21,7 +21,7 @@ export default async function HeatGlovesPage() {
 
   return (
     <main className="bg-brand-light dark:bg-background">
-      <ProductsHero />
+      <ProductsHero showDescription={false} />
       
       <CategoryInfo categoryType="heat" />
       

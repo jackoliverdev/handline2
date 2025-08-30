@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { useRole } from "@/components/role-provider";
 
 interface SidebarProps {
   className?: string;
@@ -36,6 +37,7 @@ export function Sidebar({ className }: SidebarProps) {
   const auth = useAuth();
   const { data: user } = useUser();
   const router = useRouter();
+  const { isAdmin } = useRole();
   
   // Check localStorage for saved collapse state on component mount
   useEffect(() => {
@@ -75,8 +77,7 @@ export function Sidebar({ className }: SidebarProps) {
     },
   ];
   
-  // Add admin link if user is admin
-  const isAdmin = user?.email === "jackoliverdev@gmail.com";
+  // Admin link shown based on resolved role from Supabase
   
   return (
     <>
