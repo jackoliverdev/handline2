@@ -314,6 +314,17 @@ export default function UserManagementPage() {
         return 'outline';
     }
   };
+
+  // Additional classes for status badge styling
+  // Use emerald-400 to match the "C" grade green used across the site
+  const getStatusBadgeClasses = (status?: string) => {
+    switch (status) {
+      case 'active':
+        return 'bg-emerald-400 text-white border-transparent';
+      default:
+        return '';
+    }
+  };
   
   return (
     <div className="space-y-6">
@@ -423,7 +434,7 @@ export default function UserManagementPage() {
                     </div>
                     <div className="flex gap-2 mt-1">
                       <Badge variant={getRoleBadgeVariant(user.role)} className="capitalize text-xs px-2 py-0.5">{user.role || "user"}</Badge>
-                      <Badge variant={getStatusBadgeVariant(user.status)} className="capitalize text-xs px-2 py-0.5">{user.status || "active"}</Badge>
+                      <Badge variant={getStatusBadgeVariant(user.status)} className={`capitalize text-xs px-2 py-0.5 ${getStatusBadgeClasses(user.status)}`}>{user.status || "active"}</Badge>
                     </div>
                     <div className="flex gap-2 mt-2">
                       <Button asChild variant="ghost" size="icon" className="h-7 w-7 p-0">
@@ -496,7 +507,7 @@ export default function UserManagementPage() {
                       </Badge>
                     </div>
                     <div className="col-span-3 sm:col-span-2">
-                      <Badge variant={getStatusBadgeVariant(user.status)} className="capitalize">
+                      <Badge variant={getStatusBadgeVariant(user.status)} className={`capitalize ${getStatusBadgeClasses(user.status)}`}>
                         {user.status || "active"}
                       </Badge>
                     </div>
