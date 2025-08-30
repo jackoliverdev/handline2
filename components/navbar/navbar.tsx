@@ -22,8 +22,8 @@ const getNavItems = (t: any) => [
     dropdownItems: [
       { href: "/products", label: t("navbar.allProducts") },
       { href: "/products/gloves", label: t("navbar.safetyGloves") },
-      // { href: "/products/industrial-swabs", label: t("navbar.industrialSwabs") },
-      // { href: "/products/respiratory", label: t("navbar.respiratoryProtection") },
+      { href: "/products/industrial-swabs", label: t("navbar.industrialSwabs") },
+      { href: "/products/respiratory", label: t("navbar.respiratoryProtection") },
     ]
   },
   { href: "/industries", label: t("navbar.industries") },
@@ -34,14 +34,13 @@ const getNavItems = (t: any) => [
     dropdownItems: [
       { href: "/about", label: t("navbar.aboutDropdown.ourCompany") },
       { href: "/about/esg", label: t("navbar.aboutDropdown.esg") },
-      // { href: "/careers", label: t("navbar.aboutDropdown.careers") },
+      { href: "/careers", label: t("navbar.aboutDropdown.careers") },
     ]
   },
   { 
     href: "/partners", 
     label: t("navbar.partners")
   },
-  /*
   { 
     href: "/resources", 
     label: t("navbar.resources"),
@@ -54,7 +53,6 @@ const getNavItems = (t: any) => [
       { href: "/resources/declarations", label: t("navbar.resourcesDropdown.declarations") },
     ]
   },
-  */
   { href: "/contact", label: t("navbar.contact") },
 ];
 

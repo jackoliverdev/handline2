@@ -14,4 +14,6 @@ export default function ProductDisclaimerPage() {
       <ProductDisclaimerContent language="en" />
     </main>
   );
-} 
+}
+
+

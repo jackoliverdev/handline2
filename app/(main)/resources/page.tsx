@@ -8,4 +8,6 @@ export default function ResourcesPage() {
       <ResourcesCategoryList />
     </main>
   );
-} 
+}
+
+

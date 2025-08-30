@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { AlertCircle, FileCheck, BookOpen, ChevronRight, Sparkles, Shield } from "lucide-react";
+import { FileCheck, ChevronRight, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -15,15 +15,9 @@ interface DeclarationsHeroProps {
 
 export function DeclarationsHero({ language }: DeclarationsHeroProps) {
   const { t } = useLanguage();
-  const stats = [
-    { value: t('declarations.hero.stats.products'), label: t('declarations.hero.stats.productsLabel') },
-    { value: t('declarations.hero.stats.declarations'), label: t('declarations.hero.stats.declarationsLabel') },
-    { value: t('declarations.hero.stats.compliance'), label: t('standards.hero.stats.resourcesLabel') },
-    { value: t('declarations.hero.stats.certified'), label: t('declarations.hero.stats.certifiedLabel') },
-  ];
 
   return (
-    <section className="relative overflow-hidden bg-[#F5EFE0]/80 dark:bg-transparent pt-28 pb-6 md:pt-32 md:pb-16">
+    <section className="relative overflow-hidden bg-[#F5EFE0]/80 dark:bg-transparent pt-28 pb-2 md:pt-32 md:pb-6">
       {/* Decorative Elements */}
       <div className="absolute -top-32 -right-32 h-[300px] w-[300px] md:h-[500px] md:w-[500px] rounded-full bg-brand-primary/5 blur-3xl dark:bg-brand-primary/10"></div>
       <div className="absolute -bottom-32 -left-32 h-[250px] w-[250px] md:h-[400px] md:w-[400px] rounded-full bg-brand-primary/10 blur-3xl dark:bg-brand-primary/5"></div>
@@ -70,20 +64,7 @@ export function DeclarationsHero({ language }: DeclarationsHeroProps) {
             </p>
           </motion.div>
 
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...SPRING_CONFIG, delay: 0.3 }}
-            className="mx-auto mb-6 md:mb-10 grid max-w-xl grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
-          >
-            {stats.map((stat) => (
-              <div key={stat.label} className="flex flex-col items-center">
-                <div className="text-2xl md:text-3xl font-bold text-brand-primary font-heading">{stat.value}</div>
-                <div className="mt-0.5 md:mt-1 text-xs md:text-sm text-brand-secondary dark:text-gray-400">{stat.label}</div>
-              </div>
-            ))}
-          </motion.div>
+          {/* Stats removed as requested */}
 
           {/* Buttons */}
           <motion.div

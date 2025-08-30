@@ -11,4 +11,6 @@ export default async function ENResourceCentrePage() {
   const standards = await getPublishedEnStandards("en");
   
   return <ENResourceRoot standards={standards} />;
-} 
+}
+
+

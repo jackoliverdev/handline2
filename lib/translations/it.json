@@ -1116,7 +1116,19 @@
     "relatedCaseStudies": "Casi Studio Correlati",
     "clientDetails": "Dettagli Cliente",
     "industryDetails": "Dettagli Settore",
-    "testimonial": "Testimonianza Cliente"
+    "testimonial": "Testimonianza Cliente",
+    "featured": {
+      "badge": "Caso Studio in Evidenza",
+      "title": "Successo in Azione",
+      "description": "Scopri come abbiamo aiutato le aziende a trasformare le operazioni e ottenere risultati straordinari."
+    },
+    "buttons": {
+      "readFull": "Leggi il Caso Studio Completo",
+      "read": "Leggi il Caso Studio"
+    },
+    "labels": {
+      "challenge": "Sfida"
+    }
   },
   "partners": {
     "hero": {
@@ -1269,6 +1281,126 @@
     "mechanicalHazardsGloves": "Guanti per rischi meccanici",
     "industrialSwabs": "Tamponi industriali",
     "respiratoryProtection": "Protezione respiratoria"
+  },
+  "standards": {
+    "viewStandard": "Vedi Standard",
+    "download": "Scarica",
+    "downloads": "Download",
+    "relatedStandards": "Standard correlati",
+    "backToStandards": "Torna agli Standard",
+    "grid": {
+      "badge": "Standard di Sicurezza",
+      "title": "Libreria Standard Europei",
+      "description": "Sfoglia la nostra raccolta di standard europei, guide e risorse per i dispositivi di protezione individuale.",
+      "searchPlaceholder": "Cerca standard per codice o parola chiave...",
+      "showing": "Mostrando",
+      "standards": "standard",
+      "noStandards": "Nessuno standard trovato",
+      "noStandardsDescription": "Prova a modificare i criteri di ricerca o filtro",
+      "filterByCategory": "Filtra per Categoria",
+      "clearFilters": "Cancella Filtri"
+    },
+    "hero": {
+      "badge": "Standard Europei",
+      "title": "Centro Risorse",
+      "titleAccent": "EN",
+      "description": "Accedi a informazioni complete sugli standard europei che garantiscono che i nostri prodotti soddisfino i massimi requisiti di qualità e sicurezza.",
+      "exploreStandards": "Esplora Standard",
+      "learnAboutUs": "Scopri Chi Siamo",
+      "stats": {
+        "standards": "50+",
+        "resources": "100%",
+        "guides": "40+",
+        "categories": "15+",
+        "resourcesLabel": "Conformità",
+        "guidesLabel": "Anni di esperienza",
+        "categoriesLabel": "Categorie"
+      }
+    },
+    "productDisclaimer": {
+      "hero": {
+        "badge": "Informazioni Importanti",
+        "title": "Avvertenze",
+        "titleAccent": "Prodotto",
+        "description": "Informazioni fondamentali sull'uso corretto, i limiti e la cura dei guanti e dei DPI Hand Line. Comprendere queste linee guida è essenziale per mantenere prestazioni e protezione ottimali.",
+        "readDisclaimer": "Leggi l'Avvertenza",
+        "enResourceCentre": "Centro Risorse EN",
+        "stats": {
+          "heat": "350°C",
+          "heatLabel": "Resistenza al Calore",
+          "cut": "Livello 5",
+          "cutLabel": "Resistenza al Taglio",
+          "certified": "EN 388",
+          "certifiedLabel": "Certificato",
+          "safety": "100%",
+          "safetyLabel": "Focus sulla Sicurezza"
+        }
+      },
+      "sections": {
+        "usage": {
+          "title": "Avvertenze d'Uso del Prodotto",
+          "content": "I guanti e i DPI Hand Line offrono protezione in ambienti specifici se utilizzati correttamente. La nostra offerta è focalizzata principalmente sulla protezione delle mani con soluzioni specialistiche per resistenza al calore, resistenza al taglio e applicazioni generali. Leggere e comprendere tutta la documentazione prima dell'uso."
+        },
+        "heatResistance": {
+          "title": "Resistenza al Calore",
+          "content": "I prodotti con protezione dal calore non sono destinati all'uso a temperature estreme: utilizzare solo come specificato. I guanti anticalore Hand Line proteggono da esposizioni momentanee ma non da temperature estreme, esposizione prolungata o immersione in liquidi caldi. Le valutazioni si basano su prove controllate che possono differire dalle condizioni reali di lavoro."
+        },
+        "cutResistance": {
+          "title": "Resistenza al Taglio",
+          "content": "I prodotti con 'resistenza al taglio' non eliminano completamente il rischio di tagli o perforazioni e non sono progettati o testati per proteggere da lame motorizzate, seghe o attrezzature rotanti. I livelli sono basati su test standard che potrebbero non riflettere tutte le condizioni o forze estreme."
+        },
+        "generalGuidelines": {
+          "title": "Linee Guida Generali",
+          "content": "Ispezionare sempre i guanti e i DPI prima di ogni utilizzo. Non utilizzare articoli danneggiati. Seguire le istruzioni di cura per mantenere le proprietà protettive. I diversi prodotti Hand Line offrono tipi e livelli di protezione differenti: selezionare sempre il prodotto idoneo all'attività."
+        },
+        "limitations": {
+          "title": "Limitazioni",
+          "content": "Nessun DPI può fornire protezione completa contro tutti i rischi. I nostri prodotti sono testati secondo standard specifici e proteggono solo dai rischi indicati. I prodotti resistenti a scintille o fiamma non sono 'ignifughi' e non eliminano il rischio di ustioni."
+        },
+        "properSelection": {
+          "title": "Selezione Corretta",
+          "content": "È responsabilità del datore di lavoro e dell'utente valutare il tipo di rischio e scegliere il DPI adeguato. Hand Line offre una gamma di guanti specializzati per calore, taglio, edilizia e uso industriale. In caso di dubbi, consultare professionisti del settore."
+        },
+        "modification": {
+          "title": "Modifiche",
+          "content": "Qualsiasi modifica ai guanti o ai DPI Hand Line invalida certificazioni e garanzia. I prodotti devono essere usati solo come progettati: alterazioni possono compromettere le proprietà protettive e causare infortuni."
+        },
+        "legalNotice": {
+          "title": "Avvertenza Legale",
+          "content": "Usare sempre cautela nella manipolazione di materiali taglienti o abrasivi, sostanze chimiche o altri pericoli. Le informazioni fornite riflettono l'attuale conoscenza Hand Line e sono offerte come suggerimenti. Gli utenti devono eseguire test ed evaluazioni per verificare l'idoneità del prodotto all'uso previsto. Secondo la normativa vigente, la responsabilità finale della scelta dei DPI è del datore di lavoro."
+        }
+      }
+    }
+  },
+  "declarations": {
+    "hero": {
+      "badge": "Documenti di Conformità",
+      "title": "Dichiarazioni",
+      "titleAccent": "di Conformità",
+      "description": "Accedi alle dichiarazioni di conformità ufficiali dei prodotti Hand Line. Questi documenti certificano che i nostri prodotti soddisfano i requisiti europei di salute, sicurezza e tutela ambientale.",
+      "viewDeclarations": "Vedi Dichiarazioni",
+      "stats": {
+        "products": "200+",
+        "productsLabel": "Prodotti",
+        "declarations": "20+",
+        "declarationsLabel": "Dichiarazioni",
+        "compliance": "100%",
+        "certified": "UE",
+        "certifiedLabel": "Certificato"
+      }
+    },
+    "grid": {
+      "searchPlaceholder": "Cerca dichiarazioni...",
+      "filterByCategory": "Categorie",
+      "categories": "Categorie",
+      "declarations": "dichiarazioni",
+      "searchFor": "per",
+      "clearFilters": "Cancella",
+      "noDeclarations": "Nessuna dichiarazione trovata",
+      "noDeclarationsDescription": "Nessuna dichiarazione corrisponde ai criteri selezionati. Prova a modificare i filtri.",
+      "noDeclarationsAvailable": "Al momento non sono disponibili dichiarazioni di conformità.",
+      "clearAllFilters": "Cancella tutti i filtri"
+    }
   },
   "legal": {
     "hero": {
