@@ -241,12 +241,14 @@ export function CareerGrid({ careerPosts, language }: CareerGridProps) {
           <div className="flex items-center">
             <Briefcase className="mr-2 h-5 w-5 text-brand-primary" />
             <p className="text-lg font-medium text-brand-dark dark:text-white">
-              {filteredPosts.length} {filteredPosts.length === 1 ? 'Position' : 'Positions'} Available
+              {filteredPosts.length === 1
+                ? t('careers.grid.positionsAvailableSingular')
+                : t('careers.grid.positionsAvailablePlural').replace('{count}', String(filteredPosts.length))}
             </p>
           </div>
           {hasActiveFilters && (
             <p className="text-sm text-brand-secondary dark:text-gray-400">
-              Filtered from {careerPosts.length} total positions
+              {t('careers.grid.filteredFrom').replace('{total}', String(careerPosts.length))}
             </p>
           )}
         </motion.div>
@@ -289,7 +291,7 @@ export function CareerGrid({ careerPosts, language }: CareerGridProps) {
                 onClick={clearFilters}
                 className="mt-4 border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white"
               >
-                Clear all filters
+                {t('careers.grid.clearAllFilters')}
               </Button>
             )}
           </motion.div>

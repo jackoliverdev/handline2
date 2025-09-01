@@ -1428,6 +1428,9 @@
       "clearFilters": "Clear Filters",
       "showing": "Showing",
       "positions": "positions",
+      "positionsAvailableSingular": "1 Position Available",
+      "positionsAvailablePlural": "{count} Positions Available",
+      "filteredFrom": "Filtered from {total} total positions",
       "noPositions": "No positions found",
       "noPositionsDescription": "We don't have any open positions matching your criteria at the moment. Please check back later or adjust your search."
     },

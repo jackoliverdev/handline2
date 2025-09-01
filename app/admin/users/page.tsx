@@ -328,15 +328,27 @@ export default function UserManagementPage() {
   
   return (
     <div className="space-y-6">
-      {/* Header and Add User button */}
+      {/* Header (title shown in admin layout) */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
-        <h1 className="text-2xl font-bold tracking-tight">User Management</h1>
-        <Button asChild className="w-full sm:w-auto">
-          <Link href="/admin/users/create">
-            <Plus className="mr-2 h-4 w-4" />
-            Add User
-          </Link>
-        </Button>
+        {/** Duplicate in-page title removed */}
+        {/**
+         * Add User disabled for now
+         * <Button asChild className="w-full sm:w-auto">
+         *   <Link href="/admin/users/create">
+         *     <Plus className="mr-2 h-4 w-4" />
+         *     Add User
+         *   </Link>
+         * </Button>
+         */}
+      </div>
+
+      {/* Coming Soon Note (placed above user grid) */}
+      <div className="flex justify-center">
+        <Card className="w-full max-w-2xl border-l-4 border-l-[#F28C38]">
+          <CardHeader className="py-3">
+            <CardTitle className="text-base">User management functionality coming soon</CardTitle>
+          </CardHeader>
+        </Card>
       </div>
       <Card>
         <CardHeader>
@@ -400,7 +412,7 @@ export default function UserManagementPage() {
               <div className="col-span-3 sm:col-span-2">Role</div>
               <div className="col-span-3 sm:col-span-2">Status</div>
               <div className="hidden sm:block sm:col-span-3">Created</div>
-              <div className="col-span-1">Actions</div>
+              {/** <div className="col-span-1">Actions</div> */}
             </div>
             {/* Mobile card/list view */}
             <div className="sm:hidden divide-y">
@@ -436,30 +448,7 @@ export default function UserManagementPage() {
                       <Badge variant={getRoleBadgeVariant(user.role)} className="capitalize text-xs px-2 py-0.5">{user.role || "user"}</Badge>
                       <Badge variant={getStatusBadgeVariant(user.status)} className={`capitalize text-xs px-2 py-0.5 ${getStatusBadgeClasses(user.status)}`}>{user.status || "active"}</Badge>
                     </div>
-                    <div className="flex gap-2 mt-2">
-                      <Button asChild variant="ghost" size="icon" className="h-7 w-7 p-0">
-                        <Link href={`/admin/users/${user.id}`}>
-                          <Edit className="h-4 w-4" />
-                          <span className="sr-only">Edit</span>
-                        </Link>
-                      </Button>
-                      <Button variant="ghost" size="icon" className="h-7 w-7 p-0" onClick={() => { setSelectedUser(user); setIsRoleDialogOpen(true); }}>
-                        <Shield className="h-4 w-4" />
-                        <span className="sr-only">Change Role</span>
-                      </Button>
-                      <Button variant="ghost" size="icon" className="h-7 w-7 p-0" onClick={() => { setSelectedUser(user); setIsStatusDialogOpen(true); }}>
-                        {user.status === "suspended" ? <CheckCircle className="h-4 w-4" /> : <Ban className="h-4 w-4" />}
-                        <span className="sr-only">Change Status</span>
-                      </Button>
-                      <Button variant="ghost" size="icon" className="h-7 w-7 p-0" onClick={() => { setSelectedUser(user); setIsResetPasswordDialogOpen(true); }}>
-                        <Mail className="h-4 w-4" />
-                        <span className="sr-only">Reset Password</span>
-                      </Button>
-                      <Button variant="ghost" size="icon" className="h-7 w-7 p-0 text-destructive" onClick={() => { setSelectedUser(user); setIsDeleteDialogOpen(true); }}>
-                        <Trash className="h-4 w-4" />
-                        <span className="sr-only">Delete</span>
-                      </Button>
-                    </div>
+                    {/** Actions disabled for now on mobile */}
                   </div>
                 ))
               )}
@@ -514,73 +503,7 @@ export default function UserManagementPage() {
                     <div className="hidden sm:block sm:col-span-3 text-muted-foreground">
                       {formatDate(user.created_at)}
                     </div>
-                    <div className="col-span-1 text-right">
-                      <DropdownMenu open={openMenuForUserId === user.id} onOpenChange={(open) => setOpenMenuForUserId(open ? user.id : null)}>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="icon">
-                            <MoreVertical className="h-4 w-4" />
-                            <span className="sr-only">Open menu</span>
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                          <DropdownMenuSeparator />
-                          <DropdownMenuItem asChild>
-                            <Link href={`/admin/users/${user.id}`}>
-                              <Edit className="mr-2 h-4 w-4" />
-                              Edit User
-                            </Link>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem
-                            onSelect={() => {
-                              setOpenMenuForUserId(null);
-                              setSelectedUser(user);
-                              setIsRoleDialogOpen(true);
-                            }}
-                          >
-                            <Shield className="mr-2 h-4 w-4" />
-                            Change Role
-                          </DropdownMenuItem>
-                          <DropdownMenuItem
-                            onSelect={() => {
-                              setOpenMenuForUserId(null);
-                              setSelectedUser(user);
-                              setIsStatusDialogOpen(true);
-                            }}
-                          >
-                            {user.status === "suspended" ? (
-                              <CheckCircle className="mr-2 h-4 w-4" />
-                            ) : (
-                              <Ban className="mr-2 h-4 w-4" />
-                            )}
-                            Change Status
-                          </DropdownMenuItem>
-                          <DropdownMenuSeparator />
-                          <DropdownMenuItem
-                            onSelect={() => {
-                              setOpenMenuForUserId(null);
-                              setSelectedUser(user);
-                              setIsResetPasswordDialogOpen(true);
-                            }}
-                          >
-                            <Mail className="mr-2 h-4 w-4" />
-                            Reset Password
-                          </DropdownMenuItem>
-                          <DropdownMenuSeparator />
-                          <DropdownMenuItem
-                            onSelect={() => {
-                              setOpenMenuForUserId(null);
-                              setSelectedUser(user);
-                              setIsDeleteDialogOpen(true);
-                            }}
-                            className="text-destructive focus:text-destructive"
-                          >
-                            <Trash className="mr-2 h-4 w-4" />
-                            Delete User
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </div>
+                    {/** Actions column disabled for now */}
                   </div>
                 ))
               )}

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Building, Briefcase, Users, Globe, Shield, ChevronRight, ArrowRight, Mail } from "lucide-react";
+import { Briefcase, Users, Shield, ChevronRight, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -16,11 +16,6 @@ interface CareersHeroProps {
 export function CareersHero({ language }: CareersHeroProps) {
   const { t } = useLanguage();
   
-  const stats = [
-    { value: '150+', label: t('careers.hero.stats.employees') },
-    { value: '40+', label: t('careers.hero.stats.years') },
-    { value: '25+', label: t('careers.hero.stats.years') }
-  ];
 
   return (
     <section className="relative overflow-hidden bg-[#F5EFE0]/80 dark:bg-transparent pt-28 pb-6 md:pt-32 md:pb-16">
@@ -70,20 +65,7 @@ export function CareersHero({ language }: CareersHeroProps) {
             </p>
           </motion.div>
 
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...SPRING_CONFIG, delay: 0.3 }}
-            className="mx-auto mb-6 md:mb-10 grid max-w-xl grid-cols-3 gap-4 md:gap-6"
-          >
-            {stats.map((stat, i) => (
-              <div key={i} className="flex flex-col items-center">
-                <div className="text-2xl md:text-3xl font-bold text-brand-primary font-heading">{stat.value}</div>
-                <div className="mt-0.5 md:mt-1 text-xs md:text-sm text-brand-secondary dark:text-gray-400">{stat.label}</div>
-              </div>
-            ))}
-          </motion.div>
+          
 
           {/* Buttons */}
           <motion.div
