@@ -38,8 +38,7 @@ export default function CareerRoot({ careerPosts }: { careerPosts: CareerPost[] 
           </p>
         </div>
       )}
-      {/* CareerGrid temporarily disabled */}
-      {/* <CareerGrid careerPosts={careerPosts} language={language} /> */}
+      <CareerGrid careerPosts={careerPosts} language={language} />
     </main>
   );
 } 

@@ -1079,6 +1079,89 @@
     "featuredTitle": "Approfondimenti Esperti",
     "featuredDescription": "Scopri le ultime novità e innovazioni nella sicurezza sul lavoro e nella tecnologia di protezione delle mani."
   },
+  "careers": {
+    "hero": {
+      "badge": "Unisciti al nostro team",
+      "title": "Carriere in Hand Line",
+      "description": "Unisciti al nostro team di professionisti appassionati, dedicati a creare soluzioni di sicurezza innovative. Scopri opportunità che ti permettono di fare la differenza nella sicurezza sul lavoro.",
+      "viewOpenings": "Vedi posizioni aperte",
+      "aboutCompany": "La nostra azienda",
+      "browseOpenings": "Sfoglia le posizioni",
+      "learnAboutValues": "Scopri i nostri valori",
+      "joinOurTeam": "Unisciti al team",
+      "contactUs": "Contattaci",
+      "stats": {
+        "teamMembers": "120+",
+        "teamMembersLabel": "Membri del team",
+        "locations": "5",
+        "locationsLabel": "Sedi",
+        "countries": "12",
+        "countriesLabel": "Paesi",
+        "founded": "1981",
+        "foundedLabel": "Fondazione",
+        "employees": "Membri del team",
+        "years": "Anni di esperienza"
+      }
+    },
+    
+    "grid": {
+      "badge": "Posizioni Aperte",
+      "title": "Opportunità Attuali",
+      "description": "Esplora le posizioni aperte e trova il ruolo perfetto per le tue competenze e la tua passione per l'innovazione nella sicurezza.",
+      "searchPlaceholder": "Cerca posizioni...",
+      "departments": "Dipartimenti",
+      "locations": "Sedi",
+      "clearFilters": "Cancella filtri",
+      "showing": "Mostrando",
+      "positions": "posizioni",
+      "positionsAvailableSingular": "1 posizione disponibile",
+      "positionsAvailablePlural": "{count} posizioni disponibili",
+      "filteredFrom": "Filtrate da {total} posizioni totali",
+      "noPositions": "Nessuna posizione trovata",
+      "noPositionsDescription": "Al momento non abbiamo posizioni aperte che corrispondono ai tuoi criteri. Riprova più tardi o modifica la ricerca."
+    },
+    
+    "viewPosition": "Vedi posizione",
+    "new": "Nuovo",
+    "backToCareers": "Torna a Carriere",
+    
+    "post": {
+      "aboutRole": "Il Ruolo",
+      "requirements": "Requisiti",
+      "benefits": "Benefici",
+      "responsibilities": "Responsabilità",
+      "salary": "Retribuzione",
+      "applyNow": "Candidati ora",
+      "location": "Sede",
+      "jobType": "Tipo di contratto",
+      "posted": "Pubblicato",
+      "quickActions": "Azioni rapide",
+      "sharePosition": "Condividi questa posizione",
+      "backToCareers": "Torna a Carriere",
+      "readyToJoin": "Pronto a unirti al nostro team?",
+      "readyToJoinBadge": "Unisciti al nostro team",
+      "excitedToLearn": "Siamo entusiasti di conoscerti e di scoprire come puoi contribuire alla nostra missione.",
+      "joinTeamIndicator": "Affidati da professionisti in tutto il mondo • Benefit competitivi • Standard europei sul lavoro"
+    },
+    
+    "application": {
+      "title": "Candidati per la Posizione",
+      "personalInfo": "Informazioni personali",
+      "firstName": "Nome",
+      "lastName": "Cognome",
+      "email": "Email",
+      "phone": "Telefono",
+      "documents": "Documenti",
+      "cv": "CV/Resume",
+      "coverLetter": "Lettera di presentazione",
+      "fileSelected": "File selezionato",
+      "additionalInfo": "Informazioni aggiuntive",
+      "message": "Messaggio",
+      "messagePlaceholder": "Dicci perché ti interessa questa posizione e perché sei la persona giusta...",
+      "availableFrom": "Disponibile da",
+      "submit": "Invia candidatura"
+    }
+  },
   "caseStudies": {
     "hero": {
       "badge": "Storie di Successo",

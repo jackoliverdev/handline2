@@ -20,6 +20,7 @@ import {
   ChevronsRight,
   ShieldAlert,
   FileText,
+  Briefcase,
   HelpCircle,
   MessagesSquare,
   ShoppingBag,
@@ -83,19 +84,24 @@ export function AdminSidebar({ className }: AdminSidebarProps) {
       icon: ShoppingBag,
     },
     {
-      name: "User Management",
-      href: "/admin/users",
-      icon: Users,
-    },
-    {
       name: "Blog Management",
       href: "/admin/blogs",
       icon: FileText,
     },
     {
+      name: "Careers Management",
+      href: "/admin/careers",
+      icon: Briefcase,
+    },
+    {
       name: "Industry Management",
       href: "/admin/industries",
       icon: Factory,
+    },
+    {
+      name: "User Management",
+      href: "/admin/users",
+      icon: Users,
     },
   ];
   
