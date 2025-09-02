@@ -38,6 +38,7 @@ export default function EditCareerPage({ params }: PageProps) {
   const [requirements, setRequirements] = useState<string[]>([]);
   const [benefits, setBenefits] = useState<string[]>([]);
   const [salaryRange, setSalaryRange] = useState<string>("");
+  const [workSite, setWorkSite] = useState<string>("");
   const [isPublished, setIsPublished] = useState(false);
   const [isFeatured, setIsFeatured] = useState(false);
 
@@ -60,6 +61,7 @@ export default function EditCareerPage({ params }: PageProps) {
         setRequirements(post.requirements || []);
         setBenefits(post.benefits || []);
         setSalaryRange(post.salary_range || "");
+        setWorkSite(post.work_site || "");
         setIsPublished(!!post.is_published);
         setIsFeatured(!!post.is_featured);
       } catch (error) {
@@ -95,7 +97,7 @@ export default function EditCareerPage({ params }: PageProps) {
       await updateCareer(id, {
         title, slug, department, location, job_type: jobType,
         summary, description, responsibilities, requirements, benefits,
-        salary_range: salaryRange || null, is_published: isPublished, is_featured: isFeatured,
+        salary_range: salaryRange || null, work_site: workSite || null, is_published: isPublished, is_featured: isFeatured,
       });
       toast({ title: "Saved", description: "Role updated." });
     } catch (error) {
@@ -176,6 +178,10 @@ export default function EditCareerPage({ params }: PageProps) {
                       <Label htmlFor="jobType" className="text-xs sm:text-sm">Job Type</Label>
                       <Input id="jobType" value={jobType} onChange={(e) => setJobType(e.target.value)} required className="text-xs sm:text-sm h-8 sm:h-10" />
                     </div>
+                  </div>
+                  <div className="space-y-1 sm:space-y-2">
+                    <Label htmlFor="workSite" className="text-xs sm:text-sm">Work Site</Label>
+                    <Input id="workSite" value={workSite} onChange={(e) => setWorkSite(e.target.value)} placeholder="on-site only, travel 50%, hybrid, remote..." className="text-xs sm:text-sm h-8 sm:h-10" />
                   </div>
                   <div className="space-y-1 sm:space-y-2">
                     <Label htmlFor="summary" className="text-xs sm:text-sm">Summary</Label>

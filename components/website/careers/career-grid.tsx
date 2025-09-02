@@ -95,7 +95,7 @@ export function CareerGrid({ careerPosts, language }: CareerGridProps) {
   };
 
   return (
-    <section className="bg-[#F5EFE0]/80 dark:bg-background py-16">
+    <section className="py-16 -mt-40 sm:-mt-48 md:-mt-40 bg-[#F5EFE0]/80 dark:bg-background relative">
       <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -136,7 +136,7 @@ export function CareerGrid({ careerPosts, language }: CareerGridProps) {
             <Input
               type="text"
               placeholder={t('careers.grid.searchPlaceholder')}
-              className="pl-12 h-12 text-base border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:bg-white dark:focus:bg-gray-800"
+              className="pl-12 pr-4 h-12 w-full rounded-xl text-base border-gray-100 dark:border-gray-700/50 bg-white dark:bg-black/50 placeholder:text-gray-500 dark:placeholder:text-gray-400 shadow-md hover:shadow-lg transition-all duration-300 focus-visible:ring-brand-primary"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
