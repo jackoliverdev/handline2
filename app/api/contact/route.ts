@@ -3,7 +3,7 @@ import { sendContactEmail, type ContactFormData } from '@/lib/resend';
 
 export async function POST(request: NextRequest) {
   try {
-    const data: ContactFormData = await request.json();
+    const data = await request.json();
     
     // Validate required fields
     if (!data.name || !data.email || !data.subject || !data.message) {
@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = await sendContactEmail(data);
+    const result = await sendContactEmail(data as ContactFormData, data.attachments);
     
     if (!result.success) {
       return NextResponse.json(

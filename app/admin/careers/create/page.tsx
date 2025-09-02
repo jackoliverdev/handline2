@@ -32,6 +32,7 @@ export default function CreateCareerPage() {
   const [department, setDepartment] = useState("");
   const [location, setLocation] = useState("");
   const [jobType, setJobType] = useState("");
+  const [workSite, setWorkSite] = useState("");
   const [summary, setSummary] = useState("");
   const [description, setDescription] = useState("");
   const [responsibilities, setResponsibilities] = useState<string[]>([]);
@@ -73,6 +74,7 @@ export default function CreateCareerPage() {
         department,
         location,
         job_type: jobType,
+        work_site: workSite || null,
         summary,
         description,
         responsibilities,
@@ -135,6 +137,10 @@ export default function CreateCareerPage() {
                       <Label htmlFor="jobType" className="text-xs sm:text-sm">Job Type</Label>
                       <Input id="jobType" value={jobType} onChange={(e) => setJobType(e.target.value)} required className="text-xs sm:text-sm h-8 sm:h-10" />
                     </div>
+                  </div>
+                  <div className="space-y-1 sm:space-y-2">
+                    <Label htmlFor="workSite" className="text-xs sm:text-sm">Work Site</Label>
+                    <Input id="workSite" value={workSite} onChange={(e) => setWorkSite(e.target.value)} placeholder="on-site only, travel 50%, hybrid, remote..." className="text-xs sm:text-sm h-8 sm:h-10" />
                   </div>
                   <div className="space-y-1 sm:space-y-2">
                     <Label htmlFor="summary" className="text-xs sm:text-sm">Summary</Label>

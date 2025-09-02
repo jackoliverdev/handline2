@@ -1081,7 +1081,11 @@
   },
   "careers": {
     "hero": {
-      "badge": "Unisciti al nostro team",
+      "badge": "Lavora con Hand Line",
+      "titleStart": "Costruiamo qualcosa di grande.",
+      "titleAccent": "Insieme.",
+      "description1": "In Hand Line crediamo di poter fare la differenza. Ogni giorno progettiamo e consegniamo prodotti e soluzioni che proteggono le persone e permettono alle aziende di tutto il mondo di lavorare in sicurezza ed efficacia.",
+      "description2": "Cerchiamo menti curiose, pensatori audaci e persone instancabili che vogliano crescere con noi. Che tu stia iniziando la tua carriera o porti anni di esperienza, troverai opportunità per imparare, contribuire e prosperare in un ambiente internazionale e collaborativo.",
       "title": "Carriere in Hand Line",
       "description": "Unisciti al nostro team di professionisti appassionati, dedicati a creare soluzioni di sicurezza innovative. Scopri opportunità che ti permettono di fare la differenza nella sicurezza sul lavoro.",
       "viewOpenings": "Vedi posizioni aperte",
@@ -1134,15 +1138,17 @@
       "applyNow": "Candidati ora",
       "location": "Sede",
       "jobType": "Tipo di contratto",
+      "workSite": "Modalità di lavoro",
       "posted": "Pubblicato",
       "quickActions": "Azioni rapide",
       "sharePosition": "Condividi questa posizione",
       "backToCareers": "Torna a Carriere",
-      "readyToJoin": "Pronto a unirti al nostro team?",
+      "readyToJoin": "Pronto a unirti?",
       "readyToJoinBadge": "Unisciti al nostro team",
       "excitedToLearn": "Siamo entusiasti di conoscerti e di scoprire come puoi contribuire alla nostra missione.",
       "joinTeamIndicator": "Affidati da professionisti in tutto il mondo • Benefit competitivi • Standard europei sul lavoro"
     },
+    "equalityStatement": "In Hand Line ci impegniamo a creare un ambiente di lavoro inclusivo, dove tutti si sentano valorizzati, rispettati e supportati. Accogliamo candidature da tutte le persone qualificate, indipendentemente da età, genere, disabilità, orientamento sessuale, razza, religione o credo. Se hai bisogno di adattamenti o supporto durante il processo di candidatura, faccelo sapere.",
     
     "application": {
       "title": "Candidati per la Posizione",
@@ -1160,6 +1166,48 @@
       "messagePlaceholder": "Dicci perché ti interessa questa posizione e perché sei la persona giusta...",
       "availableFrom": "Disponibile da",
       "submit": "Invia candidatura"
+    },
+    "cta": {
+      "badge": "Candidature Aperte",
+      "title": "Nessuna posizione su misura ma sei comunque interessato?",
+      "description": "Se non hai visto nulla che sembra perfetto per te ma pensi che le tue competenze possano essere preziose e ti vedi crescere professionalmente in Hand Line o hai idee interessanti di cui vorresti parlarci, ci farebbe piacere sentirti. Inviaci una candidatura spontanea, siamo aperti alle idee.",
+      "buttons": {
+        "openApplication": "Invia candidatura spontanea",
+        "keepInformed": "Tienimi aggiornato"
+      },
+      "openTitle": "Invia una candidatura spontanea",
+      "cvUrl": "Link al CV / portfolio (opzionale)",
+      "cvUrlPlaceholder": "https://il-tuo-link-al-cv-o-portfolio",
+      "ideaLabel": "Raccontaci cosa hai in mente e dove pensi di poter portare valore",
+      "submitOpen": "Invia",
+      "keepTitle": "Tienimi aggiornato",
+      "keepDescription": "Ti terremo informato sulle nuove posizioni per i prossimi 12 mesi. Torna in qualsiasi momento per rinnovare l'interesse.",
+      "submitKeep": "Iscriviti",
+      "success": "Grazie!",
+      "openSuccess": "La tua candidatura spontanea è stata inviata.",
+      "interestSuccess": "Sei nella lista per le future opportunità."
+    },
+    "whyJoin": {
+      "badge": "Perché unirti",
+      "title": "Il tuo prossimo passo di carriera potrebbe essere qui",
+      "description": "Vogliamo circondarci di persone straordinarie, impegnate a raggiungere grandi obiettivi, a crescere continuamente e a non smettere mai di imparare.",
+      "items": {
+        "opportunity": {
+          "title": "Opportunità",
+          "titleAccent": "fenomenale",
+          "description": "Abbiamo grandi piani per nuovi prodotti, servizi innovativi e crescita e vogliamo che le nostre persone crescano con noi."
+        },
+        "international": {
+          "title": "Ambiente internazionale",
+          "titleAccent": "e dinamico",
+          "description": "Operiamo a livello globale e pensiamo in ottica globale."
+        },
+        "greatPlace": {
+          "title": "Un posto di lavoro",
+          "titleAccent": "davvero piacevole",
+          "description": "Vogliamo che le nostre persone abbiano successo, siano valorizzate e felici, e ci impegniamo a creare un ottimo ambiente di lavoro."
+        }
+      }
     }
   },
   "caseStudies": {

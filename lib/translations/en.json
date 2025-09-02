@@ -1396,7 +1396,11 @@
   },
   "careers": {
     "hero": {
-      "badge": "Join Our Team",
+      "badge": "Join Hand Line",
+      "titleStart": "Let’s build something big.",
+      "titleAccent": "Together.",
+      "description1": "At Hand Line, we believe we can make a difference. Every day, we design and deliver products and solutions that protect people and enable organisations worldwide to perform safely and effectively.",
+      "description2": "We are looking for curious minds, bold thinkers, and unstoppable doers who want to grow with us. Whether you’re just starting your career or bringing years of experience, you’ll find opportunities to learn, contribute, and thrive in an international, collaborative environment.",
       "title": "Careers at Hand Line",
       "description": "Join our team of passionate professionals dedicated to creating innovative safety solutions. Discover exciting career opportunities that allow you to make a difference in workplace safety.",
       "viewOpenings": "View Current Openings",
@@ -1446,15 +1450,17 @@
       "applyNow": "Apply Now",
       "location": "Location",
       "jobType": "Job Type", 
+      "workSite": "Work Site",
       "posted": "Posted",
       "quickActions": "Quick Actions",
       "sharePosition": "Share this position",
       "backToCareers": "Back to Careers",
-      "readyToJoin": "Ready to Join Our Team?",
+      "readyToJoin": "Ready to join?",
       "readyToJoinBadge": "Join Our Team",
       "excitedToLearn": "We're excited to learn more about you and discuss how you can contribute to our mission.",
       "joinTeamIndicator": "Trusted by professionals worldwide • Competitive benefits • European workplace standards"
     },
+    "equalityStatement": "At Hand Line, we are committed to creating an inclusive workplace where everyone feels valued, respected, and supported. We welcome applications from all qualified individuals, regardless of age, gender, disability, sexual orientation, race, religion, or belief. If you need any adjustments or support during the application process, please let us know.",
     "application": {
       "title": "Apply for Position",
       "personalInfo": "Personal Information",
@@ -1471,6 +1477,48 @@
       "messagePlaceholder": "Tell us why you're interested in this position and what makes you a great fit...",
       "availableFrom": "Available From",
       "submit": "Submit Application"
+    },
+    "cta": {
+      "badge": "Open Applications",
+      "title": "Nothing tailored to you but you still interested?",
+      "description": "If you haven't seen anything that feels like a perfect fit but you think your skills would be valuable and you see yourself growing professionally in Hand Line or have some exciting ideas you want to discuss with us, we would love to hear you out. Send us an open application, we are open to ideas.",
+      "buttons": {
+        "openApplication": "Submit Open Application",
+        "keepInformed": "Keep me informed"
+      },
+      "openTitle": "Submit an Open Application",
+      "cvUrl": "Link to CV / portfolio (optional)",
+      "cvUrlPlaceholder": "https://your-portfolio-or-cv-link",
+      "ideaLabel": "Tell us what you have in mind and where you see yourself adding value",
+      "submitOpen": "Send Application",
+      "keepTitle": "Keep me informed",
+      "keepDescription": "We will keep you informed of new jobs for the next 12 months. Come back any time to renew your interest.",
+      "submitKeep": "Subscribe",
+      "success": "Thank you!",
+      "openSuccess": "Your open application has been sent.",
+      "interestSuccess": "You're on the list for future opportunities."
+    },
+    "whyJoin": {
+      "badge": "Why join",
+      "title": "Your next career step could be here",
+      "description": "We want to surround ourselves with great people that are committed to achieve great things, continuously grow and never stop learning.",
+      "items": {
+        "opportunity": {
+          "title": "Phenomenal",
+          "titleAccent": "opportunity",
+          "description": "We have big plans for new products, innovative services and growth and we want our people to grow with us."
+        },
+        "international": {
+          "title": "International, dynamic",
+          "titleAccent": "environment",
+          "description": "We trade globally and we think globally."
+        },
+        "greatPlace": {
+          "title": "Just a great place",
+          "titleAccent": "to be",
+          "description": "We want our people to be successful, rewarded and happy and we strive to create a great work environment."
+        }
+      }
     }
   },
   "legal": {

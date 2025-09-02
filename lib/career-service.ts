@@ -19,6 +19,7 @@ export interface CareerPost {
   location: string;
   department: string;
   job_type: string;
+  work_site?: string | null;
   salary_range?: string | null;
   image_url?: string | null;
   published_at?: string | null;
@@ -37,6 +38,7 @@ export interface CareerPost {
   location_locales?: { [lang: string]: string };
   department_locales?: { [lang: string]: string };
   job_type_locales?: { [lang: string]: string };
+  work_site_locales?: { [lang: string]: string };
   salary_range_locales?: { [lang: string]: string };
 }
 

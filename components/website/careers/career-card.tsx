@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Calendar, Clock, ArrowRight, MapPin, Briefcase, Building, Euro } from 'lucide-react';
+import { Calendar, Clock, ArrowRight, MapPin, Briefcase, Building, Euro, Car } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -48,6 +48,7 @@ export function CareerCard({ post, index, language }: CareerCardProps) {
   const location = (post.location_locales && post.location_locales[language]) || post.location;
   const department = (post.department_locales && post.department_locales[language]) || post.department;
   const jobType = (post.job_type_locales && post.job_type_locales[language]) || post.job_type;
+  const workSite = (post.work_site_locales && post.work_site_locales[language]) || post.work_site;
   const salaryRange = (post.salary_range_locales && post.salary_range_locales[language]) || post.salary_range;
 
   const item = {
@@ -110,24 +111,22 @@ export function CareerCard({ post, index, language }: CareerCardProps) {
       
       {/* Job Details */}
       <div className="px-6 pb-4">
-        <div className="grid grid-cols-1 gap-3">
-          {/* Location & Job Type */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-              <MapPin className="mr-2 h-4 w-4 text-brand-primary flex-shrink-0" />
-              <span className="truncate">{location}</span>
-            </div>
-            <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-              <Clock className="mr-2 h-4 w-4 text-brand-primary flex-shrink-0" />
-              <span>{jobType}</span>
-            </div>
+        <div className="grid grid-cols-1 gap-2">
+          {/* Job Type */}
+          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+            <Clock className="mr-2 h-4 w-4 text-brand-primary flex-shrink-0" />
+            <span>{jobType}</span>
           </div>
-          
-          {/* Salary Range */}
-          {salaryRange && (
+          {/* Location */}
+          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+            <MapPin className="mr-2 h-4 w-4 text-brand-primary flex-shrink-0" />
+            <span className="truncate">{location}</span>
+          </div>
+          {/* Work site (on-site / hybrid / remote / travel %) */}
+          {workSite && (
             <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-              <Euro className="mr-2 h-4 w-4 text-brand-primary flex-shrink-0" />
-              <span className="font-medium text-gray-700 dark:text-gray-300">{salaryRange}</span>
+              <Car className="mr-2 h-4 w-4 text-brand-primary flex-shrink-0" />
+              <span className="truncate">{workSite}</span>
             </div>
           )}
         </div>
