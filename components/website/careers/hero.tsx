@@ -19,7 +19,7 @@ export function CareersHero({ language }: CareersHeroProps) {
     <div className="relative mb-6 sm:mb-16 md:mb-32 bg-[#F5EFE0] dark:bg-background">
       {/* Background section with slanted edge (matching About hero) */}
       <section
-        className="relative pt-28 md:pt-32 pb-48 md:pb-40 lg:pb-32 bg-[#F5EFE0] dark:bg-background [clip-path:polygon(0_0,100%_0,100%_82%,0_72%)] md:[clip-path:polygon(0_0,100%_0,100%_95%,0_82%)]"
+        className="relative pt-28 md:pt-32 pb-56 md:pb-48 lg:pb-40 bg-[#F5EFE0] dark:bg-background overflow-hidden"
         style={{ zIndex: 1 }}
       >
         {/* Background Image */}
@@ -34,6 +34,16 @@ export function CareersHero({ language }: CareersHeroProps) {
           />
           <div className="absolute inset-0 bg-black/30"></div>
         </div>
+
+        {/* Stable slanted bottom overlay (prevents initial paint flicker) */}
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-40 md:h-48 lg:h-56 bg-[#F5EFE0] dark:bg-background transform-gpu"
+          style={{
+            WebkitClipPath: "polygon(0% 40%, 100% 70%, 100% 100%, 0% 100%)",
+            clipPath: "polygon(0% 40%, 100% 70%, 100% 100%, 0% 100%)",
+            willChange: "clip-path",
+          }}
+        />
 
         <div className="container mx-auto px-6 relative max-w-7xl">
           <div className="flex flex-col lg:grid lg:grid-cols-3 items-center gap-6">
