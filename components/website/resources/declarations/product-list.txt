@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Download, Search, Filter, X, Users, FileText, ChevronDown } from 'lucide-react';
+import { Download, Search, Filter, X, Users, FileText } from 'lucide-react';
 import { Product, localiseProduct } from '@/lib/products-service';
 import { useLanguage } from '@/lib/context/language-context';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -17,7 +17,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuLabel,
 } from '@/components/ui/dropdown-menu';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface ProductListProps {
   products: Product[];
@@ -27,16 +26,12 @@ export function ProductList({ products }: ProductListProps) {
   const { t, language } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  // Document language selector (defaults to current site language)
-  const [docLanguage, setDocLanguage] = useState<string>(language || 'en');
-
-  const AVAILABLE_DOC_LANGS: string[] = ['en', 'it'];
 
   // Localise all products
   const localizedProducts = products.map(product => localiseProduct(product, language));
 
-  // Filter products that have a declaration sheet URL (EN or IT)
-  const productsWithDeclarations = localizedProducts.filter(product => product.declaration_sheet_url || product.declaration_sheet_url_it);
+  // Filter products that have a declaration sheet URL (declaration document)
+  const productsWithDeclarations = localizedProducts.filter(product => product.declaration_sheet_url);
 
   // Extract unique categories
   const categories = useMemo(() => {
@@ -88,14 +83,6 @@ export function ProductList({ products }: ProductListProps) {
     show: { opacity: 1, y: 0 }
   };
 
-  // Helpers
-  const getEuDeclarationUrl = (product: Product, lang: string | undefined): string | null => {
-    if (lang === 'it' && product.declaration_sheet_url_it) return product.declaration_sheet_url_it;
-    if (product.declaration_sheet_url) return product.declaration_sheet_url;
-    if (lang === 'en' && product.declaration_sheet_url_it) return product.declaration_sheet_url_it;
-    return null;
-  };
-
   return (
     <div className="space-y-2">
       {/* Enhanced Search and Filters - Single Row */}
@@ -108,23 +95,8 @@ export function ProductList({ products }: ProductListProps) {
       >
         {/* Unified Search, Filters, and Results Row */}
         <div className="flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between mb-6">
-          {/* Left Side - Language, Search and Filters */}
+          {/* Left Side - Search and Filters */}
           <div className="flex flex-col sm:flex-row gap-3 flex-1">
-            {/* Language Selector */}
-            <div className="flex-1 sm:flex-none sm:w-56">
-              <Select value={docLanguage} onValueChange={setDocLanguage}>
-                <SelectTrigger className="h-12 rounded-xl bg-white dark:bg-black/50 border-gray-200 dark:border-gray-700">
-                  <SelectValue placeholder="Language" />
-                </SelectTrigger>
-                <SelectContent>
-                  {AVAILABLE_DOC_LANGS.map((lang) => (
-                    <SelectItem key={lang} value={lang}>
-                      {lang === 'en' ? 'English' : lang === 'it' ? 'Italiano' : lang.toUpperCase()}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
             {/* Search Bar */}
             <div className="relative flex-[2]">
               <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
@@ -153,7 +125,7 @@ export function ProductList({ products }: ProductListProps) {
                 <DropdownMenuTrigger asChild>
                   <Button 
                     variant="outline" 
-                    className="h-12 px-4 bg-white dark:bg-black/50 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-black/20 whitespace-nowrap flex-shrink-0 text-brand-dark dark:text-white hover:text-brand-dark dark:hover:text-white"
+                    className="h-12 px-4 bg-white dark:bg-black/50 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-black/20 whitespace-nowrap flex-shrink-0"
                   >
                     <Filter className="mr-2 h-4 w-4" />
                     {t('declarations.grid.filterByCategory')}
@@ -167,13 +139,13 @@ export function ProductList({ products }: ProductListProps) {
                 <DropdownMenuContent className="w-64 max-h-80 overflow-y-auto">
                   <DropdownMenuLabel className="flex items-center">
                     <FileText className="mr-2 h-4 w-4" />
-                    <span className="text-brand-dark dark:text-white">{t('declarations.grid.categories')}</span>
+                    {t('declarations.grid.categories')}
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   {categories.map((category) => (
                     <DropdownMenuItem
                       key={category}
-                      className={`cursor-pointer ${selectedCategory === category ? 'bg-brand-primary/10 text-brand-primary' : 'text-brand-dark dark:text-white'}`}
+                      className={`cursor-pointer ${selectedCategory === category ? 'bg-brand-primary/10 text-brand-primary' : ''}`}
                       onClick={() => toggleCategory(category)}
                     >
                       <div className="flex items-center justify-between w-full">
@@ -277,87 +249,17 @@ export function ProductList({ products }: ProductListProps) {
                         )}
                       </div>
                       
-                      <div className="flex items-center gap-2">
-                        {/* UKCA DoC (use product English declaration URL) */}
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="bg-white dark:bg-black/50 border-brand-primary/30 text-brand-primary hover:bg-brand-primary hover:text-white dark:hover:bg-brand-primary transition-all duration-300 gap-2 shadow-sm hover:shadow-md"
-                          asChild
-                          disabled={!product.declaration_sheet_url}
-                        >
-                          <a href={product.declaration_sheet_url || '#'} target="_blank" rel="noopener noreferrer" download>
-                            <span>UKCA DoC</span>
-                            <Download className="h-4 w-4" />
-                          </a>
-                        </Button>
-
-                        {/* EU DoC split-button */}
-                        <div className="flex items-stretch">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="rounded-r-none bg-white dark:bg-black/50 border-brand-primary/30 text-brand-primary hover:bg-brand-primary hover:text-white dark:hover:bg-brand-primary transition-all duration-300 gap-2 shadow-sm hover:shadow-md"
-                            asChild
-                            disabled={!getEuDeclarationUrl(product, docLanguage) && !getEuDeclarationUrl(product, 'en') && !getEuDeclarationUrl(product, 'it')}
-                          >
-                            <a
-                              href={getEuDeclarationUrl(product, docLanguage) || getEuDeclarationUrl(product, 'en') || getEuDeclarationUrl(product, 'it') || '#'}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              download
-                            >
-                              <span>EU DoC</span>
-                              <Download className="h-4 w-4" />
-                            </a>
-                          </Button>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="rounded-l-none px-2 bg-white dark:bg-black/50 border-brand-primary/30 text-brand-primary hover:bg-brand-primary hover:text-white dark:hover:bg-brand-primary shadow-sm hover:shadow-md"
-                                aria-label="Select EU DoC language"
-                              >
-                                <ChevronDown className="h-4 w-4" />
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="w-44">
-                              <DropdownMenuLabel>Language</DropdownMenuLabel>
-                              <DropdownMenuSeparator />
-                              {AVAILABLE_DOC_LANGS.map((langOpt) => {
-                                const url = getEuDeclarationUrl(product, langOpt);
-                                const label = langOpt === 'en' ? 'English' : langOpt === 'it' ? 'Italiano' : langOpt.toUpperCase();
-                                const disabled = !url;
-                                return (
-                                  <DropdownMenuItem
-                                    key={langOpt}
-                                    className={`cursor-pointer ${docLanguage === langOpt ? 'bg-brand-primary/10 text-brand-primary' : ''}`}
-                                    disabled={disabled}
-                                    onClick={() => setDocLanguage(langOpt)}
-                                  >
-                                    <span className="flex-1">{label}</span>
-                                    {!disabled ? (
-                                      <a
-                                        className="text-brand-primary hover:underline"
-                                        href={url || '#'}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        download
-                                        onClick={(e) => e.stopPropagation()}
-                                      >
-                                        Download
-                                      </a>
-                                    ) : (
-                                      <span className="text-gray-400">N/A</span>
-                                    )}
-                                  </DropdownMenuItem>
-                                );
-                              })}
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </div>
-                      </div>
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        className="bg-white dark:bg-black/50 border-brand-primary/30 text-brand-primary hover:bg-brand-primary hover:text-white dark:hover:bg-brand-primary transition-all duration-300 gap-2 shadow-sm hover:shadow-md"
+                        asChild
+                      >
+                        <a href={product.declaration_sheet_url || '#'} target="_blank" rel="noopener noreferrer" download>
+                          <span>{t('standards.download')}</span>
+                          <Download className="h-4 w-4" />
+                        </a>
+                      </Button>
                     </div>
                     
                     {/* Description removed per feedback */}

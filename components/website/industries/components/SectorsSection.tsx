@@ -108,7 +108,6 @@ export function SectorsSection({ industries }: { industries: any[] }) {
       )}
 
       {/* Sectors Grid Section */}
-      {/* 
       <section id="industry-sectors" className="py-16">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
@@ -126,7 +125,6 @@ export function SectorsSection({ industries }: { industries: any[] }) {
           </div>
         </div>
       </section>
-      */}
     </>
   );
 } 

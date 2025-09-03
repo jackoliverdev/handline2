@@ -158,7 +158,8 @@ export function CareersCTA() {
 
           {/* Badge */}
           <div className="flex justify-center mb-3">
-            <Badge className="bg-brand-primary/10 text-brand-primary border-brand-primary/20">
+            <Badge className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm bg-brand-primary/10 text-brand-primary border border-brand-primary/20 hover:bg-brand-primary/10">
+              <Mail className="h-4 w-4 text-brand-primary" />
               {t('careers.cta.badge')}
             </Badge>
           </div>
@@ -206,10 +207,7 @@ export function CareersCTA() {
             </motion.div>
           </motion.div>
 
-          {/* Trust Indicator */}
-          <div className="pt-4 mt-6 border-t border-gray-200 dark:border-gray-700 text-center">
-            <p className="text-sm text-brand-secondary dark:text-gray-400">{t('cta.trustIndicator')}</p>
-          </div>
+          {/* Trust indicator removed per feedback */}
         </div>
       </motion.div>
 
@@ -277,9 +275,6 @@ export function CareersCTA() {
                 <Button type="submit" disabled={submittingOpen} className="bg-brand-primary hover:bg-brand-primary/90 text-white">
                   <Send className="h-4 w-4 mr-2" /> {submittingOpen ? t('contact.form.submitting') : t('careers.cta.submitOpen')}
                 </Button>
-                <DialogClose asChild>
-                  <Button variant="ghost">{t('legal.tabs.cookies') || 'Close'}</Button>
-                </DialogClose>
               </DialogFooter>
             </form>
           </Form>
@@ -332,9 +327,6 @@ export function CareersCTA() {
                 <Button type="submit" disabled={submittingInterest} className="bg-brand-primary hover:bg-brand-primary/90 text-white">
                   <Send className="h-4 w-4 mr-2" /> {submittingInterest ? t('contact.form.submitting') : t('careers.cta.submitKeep')}
                 </Button>
-                <DialogClose asChild>
-                  <Button variant="ghost">{t('legal.tabs.cookies') || 'Close'}</Button>
-                </DialogClose>
               </DialogFooter>
             </form>
           </Form>

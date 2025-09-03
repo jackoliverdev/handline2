@@ -1451,64 +1451,36 @@
     "productDisclaimer": {
       "hero": {
         "badge": "Informazioni Importanti",
-        "title": "Avvertenze",
+        "title": "Dichiarazione",
         "titleAccent": "Prodotto",
-        "description": "Informazioni fondamentali sull'uso corretto, i limiti e la cura dei guanti e dei DPI Hand Line. Comprendere queste linee guida è essenziale per mantenere prestazioni e protezione ottimali.",
-        "readDisclaimer": "Leggi l'Avvertenza",
-        "enResourceCentre": "Centro Risorse EN",
-        "stats": {
-          "heat": "350°C",
-          "heatLabel": "Resistenza al Calore",
-          "cut": "Livello 5",
-          "cutLabel": "Resistenza al Taglio",
-          "certified": "EN 388",
-          "certifiedLabel": "Certificato",
-          "safety": "100%",
-          "safetyLabel": "Focus sulla Sicurezza"
-        }
+        "description": "Hand Line Company Srl si impegna a supportare i clienti con il prodotto giusto e con competenze e conoscenze di livello superiore. I nostri servizi e prodotti devono essere utilizzati con il necessario rigore da parte del datore di lavoro/operatore nella selezione e nell’impiego dei DPI forniti."
       },
       "sections": {
         "usage": {
-          "title": "Avvertenze d'Uso del Prodotto",
-          "content": "I guanti e i DPI Hand Line offrono protezione in ambienti specifici se utilizzati correttamente. La nostra offerta è focalizzata principalmente sulla protezione delle mani con soluzioni specialistiche per resistenza al calore, resistenza al taglio e applicazioni generali. Leggere e comprendere tutta la documentazione prima dell'uso."
+          "title": "Selezione dei DPI",
+          "content": "Tutte le informazioni fornite si basano sulle nostre attuali conoscenze e comprensione della materia. Queste informazioni sono offerte esclusivamente come suggerimenti a supporto delle vostre decisioni o scelte di prodotto. Ci riserviamo il diritto di aggiornare tali informazioni qualora diventino disponibili nuove conoscenze, esperienze o indicazioni normative. La scelta corretta dei DPI dipende dai rischi presenti sul luogo di lavoro. È responsabilità esclusiva del datore di lavoro e/o dell’utente, tra le altre cose, effettuare una corretta valutazione dei rischi, selezionare i DPI appropriati per lo specifico compito e garantire la compatibilità con altri dispositivi di protezione ove rilevante."
         },
         "heatResistance": {
-          "title": "Resistenza al Calore",
-          "content": "I prodotti con protezione dal calore non sono destinati all'uso a temperature estreme: utilizzare solo come specificato. I guanti anticalore Hand Line proteggono da esposizioni momentanee ma non da temperature estreme, esposizione prolungata o immersione in liquidi caldi. Le valutazioni si basano su prove controllate che possono differire dalle condizioni reali di lavoro."
+          "title": "Utilizzo dei DPI",
+          "content": "Tutti i DPI devono essere utilizzati esclusivamente in conformità alle istruzioni del produttore e alle linee guida sulla sicurezza. Un uso improprio, una modifica o un impiego al di fuori dell’ambito previsto possono ridurre il livello di protezione ed aumentare il rischio di infortuni. I datori di lavoro e gli utenti sono responsabili di garantire il corretto utilizzo, la formazione all’uso appropriato, la manutenzione e conservazione dei DPI come indicato, nonché la loro sostituzione quando danneggiati, usurati o giunti al termine della loro vita utile. I DPI devono essere accuratamente ispezionati prima di ogni utilizzo per assicurarsi che non presentino difetti o danni visibili. L’uso dei DPI non deve mai e non può sostituire la cautela e l’attenzione nella manipolazione di materiali pericolosi e/o nelle attività svolte in ambienti rischiosi."
         },
         "cutResistance": {
-          "title": "Resistenza al Taglio",
-          "content": "I prodotti con 'resistenza al taglio' non eliminano completamente il rischio di tagli o perforazioni e non sono progettati o testati per proteggere da lame motorizzate, seghe o attrezzature rotanti. I livelli sono basati su test standard che potrebbero non riflettere tutte le condizioni o forze estreme."
+          "title": "Livelli di Protezione",
+          "content": "Sebbene i nostri DPI siano progettati e certificati in conformità alle normative e agli standard europei, incluso il Regolamento (UE) 2016/425, nessuna attrezzatura può offrire una protezione assoluta o illimitata. I diversi tipi di DPI riducono specifici rischi ma non eliminano completamente i pericoli che sono destinati a mitigare. A titolo di esempio non esaustivo: la resistenza/protezione al taglio, alla perforazione, all’abrasione, allo strappo, ecc. riduce il rischio di lesioni meccaniche ma non le previene o elimina completamente; i DPI resistenti alla fiamma riducono il rischio di ustioni ma non impediscono infortuni in tutte le situazioni di incendio e non sono “ignifughi”; l’abbigliamento protettivo contro il freddo riduce il rischio di congelamento ma non elimina le lesioni da freddo; i DPI resistenti agli agenti chimici riducono il rischio di esposizione ma non garantiscono una protezione totale contro tutte le sostanze; i guanti e i tappeti isolanti riducono il rischio di elettrocuzione ma non eliminano completamente i pericoli elettrici; i dispositivi di protezione dalle radiazioni mitigano alcuni rischi di esposizione ma non li eliminano completamente. I DPI devono essere sempre utilizzati come parte di un sistema completo di sicurezza sul lavoro, che includa misure di controllo dei rischi, formazione, supervisione e procedure di lavoro sicure."
         },
         "generalGuidelines": {
-          "title": "Linee Guida Generali",
-          "content": "Ispezionare sempre i guanti e i DPI prima di ogni utilizzo. Non utilizzare articoli danneggiati. Seguire le istruzioni di cura per mantenere le proprietà protettive. I diversi prodotti Hand Line offrono tipi e livelli di protezione differenti: selezionare sempre il prodotto idoneo all'attività."
-        },
-        "limitations": {
-          "title": "Limitazioni",
-          "content": "Nessun DPI può fornire protezione completa contro tutti i rischi. I nostri prodotti sono testati secondo standard specifici e proteggono solo dai rischi indicati. I prodotti resistenti a scintille o fiamma non sono 'ignifughi' e non eliminano il rischio di ustioni."
-        },
-        "properSelection": {
-          "title": "Selezione Corretta",
-          "content": "È responsabilità del datore di lavoro e dell'utente valutare il tipo di rischio e scegliere il DPI adeguato. Hand Line offre una gamma di guanti specializzati per calore, taglio, edilizia e uso industriale. In caso di dubbi, consultare professionisti del settore."
-        },
-        "modification": {
-          "title": "Modifiche",
-          "content": "Qualsiasi modifica ai guanti o ai DPI Hand Line invalida certificazioni e garanzia. I prodotti devono essere usati solo come progettati: alterazioni possono compromettere le proprietà protettive e causare infortuni."
-        },
-        "legalNotice": {
-          "title": "Avvertenza Legale",
-          "content": "Usare sempre cautela nella manipolazione di materiali taglienti o abrasivi, sostanze chimiche o altri pericoli. Le informazioni fornite riflettono l'attuale conoscenza Hand Line e sono offerte come suggerimenti. Gli utenti devono eseguire test ed evaluazioni per verificare l'idoneità del prodotto all'uso previsto. Secondo la normativa vigente, la responsabilità finale della scelta dei DPI è del datore di lavoro."
+          "title": "Modifica dei DPI & Prodotti Contraffatti",
+          "content": "Qualsiasi alterazione, riparazione o modifica dei DPI invalida la certificazione del prodotto e annulla immediatamente ogni garanzia. I dispositivi modificati non possono essere garantiti come conformi ai livelli di prestazione originali e non devono essere utilizzati. Solo i prodotti originali, acquistati tramite canali autorizzati, sono coperti da certificazione e garanzia. I prodotti contraffatti o imitazioni possono non fornire il livello di protezione richiesto e non devono essere utilizzati. Hand Line Company Srl declina ogni garanzia e responsabilità salvo nei casi espressamente previsti o derivante da un uso improprio dei DPI."
         }
       }
     }
   },
   "declarations": {
     "hero": {
-      "badge": "Documenti di Conformità",
+      "badge": "Regolatorio",
       "title": "Dichiarazioni",
       "titleAccent": "di Conformità",
-      "description": "Accedi alle dichiarazioni di conformità ufficiali dei prodotti Hand Line. Questi documenti certificano che i nostri prodotti soddisfano i requisiti europei di salute, sicurezza e tutela ambientale.",
+      "description": "Benvenuto nel nostro archivio delle dichiarazioni di conformità dei prodotti, dove puoi trovare e scaricare i documenti necessari in conformità al Regolamento (UE) 2016/425. Cerca il prodotto richiesto e seleziona la lingua per scaricare la DoC in PDF.",
       "viewDeclarations": "Vedi Dichiarazioni",
       "stats": {
         "products": "200+",

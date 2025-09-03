@@ -16,7 +16,7 @@ export default async function DeclarationsPage() {
     <main className="flex flex-col min-h-screen">
       <DeclarationsHero language="en" />
       
-      <section className="py-16 md:py-24 bg-[#F5EFE0]/80 dark:bg-transparent">
+      <section className="pt-6 pb-16 md:pt-8 md:pb-24 bg-[#F5EFE0]/80 dark:bg-transparent">
         <div className="container mx-auto px-4 md:px-6">
           <div id="declarations-list" className="max-w-4xl mx-auto" style={{ scrollMarginTop: "80px" }}>
             <ProductList products={products} />

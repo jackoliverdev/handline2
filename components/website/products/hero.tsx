@@ -46,10 +46,10 @@ export const ProductsHero = ({ showDescription = true }: ProductsHeroProps) => {
               transition={{ ...SPRING_CONFIG, delay: 0.2 }}
               className="mb-6 md:mb-8"
             >
-              <p className="max-w-4xl text-base md:text-lg text-brand-secondary dark:text-gray-300 mb-4 md:mb-6">
+              <p className="max-w-8xl text-base md:text-lg text-brand-secondary dark:text-gray-300 mb-4 md:mb-6">
                 {t("productsHero.description")}
               </p>
-              <p className="max-w-4xl text-base md:text-lg text-brand-secondary dark:text-gray-300">
+              <p className="max-w-8xl text-base md:text-lg text-brand-secondary dark:text-gray-300">
                 {t("productsHero.secondDescription")}
               </p>
             </motion.div>
