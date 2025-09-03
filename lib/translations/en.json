@@ -1314,62 +1314,34 @@
         "badge": "Important Information",
         "title": "Product",
         "titleAccent": "Disclaimer",
-        "description": "Important information regarding the proper use, limitations, and care of Hand Line safety gloves and protective equipment. Understanding these guidelines is essential for maintaining optimal protection and performance.",
-        "readDisclaimer": "Read Disclaimer",
-        "enResourceCentre": "EN Resource Centre",
-        "stats": {
-          "heat": "350°C",
-          "heatLabel": "Heat Resistance",
-          "cut": "Level 5",
-          "cutLabel": "Cut Resistance",
-          "certified": "EN 388",
-          "certifiedLabel": "Certified",
-          "safety": "100%",
-          "safetyLabel": "Safety Focused"
-        }
+        "description": "Hand Line Company Srl strives to support customers with the right product and best-in-class expertise and knowledge. Our services and products must be met with employer/user rigour in selecting and utilising the PPE supplied."
       },
       "sections": {
         "usage": {
-          "title": "Product Usage Disclaimer",
-          "content": "Hand Line gloves and protective equipment are designed to provide protection in specific work environments when used correctly. Our products primarily focus on hand protection with specialised solutions for heat resistance, cut resistance, and general construction applications. Please read and understand all accompanying documentation before using any of our products."
+          "title": "PPE Selection",
+          "content": "All provided information is based upon our current knowledge and understanding of the subject matter. This information is offered solely as suggestion for use in making your own decisions or product choices. We reserve the right to revise this information as new knowledge, experience, or regulatory guidance becomes available. The correct choice of PPE depends on the hazards present in the workplace. It is the responsibility of the employer and/or user to, among other things, carry out a proper risk assessment, select the appropriate PPE for the specific task, and ensure compatibility with other protective equipment where relevant."
         },
         "heatResistance": {
-          "title": "Heat Resistance",
-          "content": "Products that provide heat resistance or protection against heat are not intended for use in extreme temperatures - use only as specified. Hand Line heat-resistant gloves provide protection against momentary exposure to heat but will not protect against extreme temperatures, extended heat exposure, or submersion in hot liquids. The heat resistance rating indicates the product's capability under controlled testing conditions, which may differ from actual workplace conditions."
+          "title": "PPE Use",
+          "content": "All PPE must be used strictly in line with the manufacturer’s instructions and safety guidelines. Improper use, modification, or use outside the intended scope may reduce the level of protection and increase the risk of injury. Employers and users are responsible for ensuring correct fit and training in proper use, maintaining and storing PPE as instructed, and replacing equipment when damaged, worn, or beyond its service life. PPE should be thoroughly inspected before any use to ensure they present no visible defect or damage. PPE use should never and cannot replace caution and care in handling hazardous materials and/or operating in hazardous environments."
         },
         "cutResistance": {
-          "title": "Cut Resistance",
-          "content": "Products that provide 'cut resistance' and 'cut protection' do not completely prevent or eliminate the potential for cuts or punctures, and are not intended or tested to provide protection against powered blades, serrated or other sharp or rotating equipment. Cut resistance levels are based on standardised tests that may not reflect all workplace conditions or extreme forces."
+          "title": "Protection levels",
+          "content": "While our personal protective equipment (PPE) is designed and certified in accordance with European regulations and standards, including Regulation (EU) 2016/425, no equipment can offer absolute or unlimited protection. Different types of PPE reduce specific hazards but do not eliminate the risk they are designed to mitigate. As non-exhaustive examples: cut, puncture, abrasion, tear, etc. resistance/protection reduce the risk of mechanical hazards but do not completely prevent or eliminate such risks, flame-resistant PPE lowers the risk of burns but does not prevent injury in all fire situations and are not ‘fire-proof’, cold-protective clothing mitigates frostbite but does not eliminate cold-related injury, chemical-resistant PPE reduce exposure risk but do not guarantee total protection against all substances, insulating gloves and mats reduce the risk of electrocution but cannot fully eliminate electrical hazards, radiation protective equipment mitigates certain radiation exposure risks but does not fully remove them. PPE should always be used as part of a comprehensive workplace safety system, which includes hazard control measures, training, supervision, and safe work procedures."
         },
         "generalGuidelines": {
-          "title": "General Guidelines",
-          "content": "All Hand Line safety gloves and equipment must be inspected before each use. Do not use damaged items. Follow all care instructions to maintain the protective properties of the equipment. Different Hand Line products offer different types and levels of protection - always select the appropriate product for your specific task."
-        },
-        "limitations": {
-          "title": "Limitations",
-          "content": "No personal protective equipment can provide complete protection against all hazards. Our gloves and other protective equipment are tested to specific standards and are designed to protect against designated risks only. Products that provide protection against sparks or flame are not 'fire-proof' and do not completely prevent or eliminate the potential for burns or associated injuries."
-        },
-        "properSelection": {
-          "title": "Proper Selection",
-          "content": "It is the responsibility of the employer and user to assess the type of hazard and select the appropriate protective equipment. Hand Line offers a range of specialised gloves for different applications including heat-proof, cut-proof, construction, and general industrial use. Consult industry professionals if uncertain about the suitability of a product for your specific environment."
-        },
-        "modification": {
-          "title": "Modification",
-          "content": "Any modification to Hand Line gloves or equipment voids all certification and warranty claims. Products should be used only as designed and intended. Alterations may compromise the protective properties and could result in injury."
-        },
-        "legalNotice": {
-          "title": "Legal Notice",
-          "content": "Users are encouraged to always use caution and care when handling sharp or abrasive materials, chemicals, or other hazardous or dangerous substances. Any information or data provided is based upon Hand Line's current knowledge and understanding of the subject matter, and is offered solely as a possible suggestion for use in making your own decisions or product choices. Product users should conduct all appropriate testing or other evaluations to determine the suitability of Hand Line products for a particular purpose or use within a particular environment. Hand Line may revise this information as new information, knowledge or experience becomes available. According to current regulations, the employer has the final responsibility for selecting gloves and other personal protective equipment."
+          "title": "PPE Modification & Counterfeit Products",
+          "content": "Any alteration, repair, or modification of PPE invalidates the product’s certification and immediately voids any warranty. Modified equipment cannot be guaranteed to meet the original performance standards and must not be used. Only genuine products, purchased through authorized channels, are covered by certification and warranty. Counterfeit or imitation products may not provide the required level of protection and must not be used. Hand Line Company Srl disclaims all warranties and declines any liability other than where expressly provided or arising from misuse of the PPE."
         }
       }
     }
   },
   "declarations": {
     "hero": {
-      "badge": "Compliance Documents",
-      "title": "Compliance",
-      "titleAccent": "Declarations",
-      "description": "Access official declarations of conformity for Hand Line products. These documents certify that our products meet all the requirements of European health, safety, and environmental protection standards.",
+      "badge": "Regulatory",
+      "title": "Declarations",
+      "titleAccent": "of Conformity",
+      "description": "Welcome to our repository of declarations of conformity for products where you can find and download the documents needed, in accordance with Regulation (EU) 2016/425. Please search for the required product and select the language to download the DoC as PDF.",
       "viewDeclarations": "View Declarations",
       "stats": {
         "products": "200+",

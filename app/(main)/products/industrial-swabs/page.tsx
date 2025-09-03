@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { getAllProducts } from "@/lib/products-service";
-import { IndustrialSwabsHero } from "@/components/website/products/hero-industrial-swabs";
+import { ProductsHero } from "@/components/website/products/hero";
 import { CategoryInfo } from "@/components/website/products/category-info";
 import { IndustrialSwabsProductsSection } from "./IndustrialSwabsProductsSection";
 
@@ -18,7 +18,7 @@ export default async function IndustrialSwabsPage() {
 
   return (
     <main className="bg-brand-light dark:bg-background">
-      <IndustrialSwabsHero />
+      <ProductsHero showDescription={false} />
       
       <CategoryInfo categoryType="industrialSwabs" />
       

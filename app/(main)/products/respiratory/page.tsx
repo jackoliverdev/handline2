@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { getAllProducts } from "@/lib/products-service";
-import { RespiratoryHero } from "@/components/website/products/hero-respiratory";
+import { ProductsHero } from "@/components/website/products/hero";
 import { CategoryInfo } from "@/components/website/products/category-info";
 import { RespiratoryProductsSection } from "./RespiratoryProductsSection";
 
@@ -18,7 +18,7 @@ export default async function RespiratoryPage() {
 
   return (
     <main className="bg-brand-light dark:bg-background">
-      <RespiratoryHero />
+      <ProductsHero showDescription={false} />
       
       <CategoryInfo categoryType="respiratory" />
       
