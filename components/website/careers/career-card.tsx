@@ -154,7 +154,7 @@ export function CareerCard({ post, index, language }: CareerCardProps) {
               asChild
             >
               <Link href={`/careers/${post.slug}`} className="flex items-center">
-                <span className="text-sm font-medium">View Details</span>
+                <span className="text-sm font-medium">{t('careers.viewDetails')}</span>
                 <motion.div
                   initial={{ x: 0 }}
                   whileHover={{ x: 2 }}

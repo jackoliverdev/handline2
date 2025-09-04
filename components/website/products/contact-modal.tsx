@@ -148,7 +148,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({
                   htmlFor="privacy"
                   className="text-sm text-brand-secondary dark:text-gray-300 leading-relaxed"
                 >
-                  {t('forms.privacyConsent')}{' '}
+                  {t('forms.privacyConsent')}
                   <Link href="/legal?tab=privacy" className="text-brand-primary hover:underline">
                     {t('forms.privacyPolicy')}
                   </Link>{' '}

@@ -1110,11 +1110,11 @@
     
     "grid": {
       "badge": "Posizioni Aperte",
-      "title": "Opportunità Attuali",
-      "description": "Esplora le posizioni aperte e trova il ruolo perfetto per le tue competenze e la tua passione per l'innovazione nella sicurezza.",
+      "title": "Opportunità Disponibili",
+      "description": "Esplora le posizioni aperte e trova il ruolo perfetto per le tue competenze.",
       "searchPlaceholder": "Cerca posizioni...",
       "departments": "Dipartimenti",
-      "locations": "Sedi",
+      "locations": "Luogo",
       "clearFilters": "Cancella filtri",
       "showing": "Mostrando",
       "positions": "posizioni",
@@ -1126,6 +1126,7 @@
     },
     
     "viewPosition": "Vedi posizione",
+    "viewDetails": "Vedi dettagli",
     "new": "Nuovo",
     "backToCareers": "Torna a Carriere",
     
@@ -1143,8 +1144,8 @@
       "quickActions": "Azioni rapide",
       "sharePosition": "Condividi questa posizione",
       "backToCareers": "Torna a Carriere",
-      "readyToJoin": "Pronto a unirti?",
-      "readyToJoinBadge": "Unisciti al nostro team",
+      "readyToJoin": "Pensi che questo ruolo sia fatto per te?",
+      "readyToJoinBadge": "Entra nel team",
       "excitedToLearn": "Siamo entusiasti di conoscerti e di scoprire come puoi contribuire alla nostra missione.",
       "joinTeamIndicator": "Affidati da professionisti in tutto il mondo • Benefit competitivi • Standard europei sul lavoro"
     },
@@ -1158,19 +1159,19 @@
       "email": "Email",
       "phone": "Telefono",
       "documents": "Documenti",
-      "cv": "CV/Resume",
+      "cv": "CV",
       "coverLetter": "Lettera di presentazione",
       "fileSelected": "File selezionato",
       "additionalInfo": "Informazioni aggiuntive",
       "message": "Messaggio",
-      "messagePlaceholder": "Dicci perché ti interessa questa posizione e perché sei la persona giusta...",
+      "messagePlaceholder": "Aggiungi qualsiasi cosa ritieni importante…",
       "availableFrom": "Disponibile da",
       "submit": "Invia candidatura"
     },
     "cta": {
       "badge": "Candidature Aperte",
-      "title": "Nessuna posizione su misura ma sei comunque interessato?",
-      "description": "Se non hai visto nulla che sembra perfetto per te ma pensi che le tue competenze possano essere preziose e ti vedi crescere professionalmente in Hand Line o hai idee interessanti di cui vorresti parlarci, ci farebbe piacere sentirti. Inviaci una candidatura spontanea, siamo aperti alle idee.",
+      "title": "Sei interessato ma non trovi una posizione su misura?",
+      "description": "Se non hai visto nulla che sembra perfetto per te ma pensi che le tue competenze possano essere preziose e ti vedi crescere professionalmente in Hand Line o se hai idee interessanti di cui vorresti parlarci, ci farebbe piacere sentirti. Inviaci una candidatura spontanea, siamo sempre aperti a suggerimenti e nuove idee.",
       "buttons": {
         "openApplication": "Invia candidatura spontanea",
         "keepInformed": "Tienimi aggiornato"
@@ -1188,8 +1189,8 @@
       "interestSuccess": "Sei nella lista per le future opportunità."
     },
     "whyJoin": {
-      "badge": "Perché unirti",
-      "title": "Il tuo prossimo passo di carriera potrebbe essere qui",
+      "badge": "Perché entrare nel team",
+      "title": "Il tuo prossimo lavoro potrebbe essere qui",
       "description": "Vogliamo circondarci di persone straordinarie, impegnate a raggiungere grandi obiettivi, a crescere continuamente e a non smettere mai di imparare.",
       "items": {
         "opportunity": {
@@ -1205,7 +1206,7 @@
         "greatPlace": {
           "title": "Un posto di lavoro",
           "titleAccent": "davvero piacevole",
-          "description": "Vogliamo che le nostre persone abbiano successo, siano valorizzate e felici, e ci impegniamo a creare un ottimo ambiente di lavoro."
+          "description": "Vogliamo che le nostre persone abbiano successo, siano valorizzate e felici, e ci impegniamo a creare un ambiente di lavoro che lo permetta."
         }
       }
     }
@@ -1541,10 +1542,10 @@
     }
   },
   "forms": {
-    "privacyConsent": "Accetto l'",
-    "privacyPolicy": "Informativa sulla Privacy",
-    "and": "e i",
-    "terms": "Termini di Servizio",
+    "privacyConsent": "Accetto ",
+    "privacyPolicy": "l'Informativa sulla Privacy",
+    "and": "e",
+    "terms": "i Termini di Servizio",
     "privacyConsentError": "Devi accettare l'informativa sulla privacy e i termini di servizio",
     "submit": "Invia Richiesta"
   },
