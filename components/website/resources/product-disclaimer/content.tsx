@@ -48,21 +48,13 @@ export function ProductDisclaimerContent({ language }: ProductDisclaimerContentP
               visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
             }}
           >
-            <motion.h2 
-              className="text-3xl font-bold mt-0 mb-6 text-brand-dark dark:text-white font-heading"
-              variants={fadeIn}
-            >
-              {t('standards.productDisclaimer.sections.usage.title')}
-            </motion.h2>
+            {/* Make PPE Selection a section like the others for consistent styling */}
+            <Section 
+              title={t('standards.productDisclaimer.sections.usage.title')} 
+              content={t('standards.productDisclaimer.sections.usage.content')} 
+            />
             
-            <motion.p 
-              className="my-4 text-lg leading-7 text-brand-secondary dark:text-gray-300"
-              variants={fadeIn}
-            >
-              {t('standards.productDisclaimer.sections.usage.content')}
-            </motion.p>
-            
-            <div className="mt-8 space-y-4">
+            <div className="mt-6 space-y-4">
               <Section 
                 title={t('standards.productDisclaimer.sections.heatResistance.title')} 
                 content={t('standards.productDisclaimer.sections.heatResistance.content')} 

@@ -265,7 +265,7 @@ export function CareersCTA() {
                   </FormControl>
                   <div className="space-y-1 leading-none">
                     <FormLabel className="text-sm text-brand-secondary dark:text-gray-300 leading-relaxed font-normal">
-                      {t('forms.privacyConsent')} <Link href="/legal?tab=privacy" className="text-brand-primary hover:underline">{t('forms.privacyPolicy')}</Link> {t('forms.and')} <Link href="/legal?tab=terms" className="text-brand-primary hover:underline">{t('forms.terms')}</Link>
+                      {t('forms.privacyConsent')}<Link href="/legal?tab=privacy" className="text-brand-primary hover:underline">{t('forms.privacyPolicy')}</Link> {t('forms.and')} <Link href="/legal?tab=terms" className="text-brand-primary hover:underline">{t('forms.terms')}</Link>
                     </FormLabel>
                     <FormMessage />
                   </div>

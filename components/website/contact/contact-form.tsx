@@ -208,7 +208,7 @@ export function ContactForm() {
                       </FormControl>
                       <div className="space-y-1 leading-none">
                         <FormLabel className="text-sm text-brand-secondary dark:text-gray-300 leading-relaxed font-normal">
-                          {t('forms.privacyConsent')}{' '}
+                          {t('forms.privacyConsent')}
                           <Link href="/legal?tab=privacy" className="text-brand-primary hover:underline">
                             {t('forms.privacyPolicy')}
                           </Link>{' '}
