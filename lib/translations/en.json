@@ -1021,12 +1021,33 @@
   },
   "blog": {
     "hero": {
-      "badge": "Insights & Resources",
+      "badge": "Blog",
       "title": "Hand Line",
-      "titleAccent": "Blog",
-      "description": "Industry-leading expertise on safety gloves and hand protection solutions.",
+      "titleAccent": "Insights",
+      "description": "Industry-leading knowledge, insights, and ideas to advance safety in every workplace.",
       "exploreArticles": "Explore Articles",
       "learnAboutUs": "Learn About Us"
+    },
+    "categoriesBuckets": {
+      "title": "Explore by Topic",
+      "buckets": {
+        "productsInnovation": {
+          "title": "Products & Innovation",
+          "description": "Discover our latest PPE solutions and cutting-edge safety technologies."
+        },
+        "industrySustainability": {
+          "title": "Industry & Sustainability",
+          "description": "Stay informed on market trends and sustainable practices in safety."
+        },
+        "safetyCompliance": {
+          "title": "Safety & Compliance",
+          "description": "Get practical guidance on standards, regulations, and workplace protection."
+        },
+        "other": {
+          "title": "Other Insights",
+          "description": "General articles and updates on safety and protection."
+        }
+      }
     },
     "stats": {
       "articles": "Articles",
@@ -1038,12 +1059,12 @@
       "badge": "Safety Knowledge",
       "title": "Hand Line Safety Resources",
       "description": "Discover expert insights about industrial safety gloves, protective equipment, and best practices for workplace hand protection.",
-      "searchPlaceholder": "Search articles...",
+      "searchPlaceholder": "Search Insights...",
       "showing": "Showing",
       "articles": "articles",
       "noArticles": "No articles found",
       "noArticlesDescription": "Try adjusting your search or filter criteria",
-      "filterByTags": "Tags",
+      "filterByTags": "Categories",
       "clearFilters": "Clear",
       "searchFor": "for",
       "clearAllFilters": "Clear all filters"

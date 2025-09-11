@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { MapPin, Phone, Mail, Building2 } from "lucide-react";
 import { useLanguage } from "@/lib/context/language-context";
@@ -14,7 +14,7 @@ const officeData = {
     phone: "+39 031 123 4567",
     email: "info@handlineco.com",
     location: {
-      lat: 45.8686, // Canzo, Italy coordinates
+      lat: 45.8686, // Fallback: Canzo, Italy centre
       lng: 9.2715
     }
   },
@@ -30,15 +30,65 @@ const officeData = {
   }
 };
 
+type OfficeKey = 'italy' | 'uk';
+
+type Coordinates = { lat: number; lng: number };
+
+async function geocodeAddress(address: string): Promise<Coordinates | null> {
+  try {
+    const params = new URLSearchParams({
+      q: address,
+      format: "json",
+      limit: "1",
+    });
+    const response = await fetch(`https://nominatim.openstreetmap.org/search?${params.toString()}`, {
+      headers: {
+        // OSM identifies clients via Referer; browsers do not allow custom User-Agent
+        "Accept-Language": "en",
+      },
+    });
+    if (!response.ok) return null;
+    const data: Array<{ lat: string; lon: string }> = await response.json();
+    if (!Array.isArray(data) || data.length === 0) return null;
+    const item = data[0];
+    const lat = parseFloat(item.lat);
+    const lng = parseFloat(item.lon);
+    if (Number.isNaN(lat) || Number.isNaN(lng)) return null;
+    return { lat, lng };
+  } catch {
+    return null;
+  }
+}
+
 export function ContactInfo() {
   const { t } = useLanguage();
-  const [selectedOffice, setSelectedOffice] = useState<'italy' | 'uk'>('italy');
+  const [selectedOffice, setSelectedOffice] = useState<OfficeKey>('italy');
+  const [coordsByOffice, setCoordsByOffice] = useState<Record<OfficeKey, Coordinates>>({
+    italy: officeData.italy.location,
+    uk: officeData.uk.location,
+  });
   
   // Get current office data
   const currentOffice = officeData[selectedOffice];
 
-  const getStaticMapUrl = (office: typeof officeData.italy) => {
-    return `https://www.openstreetmap.org/export/embed.html?bbox=${office.location.lng-0.01}%2C${office.location.lat-0.01}%2C${office.location.lng+0.01}%2C${office.location.lat+0.01}&layer=mapnik&marker=${office.location.lat}%2C${office.location.lng}`;
+  useEffect(() => {
+    let isActive = true;
+    const address = currentOffice.address;
+    // Only attempt geocoding for known physical addresses
+    geocodeAddress(address).then((result) => {
+      if (result && isActive) {
+        setCoordsByOffice((prev) => ({ ...prev, [selectedOffice]: result }));
+      }
+    });
+    return () => {
+      isActive = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedOffice]);
+
+  const getStaticMapUrl = (coords: Coordinates) => {
+    const { lat, lng } = coords;
+    return `https://www.openstreetmap.org/export/embed.html?bbox=${lng-0.01}%2C${lat-0.01}%2C${lng+0.01}%2C${lat+0.01}&layer=mapnik&marker=${lat}%2C${lng}`;
   };
   
   return (
@@ -156,7 +206,7 @@ export function ContactInfo() {
           {/* OpenStreetMap iframe replacing Google Maps */}
           <div className="w-full max-w-[95vw] mx-auto rounded-lg overflow-hidden h-56 sm:h-64" style={{ background: '#e5e3df', position: 'relative' }}>
             <iframe
-              src={getStaticMapUrl(currentOffice)}
+              src={getStaticMapUrl(coordsByOffice[selectedOffice])}
               className="w-full h-full object-cover"
               style={{ minHeight: '100%', minWidth: '100%', border: 0 }}
               allowFullScreen

@@ -22,12 +22,15 @@ import {
 interface BlogGridProps {
   blogPosts: BlogPost[];
   language: string;
+  searchQuery?: string;
+  onSearchChange?: (value: string) => void;
 }
 
-export function BlogGrid({ blogPosts, language }: BlogGridProps) {
+export function BlogGrid({ blogPosts, language, searchQuery: controlledSearch, onSearchChange }: BlogGridProps) {
   const { t } = useLanguage();
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [uncontrolledSearch, setUncontrolledSearch] = useState('');
+  const searchQuery = controlledSearch !== undefined ? controlledSearch : uncontrolledSearch;
 
   // Extract unique tags from blog posts (localised)
   const tags = useMemo(() => {
@@ -50,7 +53,11 @@ export function BlogGrid({ blogPosts, language }: BlogGridProps) {
   // Clear all filters
   const clearFilters = () => {
     setSelectedTags([]);
-    setSearchQuery('');
+    if (onSearchChange) {
+      onSearchChange('');
+    } else {
+      setUncontrolledSearch('');
+    }
   };
 
   // Filter blog posts based on search query and selected tags (localised)
@@ -110,14 +117,27 @@ export function BlogGrid({ blogPosts, language }: BlogGridProps) {
                 placeholder={t('blog.grid.searchPlaceholder')}
                 className="pl-12 pr-4 h-12 bg-white dark:bg-black/50 border-gray-200 dark:border-gray-700 rounded-xl shadow-sm focus:shadow-md transition-all duration-200"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (onSearchChange) {
+                    onSearchChange(value);
+                  } else {
+                    setUncontrolledSearch(value);
+                  }
+                }}
               />
               {searchQuery && (
                 <Button
                   variant="ghost"
                   size="sm"
                   className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 p-0"
-                  onClick={() => setSearchQuery('')}
+                  onClick={() => {
+                    if (onSearchChange) {
+                      onSearchChange('');
+                    } else {
+                      setUncontrolledSearch('');
+                    }
+                  }}
                 >
                   <X className="h-4 w-4" />
                 </Button>
@@ -163,23 +183,9 @@ export function BlogGrid({ blogPosts, language }: BlogGridProps) {
             </DropdownMenu>
           </div>
 
-          {/* Right Side - Results and Clear Filters */}
-          <div className="flex items-center gap-3 flex-shrink-0">
-            {/* Results Count */}
-            <div className="flex items-center space-x-2">
-              <Users className="h-5 w-5 text-brand-primary" />
-              <p className="text-lg font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                <span className="text-xl font-bold text-brand-primary">{filteredPosts.length}</span> {t('blog.grid.articles')}
-                {searchQuery && (
-                  <span className="text-gray-500 dark:text-gray-400 ml-2 hidden sm:inline">
-                    {t('blog.grid.searchFor')} "{searchQuery}"
-                  </span>
-                )}
-              </p>
-            </div>
-
-            {/* Clear Filters */}
-            {activeFiltersCount > 0 && (
+          {/* Right Side - Clear Filters only (removed article count per feedback) */}
+          {activeFiltersCount > 0 && (
+            <div className="flex items-center gap-3 flex-shrink-0">
               <Button
                 variant="ghost"
                 size="sm"
@@ -189,8 +195,8 @@ export function BlogGrid({ blogPosts, language }: BlogGridProps) {
                 {t('blog.grid.clearFilters')} ({activeFiltersCount})
                 <X className="ml-1 h-4 w-4" />
               </Button>
-            )}
-          </div>
+            </div>
+          )}
         </div>
 
         {/* Active Filters Display */}

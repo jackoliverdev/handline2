@@ -20,6 +20,10 @@ export interface BlogPost {
   summary_locales?: { [lang: string]: string };
   content_locales?: { [lang: string]: string };
   tags_locales?: { [lang: string]: string[] };
+  related_product_id_1?: string | null;
+  related_product_id_2?: string | null;
+  related_product_id_3?: string | null;
+  related_product_id_4?: string | null;
 }
 
 /**

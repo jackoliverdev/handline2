@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -13,24 +13,35 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "@/components/ui/use-toast";
 import { createBlog, uploadBlogCoverImage } from "@/lib/blog-service";
 import { ArrowLeft, Save, Upload, X, Tag as TagIcon } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { MiniProductCard } from "@/components/app/mini-product-card";
+import type { Product } from "@/lib/products-service";
 import Link from "next/link";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
 
 export default function CreateBlogPage() {
   const router = useRouter();
-  const [title, setTitle] = useState("");
+  const [currentLanguage, setCurrentLanguage] = useState<'en' | 'it'>('en');
+  const [titleLocales, setTitleLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
   const [slug, setSlug] = useState("");
-  const [summary, setSummary] = useState("");
-  const [content, setContent] = useState("");
+  const [summaryLocales, setSummaryLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
+  const [contentLocales, setContentLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
   const [currentTag, setCurrentTag] = useState("");
-  const [tags, setTags] = useState<string[]>([]);
+  const [tagsLocales, setTagsLocales] = useState<{en: string[], it: string[]}>({ en: [], it: [] });
   const [isPublished, setIsPublished] = useState(false);
   const [previewTab, setPreviewTab] = useState("edit");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  // Related products state
+  const [relatedProductId1, setRelatedProductId1] = useState<string | null>(null);
+  const [relatedProductId2, setRelatedProductId2] = useState<string | null>(null);
+  const [relatedProductId3, setRelatedProductId3] = useState<string | null>(null);
+  const [relatedProductId4, setRelatedProductId4] = useState<string | null>(null);
+  const [availableProducts, setAvailableProducts] = useState<Product[]>([]);
   
   // Generate slug from title
   const generateSlug = (title: string) => {
@@ -43,19 +54,22 @@ export default function CreateBlogPage() {
   };
   
   const handleTitleChange = (value: string) => {
-    setTitle(value);
-    setSlug(generateSlug(value));
+    setTitleLocales(prev => ({ ...prev, [currentLanguage]: value }));
+    if (currentLanguage === 'en') {
+      setSlug(generateSlug(value));
+    }
   };
 
   const addTag = () => {
-    if (currentTag.trim() !== '' && !tags.includes(currentTag.trim())) {
-      setTags([...tags, currentTag.trim()]);
+    const trimmed = currentTag.trim();
+    if (trimmed !== '' && !tagsLocales[currentLanguage].includes(trimmed)) {
+      setTagsLocales(prev => ({ ...prev, [currentLanguage]: [...prev[currentLanguage], trimmed] }));
       setCurrentTag('');
     }
   };
 
   const removeTag = (tagToRemove: string) => {
-    setTags(tags.filter(tag => tag !== tagToRemove));
+    setTagsLocales(prev => ({ ...prev, [currentLanguage]: prev[currentLanguage].filter(t => t !== tagToRemove) }));
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -101,14 +115,45 @@ export default function CreateBlogPage() {
   const triggerFileInput = () => {
     fileInputRef.current?.click();
   };
+
+  // Fetch available products for related products selection (same as product create)
+  useEffect(() => {
+    async function loadProducts() {
+      try {
+        const response = await fetch('/api/products');
+        if (!response.ok) throw new Error(`Error fetching products: ${response.status}`);
+        const data = await response.json();
+        setAvailableProducts(data);
+      } catch (error) {
+        console.error("Error loading products:", error);
+        toast({ title: "Warning", description: "Failed to load products for selection", variant: "destructive" });
+      }
+    }
+    loadProducts();
+  }, []);
+
+  const getRelatedProductIds = () => [relatedProductId1, relatedProductId2, relatedProductId3, relatedProductId4].filter(Boolean) as string[];
+  const addRelatedProduct = (productId: string) => {
+    if (!relatedProductId1) setRelatedProductId1(productId);
+    else if (!relatedProductId2) setRelatedProductId2(productId);
+    else if (!relatedProductId3) setRelatedProductId3(productId);
+    else if (!relatedProductId4) setRelatedProductId4(productId);
+    else toast({ title: "Error", description: "You can only add up to 4 related products", variant: "destructive" });
+  };
+  const removeRelatedProduct = (productId: string) => {
+    if (relatedProductId1 === productId) setRelatedProductId1(null);
+    else if (relatedProductId2 === productId) setRelatedProductId2(null);
+    else if (relatedProductId3 === productId) setRelatedProductId3(null);
+    else if (relatedProductId4 === productId) setRelatedProductId4(null);
+  };
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!title || !summary || !content) {
+    if (!titleLocales.en || !summaryLocales.en || !contentLocales.en) {
       toast({
         title: "Validation Error",
-        description: "Please fill in all required fields.",
+        description: "Please complete Title, Summary and Content in English.",
         variant: "destructive"
       });
       return;
@@ -118,17 +163,27 @@ export default function CreateBlogPage() {
       setIsSubmitting(true);
       
       const blogData = {
-        title,
-        slug: slug || generateSlug(title),
-        summary,
-        content,
-        tags,
+        // Legacy/base fields from EN
+        title: titleLocales.en,
+        slug: slug || generateSlug(titleLocales.en),
+        summary: summaryLocales.en,
+        content: contentLocales.en,
+        tags: tagsLocales.en,
+        // Locales payload
+        title_locales: (titleLocales.en || titleLocales.it) ? titleLocales : undefined,
+        summary_locales: (summaryLocales.en || summaryLocales.it) ? summaryLocales : undefined,
+        content_locales: (contentLocales.en || contentLocales.it) ? contentLocales : undefined,
+        tags_locales: (tagsLocales.en.length > 0 || tagsLocales.it.length > 0) ? tagsLocales : undefined,
         is_published: isPublished,
         author: "Hand Line Team", // Default author, can be updated later
-        image_url: imageUrl
+        image_url: imageUrl,
+        related_product_id_1: relatedProductId1,
+        related_product_id_2: relatedProductId2,
+        related_product_id_3: relatedProductId3,
+        related_product_id_4: relatedProductId4
       };
       
-      const newBlog = await createBlog(blogData);
+      const newBlog = await createBlog(blogData as any);
       
       toast({
         title: "Success",
@@ -166,13 +221,22 @@ export default function CreateBlogPage() {
             Back to Blogs
           </Link>
         </Button>
-        <h1 className="text-2xl font-bold tracking-tight">Create New Blog Post</h1>
+        <div className="flex items-center justify-between gap-3 w-full sm:w-auto">
+          <h1 className="text-2xl font-bold tracking-tight">Create New Blog Post</h1>
+          <LanguageSwitcher currentLanguage={currentLanguage} onLanguageChange={setCurrentLanguage} />
+        </div>
       </div>
       <form onSubmit={handleSubmit}>
         <div className="grid gap-4 sm:gap-6 md:grid-cols-6">
           {/* Main content area - 4 columns */}
           <div className="md:col-span-4 space-y-4 sm:space-y-6">
-            <Card>
+            <Tabs defaultValue="content" className="w-full">
+              <TabsList>
+                <TabsTrigger value="content">Content</TabsTrigger>
+                <TabsTrigger value="related">Related Products</TabsTrigger>
+              </TabsList>
+              <TabsContent value="content">
+              <Card>
               <CardHeader>
                 <CardTitle className="text-lg sm:text-xl">Blog Content</CardTitle>
                 <CardDescription className="text-xs sm:text-sm">Write your blog post content here.</CardDescription>
@@ -184,7 +248,7 @@ export default function CreateBlogPage() {
                     <Input
                       id="title"
                       placeholder="Enter blog post title"
-                      value={title}
+                      value={titleLocales[currentLanguage]}
                       onChange={(e) => handleTitleChange(e.target.value)}
                       required
                       className="text-xs sm:text-sm h-8 sm:h-10"
@@ -208,8 +272,8 @@ export default function CreateBlogPage() {
                     <Textarea
                       id="summary"
                       placeholder="Enter a short summary of your blog post"
-                      value={summary}
-                      onChange={(e) => setSummary(e.target.value)}
+                      value={summaryLocales[currentLanguage]}
+                      onChange={(e) => setSummaryLocales({ ...summaryLocales, [currentLanguage]: e.target.value })}
                       rows={3}
                       required
                       className="text-xs sm:text-sm"
@@ -231,15 +295,15 @@ export default function CreateBlogPage() {
                         <Textarea
                           id="content"
                           placeholder="Write your content in Markdown format"
-                          value={content}
-                          onChange={(e) => setContent(e.target.value)}
+                          value={contentLocales[currentLanguage]}
+                          onChange={(e) => setContentLocales({ ...contentLocales, [currentLanguage]: e.target.value })}
                           rows={10}
                           required
                           className="font-mono text-xs sm:text-sm"
                         />
                       </TabsContent>
                       <TabsContent value="preview" className="p-4 border rounded-md min-h-[200px] sm:min-h-[300px] markdown-preview text-xs sm:text-sm prose prose-sm max-w-none">
-                        {content ? (
+                        {contentLocales[currentLanguage] ? (
                           <ReactMarkdown
                             remarkPlugins={[remarkGfm]}
                             components={{
@@ -255,7 +319,7 @@ export default function CreateBlogPage() {
                               code: ({ node, ...props }) => <code className="bg-gray-100 px-2 py-1 rounded text-sm font-mono" {...props} />
                             }}
                           >
-                            {content}
+                            {contentLocales[currentLanguage]}
                           </ReactMarkdown>
                         ) : (
                           <p className="text-muted-foreground">Nothing to preview yet...</p>
@@ -266,6 +330,50 @@ export default function CreateBlogPage() {
                 </div>
               </CardContent>
             </Card>
+              </TabsContent>
+              <TabsContent value="related" className="space-y-4 mt-4">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Related Products</CardTitle>
+                    <CardDescription>Link this blog post to up to 4 products.</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-6">
+                      <div className="space-y-4">
+                        <Label>Currently Selected Related Products</Label>
+                        <div className="grid gap-2">
+                          {getRelatedProductIds().length > 0 ? (
+                            getRelatedProductIds().map(productId => {
+                              const product = availableProducts.find(p => p.id === productId);
+                              return product ? (
+                                <MiniProductCard key={productId} product={product} onRemove={removeRelatedProduct} />
+                              ) : null;
+                            })
+                          ) : (
+                            <p className="text-sm text-muted-foreground">No related products selected. Add some below.</p>
+                          )}
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="product-select">Add a related product:</Label>
+                        <Select onValueChange={(value) => addRelatedProduct(value)}>
+                          <SelectTrigger id="product-select" className="w-full">
+                            <SelectValue placeholder="Select a product" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {availableProducts
+                              .filter(product => !getRelatedProductIds().includes(product.id))
+                              .map((product) => (
+                                <SelectItem key={product.id} value={product.id}>{product.name}</SelectItem>
+                              ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            </Tabs>
           </div>
           {/* Sidebar - 2 columns */}
           <div className="md:col-span-2 space-y-4 sm:space-y-6">
@@ -279,7 +387,7 @@ export default function CreateBlogPage() {
                   <div className="space-y-2">
                     <Label htmlFor="tags" className="text-xs sm:text-sm">Tags</Label>
                     <div className="flex flex-wrap gap-2 mb-2">
-                      {tags.map((tag) => (
+                      {tagsLocales[currentLanguage].map((tag) => (
                         <Badge key={tag} variant="secondary" className="flex items-center gap-1 px-3 py-1 text-xs sm:text-sm">
                           {tag}
                           <button 
@@ -321,8 +429,8 @@ export default function CreateBlogPage() {
                             variant="outline" 
                             className="cursor-pointer hover:bg-accent text-xs sm:text-sm"
                             onClick={() => {
-                              if (!tags.includes(tag)) {
-                                setTags([...tags, tag]);
+                              if (!tagsLocales[currentLanguage].includes(tag)) {
+                                setTagsLocales(prev => ({ ...prev, [currentLanguage]: [...prev[currentLanguage], tag] }));
                               }
                             }}
                           >
