@@ -103,7 +103,7 @@ function getDefaultImageForCategory(categoryType: string): string {
   const imageMap = {
     gloves: "/glovecats/49K-C_A.webp",
     respiratory: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/products/Categories/respiratory_protection.png",
-    industrialSwabs: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/products/Categories/Industrial_swabs.png",
+    industrialSwabs: "/images/HLC_SWABS_main.jpg",
     heat: "/glovecats/152-14 3L20_A.webp",
     cut: "/glovecats/HL8801 DSR_A.webp",
     general: "/glovecats/HL 6WWG_A.webp",

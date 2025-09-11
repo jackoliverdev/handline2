@@ -87,6 +87,18 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
   // Get localised size and other info
   const size = product.size_locales?.[language] || product.size_locales?.en || null;
 
+  // Compute pad size display if available (primarily for Industrial Swabs)
+  const padSizeDisplay: string | null = React.useMemo(() => {
+    const raw = (product as any).pad_size_json;
+    if (!raw || typeof raw !== 'object') return null;
+    const locale = raw[language] || raw.en;
+    if (!locale || typeof locale !== 'object') return null;
+    const diameter = locale.diameter_mm ?? locale.diametro_mm ?? null;
+    const length = locale.length_mm ?? locale.lunghezza_mm ?? null;
+    if (diameter && length) return `Ø ${diameter} × ${length} mm`;
+    return null;
+  }, [product, language]);
+
   // Track product view on component mount
   React.useEffect(() => {
     if (product) {
@@ -466,9 +478,22 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                             </div>
                           </div>
                         )}
+
+                        {/* If no EN standards, but we have pad size (swabs), show Pad Size tile */}
+                        {!((product.safety && (product.safety.en_388?.enabled || product.safety.en_407?.enabled || product.safety.en_511?.enabled))) && padSizeDisplay && (
+                          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+                            <div className="flex items-center justify-center gap-2 mb-2">
+                              <Ruler className="h-5 w-5 text-brand-primary" />
+                              <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.padSize')}</h3>
+                            </div>
+                            <div className="flex items-center justify-center">
+                              <span className="text-brand-dark dark:text-white font-medium text-md">{padSizeDisplay}</span>
+                            </div>
+                          </div>
+                        )}
                         
                         {/* Fallback when safety exists but no standards are enabled, or when no safety data exists */}
-                        {((product.safety && !product.safety.en_388?.enabled && !product.safety.en_407?.enabled && !product.safety.en_511?.enabled) || !product.safety) && product.en_standard && (
+                        {((product.safety && !product.safety.en_388?.enabled && !product.safety.en_407?.enabled && !product.safety.en_511?.enabled) || !product.safety) && product.en_standard && !padSizeDisplay && (
                           <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
                             <div className="flex items-center justify-center gap-2 mb-2">
                               <Shield className="h-5 w-5 text-brand-primary" />

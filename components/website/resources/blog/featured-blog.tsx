@@ -71,25 +71,18 @@ export function FeaturedBlog({ blog, language, t }: FeaturedBlogProps) {
             className="space-y-6"
           >
             <div>
-              {/* Category Badge above title (derived from first tag or 'Other Insights') */}
+              {/* Category Badge above title (from canonical category) */}
               <div className="mb-3">
                 <Badge className={`text-xs font-medium border px-2 py-1 rounded-full ${
-                  (blog.tags && blog.tags[0] || '').toLowerCase().includes('innovation')
+                  (blog.category || '').toLowerCase().includes('innovation')
                     ? 'bg-[#F28C38]/10 text-[#F28C38] border-[#F28C38]/20'
-                    : (blog.tags && blog.tags[0] || '').toLowerCase().includes('sustain')
+                    : (blog.category || '').toLowerCase().includes('sustain')
                     ? 'bg-[#3BAA36]/10 text-[#3BAA36] border-[#3BAA36]/20'
-                    : (blog.tags && blog.tags[0] || '').toLowerCase().includes('compliance') || (blog.tags && blog.tags[0] || '').toLowerCase().includes('safety')
+                    : (blog.category || '').toLowerCase().includes('compliance') || (blog.category || '').toLowerCase().includes('safety')
                     ? 'bg-[#0F5B78]/10 text-[#0F5B78] border-[#0F5B78]/20'
                     : 'bg-gray-200/40 text-gray-700 dark:text-gray-200 dark:bg-gray-700/40 border-gray-300/40'
                 }`}>
-                  {(() => {
-                    const first = ((blog.tags_locales && blog.tags_locales[language]) || blog.tags || [])[0] || '';
-                    const f = first.toLowerCase();
-                    if (f.includes('innovation')) return t('blog.categoriesBuckets.buckets.productsInnovation.title');
-                    if (f.includes('sustain')) return t('blog.categoriesBuckets.buckets.industrySustainability.title');
-                    if (f.includes('compliance') || f.includes('safety')) return t('blog.categoriesBuckets.buckets.safetyCompliance.title');
-                    return t('blog.categoriesBuckets.buckets.other.title');
-                  })()}
+                  {blog.category || t('blog.categoriesBuckets.buckets.other.title')}
                 </Badge>
               </div>
               <h3 className="text-2xl font-bold text-brand-dark dark:text-white mb-3">

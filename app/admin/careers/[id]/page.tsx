@@ -121,7 +121,7 @@ export default function EditCareerPage({ params }: PageProps) {
         responsibilities_locales: (responsibilitiesLocales.en.length || responsibilitiesLocales.it.length) ? responsibilitiesLocales : undefined,
         requirements_locales: (requirementsLocales.en.length || requirementsLocales.it.length) ? requirementsLocales : undefined,
         benefits_locales: (benefitsLocales.en.length || benefitsLocales.it.length) ? benefitsLocales : undefined,
-        salary_range: salaryRange || null, work_site: workSite || null, is_published: isPublished, is_featured: isFeatured,
+        salary_range: salaryRange || null, is_published: isPublished, is_featured: isFeatured,
       });
       toast({ title: "Saved", description: "Role updated." });
     } catch (error) {

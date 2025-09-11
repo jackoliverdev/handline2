@@ -24,22 +24,22 @@ interface BlogGridProps {
   language: string;
   searchQuery?: string;
   onSearchChange?: (value: string) => void;
+  categoryFilter?: string;
+  categoryColour?: string;
+  onClearCategoryFilter?: () => void;
 }
 
-export function BlogGrid({ blogPosts, language, searchQuery: controlledSearch, onSearchChange }: BlogGridProps) {
+export function BlogGrid({ blogPosts, language, searchQuery: controlledSearch, onSearchChange, categoryFilter, categoryColour, onClearCategoryFilter }: BlogGridProps) {
   const { t } = useLanguage();
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [uncontrolledSearch, setUncontrolledSearch] = useState('');
   const searchQuery = controlledSearch !== undefined ? controlledSearch : uncontrolledSearch;
 
-  // Extract unique tags from blog posts (localised)
-  const tags = useMemo(() => {
-    const allTags = blogPosts.flatMap((post) =>
-      (post.tags_locales && post.tags_locales[language]) || post.tags || []
-    );
-    const uniqueTags = Array.from(new Set(allTags)).sort();
-    return uniqueTags;
-  }, [blogPosts, language]);
+  // Extract unique categories from blog posts (localised from canonical column)
+  const categories = useMemo(() => {
+    const all = blogPosts.map((post) => (post as any).category).filter(Boolean) as string[];
+    return Array.from(new Set(all));
+  }, [blogPosts]);
 
   // Handle tag selection
   const toggleTag = (tag: string) => {
@@ -60,7 +60,7 @@ export function BlogGrid({ blogPosts, language, searchQuery: controlledSearch, o
     }
   };
 
-  // Filter blog posts based on search query and selected tags (localised)
+  // Filter blog posts based on search query and selected category
   const filteredPosts = useMemo(() => {
     return blogPosts.filter((post) => {
       const title = (post.title_locales && post.title_locales[language]) || post.title;
@@ -68,14 +68,13 @@ export function BlogGrid({ blogPosts, language, searchQuery: controlledSearch, o
       const matchesSearch = searchQuery === '' || 
         title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         summary.toLowerCase().includes(searchQuery.toLowerCase());
-      const postTags = (post.tags_locales && post.tags_locales[language]) || post.tags || [];
-      const matchesTags = selectedTags.length === 0 ||
-        (postTags && postTags.some(tag => selectedTags.includes(tag)));
-      return matchesSearch && matchesTags;
+      const postCategory = (post as any).category || '';
+      const matchesCategory = !categoryFilter || postCategory === categoryFilter;
+      return matchesSearch && matchesCategory;
     });
-  }, [blogPosts, searchQuery, selectedTags, language]);
+  }, [blogPosts, searchQuery, language, categoryFilter]);
 
-  const activeFiltersCount = selectedTags.length;
+  const activeFiltersCount = selectedTags.length + (categoryFilter ? 1 : 0);
 
   const container = {
     hidden: { opacity: 0 },
@@ -144,7 +143,7 @@ export function BlogGrid({ blogPosts, language, searchQuery: controlledSearch, o
               )}
             </div>
             
-            {/* Tags Filter */}
+            {/* Category Filter */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button 
@@ -153,29 +152,19 @@ export function BlogGrid({ blogPosts, language, searchQuery: controlledSearch, o
                 >
                   <TrendingUp className="mr-2 h-4 w-4" />
                   {t('blog.grid.filterByTags')}
-                  {selectedTags.length > 0 && (
-                    <Badge variant="secondary" className="ml-2 px-1.5 py-0.5 text-xs">
-                      {selectedTags.length}
-                    </Badge>
-                  )}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-64 max-h-80 overflow-y-auto">
                 <DropdownMenuLabel>{t('blog.grid.filterByTags')}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                {tags.map((tag) => (
+                {categories.map((cat) => (
                   <DropdownMenuItem
-                    key={tag}
-                    className={`cursor-pointer ${selectedTags.includes(tag) ? 'bg-brand-primary/10 text-brand-primary' : ''}`}
-                    onClick={() => toggleTag(tag)}
+                    key={cat}
+                    className={`cursor-pointer ${categoryFilter === cat ? 'bg-brand-primary/10 text-brand-primary' : ''}`}
+                    onClick={() => onSearchChange ? onSearchChange('') : null}
                   >
-                    <div className="flex items-center justify-between w-full">
-                      <span>{tag}</span>
-                      {selectedTags.includes(tag) && (
-                        <Badge variant="default" className="ml-2 h-5 w-5 p-0 rounded-full">
-                          ✓
-                        </Badge>
-                      )}
+                    <div className="flex items-center justify-between w-full" onClick={() => (window.location.hash = '#blog-grid')}>
+                      <span onClick={() => { (window as any)._setCategoryFilter?.(cat); }}>{cat}</span>
                     </div>
                   </DropdownMenuItem>
                 ))}
@@ -189,7 +178,7 @@ export function BlogGrid({ blogPosts, language, searchQuery: controlledSearch, o
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={clearFilters}
+                onClick={() => { clearFilters(); onClearCategoryFilter?.(); }}
                 className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 whitespace-nowrap"
               >
                 {t('blog.grid.clearFilters')} ({activeFiltersCount})
@@ -201,7 +190,7 @@ export function BlogGrid({ blogPosts, language, searchQuery: controlledSearch, o
 
         {/* Active Filters Display */}
         <AnimatePresence>
-          {selectedTags.length > 0 && (
+          {(selectedTags.length > 0 || categoryFilter) && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
@@ -219,6 +208,21 @@ export function BlogGrid({ blogPosts, language, searchQuery: controlledSearch, o
                   <X className="ml-1 h-3 w-3" />
                 </Badge>
               ))}
+              {categoryFilter && (
+                <Badge
+                  variant="secondary"
+                  className="cursor-pointer"
+                  style={{
+                    backgroundColor: categoryColour || undefined,
+                    color: '#ffffff',
+                    borderColor: 'transparent'
+                  }}
+                  onClick={() => onClearCategoryFilter?.()}
+                >
+                  {categoryFilter}
+                  <X className="ml-1 h-3 w-3" />
+                </Badge>
+              )}
             </motion.div>
           )}
         </AnimatePresence>

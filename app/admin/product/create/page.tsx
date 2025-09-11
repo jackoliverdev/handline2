@@ -617,6 +617,10 @@ export default function CreateProductPage() {
         technical_sheet_url_it: technicalSheetUrlIt,
         declaration_sheet_url: declarationSheetUrl,
         declaration_sheet_url_it: declarationSheetUrlIt,
+        declaration_docs_locales: [
+          ...(declarationSheetUrl ? [{ lang: 'English', kind: 'eu' as const, url: declarationSheetUrl }] : []),
+          ...(declarationSheetUrlIt ? [{ lang: 'Italiano', kind: 'eu' as const, url: declarationSheetUrlIt }] : [])
+        ],
         manufacturers_instruction_url: manufacturersInstructionUrl,
         manufacturers_instruction_url_it: manufacturersInstructionUrlIt,
         related_product_id_1: relatedProductId1,

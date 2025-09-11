@@ -77,7 +77,7 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.4 }}
-        className="list-disc pl-6 my-4 text-brand-secondary dark:text-gray-300 space-y-1"
+        className="list-disc list-outside pl-6 my-5 text-brand-secondary dark:text-gray-300 space-y-2 marker:text-brand-primary"
       >
         {children}
       </motion.ul>
@@ -88,12 +88,25 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.4 }}
-        className="list-decimal pl-6 my-4 text-brand-secondary dark:text-gray-300 space-y-1"
+        className="list-decimal list-outside pl-6 my-5 text-brand-secondary dark:text-gray-300 space-y-2 marker:text-brand-primary marker:font-semibold"
       >
         {children}
       </motion.ol>
     ),
-    li: ({ children }) => <li className="mb-1 hover:text-brand-dark dark:hover:text-white transition-colors duration-200">{children}</li>,
+    li: ({ children }) => (
+      <li className="leading-7 rounded-md px-2 py-1 -mx-2 hover:bg-brand-primary/5 dark:hover:bg-brand-primary/10 transition-colors duration-200">
+        {children}
+      </li>
+    ),
+    strong: ({ children }) => (
+      <strong className="text-brand-dark dark:text-white font-semibold">{children}</strong>
+    ),
+    em: ({ children }) => (
+      <em className="text-brand-secondary dark:text-gray-300">{children}</em>
+    ),
+    hr: () => (
+      <hr className="my-8 border-t border-brand-primary/20" />
+    ),
     blockquote: ({ children }) => (
       <motion.blockquote 
         initial={{ opacity: 0, x: -20 }}
