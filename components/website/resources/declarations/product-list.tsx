@@ -28,15 +28,76 @@ export function ProductList({ products }: ProductListProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   // Document language selector (defaults to current site language)
-  const [docLanguage, setDocLanguage] = useState<string>(language || 'en');
+  const [docLanguage, setDocLanguage] = useState<string>('English');
 
-  const AVAILABLE_DOC_LANGS: string[] = ['en', 'it'];
+  // Utilities that ONLY use the new declaration_docs_locales JSON (no legacy)
+  const mapCodeToName = (v: string) => {
+    const lower = (v || '').toLowerCase();
+    if (lower === 'en') return 'English';
+    if (lower === 'it') return 'Italiano';
+    return v || '';
+  };
+
+  const getJsonDocLangs = (product: Product): string[] => {
+    const set = new Set<string>();
+    const entries = Array.isArray((product as any).declaration_docs_locales) ? (product as any).declaration_docs_locales : [];
+    entries.forEach((e: any) => {
+      if (!e) return;
+      if (e.kind === 'eu') set.add(mapCodeToName(e.lang));
+      if (e.kind === 'multi' && Array.isArray(e.langs)) e.langs.forEach((l: string) => set.add(mapCodeToName(l)));
+    });
+    return Array.from(set);
+  };
+
+  const getJsonDocUrl = (product: Product, targetLang: string): string | null => {
+    const entries = Array.isArray((product as any).declaration_docs_locales) ? (product as any).declaration_docs_locales : [];
+    const normTargets = new Set<string>([
+      mapCodeToName(targetLang),
+      (targetLang || '').toLowerCase(),
+      targetLang
+    ]);
+    // exact eu match by name or raw code
+    const exact = entries.find((e: any) => e.kind === 'eu' && (normTargets.has(mapCodeToName(e.lang)) || normTargets.has((e.lang || '').toLowerCase())));
+    if (exact) return exact.url;
+    // multi contains target
+    const multi = entries.find((e: any) => (e.kind === 'multi') && Array.isArray(e.langs) && e.langs.some((l: string) => normTargets.has(mapCodeToName(l)) || normTargets.has((l || '').toLowerCase())));
+    if (multi) return multi.url;
+    return null;
+  };
+
+  // Exact-match only (no English fallback) for filtering and primary button state
+  const getJsonDocUrlExact = (product: Product, targetLang: string): string | null => {
+    const entries = Array.isArray((product as any).declaration_docs_locales) ? (product as any).declaration_docs_locales : [];
+    const normTargets = new Set<string>([
+      mapCodeToName(targetLang),
+      (targetLang || '').toLowerCase(),
+      targetLang
+    ]);
+    const exact = entries.find((e: any) => e.kind === 'eu' && (normTargets.has(mapCodeToName(e.lang)) || normTargets.has((e.lang || '').toLowerCase())));
+    if (exact) return exact.url;
+    const multi = entries.find((e: any) => (e.kind === 'multi') && Array.isArray(e.langs) && e.langs.some((l: string) => normTargets.has(mapCodeToName(l)) || normTargets.has((l || '').toLowerCase())));
+    if (multi) return multi.url;
+    return null;
+  };
+
+  const getJsonUkUrl = (product: Product): string | null => {
+    const entries = Array.isArray((product as any).declaration_docs_locales) ? (product as any).declaration_docs_locales : [];
+    const uk = entries.find((e: any) => e.kind === 'uk');
+    return uk ? uk.url : null;
+  };
+
+  // Build available languages (JSON only)
+  const AVAILABLE_DOC_LANGS: string[] = useMemo(() => {
+    const set = new Set<string>();
+    products.forEach((p) => getJsonDocLangs(p).forEach((l) => set.add(l)));
+    return Array.from(set).sort();
+  }, [products]);
 
   // Localise all products
   const localizedProducts = products.map(product => localiseProduct(product, language));
 
-  // Filter products that have a declaration sheet URL (EN or IT)
-  const productsWithDeclarations = localizedProducts.filter(product => product.declaration_sheet_url || product.declaration_sheet_url_it);
+  // Filter products that have at least one EU doc in JSON
+  const productsWithDeclarations = localizedProducts.filter(product => getJsonDocLangs(product).length > 0);
 
   // Extract unique categories
   const categories = useMemo(() => {
@@ -59,7 +120,7 @@ export function ProductList({ products }: ProductListProps) {
 
   const activeFiltersCount = (selectedCategory ? 1 : 0);
 
-  // Filter by search query and category
+  // Filter by search query, category, and selected document language (exact only)
   const filteredProducts = useMemo(() => {
     return productsWithDeclarations.filter(product => {
       const matchesSearch = searchQuery === '' ||
@@ -67,10 +128,11 @@ export function ProductList({ products }: ProductListProps) {
         (product.short_description && product.short_description.toLowerCase().includes(searchQuery.toLowerCase()));
       
       const matchesCategory = selectedCategory === null || product.category === selectedCategory;
+      const matchesLanguage = getJsonDocUrlExact(product, docLanguage) !== null;
       
-      return matchesSearch && matchesCategory;
+      return matchesSearch && matchesCategory && matchesLanguage;
     });
-  }, [productsWithDeclarations, searchQuery, selectedCategory]);
+  }, [productsWithDeclarations, searchQuery, selectedCategory, docLanguage]);
 
   const container = {
     hidden: { opacity: 0 },
@@ -89,11 +151,11 @@ export function ProductList({ products }: ProductListProps) {
   };
 
   // Helpers
-  const getEuDeclarationUrl = (product: Product, lang: string | undefined): string | null => {
-    if (lang === 'it' && product.declaration_sheet_url_it) return product.declaration_sheet_url_it;
-    if (product.declaration_sheet_url) return product.declaration_sheet_url;
-    if (lang === 'en' && product.declaration_sheet_url_it) return product.declaration_sheet_url_it;
-    return null;
+  const normaliseLabel = (l: string) => mapCodeToName(l);
+
+  const getEuDeclarationUrl = (product: Product, lang: string | undefined): string | null => getJsonDocUrl(product, lang || 'English');
+  const getUkDeclarationUrl = (product: Product): string | null => {
+    return getJsonUkUrl(product);
   };
 
   return (
@@ -119,7 +181,7 @@ export function ProductList({ products }: ProductListProps) {
                 <SelectContent>
                   {AVAILABLE_DOC_LANGS.map((lang) => (
                     <SelectItem key={lang} value={lang}>
-                      {lang === 'en' ? 'English' : lang === 'it' ? 'Italiano' : lang.toUpperCase()}
+                      {lang}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -284,9 +346,9 @@ export function ProductList({ products }: ProductListProps) {
                           size="sm"
                           className="bg-white dark:bg-black/50 border-brand-primary/30 text-brand-primary hover:bg-brand-primary hover:text-white dark:hover:bg-brand-primary transition-all duration-300 gap-2 shadow-sm hover:shadow-md"
                           asChild
-                          disabled={!product.declaration_sheet_url}
+                          disabled={!getUkDeclarationUrl(product)}
                         >
-                          <a href={product.declaration_sheet_url || '#'} target="_blank" rel="noopener noreferrer" download>
+                          <a href={getUkDeclarationUrl(product) || '#'} target="_blank" rel="noopener noreferrer" download>
                             <span>UKCA DoC</span>
                             <Download className="h-4 w-4" />
                           </a>
@@ -299,10 +361,10 @@ export function ProductList({ products }: ProductListProps) {
                             size="sm"
                             className="rounded-r-none bg-white dark:bg-black/50 border-brand-primary/30 text-brand-primary hover:bg-brand-primary hover:text-white dark:hover:bg-brand-primary transition-all duration-300 gap-2 shadow-sm hover:shadow-md"
                             asChild
-                            disabled={!getEuDeclarationUrl(product, docLanguage) && !getEuDeclarationUrl(product, 'en') && !getEuDeclarationUrl(product, 'it')}
+                            disabled={!getJsonDocUrlExact(product, docLanguage)}
                           >
                             <a
-                              href={getEuDeclarationUrl(product, docLanguage) || getEuDeclarationUrl(product, 'en') || getEuDeclarationUrl(product, 'it') || '#'}
+                              href={getJsonDocUrlExact(product, docLanguage) || '#'}
                               target="_blank"
                               rel="noopener noreferrer"
                               download
@@ -326,8 +388,8 @@ export function ProductList({ products }: ProductListProps) {
                               <DropdownMenuLabel>Language</DropdownMenuLabel>
                               <DropdownMenuSeparator />
                               {AVAILABLE_DOC_LANGS.map((langOpt) => {
-                                const url = getEuDeclarationUrl(product, langOpt);
-                                const label = langOpt === 'en' ? 'English' : langOpt === 'it' ? 'Italiano' : langOpt.toUpperCase();
+                                const url = getJsonDocUrlExact(product, langOpt);
+                                const label = normaliseLabel(langOpt);
                                 const disabled = !url;
                                 return (
                                   <DropdownMenuItem

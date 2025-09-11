@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "@/components/ui/use-toast";
-import { getBlogById, updateBlog, deleteBlog, uploadBlogCoverImage } from "@/lib/blog-service";
+import { getBlogById, updateBlog, deleteBlog, uploadBlogCoverImage, uploadBlogExtraImage } from "@/lib/blog-service";
 import { ArrowLeft, Save, Trash, Upload, X, Tag as TagIcon } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { MiniProductCard } from "@/components/app/mini-product-card";
@@ -54,6 +54,8 @@ export default function BlogEditPage({ params }: BlogEditPageProps) {
   const [relatedProductId3, setRelatedProductId3] = useState<string | null>(null);
   const [relatedProductId4, setRelatedProductId4] = useState<string | null>(null);
   const [availableProducts, setAvailableProducts] = useState<Product[]>([]);
+  const [categoryLocales, setCategoryLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
+  const [galleryImages, setGalleryImages] = useState<Array<{ url: string }>>([]);
   
   // Load blog post data
   useEffect(() => {
@@ -73,6 +75,9 @@ export default function BlogEditPage({ params }: BlogEditPageProps) {
           setRelatedProductId2(blog.related_product_id_2 || null);
           setRelatedProductId3(blog.related_product_id_3 || null);
           setRelatedProductId4(blog.related_product_id_4 || null);
+          setCategoryLocales({ en: blog.category_locales?.en || blog.category || '', it: blog.category_locales?.it || '' });
+          const imgs = (blog.extra_images_locales || []).map((i: any) => ({ url: i.url }));
+          setGalleryImages(imgs);
         } else {
           toast({
             title: "Error",
@@ -158,10 +163,15 @@ export default function BlogEditPage({ params }: BlogEditPageProps) {
         tags_locales: (tagsLocales.en.length > 0 || tagsLocales.it.length > 0) ? tagsLocales : undefined,
         is_published: isPublished,
         author,
-        image_url: imageUrl
+        image_url: imageUrl,
+        category: categoryLocales.en || null,
+        category_locales: (categoryLocales.en || categoryLocales.it) ? categoryLocales : undefined
       };
       
-      const updatedBlog = await updateBlog(id, blogData);
+      const updatedBlog = await updateBlog(id, {
+        ...blogData,
+        extra_images_locales: galleryImages.map(img => ({ url: img.url }))
+      });
       
       toast({
         title: "Success",
@@ -333,6 +343,8 @@ export default function BlogEditPage({ params }: BlogEditPageProps) {
               <TabsList>
                 <TabsTrigger value="content">Content</TabsTrigger>
                 <TabsTrigger value="related">Related Products</TabsTrigger>
+                <TabsTrigger value="category">Category</TabsTrigger>
+                <TabsTrigger value="images">Images</TabsTrigger>
               </TabsList>
               <TabsContent value="content">
               <Card>
@@ -440,6 +452,74 @@ export default function BlogEditPage({ params }: BlogEditPageProps) {
                 </div>
               </CardContent>
             </Card>
+              </TabsContent>
+              <TabsContent value="category" className="mt-4">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Category</CardTitle>
+                    <CardDescription>Choose a blog category (localised).</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <Label className="text-xs sm:text-sm">Category (EN)</Label>
+                        <Select value={categoryLocales.en} onValueChange={(v) => setCategoryLocales(prev => ({ ...prev, en: v }))}>
+                          <SelectTrigger className="w-full"><SelectValue placeholder="Select category" /></SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Products & Innovation">Products & Innovation</SelectItem>
+                            <SelectItem value="Industry & Sustainability">Industry & Sustainability</SelectItem>
+                            <SelectItem value="Safety & Compliance">Safety & Compliance</SelectItem>
+                            <SelectItem value="Other Insights">Other Insights</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <Label className="text-xs sm:text-sm">Categoria (IT)</Label>
+                        <Select value={categoryLocales.it} onValueChange={(v) => setCategoryLocales(prev => ({ ...prev, it: v }))}>
+                          <SelectTrigger className="w-full"><SelectValue placeholder="Seleziona categoria" /></SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Prodotti & Innovazione">Prodotti & Innovazione</SelectItem>
+                            <SelectItem value="Industria & Sostenibilità">Industria & Sostenibilità</SelectItem>
+                            <SelectItem value="Sicurezza & Conformità">Sicurezza & Conformità</SelectItem>
+                            <SelectItem value="Altri Approfondimenti">Altri Approfondimenti</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+              <TabsContent value="images" className="mt-4">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Article Images</CardTitle>
+                    <CardDescription>Upload additional images and add EN/IT captions.</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex flex-wrap gap-4">
+                      {galleryImages.map((img, idx) => (
+                        <div key={idx} className="w-full sm:w-[300px] border rounded-lg p-2 bg-white dark:bg-black/40">
+                          <div className="relative h-40 w-full overflow-hidden rounded-md">
+                            <img src={img.url} alt={'Image'} className="object-cover h-full w-full" />
+                          </div>
+                          <div className="flex justify-end mt-2">
+                            <Button type="button" variant="outline" onClick={() => setGalleryImages(prev => prev.filter((_, i) => i !== idx))}>Remove</Button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div>
+                      <Label className="text-xs">Add new image</Label>
+                      <input type="file" accept="image/*" onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        const { url } = await uploadBlogExtraImage(id, file);
+                        if (url) setGalleryImages(prev => [...prev, { url }]);
+                        e.currentTarget.value = '';
+                      }} />
+                    </div>
+                  </CardContent>
+                </Card>
               </TabsContent>
               <TabsContent value="related" className="mt-4 space-y-4">
                 <Card>

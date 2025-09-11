@@ -89,6 +89,13 @@ export interface Product {
   declaration_sheet_url?: string | null;
   technical_sheet_url_it?: string | null;
   declaration_sheet_url_it?: string | null;
+  // New declarations JSON locales
+  declaration_docs_locales?: Array<{
+    lang: string; // e.g. 'en','it','es','multi'
+    kind: 'eu' | 'uk' | 'multi';
+    url: string;
+    langs?: string[]; // if kind === 'multi', list of languages covered in the PDF
+  }> | null;
   manufacturers_instruction_url?: string | null;
   manufacturers_instruction_url_it?: string | null;
   is_featured: boolean;
@@ -111,6 +118,8 @@ export interface Product {
   availability_status: AvailabilityStatus;
   safety: SafetyStandards;
   environment_pictograms: EnvironmentPictograms;
+  // Swab specific pad size JSON (localised structure)
+  pad_size_json?: Record<string, any> | null;
   // Locales fields (optional for typing)
   name_locales?: Record<string, string>;
   description_locales?: Record<string, string>;
@@ -142,6 +151,42 @@ export function localiseProduct(product: Product, language: Language): Product {
       [language]: product.size_locales?.[language] || product.size_locales?.en || ''
     } : null,
   };
+}
+
+// Helpers for DoC JSON
+export function getAvailableDocLangs(product: Product): string[] {
+  const entries = Array.isArray(product.declaration_docs_locales) ? product.declaration_docs_locales : [];
+  const langs = new Set<string>();
+  for (const e of entries) {
+    if (e.kind === 'eu') langs.add(e.lang);
+    if (e.kind === 'multi' && Array.isArray(e.langs)) e.langs.forEach((l) => langs.add(l));
+  }
+  // Include legacy if present
+  if (product.declaration_sheet_url) langs.add('English');
+  if (product.declaration_sheet_url_it) langs.add('Italiano');
+  return Array.from(langs).sort();
+}
+
+export function getDocUrl(product: Product, targetLang: string, kind: 'eu' | 'uk' = 'eu'): string | null {
+  const entries = Array.isArray(product.declaration_docs_locales) ? product.declaration_docs_locales : [];
+  // 1) exact match
+  const exact = entries.find((e) => e.kind === kind && e.lang === targetLang);
+  if (exact) return exact.url;
+  // 2) multi that contains targetLang
+  const multi = entries.find((e) => (e.kind === 'multi' || e.kind === 'eu') && Array.isArray(e.langs) && e.langs.includes(targetLang));
+  if (multi) return multi.url;
+  // 3) fallbacks
+  const enExact = entries.find((e) => e.kind === kind && (e.lang === 'en' || e.lang.toLowerCase() === 'english'));
+  if (enExact) return enExact.url;
+  const enMulti = entries.find((e) => (e.kind === 'multi' || e.kind === 'eu') && Array.isArray(e.langs) && (e.langs.includes('en') || e.langs.includes('English')));
+  if (enMulti) return enMulti.url;
+  // 4) legacy columns as last resort (EU only)
+  if (kind === 'eu') {
+    if ((targetLang === 'it' || targetLang.toLowerCase() === 'italiano') && product.declaration_sheet_url_it) return product.declaration_sheet_url_it;
+    if (product.declaration_sheet_url) return product.declaration_sheet_url;
+    if ((targetLang === 'en' || targetLang.toLowerCase() === 'english') && product.declaration_sheet_url_it) return product.declaration_sheet_url_it;
+  }
+  return null;
 }
 
 /**

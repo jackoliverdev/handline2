@@ -9,6 +9,7 @@ import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, Calendar, Clock, User, Share2, Linkedin, X as XIcon, Copy, Check, Mail } from 'lucide-react';
 import { RelatedProducts } from '@/components/website/products/slug/RelatedProducts';
+import { BlogImagesGallery } from './BlogImagesGallery';
 import { getRelatedProducts } from '@/lib/products-service';
 import type { BlogPost } from '@/lib/blog-service';
 import { motion } from 'framer-motion';
@@ -86,15 +87,10 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
   const twitterShareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodedTitle}`;
   const emailShareUrl = `mailto:?subject=${encodedTitle}&body=${encodedSummary}%0A%0A${encodeURIComponent(currentUrl)}`;
 
-  // Derive category from first tag (mapping to buckets)
-  const firstTagLower = (tags[0] || '').toLowerCase();
-  const category = firstTagLower.includes('innovation')
-    ? t('blog.categoriesBuckets.buckets.productsInnovation.title')
-    : firstTagLower.includes('sustain')
-    ? t('blog.categoriesBuckets.buckets.industrySustainability.title')
-    : (firstTagLower.includes('compliance') || firstTagLower.includes('safety'))
-    ? t('blog.categoriesBuckets.buckets.safetyCompliance.title')
-    : t('blog.categoriesBuckets.buckets.other.title');
+  // Category from canonical column
+  const canonicalCategory = (post as any).category || '';
+  const firstTagLower = canonicalCategory.toLowerCase();
+  const category = canonicalCategory || t('blog.categoriesBuckets.buckets.other.title');
   const categoryClass = firstTagLower.includes('innovation')
     ? 'bg-[#F28C38]/10 text-[#F28C38] border-[#F28C38]/20'
     : firstTagLower.includes('sustain')
@@ -431,7 +427,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
       </motion.section>
 
       {/* Content Section */}
-      <section className="w-full pt-0 md:pt-2 pb-12 md:pb-16">
+      <section className="w-full pt-0 md:pt-2 pb-6 md:pb-8">
         <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div>
             <MarkdownContent content={content} />
@@ -439,8 +435,15 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
         </div>
       </section>
 
+      {/* Images Gallery */}
+      {Array.isArray((post as any).extra_images_locales) && (post as any).extra_images_locales.length > 0 && (
+        <BlogImagesGallery
+          images={(post as any).extra_images_locales.map((i: any) => ({ url: i.url }))}
+        />
+      )}
+
       {relatedProducts.length > 0 && (
-        <div className="bg-[#F5EFE0]/60 dark:bg-transparent">
+        <div className="bg-[#F5EFE0]/60 dark:bg-transparent pt-4 md:pt-6">
           <RelatedProducts relatedProducts={relatedProducts as any} />
         </div>
       )}

@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "@/components/ui/use-toast";
-import { createBlog, uploadBlogCoverImage } from "@/lib/blog-service";
+import { createBlog, uploadBlogCoverImage, uploadBlogExtraImage } from "@/lib/blog-service";
 import { ArrowLeft, Save, Upload, X, Tag as TagIcon } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { MiniProductCard } from "@/components/app/mini-product-card";
@@ -42,6 +42,9 @@ export default function CreateBlogPage() {
   const [relatedProductId3, setRelatedProductId3] = useState<string | null>(null);
   const [relatedProductId4, setRelatedProductId4] = useState<string | null>(null);
   const [availableProducts, setAvailableProducts] = useState<Product[]>([]);
+  // Category (localised)
+  const [categoryLocales, setCategoryLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
+  const [galleryImages, setGalleryImages] = useState<Array<{ url: string }>>([]);
   
   // Generate slug from title
   const generateSlug = (title: string) => {
@@ -177,10 +180,13 @@ export default function CreateBlogPage() {
         is_published: isPublished,
         author: "Hand Line Team", // Default author, can be updated later
         image_url: imageUrl,
+        category: categoryLocales.en || null,
+        category_locales: (categoryLocales.en || categoryLocales.it) ? categoryLocales : undefined,
         related_product_id_1: relatedProductId1,
         related_product_id_2: relatedProductId2,
         related_product_id_3: relatedProductId3,
-        related_product_id_4: relatedProductId4
+        related_product_id_4: relatedProductId4,
+        extra_images_locales: galleryImages.map(img => ({ url: img.url }))
       };
       
       const newBlog = await createBlog(blogData as any);
@@ -234,6 +240,8 @@ export default function CreateBlogPage() {
               <TabsList>
                 <TabsTrigger value="content">Content</TabsTrigger>
                 <TabsTrigger value="related">Related Products</TabsTrigger>
+                <TabsTrigger value="category">Category</TabsTrigger>
+                <TabsTrigger value="images">Images</TabsTrigger>
               </TabsList>
               <TabsContent value="content">
               <Card>
@@ -330,6 +338,75 @@ export default function CreateBlogPage() {
                 </div>
               </CardContent>
             </Card>
+              </TabsContent>
+              <TabsContent value="images" className="mt-4">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Article Images</CardTitle>
+                    <CardDescription>Upload additional images and add EN/IT captions.</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex flex-wrap gap-4">
+                      {galleryImages.map((img, idx) => (
+                        <div key={idx} className="w-full sm:w-[300px] border rounded-lg p-2 bg-white dark:bg-black/40">
+                          <div className="relative h-40 w-full overflow-hidden rounded-md">
+                            <img src={img.url} alt={'Image'} className="object-cover h-full w-full" />
+                          </div>
+                          <div className="flex justify-end mt-2">
+                            <Button type="button" variant="outline" onClick={() => setGalleryImages(prev => prev.filter((_, i) => i !== idx))}>Remove</Button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div>
+                      <Label className="text-xs">Add new image</Label>
+                      <input type="file" accept="image/*" onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        const tempId = `temp-${Date.now()}`;
+                        const { url } = await uploadBlogExtraImage(tempId, file);
+                        if (url) setGalleryImages(prev => [...prev, { url }]);
+                        e.currentTarget.value = '';
+                      }} />
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+              <TabsContent value="category" className="mt-4">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Category</CardTitle>
+                    <CardDescription>Choose a blog category (localised).</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <Label className="text-xs sm:text-sm">Category (EN)</Label>
+                        <Select onValueChange={(v) => setCategoryLocales(prev => ({ ...prev, en: v }))}>
+                          <SelectTrigger className="w-full"><SelectValue placeholder="Select category" /></SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Products & Innovation">Products & Innovation</SelectItem>
+                            <SelectItem value="Industry & Sustainability">Industry & Sustainability</SelectItem>
+                            <SelectItem value="Safety & Compliance">Safety & Compliance</SelectItem>
+                            <SelectItem value="Other Insights">Other Insights</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <Label className="text-xs sm:text-sm">Categoria (IT)</Label>
+                        <Select onValueChange={(v) => setCategoryLocales(prev => ({ ...prev, it: v }))}>
+                          <SelectTrigger className="w-full"><SelectValue placeholder="Seleziona categoria" /></SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Prodotti & Innovazione">Prodotti & Innovazione</SelectItem>
+                            <SelectItem value="Industria & Sostenibilità">Industria & Sostenibilità</SelectItem>
+                            <SelectItem value="Sicurezza & Conformità">Sicurezza & Conformità</SelectItem>
+                            <SelectItem value="Altri Approfondimenti">Altri Approfondimenti</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
               </TabsContent>
               <TabsContent value="related" className="space-y-4 mt-4">
                 <Card>
