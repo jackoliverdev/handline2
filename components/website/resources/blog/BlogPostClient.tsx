@@ -6,9 +6,11 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ChevronLeft, Calendar, Clock, User, Share2, Linkedin, Twitter, Facebook, Copy, Check } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ChevronLeft, Calendar, Clock, User, Share2, Linkedin, X as XIcon, Copy, Check, Mail } from 'lucide-react';
+import { RelatedProducts } from '@/components/website/products/slug/RelatedProducts';
+import { getRelatedProducts } from '@/lib/products-service';
 import type { BlogPost } from '@/lib/blog-service';
-import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   DropdownMenu,
@@ -26,10 +28,26 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
   const tags = post.tags_locales?.[language] || post.tags || [];
   const [currentUrl, setCurrentUrl] = useState<string>('');
   const [copySuccess, setCopySuccess] = useState(false);
+  const [relatedProducts, setRelatedProducts] = useState<any[]>([]);
 
   useEffect(() => {
     // Set the current URL when the component mounts (client-side only)
     setCurrentUrl(window.location.href);
+    // Load related products if any IDs are present
+    const ids = [post.related_product_id_1, post.related_product_id_2, post.related_product_id_3, post.related_product_id_4].filter(Boolean) as string[];
+    (async () => {
+      try {
+        if (ids.length === 0) return;
+        const { supabase } = await import('@/lib/supabase');
+        const { data, error } = await supabase
+          .from('products')
+          .select('*')
+          .in('id', ids);
+        if (!error && data) setRelatedProducts(data);
+      } catch (e) {
+        console.error('Failed to fetch related products for blog:', e);
+      }
+    })();
   }, []);
 
   // Handle share link copying
@@ -66,7 +84,24 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
   // Share URLs
   const linkedinShareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(currentUrl)}&title=${encodedTitle}&summary=${encodedSummary}&source=HandLine`;
   const twitterShareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodedTitle}`;
-  const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
+  const emailShareUrl = `mailto:?subject=${encodedTitle}&body=${encodedSummary}%0A%0A${encodeURIComponent(currentUrl)}`;
+
+  // Derive category from first tag (mapping to buckets)
+  const firstTagLower = (tags[0] || '').toLowerCase();
+  const category = firstTagLower.includes('innovation')
+    ? t('blog.categoriesBuckets.buckets.productsInnovation.title')
+    : firstTagLower.includes('sustain')
+    ? t('blog.categoriesBuckets.buckets.industrySustainability.title')
+    : (firstTagLower.includes('compliance') || firstTagLower.includes('safety'))
+    ? t('blog.categoriesBuckets.buckets.safetyCompliance.title')
+    : t('blog.categoriesBuckets.buckets.other.title');
+  const categoryClass = firstTagLower.includes('innovation')
+    ? 'bg-[#F28C38]/10 text-[#F28C38] border-[#F28C38]/20'
+    : firstTagLower.includes('sustain')
+    ? 'bg-[#3BAA36]/10 text-[#3BAA36] border-[#3BAA36]/20'
+    : (firstTagLower.includes('compliance') || firstTagLower.includes('safety'))
+    ? 'bg-[#0F5B78]/10 text-[#0F5B78] border-[#0F5B78]/20'
+    : 'bg-gray-200/40 text-gray-800 border-gray-300/50';
 
   return (
     <main className="flex flex-col min-h-[100dvh] bg-[#F5EFE0]/80 dark:bg-transparent pt-8 md:pt-12">
@@ -84,7 +119,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
         transition={{ duration: 0.6 }}
         className="relative w-full pt-20 pb-8 md:pt-28 md:pb-12"
       >
-        <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-2 border-b border-brand-primary/10">
+        <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero Content with Image Overlay */}
           <div className="relative">
             {/* Featured Image with Overlay Content */}
@@ -123,31 +158,6 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
                   </Button>
                 </motion.div>
 
-                {/* Tags - Top Right of Image */}
-                {tags.length > 0 && (
-                  <motion.div 
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
-                    className="absolute top-4 right-4 z-10"
-                  >
-                    <div className="flex flex-wrap gap-2 justify-end">
-                      {tags.slice(0, 2).map((tag: string, index) => (
-                        <motion.div
-                          key={tag}
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
-                        >
-                          <Badge className="bg-white/20 text-white border-white/30 hover:bg-white/30 backdrop-blur-md shadow-lg font-medium h-8">
-                            {tag}
-                          </Badge>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-                
                 {/* Content Overlay */}
                 <div className="absolute inset-0 flex flex-col justify-between p-4 sm:p-6 md:p-8 lg:p-12">
                   {/* Top Spacer to create space from back button and tags */}
@@ -155,6 +165,15 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
                   
                   {/* Bottom Content */}
                   <div className="flex-shrink-0">
+                    {/* Category badge */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.5 }}
+                      className="mb-2"
+                    >
+                      <Badge className={`border ${categoryClass} backdrop-blur-sm`}>{category}</Badge>
+                    </motion.div>
                     {/* Title */}
                     <motion.h1
                       initial={{ opacity: 0, y: 40 }}
@@ -167,6 +186,31 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
                     >
                       {title}
                     </motion.h1>
+
+                    {/* Tags - keep in top-right of image as chips */}
+                    {tags.length > 0 && (
+                      <motion.div 
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: 0.4 }}
+                        className="absolute top-4 right-4 z-10"
+                      >
+                        <div className="flex flex-wrap gap-2 justify-end">
+                          {tags.slice(0, 3).map((tag: string, index) => (
+                            <motion.div
+                              key={`${tag}-${index}`}
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
+                            >
+                              <Badge className="bg-white/20 text-white border-white/30 hover:bg-white/30 backdrop-blur-md shadow-lg font-medium h-8">
+                                {tag}
+                              </Badge>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
 
                     {/* Meta Information */}
                     <motion.div
@@ -222,19 +266,17 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
                                 rel="noopener noreferrer"
                                 className="flex cursor-pointer items-center"
                               >
-                                <Twitter className="mr-2 h-4 w-4 text-[#1DA1F2]" />
-                                <span>Share to Twitter</span>
+                                <XIcon className="mr-2 h-4 w-4" />
+                                <span>Share to X</span>
                               </a>
                             </DropdownMenuItem>
                             <DropdownMenuItem asChild>
                               <a 
-                                href={facebookShareUrl} 
-                                target="_blank" 
-                                rel="noopener noreferrer"
+                                href={emailShareUrl}
                                 className="flex cursor-pointer items-center"
                               >
-                                <Facebook className="mr-2 h-4 w-4 text-[#4267B2]" />
-                                <span>Share to Facebook</span>
+                                <Mail className="mr-2 h-4 w-4" />
+                                <span>Share via Email</span>
                               </a>
                             </DropdownMenuItem>
                             <DropdownMenuItem onClick={copyToClipboard} className="flex cursor-pointer items-center">
@@ -357,19 +399,17 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
                             rel="noopener noreferrer"
                             className="flex cursor-pointer items-center"
                           >
-                            <Twitter className="mr-2 h-4 w-4 text-[#1DA1F2]" />
-                            <span>Share to Twitter</span>
+                            <XIcon className="mr-2 h-4 w-4" />
+                            <span>Share to X</span>
                           </a>
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild>
                           <a 
-                            href={facebookShareUrl} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
+                            href={emailShareUrl}
                             className="flex cursor-pointer items-center"
                           >
-                            <Facebook className="mr-2 h-4 w-4 text-[#4267B2]" />
-                            <span>Share to Facebook</span>
+                            <Mail className="mr-2 h-4 w-4" />
+                            <span>Share via Email</span>
                           </a>
                         </DropdownMenuItem>
                         <DropdownMenuItem onClick={copyToClipboard} className="flex cursor-pointer items-center">
@@ -398,6 +438,12 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
           </div>
         </div>
       </section>
+
+      {relatedProducts.length > 0 && (
+        <div className="bg-[#F5EFE0]/60 dark:bg-transparent">
+          <RelatedProducts relatedProducts={relatedProducts as any} />
+        </div>
+      )}
     </main>
   );
 } 

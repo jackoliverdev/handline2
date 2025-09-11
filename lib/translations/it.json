@@ -1045,12 +1045,33 @@
   },
   "blog": {
     "hero": {
-      "badge": "Approfondimenti e Risorse",
+      "badge": "Notiziario",
       "title": "Hand Line",
-      "titleAccent": "Notiziario",
-      "description": "Competenza leader nel settore sui guanti di sicurezza e soluzioni di protezione delle mani.",
+      "titleAccent": "Insights",
+      "description": "Conoscenza leader, approfondimenti e idee per far progredire la sicurezza in ogni luogo di lavoro.",
       "exploreArticles": "Esplora Articoli",
       "learnAboutUs": "Scopri Chi Siamo"
+    },
+    "categoriesBuckets": {
+      "title": "Esplora per Argomento",
+      "buckets": {
+        "productsInnovation": {
+          "title": "Prodotti & Innovazione",
+          "description": "Scopri le nostre ultime soluzioni DPI e tecnologie di sicurezza all'avanguardia."
+        },
+        "industrySustainability": {
+          "title": "Industria & Sostenibilità",
+          "description": "Rimani aggiornato su trend di mercato e pratiche sostenibili nella sicurezza."
+        },
+        "safetyCompliance": {
+          "title": "Sicurezza & Conformità",
+          "description": "Guida pratica a norme, regolamenti e protezione sul lavoro."
+        },
+        "other": {
+          "title": "Altri Approfondimenti",
+          "description": "Articoli generali e aggiornamenti su sicurezza e protezione."
+        }
+      }
     },
     "stats": {
       "articles": "Articoli",
@@ -1062,12 +1083,12 @@
       "badge": "Conoscenza della Sicurezza",
       "title": "Risorse sulla Sicurezza Hand Line",
       "description": "Scopri approfondimenti esperti sui guanti di sicurezza industriali, dispositivi di protezione e migliori pratiche per la protezione delle mani sul posto di lavoro.",
-      "searchPlaceholder": "Cerca articoli...",
+      "searchPlaceholder": "Cerca Insights...",
       "showing": "Mostrando",
       "articles": "articoli",
       "noArticles": "Nessun articolo trovato",
       "noArticlesDescription": "Prova a modificare i criteri di ricerca o filtro",
-      "filterByTags": "Tag",
+      "filterByTags": "Categorie",
       "clearFilters": "Cancella",
       "searchFor": "per",
       "clearAllFilters": "Cancella tutti i filtri"

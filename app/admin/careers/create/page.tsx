@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "@/components/ui/use-toast";
 import { createCareer } from "@/lib/career-service";
 import { ArrowLeft, Save, X } from "lucide-react";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
 
 function slugify(title: string) {
   return title
@@ -26,18 +27,23 @@ function slugify(title: string) {
 
 export default function CreateCareerPage() {
   const router = useRouter();
-
-  const [title, setTitle] = useState("");
+  const [currentLanguage, setCurrentLanguage] = useState<'en' | 'it'>('en');
+  const [titleLocales, setTitleLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
   const [slug, setSlug] = useState("");
   const [department, setDepartment] = useState("");
   const [location, setLocation] = useState("");
   const [jobType, setJobType] = useState("");
+  // Locale-aware simple fields
+  const [departmentLocales, setDepartmentLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
+  const [locationLocales, setLocationLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
+  const [jobTypeLocales, setJobTypeLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
+  const [workSiteLocales, setWorkSiteLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
   const [workSite, setWorkSite] = useState("");
-  const [summary, setSummary] = useState("");
-  const [description, setDescription] = useState("");
-  const [responsibilities, setResponsibilities] = useState<string[]>([]);
-  const [requirements, setRequirements] = useState<string[]>([]);
-  const [benefits, setBenefits] = useState<string[]>([]);
+  const [summaryLocales, setSummaryLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
+  const [descriptionLocales, setDescriptionLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
+  const [responsibilitiesLocales, setResponsibilitiesLocales] = useState<{en: string[], it: string[]}>({ en: [], it: [] });
+  const [requirementsLocales, setRequirementsLocales] = useState<{en: string[], it: string[]}>({ en: [], it: [] });
+  const [benefitsLocales, setBenefitsLocales] = useState<{en: string[], it: string[]}>({ en: [], it: [] });
   const [salaryRange, setSalaryRange] = useState<string>("");
   const [isPublished, setIsPublished] = useState(false);
   const [isFeatured, setIsFeatured] = useState(false);
@@ -48,47 +54,78 @@ export default function CreateCareerPage() {
   const addArrayItem = () => {
     const value = currentArrayItem.trim();
     if (!value) return;
-    if (arrayTarget === 'resp') setResponsibilities((prev) => [...prev, value]);
-    if (arrayTarget === 'req') setRequirements((prev) => [...prev, value]);
-    if (arrayTarget === 'ben') setBenefits((prev) => [...prev, value]);
+    if (arrayTarget === 'resp') setResponsibilitiesLocales(prev => ({ ...prev, [currentLanguage]: [...prev[currentLanguage], value] }));
+    if (arrayTarget === 'req') setRequirementsLocales(prev => ({ ...prev, [currentLanguage]: [...prev[currentLanguage], value] }));
+    if (arrayTarget === 'ben') setBenefitsLocales(prev => ({ ...prev, [currentLanguage]: [...prev[currentLanguage], value] }));
     setCurrentArrayItem("");
   };
 
   const removeFrom = (type: 'resp' | 'req' | 'ben', value: string) => {
-    if (type === 'resp') setResponsibilities((prev) => prev.filter((x) => x !== value));
-    if (type === 'req') setRequirements((prev) => prev.filter((x) => x !== value));
-    if (type === 'ben') setBenefits((prev) => prev.filter((x) => x !== value));
+    if (type === 'resp') setResponsibilitiesLocales(prev => ({ ...prev, [currentLanguage]: prev[currentLanguage].filter(x => x !== value) }));
+    if (type === 'req') setRequirementsLocales(prev => ({ ...prev, [currentLanguage]: prev[currentLanguage].filter(x => x !== value) }));
+    if (type === 'ben') setBenefitsLocales(prev => ({ ...prev, [currentLanguage]: prev[currentLanguage].filter(x => x !== value) }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title || !department || !location || !jobType || !summary || !description) {
+    if (!titleLocales.en || !departmentLocales.en || !locationLocales.en || !jobTypeLocales.en || !summaryLocales.en || !descriptionLocales.en) {
       toast({ title: "Validation error", description: "Please fill all required fields.", variant: "destructive" });
       return;
     }
     try {
       setIsSubmitting(true);
-      await createCareer({
-        title,
-        slug: slug || slugify(title),
-        department,
-        location,
-        job_type: jobType,
-        work_site: workSite || null,
-        summary,
-        description,
-        responsibilities,
-        requirements,
-        benefits,
+      const payload: any = {
+        title: titleLocales.en,
+        slug: slug || slugify(titleLocales.en),
+        department: departmentLocales.en,
+        location: locationLocales.en,
+        job_type: jobTypeLocales.en,
+        work_site_locales: (workSiteLocales.en || workSiteLocales.it) ? workSiteLocales : undefined,
+        summary: summaryLocales.en,
+        description: descriptionLocales.en,
+        responsibilities: responsibilitiesLocales.en,
+        requirements: requirementsLocales.en,
+        benefits: benefitsLocales.en,
+        department_locales: (departmentLocales.en || departmentLocales.it) ? departmentLocales : undefined,
+        location_locales: (locationLocales.en || locationLocales.it) ? locationLocales : undefined,
+        job_type_locales: (jobTypeLocales.en || jobTypeLocales.it) ? jobTypeLocales : undefined,
+        // locales payloads
+        title_locales: (titleLocales.en || titleLocales.it) ? titleLocales : undefined,
+        summary_locales: (summaryLocales.en || summaryLocales.it) ? summaryLocales : undefined,
+        description_locales: (descriptionLocales.en || descriptionLocales.it) ? descriptionLocales : undefined,
+        responsibilities_locales: (responsibilitiesLocales.en.length || responsibilitiesLocales.it.length) ? responsibilitiesLocales : undefined,
+        requirements_locales: (requirementsLocales.en.length || requirementsLocales.it.length) ? requirementsLocales : undefined,
+        benefits_locales: (benefitsLocales.en.length || benefitsLocales.it.length) ? benefitsLocales : undefined,
         salary_range: salaryRange || null,
         is_published: isPublished,
         is_featured: isFeatured,
-      });
+      };
+      try {
+        await createCareer(payload);
+      } catch (err: any) {
+        const msg = String(err?.message || err);
+        // If insert fails due to unknown locale columns, retry without them (DB mismatch safety)
+        if (/column\s+.*_locales\s+does not exist/i.test(msg) || /invalid input value for enum|json|jsonb/i.test(msg)) {
+          const fallback = { ...payload };
+          delete fallback.department_locales;
+          delete fallback.location_locales;
+          delete fallback.job_type_locales;
+          delete fallback.title_locales;
+          delete fallback.summary_locales;
+          delete fallback.description_locales;
+          delete fallback.responsibilities_locales;
+          delete fallback.requirements_locales;
+          delete fallback.benefits_locales;
+          await createCareer(fallback);
+        } else {
+          throw err;
+        }
+      }
       toast({ title: "Success", description: "Role created." });
       router.push("/admin/careers");
     } catch (error) {
       console.error("Error creating role:", error);
-      toast({ title: "Error", description: "Failed to create role.", variant: "destructive" });
+      toast({ title: "Error", description: String((error as any)?.message || error) || "Failed to create role.", variant: "destructive" });
     } finally {
       setIsSubmitting(false);
     }
@@ -103,7 +140,10 @@ export default function CreateCareerPage() {
             Back to Careers
           </Link>
         </Button>
-        <h1 className="text-2xl font-bold tracking-tight">Create Role</h1>
+        <div className="flex items-center justify-between gap-3 w-full sm:w-auto">
+          <h1 className="text-2xl font-bold tracking-tight">Create Role</h1>
+          <LanguageSwitcher currentLanguage={currentLanguage} onLanguageChange={setCurrentLanguage} />
+        </div>
       </div>
 
       <form onSubmit={handleSubmit}>
@@ -118,7 +158,7 @@ export default function CreateCareerPage() {
                 <div className="space-y-3 sm:space-y-4">
                   <div className="space-y-1 sm:space-y-2">
                     <Label htmlFor="title" className="text-xs sm:text-sm">Title</Label>
-                    <Input id="title" value={title} onChange={(e) => { setTitle(e.target.value); setSlug(slugify(e.target.value)); }} required className="text-xs sm:text-sm h-8 sm:h-10" />
+                    <Input id="title" value={titleLocales[currentLanguage]} onChange={(e) => { setTitleLocales(prev => ({ ...prev, [currentLanguage]: e.target.value })); if (currentLanguage === 'en') setSlug(slugify(e.target.value)); }} required className="text-xs sm:text-sm h-8 sm:h-10" />
                   </div>
                   <div className="space-y-1 sm:space-y-2">
                     <Label htmlFor="slug" className="text-xs sm:text-sm">Slug</Label>
@@ -127,28 +167,28 @@ export default function CreateCareerPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div className="space-y-1 sm:space-y-2">
                       <Label htmlFor="department" className="text-xs sm:text-sm">Department</Label>
-                      <Input id="department" value={department} onChange={(e) => setDepartment(e.target.value)} required className="text-xs sm:text-sm h-8 sm:h-10" />
+                      <Input id="department" value={departmentLocales[currentLanguage]} onChange={(e) => setDepartmentLocales(prev => ({ ...prev, [currentLanguage]: e.target.value }))} required className="text-xs sm:text-sm h-8 sm:h-10" />
                     </div>
                     <div className="space-y-1 sm:space-y-2">
                       <Label htmlFor="location" className="text-xs sm:text-sm">Location</Label>
-                      <Input id="location" value={location} onChange={(e) => setLocation(e.target.value)} required className="text-xs sm:text-sm h-8 sm:h-10" />
+                      <Input id="location" value={locationLocales[currentLanguage]} onChange={(e) => setLocationLocales(prev => ({ ...prev, [currentLanguage]: e.target.value }))} required className="text-xs sm:text-sm h-8 sm:h-10" />
                     </div>
                     <div className="space-y-1 sm:space-y-2">
                       <Label htmlFor="jobType" className="text-xs sm:text-sm">Job Type</Label>
-                      <Input id="jobType" value={jobType} onChange={(e) => setJobType(e.target.value)} required className="text-xs sm:text-sm h-8 sm:h-10" />
+                      <Input id="jobType" value={jobTypeLocales[currentLanguage]} onChange={(e) => setJobTypeLocales(prev => ({ ...prev, [currentLanguage]: e.target.value }))} required className="text-xs sm:text-sm h-8 sm:h-10" />
                     </div>
                   </div>
                   <div className="space-y-1 sm:space-y-2">
                     <Label htmlFor="workSite" className="text-xs sm:text-sm">Work Site</Label>
-                    <Input id="workSite" value={workSite} onChange={(e) => setWorkSite(e.target.value)} placeholder="on-site only, travel 50%, hybrid, remote..." className="text-xs sm:text-sm h-8 sm:h-10" />
+                    <Input id="workSite" value={workSiteLocales[currentLanguage]} onChange={(e) => setWorkSiteLocales(prev => ({ ...prev, [currentLanguage]: e.target.value }))} placeholder="on-site only, travel 50%, hybrid, remote..." className="text-xs sm:text-sm h-8 sm:h-10" />
                   </div>
                   <div className="space-y-1 sm:space-y-2">
                     <Label htmlFor="summary" className="text-xs sm:text-sm">Summary</Label>
-                    <Textarea id="summary" value={summary} onChange={(e) => setSummary(e.target.value)} rows={3} required className="text-xs sm:text-sm" />
+                    <Textarea id="summary" value={summaryLocales[currentLanguage]} onChange={(e) => setSummaryLocales({ ...summaryLocales, [currentLanguage]: e.target.value })} rows={3} required className="text-xs sm:text-sm" />
                   </div>
                   <div className="space-y-1 sm:space-y-2">
                     <Label htmlFor="description" className="text-xs sm:text-sm">Description</Label>
-                    <Textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} rows={10} required className="text-xs sm:text-sm font-mono" />
+                    <Textarea id="description" value={descriptionLocales[currentLanguage]} onChange={(e) => setDescriptionLocales({ ...descriptionLocales, [currentLanguage]: e.target.value })} rows={10} required className="text-xs sm:text-sm font-mono" />
                   </div>
                 </div>
               </CardContent>
@@ -205,7 +245,7 @@ export default function CreateCareerPage() {
                   <Button type="button" variant="outline" onClick={addArrayItem} className="h-8 text-xs">Add</Button>
                 </div>
                 <div className="space-y-2">
-                  {[{ label: 'Responsibilities', items: responsibilities, key: 'resp' }, { label: 'Requirements', items: requirements, key: 'req' }, { label: 'Benefits', items: benefits, key: 'ben' }].map(({ label, items, key }) => (
+                  {[{ label: 'Responsibilities', items: responsibilitiesLocales[currentLanguage], key: 'resp' }, { label: 'Requirements', items: requirementsLocales[currentLanguage], key: 'req' }, { label: 'Benefits', items: benefitsLocales[currentLanguage], key: 'ben' }].map(({ label, items, key }) => (
                     <div key={label}>
                       <p className="text-xs font-medium mb-1">{label}</p>
                       <div className="flex flex-wrap gap-2">
