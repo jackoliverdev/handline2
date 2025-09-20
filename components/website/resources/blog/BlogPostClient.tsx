@@ -227,7 +227,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
                         <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
                           <Clock className="h-4 w-4 text-white" />
                         </div>
-                        <span className="text-sm sm:text-base">{t('blog.minRead').replace('{count}', readingTime.toString())}</span>
+                        <span className="text-sm sm:text-base">{readingTime} {t('blog.minRead')}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
@@ -360,7 +360,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10">
                       <Clock className="h-4 w-4 text-brand-primary" />
                     </div>
-                    <span>{t('blog.minRead').replace('{count}', readingTime.toString())}</span>
+                    <span>{readingTime} {t('blog.minRead')}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10">
@@ -430,17 +430,17 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
       <section className="w-full pt-0 md:pt-2 pb-6 md:pb-8">
         <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div>
-            <MarkdownContent content={content} />
+            <MarkdownContent 
+              content={content} 
+              images={Array.isArray((post as any).extra_images_locales) && (post as any).extra_images_locales.length > 0 
+                ? (post as any).extra_images_locales.map((i: any) => ({ url: i.url }))
+                : undefined
+              }
+            />
           </div>
         </div>
       </section>
 
-      {/* Images Gallery */}
-      {Array.isArray((post as any).extra_images_locales) && (post as any).extra_images_locales.length > 0 && (
-        <BlogImagesGallery
-          images={(post as any).extra_images_locales.map((i: any) => ({ url: i.url }))}
-        />
-      )}
 
       {relatedProducts.length > 0 && (
         <div className="bg-[#F5EFE0]/60 dark:bg-transparent pt-4 md:pt-6">

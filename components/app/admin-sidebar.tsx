@@ -99,6 +99,11 @@ export function AdminSidebar({ className }: AdminSidebarProps) {
       icon: Factory,
     },
     {
+      name: "PPE Hub Management",
+      href: "/admin/ppe-hub",
+      icon: ShieldAlert,
+    },
+    {
       name: "User Management",
       href: "/admin/users",
       icon: Users,

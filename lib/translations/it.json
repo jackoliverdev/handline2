@@ -28,7 +28,7 @@
     "resourcesDropdown": {
       "blog": "Blog",
       "caseStudies": "Casi Studio",
-      "enResourceCentre": "Centro Risorse EN",
+      "enResourceCentre": "Libreria Standard DPI",
       "productDisclaimer": "Dichiarazione sui Prodotti",
       "declarations": "Dichiarazioni di conformitá"
     },
@@ -371,6 +371,7 @@
   "footer": {
     "companyDescription": "Produttore italiano specializzato in guanti di sicurezza ad alte prestazioni per ambienti industriali. Proteggiamo le mani con soluzioni innovative dal 1982.",
     "address": "via Antonio Brusa 34, 22035, Canzo (CO), Italia",
+    "addressUK": "52 Grosvenor Gardens, London SW1W 0AU, United Kingdom",
     "phone": "T: (+39) 031 6121961 | T: (+39) 031 526733",
     "email": "info@handlineco.com",
     "sections": {
@@ -967,15 +968,15 @@
       "address": {
         "title": "Sede Amministrativa",
         "content": "Viale Varese 83, 22100 Como (CO), Italia",
-        "contentUK": "Londra, Regno Unito",
+        "contentUK": "52 Grosvenor Gardens, London SW1W 0AU, United Kingdom",
         "operationalTitle": "Sede Operativa",
         "operationalContent": "via Antonio Brusa 34, 22035, Canzo (CO), Italia",
-        "operationalContentUK": "Londra, Regno Unito"
+        "operationalContentUK": "52 Grosvenor Gardens, London SW1W 0AU, United Kingdom"
       },
       "phone": {
         "title": "Telefono",
         "content": "+39 031 6121961 | +39 031 526733",
-        "contentUK": "+39 031 6121961 | +39 031 526733"
+        "contentUK": "T: (+44) 020 7866 3849"
       },
       "email": {
         "title": "Email",
@@ -1454,11 +1455,25 @@
       "filterByCategory": "Filtra per Categoria",
       "clearFilters": "Cancella Filtri"
     },
+    "cards": {
+      "learnMore": "Scopri di più"
+    },
     "hero": {
-      "badge": "Standard Europei",
-      "title": "Centro Risorse",
-      "titleAccent": "EN",
+      "badge": "Standard e Regolamenti",
+      "title": "Libreria Standard",
+      "titleAccent": "DPI",
       "description": "Accedi a informazioni complete sugli standard europei che garantiscono che i nostri prodotti soddisfino i massimi requisiti di qualità e sicurezza.",
+      "intro": "Benvenuti nel nostro Hub sugli Standard dei DPI, dove potrete trovare indicazioni chiare sugli standard di sicurezza e le normative relative ai dispositivi di protezione individuale (DPI). Esplorate le nostre pagine dettagliate per capire quali standard si applicano a ciascun tipo di DPI, cosa significano nella pratica e come i prodotti vengono testati per garantire la sicurezza.",
+      "important": "Importante: le informazioni fornite in questo hub hanno solo scopo informativo e non sostituiscono in alcun caso consulenze professionali o valutazioni indipendenti.",
+      "contactLine": {
+        "before": "Per ulteriori indicazioni o richieste specifiche,",
+        "linkText": "contattateci",
+        "after": ": il nostro team di esperti in DPI sarà a vostra disposizione."
+      },
+      "buttons": {
+        "contact": "Contattaci",
+        "viewProducts": "Prodotti"
+      },
       "exploreStandards": "Esplora Standard",
       "learnAboutUs": "Scopri Chi Siamo",
       "stats": {
@@ -1469,6 +1484,37 @@
         "resourcesLabel": "Conformità",
         "guidesLabel": "Anni di esperienza",
         "categoriesLabel": "Categorie"
+      }
+    },
+    "overview": {
+      "badge": "Normativa di Riferimento",
+      "title": "Guida alle Normative sui DPI",
+      "subtitle": "Scopri la nostra guida completa alle normative sui DPI, inclusi gli standard UKCA, CE e internazionali, le categorie di prodotti e i requisiti di conformità. Comprendi quali dispositivi di protezione rispettano le norme di sicurezza e come scegliere i DPI più adatti per il tuo ambiente di lavoro"
+    },
+    "buckets": {
+      "regulation": {
+        "title": "Normative DPI",
+        "subtitle": "Scopri quali regolamenti e requisiti di sicurezza sono in vigore"
+      },
+      "categories": {
+        "title": "Categorie DPI",
+        "subtitle": "Comprendi le classi di rischio dei DPI e i pericoli protetti"
+      },
+      "standards": {
+        "title": "Standard EN, UKCA e ANSI",
+        "subtitle": "Chiarezza sugli standard in vigore in UE e Regno Unito"
+      }
+    },
+    "categories": {
+      "navTitle": "Categorie"
+    },
+    "footerCta": {
+      "badge": "Aggiornamenti",
+      "title": "Resta in contatto per gli ultimi aggiornamenti",
+      "text": "Le normative sui DPI sono in continua evoluzione e possono essere difficili da navigare. Abbiamo creato una sezione dedicata del nostro blog Hand Line Insights con aggiornamenti su conformità e regolamentazione. Hai altre domande o vuoi approfondire temi specifici? Siamo a un clic di distanza.",
+      "buttons": {
+        "blog": "Hand Line Insights",
+        "contact": "Contattaci"
       }
     },
     "productDisclaimer": {

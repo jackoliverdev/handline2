@@ -43,9 +43,9 @@ export const BlogImagesGallery = ({ images, title }: BlogImagesGalleryProps) => 
   if (!images || images.length === 0) return null;
 
   return (
-    <section className="py-4 md:py-6 bg-transparent">
-      <div className="container mx-auto px-4 sm:px-6">
-        <div className="rounded-2xl bg-white dark:bg-black/60 border border-brand-primary/10 dark:border-brand-primary/20 shadow-sm p-3 sm:p-4">
+    <section className="w-full pt-0 md:pt-2 pb-6 md:pb-8">
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-white dark:bg-black/60 p-3 sm:p-4">
 
           <div className="relative">
           <div

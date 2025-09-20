@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ClipboardCheck, ChevronRight, Users } from "lucide-react";
+import { ClipboardCheck, ChevronRight, Mail, Shield, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -57,10 +57,23 @@ export function ENResourceHero({ language }: ENResourceHeroProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...SPRING_CONFIG, delay: 0.2 }}
-            className="mb-6 md:mb-10"
+            className="mb-6 md:mb-8 space-y-3 md:space-y-4"
           >
-            <p className="max-w-2xl text-base md:text-lg text-brand-secondary dark:text-gray-300">
-              {t('standards.hero.description')}
+            <p className="max-w-3xl text-base md:text-lg text-brand-secondary dark:text-gray-300">
+              {t('standards.hero.intro')}
+            </p>
+            <div className="max-w-3xl mx-auto flex items-start justify-center gap-2 text-center">
+              <AlertTriangle className="h-5 w-5 text-yellow-600 mt-0.5" />
+              <p className="text-sm md:text-base text-brand-secondary dark:text-gray-300">
+                {t('standards.hero.important')}
+              </p>
+            </div>
+            <p className="max-w-3xl mx-auto text-center text-sm md:text-base text-brand-secondary dark:text-gray-300">
+              {t('standards.hero.contactLine.before')} {" "}
+              <Link href="/contact" className="text-brand-primary underline underline-offset-2 hover:opacity-80">
+                {t('standards.hero.contactLine.linkText')}
+              </Link>{" "}
+              {t('standards.hero.contactLine.after')}
             </p>
           </motion.div>
 
@@ -73,26 +86,26 @@ export function ENResourceHero({ language }: ENResourceHeroProps) {
             transition={{ ...SPRING_CONFIG, delay: 0.4 }}
             className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 md:gap-4 w-full"
           >
-            <Button 
-              size="default" 
+            <Button
+              size="default"
               className="group font-medium bg-brand-primary hover:bg-brand-primary/90 w-full sm:w-auto text-sm md:text-base h-10 md:h-11"
               asChild
             >
-              <Link href="#standards-list" className="flex items-center justify-center gap-1.5 md:gap-2">
-                <ClipboardCheck className="h-4 w-4 md:h-5 md:w-5" />
-                <span>{t('standards.hero.exploreStandards')}</span>
+              <Link href="/contact" className="flex items-center justify-center gap-1.5 md:gap-2">
+                <Mail className="h-4 w-4 md:h-5 md:w-5" />
+                <span>{t('standards.hero.buttons.contact')}</span>
                 <ChevronRight className="h-3.5 w-3.5 md:h-4 md:w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
-            <Button 
-              size="default" 
-              variant="outline" 
+            <Button
+              size="default"
+              variant="outline"
               className="group font-medium border-brand-primary text-brand-primary hover:text-brand-primary hover:bg-white/80 dark:text-white dark:border-white dark:hover:bg-white/10 w-full sm:w-auto text-sm md:text-base h-10 md:h-11"
               asChild
             >
-              <Link href="/about" className="flex items-center justify-center gap-1.5 md:gap-2">
-                <Users className="h-4 w-4 md:h-5 md:w-5" />
-                <span>{t('blog.hero.learnAboutUs')}</span>
+              <Link href="/products" className="flex items-center justify-center gap-1.5 md:gap-2">
+                <Shield className="h-4 w-4 md:h-5 md:w-5" />
+                <span>{t('standards.hero.buttons.viewProducts')}</span>
                 <ChevronRight className="h-3.5 w-3.5 md:h-4 md:w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </Button>
