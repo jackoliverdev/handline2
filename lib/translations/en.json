@@ -28,7 +28,7 @@
     "resourcesDropdown": {
       "blog": "Blog",
       "caseStudies": "Case Studies",
-      "enResourceCentre": "EN Resource Centre",
+      "enResourceCentre": "PPE Standards Hub",
       "productDisclaimer": "Product Disclaimer",
       "declarations": "Declarations"
     },
@@ -366,6 +366,7 @@
   "footer": {
     "companyDescription": "Italian manufacturer specialising in high-performance safety gloves for industrial environments. Protecting hands with innovative solutions since 1982.",
     "address": "via Antonio Brusa 34, 22035, Canzo (CO), Italy",
+    "addressUK": "52 Grosvenor Gardens, London SW1W 0AU, United Kingdom",
       "phone": "T: (+39) 031 6121961 | (+39) 031 526733",
     "email": "info@handlineco.com",
     "sections": {
@@ -943,15 +944,15 @@
       "address": {
         "title": "Registered Office",
         "content": "Viale Varese 83, 22100 Como (CO), Italy",
-        "contentUK": "London, United Kingdom",
+        "contentUK": "52 Grosvenor Gardens, London SW1W 0AU, United Kingdom",
         "operationalTitle": "Operational Location",
         "operationalContent": "via Antonio Brusa 34, 22035, Canzo (CO), Italy",
-        "operationalContentUK": "London, United Kingdom"
+        "operationalContentUK": "52 Grosvenor Gardens, London SW1W 0AU, United Kingdom"
       },
       "phone": {
         "title": "Telephone",
         "content": "T: (+39) 031 6121961 | (+39) 031 526733",
-        "contentUK": "T: (+39) 031 6121961 | (+39) 031 526733"
+        "contentUK": "T: (+44) 020 7866 3849"
       },
       "email": {
         "title": "Email",
@@ -1290,7 +1291,7 @@
     "sizeNeeded": "Size Needed",
     "contactDetails": "Contact Details",
     "emailPlaceholder": "your.email@company.com",
-    "privacyConsent": "I consent to Hand Line storing and processing my data in accordance with the",
+    "privacyConsent": "I consent to Hand Line storing and processing my data in accordance with the ",
     "privacyPolicy": "Privacy Policy",
     "and": "and",
     "terms": "Terms of Service",
@@ -1314,11 +1315,25 @@
       "filterByCategory": "Filter by Category",
       "clearFilters": "Clear Filters"
     },
+    "cards": {
+      "learnMore": "Learn more"
+    },
     "hero": {
-      "badge": "European Standards",
-      "title": "EN Resource",
-      "titleAccent": "Centre",
+      "badge": "Standards and Regulations",
+      "title": "PPE Standards",
+      "titleAccent": "Hub",
       "description": "Access comprehensive information on European safety standards that ensure our products meet the highest quality and safety requirements.",
+      "intro": "Welcome to our PPE Standards Hub, where you can find clear guidance on safety standards and regulations relevant to personal protective equipment (PPE). Explore our detailed pages to understand which standards apply to each type of PPE, what they mean in practice, and how products are tested to ensure safety.",
+      "important": "The information provided in this hub is for guidance purposes only and it should never replace professional advice and independent evaluation.",
+      "contactLine": {
+        "before": "For further guidance or specific enquiries, please",
+        "linkText": "contact us",
+        "after": "and our team of PPE experts will assist you."
+      },
+      "buttons": {
+        "contact": "Contact us",
+        "viewProducts": "View products"
+      },
       "exploreStandards": "Explore Standards",
       "learnAboutUs": "Learn About Us",
       "stats": {
@@ -1329,6 +1344,37 @@
         "resourcesLabel": "Compliance",
         "guidesLabel": "Years Expertise",
         "categoriesLabel": "Categories"
+      }
+    },
+    "overview": {
+      "badge": "Overarching Regulation",
+      "title": "PPE Regulations Overview",
+      "subtitle": "Explore our comprehensive guide to PPE regulations, including UKCA, CE, and international standards, product categories, and conformity requirements. Understand which protective equipment meets legal safety standards and how to select the right PPE for your workplace."
+    },
+    "buckets": {
+      "regulation": {
+        "title": "PPE Regulation",
+        "subtitle": "Know what regulations & safety requirements are in place"
+      },
+      "categories": {
+        "title": "PPE Categories",
+        "subtitle": "Understand PPE classes of risk and protected hazards"
+      },
+      "standards": {
+        "title": "EN, UKCA & ANSI Standards",
+        "subtitle": "Get clarity on standards across EU and UK"
+      }
+    },
+    "categories": {
+      "navTitle": "Categories"
+    },
+    "footerCta": {
+      "badge": "Keep up to date",
+      "title": "Stay in touch for the latest updates",
+      "text": "PPE Regulation is constantly in motion and can be difficult to navigate. We have started a section in our Hand Line Insights Blog dedicated to compliance and regulation updates. You have more questions or want to discuss further, we are one click away.",
+      "buttons": {
+        "blog": "Hand Line Insights",
+        "contact": "Contact Us"
       }
     },
     "productDisclaimer": {

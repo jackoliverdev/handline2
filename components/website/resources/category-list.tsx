@@ -25,10 +25,10 @@ export const ResourcesCategoryList = () => {
       href: "/resources/case-studies"
     },
     {
-      title: "EN Resource Centre",
-      description: "Access comprehensive information on European safety standards that ensure our products meet the highest quality requirements.",
+      title: `${t('standards.hero.title')} ${t('standards.hero.titleAccent')}`,
+      description: t('standards.hero.description'),
       imageSrc: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/industries//Glass_Manufacturing.png",
-      imageAlt: "EN Standards",
+      imageAlt: t('standards.grid.badge'),
       href: "/resources/en-resource-centre"
     },
     {

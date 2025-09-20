@@ -11,7 +11,7 @@ const officeData = {
   italy: {
     name: "Hand Line Company s.r.l.",
     address: "via Antonio Brusa 34, 22035, Canzo (CO), Italy",
-    phone: "+39 031 123 4567",
+    phone: "+39 031 6121961",
     email: "info@handlineco.com",
     location: {
       lat: 45.8686, // Fallback: Canzo, Italy centre
@@ -20,8 +20,8 @@ const officeData = {
   },
   uk: {
     name: "Hand Line Company s.r.l.",
-    address: "London, United Kingdom",
-    phone: "+39 031 123 4567",
+    address: "52 Grosvenor Gardens, London SW1W 0AU, United Kingdom",
+    phone: "+44 020 7866 3849",
     email: "info@handlineco.com", 
     location: {
       lat: 51.5074, // London coordinates
@@ -163,32 +163,16 @@ export function ContactInfo() {
               </div>
             )}
             
-            {/* Phone Number - Only show for Italy office for now */}
-            {selectedOffice === 'italy' && (
-              <div className="flex items-start gap-3">
-                <Phone className="h-5 w-5 text-brand-primary mt-1" />
-                <div>
-                  <div className="font-medium text-brand-dark dark:text-white">{t('contact.info.phone.title')}</div>
-                  <div className="text-brand-secondary dark:text-gray-300">
-                    {t('contact.info.phone.content')}
-                  </div>
+            {/* Phone Number */}
+            <div className="flex items-start gap-3">
+              <Phone className="h-5 w-5 text-brand-primary mt-1" />
+              <div>
+                <div className="font-medium text-brand-dark dark:text-white">{t('contact.info.phone.title')}</div>
+                <div className="text-brand-secondary dark:text-gray-300">
+                  {selectedOffice === 'italy' ? t('contact.info.phone.content') : t('contact.info.phone.contentUK')}
                 </div>
               </div>
-            )}
-            
-            {/* UK Phone - Temporarily disabled
-            {selectedOffice === 'uk' && (
-              <div className="flex items-start gap-3">
-                <Phone className="h-5 w-5 text-brand-primary mt-1" />
-                <div>
-                  <div className="font-medium text-brand-dark dark:text-white">{t('contact.info.phone.title')}</div>
-                  <div className="text-brand-secondary dark:text-gray-300">
-                    Coming soon
-                  </div>
-                </div>
-              </div>
-            )}
-            */}
+            </div>
             
             <div className="flex items-start gap-3">
               <Mail className="h-5 w-5 text-brand-primary mt-1" />
