@@ -21,7 +21,7 @@ export const LengthFilterMobile = ({ options = [], selected, onToggle }: LengthF
   return (
     <div>
       <button 
-        className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"
+        className="flex w-full items-center justify-between py-2 text-left text-xs font-medium text-brand-dark dark:text-white"
         onClick={() => setOpen((v) => !v)}
       >
         <span className="flex items-center">

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { X, User, Shield, Menu, ChevronRight, ChevronDown, FileText, Users, Factory, Flame, Scissors, Settings, Briefcase, Globe, Newspaper, BookOpen, FileCheck, LayoutDashboard, MessageCircle, Home } from "lucide-react";
+import { X, User, Shield, Menu, ChevronRight, ChevronDown, FileText, Users, Factory, Flame, Scissors, Settings, Briefcase, Globe, Newspaper, BookOpen, FileCheck, MessageCircle, Home, Package } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { useLanguage } from "@/lib/context/language-context";
@@ -121,7 +121,7 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
               >
                 <div className="flex items-center">
                   <div className="w-7 h-7 bg-gradient-to-br from-[#F28C38] to-[#E67A2C] text-white rounded-full flex items-center justify-center mr-2.5">
-                    <LayoutDashboard className="h-4 w-4" />
+                    <Package className="h-4 w-4" />
                   </div>
                   <span className="text-sm">{t('navbar.products')}</span>
                 </div>
@@ -141,7 +141,6 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                       className="flex items-center"
                       onClick={onClose}
                     >
-                      <LayoutDashboard className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
                       <span className="text-sm">{t('navbar.allProducts')}</span>
                     </Link>
                   </div>
@@ -152,7 +151,6 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                     onClick={() => toggleCategory('gloves')}
                   >
                     <div className="flex items-center">
-                      <Shield className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
                       <span className="text-sm">{t('navbar.safetyGloves')}</span>
                     </div>
                     {expandedCategory === 'gloves' ? (
@@ -216,7 +214,6 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                       className="flex items-center"
                       onClick={onClose}
                     >
-                      <Scissors className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
                       <span className="text-sm">{t('navbar.industrialSwabs')}</span>
                     </Link>
                   </div>
@@ -228,7 +225,6 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                       className="flex items-center"
                       onClick={onClose}
                     >
-                      <Shield className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
                       <span className="text-sm">{t('navbar.eyeFaceProtection') || 'Eye & Face Protection'}</span>
                     </Link>
                   </div>
@@ -240,7 +236,6 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                       className="flex items-center"
                       onClick={onClose}
                     >
-                      <Shield className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
                       <span className="text-sm">{t('navbar.headProtection')}</span>
                     </Link>
                   </div>
@@ -252,7 +247,6 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                       className="flex items-center"
                       onClick={onClose}
                     >
-                      <Shield className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
                       <span className="text-sm">{t('navbar.safetyFootwear')}</span>
                     </Link>
                   </div>
@@ -264,7 +258,6 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                       className="flex items-center"
                       onClick={onClose}
                     >
-                      <Shield className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
                       <span className="text-sm">{t('navbar.armProtection')}</span>
                     </Link>
                   </div>
@@ -276,7 +269,6 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                       className="flex items-center"
                       onClick={onClose}
                     >
-                      <Shield className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
                       <span className="text-sm">{t('navbar.respiratoryProtection')}</span>
                     </Link>
                   </div>
@@ -288,7 +280,6 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                       className="flex items-center"
                       onClick={onClose}
                     >
-                      <Shield className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
                       <span className="text-sm">{t('navbar.hearingProtection')}</span>
                     </Link>
                   </div>
@@ -300,7 +291,6 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                       className="flex items-center"
                       onClick={onClose}
                     >
-                      <Shield className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
                       <span className="text-sm">{t('navbar.protectiveClothing') || 'Protective Clothing'}</span>
                     </Link>
                   </div>
@@ -418,7 +408,7 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                     <span>{t('navbar.resourcesDropdown.caseStudies')}</span>
                   </Link> */}
                   <Link 
-                    href="/resources/en-resource-centre" 
+                    href="/resources/ppe-standards" 
                     className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     onClick={onClose}
                   >

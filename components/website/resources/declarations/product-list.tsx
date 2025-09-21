@@ -298,142 +298,123 @@ export function ProductList({ products }: ProductListProps) {
         </AnimatePresence>
       </motion.div>
 
-      {/* Products Grid */}
+      {/* Products list (desktop + mobile variants) */}
       <AnimatePresence mode="wait">
         {filteredProducts.length > 0 ? (
-          <motion.div 
-            key="grid"
-            className="space-y-6"
-            variants={container}
-            initial="hidden"
-            animate="show"
-            exit="hidden"
-          >
-            {filteredProducts.map((product) => (
-              <motion.div 
-                key={product.id}
-                className="rounded-xl bg-white dark:bg-black/50 border border-gray-100 dark:border-gray-700/50 shadow-lg hover:shadow-2xl transition-all duration-500 backdrop-blur-sm overflow-hidden group"
-                variants={item}
-              >
-                <div className="flex gap-6 p-6">
-                  {/* Product Image */}
-                  <div className="relative flex-shrink-0 h-20 w-20 rounded-xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 border border-gray-200 dark:border-gray-600">
-                    {product.image_url ? (
-                      <Image
-                        src={product.image_url}
-                        alt={product.name}
-                        fill
-                        className="object-contain p-2"
-                      />
-                    ) : (
-                      <div className="flex h-full items-center justify-center">
-                        <FileText className="h-8 w-8 text-gray-400 dark:text-gray-500" />
-                      </div>
-                    )}
-                  </div>
-                
-                  <div className="flex-grow flex flex-col">
-                    {/* Title row with Category and Download button */}
-                    <div className="flex items-center justify-between w-full mb-3">
-                      <div className="flex items-center gap-4">
-                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-brand-primary transition-colors duration-300">{product.name}</h3>
-                        {product.category && (
-                          <Badge variant="outline" className="bg-brand-primary-50 text-brand-primary-700 border-brand-primary-200 dark:bg-brand-primary/10 dark:text-brand-primary-300 dark:border-brand-primary/20">
-                            {product.category}
-                          </Badge>
-                        )}
-                      </div>
-                      
-                      <div className="flex items-center gap-2">
-                        {/* UKCA DoC (use product English declaration URL) */}
-                        {getUkDeclarationUrl(product) && (
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="bg-white dark:bg-black/50 border-brand-primary/30 text-brand-primary hover:bg-brand-primary hover:text-white dark:hover:bg-brand-primary transition-all duration-300 gap-2 shadow-sm hover:shadow-md"
-                            asChild
-                          >
-                            <a href={getUkDeclarationUrl(product) as string} target="_blank" rel="noopener noreferrer" download>
-                              <span>UKCA DoC</span>
-                              <Download className="h-4 w-4" />
-                            </a>
-                          </Button>
-                        )}
-
-                        {/* EU DoC split-button */}
-                        <div className="flex items-stretch">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="rounded-r-none bg-white dark:bg-black/50 border-brand-primary/30 text-brand-primary hover:bg-brand-primary hover:text-white dark:hover:bg-brand-primary transition-all duration-300 gap-2 shadow-sm hover:shadow-md"
-                            asChild
-                            disabled={!getJsonDocUrlExact(product, docLanguage === 'all' ? getPreferredLocaleForProduct(product) : docLanguage)}
-                          >
-                            <a
-                              href={getJsonDocUrlExact(product, docLanguage === 'all' ? getPreferredLocaleForProduct(product) : docLanguage) || '#'}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              download
-                            >
-                              <span>EU DoC</span>
-                              <Download className="h-4 w-4" />
-                            </a>
-                          </Button>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="rounded-l-none px-2 bg-white dark:bg-black/50 border-brand-primary/30 text-brand-primary hover:bg-brand-primary hover:text-white dark:hover:bg-brand-primary shadow-sm hover:shadow-md"
-                                aria-label="Select EU DoC language"
-                              >
-                                <ChevronDown className="h-4 w-4" />
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="w-44 max-h-96 overflow-y-auto">
-                              <DropdownMenuLabel>Language</DropdownMenuLabel>
-                              <DropdownMenuSeparator />
-                              {DECLARATION_FILTERS.filter((opt) => opt.value !== 'all').map((opt) => {
-                                const url = getJsonDocUrlExact(product, opt.value);
-                                const label = opt.label;
-                                const disabled = !url;
-                                return (
-                                  <DropdownMenuItem
-                                    key={opt.value}
-                                    className={`cursor-pointer ${docLanguage === opt.value ? 'bg-brand-primary/10 text-brand-primary' : ''}`}
-                                    disabled={disabled}
-                                    onClick={() => setDocLanguage(opt.value)}
-                                  >
-                                    <span className="flex-1">{label}</span>
-                                    {!disabled ? (
-                                      <a
-                                        className="text-brand-primary hover:underline"
-                                        href={url || '#'}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        download
-                                        onClick={(e) => e.stopPropagation()}
-                                      >
-                                        Download
-                                      </a>
-                                    ) : (
-                                      <span className="text-gray-400">N/A</span>
-                                    )}
-                                  </DropdownMenuItem>
-                                );
-                              })}
-                            </DropdownMenuContent>
-                          </DropdownMenu>
+          <>
+            {/* Desktop */}
+            <motion.div key="grid-desktop" className="hidden md:block space-y-6" variants={container} initial="hidden" animate="show" exit="hidden">
+              {filteredProducts.map((product) => (
+                <motion.div key={product.id} className="rounded-xl bg-white dark:bg-black/50 border border-gray-100 dark:border-gray-700/50 shadow-lg hover:shadow-2xl transition-all duration-500 backdrop-blur-sm overflow-hidden group" variants={item}>
+                  <div className="flex gap-6 p-6">
+                    <div className="relative flex-shrink-0 h-20 w-20 rounded-xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 border border-gray-200 dark:border-gray-600">
+                      {product.image_url ? (
+                        <Image src={product.image_url} alt={product.name} fill className="object-contain p-2" />
+                      ) : (
+                        <div className="flex h-full items-center justify-center"><FileText className="h-8 w-8 text-gray-400 dark:text-gray-500" /></div>
+                      )}
+                    </div>
+                    <div className="flex-grow flex flex-col">
+                      <div className="flex items-center justify-between w-full mb-3">
+                        <div className="flex items-center gap-4">
+                          <h3 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-brand-primary transition-colors duration-300">{product.name}</h3>
+                          {product.category && (<Badge variant="outline" className="bg-brand-primary-50 text-brand-primary-700 border-brand-primary-200 dark:bg-brand-primary/10 dark:text-brand-primary/300 dark:border-brand-primary/20">{product.category}</Badge>)}
+                        </div>
+                        <div className="flex items-center gap-2">
+                          {getUkDeclarationUrl(product) && (
+                            <Button variant="outline" size="sm" className="bg-white dark:bg-black/50 border-brand-primary/30 text-brand-primary hover:bg-brand-primary hover:text-white dark:hover:bg-brand-primary transition-all duration-300 gap-2 shadow-sm hover:shadow-md" asChild>
+                              <a href={getUkDeclarationUrl(product) as string} target="_blank" rel="noopener noreferrer" download><span>UKCA DoC</span><Download className="h-4 w-4" /></a>
+                            </Button>
+                          )}
+                          <div className="flex items-stretch">
+                            <Button variant="outline" size="sm" className="rounded-r-none bg-white dark:bg-black/50 border-brand-primary/30 text-brand-primary hover:bg-brand-primary hover:text-white dark:hover:bg-brand-primary transition-all duration-300 gap-2 shadow-sm hover:shadow-md" asChild disabled={!getJsonDocUrlExact(product, docLanguage === 'all' ? getPreferredLocaleForProduct(product) : docLanguage)}>
+                              <a href={getJsonDocUrlExact(product, docLanguage === 'all' ? getPreferredLocaleForProduct(product) : docLanguage) || '#'} target="_blank" rel="noopener noreferrer" download><span>EU DoC</span><Download className="h-4 w-4" /></a>
+                            </Button>
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="outline" size="sm" className="rounded-l-none px-2 bg-white dark:bg-black/50 border-brand-primary/30 text-brand-primary hover:bg-brand-primary hover:text-white dark:hover:bg-brand-primary shadow-sm hover:shadow-md" aria-label="Select EU DoC language"><ChevronDown className="h-4 w-4" /></Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end" className="w-44 max-h-96 overflow-y-auto">
+                                <DropdownMenuLabel>Language</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                {DECLARATION_FILTERS.filter((opt) => opt.value !== 'all').map((opt) => {
+                                  const url = getJsonDocUrlExact(product, opt.value);
+                                  const label = opt.label;
+                                  const disabled = !url;
+                                  return (
+                                    <DropdownMenuItem key={opt.value} className={`cursor-pointer ${docLanguage === opt.value ? 'bg-brand-primary/10 text-brand-primary' : ''}`} disabled={disabled} onClick={() => setDocLanguage(opt.value)}>
+                                      <span className="flex-1">{label}</span>
+                                      {!disabled ? (<a className="text-brand-primary hover:underline" href={url || '#'} target="_blank" rel="noopener noreferrer" download onClick={(e) => e.stopPropagation()}>Download</a>) : (<span className="text-gray-400">N/A</span>)}
+                                    </DropdownMenuItem>
+                                  );
+                                })}
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    
-                    {/* Description removed per feedback */}
                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* Mobile */}
+            <motion.div key="list-mobile" className="md:hidden space-y-4" variants={container} initial="hidden" animate="show" exit="hidden">
+              {filteredProducts.map((product) => (
+                <motion.div key={product.id} className="rounded-xl bg-white dark:bg-black/50 border border-gray-100 dark:border-gray-700/50 shadow-sm overflow-hidden" variants={item}>
+                  <div className="p-4">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <h3 className="text-base font-semibold text-gray-900 dark:text-white truncate">{product.name}</h3>
+                        {product.category && (<Badge variant="outline" className="mt-1 text-xs bg-brand-primary/10 border-brand-primary/20 text-brand-primary">{product.category}</Badge>)}
+                      </div>
+                      <div className="relative h-12 w-12 rounded-md overflow-hidden bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-600 flex-shrink-0">
+                        {product.image_url ? (<Image src={product.image_url} alt={product.name} fill className="object-contain p-1" />) : (<div className="flex h-full items-center justify-center"><FileText className="h-5 w-5 text-gray-400" /></div>)}
+                      </div>
+                    </div>
+                    <div className="mt-3 flex flex-col gap-2">
+                      {getUkDeclarationUrl(product) && (
+                        <Button variant="outline" size="sm" className="w-full bg-white dark:bg-black/50 border-brand-primary/30 text-brand-primary hover:bg-brand-primary hover:text-white dark:hover:bg-brand-primary transition-all duration-300 gap-2 shadow-sm hover:shadow-md" asChild>
+                          <a href={getUkDeclarationUrl(product) as string} target="_blank" rel="noopener noreferrer" download>
+                            <div className="flex items-center justify-center gap-2"><span>UKCA DoC</span><Download className="h-4 w-4" /></div>
+                          </a>
+                        </Button>
+                      )}
+                      <div className="flex w-full">
+                        <Button variant="outline" size="sm" className="flex-1 rounded-r-none bg-white dark:bg-black/50 border-brand-primary/30 text-brand-primary hover:bg-brand-primary hover:text-white dark:hover:bg-brand-primary transition-all duration-300 gap-2 shadow-sm hover:shadow-md" asChild disabled={!getJsonDocUrlExact(product, docLanguage === 'all' ? getPreferredLocaleForProduct(product) : docLanguage)}>
+                          <a href={getJsonDocUrlExact(product, docLanguage === 'all' ? getPreferredLocaleForProduct(product) : docLanguage) || '#'} target="_blank" rel="noopener noreferrer" download>
+                            <div className="flex items-center justify-center gap-2"><span>EU DoC</span><Download className="h-4 w-4" /></div>
+                          </a>
+                        </Button>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="outline" size="sm" className="rounded-l-none px-2 bg-white dark:bg-black/50 border-brand-primary/30 text-brand-primary hover:bg-brand-primary hover:text-white dark:hover:bg-brand-primary shadow-sm hover:shadow-md" aria-label="Select EU DoC language">
+                              <ChevronDown className="h-4 w-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end" className="w-56 max-h-80 overflow-y-auto">
+                            <DropdownMenuLabel>Language</DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                          {DECLARATION_FILTERS.filter((opt) => opt.value !== 'all').map((opt) => {
+                              const url = getJsonDocUrlExact(product, opt.value);
+                              const disabled = !url;
+                              return (
+                              <DropdownMenuItem key={opt.value} disabled={disabled} onClick={() => setDocLanguage(opt.value)} className={`${docLanguage === opt.value ? 'bg-brand-primary/10 text-brand-primary' : ''}`}>
+                                  <span className="flex-1">{opt.label}</span>
+                                  {!disabled ? (<a className="text-brand-primary hover:underline" href={url || '#'} target="_blank" rel="noopener noreferrer" download onClick={(e) => e.stopPropagation()}>Download</a>) : (<span className="text-gray-400">N/A</span>)}
+                                </DropdownMenuItem>
+                              );
+                            })}
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </>
         ) : (
           <motion.div
             key="empty"

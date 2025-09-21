@@ -124,7 +124,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="relative aspect-[5/4] sm:aspect-[4/3] md:aspect-[16/9] w-full overflow-hidden rounded-2xl shadow-2xl"
+                className="relative aspect-[4/5] sm:aspect-[4/3] md:aspect-[16/9] w-full overflow-hidden rounded-2xl shadow-2xl min-h-[360px] sm:min-h-0"
               >
                 <Image
                   src={post.image_url}
@@ -154,13 +154,38 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
                   </Button>
                 </motion.div>
 
+                {/* Mobile: Tags row under back button */}
+                {tags.length > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.2 }}
+                    className="absolute top-16 left-4 right-4 z-10 sm:hidden"
+                  >
+                    <div className="flex flex-wrap gap-2 justify-start">
+                      {tags.slice(0, 3).map((tag: string, index) => (
+                        <motion.div
+                          key={`${tag}-m-${index}`}
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.25, delay: 0.25 + index * 0.08 }}
+                        >
+                          <Badge className="bg-white/20 text-white border-white/30 hover:bg-white/30 backdrop-blur-md shadow-lg font-medium h-7">
+                            {tag}
+                          </Badge>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+
                 {/* Content Overlay */}
                 <div className="absolute inset-0 flex flex-col justify-between p-4 sm:p-6 md:p-8 lg:p-12">
                   {/* Top Spacer to create space from back button and tags */}
-                  <div className="flex-shrink-0 h-12 sm:h-16 md:h-20"></div>
+                  <div className="flex-shrink-0 h-28 sm:h-16 md:h-20"></div>
                   
                   {/* Bottom Content */}
-                  <div className="flex-shrink-0">
+                  <div className="flex-shrink-0 pb-12 sm:pb-6 md:pb-8">
                     {/* Category badge */}
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
@@ -183,13 +208,13 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
                       {title}
                     </motion.h1>
 
-                    {/* Tags - keep in top-right of image as chips */}
+                    {/* Desktop: tags in top-right */}
                     {tags.length > 0 && (
                       <motion.div 
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.5, delay: 0.4 }}
-                        className="absolute top-4 right-4 z-10"
+                        className="absolute top-4 right-4 z-10 hidden sm:block"
                       >
                         <div className="flex flex-wrap gap-2 justify-end">
                           {tags.slice(0, 3).map((tag: string, index) => (

@@ -54,7 +54,7 @@ const getNavItems = (t: any) => [
     dropdownItems: [
       { href: "/resources/blog", label: t("navbar.resourcesDropdown.blog") },
       // { href: "/resources/case-studies", label: t("navbar.resourcesDropdown.caseStudies") },
-      { href: "/resources/en-resource-centre", label: t("navbar.resourcesDropdown.enResourceCentre") },
+      { href: "/resources/ppe-standards", label: t("navbar.resourcesDropdown.enResourceCentre") },
       { href: "/resources/product-disclaimer", label: t("navbar.resourcesDropdown.productDisclaimer") },
       { href: "/resources/declarations", label: t("navbar.resourcesDropdown.declarations") },
     ]

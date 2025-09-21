@@ -80,9 +80,14 @@ export function AdminSidebar({ className }: AdminSidebarProps) {
     },
     {
       name: "Product Management",
-      href: "/admin/product",
+      href: "/admin/prod-management",
       icon: ShoppingBag,
     },
+    // {
+    //   name: "Product Management",
+    //   href: "/admin/product",
+    //   icon: ShoppingBag,
+    // },
     {
       name: "Blog Management",
       href: "/admin/blogs",

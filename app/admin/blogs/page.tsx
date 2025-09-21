@@ -10,7 +10,7 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
-import { getAllBlogs, deleteBlog, toggleBlogPublished } from "@/lib/blog-service";
+import { getAllBlogs, deleteBlog, toggleBlogPublished, toggleBlogFeatured } from "@/lib/blog-service";
 import { FileText, Plus, Edit, Trash, Star, Eye, EyeOff, Calendar, Image as ImageIcon, Tag } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -24,6 +24,7 @@ interface BlogPost {
   author: string;
   tags: string[];
   is_published: boolean;
+  is_featured?: boolean;
   image_url?: string | null;
   published_at?: string;
   created_at: string;
@@ -89,6 +90,23 @@ export default function BlogManagementPage() {
         description: "Failed to update publish status. Please try again.",
         variant: "destructive"
       });
+    }
+  };
+
+  // Handle toggling featured status
+  const handleToggleFeatured = async (id: string) => {
+    try {
+      const updatedBlog = await toggleBlogFeatured(id);
+      setBlogs(blogs.map(blog => 
+        blog.id === id ? { ...blog, is_featured: updatedBlog.is_featured } : blog
+      ));
+      toast({
+        title: "Success",
+        description: `Blog post ${updatedBlog.is_featured ? 'marked as featured' : 'unfeatured'}.`,
+      });
+    } catch (error) {
+      console.error("Error toggling featured status:", error);
+      toast({ title: "Error", description: "Failed to update featured status.", variant: "destructive" });
     }
   };
   
@@ -243,7 +261,7 @@ export default function BlogManagementPage() {
                         <span className="sr-only">Delete</span>
                       </Button>
                     </div>
-                    <div className="flex items-center space-x-1 sm:space-x-2">
+                    <div className="flex items-center space-x-2">
                       <div className="flex items-center space-x-1">
                         <Switch
                           checked={blog.is_published}
@@ -251,6 +269,14 @@ export default function BlogManagementPage() {
                           className="data-[state=checked]:bg-green-500 h-5 w-9"
                         />
                         <Eye className={`h-4 w-4 ${blog.is_published ? 'text-green-600' : 'text-muted-foreground'}`} />
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <Switch
+                          checked={!!blog.is_featured}
+                          onCheckedChange={() => handleToggleFeatured(blog.id)}
+                          className="data-[state=checked]:bg-yellow-400 h-5 w-9"
+                        />
+                        <Star className={`h-4 w-4 ${blog.is_featured ? 'text-yellow-500' : 'text-muted-foreground'}`} />
                       </div>
                     </div>
                   </div>

@@ -5,6 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { X } from "lucide-react";
+import { FilterSection } from "./FilterSection";
 import { useLanguage } from "@/lib/context/language-context";
 import { hazardProtectionFilters } from "@/content/hazardfilters";
 import { workEnvironmentFilters } from "@/content/workenvironmentfilters";
@@ -171,50 +172,50 @@ export const MobileFilterSheet = ({
             </div>
           )}
           
-          {/* Hazard Protection Filter */}
+          {/* Industries (moved directly after Sub-Category) */}
           {!hideDefaultFilters && (
-          <div>
-            <button 
-              className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"
-              onClick={() => toggleSection('hazardProtection')}
-            >
-              <span className="flex items-center">
-                {t('products.filters.hazardProtection')}
-                {selectedHazardProtections.length > 0 && (
-                  <Badge className="ml-2 bg-brand-primary text-white">{selectedHazardProtections.length}</Badge>
-                )}
-              </span>
-              <ChevronDown 
-                className={`h-4 w-4 text-brand-primary transition-transform ${
-                  expandedSections.hazardProtection ? 'rotate-180' : ''
-                }`}
-              />
-            </button>
-            
-            {expandedSections.hazardProtection && (
-              <div className="space-y-2 max-h-40 overflow-y-auto pr-2 mt-2">
-                {hazardProtectionFilters.map((filter) => (
-                  <div key={filter.id} className="flex items-center space-x-2">
-                    <Checkbox 
-                      id={`hazardProtection-${filter.id}`} 
-                      checked={selectedHazardProtections.includes(filter.id)}
-                      onCheckedChange={() => toggleHazardProtection(filter.id)}
-                      className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary"
-                    />
-                    <label 
-                      htmlFor={`hazardProtection-${filter.id}`}
-                      className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer"
-                    >
-                      {t(filter.translationKey)}
-                    </label>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+            <div>
+              <button 
+                className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"
+                onClick={() => toggleSection('industries')}
+              >
+                <span className="flex items-center">
+                  {t('products.filters.industries')}
+                  {selectedIndustries.length > 0 && (
+                    <Badge className="ml-2 bg-brand-primary text-white">{selectedIndustries.length}</Badge>
+                  )}
+                </span>
+                <ChevronDown 
+                  className={`h-4 w-4 text-brand-primary transition-transform ${
+                    expandedSections.industries ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+              
+              {expandedSections.industries && (
+                <div className="space-y-2 max-h-40 overflow-y-auto pr-2 mt-2">
+                  {industries.map((industry) => (
+                    <div key={industry} className="flex items-center space-x-2">
+                      <Checkbox 
+                        id={`industry-${industry}`} 
+                        checked={selectedIndustries.includes(industry)}
+                        onCheckedChange={() => toggleIndustry(industry)}
+                        className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary"
+                      />
+                      <label 
+                        htmlFor={`industry-${industry}`}
+                        className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer"
+                      >
+                        {industry}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           )}
-          
-          {/* Work Environment Filter */}
+
+          {/* Work Environment (now after Industries) */}
           {!hideDefaultFilters && (
             <div>
               <button 
@@ -256,91 +257,92 @@ export const MobileFilterSheet = ({
               )}
             </div>
           )}
-          
-          {/* Temperature Rating Filter */}
+
+          {/* Gloves group: Hazard Protection + Temperature */}
           {!hideDefaultFilters && (
-            <div>
-              <button 
-                className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"
-                onClick={() => toggleSection('temperature')}
-              >
-                <span className="flex items-center">
-                  {t('products.filters.temperature')}
-                  {selectedTempRatings.length > 0 && (
-                    <Badge className="ml-2 bg-brand-primary text-white">{selectedTempRatings.length}</Badge>
-                  )}
-                </span>
-                <ChevronDown 
-                  className={`h-4 w-4 text-brand-primary transition-transform ${
-                    expandedSections.temperature ? 'rotate-180' : ''
-                  }`}
-                />
-              </button>
-              
-              {expandedSections.temperature && (
-                <div className="space-y-2 max-h-40 overflow-y-auto pr-2 mt-2">
-                  {tempRatings.map((temp) => (
-                    <div key={temp} className="flex items-center space-x-2">
-                      <Checkbox 
-                        id={`tempRating-${temp}`} 
-                        checked={selectedTempRatings.includes(temp.toString())}
-                        onCheckedChange={() => toggleTempRating(temp.toString())}
-                        className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary"
-                      />
-                      <label 
-                        htmlFor={`tempRating-${temp}`}
-                        className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer"
-                      >
-                        {temp}°C
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-          
-          {/* Industries Filter */}
-          {!hideDefaultFilters && (
-            <div>
-              <button 
-                className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"
-                onClick={() => toggleSection('industries')}
-              >
-                <span className="flex items-center">
-                  {t('products.filters.industries')}
-                  {selectedIndustries.length > 0 && (
-                    <Badge className="ml-2 bg-brand-primary text-white">{selectedIndustries.length}</Badge>
-                  )}
-                </span>
-                <ChevronDown 
-                  className={`h-4 w-4 text-brand-primary transition-transform ${
-                    expandedSections.industries ? 'rotate-180' : ''
-                  }`}
-                />
-              </button>
-              
-              {expandedSections.industries && (
-                <div className="space-y-2 max-h-40 overflow-y-auto pr-2 mt-2">
-                  {industries.map((industry) => (
-                    <div key={industry} className="flex items-center space-x-2">
-                      <Checkbox 
-                        id={`industry-${industry}`} 
-                        checked={selectedIndustries.includes(industry)}
-                        onCheckedChange={() => toggleIndustry(industry)}
-                        className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary"
-                      />
-                      <label 
-                        htmlFor={`industry-${industry}`}
-                        className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer"
-                      >
-                        {industry}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            <FilterSection title="Gloves" defaultExpanded={false} variant="mobile">
+              {/* Hazard Protection Filter */}
+              <div>
+                <button 
+                  className="flex w-full items-center justify-between py-2 text-left text-sm font-medium text-brand-dark dark:text-white"
+                  onClick={() => toggleSection('hazardProtection')}
+                >
+                  <span className="flex items-center">
+                    {t('products.filters.hazardProtection')}
+                    {selectedHazardProtections.length > 0 && (
+                      <Badge className="ml-2 bg-brand-primary text-white">{selectedHazardProtections.length}</Badge>
+                    )}
+                  </span>
+                  <ChevronDown 
+                    className={`h-4 w-4 text-brand-primary transition-transform ${
+                      expandedSections.hazardProtection ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+                
+                {expandedSections.hazardProtection && (
+                  <div className="space-y-2 max-h-40 overflow-y-auto pr-2 mt-2">
+                    {hazardProtectionFilters.map((filter) => (
+                      <div key={filter.id} className="flex items-center space-x-2">
+                        <Checkbox 
+                          id={`hazardProtection-${filter.id}`} 
+                          checked={selectedHazardProtections.includes(filter.id)}
+                          onCheckedChange={() => toggleHazardProtection(filter.id)}
+                          className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary"
+                        />
+                        <label 
+                          htmlFor={`hazardProtection-${filter.id}`}
+                          className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer"
+                        >
+                          {t(filter.translationKey)}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Temperature Rating Filter */}
+              <div>
+                <button 
+                  className="flex w-full items-center justify-between py-2 text-left text-sm font-medium text-brand-dark dark:text-white"
+                  onClick={() => toggleSection('temperature')}
+                >
+                  <span className="flex items-center">
+                    {t('products.filters.temperature')}
+                    {selectedTempRatings.length > 0 && (
+                      <Badge className="ml-2 bg-brand-primary text-white">{selectedTempRatings.length}</Badge>
+                    )}
+                  </span>
+                  <ChevronDown 
+                    className={`h-4 w-4 text-brand-primary transition-transform ${
+                      expandedSections.temperature ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+                
+                {expandedSections.temperature && (
+                  <div className="space-y-2 max-h-40 overflow-y-auto pr-2 mt-2">
+                    {tempRatings.map((temp) => (
+                      <div key={temp} className="flex items-center space-x-2">
+                        <Checkbox 
+                          id={`tempRating-${temp}`} 
+                          checked={selectedTempRatings.includes(temp.toString())}
+                          onCheckedChange={() => toggleTempRating(temp.toString())}
+                          className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary"
+                        />
+                        <label 
+                          htmlFor={`tempRating-${temp}`}
+                          className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer"
+                        >
+                          {temp}°C
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </FilterSection>
           )}
 
           {/* Category-specific extra filters (e.g., swabs) come last to match desktop order */}

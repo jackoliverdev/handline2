@@ -10,6 +10,7 @@ import { useLanguage } from "@/lib/context/language-context";
 interface SafetyStandardsDisplayProps {
   safety: SafetyStandards;
   className?: string;
+  hideTitle?: boolean;
 }
 
 // EN 388 performance levels mapping with A-F letters for higher levels
@@ -256,16 +257,19 @@ const SafetyEN511Display: React.FC<{ data: SafetyEN511 }> = ({ data }) => {
 
 export const SafetyStandardsDisplay: React.FC<SafetyStandardsDisplayProps> = ({ 
   safety, 
-  className = "" 
+  className = "",
+  hideTitle = false
 }) => {
   const { t } = useLanguage();
 
   return (
     <div className={`space-y-4 ${className}`}>
       {/* Page title */}
-      <h3 className="text-lg font-semibold text-brand-dark dark:text-white mb-6">
-        {t('productPage.safetyStandards')}
-      </h3>
+      {!hideTitle && (
+        <h3 className="text-lg font-semibold text-brand-dark dark:text-white mb-6">
+          {t('productPage.safetyStandards')}
+        </h3>
+      )}
       
       {/* Main EN Standards */}
       <div className="space-y-4">
