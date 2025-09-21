@@ -72,9 +72,8 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
 }) => {
   const { t } = useLanguage();
   
-  // Use the original English name for URL generation (not localized)
-  // This ensures URLs work consistently across language changes
-  const encodedProductName = encodeURIComponent(product.name);
+  // Always build URLs from the English name to keep slugs stable across locales
+  const encodedProductName = encodeURIComponent((product as any).name_locales?.en || product.name);
   
   // Function to clean and validate image URLs
   const cleanImageUrl = (url: string | null | undefined): string | null => {
@@ -101,6 +100,160 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
   
   // State to track the currently selected image
   const [selectedImage, setSelectedImage] = useState(allImages[0] || "");
+
+  // Respiratory standards quick badges (compact)
+  const renderRespiratoryStandards = () => {
+    const rs: any = (product as any).respiratory_standards;
+    if (!rs || typeof rs !== 'object') return null;
+
+    const chips: { label: string; value?: string; sub?: string }[] = [];
+    if (rs.en149?.enabled) chips.push({ label: 'EN149', value: rs.en149.class, sub: [rs.en149.nr ? 'NR' : null, rs.en149.r ? 'R' : null, rs.en149.d ? 'D' : null].filter(Boolean).join('/') });
+    if (rs.en143?.enabled) chips.push({ label: 'EN143', value: rs.en143.class, sub: rs.en143.r ? 'R' : (rs.en143.nr ? 'NR' : undefined) });
+    if (rs.en14387?.enabled) chips.push({ label: 'EN14387', value: rs.en14387.class });
+    if (rs.en136?.enabled) chips.push({ label: 'EN136', value: rs.en136.class });
+    if (rs.en140?.enabled) chips.push({ label: 'EN140' });
+    if (rs.en166?.enabled) chips.push({ label: 'EN166', value: rs.en166.class });
+    if (chips.length === 0) return null;
+
+    return (
+      <div className="flex flex-wrap gap-1.5">
+        {chips.map((c, idx) => (
+          <span key={idx} className="bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 rounded px-2 py-0.5 text-xs">
+            {c.label}{c.value ? ` ${c.value}` : ''}{c.sub ? ` ${c.sub}` : ''}
+          </span>
+        ))}
+      </div>
+    );
+  };
+
+  // Hearing standards quick badges (compact)
+  const renderHearingStandards = () => {
+    const hs: any = (product as any).hearing_standards;
+    const ha: any = (product as any).hearing_attributes;
+    if (!hs && !ha) return null;
+    const snr = hs?.en352?.snr_db as number | undefined;
+    const parts: string[] = Array.isArray(hs?.en352?.parts) ? hs.en352.parts : [];
+    const reusable = typeof ha?.reusable === 'boolean' ? (ha.reusable ? 'R' : 'NR') : undefined;
+    const chips: string[] = [];
+    if (typeof snr === 'number') chips.push(`SNR ${snr} dB`);
+    if (parts.length) chips.push(...parts);
+    if (reusable) chips.push(reusable);
+    if (!chips.length) return null;
+    return (
+      <div className="flex flex-wrap gap-1.5">
+        {chips.map((c, idx) => (
+          <span key={idx} className="bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 rounded px-2 py-0.5 text-xs">
+            {c}
+          </span>
+        ))}
+      </div>
+    );
+  };
+
+  // Footwear quick badges (compact)
+  const renderFootwearChips = () => {
+    const fs: any = (product as any).footwear_standards;
+    const fa: any = (product as any).footwear_attributes;
+    if (!fs && !fa) return null;
+    const chips: string[] = [];
+    const codes: string[] = Array.isArray(fs?.en_iso_20345_2022) ? fs.en_iso_20345_2022 : [];
+    if (codes.length) chips.push(...codes);
+    if (typeof fa?.class === 'string' && fa.class) chips.push(fa.class);
+    if (typeof fa?.esd === 'boolean') chips.push(fa.esd ? 'ESD' : 'Non-ESD');
+    if (!chips.length) return null;
+    return (
+      <div className="flex flex-wrap gap-1.5">
+        {chips.map((c, idx) => (
+          <span key={idx} className="bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 rounded px-2 py-0.5 text-xs">
+            {c}
+          </span>
+        ))}
+      </div>
+    );
+  };
+
+  // Eye & Face quick badges (compact)
+  const renderEyeFaceChips = () => {
+    const std: any = (product as any).eye_face_standards;
+    const attrs: any = (product as any).eye_face_attributes;
+    if (!std && !attrs) return null;
+    const chips: string[] = [];
+    if (std?.en166) chips.push('EN 166');
+    if (std?.en170) chips.push('EN 170');
+    if (std?.gs_et_29) chips.push('GS-ET 29');
+    if (attrs?.has_ir) chips.push('IR');
+    if (attrs?.has_uv) chips.push(attrs?.uv_code ? attrs.uv_code : 'UV');
+    if (attrs?.has_arc) chips.push('Arc');
+    if (!chips.length) return null;
+    return (
+      <div className="flex flex-wrap gap-1.5">
+        {chips.map((c, idx) => (
+          <span key={idx} className="bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 rounded px-2 py-0.5 text-xs">
+            {c}
+          </span>
+        ))}
+      </div>
+    );
+  };
+
+  // Head protection quick badges (compact)
+  const renderHeadChips = () => {
+    const hs: any = (product as any).head_standards;
+    const ha: any = (product as any).head_attributes;
+    if (!hs && !ha) return null;
+    const chips: string[] = [];
+    if (hs?.en397?.present) chips.push('EN 397');
+    if (hs?.en50365) chips.push('EN 50365');
+    if (hs?.en12492) chips.push('EN 12492');
+    if (hs?.en812) chips.push('EN 812');
+    if (hs?.en397?.optional?.low_temperature) chips.push(String(hs.en397.optional.low_temperature));
+    if (hs?.en397?.optional?.molten_metal) chips.push('MM');
+    if (hs?.en397?.optional?.lateral_deformation) chips.push('LD');
+    if (!chips.length) return null;
+    return (
+      <div className="flex flex-wrap gap-1.5">
+        {chips.map((c, idx) => (
+          <span key={idx} className="bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 rounded px-2 py-0.5 text-xs">
+            {c}
+          </span>
+        ))}
+      </div>
+    );
+  };
+
+  // Clothing quick badges (compact)
+  const renderClothingChips = () => {
+    const cs: any = (product as any).clothing_standards;
+    if (!cs) return null;
+    const chips: string[] = [];
+    if (typeof cs?.en_iso_20471?.class === 'number') chips.push(`EN ISO 20471 C${cs.en_iso_20471.class}`);
+    if (cs?.en_iso_11612) {
+      const v = cs.en_iso_11612;
+      const parts: string[] = [];
+      if (v?.a1) parts.push('A1');
+      if (v?.a2) parts.push('A2');
+      if (typeof v?.b === 'number') parts.push(`B${v.b}`);
+      if (typeof v?.c === 'number') parts.push(`C${v.c}`);
+      if (typeof v?.d === 'number') parts.push(`D${v.d}`);
+      if (typeof v?.e === 'number') parts.push(`E${v.e}`);
+      if (typeof v?.f === 'number') parts.push(`F${v.f}`);
+      if (parts.length) chips.push(`EN ISO 11612 ${parts.join('/')}`);
+    }
+    if (typeof cs?.en_iso_11611?.class === 'number') chips.push(`EN ISO 11611 C${cs.en_iso_11611.class}`);
+    if (typeof cs?.iec_61482_2?.class === 'number') chips.push(`IEC 61482-2 C${cs.iec_61482_2.class}`);
+    if (cs?.en_1149_5) chips.push('EN 1149-5');
+    if (cs?.en_13034) chips.push(`EN 13034 ${cs.en_13034}`);
+    if (!chips.length) return null;
+    return (
+      <div className="flex flex-wrap gap-1.5">
+        {chips.map((c, idx) => (
+          <span key={idx} className="bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 rounded px-2 py-0.5 text-xs">
+            {c}
+          </span>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -327,6 +480,13 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
                     )}
                   </>
                 )}
+                {/* Respiratory standards compact chips */}
+                {renderRespiratoryStandards()}
+                {renderHearingStandards()}
+                {renderFootwearChips()}
+                {renderEyeFaceChips()}
+                {renderHeadChips()}
+                {renderClothingChips()}
               </div>
             </div>
 

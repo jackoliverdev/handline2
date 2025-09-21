@@ -19,7 +19,13 @@
     "mechanicalHazards": "Mechanical Hazards",
     "welding": "Welding",
     "industrialSwabs": "Industrial Swabs",
+    "armProtection": "Arm Protection",
+    "safetyFootwear": "Safety Footwear",
+    "eyeFaceProtection": "Eye & Face Protection",
+    "headProtection": "Head Protection",
+    "hearingProtection": "Hearing Protection",
     "respiratoryProtection": "Respiratory Protection",
+    "protectiveClothing": "Protective Clothing",
     "aboutDropdown": {
       "ourCompany": "Our Company",
       "careers": "Careers",
@@ -454,6 +460,42 @@
           "title": "Respiratory Protection",
           "description": "Advanced respiratory protection equipment for hazardous environments",
           "detailedDescription": "Our respiratory protection equipment provides advanced protection against airborne hazards in industrial environments. From dust masks to full-face respirators, our products are designed to meet the highest safety standards whilst ensuring comfort during extended use. Essential for construction, manufacturing, chemical processing, and any environment with airborne contaminants."
+        },
+        "hearing": {
+          "badge": "Hearing Protection",
+          "title": "Hearing Protection",
+          "description": "Hearing protection devices for noisy industrial environments",
+          "detailedDescription": "Our hearing protection range includes disposable ear plugs and helmet-mounted earmuffs engineered to EN 352 standards. Designed to reduce exposure to harmful noise levels whilst maintaining comfort for extended wear. Ideal for manufacturing, construction, aviation, and heavy industry applications."
+        },
+        "armProtection": {
+          "badge": "Arm Protection",
+          "title": "Arm protection",
+          "description": "Cut-resistant sleeves and arm protection for industrial applications",
+          "detailedDescription": "Our arm protection range delivers reliable cut resistance and forearm coverage for demanding industrial environments. Built with advanced fibres and durable construction, our sleeves ensure comfort and secure fit with options like thumb loops and closure systems, helping operators work safely when handling sharp edges, glass and metal parts."
+        },
+        "footwear": {
+          "badge": "Safety Footwear",
+          "title": "Safety Footwear",
+          "description": "Professional safety boots and accessories",
+          "detailedDescription": "Our safety footwear range includes durable S3/S3L boots and ergonomic accessories designed to EN ISO 20345 standards. Built for comfort and protection across challenging environments, ensuring slip resistance, thermal protection and long‑lasting performance."
+        },
+        "head": {
+          "badge": "Head Protection",
+          "title": "Head Protection",
+          "description": "Safety helmets and bump caps for industrial environments",
+          "detailedDescription": "Our head protection range covers safety helmets and bump caps engineered to EN 397, EN 50365 and EN 812 standards. Options include low‑temperature performance, molten metal splash protection, electrical insulation, ventilation and accessory compatibility with visors and earmuffs."
+        },
+        "eyeFace": {
+          "badge": "Eye & Face Protection",
+          "title": "Eye & Face Protection",
+          "description": "Protective eyewear and visors for industrial environments",
+          "detailedDescription": "Our eye & face protection range covers safety glasses, sealed goggles and arc‑rated visors designed to EN 166 and related standards. Built for clarity, comfort and reliability with anti‑fog and scratch‑resistant coatings, UV filtering and infrared protection options. Ideal for manufacturing, construction and electrical maintenance."
+        },
+        "clothing": {
+          "badge": "Protective Clothing",
+          "title": "Protective Clothing",
+          "description": "High‑visibility and multi‑risk jackets for industrial environments",
+          "detailedDescription": "Our protective clothing range includes high‑visibility garments and multi‑risk jackets certified to EN standards, providing visibility, heat and arc protection, antistatic performance and selected chemical protection. Designed for durability and comfort across construction, utilities, manufacturing and logistics."
         }
       },
       "pages": {
@@ -516,6 +558,17 @@
       "clearAll": "Clear All Filters",
       "category": "Category",
       "subCategory": "Sub-Category",
+        "sleeveLength": "Sleeve length",
+        "thumbLoop": "Thumb loop",
+        "closureType": "Closure type",
+        "connection": "Connection",
+        "filterType": "Filter type",
+        "protectionClass": "Protection class",
+        "snr": "SNR",
+        "en352Part": "EN 352 part",
+        "reusable": "Reusable",
+        "mountType": "Mount type",
+        "bluetooth": "Bluetooth",
       "temperature": "Temperature Rating",
       "cutLevel": "Cut Resistance Level",
       "heatLevel": "Heat Resistance Level",
@@ -532,6 +585,14 @@
         "precisionWelding": "Precision welding"
       },
       "workEnvironment": "Work Environment",
+      "length": "Length",
+      "min": "Min",
+      "max": "Max",
+      "padSize": "Pad size",
+      "diameter": "Diameter (mm)",
+      "padLength": "Pad length (mm)",
+      "material": "Material",
+      "ceCategory": "CE Category",
       "industries": "Industries",
       "allCategories": "All Categories",
       "uncategorised": "Uncategorised",
@@ -543,7 +604,28 @@
       "mechanicalHazardsGloves": "Mechanical Hazards Gloves",
       "weldingGlove": "Welding Gloves",
       "industrialSwabs": "Industrial Swabs",
-      "respiratoryProtection": "Respiratory Protection"
+      "respiratoryProtection": "Respiratory Protection",
+      "protectiveClothing": "Protective Clothing",
+      "footwearClass": "Footwear class",
+      "esd": "ESD",
+      "widthFit": "Width fit",
+      "sizeRange": "Size range",
+      "toeCap": "Toe cap",
+      "soleMaterial": "Sole material",
+      "standardCodes": "Standard codes",
+      "protectionType": "Protection type",
+      "lensTint": "Lens tint",
+      "coating": "Coating",
+      "uvCode": "UV code",
+      "brimLength": "Brim length",
+      "lowTemperature": "Low-temperature performance",
+      "electricalInsulation": "Electrical insulation (EN 50365)",
+      "moltenMetalSplash": "Molten metal splash (MM)",
+      "ventilation": "Ventilation",
+      "hiVisClass": "Hi-Vis class",
+      "flameStandard": "Flame/heat standard (EN ISO 11612)",
+      "arcClass": "Arc protection class",
+      "antistatic": "Antistatic (EN 1149-5)"
     },
     "results": {
       "showing": "Showing {current} of {total} products",
@@ -581,6 +663,8 @@
     "productDetails": "Product Details",
     "technicalSpecifications": "Technical Specifications",
     "materials": "Materials",
+    "size": "Size",
+    "attributes": "Attributes",
     "dimensions": "Dimensions",
     "temperatureRating": "Temperature Rating",
     "cutResistanceLevel": "Cut Resistance Level",
@@ -820,6 +904,12 @@
         "compliance": {
           "title": "Compliance",
           "description": "All our products are certified to guarantee protection and compliance."
+        },
+        "eyeFace": {
+          "badge": "Eye & Face Protection",
+          "title": "Eye & Face Protection",
+          "description": "Protective eyewear and visors for industrial environments",
+          "detailedDescription": "Our eye & face protection range covers safety glasses, sealed goggles and arc‑rated visors designed to EN 166 and related standards. Built for clarity, comfort and reliability with anti‑fog and scratch‑resistant coatings, UV filtering and infrared protection options. Ideal for manufacturing, construction and electrical maintenance."
         }
       },
       "environmental": {
@@ -1423,6 +1513,7 @@
     },
     "grid": {
       "searchPlaceholder": "Search declarations...",
+      "allLanguages": "All",
       "filterByCategory": "Categories",
       "categories": "Categories",
       "declarations": "declarations",

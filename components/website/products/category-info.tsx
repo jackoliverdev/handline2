@@ -12,7 +12,7 @@ interface CategoryInfoProps {
   description?: string;
   imageSrc?: string;
   imageAlt?: string;
-  categoryType?: 'gloves' | 'respiratory' | 'industrialSwabs' | 'heat' | 'cut' | 'general' | 'mechanical' | 'welding';
+  categoryType?: 'gloves' | 'respiratory' | 'industrialSwabs' | 'armProtection' | 'hearing' | 'footwear' | 'eyeFace' | 'head' | 'clothing' | 'heat' | 'cut' | 'general' | 'mechanical' | 'welding';
 }
 
 export const CategoryInfo = ({ 
@@ -102,8 +102,14 @@ export const CategoryInfo = ({
 function getDefaultImageForCategory(categoryType: string): string {
   const imageMap = {
     gloves: "/glovecats/49K-C_A.webp",
-    respiratory: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/products/Categories/respiratory_protection.png",
+    respiratory: "/images/products/categories/respirator.jpeg",
     industrialSwabs: "/images/HLC_SWABS_main.jpg",
+    armProtection: "/images/products/categories/armppe.webp",
+    footwear: "/images/products/categories/safetyboot.png",
+    hearing: "/images/products/categories/single use ear plugs.webp",
+    eyeFace: "/images/products/categories/metalfreeglasses.jpg",
+    head: "/images/products/categories/Safety helmet suitable for low temperatures and splash protection.webp",
+    clothing: "/images/products/categories/High-Vis, Jacket High-Vis.webp",
     heat: "/glovecats/152-14 3L20_A.webp",
     cut: "/glovecats/HL8801 DSR_A.webp",
     general: "/glovecats/HL 6WWG_A.webp",

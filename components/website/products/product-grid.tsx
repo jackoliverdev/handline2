@@ -41,9 +41,14 @@ interface ProductGridProps {
   products: Product[];
   className?: string;
   initialCategory?: string;
+  // Optional swab-specific controls (no effect unless provided)
+  extraFiltersRender?: React.ReactNode;
+  extraFiltersRenderMobile?: React.ReactNode;
+  extraFilterPredicate?: (product: Product) => boolean;
+  hideDefaultFilters?: boolean;
 }
 
-export const ProductGrid = ({ products, className = "", initialCategory }: ProductGridProps) => {
+export const ProductGrid = ({ products, className = "", initialCategory, extraFiltersRender, extraFiltersRenderMobile, extraFilterPredicate, hideDefaultFilters = false }: ProductGridProps) => {
   const { t, language } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory || "");
@@ -258,7 +263,10 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
     const matchesCategory = 
       !selectedCategory || 
       selectedCategory === "all" || 
-      (product.category || t('products.filters.uncategorised')) === selectedCategory;
+      (product.category || t('products.filters.uncategorised')) === selectedCategory ||
+      // Also match against the original (English) category to ensure
+      // category scoping works when UI language is switched (e.g. IT locale)
+      ((product as any).original_category === selectedCategory);
     
     // Match subcategory
     const matchesSubCategory =
@@ -306,6 +314,8 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
          product.industries.includes(industry)
        ));
     
+    const matchesExtra = typeof extraFilterPredicate === 'function' ? extraFilterPredicate(product as unknown as Product) : true;
+
     return matchesSearch && 
            matchesCategory && 
            matchesSubCategory && 
@@ -314,7 +324,8 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
            matchesHeatLevel && 
            matchesHazardProtectionFilter && 
            matchesWorkEnvironmentFilter &&
-           matchesIndustries;
+           matchesIndustries &&
+           matchesExtra;
   });
   
   // Sort products based on selected option and category order using ORIGINAL categories
@@ -450,39 +461,46 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
                   toggleSection={toggleSection}
                 />
                 
-                {/* Hazard Protection Filter */}
-                <HazardProtectionFilter
-                  selectedHazardProtections={selectedHazardProtections}
-                  toggleHazardProtection={toggleHazardProtection}
-                  isExpanded={expandedSections.hazardProtection}
-                  toggleSection={toggleSection}
-                />
+                {/* Hazard/Environment can be hidden by passing only extra filters and no default ones */}
+                {(!hideDefaultFilters) && (
+                  <>
+                    <HazardProtectionFilter
+                      selectedHazardProtections={selectedHazardProtections}
+                      toggleHazardProtection={toggleHazardProtection}
+                      isExpanded={expandedSections.hazardProtection}
+                      toggleSection={toggleSection}
+                    />
+                    <WorkEnvironmentFilter
+                      selectedWorkEnvironments={selectedWorkEnvironments}
+                      toggleWorkEnvironment={toggleWorkEnvironment}
+                      isExpanded={expandedSections.workEnvironment}
+                      toggleSection={toggleSection}
+                    />
+                  </>
+                )}
                 
-                {/* Work Environment Filter */}
-                <WorkEnvironmentFilter
-                  selectedWorkEnvironments={selectedWorkEnvironments}
-                  toggleWorkEnvironment={toggleWorkEnvironment}
-                  isExpanded={expandedSections.workEnvironment}
-                  toggleSection={toggleSection}
-                />
+                {(!hideDefaultFilters) && (
+                  <TemperatureFilter
+                    tempRatings={uniqueTempRatings}
+                    selectedTempRatings={selectedTempRatings}
+                    toggleTempRating={toggleTempRating}
+                    isExpanded={expandedSections.temperature}
+                    toggleSection={toggleSection}
+                  />
+                )}
                 
-                {/* Temperature Rating Filter */}
-                <TemperatureFilter
-                  tempRatings={uniqueTempRatings}
-                  selectedTempRatings={selectedTempRatings}
-                  toggleTempRating={toggleTempRating}
-                  isExpanded={expandedSections.temperature}
-                  toggleSection={toggleSection}
-                />
-                
-                {/* Industries Filter */}
-                <IndustryFilter
-                  industries={uniqueIndustries}
-                  selectedIndustries={selectedIndustries}
-                  toggleIndustry={toggleIndustry}
-                  isExpanded={expandedSections.industries}
-                  toggleSection={toggleSection}
-                />
+                {(!hideDefaultFilters) && (
+                  <IndustryFilter
+                    industries={uniqueIndustries}
+                    selectedIndustries={selectedIndustries}
+                    toggleIndustry={toggleIndustry}
+                    isExpanded={expandedSections.industries}
+                    toggleSection={toggleSection}
+                  />
+                )}
+
+                {/* Extra filters for category-specific pages */}
+                {extraFiltersRender}
               </div>
             </div>
           </div>
@@ -552,6 +570,8 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
                   expandedSections={expandedMobileSections}
                   toggleSection={toggleMobileSection}
                   activeFiltersCount={activeFiltersCount}
+                  extraFiltersRender={extraFiltersRenderMobile || extraFiltersRender}
+                  hideDefaultFilters={hideDefaultFilters}
                 />
               </Sheet>
             </div>

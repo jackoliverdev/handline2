@@ -104,6 +104,11 @@ export function AdminSidebar({ className }: AdminSidebarProps) {
       icon: ShieldAlert,
     },
     {
+      name: "Declaration Management",
+      href: "/admin/declarations",
+      icon: FileText,
+    },
+    {
       name: "User Management",
       href: "/admin/users",
       icon: Users,

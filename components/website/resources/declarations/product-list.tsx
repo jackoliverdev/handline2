@@ -27,77 +27,74 @@ export function ProductList({ products }: ProductListProps) {
   const { t, language } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  // Document language selector (defaults to current site language)
-  const [docLanguage, setDocLanguage] = useState<string>('English');
+  // Document locale selector (defaults to ALL)
+  const [docLanguage, setDocLanguage] = useState<string>('all');
 
-  // Utilities that ONLY use the new declaration_docs_locales JSON (no legacy)
-  const mapCodeToName = (v: string) => {
-    const lower = (v || '').toLowerCase();
-    if (lower === 'en') return 'English';
-    if (lower === 'it') return 'Italiano';
-    return v || '';
+  // Manual mapping of locale codes to labels for the filter dropdown
+  const DECLARATION_FILTERS: { value: string; label: string }[] = [
+    { value: 'en-GB', label: 'GB English' },
+    { value: 'de-DE', label: 'DE Deutsch' },
+    { value: 'fr-FR', label: 'FR Français' },
+    { value: 'it-IT', label: 'IT Italiano' },
+    { value: 'lv-LV', label: 'LV Latviešu' },
+    { value: 'hu-HU', label: 'HU Magyar' },
+    { value: 'bg-BG', label: 'BG Български' },
+    { value: 'cs-CZ', label: 'CS Čeština' },
+    { value: 'da-DK', label: 'DA Dansk' },
+    { value: 'el-GR', label: 'EL Ελληνικά' },
+    { value: 'es-ES', label: 'ES Español' },
+    { value: 'et-EE', label: 'ET Eesti' },
+    { value: 'fi-FI', label: 'FI Suomi' },
+    { value: 'hr-HR', label: 'HR Hrvatski' },
+    { value: 'lt-LT', label: 'LT Lietuvių' },
+    { value: 'nl-NL', label: 'NL Nederlands' },
+    { value: 'pl-PL', label: 'PL Polski' },
+    { value: 'pt-PT', label: 'PT Português' },
+    { value: 'ro-RO', label: 'RO Română' },
+    { value: 'sk-SK', label: 'SK Slovenčina' },
+    { value: 'sl-SI', label: 'SL Slovenščina' },
+    { value: 'sv-SE', label: 'SV Svenska' },
+  ];
+
+  // Translated ALL option label
+  const ALL_OPTION = { value: 'all', label: t('declarations.grid.allLanguages') } as const;
+
+  // Utilities that ONLY use the new declaration_docs_locales JSON with locale codes (e.g. 'en-GB')
+  const getProductLocales = (product: Product): string[] => {
+    const entries = Array.isArray((product as any).declaration_docs_locales)
+      ? (product as any).declaration_docs_locales
+      : [];
+    return entries
+      .filter((e: any) => e && e.kind === 'eu' && typeof e.locale === 'string' && e.locale.trim().length > 0)
+      .map((e: any) => e.locale);
   };
 
-  const getJsonDocLangs = (product: Product): string[] => {
-    const set = new Set<string>();
-    const entries = Array.isArray((product as any).declaration_docs_locales) ? (product as any).declaration_docs_locales : [];
-    entries.forEach((e: any) => {
-      if (!e) return;
-      if (e.kind === 'eu') set.add(mapCodeToName(e.lang));
-      if (e.kind === 'multi' && Array.isArray(e.langs)) e.langs.forEach((l: string) => set.add(mapCodeToName(l)));
-    });
-    return Array.from(set);
-  };
-
-  const getJsonDocUrl = (product: Product, targetLang: string): string | null => {
-    const entries = Array.isArray((product as any).declaration_docs_locales) ? (product as any).declaration_docs_locales : [];
-    const normTargets = new Set<string>([
-      mapCodeToName(targetLang),
-      (targetLang || '').toLowerCase(),
-      targetLang
-    ]);
-    // exact eu match by name or raw code
-    const exact = entries.find((e: any) => e.kind === 'eu' && (normTargets.has(mapCodeToName(e.lang)) || normTargets.has((e.lang || '').toLowerCase())));
-    if (exact) return exact.url;
-    // multi contains target
-    const multi = entries.find((e: any) => (e.kind === 'multi') && Array.isArray(e.langs) && e.langs.some((l: string) => normTargets.has(mapCodeToName(l)) || normTargets.has((l || '').toLowerCase())));
-    if (multi) return multi.url;
-    return null;
+  const getJsonDocUrl = (product: Product, localeCode: string): string | null => {
+    const entries = Array.isArray((product as any).declaration_docs_locales)
+      ? (product as any).declaration_docs_locales
+      : [];
+    const exact = entries.find((e: any) => e && e.kind === 'eu' && e.locale === localeCode);
+    return exact ? exact.url : null;
   };
 
   // Exact-match only (no English fallback) for filtering and primary button state
-  const getJsonDocUrlExact = (product: Product, targetLang: string): string | null => {
-    const entries = Array.isArray((product as any).declaration_docs_locales) ? (product as any).declaration_docs_locales : [];
-    const normTargets = new Set<string>([
-      mapCodeToName(targetLang),
-      (targetLang || '').toLowerCase(),
-      targetLang
-    ]);
-    const exact = entries.find((e: any) => e.kind === 'eu' && (normTargets.has(mapCodeToName(e.lang)) || normTargets.has((e.lang || '').toLowerCase())));
-    if (exact) return exact.url;
-    const multi = entries.find((e: any) => (e.kind === 'multi') && Array.isArray(e.langs) && e.langs.some((l: string) => normTargets.has(mapCodeToName(l)) || normTargets.has((l || '').toLowerCase())));
-    if (multi) return multi.url;
-    return null;
+  const getJsonDocUrlExact = (product: Product, localeCode: string): string | null => {
+    return getJsonDocUrl(product, localeCode);
   };
 
-  const getJsonUkUrl = (product: Product): string | null => {
-    const entries = Array.isArray((product as any).declaration_docs_locales) ? (product as any).declaration_docs_locales : [];
-    const uk = entries.find((e: any) => e.kind === 'uk');
-    return uk ? uk.url : null;
+  const getUkcaUrl = (product: Product): string | null => {
+    // Only use the dedicated column now
+    return (product as any).ukca_declaration_url || null;
   };
 
-  // Build available languages (JSON only)
-  const AVAILABLE_DOC_LANGS: string[] = useMemo(() => {
-    const set = new Set<string>();
-    products.forEach((p) => getJsonDocLangs(p).forEach((l) => set.add(l)));
-    return Array.from(set).sort();
-  }, [products]);
+  // Build available locales per product when needed (not used for the main filter)
+  // Kept as a helper if we want to highlight availability, but the main filter is manual
 
   // Localise all products
   const localizedProducts = products.map(product => localiseProduct(product, language));
 
   // Filter products that have at least one EU doc in JSON
-  const productsWithDeclarations = localizedProducts.filter(product => getJsonDocLangs(product).length > 0);
+  const productsWithDeclarations = localizedProducts.filter(product => getProductLocales(product).length > 0);
 
   // Extract unique categories
   const categories = useMemo(() => {
@@ -128,7 +125,7 @@ export function ProductList({ products }: ProductListProps) {
         (product.short_description && product.short_description.toLowerCase().includes(searchQuery.toLowerCase()));
       
       const matchesCategory = selectedCategory === null || product.category === selectedCategory;
-      const matchesLanguage = getJsonDocUrlExact(product, docLanguage) !== null;
+      const matchesLanguage = docLanguage === 'all' || getJsonDocUrlExact(product, docLanguage) !== null;
       
       return matchesSearch && matchesCategory && matchesLanguage;
     });
@@ -151,11 +148,19 @@ export function ProductList({ products }: ProductListProps) {
   };
 
   // Helpers
-  const normaliseLabel = (l: string) => mapCodeToName(l);
+  const getEuDeclarationUrl = (product: Product, localeCode: string | undefined): string | null => getJsonDocUrl(product, localeCode || 'en-GB');
 
-  const getEuDeclarationUrl = (product: Product, lang: string | undefined): string | null => getJsonDocUrl(product, lang || 'English');
-  const getUkDeclarationUrl = (product: Product): string | null => {
-    return getJsonUkUrl(product);
+  // UKCA button strictly uses the dedicated column
+  const getUkDeclarationUrl = (product: Product): string | null => getUkcaUrl(product);
+
+  // Determine preferred locale for EU DoC when top filter is "All"
+  const getPreferredLocaleForProduct = (product: Product): string => {
+    const locales = getProductLocales(product);
+    const ordered = language === 'it' ? ['it-IT', 'en-GB'] : ['en-GB', 'it-IT'];
+    for (const loc of ordered) {
+      if (locales.includes(loc)) return loc;
+    }
+    return locales[0] || 'en-GB';
   };
 
   return (
@@ -172,16 +177,16 @@ export function ProductList({ products }: ProductListProps) {
         <div className="flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between mb-6">
           {/* Left Side - Language, Search and Filters */}
           <div className="flex flex-col sm:flex-row gap-3 flex-1">
-            {/* Language Selector */}
+            {/* Language/Locale Selector */}
             <div className="flex-1 sm:flex-none sm:w-56">
               <Select value={docLanguage} onValueChange={setDocLanguage}>
                 <SelectTrigger className="h-12 rounded-xl bg-white dark:bg-black/50 border-gray-200 dark:border-gray-700">
                   <SelectValue placeholder="Language" />
                 </SelectTrigger>
                 <SelectContent>
-                  {AVAILABLE_DOC_LANGS.map((lang) => (
-                    <SelectItem key={lang} value={lang}>
-                      {lang}
+                  {[ALL_OPTION, ...DECLARATION_FILTERS].map((opt) => (
+                    <SelectItem key={opt.value} value={opt.value}>
+                      {opt.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -341,18 +346,19 @@ export function ProductList({ products }: ProductListProps) {
                       
                       <div className="flex items-center gap-2">
                         {/* UKCA DoC (use product English declaration URL) */}
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="bg-white dark:bg-black/50 border-brand-primary/30 text-brand-primary hover:bg-brand-primary hover:text-white dark:hover:bg-brand-primary transition-all duration-300 gap-2 shadow-sm hover:shadow-md"
-                          asChild
-                          disabled={!getUkDeclarationUrl(product)}
-                        >
-                          <a href={getUkDeclarationUrl(product) || '#'} target="_blank" rel="noopener noreferrer" download>
-                            <span>UKCA DoC</span>
-                            <Download className="h-4 w-4" />
-                          </a>
-                        </Button>
+                        {getUkDeclarationUrl(product) && (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="bg-white dark:bg-black/50 border-brand-primary/30 text-brand-primary hover:bg-brand-primary hover:text-white dark:hover:bg-brand-primary transition-all duration-300 gap-2 shadow-sm hover:shadow-md"
+                            asChild
+                          >
+                            <a href={getUkDeclarationUrl(product) as string} target="_blank" rel="noopener noreferrer" download>
+                              <span>UKCA DoC</span>
+                              <Download className="h-4 w-4" />
+                            </a>
+                          </Button>
+                        )}
 
                         {/* EU DoC split-button */}
                         <div className="flex items-stretch">
@@ -361,10 +367,10 @@ export function ProductList({ products }: ProductListProps) {
                             size="sm"
                             className="rounded-r-none bg-white dark:bg-black/50 border-brand-primary/30 text-brand-primary hover:bg-brand-primary hover:text-white dark:hover:bg-brand-primary transition-all duration-300 gap-2 shadow-sm hover:shadow-md"
                             asChild
-                            disabled={!getJsonDocUrlExact(product, docLanguage)}
+                            disabled={!getJsonDocUrlExact(product, docLanguage === 'all' ? getPreferredLocaleForProduct(product) : docLanguage)}
                           >
                             <a
-                              href={getJsonDocUrlExact(product, docLanguage) || '#'}
+                              href={getJsonDocUrlExact(product, docLanguage === 'all' ? getPreferredLocaleForProduct(product) : docLanguage) || '#'}
                               target="_blank"
                               rel="noopener noreferrer"
                               download
@@ -384,19 +390,19 @@ export function ProductList({ products }: ProductListProps) {
                                 <ChevronDown className="h-4 w-4" />
                               </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="w-44">
+                            <DropdownMenuContent align="end" className="w-44 max-h-96 overflow-y-auto">
                               <DropdownMenuLabel>Language</DropdownMenuLabel>
                               <DropdownMenuSeparator />
-                              {AVAILABLE_DOC_LANGS.map((langOpt) => {
-                                const url = getJsonDocUrlExact(product, langOpt);
-                                const label = normaliseLabel(langOpt);
+                              {DECLARATION_FILTERS.filter((opt) => opt.value !== 'all').map((opt) => {
+                                const url = getJsonDocUrlExact(product, opt.value);
+                                const label = opt.label;
                                 const disabled = !url;
                                 return (
                                   <DropdownMenuItem
-                                    key={langOpt}
-                                    className={`cursor-pointer ${docLanguage === langOpt ? 'bg-brand-primary/10 text-brand-primary' : ''}`}
+                                    key={opt.value}
+                                    className={`cursor-pointer ${docLanguage === opt.value ? 'bg-brand-primary/10 text-brand-primary' : ''}`}
                                     disabled={disabled}
-                                    onClick={() => setDocLanguage(langOpt)}
+                                    onClick={() => setDocLanguage(opt.value)}
                                   >
                                     <span className="flex-1">{label}</span>
                                     {!disabled ? (

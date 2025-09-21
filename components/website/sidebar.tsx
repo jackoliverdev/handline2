@@ -221,6 +221,54 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                     </Link>
                   </div>
 
+                  {/* Eye & Face Protection */}
+                  <div className="py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors">
+                    <Link 
+                      href="/products/eye-face"
+                      className="flex items-center"
+                      onClick={onClose}
+                    >
+                      <Shield className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
+                      <span className="text-sm">{t('navbar.eyeFaceProtection') || 'Eye & Face Protection'}</span>
+                    </Link>
+                  </div>
+
+                  {/* Head Protection */}
+                  <div className="py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors">
+                    <Link 
+                      href="/products/head"
+                      className="flex items-center"
+                      onClick={onClose}
+                    >
+                      <Shield className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
+                      <span className="text-sm">{t('navbar.headProtection')}</span>
+                    </Link>
+                  </div>
+
+                  {/* Safety Footwear */}
+                  <div className="py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors">
+                    <Link 
+                      href="/products/footwear"
+                      className="flex items-center"
+                      onClick={onClose}
+                    >
+                      <Shield className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
+                      <span className="text-sm">{t('navbar.safetyFootwear')}</span>
+                    </Link>
+                  </div>
+
+                  {/* Arm Protection */}
+                  <div className="py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors">
+                    <Link 
+                      href="/products/arm-protection"
+                      className="flex items-center"
+                      onClick={onClose}
+                    >
+                      <Shield className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
+                      <span className="text-sm">{t('navbar.armProtection')}</span>
+                    </Link>
+                  </div>
+
                   {/* Respiratory Protection */}
                   <div className="py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors">
                     <Link 
@@ -230,6 +278,30 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                     >
                       <Shield className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
                       <span className="text-sm">{t('navbar.respiratoryProtection')}</span>
+                    </Link>
+                  </div>
+ 
+                  {/* Hearing Protection */}
+                  <div className="py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors">
+                    <Link 
+                      href="/products/hearing"
+                      className="flex items-center"
+                      onClick={onClose}
+                    >
+                      <Shield className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
+                      <span className="text-sm">{t('navbar.hearingProtection')}</span>
+                    </Link>
+                  </div>
+
+                  {/* Protective Clothing */}
+                  <div className="py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors">
+                    <Link 
+                      href="/products/clothing"
+                      className="flex items-center"
+                      onClick={onClose}
+                    >
+                      <Shield className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
+                      <span className="text-sm">{t('navbar.protectiveClothing') || 'Protective Clothing'}</span>
                     </Link>
                   </div>
                 </div>
@@ -285,6 +357,13 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                   >
                     <span>{t('navbar.aboutDropdown.esg')}</span>
                   </Link>
+                  <Link 
+                    href="/careers" 
+                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                    onClick={onClose}
+                  >
+                    <span>{t('navbar.aboutDropdown.careers')}</span>
+                  </Link>
                 </div>
               )}
             </div>
@@ -331,13 +410,13 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                   >
                     <span>{t('navbar.resourcesDropdown.blog')}</span>
                   </Link>
-                  <Link 
+                  {/* <Link 
                     href="/resources/case-studies" 
                     className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     onClick={onClose}
                   >
                     <span>{t('navbar.resourcesDropdown.caseStudies')}</span>
-                  </Link>
+                  </Link> */}
                   <Link 
                     href="/resources/en-resource-centre" 
                     className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"

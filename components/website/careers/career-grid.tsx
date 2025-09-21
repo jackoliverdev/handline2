@@ -23,6 +23,14 @@ export function CareerGrid({ careerPosts, language }: CareerGridProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [departments, setDepartments] = useState<string[]>([]);
   const [locations, setLocations] = useState<string[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handle = () => setIsMobile(typeof window !== 'undefined' && window.innerWidth < 768);
+    handle();
+    window.addEventListener('resize', handle);
+    return () => window.removeEventListener('resize', handle);
+  }, []);
 
   // Extract unique departments and locations from career posts (localised)
   useEffect(() => {
@@ -87,23 +95,23 @@ export function CareerGrid({ careerPosts, language }: CareerGridProps) {
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3,
+        staggerChildren: 0.06,
+        delayChildren: 0.2,
         ease: "easeOut",
       },
     },
   };
 
   return (
-    <section className="py-16 -mt-40 sm:-mt-48 md:-mt-40 bg-[#F5EFE0]/80 dark:bg-background relative">
+    <section className="py-16 -mt-20 sm:-mt-28 md:-mt-32 lg:-mt-40 bg-[#F5EFE0]/80 dark:bg-background relative">
       <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: -15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          {...(isMobile
+            ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.25 } }
+            : { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.35 } }
+          )}
           className="text-center mb-12"
           id="career-positions"
           style={{ scrollMarginTop: "60px" }}
@@ -124,10 +132,10 @@ export function CareerGrid({ careerPosts, language }: CareerGridProps) {
 
         {/* Search and Filters Section */}
         <motion.div 
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          {...(isMobile
+            ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.25 } }
+            : { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.35 } }
+          )}
           className="bg-white dark:bg-black/50 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-700/50 p-6 mb-8 backdrop-blur-sm"
         >
           {/* Search Bar */}
@@ -232,10 +240,10 @@ export function CareerGrid({ careerPosts, language }: CareerGridProps) {
 
         {/* Results Summary */}
         <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.3, delay: 0.3 }}
+          {...(isMobile
+            ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.25 } }
+            : { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.3 } }
+          )}
           className="flex items-center justify-between mb-8"
         >
           <div className="flex items-center">
@@ -255,25 +263,39 @@ export function CareerGrid({ careerPosts, language }: CareerGridProps) {
 
         {/* Career Grid */}
         {filteredPosts.length > 0 ? (
-          <motion.div
-            key={`${selectedDepartments.length}-${selectedLocations.length}-${searchQuery.length}`}
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
-          >
-            {filteredPosts.map((post, index) => (
-              <CareerCard key={post.slug} post={post} index={index} language={language} />
-            ))}
-          </motion.div>
+          isMobile ? (
+            <motion.div
+              key={`${selectedDepartments.length}-${selectedLocations.length}-${searchQuery.length}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.25 }}
+              className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+            >
+              {filteredPosts.map((post, index) => (
+                <CareerCard key={post.slug} post={post} index={index} language={language} disableAnimation={true} />
+              ))}
+            </motion.div>
+          ) : (
+            <motion.div
+              key={`${selectedDepartments.length}-${selectedLocations.length}-${searchQuery.length}`}
+              variants={container}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+            >
+              {filteredPosts.map((post, index) => (
+                <CareerCard key={post.slug} post={post} index={index} language={language} />
+              ))}
+            </motion.div>
+          )
         ) : (
           <motion.div
             key={`empty-${selectedDepartments.length}-${selectedLocations.length}-${searchQuery.length}`}
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            {...(isMobile
+              ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.25 } }
+              : { initial: { opacity: 0, y: 10 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.5, delay: 0.3 } }
+            )}
             className="flex flex-col items-center justify-center py-16 text-center"
           >
             <div className="bg-white dark:bg-black/50 rounded-full p-6 mb-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm">

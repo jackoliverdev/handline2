@@ -1,0 +1,115 @@
+Product Name		unidur sleeve TL
+Brand 1		uvex
+Brand 2		
+Tags		
+🇬🇧EN:		anti-cut sleeve, arm protection
+🇮🇹IT:		protezione avambraccio, manichetta antitaglio
+Short Description		
+🇬🇧EN:		This cut level C sleeve for arm protection
+🇮🇹IT:		Manichetta antitaglio livello C per protezione avambraccio
+Description		
+🇬🇧EN:		"Cut-resistant sleeve (Level C) with thumb loop.
+The combination of HPPE, fiberglass, and polyamide on the outer layer makes the forearm protection particularly durable while remaining flexible. The Velcro closure ensures a perfect fit for maximum comfort during use. The additional thumb loop provides an even better grip, offering extra protection against cuts"
+🇮🇹IT:		"Manichetta antitaglio (livello C) con passante per pollice.
+La combinazione di HPPE, fibre di vetro e poliammide per la parte esterna rende la protezione per l’avambraccio particolarmente resistente e allo stesso tempo flessibile. La chiusura in velcro consente una perfetta vestibilità per il massimo comfort di utilizzo. Il passante aggiuntivo per il pollice offre un’aderenza ancora maggiore e quindi una protezione supplementare dalle ferite"
+Size		
+🇬🇧EN:		M / L
+🇮🇹IT:		M / L
+Material		
+🇬🇧EN:		Fiberglass, High-Performance Polyethylene (HPPE), Kevlar®, Polyamide (PA)
+🇮🇹IT:		Fibra di vetro, Polietilene ad alte prestazioni (HPPE), Kevlar®, Poliammide (PA)
+Length	e.g. 40cm	
+Category		
+🇬🇧EN:		Arm protection
+🇮🇹IT:		Protezione delle braccia
+Sub Category		
+🇬🇧EN:		Cut resistand sleeves
+🇮🇹IT:		Maniche resistenti al taglio
+Features (4 bullet points)		
+🇬🇧EN:		High cut resistance (Level C)
+		Forearm protection that is particularly flexible and thin
+		Forearm protection with Velcro closure and thumb loop (TL = thumb loop), providing maximum protection against wrist injuries
+		
+🇮🇹IT:		Elevata resistenza al taglio (livello C)
+		Protezione per l’avambraccio particolarmente flessibile e sottile
+		Protezione per l’avambraccio con chiusura in velcro e passante per il pollice (TL = thumb loop), per la massima protezione da lesioni al polso
+		
+Applications (4 bullet points)		
+🇬🇧EN:		Handling sharp sheet metal, stamping, bending, and cutting operations
+		Cutting, transporting, or installing glass panes and bottles
+		Sawing, planing, and working with sharp tools
+		Working with sharp components, stamped parts, or metal edges
+🇮🇹IT:		Manutenzione e movimentazione di lamiera tagliente, operazioni di stampaggio, piegatura e taglio
+		Taglio, trasporto o installazione di lastre di vetro e bottiglie
+		Segatura, piallatura e lavorazione con strumenti taglienti
+		Lavoro con componenti affilati, parti stampate o bordi metallici
+Industries		
+🇬🇧EN:		Metalworking, Glass manufacturing, Construction, Carpentry, Automotive, Aerospace, Recycling, Waste management
+🇮🇹IT:		Lavorazione dei metalli, Produzione del vetro, Costruzioni, Carpenteria, Automotive, Aerospaziale, Riciclaggio, Gestione dei rifiuti
+CE Category		II
+EN ISO 21420		TRUE
+EN 388		
+Abrasion Resistance		2
+Cut Resistance		X
+Tear Resistance		4
+Puncture Resistance		X
+Cut Resistance (ISO 13997)		C
+Impact Protection (EN 13594:2015)		X
+EN 407		FALSE
+Limited Flame Spread		
+Contact Heat		
+Convective Heat		
+Radiant Heat		
+Small splashes of Molten Metal		
+Large quantities of Molten Metal		
+EN 511		FALSE
+Convective Cold		
+Contact Cold		
+Water permeability		
+EN 374-1		FALSE
+Type		
+Chemicals tested		
+EN 374-5		FALSE
+EN 16350		FALSE
+EN 60903		FALSE
+EN 12477		FALSE
+EN 421		FALSE
+Radioactive contamination		
+Ionising radiation		
+EN 1082-1		FALSE
+EN 381-7		FALSE
+EN 659		FALSE
+Food Grade		FALSE
+EN ISO 11612		FALSE
+A1/A2 = limited flame spread		
+B1–B3 = convective heat		
+C1–C4 = radiant heat		
+D1–D3 = molten aluminium		
+E1–E3 = molten iron		
+F1–F3 = contact heat		
+EN ISO 11611		FALSE
+Class	1/2	
+Protection	text	
+IEC 61482-2	icon + Class 1-2	FALSE
+EN 14605	text string	FALSE
+Other EN Standards		FALSE
+ENVIRONMENT		
+Dry / Asciutto		Yes
+Wet / Umido		No
+Oily or Grease / Oleoso o grasso		No
+Chemical / Chimico		No
+Dust / Polveri		Yes
+Biological contaminants / Contaminanti biologici		No
+Related Product Name 1		
+Related Product Name 2		
+Related Product Name 3		
+Related Product Name 4		
+Technical Sheet Url		
+Declaration Sheet Url		
+Published (Boolean)		
+Featured Product (Boolean)		
+Out Of Stock (Boolean)		
+Coming Soon (Boolean)		
+Cover Image		
+Additional Images		
+		

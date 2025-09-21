@@ -1,0 +1,102 @@
+Product Name	type of field	Pronamic S-KR	Pronamic E-S-WR	u-cap sport		
+Brand 1		uvex	uvex	uvex		
+Brand 2						
+Tags						
+🇬🇧EN:						
+🇮🇹IT:						
+Short Description						
+🇬🇧EN:		Safety helmet suitable for low temperatures and splash protection	Safety helmet suitable for low temperatures, splash protection, and low-voltage environments	Sporty bumper cap		
+🇮🇹IT:		Elmetto di sicurezza adatto a basse temperature e protezione da spruzzi	Elmetto di sicurezza adatto a basse temperature, protezione da spruzzi e ambienti a bassa tensione	Berretto antiurto sportivo		
+Description						
+🇬🇧EN:		Modern and sporty helmet featuring a unique and innovative structure that delivers maximum performance and ergonomics with minimal material. Provides maximum safety in line with required standards and optional requirements “-30°C” and “MM”	Modern and sporty helmet featuring a unique and innovative structure that delivers maximum performance and ergonomics with minimal material. Provides maximum safety in line with required standards and optional requirements “-30°C” and “MM”. The closed shell allows use in low-voltage environments	"Bump cap with plastic shell for protection against grazes and bumps and integrated shock-absorbing elements and sweat band.
+Customisable with logo"		
+🇮🇹IT:		Elmetto moderno e sportivo dotato di una struttura unica e innovativa che permette di ottenere il massimo delle prestazioni e dell'ergonomia con la minima quantità di materiale. Massima sicurezza per gli standard richiesti e i requisiti opzionali "-30°C" e "MM"	Elmetto moderno e sportivo dotato di una struttura unica e innovativa che permette di ottenere il massimo delle prestazioni e dell'ergonomia con la minima quantità di materiale. Massima sicurezza per gli standard richiesti e i requisiti opzionali "-30°C" e "MM". La calotta chiusa permette utilizzo in bassa tensione	"Berretto antiurto con calotta in plastica per protezione da graffi e urti ed elementi ammortizzanti integrati e fascia antisudore.
+Personalizzabile con logo"		
+Size	numeric range					
+🇬🇧EN:		51 cm - 65 cm	51 cm - 65 cm	52-54cm / 55-59cm / 60-63cm		
+🇮🇹IT:		51 cm - 65 cm	51 cm - 65 cm	52-54cm / 55-59cm / 60-63cm		
+Weight	text					
+🇬🇧EN:		446 gr	394 gr	185 gr		
+🇮🇹IT:		446 gr	394 gr	185 gr		
+Colour	text list					
+🇬🇧EN:		White, Yellow, Red, Blue	White, Yellow, Red, Blue	Black		
+🇮🇹IT:		Bianco, Giallo, Rosso, Blu	Bianco, Giallo, Rosso, Blu	Nero		
+Brim length	long/short					
+🇬🇧EN:		Short	Short	Short		
+🇮🇹IT:		Corta	Corta	Corta		
+Equipment / Dotazione	text					
+🇬🇧EN:		6-point internal harness, 4-point chinstrap, Sweatband, Extended protective area at the neck	6-point internal harness, 4-point chinstrap, Sweatband, Extended protective area at the neck			
+🇮🇹IT:		Bardatura interna a 6 punti, Sottogola a 4 punti, Fascia antisudore, Zona protettiva allungata nell'area del collo	Bardatura interna a 6 punti, Sottogola a 4 punti, Fascia antisudore, Zona protettiva allungata nell'area del collo			
+Other details	text					
+🇬🇧EN:		Rotating inner harness	Rotating inner harness			
+		With ventilation holes	With ventilation holes			
+						
+						
+🇮🇹IT:		Interno girevole	Interno girevole			
+		Con fori di aerazione	Con fori di aerazione			
+						
+						
+Accessories	text					
+🇬🇧EN:		Compatible with helmet lamp, earmuffs, and visor	Compatible with helmet lamp, earmuffs, and visor	LED heat torch, interior mesh fittings		
+🇮🇹IT:		Compatibile con lampada da casco, cuffie antirumore e visiera	Compatibile con lampada da casco, cuffie antirumore e visiera	Torcia LED, rivestimento retato		
+Category						
+🇬🇧EN:		Head protection	Head protection	Head protection		
+🇮🇹IT:		Protezione della testa	Protezione della testa	Protezione della testa		
+Sub Category						
+🇬🇧EN:		Safety Helmets	Safety Helmets	Bump Cap		
+🇮🇹IT:		Caschi di sicurezza	Caschi di sicurezza	Berretti antiurto		
+Material	text (all sections)					
+Shell						
+🇬🇧EN:		High-density polyethylene (HDPE)	High-density polyethylene (HDPE)	Acrylonitrile-butadiene-styrene (ABS) copolymers		
+🇮🇹IT:		Polietilene ad alta densità (HDPE)	Polietilene ad alta densità (HDPE)	"	Copolimeri di acrilonitrile-butadiene-stirene (ABS)"		
+Lining						
+🇬🇧EN:		Plastic	Plastic	Cotton or mesh fabric		
+🇮🇹IT:		Plstica	Plstica	Tessuto		
+Safety Features (4 bullet points)						
+🇬🇧EN:		Lateral Euroslot attachments (30 mm) for securing earmuff hearing protection devices and the Pronamic visor system	Fully closed helmet shell for use in low-voltage work (EN 50365)	Innovative hard “armadillo” shell with honeycomb structure and shock-absorbing elements		
+		Fixing clips for positioning the 4-point chinstrap in a locked position	Lateral Euroslot attachments (30 mm) for securing earmuff hearing protection devices and the Pronamic visor system. Compatible with a wide range of accessories	Cold resistance up to -30°C		
+		Shortened visor for a wider field of view	Fixing clips for positioning the 4-point chinstrap in a locked position	Shortened visor for a wider field of view		
+		Additional elements for mounting our wide range of accessories	Shortened visor for a wider field of view			
+🇮🇹IT:		Attacchi Euroslot laterali (30 mm) per il fissaggio di dispositivi di protezione dell'udito a cuffia e del sistema di visiera pronamic	Calotta dell'elmetto completamente chiusa per l'utilizzo per lavori in bassa tensione (EN 50365)	Innovativo guscio rigido ad armadillo con struttura a nido d'ape ed elementi di assorbimento degli urti		
+		Clip di fissaggio per il posizionamento del sottogola a 4 punti di attacco in posizione di blocco	Attacchi Euroslot laterali (30 mm) per il fissaggio di dispositivi di protezione dell'udito a cuffia e del sistema di visiera pronamic. Compatibile con vasta gamma di accessori	Resistenza alle basse temperature fino a -30°C		
+		Visiera accorciata per un campo visivo più ampio	Clip di fissaggio per il posizionamento del sottogola a 4 punti di attacco in posizione di blocco			
+		Elementi aggiuntivi per il montaggio della nostra vasta gamma di accessori	Visiera accorciata per un campo visivo più ampio	Visiera accorciata per un campo visivo più ampio		
+Comfort Features (4 bullet points)						
+🇬🇧EN:		Internal harness with six-point ratchet adjustment system for optimal fit and comfort	Internal harness with six-point ratchet adjustment system for optimal fit and comfort	Integrated sweat band		
+		Individually adjustable ventilation openings for maximum airflow	Individually adjustable ventilation openings for maximum airflow	Adjustable velcro fastening allows quick and easy fit		
+		Sweatband	Sweatband	Available with mesh interior for high comfort		
+		Wide nape support with close-to-head positioning	Wide nape support with close-to-head positioning			
+🇮🇹IT:		Bardatura interna con sistema di regolazione graduale a rotella a sei punti per calzata e comfort ottimali	Bardatura interna con sistema di regolazione graduale a rotella a sei punti per calzata e comfort ottimali	Fascia antisudore integrata		
+		Aperture di ventilazione regolabili in modo variabile per la massima aerazione	Aperture di ventilazione regolabili in modo variabile per la massima aerazione	Sistema con velcro regolabile per indossare il berretto facilmente e velocemente		
+		Fascia antisudore	Fascia antisudore	Disponibile con fodera retata per maggior comfort		
+		Ampio supporto della nuca e posizionamento vicino alla testa	Ampio supporto della nuca e posizionamento vicino alla testa			
+Applications (4 bullet points)						
+🇬🇧EN:		Head protection in low-temperature environments	Low-voltage electrical work	Activities in work environments without falling object risks		
+		Protection from molten metals	Head protection in low-temperature environments	Prolonged use in hot or cold environments		
+			Protection from molten metals			
+						
+🇮🇹IT:		Protezione del capo alle basse temperature	Operazioni in ambienti a bassa tensione	Operazioni in ambienti di lavoro senza rischi di caduta oggetti		
+		Protezione da metalli fusi	Protezione del capo alle basse temperature	Utilizzo prolungato in ambienti caldi o freddi		
+			Protezione da metalli fusi			
+						
+Industries						
+🇬🇧EN:		Heavy industry, Construction	Heavy industry, Construction	Storage and logistics, construction		
+🇮🇹IT:		Industria pesante, Edilizia	Industria pesante, Edilizia	Magazzinaggio e logistica, edilizia		
+CE Category						
+EN 397	marking required (we can do it like 388 on gloves I think)	TRUE	TRUE	FALSE		
+Low-temperature performance	text, "-" if not relevant	Yes	Yes			
+High-temperature stability	text					
+Electrical insulation	text					
+Lateral deformation resistance	text					
+Molten metal splash resistance	text	Yes	Yes			
+EN 50365		FALSE	TRUE			
+EN 12492		FALSE	FALSE			
+EN 812		FALSE	FALSE	TRUE		
+EN ISO 20471		FALSE	FALSE			
+Other EN Standards		FALSE	FALSE			
+Related Product Name 1						
+Related Product Name 2						
+Related Product Name 3						
+Related Product Name 4						
+						
+						
