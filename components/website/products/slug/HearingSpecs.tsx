@@ -31,17 +31,17 @@ export function HearingSpecs({ product }: { product: Product }) {
         <Tile title={t('productPage.productInfo.size')}>
           {size || '-'}
         </Tile>
-        <Tile title="SNR">{snr ? `${snr} dB` : '-'}</Tile>
+        <Tile title={t('productPage.snr') || 'SNR'}>{snr ? `${snr} dB` : '-'}</Tile>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-        <Tile title="EN 352 parts">{parts.length ? parts.join(', ') : '-'}</Tile>
+        <Tile title={t('productPage.en352Parts') || 'EN 352 parts'}>{parts.length ? parts.join(', ') : '-'}</Tile>
         <Tile title={t('products.filters.reusable') || 'Reusable'}>{reusable || '-'}</Tile>
         <Tile title={t('products.filters.mountType') || 'Mount type'}>{mount || '-'}</Tile>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <Tile title={t('products.filters.bluetooth') || 'Bluetooth'}>{bt === null ? '-' : (bt ? t('productPage.yes') || 'Yes' : t('productPage.no') || 'No')}</Tile>
+        <Tile title={t('productPage.bluetooth') || t('products.filters.bluetooth') || 'Bluetooth'}>{bt === null ? '-' : (bt ? t('productPage.yes') || 'Yes' : t('productPage.no') || 'No')}</Tile>
         <Tile title={t('productPage.ceCategory')}>{product.ce_category || '-'}</Tile>
       </div>
     </div>

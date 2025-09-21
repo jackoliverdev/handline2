@@ -3,6 +3,7 @@
 import { Shield, Ruler, Layers, Move } from "lucide-react";
 import Image from "next/image";
 import { useLanguage } from "@/lib/context/language-context";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Product } from "@/lib/products-service";
 
 export function ArmSpecs({ product }: { product: Product }) {
@@ -12,6 +13,7 @@ export function ArmSpecs({ product }: { product: Product }) {
   const p: any = product as any;
 
   return (
+    <TooltipProvider>
     <div className="space-y-4">
       <div className="grid grid-cols-3 gap-4">
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
@@ -24,7 +26,20 @@ export function ArmSpecs({ product }: { product: Product }) {
               <div className="text-center">
                 <div className="text-brand-dark dark:text-white font-medium text-md">{currentMaterials[0]}</div>
                 {currentMaterials.length > 1 && (
-                  <div className="text-sm text-brand-secondary dark:text-gray-300">+{currentMaterials.length - 1} more</div>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button type="button" className="text-sm text-brand-secondary dark:text-gray-300 cursor-help inline-block">
+                        +{currentMaterials.length - 1} more
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent className="bg-white dark:bg-black/90 text-brand-dark dark:text-white shadow-lg border border-brand-primary/20 max-w-sm">
+                      <div className="text-sm">
+                        {currentMaterials.slice(1).map((m, i) => (
+                          <div key={i} className="leading-relaxed">{m}</div>
+                        ))}
+                      </div>
+                    </TooltipContent>
+                  </Tooltip>
                 )}
               </div>
             ) : (
@@ -83,7 +98,7 @@ export function ArmSpecs({ product }: { product: Product }) {
           <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
             <div className="flex items-center justify-center gap-2 mb-2">
               <Shield className="h-5 w-5 text-brand-primary" />
-              <h3 className="text-sm font-medium text-brand-dark dark:text-white">Sleeve features</h3>
+              <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.sleeveFeatures') || 'Sleeve features'}</h3>
             </div>
             <div className="flex flex-wrap gap-2 justify-center">
               {p.arm_attributes?.thumb_loop && (
@@ -109,6 +124,7 @@ export function ArmSpecs({ product }: { product: Product }) {
         )}
       </div>
     </div>
+    </TooltipProvider>
   );
 }
 

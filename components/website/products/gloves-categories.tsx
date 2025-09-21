@@ -94,8 +94,27 @@ export const GlovesCategories = () => {
             </motion.p>
           </div>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 lg:gap-8">
+        {/* Mobile: horizontal scrollable row */}
+        <div className="md:hidden overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700 -mx-4 sm:mx-0">
+          <div className="px-4 flex gap-6 lg:gap-8 snap-x snap-mandatory">
+            {subcategories.map((subcategory, index) => (
+              <div key={subcategory.href} className="snap-start flex-none w-[260px] sm:w-[300px]">
+                <CategoryCard
+                  title={subcategory.title}
+                  description={subcategory.description}
+                  imageSrc={subcategory.imageSrc}
+                  imageAlt={subcategory.imageAlt}
+                  href={subcategory.href}
+                  index={index}
+                  noShadow
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop / tablet grid */}
+        <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 lg:gap-8">
           {subcategories.map((subcategory, index) => (
             <CategoryCard
               key={subcategory.href}
@@ -105,6 +124,7 @@ export const GlovesCategories = () => {
               imageAlt={subcategory.imageAlt}
               href={subcategory.href}
               index={index}
+              noShadow
             />
           ))}
         </div>

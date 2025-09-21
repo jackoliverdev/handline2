@@ -2,12 +2,14 @@
 
 import { Product } from "@/lib/products-service";
 import { useLanguage } from "@/lib/context/language-context";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 export function ClothingSpecs({ product }: { product: Product }) {
   const { t, language } = useLanguage();
   const materials = product.materials_locales?.[language] || product.materials_locales?.en || [];
   const size = product.size_locales?.[language] || product.size_locales?.en || null;
   const cs: any = (product as any).clothing_standards || {};
+  const ca: any = (product as any).clothing_attributes || {};
 
   const hiVis = cs?.en_iso_20471?.class as number | undefined;
   const has11612 = !!cs?.en_iso_11612;
@@ -36,14 +38,35 @@ export function ClothingSpecs({ product }: { product: Product }) {
   if (type13034) rightChips.push(`EN 13034 ${type13034}`);
 
   return (
+    <TooltipProvider>
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       {/* Row 1 */}
       <div className="bg-white dark:bg-black/30 rounded-lg p-4 border border-brand-primary/10 dark:border-brand-primary/20">
         <h4 className="text-sm font-semibold text-brand-dark dark:text-white mb-2">{t('productPage.materials')}</h4>
-        <div className="text-sm text-brand-secondary dark:text-gray-300 space-y-1">
-          {Array.isArray(materials) && materials.length > 0 ? materials.map((m: string, i: number) => (
-            <div key={i}>{m}</div>
-          )) : <div>-</div>}
+        <div className="text-sm text-brand-secondary dark:text-gray-300">
+          {Array.isArray(materials) && materials.length > 0 ? (
+            <div className="text-center">
+              <div className="text-brand-dark dark:text-white font-medium text-md">{materials[0]}</div>
+              {materials.length > 1 && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button type="button" className="text-sm text-brand-secondary dark:text-gray-300 cursor-help inline-block">
+                      +{materials.length - 1} more
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent className="bg-white dark:bg-black/90 text-brand-dark dark:text-white shadow-lg border border-brand-primary/20 max-w-sm">
+                    <div className="text-sm">
+                      {materials.slice(1).map((m: string, i: number) => (
+                        <div key={i} className="leading-relaxed">{m}</div>
+                      ))}
+                    </div>
+                  </TooltipContent>
+                </Tooltip>
+              )}
+            </div>
+          ) : (
+            <div>-</div>
+          )}
         </div>
       </div>
       <div className="bg-white dark:bg-black/30 rounded-lg p-4 border border-brand-primary/10 dark:border-brand-primary/20">
@@ -51,24 +74,29 @@ export function ClothingSpecs({ product }: { product: Product }) {
         <div className="text-sm text-brand-secondary dark:text-gray-300">{size || '-'}</div>
       </div>
       <div className="bg-white dark:bg-black/30 rounded-lg p-4 border border-brand-primary/10 dark:border-brand-primary/20">
-        <h4 className="text-sm font-semibold text-brand-dark dark:text-white mb-2">{t('productPage.attributes')}</h4>
-        <div className="flex flex-wrap gap-1.5">
-          {(product as any).clothing_attributes?.fit && (
-            <span className="text-xs px-2 py-0.5 rounded border border-brand-primary/20 bg-white dark:bg-black/40">{(product as any).clothing_attributes.fit}</span>
-          )}
-          {(product as any).clothing_attributes?.gender && (
-            <span className="text-xs px-2 py-0.5 rounded border border-brand-primary/20 bg-white dark:bg-black/40">{(product as any).clothing_attributes.gender}</span>
-          )}
-          {Array.isArray((product as any).clothing_attributes?.colours) && (product as any).clothing_attributes.colours.map((c: string, i: number) => (
-            <span key={i} className="text-xs px-2 py-0.5 rounded border border-brand-primary/20 bg-white dark:bg-black/40">{c}</span>
-          ))}
-          {(product as any).clothing_attributes?.uv_protection && (
-            <span className="text-xs px-2 py-0.5 rounded border border-brand-primary/20 bg-white dark:bg-black/40">UV 801</span>
-          )}
-        </div>
+        <h4 className="text-sm font-semibold text-brand-dark dark:text-white mb-2">{t('productPage.fit')}</h4>
+        <div className="text-sm text-brand-secondary dark:text-gray-300">{ca?.fit || '-'}</div>
       </div>
 
       {/* Row 2 */}
+      <div className="bg-white dark:bg-black/30 rounded-lg p-4 border border-brand-primary/10 dark:border-brand-primary/20">
+        <h4 className="text-sm font-semibold text-brand-dark dark:text-white mb-2">{t('productPage.gender')}</h4>
+        <div className="text-sm text-brand-secondary dark:text-gray-300">{ca?.gender || '-'}</div>
+      </div>
+      <div className="bg-white dark:bg-black/30 rounded-lg p-4 border border-brand-primary/10 dark:border-brand-primary/20">
+        <h4 className="text-sm font-semibold text-brand-dark dark:text-white mb-2">{t('productPage.colours')}</h4>
+        <div className="flex flex-wrap gap-1.5">
+          {Array.isArray(ca?.colours) && ca.colours.length > 0 ? ca.colours.map((c: string, idx: number) => (
+            <span key={idx} className="text-xs px-2 py-0.5 rounded border border-brand-primary/20 bg-white dark:bg-black/40">{c}</span>
+          )) : <span className="text-sm text-brand-secondary dark:text-gray-300">-</span>}
+        </div>
+      </div>
+      <div className="bg-white dark:bg-black/30 rounded-lg p-4 border border-brand-primary/10 dark:border-brand-primary/20">
+        <h4 className="text-sm font-semibold text-brand-dark dark:text-white mb-2">{t('productPage.uvProtection')}</h4>
+        <div className="text-sm text-brand-secondary dark:text-gray-300">{ca?.uv_protection ? 'UV 801' : '-'}</div>
+      </div>
+
+      {/* Row 3 */}
       <div className="bg-white dark:bg-black/30 rounded-lg p-4 border border-brand-primary/10 dark:border-brand-primary/20">
         <h4 className="text-sm font-semibold text-brand-dark dark:text-white mb-2">{t('productPage.ceCategory')}</h4>
         <div className="text-sm text-brand-secondary dark:text-gray-300">{product.ce_category || '-'}</div>
@@ -82,6 +110,7 @@ export function ClothingSpecs({ product }: { product: Product }) {
         </div>
       </div>
     </div>
+    </TooltipProvider>
   );
 }
 

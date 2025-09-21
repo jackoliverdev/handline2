@@ -12,6 +12,7 @@ import { FootwearSpecs } from "@/components/website/products/slug/FootwearSpecs"
 import { HeadSpecs } from "@/components/website/products/slug/HeadSpecs";
 import { ClothingSpecs } from "@/components/website/products/slug/ClothingSpecs";
 import { useLanguage } from "@/lib/context/language-context";
+import { useRouter } from "next/navigation";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -23,6 +24,13 @@ import { ProductCard } from "@/components/website/products/product-card";
 import { SampleModal } from "@/components/website/products/sample-modal";
 import { ContactModal } from "@/components/website/products/contact-modal";
 import { SafetyStandardsDisplay } from "@/components/website/products/safety-standards-display";
+import { EyeFaceStandards } from "@/components/website/products/slug/EyeFaceStandards";
+import { HeadStandards } from "@/components/website/products/slug/HeadStandards";
+import { FootwearStandards } from "@/components/website/products/slug/FootwearStandards";
+import { ArmStandards } from "@/components/website/products/slug/ArmStandards";
+import { HearingStandards } from "@/components/website/products/slug/HearingStandards";
+import { RespiratoryStandards } from "@/components/website/products/slug/RespiratoryStandards";
+import { ClothingStandards } from "@/components/website/products/slug/ClothingStandards";
 import { EnvironmentPictogramsDisplay } from "@/components/website/products/environment-pictograms";
 import { Product } from "@/lib/products-service";
 
@@ -81,6 +89,7 @@ const getBrandLogo = (brandName: string) => {
 
 export function ProductDetail({ product, relatedProducts }: { product: Product, relatedProducts: any[] }) {
   const { t, language } = useLanguage();
+  const router = useRouter();
   const { trackProductView, trackSampleRequest, trackContactSubmission, trackDownload } = useAnalytics();
   
   // Get localized content based on current language
@@ -136,6 +145,38 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
     // The actual download is handled by the link
   };
 
+  // Derive category link for breadcrumb navigation
+  const categoryLabel = product.category_locales?.[language] || product.category || '';
+  const categoryHref: string | null = React.useMemo(() => {
+    const cat = (product.category || '').toLowerCase();
+    const sub = (product.sub_category || '').toLowerCase();
+    if (cat.includes('respir')) return '/products/respiratory';
+    if (cat.includes('swab')) return '/products/industrial-swabs';
+    if (cat.includes('hearing') || sub.includes('ear')) return '/products/hearing';
+    if (cat.includes('footwear') || sub.includes('boot') || sub.includes('insol')) return '/products/footwear';
+    if (cat.includes('eye') || cat.includes('face') || sub.includes('goggle') || sub.includes('glasses') || sub.includes('visor')) return '/products/eye-face';
+    if (cat.includes('head') || sub.includes('helmet') || sub.includes('bump')) return '/products/head';
+    if (cat.includes('cloth') || sub.includes('jacket')) return '/products/clothing';
+    if (cat.includes('arm') || sub.includes('sleeve')) return '/products/arm-protection';
+    // Default to gloves
+    if (cat.includes('hand') || cat.includes('glove')) return '/products/gloves';
+    return null;
+  }, [product]);
+
+  // Back button behaviour: return to previous in-site page if possible, else fallback
+  const handleBackNav = React.useCallback(() => {
+    if (typeof window !== 'undefined') {
+      const ref = document.referrer;
+      const fromSameOrigin = ref && ref.startsWith(window.location.origin);
+      if (fromSameOrigin) {
+        router.back();
+        return;
+      }
+      // Fallback when there is no referrer or external source
+      router.push('/products#product-grid');
+    }
+  }, [router]);
+
   return (
     <main className="bg-brand-light dark:bg-background min-h-screen pt-11">
       {/* Breadcrumb */}
@@ -157,6 +198,17 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
               <Package className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
               <span className="font-medium">{t('navbar.products')}</span>
             </Link>
+            {categoryHref && (
+              <>
+                <ChevronRight className="h-4 w-4 text-brand-primary/60" />
+                <Link
+                  href={categoryHref}
+                  className="inline-flex items-center gap-1.5 text-brand-secondary hover:text-brand-primary dark:text-gray-400 dark:hover:text-brand-primary transition-colors duration-200 group"
+                >
+                  <span className="font-medium">{categoryLabel}</span>
+                </Link>
+              </>
+            )}
             <ChevronRight className="h-4 w-4 text-brand-primary/60" />
             <span className="text-brand-dark dark:text-white font-semibold bg-brand-primary/10 dark:bg-brand-primary/20 px-3 py-1 rounded-full text-xs uppercase tracking-wide">
               {product.name_locales?.[language] || product.name || ''}
@@ -170,14 +222,14 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
         <Button 
           variant="outline" 
           size="sm" 
-          asChild 
           className="mb-6 bg-white/90 dark:bg-black/70 hover:bg-white dark:hover:bg-black/90 border-brand-primary/30 dark:border-brand-primary/50 hover:border-brand-primary text-brand-primary hover:text-brand-primary transition-all duration-300 hover:scale-105 hover:shadow-lg backdrop-blur-sm group"
+          onClick={handleBackNav}
         >
-          <Link href="/products#product-grid" className="flex items-center gap-2">
+          <span className="flex items-center gap-2">
             <ChevronLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
             <Package className="h-4 w-4" />
             <span className="font-medium">{t('productPage.backToProducts')}</span>
-          </Link>
+          </span>
         </Button>
         
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
@@ -456,12 +508,42 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                   </div>
                 </TabsContent>
                 
-                {(product.safety) && (
+                {(product.safety || (product as any).eye_face_standards || (product as any).respiratory_standards) && (
                   <TabsContent value="safety" className="mt-0">
                     <div className="space-y-6">
                       {/* Safety Standards - Environment pictograms moved to specifications */}
-                      {product.safety && (
-                        <SafetyStandardsDisplay safety={product.safety} />
+                      {/* Generic gloves safety display unless a category-specific standards component is shown below */}
+                      {product.safety && !(((product as any).eye_face_standards && Object.keys((product as any).eye_face_standards || {}).length > 0) || ((product as any).head_standards && Object.keys((product as any).head_standards || {}).length > 0) || ((product as any).footwear_standards && Object.keys((product as any).footwear_standards || {}).length > 0) || ((product as any).arm_attributes && Object.keys((product as any).arm_attributes || {}).length > 0) || ((product as any).safety?.en_iso_21420) || ((product as any).hearing_standards && Object.keys((product as any).hearing_standards || {}).length > 0) || ((product as any).respiratory_standards && Object.keys((product as any).respiratory_standards || {}).length > 0)) && (
+                        <SafetyStandardsDisplay safety={product.safety} hideTitle />
+                      )}
+                      {/* Eye & Face dedicated standards */
+                      }
+                      {((product as any).eye_face_standards && Object.keys((product as any).eye_face_standards || {}).length > 0) && (
+                        <EyeFaceStandards product={product} />
+                      )}
+                      {/* Respiratory dedicated standards */}
+                      {((product as any).respiratory_standards && Object.keys((product as any).respiratory_standards || {}).length > 0) && (
+                        <RespiratoryStandards product={product} />
+                      )}
+                      {/* Head dedicated standards */}
+                      {((product as any).head_standards && Object.keys((product as any).head_standards || {}).length > 0) && (
+                        <HeadStandards product={product} />
+                      )}
+                      {/* Footwear dedicated standards */}
+                      {((product as any).footwear_standards && Object.keys((product as any).footwear_standards || {}).length > 0) && (
+                        <FootwearStandards product={product} />
+                      )}
+                      {/* Arm dedicated standards (EN ISO 21420 + reuse EN chips) */}
+                      {((product as any).arm_attributes || (product as any).safety?.en_iso_21420) && (
+                        <ArmStandards product={product} />
+                      )}
+                      {/* Hearing dedicated standards */}
+                      {((product as any).hearing_standards && Object.keys((product as any).hearing_standards || {}).length > 0) && (
+                        <HearingStandards product={product} />
+                      )}
+                      {/* Clothing dedicated standards */}
+                      {((product as any).clothing_standards && Object.keys((product as any).clothing_standards || {}).length > 0) && (
+                        <ClothingStandards product={product} />
                       )}
                     </div>
                   </TabsContent>

@@ -26,7 +26,7 @@ export function ENResourceCategoryGrid({ categories }: CategoryGridProps) {
             transition={{ duration: 0.35, delay: idx * 0.05 }}
             className="group rounded-2xl overflow-hidden bg-white dark:bg-black/40 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow"
           >
-            <Link href={`/resources/en-resource-centre/${c.slug}`} className="block">
+            <Link href={`/resources/ppe-standards/${c.slug}`} className="block">
               <div className="relative aspect-[16/9] w-full overflow-hidden">
                 {(c as any).cardImageUrl || c.heroImageUrl ? (
                   <Image src={(c as any).cardImageUrl || c.heroImageUrl!} alt={c.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />

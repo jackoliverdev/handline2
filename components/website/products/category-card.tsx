@@ -15,9 +15,10 @@ interface CategoryCardProps {
   imageAlt: string;
   href: string;
   index: number;
+  noShadow?: boolean;
 }
 
-export const CategoryCard = ({ title, description, imageSrc, imageAlt, href, index }: CategoryCardProps) => {
+export const CategoryCard = ({ title, description, imageSrc, imageAlt, href, index, noShadow = false }: CategoryCardProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -26,7 +27,7 @@ export const CategoryCard = ({ title, description, imageSrc, imageAlt, href, ind
       className="group h-full"
     >
       <Link href={href} className="block h-full">
-        <div className="relative bg-white dark:bg-black/50 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 dark:border-gray-700/50 group-hover:border-brand-primary/50 backdrop-blur-sm h-full flex flex-col">
+        <div className={`relative bg-white dark:bg-black/50 rounded-2xl ${noShadow ? 'shadow-none' : 'shadow-lg hover:shadow-2xl'} transition-all duration-500 overflow-hidden border border-gray-100 dark:border-gray-700/50 group-hover:border-brand-primary/50 backdrop-blur-sm h-full flex flex-col`}>
           {/* Image */}
           <div className="relative aspect-[4/3] overflow-hidden">
             <Image

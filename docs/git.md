@@ -1,4 +1,4 @@
-git checkout -b feat/pperesourcehub
+git checkout -b feat/allnewproducts
 git add .
 git commit -m "feat: "
-git push -u origin feat/pperesourcehub
+git push -u origin feat/allnewproducts

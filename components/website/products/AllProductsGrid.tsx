@@ -66,6 +66,7 @@ import { VentilationFilter } from "@/components/website/products/filters/head/Ve
 import { VentilationFilterMobile } from "@/components/website/products/filters/head/VentilationFilterMobile";
 import { EnStandardFilter } from "@/components/website/products/filters/head/EnStandardFilter";
 import { EnStandardFilterMobile } from "@/components/website/products/filters/head/EnStandardFilterMobile";
+import { FilterSection } from "@/components/website/products/filters/FilterSection";
 
 interface AllProductsGridProps {
   products: Product[];
@@ -299,189 +300,223 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
 
   const extraFilters = (
     <>
-      <LengthFilter
-        options={lengthOptions}
-        selected={selectedLengths}
-        onToggle={(opt) =>
-          setSelectedLengths((prev) =>
-            prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
-          )
-        }
-      />
-      <PadSizeFilter
-        options={padOptions}
-        selected={selectedPadSizes}
-        onToggle={(opt) =>
-          setSelectedPadSizes((prev) =>
-            prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
-          )
-        }
-      />
-      <ConnectionFilter
-        options={connectionOptions}
-        selected={selectedConnections}
-        onToggle={(opt) =>
-          setSelectedConnections((prev) =>
-            prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
-          )
-        }
-      />
-      <FilterTypeFilter
-        options={typeOptions}
-        selected={selectedTypes}
-        onToggle={(opt) =>
-          setSelectedTypes((prev) =>
-            prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
-          )
-        }
-      />
-      <ProtectionClassFilter
-        options={classOptions}
-        selected={selectedClasses}
-        onToggle={(opt) =>
-          setSelectedClasses((prev) =>
-            prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
-          )
-        }
-      />
-      <ArmLengthFilter
-        options={armLengthOptions}
-        selected={selectedArmLengths}
-        onToggle={(opt) =>
-          setSelectedArmLengths((prev) =>
-            prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
-          )
-        }
-      />
-      <ThumbLoopFilter
-        value={selectedArmThumbLoop}
-        onChange={setSelectedArmThumbLoop}
-      />
-      <ClosureTypeFilter
-        options={armClosureOptions}
-        selected={selectedArmClosures}
-        onToggle={(opt) =>
-          setSelectedArmClosures((prev) =>
-            prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
-          )
-        }
-      />
-      <SnrFilter options={snrOptions} selected={selectedSnrs} onToggle={(opt) => setSelectedSnrs(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <En352PartFilter options={partOptions} selected={selectedParts} onToggle={(opt) => setSelectedParts(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <ReusableFilter value={selectedReusable} onChange={setSelectedReusable} />
-      <MountTypeFilter options={mountOptions} selected={selectedMounts} onToggle={(opt) => setSelectedMounts(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <BluetoothFilter value={selectedBluetooth} onChange={setSelectedBluetooth} />
-      <ClassFilter options={fwClassOptions} selected={selectedFwClasses} onToggle={(opt) => setSelectedFwClasses(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <ESDFilter value={selectedFwEsd} onChange={setSelectedFwEsd} />
-      <WidthFilter options={fwWidthOptions} selected={selectedFwWidths} onToggle={(opt) => setSelectedFwWidths(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <SizeRangeFilter bounds={fwSizeBounds} value={selectedFwSize} onChange={setSelectedFwSize} />
-      <ToeCapFilter options={fwToeOptions} selected={selectedFwToes} onToggle={(opt) => setSelectedFwToes(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <SoleMaterialFilter options={fwSoleOptions} selected={selectedFwSoles} onToggle={(opt) => setSelectedFwSoles(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <StandardCodeFilter options={fwCodeOptions} selected={selectedFwCodes} onToggle={(opt) => setSelectedFwCodes(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <ProtectionTypeFilter selected={selectedEyeFaceProt} onToggle={(opt) => setSelectedEyeFaceProt(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <LensTintFilter options={eyeFaceTintOptions} selected={selectedEyeFaceTints} onToggle={(opt) => setSelectedEyeFaceTints(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <CoatingFilter options={eyeFaceCoatingOptions} selected={selectedEyeFaceCoats} onToggle={(opt) => setSelectedEyeFaceCoats(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <UvCodeFilter options={eyeFaceUvOptions} selected={selectedEyeFaceUv} onToggle={(opt) => setSelectedEyeFaceUv(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <BrimLengthFilter options={headBrimOptions} selected={selectedHeadBrims} onToggle={(opt) => setSelectedHeadBrims(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <LowTemperatureFilter value={selectedHeadLt} onChange={setSelectedHeadLt} />
-      <ElectricalInsulationFilter value={selectedHead50365} onChange={setSelectedHead50365} />
-      <MoltenMetalFilter value={selectedHeadMm} onChange={setSelectedHeadMm} />
-      <VentilationFilter value={selectedHeadVent} onChange={setSelectedHeadVent} />
-      <EnStandardFilter selected={selectedHeadStds} onToggle={(opt) => setSelectedHeadStds(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
+      <FilterSection title="Swabs" defaultExpanded={false}>
+        <LengthFilter
+          options={lengthOptions}
+          selected={selectedLengths}
+          onToggle={(opt) =>
+            setSelectedLengths((prev) =>
+              prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
+            )
+          }
+        />
+        <PadSizeFilter
+          options={padOptions}
+          selected={selectedPadSizes}
+          onToggle={(opt) =>
+            setSelectedPadSizes((prev) =>
+              prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
+            )
+          }
+        />
+      </FilterSection>
+
+      <FilterSection title="Respiratory protection" defaultExpanded={false}>
+        <ConnectionFilter
+          options={connectionOptions}
+          selected={selectedConnections}
+          onToggle={(opt) =>
+            setSelectedConnections((prev) =>
+              prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
+            )
+          }
+        />
+        <FilterTypeFilter
+          options={typeOptions}
+          selected={selectedTypes}
+          onToggle={(opt) =>
+            setSelectedTypes((prev) =>
+              prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
+            )
+          }
+        />
+        <ProtectionClassFilter
+          options={classOptions}
+          selected={selectedClasses}
+          onToggle={(opt) =>
+            setSelectedClasses((prev) =>
+              prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
+            )
+          }
+        />
+      </FilterSection>
+
+      <FilterSection title="Arm protection" defaultExpanded={false}>
+        <ArmLengthFilter
+          options={armLengthOptions}
+          selected={selectedArmLengths}
+          onToggle={(opt) =>
+            setSelectedArmLengths((prev) =>
+              prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
+            )
+          }
+        />
+        <ThumbLoopFilter value={selectedArmThumbLoop} onChange={setSelectedArmThumbLoop} />
+        <ClosureTypeFilter
+          options={armClosureOptions}
+          selected={selectedArmClosures}
+          onToggle={(opt) =>
+            setSelectedArmClosures((prev) =>
+              prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
+            )
+          }
+        />
+      </FilterSection>
+
+      <FilterSection title="Hearing protection" defaultExpanded={false}>
+        <SnrFilter options={snrOptions} selected={selectedSnrs} onToggle={(opt) => setSelectedSnrs((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <En352PartFilter options={partOptions} selected={selectedParts} onToggle={(opt) => setSelectedParts((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <ReusableFilter value={selectedReusable} onChange={setSelectedReusable} />
+        <MountTypeFilter options={mountOptions} selected={selectedMounts} onToggle={(opt) => setSelectedMounts((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <BluetoothFilter value={selectedBluetooth} onChange={setSelectedBluetooth} />
+      </FilterSection>
+
+      <FilterSection title="Footwear" defaultExpanded={false}>
+        <ClassFilter options={fwClassOptions} selected={selectedFwClasses} onToggle={(opt) => setSelectedFwClasses((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <ESDFilter value={selectedFwEsd} onChange={setSelectedFwEsd} />
+        <WidthFilter options={fwWidthOptions} selected={selectedFwWidths} onToggle={(opt) => setSelectedFwWidths((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <SizeRangeFilter bounds={fwSizeBounds} value={selectedFwSize} onChange={setSelectedFwSize} />
+        <ToeCapFilter options={fwToeOptions} selected={selectedFwToes} onToggle={(opt) => setSelectedFwToes((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <SoleMaterialFilter options={fwSoleOptions} selected={selectedFwSoles} onToggle={(opt) => setSelectedFwSoles((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <StandardCodeFilter options={fwCodeOptions} selected={selectedFwCodes} onToggle={(opt) => setSelectedFwCodes((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+      </FilterSection>
+
+      <FilterSection title="Eye & face protection" defaultExpanded={false}>
+        <ProtectionTypeFilter selected={selectedEyeFaceProt} onToggle={(opt) => setSelectedEyeFaceProt((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <LensTintFilter options={eyeFaceTintOptions} selected={selectedEyeFaceTints} onToggle={(opt) => setSelectedEyeFaceTints((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <CoatingFilter options={eyeFaceCoatingOptions} selected={selectedEyeFaceCoats} onToggle={(opt) => setSelectedEyeFaceCoats((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <UvCodeFilter options={eyeFaceUvOptions} selected={selectedEyeFaceUv} onToggle={(opt) => setSelectedEyeFaceUv((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+      </FilterSection>
+
+      <FilterSection title="Head protection" defaultExpanded={false}>
+        <BrimLengthFilter options={headBrimOptions} selected={selectedHeadBrims} onToggle={(opt) => setSelectedHeadBrims((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <LowTemperatureFilter value={selectedHeadLt} onChange={setSelectedHeadLt} />
+        <ElectricalInsulationFilter value={selectedHead50365} onChange={setSelectedHead50365} />
+        <MoltenMetalFilter value={selectedHeadMm} onChange={setSelectedHeadMm} />
+        <VentilationFilter value={selectedHeadVent} onChange={setSelectedHeadVent} />
+        <EnStandardFilter selected={selectedHeadStds} onToggle={(opt) => setSelectedHeadStds((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+      </FilterSection>
     </>
   );
 
   const extraFiltersMobile = (
     <>
-      <LengthFilterMobile
-        options={lengthOptions}
-        selected={selectedLengths}
-        onToggle={(opt) =>
-          setSelectedLengths((prev) =>
-            prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
-          )
-        }
-      />
-      <PadSizeFilterMobile
-        options={padOptions}
-        selected={selectedPadSizes}
-        onToggle={(opt) =>
-          setSelectedPadSizes((prev) =>
-            prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
-          )
-        }
-      />
-      <ConnectionFilterMobile
-        options={connectionOptions}
-        selected={selectedConnections}
-        onToggle={(opt) =>
-          setSelectedConnections((prev) =>
-            prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
-          )
-        }
-      />
-      <FilterTypeFilterMobile
-        options={typeOptions}
-        selected={selectedTypes}
-        onToggle={(opt) =>
-          setSelectedTypes((prev) =>
-            prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
-          )
-        }
-      />
-      <ProtectionClassFilterMobile
-        options={classOptions}
-        selected={selectedClasses}
-        onToggle={(opt) =>
-          setSelectedClasses((prev) =>
-            prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
-          )
-        }
-      />
-      <ArmLengthFilterMobile
-        options={armLengthOptions}
-        selected={selectedArmLengths}
-        onToggle={(opt) =>
-          setSelectedArmLengths((prev) =>
-            prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
-          )
-        }
-      />
-      <ThumbLoopFilterMobile
-        value={selectedArmThumbLoop}
-        onChange={setSelectedArmThumbLoop}
-      />
-      <ClosureTypeFilterMobile
-        options={armClosureOptions}
-        selected={selectedArmClosures}
-        onToggle={(opt) =>
-          setSelectedArmClosures((prev) =>
-            prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
-          )
-        }
-      />
-      <SnrFilterMobile options={snrOptions} selected={selectedSnrs} onToggle={(opt) => setSelectedSnrs(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <En352PartFilterMobile options={partOptions} selected={selectedParts} onToggle={(opt) => setSelectedParts(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <ReusableFilterMobile value={selectedReusable} onChange={setSelectedReusable} />
-      <MountTypeFilterMobile options={mountOptions} selected={selectedMounts} onToggle={(opt) => setSelectedMounts(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <BluetoothFilterMobile value={selectedBluetooth} onChange={setSelectedBluetooth} />
-      <ClassFilterMobile options={fwClassOptions} selected={selectedFwClasses} onToggle={(opt) => setSelectedFwClasses(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <ESDFilterMobile value={selectedFwEsd} onChange={setSelectedFwEsd} />
-      <WidthFilterMobile options={fwWidthOptions} selected={selectedFwWidths} onToggle={(opt) => setSelectedFwWidths(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <SizeRangeFilterMobile bounds={fwSizeBounds} value={selectedFwSize} onChange={setSelectedFwSize} />
-      <ToeCapFilterMobile options={fwToeOptions} selected={selectedFwToes} onToggle={(opt) => setSelectedFwToes(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <SoleMaterialFilterMobile options={fwSoleOptions} selected={selectedFwSoles} onToggle={(opt) => setSelectedFwSoles(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <StandardCodeFilterMobile options={fwCodeOptions} selected={selectedFwCodes} onToggle={(opt) => setSelectedFwCodes(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <ProtectionTypeFilterMobile selected={selectedEyeFaceProt} onToggle={(opt) => setSelectedEyeFaceProt(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <LensTintFilterMobile options={eyeFaceTintOptions} selected={selectedEyeFaceTints} onToggle={(opt) => setSelectedEyeFaceTints(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <CoatingFilterMobile options={eyeFaceCoatingOptions} selected={selectedEyeFaceCoats} onToggle={(opt) => setSelectedEyeFaceCoats(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <UvCodeFilterMobile options={eyeFaceUvOptions} selected={selectedEyeFaceUv} onToggle={(opt) => setSelectedEyeFaceUv(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <BrimLengthFilterMobile options={headBrimOptions} selected={selectedHeadBrims} onToggle={(opt) => setSelectedHeadBrims(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <LowTemperatureFilterMobile value={selectedHeadLt} onChange={setSelectedHeadLt} />
-      <ElectricalInsulationFilterMobile value={selectedHead50365} onChange={setSelectedHead50365} />
-      <MoltenMetalFilterMobile value={selectedHeadMm} onChange={setSelectedHeadMm} />
-      <VentilationFilterMobile value={selectedHeadVent} onChange={setSelectedHeadVent} />
-      <EnStandardFilterMobile selected={selectedHeadStds} onToggle={(opt) => setSelectedHeadStds(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
+      <FilterSection title="Swabs" defaultExpanded={false} variant="mobile">
+        <LengthFilterMobile
+          options={lengthOptions}
+          selected={selectedLengths}
+          onToggle={(opt) =>
+            setSelectedLengths((prev) =>
+              prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
+            )
+          }
+        />
+        <PadSizeFilterMobile
+          options={padOptions}
+          selected={selectedPadSizes}
+          onToggle={(opt) =>
+            setSelectedPadSizes((prev) =>
+              prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
+            )
+          }
+        />
+      </FilterSection>
+
+      <FilterSection title="Respiratory protection" defaultExpanded={false} variant="mobile">
+        <ConnectionFilterMobile
+          options={connectionOptions}
+          selected={selectedConnections}
+          onToggle={(opt) =>
+            setSelectedConnections((prev) =>
+              prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
+            )
+          }
+        />
+        <FilterTypeFilterMobile
+          options={typeOptions}
+          selected={selectedTypes}
+          onToggle={(opt) =>
+            setSelectedTypes((prev) =>
+              prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
+            )
+          }
+        />
+        <ProtectionClassFilterMobile
+          options={classOptions}
+          selected={selectedClasses}
+          onToggle={(opt) =>
+            setSelectedClasses((prev) =>
+              prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
+            )
+          }
+        />
+      </FilterSection>
+
+      <FilterSection title="Arm protection" defaultExpanded={false} variant="mobile">
+        <ArmLengthFilterMobile
+          options={armLengthOptions}
+          selected={selectedArmLengths}
+          onToggle={(opt) =>
+            setSelectedArmLengths((prev) =>
+              prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
+            )
+          }
+        />
+        <ThumbLoopFilterMobile value={selectedArmThumbLoop} onChange={setSelectedArmThumbLoop} />
+        <ClosureTypeFilterMobile
+          options={armClosureOptions}
+          selected={selectedArmClosures}
+          onToggle={(opt) =>
+            setSelectedArmClosures((prev) =>
+              prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
+            )
+          }
+        />
+      </FilterSection>
+
+      <FilterSection title="Hearing protection" defaultExpanded={false} variant="mobile">
+        <SnrFilterMobile options={snrOptions} selected={selectedSnrs} onToggle={(opt) => setSelectedSnrs((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <En352PartFilterMobile options={partOptions} selected={selectedParts} onToggle={(opt) => setSelectedParts((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <ReusableFilterMobile value={selectedReusable} onChange={setSelectedReusable} />
+        <MountTypeFilterMobile options={mountOptions} selected={selectedMounts} onToggle={(opt) => setSelectedMounts((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <BluetoothFilterMobile value={selectedBluetooth} onChange={setSelectedBluetooth} />
+      </FilterSection>
+
+      <FilterSection title="Footwear" defaultExpanded={false} variant="mobile">
+        <ClassFilterMobile options={fwClassOptions} selected={selectedFwClasses} onToggle={(opt) => setSelectedFwClasses((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <ESDFilterMobile value={selectedFwEsd} onChange={setSelectedFwEsd} />
+        <WidthFilterMobile options={fwWidthOptions} selected={selectedFwWidths} onToggle={(opt) => setSelectedFwWidths((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <SizeRangeFilterMobile bounds={fwSizeBounds} value={selectedFwSize} onChange={setSelectedFwSize} />
+        <ToeCapFilterMobile options={fwToeOptions} selected={selectedFwToes} onToggle={(opt) => setSelectedFwToes((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <SoleMaterialFilterMobile options={fwSoleOptions} selected={selectedFwSoles} onToggle={(opt) => setSelectedFwSoles((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <StandardCodeFilterMobile options={fwCodeOptions} selected={selectedFwCodes} onToggle={(opt) => setSelectedFwCodes((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+      </FilterSection>
+
+      <FilterSection title="Eye & face protection" defaultExpanded={false} variant="mobile">
+        <ProtectionTypeFilterMobile selected={selectedEyeFaceProt} onToggle={(opt) => setSelectedEyeFaceProt((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <LensTintFilterMobile options={eyeFaceTintOptions} selected={selectedEyeFaceTints} onToggle={(opt) => setSelectedEyeFaceTints((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <CoatingFilterMobile options={eyeFaceCoatingOptions} selected={selectedEyeFaceCoats} onToggle={(opt) => setSelectedEyeFaceCoats((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <UvCodeFilterMobile options={eyeFaceUvOptions} selected={selectedEyeFaceUv} onToggle={(opt) => setSelectedEyeFaceUv((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+      </FilterSection>
+
+      <FilterSection title="Head protection" defaultExpanded={false} variant="mobile">
+        <BrimLengthFilterMobile options={headBrimOptions} selected={selectedHeadBrims} onToggle={(opt) => setSelectedHeadBrims((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <LowTemperatureFilterMobile value={selectedHeadLt} onChange={setSelectedHeadLt} />
+        <ElectricalInsulationFilterMobile value={selectedHead50365} onChange={setSelectedHead50365} />
+        <MoltenMetalFilterMobile value={selectedHeadMm} onChange={setSelectedHeadMm} />
+        <VentilationFilterMobile value={selectedHeadVent} onChange={setSelectedHeadVent} />
+        <EnStandardFilterMobile selected={selectedHeadStds} onToggle={(opt) => setSelectedHeadStds((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+      </FilterSection>
     </>
   );
 
@@ -597,6 +632,8 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
       extraFiltersRenderMobile={extraFiltersMobile}
       extraFilterPredicate={predicate}
       hideDefaultFilters={false}
+      categoryExpandedDefault={true}
+      subCategoryExpandedDefault={false}
     />
   );
 }

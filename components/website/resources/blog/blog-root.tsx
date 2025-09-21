@@ -22,8 +22,8 @@ export default function BlogRoot({ blogPosts }: { blogPosts: BlogPost[] }) {
     };
   }, []);
 
-  // Get featured blog post (first one with featured_image_url or image_url)
-  const featuredBlog = blogPosts.find(blog => blog.featured_image_url || blog.image_url);
+  // Get featured blog post: only show explicitly featured; hide if none
+  const featuredBlog = blogPosts.find(blog => (blog as any).is_featured);
 
   return (
     <main className="flex flex-col min-h-[100dvh]">

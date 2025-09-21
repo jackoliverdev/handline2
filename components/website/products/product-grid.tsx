@@ -32,6 +32,7 @@ import { WorkEnvironmentFilter } from "./filters/WorkEnvironmentFilter";
 import { IndustryFilter } from "./filters/IndustryFilter";
 import { FilterBadges } from "./filters/FilterBadges";
 import { MobileFilterSheet } from "./filters/MobileFilterSheet";
+import { FilterSection } from "./filters/FilterSection";
 
 // Import hazard protection helpers
 import { matchesHazardProtection } from "@/content/hazardfilters";
@@ -46,9 +47,12 @@ interface ProductGridProps {
   extraFiltersRenderMobile?: React.ReactNode;
   extraFilterPredicate?: (product: Product) => boolean;
   hideDefaultFilters?: boolean;
+  // Optional defaults for expanded/collapsed sections (allow page-level customisation)
+  categoryExpandedDefault?: boolean;
+  subCategoryExpandedDefault?: boolean;
 }
 
-export const ProductGrid = ({ products, className = "", initialCategory, extraFiltersRender, extraFiltersRenderMobile, extraFilterPredicate, hideDefaultFilters = false }: ProductGridProps) => {
+export const ProductGrid = ({ products, className = "", initialCategory, extraFiltersRender, extraFiltersRenderMobile, extraFilterPredicate, hideDefaultFilters = false, categoryExpandedDefault, subCategoryExpandedDefault }: ProductGridProps) => {
   const { t, language } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory || "");
@@ -65,10 +69,10 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const [activeFiltersCount, setActiveFiltersCount] = useState(0);
   
-  // Track expanded filter sections - adjust based on whether we're on a specific category page
+  // Track expanded filter sections - allow page-level defaults (fallback to legacy behaviour)
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
-    category: false, // Always close category since we only have one
-    subCategory: true, // Always open sub-category as the main filter
+    category: typeof categoryExpandedDefault === 'boolean' ? categoryExpandedDefault : false,
+    subCategory: typeof subCategoryExpandedDefault === 'boolean' ? subCategoryExpandedDefault : true,
     temperature: false,
     cutLevel: false,
     heatLevel: false,
@@ -86,10 +90,10 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
     }
   }, []);
   
-  // Track expanded sections for mobile
+  // Track expanded sections for mobile (respect same defaults)
   const [expandedMobileSections, setExpandedMobileSections] = useState<Record<string, boolean>>({
-    category: false, // Always closed since we only have one category
-    subCategory: true, // Always open sub-category as the main filter
+    category: typeof categoryExpandedDefault === 'boolean' ? categoryExpandedDefault : false,
+    subCategory: typeof subCategoryExpandedDefault === 'boolean' ? subCategoryExpandedDefault : true,
     temperature: false,
     cutLevel: false,
     heatLevel: false,
@@ -461,34 +465,7 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
                   toggleSection={toggleSection}
                 />
                 
-                {/* Hazard/Environment can be hidden by passing only extra filters and no default ones */}
-                {(!hideDefaultFilters) && (
-                  <>
-                    <HazardProtectionFilter
-                      selectedHazardProtections={selectedHazardProtections}
-                      toggleHazardProtection={toggleHazardProtection}
-                      isExpanded={expandedSections.hazardProtection}
-                      toggleSection={toggleSection}
-                    />
-                    <WorkEnvironmentFilter
-                      selectedWorkEnvironments={selectedWorkEnvironments}
-                      toggleWorkEnvironment={toggleWorkEnvironment}
-                      isExpanded={expandedSections.workEnvironment}
-                      toggleSection={toggleSection}
-                    />
-                  </>
-                )}
-                
-                {(!hideDefaultFilters) && (
-                  <TemperatureFilter
-                    tempRatings={uniqueTempRatings}
-                    selectedTempRatings={selectedTempRatings}
-                    toggleTempRating={toggleTempRating}
-                    isExpanded={expandedSections.temperature}
-                    toggleSection={toggleSection}
-                  />
-                )}
-                
+                {/* After Sub-Category: Industries → Work Environment → Gloves */}
                 {(!hideDefaultFilters) && (
                   <IndustryFilter
                     industries={uniqueIndustries}
@@ -497,6 +474,34 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
                     isExpanded={expandedSections.industries}
                     toggleSection={toggleSection}
                   />
+                )}
+
+                {(!hideDefaultFilters) && (
+                  <WorkEnvironmentFilter
+                    selectedWorkEnvironments={selectedWorkEnvironments}
+                    toggleWorkEnvironment={toggleWorkEnvironment}
+                    isExpanded={expandedSections.workEnvironment}
+                    toggleSection={toggleSection}
+                  />
+                )}
+
+                {/* Hazard + Temperature grouped under Gloves */}
+                {(!hideDefaultFilters) && (
+                  <FilterSection title="Gloves" defaultExpanded={false}>
+                    <HazardProtectionFilter
+                      selectedHazardProtections={selectedHazardProtections}
+                      toggleHazardProtection={toggleHazardProtection}
+                      isExpanded={expandedSections.hazardProtection}
+                      toggleSection={toggleSection}
+                    />
+                    <TemperatureFilter
+                      tempRatings={uniqueTempRatings}
+                      selectedTempRatings={selectedTempRatings}
+                      toggleTempRating={toggleTempRating}
+                      isExpanded={expandedSections.temperature}
+                      toggleSection={toggleSection}
+                    />
+                  </FilterSection>
                 )}
 
                 {/* Extra filters for category-specific pages */}

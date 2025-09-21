@@ -21,7 +21,7 @@ export const PadSizeFilterMobile = ({ options = [], selected, onToggle }: PadSiz
   return (
     <div>
       <button 
-        className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"
+        className="flex w-full items-center justify-between py-2 text-left text-sm font-medium text-brand-dark dark:text-white"
         onClick={() => setOpen((v) => !v)}
       >
         <span className="flex items-center">

@@ -14,6 +14,7 @@ export interface BlogPost {
   tags: string[];
   published_at?: string;
   is_published?: boolean;
+  is_featured?: boolean;
   created_at?: string;
   updated_at?: string;
   title_locales?: { [lang: string]: string };
@@ -53,6 +54,9 @@ export async function getAllBlogs(options: {
     // Apply filters if provided
     if (options.published !== undefined) {
       query = query.eq('is_published', options.published);
+    }
+    if (options.featured !== undefined) {
+      query = query.eq('is_featured', options.featured);
     }
     
     if (options.tags && options.tags.length > 0) {
@@ -231,6 +235,33 @@ export async function toggleBlogPublished(id: string) {
     return data;
   } catch (error) {
     console.error('Error toggling blog published status:', error);
+    throw error;
+  }
+}
+
+/**
+ * Toggle the featured status of a blog post
+ */
+export async function toggleBlogFeatured(id: string) {
+  try {
+    // Get current featured status
+    const { data: blog, error: fetchError } = await supabase
+      .from('blog_posts')
+      .select('is_featured')
+      .eq('id', id)
+      .single();
+    if (fetchError) throw fetchError;
+
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .update({ is_featured: !blog.is_featured })
+      .eq('id', id)
+      .select()
+      .single();
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.error('Error toggling blog featured status:', error);
     throw error;
   }
 }

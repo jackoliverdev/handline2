@@ -3,6 +3,7 @@
 import { useLanguage } from "@/lib/context/language-context";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
+import { Switch } from "@/components/ui/switch";
 
 interface Props {
   value: boolean | null;
@@ -22,16 +23,14 @@ export const ReusableFilter = ({ value, onChange, isExpanded, toggleSection }: P
         <ChevronDown className={`h-4 w-4 text-brand-primary transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
       {open && (
-        <div className="flex gap-2">
-          {[{ label: 'R', val: true }, { label: 'NR', val: false }].map(o => (
-            <button
-              key={String(o.val)}
-              className={`px-2 py-1 text-xs rounded border ${value === o.val ? 'bg-[#F28C38] text-white border-[#F28C38]' : 'border-brand-primary/20 text-brand-dark dark:text-white'}`}
-              onClick={() => onChange(value === o.val ? null : o.val)}
-            >
-              {o.label}
-            </button>
-          ))}
+        <div className="flex items-center justify-between py-1">
+          <div className="text-xs text-brand-dark/70 dark:text-gray-300">R / NR</div>
+          <div className="flex items-center gap-3">
+            {value !== null && (
+              <button className="text-xs underline text-brand-primary/90" onClick={() => onChange(null)}>Any</button>
+            )}
+            <Switch checked={value === true} onCheckedChange={(c) => onChange(c)} />
+          </div>
         </div>
       )}
     </div>

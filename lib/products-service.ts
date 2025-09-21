@@ -75,7 +75,8 @@ export interface Product {
   temperature_rating?: number | null;
   cut_resistance_level?: string | null;
   heat_resistance_level?: string | null;
-  en_standard?: 'EN388' | 'EN407' | null;
+  // Note: historically restricted to EN388/EN407; widen to support other categories (e.g., EN ISO 21420 for swabs)
+  en_standard?: string | null;
   features: string[];
   applications: string[];
   industries: string[];
