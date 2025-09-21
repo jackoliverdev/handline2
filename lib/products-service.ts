@@ -87,6 +87,8 @@ export interface Product {
   additional_images?: string[] | null;
   technical_sheet_url?: string | null;
   declaration_sheet_url?: string | null;
+  // Dedicated UKCA declaration URL
+  ukca_declaration_url?: string | null;
   technical_sheet_url_it?: string | null;
   declaration_sheet_url_it?: string | null;
   // New declarations JSON locales
@@ -130,6 +132,97 @@ export interface Product {
   applications_locales?: Record<string, string[]>;
   industries_locales?: Record<string, string[]>;
   materials_locales?: Record<string, string[]>;
+  // Respirator-specific fields
+  protection_class?: string | null;
+  npf?: string | null;
+  connections?: string[] | null;
+  compatible_with?: string[] | null;
+  filter_type?: string | null;
+  protection_codes?: string[] | null;
+  ean?: string | null;
+  respiratory_standards?: Record<string, any> | null;
+  // Arm-specific attributes
+  arm_attributes?: {
+    thumb_loop?: boolean;
+    closure?: 'velcro' | 'elastic' | 'none' | string;
+  } | null;
+  // Hearing-specific
+  hearing_standards?: {
+    en352?: {
+      parts?: string[];
+      snr_db?: number | null;
+      hml?: { h?: number | null; m?: number | null; l?: number | null };
+      additional?: string[];
+    }
+  } | null;
+  hearing_attributes?: {
+    reusable?: boolean | null; // true => R, false => NR
+    mount?: 'headband' | 'helmet' | 'banded' | 'none' | string;
+    bluetooth?: boolean | null;
+    compatible_with?: string[];
+    accessories?: string[];
+  } | null;
+  // Footwear-specific
+  footwear_standards?: {
+    en_iso_20345_2011?: string[];
+    en_iso_20345_2022?: string[];
+    slip_resistance?: string | null;
+  } | null;
+  footwear_attributes?: {
+    class?: string | null;
+    esd?: boolean | null;
+    metal_free?: boolean | null;
+    width_fit?: number[] | null;
+    size_min?: number | null;
+    size_max?: number | null;
+    gender?: string | null;
+    weight_grams?: number | null;
+    weight_ref_size?: number | null;
+    special?: string[] | null;
+    toe_cap?: string | null;
+    sole_material?: string | null;
+  } | null;
+  // Eye & Face specific
+  eye_face_standards?: Record<string, any> | null;
+  eye_face_attributes?: {
+    form_factor?: string | null;
+    lens_tint?: string | null;
+    lens_material?: string | null;
+    frame_material?: string | null;
+    headband_material?: string | null;
+    coatings?: string[] | null;
+    uv_code?: string | null;
+    transmission_percent?: number | null;
+    has_ir?: boolean | null;
+    has_uv?: boolean | null;
+    has_arc?: boolean | null;
+  } | null;
+  // Head protection specific
+  head_standards?: Record<string, any> | null;
+  head_attributes?: {
+    form_factor?: string | null;
+    brim_length?: string | null; // short | long
+    size_min_cm?: number | null;
+    size_max_cm?: number | null;
+    weight_g?: number | null;
+    colours?: string[] | null;
+    ventilation?: boolean | null;
+    harness_points?: number | null;
+    chinstrap_points?: number | null;
+    sweatband?: boolean | null;
+    closed_shell?: boolean | null;
+    euroslot_mm?: number | null;
+    accessories?: string[] | null;
+  } | null;
+  // Clothing specific
+  clothing_standards?: Record<string, any> | null;
+  clothing_attributes?: {
+    fit?: string | null;
+    gender?: string | null;
+    size_range?: string | null;
+    colours?: string[] | null;
+    uv_protection?: boolean | null;
+  } | null;
 }
 
 export function localiseProduct(product: Product, language: Language): Product {
@@ -226,7 +319,9 @@ export async function getAllProducts(): Promise<{ products: Product[] }> {
       coming_soon: product.coming_soon ?? false,
       availability_status: product.availability_status || 'in_stock',
       safety: product.safety && typeof product.safety === 'object' ? product.safety : {},
-      environment_pictograms: product.environment_pictograms && typeof product.environment_pictograms === 'object' ? product.environment_pictograms : {}
+      environment_pictograms: product.environment_pictograms && typeof product.environment_pictograms === 'object' ? product.environment_pictograms : {},
+      footwear_standards: product.footwear_standards && typeof product.footwear_standards === 'object' ? product.footwear_standards : {},
+      footwear_attributes: product.footwear_attributes && typeof product.footwear_attributes === 'object' ? product.footwear_attributes : {}
     }));
     
     console.log(`Fetched ${products.length} products at ${new Date().toISOString()}`);

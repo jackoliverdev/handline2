@@ -47,8 +47,39 @@ export function CareersHero({ language }: CareersHeroProps) {
 
         <div className="container mx-auto px-6 relative max-w-7xl">
           <div className="flex flex-col lg:grid lg:grid-cols-3 items-center gap-6">
-            {/* Text Content */}
-            <div className="flex flex-col space-y-4 mb-8 sm:mb-0 w-full lg:col-span-2">
+            {/* Text Content (Mobile – simple fade) */}
+            <div className="flex flex-col space-y-4 mb-8 sm:mb-0 w-full lg:col-span-2 md:hidden">
+              {/* Badge */}
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.25 }}>
+                <div className="inline-flex items-center rounded-full bg-white/80 dark:bg-black/60 px-3 py-1 text-xs sm:text-sm border border-brand-primary backdrop-blur-sm">
+                  <Users className="mr-1.5 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 text-brand-primary" />
+                  <span className="text-brand-dark dark:text-white font-medium font-heading">
+                    {t('careers.hero.badge')}
+                  </span>
+                </div>
+              </motion.div>
+              {/* Heading */}
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3, delay: 0.05 }}>
+                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight font-heading">
+                  <span className="text-white drop-shadow-md">{t('careers.hero.titleStart')} </span>
+                  <span className="text-brand-primary drop-shadow-md">{t('careers.hero.titleAccent')}</span>
+                </h1>
+              </motion.div>
+              {/* Descriptions */}
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3, delay: 0.1 }}>
+                <p className="max-w-3xl text-base md:text-lg text-white/90 drop-shadow-sm">
+                  {t('careers.hero.description1')}
+                </p>
+              </motion.div>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3, delay: 0.15 }}>
+                <p className="max-w-3xl text-base md:text-lg text-white/90 drop-shadow-sm">
+                  {t('careers.hero.description2')}
+                </p>
+              </motion.div>
+            </div>
+
+            {/* Text Content (Desktop – original animation) */}
+            <div className="hidden md:flex flex-col space-y-4 mb-8 sm:mb-0 w-full lg:col-span-2">
               {/* Badge */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.5 }}

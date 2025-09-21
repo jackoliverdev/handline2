@@ -32,6 +32,10 @@ interface MobileFilterSheetProps {
   expandedSections: Record<string, boolean>;
   toggleSection: (section: string) => void;
   activeFiltersCount: number;
+  // Category-specific mobile content
+  extraFiltersRender?: React.ReactNode;
+  // When true, hide default hazard/work env/temp/industries blocks
+  hideDefaultFilters?: boolean;
 }
 
 export const MobileFilterSheet = ({
@@ -57,16 +61,18 @@ export const MobileFilterSheet = ({
   expandedSections,
   toggleSection,
   activeFiltersCount,
+  extraFiltersRender,
+  hideDefaultFilters = false,
 }: MobileFilterSheetProps) => {
   const { t } = useLanguage();
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
-      <SheetContent side="left" className="w-full max-w-xs" onOpenAutoFocus={(e) => e.preventDefault()}>
+      <SheetContent side="left" className="w-full max-w-xs h-full flex flex-col" onOpenAutoFocus={(e) => e.preventDefault()}>
         <SheetHeader>
           <SheetTitle className="text-xl font-bold text-brand-dark dark:text-white">{t('products.filters.title')}</SheetTitle>
         </SheetHeader>
         
-        <div className="flex flex-col gap-4 mt-4">
+        <div className="flex-1 flex flex-col gap-4 mt-4 overflow-y-auto pr-1">
           {/* Category Filter */}
           <div>
             <button 
@@ -166,6 +172,7 @@ export const MobileFilterSheet = ({
           )}
           
           {/* Hazard Protection Filter */}
+          {!hideDefaultFilters && (
           <div>
             <button 
               className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"
@@ -205,9 +212,10 @@ export const MobileFilterSheet = ({
               </div>
             )}
           </div>
+          )}
           
           {/* Work Environment Filter */}
-          {workEnvironmentFilters.length > 0 && (
+          {!hideDefaultFilters && (
             <div>
               <button 
                 className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"
@@ -250,7 +258,7 @@ export const MobileFilterSheet = ({
           )}
           
           {/* Temperature Rating Filter */}
-          {tempRatings.length > 0 && (
+          {!hideDefaultFilters && (
             <div>
               <button 
                 className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"
@@ -293,7 +301,7 @@ export const MobileFilterSheet = ({
           )}
           
           {/* Industries Filter */}
-          {industries.length > 0 && (
+          {!hideDefaultFilters && (
             <div>
               <button 
                 className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"
@@ -334,6 +342,9 @@ export const MobileFilterSheet = ({
               )}
             </div>
           )}
+
+          {/* Category-specific extra filters (e.g., swabs) come last to match desktop order */}
+          {extraFiltersRender}
         </div>
         
         <SheetFooter className="mt-6">

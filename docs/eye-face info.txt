@@ -1,0 +1,109 @@
+Product Name	type of field	pheos cx2	megasonic 9320 265	pronamic visor arc flash 2
+Brand 1		uvex	uvex	uvex
+Brand 2				
+Tags				
+🇬🇧EN:		IR glasses		
+🇮🇹IT:				
+Short Description				
+🇬🇧EN:		Metal-free UV400 glasses with IR protection	Goggle-style glasses with a wide field of view and ergonomic design	PC arc flash visor class 2
+🇮🇹IT:		Ochiali in plastica UV400 con lenti IR	Occhiali a mascherina con ampio campo visivo dal design ergonomico	Visore in PC arco elettrico di classe 2
+Description				
+🇬🇧EN:		"Plastic safety glasses with IR protection. The IR-ex protective filter provides reliable protection against infrared radiation while allowing optimal color recognition of signal lights.
+The soft component directly attached to the lens offers reliable protection against dust and water"	With a revolutionary lens design and an unlimited field of view, the Megasonic glasses ensure optimal vision in every situation—even the most challenging. Their sporty and ergonomic design, combined with optimal wearing comfort, makes these glasses a reliable companion for everyday work life	Anti-fog and scratch-resistant polycarbonate visor compliant with EN 166 and EN 170. Provides protection against liquids, electric arcs, molten metals, and hot solids
+🇮🇹IT:		"Occhiali di sicurezza in plastica con protezione IR. Il filtro di protezione IR-ex offre una protezione affidabile contro le radiazioni infrarosse, consentendo al contempo un riconoscimento ottimale del colore delle luci di segnalazione.
+Il componente morbido collegato direttamente alla lente offre una protezione affidabile da polvere e acqua. "	Con un rivoluzionario design delle lenti e un campo visivo illimitato, gli occhiali megasonic assicurano una visione ottimale in ogni situazione - anche in quelle più difficili. Il design sportivo ed ergonomico e il comfort di utilizzo ottimale di questi occhiali li rendono un compagno affidabile nella vita lavorativa di tutti i giorni	Visiera in policarbonato antiappannante e antigraffio conforme alle norme EN 166 e EN170. Offre protezione da sostanze liquide, archi elettrici, metalli fusi e solidi incandescenti
+Fit				
+🇬🇧EN:				
+🇮🇹IT:				
+Category				
+🇬🇧EN:		Eye & Face protection	Eye & Face protection	Eye & Face protection
+🇮🇹IT:		Protezione degli occhi e del viso	Protezione degli occhi e del viso	Protezione degli occhi e del viso
+Sub Category				
+🇬🇧EN:		Safety glasses	Safety goggles	Face shields & Visors
+🇮🇹IT:		Occhiali di sicurezza	Occhiali protettivi a tenuta (goggles)	Schermi facciali e visiere
+Lens tint	text			
+🇬🇧EN:		Grey, IR protection. 5	Transparent	Transparent
+🇮🇹IT:		Grigia, protezione IR. 5	Incolore	Incolore
+Lens material	text			
+🇬🇧EN:		Polycarbonate (PC)	Polycarbonate (PC)	Polycarbonate (PC)
+🇮🇹IT:		Policarbonato (PC)	Policarbonato (PC)	Policarbonato (PC)
+Frame material	text			
+🇬🇧EN:		Plastic	Plastic	Plastic
+🇮🇹IT:		Plastica	Plastica	Plastica
+Arm material	text			
+🇬🇧EN:		Plastic		
+🇮🇹IT:		Plastica		
+Headband material	text			
+🇬🇧EN:			Syntetic fabric	
+🇮🇹IT:			Tessuto sintetico	
+Coating	text			
+🇬🇧EN:			Highly resistant to scratches, resistant to chemicals, anti-fog	Highly resistant to scratches, resistant to chemicals, anti-fog
+🇮🇹IT:			Altamente antigraffio, resistente alle sostanze chimiche, antiappannante all'interno	Altamente antigraffio, resistente alle sostanze chimiche, antiappannante all'interno
+Protective filter				
+Sun protection	yes/no	Yes	No	No
+Glare protection	yes/no	Yes	No	No
+IR protection	yes/no	Yes	No	No
+Welding shade	yes/no	Yes	No	No
+UV protection	yes/no	Yes	Yes	Yes
+UV Protection	text (e.g. UV380, UV400, etc)	UV400	UV400	UV400
+Transmission	% value	2%	91%	80%
+Equipment	text			
+🇬🇧EN:			Adjustable headband, Replaceable lens	Repleaceable lens
+🇮🇹IT:			Fascetta regolabile, lente sostituibile	Lenti sostituibili
+Features (4 bullet points)				
+🇬🇧EN:		Metal-free	Protective glasses with a sporty and ergonomic design	Certified in accordance with EN 166 (personal eye protection), EN 170 (UV filter), and GS-ET 29 (face protection for electricians)
+		Polycarbonate lens with uvex infradur treatment - scratch resistant and anti-fog	Inner lenses with anti-fog coating, outer lenses with high scratch resistance and chemical resistance	Marking 3 (liquid substances), 8 (electric arc protection), and 9 (molten metals and hot solids)
+				Class 2 electric arc protection
+				Resistant to chemicals
+🇮🇹IT:		Metal-free	Occhiali protettivi dal design sportivo ed ergonomico	Certificazione in conformità alle normative EN 166 (protezione personale degli occhi), EN 170 (filtro UV) e GS-ET 29 (protezione del viso per elettricisti)
+		Robusta lente in policarbonato con trattamento uvex infradur - lente antigraffio e antiappannante	Lenti interne antiappannanti, lenti esterne con elevate proprietà antigraffio e resistenti alle sostanze chimiche	Marcatura 3 (sostanze liquide), 8 (protezione dagli archi elettrici) e 9 (metalli fusi e solidi incandescenti)
+				Protezione da arco elettrico di classe 2
+				Resistente alle sostanze chimiche
+Comfort Features (4 bullet points)				
+🇬🇧EN:		Soft-seal frame technology contours the forehead and protects against particle penetration	Optimized wide field of view	Inner lenses with anti-fog coating, outer lenses scratch- and chemical-resistant
+		Soft and flexible nosepiece adapts to the wearer, providing a non-slip, pressure-free fit	Frameless lens design	With the click & pull system, the visor can be detached from the support system with a pulling movement
+		Ergonomic temples with soft tips offer a comfortable and secure hold without pressure points	OTG function with space for eyeglass temples	Central resting position on the head to relieve the cervical area
+		Perfect color recognition accordin to EN 172	Wide headband for optimal fit	Hearing protection attachable via bayonet fitting
+🇮🇹IT:		La tecnologia della montatura Soft-seal contorna la fronte e protegge dalla penetrazione di particelle	Ampio campo visivo ottimizzato	Lenti interne antiappannanti, lenti esterne antigraffio e resistenti alle sostanze chimiche
+		Il nasello morbido e flessibile si adatta a chi lo indossa e permette un posizionamento antiscivolo e senza punti di pressione	Design di lenti prive di bordatura	Con il sistema click & pull, la visiera può essere staccata dal sistema di supporto con un movimento di trazione
+		Le astine ergonomiche con estremità morbide offrono una tenuta comoda e sicura, senza punti di pressione	Funzione OTG con spazio per le astine degli occhiali	Posizione di riposo centrale sul capo per dare sollievo alla zona cervicale
+		Riconoscimento colori perfetto, in accordo alla EN 172	Fascia per la testa ampia per tenuta ottimale	Dispositivo di protezione per l'udito innestabile tramite attacco a baionetta
+Applications (4 bullet points)				
+🇬🇧EN:		Welding	Environment with risk of exposure to chemical substances	Environment with risk of exposure to chemical substances
+		Operations in blast furnaces or in the presence of molten/hot material		Operations with electrical risks
+				
+				
+🇮🇹IT:		Operazioni di saldatura	Operazioni in presenza di sostanze chimiche	Operazioni in presenza di sostanze chimiche
+		Operazioni in alti forni o in presenza di materiale incandescente		Attivita' in presenza di rischi elettrici
+				
+				
+Industries				
+🇬🇧EN:		Glass manufacturing, steel processing and manufacturing, Construction		
+🇮🇹IT:		Industra del vetro, industria dell'acciaio e metallurgica, Edilizia		
+CE Category		II	II	III
+EN166 (Frame)	String of text	W 166 FT CE	W 166 34 BT CE	W 166 3 8-2 9 B CE 0196
+Additional marking			34	3 8-2 9 
+Mechanical strenght		FT	BT	B
+EN166 (Lens)	String of text	4C-5 W1 FTKN CE, 2C-5 W1 FTKN CE	2C-1,2 W 1 BT KN CE	2C-1,2 W 1 B 8-2-0 9 KN CE 0196
+Filter		4C, 2C	2C	2C
+Tinting level		5	1,2	1,2
+Optical class		1	1	1
+Mechanical strenght		FT	BT	B 8-2-0 9
+Additional marking		KN	KN	KN
+EN169	String of text	TRUE	FALSE	FALSE
+EN170	String of text	TRUE	TRUE	TRUE
+EN171	String of text	TRUE	FALSE	FALSE
+EN172	String of text	FALSE	FALSE	FALSE
+EN175	String of text	FALSE	FALSE	FALSE
+Other EN Standards	list of other applicable EN standard	FALSE	FALSE	GS-ET 29
+ENVIRONMENT				
+Dry / Asciutto		TRUE	TRUE	TRUE
+Wet / Umido		TRUE	TRUE	TRUE
+Chemical / Chimico			TRUE	
+Dust / Polveri		TRUE	TRUE	
+Electrical / Elettrico				TRUE
+Biological contaminants / Contaminanti biologici				
+Related Product Name 1				
+Related Product Name 2				
+Related Product Name 3				
+Related Product Name 4				

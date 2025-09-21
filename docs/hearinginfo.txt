@@ -1,0 +1,99 @@
+Product Name	type of field	Ear Plugs	Pheos K2P
+Brand 1		uvex	uvex
+Brand 2			
+Tags			
+🇬🇧EN:		single use ear plugs	ear defenders, earmuffs, helmet ear protection
+🇮🇹IT:		monouso, tappi auricolari	cuffie antirumore, per elmetto, pretezione udito
+Short Description			
+🇬🇧EN:		Disposable protective ear plugs	Helmet-mounted hearing protection earmuffs for the uvex pheos helmet system
+🇮🇹IT:		Tappi auricolari protettivi monouso	Cuffie di protezione dell'udito da elmetto per il sistema elmetto uvex pheos
+Description			
+🇬🇧EN:		Preformed, single-use protective earplugs with an ergonomic design provide very high levels of noise isolation, making them suitable for use in high-noise environments. Made from soft expanded polyurethane foam, they offer exceptional comfort even during extended use.	"Helmet-mounted hearing protection earmuffs for the uvex pheos helmet system.
+Soft surfaces give the earmuffs exceptional adaptability, and the ultra-lightweight design ensures optimal comfort"
+🇮🇹IT:		Tappi auricolari protettivi monouso preformati dal design ergonomico offrono livelli molto alti di isolamento e sono pertanto adatti per l'uso in ambienti con elevata rumorosità. Realizzati in morbida schiuma espansa di poliuretano offrono un comfort straordinario anche in caso di uso prolungato	"Cuffie di protezione dell'udito da elmetto per il sistema elmetto uvex pheos. 
+Superfici morbide conferiscono alle cuffie un'adattabilità eccezionale e il peso ultraleggero garantisce un comfort ottimale."
+Size	numeric range		
+🇬🇧EN:		M	S / M / L
+🇮🇹IT:		M	S / M / L
+Colour	text list		
+🇬🇧EN:		Lime	Black
+🇮🇹IT:		Limone	Nero
+Category			
+🇬🇧EN:		Hearing protection	Hearing protection
+🇮🇹IT:		Protezione uditiva	Protezione uditiva
+Sub Category			
+🇬🇧EN:		Ear plugs	Ear defenders
+🇮🇹IT:		Tappi per le orecchie	Cuffie antirumore
+Use			
+Reusable / Riutilizzabile (R)		No	Yes
+Non reusable  / Non riutilizzabile (NR)		Yes	No
+Material	text		
+🇬🇧EN:		Polyurethane (PU)	Acrylonitrile-butadiene-styrene (ABS) copolymers, Polyethylene (PE)
+🇮🇹IT:		Poliuretano (PU)	Copolimeri di acrilonitrile-butadiene-stirene (ABS), Polietilene (PE)
+Mount	yes/no (icon?)		
+🇬🇧EN:			To be attached to helmet
+🇮🇹IT:			Da montare su elmetto
+Compatible with	yes/no (icon?)		
+🇬🇧EN:			Visor pheos 9906
+🇮🇹IT:			Visiera pheos 9906
+Audio / Bluetooth function	yes/no (icon?)		
+🇬🇧EN:		No	No
+🇮🇹IT:		No	No
+Accessories included	yes/no (icon?)		
+🇬🇧EN:			Replaceable pads, padded headband, length-adjustable headband
+🇮🇹IT:			Cuscinetti sostituibili, Astina imbottita, Astina regolabile in lunghezza
+Safety Features (4 bullet points)			
+🇬🇧EN:		Noise attenuation of 37 decibels – H: 36 dB, M: 35 dB, L: 34 dB	Noise attenuation of 30 decibel - H: 35 dB, M: 27 dB, L: 20 dB
+		Compliant with EN 352-2 standard and additional requirements: “Listening to signals in railway line construction” (S), “Listening to signals in road traffic” (V), “Listening to general alert signals” (W), “Listening to signals for train drivers” €	Mechanical attachment to the helmet for use with the uvex pheos helmet system
+		Bright lime colour makes it easier to see in production areas	
+		Sealed surface, preventing foreign bodies from penetrating.	
+🇮🇹IT:		Isolamento di 37 decibel - H: 36 dB, M: 35 dB, L: 34 dB	Isolamento di 30 decibel - H: 35 dB, M: 27 dB, L: 20 dB
+		Conformi alla normativa EN 352-2 e requisiti supplementari "Ascolto di segnali nella costruzione di linee ferroviarie" (S), "Ascolto di segnali nel traffico stradale" (V), "Ascolto di segnali di allerta, generale" (W), "Ascolto di segnali per macchinisti di treni" (E)	Aggancio meccanico all'elmetto per la combinazione con il sistema elmetto uvex pheos
+		Il colore lime brillante facilita la visibilità nelle aree di produzione	
+		La superficie sigillata impedisce la penetrazione di corpi estranei	
+Comfort Features (4 bullet points)			
+🇬🇧EN:		Ergonomically shaped, disposable earplug 	Soft surfaces provide exceptional adaptability and the ultra-lightweight design ensures optimal comfort
+		The patented X-Grip technology reduces contact pressure in the ear canal and significantly simplifies the removal of the earplug	Exceptional comfort thanks to extra-soft memory foam ear cushions, even during extended use
+		Also available with a 700 mm PVC cord	360-degree rotation for "ready-to-use" and "rest" positions
+			
+🇮🇹IT:		Tappi auricolari monouso dalla forma ergonomica	Le superfici morbide conferiscono alle cuffie un'adattabilità eccezionale e il peso ultraleggero garantisce un comfort ottimale
+		La brevettata tecnologia X Grip riduce la pressione di contatto nel condotto uditivo e semplifica sensibilmente l'estrazione del tappo	Comfort eccezionale grazie ai cuscinetti in memory foam extra morbido, anche in caso di utilizzo prolungato
+		Disponibili anche con cordino da 700 mm in PVC	Rotazione a 360 gradi per le modalità "pronto all'uso" e "riposo"
+			
+Applications (4 bullet points)			
+🇬🇧EN:		Best suited for use in very loud environments 	Best suited for use in loud environments 
+			Hearing protection in presence of risk from falling objects (head protection required)
+			
+			
+🇮🇹IT:		Adatti per l'uso in ambienti con elevata rumorosità	Adatti per l'uso in ambienti con elevata rumorosità
+			Protezione uditiva in ambienti con rischio di caduta oggetti (elmetto richiesto)
+			
+			
+Industries			
+🇬🇧EN:		Glass manufacturing, steel manufacturing, automotive, assembly	Construction, Heavy industry, Aviation, Oil&Gas, Mining
+🇮🇹IT:		Produzione del vetro, produzione dell’acciaio, industria automobilistica, assemblaggio	Edilizia, Industria pesante, Aviazione, Petrolio e Gas, Miniere
+CE Category		II	II
+EN 352			
+EN352 Part	EN352-1 to EN352-10, each identifies a type of product. Pictogram and text is sufficient. One product could be in more parts (e.g. 352-2, 352-3, 352-7)	EN 352-2	EN 352-1, 352-3
+Insulation value (SNR)	number/text (e.g. 30 dB)	37 dB	30 dB
+HML values	three numbers	H: 36 dB, M: 35 dB, L: 34 dB	H: 35 dB, M: 27 dB, L: 20 dB
+Additional requirements (DIN EN 352)	letter shows if applicable		
+Water resistance	W	Yes	
+Extreme temperature resistance	S	Yes	
+High mechanical stress / robustness	V	Yes	
+Electrical insulation	X		
+Special electrical / attenuation test	E1	Yes	
+Adjustment/size markings	A		
+Biohazard / antimicrobial treatment	B		
+Compatibility with other PPE	C		
+Decontamination / cleaning resistant	D		
+Flame resistance	F		
+Low-temperature flexibility	L		
+Medium/high noise environments	M		
+Radio frequency / electromagnetic compatibility	R		
+Temperature extremes in combination with water	T		
+Other EN Standards			
+Related Product Name 1			
+Related Product Name 2			
+Related Product Name 3			
+Related Product Name 4			

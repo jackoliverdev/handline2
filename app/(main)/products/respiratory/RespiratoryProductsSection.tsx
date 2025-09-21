@@ -3,10 +3,15 @@
 import { Product } from "@/lib/products-service";
 import { ProductGrid } from "@/components/website/products/product-grid";
 import { useLanguage } from "@/lib/context/language-context";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { ShieldCheck } from "lucide-react";
-// Removed Link; badge should not be clickable
+import { ConnectionFilter } from "@/components/website/products/filters/respiratory/ConnectionFilter";
+import { FilterTypeFilter } from "@/components/website/products/filters/respiratory/FilterTypeFilter";
+import { ProtectionClassFilter } from "@/components/website/products/filters/respiratory/ProtectionClassFilter";
+import { ConnectionFilterMobile } from "@/components/website/products/filters/respiratory/ConnectionFilterMobile";
+import { FilterTypeFilterMobile } from "@/components/website/products/filters/respiratory/FilterTypeFilterMobile";
+import { ProtectionClassFilterMobile } from "@/components/website/products/filters/respiratory/ProtectionClassFilterMobile";
 
 interface RespiratoryProductsSectionProps {
   products: Product[];
@@ -15,164 +20,137 @@ interface RespiratoryProductsSectionProps {
 export function RespiratoryProductsSection({ products }: RespiratoryProductsSectionProps) {
   const { t, language } = useLanguage();
   const [initialCategory, setInitialCategory] = useState<string | undefined>(undefined);
-  
-  // Filter products for respiratory protection category - very strict filtering to match other sections
-  const respiratoryProducts = products.filter(product => {
-    // Primary check: Must explicitly mention respiratory, mask, or respirator terms in category or subcategory
-    const explicitRespiratoryTerms = 
-      product.category?.toLowerCase().includes('respiratory') ||
-      product.category?.toLowerCase().includes('respirator') ||
-      product.category?.toLowerCase().includes('mask') ||
-      product.category?.toLowerCase().includes('masks') ||
-      product.category_locales?.it?.toLowerCase().includes('respiratorio') ||
-      product.category_locales?.it?.toLowerCase().includes('respiratoria') ||
-      product.category_locales?.it?.toLowerCase().includes('respiratore') ||
-      product.category_locales?.it?.toLowerCase().includes('maschera') ||
-      product.category_locales?.it?.toLowerCase().includes('maschere') ||
-      product.sub_category?.toLowerCase().includes('respiratory') ||
-      product.sub_category?.toLowerCase().includes('respirator') ||
-      product.sub_category?.toLowerCase().includes('mask') ||
-      product.sub_category_locales?.it?.toLowerCase().includes('respiratorio') ||
-      product.sub_category_locales?.it?.toLowerCase().includes('respiratore') ||
-      product.sub_category_locales?.it?.toLowerCase().includes('maschera');
-    
-    if (explicitRespiratoryTerms) {
-      // Ensure it's not primarily categorized as other protective equipment
-      const notOtherProtection = 
-        !product.category?.toLowerCase().includes('glove') &&
-        !product.category_locales?.it?.toLowerCase().includes('guant') &&
-        !product.category?.toLowerCase().includes('swab') &&
-        !product.category_locales?.it?.toLowerCase().includes('tampone');
-      
-      return notOtherProtection;
-    }
-    
-    // Secondary check: Products with breathing/air protection terms but must be specific to respiratory
-    const hasBreathingProtectionTerms = 
-      (product.category?.toLowerCase().includes('breathing') && 
-       product.category?.toLowerCase().includes('protection')) ||
-      (product.category?.toLowerCase().includes('air') && 
-       product.category?.toLowerCase().includes('filter')) ||
-      (product.category_locales?.it?.toLowerCase().includes('respirazione') && 
-       product.category_locales?.it?.toLowerCase().includes('protezione')) ||
-      (product.category_locales?.it?.toLowerCase().includes('aria') && 
-       product.category_locales?.it?.toLowerCase().includes('filtro'));
-    
-    if (hasBreathingProtectionTerms) {
-      // Must also have respiratory-related terms in name or features
-      const hasRespiratoryInContent = 
-        product.name?.toLowerCase().includes('mask') ||
-        product.name?.toLowerCase().includes('respirator') ||
-        product.name?.toLowerCase().includes('respiratory') ||
-        product.name_locales?.it?.toLowerCase().includes('maschera') ||
-        product.name_locales?.it?.toLowerCase().includes('respiratore') ||
-        product.name_locales?.it?.toLowerCase().includes('respiratorio') ||
-        product.features?.some(feature => 
-          feature.toLowerCase().includes('mask') || 
-          feature.toLowerCase().includes('respirator') ||
-          feature.toLowerCase().includes('breathing')
-        ) ||
-        product.features_locales?.it?.some(feature => 
-          feature.toLowerCase().includes('maschera') || 
-          feature.toLowerCase().includes('respiratore') ||
-          feature.toLowerCase().includes('respirazione')
-        );
-      
-      return hasRespiratoryInContent;
-    }
-    
-    return false;
-  });
 
-  // Get the correct respiratory category name for initialCategory - recalculates when language or products change
-  const getCategoryForFilter = () => {
-    if (respiratoryProducts.length === 0) return undefined;
-    
-    // Look for a product with respiratory terms in the category name for current language
-    const respiratoryProduct = respiratoryProducts.find(product => {
-      const category = language === 'it' 
-        ? (product.category_locales?.it || product.category)
-        : product.category;
-      
-      if (language === 'it') {
-        return category?.toLowerCase().includes('respiratorio') || 
-               category?.toLowerCase().includes('respiratoria') ||
-               category?.toLowerCase().includes('maschera');
-      } else {
-        return category?.toLowerCase().includes('respiratory') || 
-               category?.toLowerCase().includes('mask') ||
-               category?.toLowerCase().includes('respirator');
+  // Category scoping (same strict logic as before)
+  const respiratoryProducts = useMemo(() => {
+    return products.filter(product => {
+      const explicitRespiratoryTerms =
+        product.category?.toLowerCase().includes('respiratory') ||
+        product.category?.toLowerCase().includes('respirator') ||
+        product.category?.toLowerCase().includes('mask') ||
+        product.category?.toLowerCase().includes('masks') ||
+        product.category_locales?.it?.toLowerCase().includes('respiratorio') ||
+        product.category_locales?.it?.toLowerCase().includes('respiratoria') ||
+        product.category_locales?.it?.toLowerCase().includes('respiratore') ||
+        product.category_locales?.it?.toLowerCase().includes('maschera') ||
+        product.category_locales?.it?.toLowerCase().includes('maschere') ||
+        product.sub_category?.toLowerCase().includes('respiratory') ||
+        product.sub_category?.toLowerCase().includes('respirator') ||
+        product.sub_category?.toLowerCase().includes('mask') ||
+        product.sub_category_locales?.it?.toLowerCase().includes('respiratorio') ||
+        product.sub_category_locales?.it?.toLowerCase().includes('respiratore') ||
+        product.sub_category_locales?.it?.toLowerCase().includes('maschera');
+
+      if (explicitRespiratoryTerms) {
+        const notOtherProtection =
+          !product.category?.toLowerCase().includes('glove') &&
+          !product.category_locales?.it?.toLowerCase().includes('guant') &&
+          !product.category?.toLowerCase().includes('swab') &&
+          !product.category_locales?.it?.toLowerCase().includes('tampone');
+        return notOtherProtection;
       }
+      return false;
     });
-    
-    if (respiratoryProduct) {
-      return language === 'it' 
-        ? (respiratoryProduct.category_locales?.it || respiratoryProduct.category)
-        : respiratoryProduct.category;
-    }
-    
-    // Fallback to first product's category
-    const firstProduct = respiratoryProducts[0];
-    return language === 'it' 
-      ? (firstProduct.category_locales?.it || firstProduct.category)
-      : firstProduct.category;
-  };
+  }, [products]);
 
-  // Update initialCategory when language or respiratoryProducts change
+  // Compute initial category for the filter chip
   useEffect(() => {
-    setInitialCategory(getCategoryForFilter());
+    if (!respiratoryProducts.length) return;
+    const first = respiratoryProducts[0];
+    setInitialCategory(language === 'it' ? (first.category_locales?.it || first.category) : first.category);
   }, [language, respiratoryProducts.length]);
 
+  // Respirator-specific filter state
+  const [selectedConnections, setSelectedConnections] = useState<string[]>([]);
+  const [selectedFilterTypes, setSelectedFilterTypes] = useState<string[]>([]);
+  const [selectedProtectionClasses, setSelectedProtectionClasses] = useState<string[]>([]);
+
+  // Option builders
+  const connectionOptions = useMemo(() => {
+    const set = new Set<string>();
+    respiratoryProducts.forEach(p => {
+      (p.connections || []).forEach(c => c && set.add(c));
+    });
+    return Array.from(set).sort();
+  }, [respiratoryProducts]);
+
+  const filterTypeOptions = useMemo(() => {
+    const set = new Set<string>();
+    respiratoryProducts.forEach(p => { if (p.filter_type) set.add(p.filter_type); });
+    return Array.from(set).sort();
+  }, [respiratoryProducts]);
+
+  const protectionClassOptions = useMemo(() => {
+    const set = new Set<string>();
+    respiratoryProducts.forEach(p => { if (p.protection_class) set.add(p.protection_class); });
+    return Array.from(set).sort();
+  }, [respiratoryProducts]);
+
+  // Toggle helpers
+  const toggle = (arr: string[], setArr: (v: string[]) => void, value: string) => {
+    const next: string[] = arr.includes(value) ? arr.filter((x: string) => x !== value) : [...arr, value];
+    setArr(next);
+  };
+
   return (
-    <section id="products" className="py-16">
+    <section id="products" className="py-10">
       <div className="container mx-auto px-4 sm:px-6">
-        <div className="text-center mb-12">
-          <div className="flex flex-col items-center">
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              className="inline-flex items-center rounded-full bg-white/80 dark:bg-black/60 px-3 py-1 text-xs sm:text-sm border border-[#F28C38] backdrop-blur-sm mb-4"
-            >
-              <ShieldCheck className="mr-1.5 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 text-[#F28C38]" />
-              <span className="text-brand-dark dark:text-white font-medium font-heading">
-                {t('products.categories.pages.respiratory.badge')}
-              </span>
-            </motion.div>
-            <div className="inline-flex items-center justify-center mb-4">
-              <motion.div 
-                initial={{ width: 0 }}
-                whileInView={{ width: "2.5rem" }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="h-1 w-10 bg-[#F28C38] rounded-full mr-3"
-              ></motion.div>
-              <h2 className="text-3xl md:text-4xl font-bold text-brand-dark dark:text-white font-heading">
-                {t('products.categories.pages.respiratory.title')}
-              </h2>
-              <motion.div 
-                initial={{ width: 0 }}
-                whileInView={{ width: "2.5rem" }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="h-1 w-10 bg-[#F28C38] rounded-full ml-3"
-              ></motion.div>
-            </div>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="text-lg text-brand-secondary dark:text-gray-300 max-w-2xl mx-auto"
-            >
-              {t('products.categories.pages.respiratory.description')}
-            </motion.p>
-          </div>
-        </div>
-        
-        <ProductGrid products={respiratoryProducts} initialCategory={initialCategory} />
+        {/* Match gloves page: remove pill and subtitle; tighter spacing */}
+        <div className="mb-4" />
+
+        <ProductGrid
+          products={respiratoryProducts}
+          initialCategory={initialCategory}
+          extraFiltersRender={(
+            <>
+              <ConnectionFilter
+                options={connectionOptions}
+                selected={selectedConnections}
+                onToggle={(opt) => toggle(selectedConnections, setSelectedConnections, opt)}
+              />
+              <FilterTypeFilter
+                options={filterTypeOptions}
+                selected={selectedFilterTypes}
+                onToggle={(opt) => toggle(selectedFilterTypes, setSelectedFilterTypes, opt)}
+              />
+              <ProtectionClassFilter
+                options={protectionClassOptions}
+                selected={selectedProtectionClasses}
+                onToggle={(opt) => toggle(selectedProtectionClasses, setSelectedProtectionClasses, opt)}
+              />
+            </>
+          )}
+          extraFiltersRenderMobile={(
+            <>
+              <ConnectionFilterMobile
+                options={connectionOptions}
+                selected={selectedConnections}
+                onToggle={(opt) => toggle(selectedConnections, setSelectedConnections, opt)}
+              />
+              <FilterTypeFilterMobile
+                options={filterTypeOptions}
+                selected={selectedFilterTypes}
+                onToggle={(opt) => toggle(selectedFilterTypes, setSelectedFilterTypes, opt)}
+              />
+              <ProtectionClassFilterMobile
+                options={protectionClassOptions}
+                selected={selectedProtectionClasses}
+                onToggle={(opt) => toggle(selectedProtectionClasses, setSelectedProtectionClasses, opt)}
+              />
+            </>
+          )}
+          hideDefaultFilters={true}
+          extraFilterPredicate={(p: Product) => {
+            const hasSel = selectedConnections.length + selectedFilterTypes.length + selectedProtectionClasses.length > 0;
+            if (!hasSel) return true;
+
+            const connOk = selectedConnections.length === 0 || (!!p.connections && p.connections.some((c: string) => selectedConnections.includes(c)));
+            const typeOk = selectedFilterTypes.length === 0 || (!!p.filter_type && selectedFilterTypes.includes(p.filter_type));
+            const classOk = selectedProtectionClasses.length === 0 || (!!p.protection_class && selectedProtectionClasses.includes(p.protection_class));
+            return connOk && typeOk && classOk;
+          }}
+        />
       </div>
     </section>
   );
-} 
+}

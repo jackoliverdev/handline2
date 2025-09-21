@@ -2,6 +2,15 @@
 import React from 'react';
 import Link from "next/link";
 import Image from "next/image";
+import { ArmSpecs } from "@/components/website/products/slug/ArmSpecs";
+import { GlovesSpecs } from "@/components/website/products/slug/GlovesSpecs";
+import { SwabsSpecs } from "@/components/website/products/slug/SwabsSpecs";
+import { RespiratorSpecs } from "@/components/website/products/slug/RespiratorSpecs";
+import { HearingSpecs } from "@/components/website/products/slug/HearingSpecs";
+import { EyeFaceSpecs } from "@/components/website/products/slug/EyeFaceSpecs";
+import { FootwearSpecs } from "@/components/website/products/slug/FootwearSpecs";
+import { HeadSpecs } from "@/components/website/products/slug/HeadSpecs";
+import { ClothingSpecs } from "@/components/website/products/slug/ClothingSpecs";
 import { useLanguage } from "@/lib/context/language-context";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import { Badge } from "@/components/ui/badge";
@@ -358,154 +367,26 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                     <h3 className="text-lg font-semibold text-brand-dark dark:text-white mb-4">
                       {t('productPage.technicalSpecifications')}
                     </h3>
-                    <div className="grid grid-cols-3 gap-4">
-                      {/* Materials Tile */}
-                      <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-                        <div className="flex items-center justify-center gap-2 mb-2">
-                          <Layers className="h-5 w-5 text-brand-primary hidden sm:block" />
-                          <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.materials')}</h3>
-                        </div>
-                        <div className="flex items-center justify-center">
-                          {currentMaterials && currentMaterials.length > 0 ? (
-                            <div className="text-center">
-                              <div className="text-brand-dark dark:text-white font-medium text-md">
-                                {currentMaterials[0]}
-                              </div>
-                              {currentMaterials.length > 1 && (
-                                <div className="text-sm text-brand-secondary dark:text-gray-300">
-                                  +{currentMaterials.length - 1} more
-                                </div>
-                              )}
-                            </div>
-                          ) : (
-                            <span className="text-brand-dark dark:text-white font-medium text-md">-</span>
-                          )}
-                        </div>
-                      </div>
-                      
-                      {/* Size */}
-                      <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-                        <div className="flex items-center justify-center gap-2 mb-2">
-                          <Move className="h-5 w-5 text-brand-primary hidden sm:block" />
-                          <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.productInfo.size')}</h3>
-                        </div>
-                        <div className="flex items-center justify-center">
-                          <span className="text-brand-dark dark:text-white font-medium text-md">
-                            {size || '-'}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Length */}
-                      <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-                        <div className="flex items-center justify-center gap-2 mb-2">
-                          <Ruler className="h-5 w-5 text-brand-primary hidden sm:block" />
-                          <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.productInfo.length')}</h3>
-                        </div>
-                        <div className="flex items-center justify-center">
-                          <span className="text-brand-dark dark:text-white font-medium text-md">
-                            {product.length_cm ? `${product.length_cm} cm` : '-'}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* CE Category and EN Standards */}
-                    <div className="space-y-4">
-                      {/* CE Category and EN Standard - Side by Side Tiles */}
-                      <div className="grid grid-cols-2 gap-4">
-                        {product.ce_category && (
-                          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4 flex flex-col">
-                            <div className="flex items-center justify-center gap-2 mb-2">
-                              <Shield className="h-5 w-5 text-brand-primary" />
-                              <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.ceCategory')}</h3>
-                            </div>
-                          <div className="flex-1 flex items-center justify-center">
-                            <span className="text-brand-dark dark:text-white font-medium text-md">{t('productPage.category')} {product.ce_category}</span>
-                          </div>
-                          </div>
-                        )}
-                        
-                        {/* EN Standards from Safety JSON */}
-                        {product.safety && (product.safety.en_388?.enabled || product.safety.en_407?.enabled || product.safety.en_511?.enabled) && (
-                          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-                            <div className="flex items-center justify-center gap-2 mb-2">
-                              <Shield className="h-5 w-5 text-brand-primary" />
-                              <h3 className="text-sm font-medium text-brand-dark dark:text-white">EN Standards</h3>
-                            </div>
-                            <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-3">
-                              {/* EN 388 - Mechanical Risks */}
-                              {product.safety.en_388?.enabled && (
-                                <div className="flex items-center gap-1">
-                                  <Image
-                                    src="/images/standards/EN388.png"
-                                    alt="EN388"
-                                    width={20}
-                                    height={20}
-                                    className="object-contain"
-                                  />
-                                  <span className="text-brand-dark dark:text-white font-medium text-md">EN388</span>
-                                </div>
-                              )}
-                              
-                              {/* EN 407 - Thermal Risks */}
-                              {product.safety.en_407?.enabled && (
-                                <>
-                                  {product.safety.en_388?.enabled && <span className="text-brand-secondary dark:text-gray-400 hidden sm:inline">•</span>}
-                                  <div className="flex items-center gap-1">
-                                    <Image
-                                      src="/images/standards/EN407.png"
-                                      alt="EN407"
-                                      width={20}
-                                      height={20}
-                                      className="object-contain"
-                                    />
-                                    <span className="text-brand-dark dark:text-white font-medium text-md">EN407</span>
-                                  </div>
-                                </>
-                              )}
-                              
-                              {/* EN 511 - Cold Risks */}
-                              {product.safety.en_511?.enabled && (
-                                <>
-                                  {(product.safety.en_388?.enabled || product.safety.en_407?.enabled) && <span className="text-brand-secondary dark:text-gray-400 hidden sm:inline">•</span>}
-                                  <div className="flex items-center gap-1">
-                                    <Snowflake className="h-5 w-5 text-blue-500" />
-                                    <span className="text-brand-dark dark:text-white font-medium text-md">EN511</span>
-                                  </div>
-                                </>
-                              )}
-                            </div>
-                          </div>
-                        )}
-
-                        {/* If no EN standards, but we have pad size (swabs), show Pad Size tile */}
-                        {!((product.safety && (product.safety.en_388?.enabled || product.safety.en_407?.enabled || product.safety.en_511?.enabled))) && padSizeDisplay && (
-                          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-                            <div className="flex items-center justify-center gap-2 mb-2">
-                              <Ruler className="h-5 w-5 text-brand-primary" />
-                              <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.padSize')}</h3>
-                            </div>
-                            <div className="flex items-center justify-center">
-                              <span className="text-brand-dark dark:text-white font-medium text-md">{padSizeDisplay}</span>
-                            </div>
-                          </div>
-                        )}
-                        
-                        {/* Fallback when safety exists but no standards are enabled, or when no safety data exists */}
-                        {((product.safety && !product.safety.en_388?.enabled && !product.safety.en_407?.enabled && !product.safety.en_511?.enabled) || !product.safety) && product.en_standard && !padSizeDisplay && (
-                          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-                            <div className="flex items-center justify-center gap-2 mb-2">
-                              <Shield className="h-5 w-5 text-brand-primary" />
-                              <h3 className="text-sm font-medium text-brand-dark dark:text-white">EN Standard</h3>
-                            </div>
-                            <div className="flex items-center justify-center">
-                              <span className="text-brand-dark dark:text-white font-medium text-md">{product.en_standard}</span>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
+                    {/* Category-specific isolated specs */}
+                    {(product.category?.toLowerCase().includes('respir') || (product as any).filter_type || (product as any).connections) ? (
+                      <RespiratorSpecs product={product} />
+                    ) : ((product.category || '').toLowerCase().includes('footwear') || (product.sub_category || '').toLowerCase().includes('boot') || (product.sub_category || '').toLowerCase().includes('insol')) ? (
+                      <FootwearSpecs product={product} />
+                    ) : ((((product as any).hearing_standards && Object.keys((product as any).hearing_standards || {}).length > 0) && !!(product as any).hearing_standards.en352) || (product.category || '').toLowerCase().includes('hearing') || (product.sub_category || '').toLowerCase().includes('ear')) ? (
+                      <HearingSpecs product={product} />
+                    ) : (((product as any).head_standards && Object.keys((product as any).head_standards || {}).length > 0) || (product.category || '').toLowerCase().includes('head') || (product.sub_category || '').toLowerCase().includes('helmet') || (product.sub_category || '').toLowerCase().includes('bump')) ? (
+                      <HeadSpecs product={product} />
+                    ) : (((product as any).eye_face_standards && Object.keys((product as any).eye_face_standards || {}).length > 0) || (product.category || '').toLowerCase().includes('eye') || (product.category || '').toLowerCase().includes('face') || (product.sub_category || '').toLowerCase().includes('goggle') || (product.sub_category || '').toLowerCase().includes('visor') || (product.sub_category || '').toLowerCase().includes('glasses')) ? (
+                      <EyeFaceSpecs product={product} />
+                    ) : (((product as any).clothing_standards && Object.keys((product as any).clothing_standards || {}).length > 0) || (product.category || '').toLowerCase().includes('clothing') || (product.sub_category || '').toLowerCase().includes('jacket')) ? (
+                      <ClothingSpecs product={product} />
+                    ) : (product.category?.toLowerCase().includes('swab') || product.sub_category?.toLowerCase().includes('swab')) ? (
+                      <SwabsSpecs product={product} />
+                    ) : ((product.category || '').toLowerCase().includes('arm') || (product.sub_category || '').toLowerCase().includes('sleeve')) ? (
+                      <ArmSpecs product={product} />
+                    ) : (
+                      <GlovesSpecs product={product} />
+                    )}
                     
                     {/* Work Environment Suitability */}
                     {product.environment_pictograms && (

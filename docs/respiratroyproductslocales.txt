@@ -1,0 +1,1028 @@
+begin;
+
+-- BLS Zer032 Active (Disposable mask)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Smart breathing valve (Narvalo Active Shield) with adaptive fan to enhance comfort and lithium battery',
+      'External protective layer against dirt, dust, and liquids',
+      'Nano filtration (tested down to 0.001 micron)',
+      'Usage and safety monitoring via IoT',
+      'Anatomical mask',
+      'High comfort thanks to soft gasket ensuring fit on all face shapes',
+      'Internal nose clip',
+      'Adjustable straps'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Valvola di respirazione intelligente (Narvalo Active Shield) con ventola adattiva che incrementa il comfort e batteria al litio',
+      'Strato protettivo esterno di protezione verso sporco, polveri e liquidi',
+      'Nano filtrazione (testato fino 0.001 micron)',
+      'Monitoraggio uso e sicurezza tramite IoT',
+      'Mascherina anatomica',
+      'Elevato comfort grazie a guarnizione morbida che garantisce fit su tutti i volti',
+      'Barretta stringinaso interna',
+      'Elastici regolabili'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Protection against medicines and active pharmaceutical ingredients in pharmaceutical and laboratory environments',
+      'Protection against dusts and particles in construction',
+      'Protection during sanding activities',
+      'Protection against emulsions of fertilizers or other chemical or biological agents'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Protezione da medicinali e principi attivi in farmaceutico e laboratori',
+      'Protezione da polveri e particelle in edilizia',
+      'Protezione durante attivita'' di carteggiatura',
+      'Protezione da emulsioni di fertilizzanti o altri agenti chimici o biologici'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Pharmaceutical','research','construction','automotive','manufacturing','agriculture']::text[]),
+    'it', to_jsonb(ARRAY['Farmaceutico','ricerca','edilizio','automobilistico','manufatturiero','agricolo']::text[])
+  )
+where id = '1710d73c-769c-43fe-bc0e-afcecf8f386a';
+
+-- BLS Zer032 C Active (Disposable mask with carbon)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Smart breathing valve (Narvalo Active Shield) with adaptive fan to enhance comfort and lithium battery. Usage and safety monitoring via IoT.',
+      'Activated carbon layer to remove unpleasant odours',
+      'External protective layer against dirt, dust, and liquids',
+      'Nano filtration (tested down to 0.001 micron)',
+      'Anatomical mask',
+      'High comfort thanks to soft gasket ensuring fit on all face shapes',
+      'Internal nose clip',
+      'Adjustable straps'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Valvola di respirazione intelligente (Narvalo Active Shield) con ventola adattiva che incrementa il comfort e batteria al litio. Monitoraggio uso e sicurezza tramite IoT.',
+      'Strato di carbone attivo per rimuovere odori fastidiosi',
+      'Strato protettivo esterno di protezione verso sporco, polveri e liquidi',
+      'Nano filtrazione (testato fino 0.001 micron)',
+      'Mascherina anatomica',
+      'Elevato comfort grazie a guarnizione morbida che garantisce fit su tutti i volti',
+      'Barretta stringinaso interna',
+      'Elastici regolabili'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Protection against medicines and active pharmaceutical ingredients in pharmaceutical and laboratory environments',
+      'Protection against dusts and particles in construction',
+      'Protection during sanding activities',
+      'Protection against emulsions of fertilizers or other chemical or biological agents'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Protezione da medicinali e principi attivi in farmaceutico e laboratori',
+      'Protezione da polveri e particelle in edilizia',
+      'Protezione durante attivita'' di carteggiatura',
+      'Protezione da emulsioni di fertilizzanti o altri agenti chimici o biologici'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Pharmaceutical','research','construction','automotive','manufacturing','agriculture']::text[]),
+    'it', to_jsonb(ARRAY['Farmaceutico','ricerca','edilizio','automobilistico','manufatturiero','agricolo']::text[])
+  )
+where id = '8fd49263-957a-4b5d-bfd0-3528b89c381c';
+
+-- BLS 5600 (Full-face mask, TPE)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Scratch resistant visor (Live visor), optical class 1 (EN166)',
+      'Wide range of spare parts to extend use and lifespan of the mask',
+      '6-point harness for precise adjustment and pressure distribution on the face',
+      'Anallergic',
+      'Thermoplastic face seal for added comfort',
+      'Anti-fog visor'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Visiera antigraffio (Live visor), classe ottica 1 (EN166)',
+      'Ampia gamma di ricambi per prolungare l’uso e la durata della maschera',
+      'Bardatura a 6 punti per una regolazione precisa e una distribuzione uniforme della pressione sul viso',
+      'Anallergico',
+      'Guarnizione facciale in termoplastica per maggiore comfort',
+      'Visiera antiappannamento'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Protection against aerial contaminants and particles combined with eye protection',
+      'Application depends on the filter used (gas, vapor, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Protezione contro contaminanti e particelle presenti nell’aria, combinata con protezione degli occhi',
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = '5d0e1e01-5fc2-45f3-a88c-f1714190a9d6';
+
+-- BLS 5700 (Full-face mask, silicone)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Scratch resistant visor (Live visor), optical class 1 (EN166)',
+      'Wide range of spare parts to extend use and lifespan of the mask',
+      '6-point harness for precise adjustment and pressure distribution on the face',
+      'Anallergic',
+      'Silicone face seal for added comfort',
+      'Available in three sizes',
+      'Anti-fog visor',
+      'Transmission of vocal sound with aluminium layer inside the breathing unit'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Visiera antigraffio (Live visor), classe ottica 1 (EN166)',
+      'Ampia gamma di ricambi per prolungare l’uso e la durata della maschera',
+      'Bardatura a 6 punti per una regolazione precisa e una distribuzione uniforme della pressione sul viso',
+      'Anallergico',
+      'Guarnizione facciale in silicone per maggiore comfort',
+      'Disponibile in tre misure',
+      'Visiera antiappannamento',
+      'Trasmissione del suono vocale con strato di alluminio all’interno dell’unità respiratoria'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Protection against aerial contaminants and particles combined with eye protection',
+      'Application depends on the filter used (gas, vapor, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Protezione contro contaminanti e particelle presenti nell’aria, combinata con protezione degli occhi',
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = '8a464614-1343-4b2f-a728-2416d196cffc';
+
+commit;
+
+-- Respirators locales backfill - batch 3
+begin;
+
+-- BLS 227 (Combined, B-Lock)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Non deformable ABS filter canister avoids air corridors',
+      'Excellent filtration performance with high-quality activated carbons'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Il contenitore del filtro in ABS non deformabile evita corridoi d’aria',
+      'Eccellente prestazione di filtrazione grazie a carboni attivi di alta qualità'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapor, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = 'ec096311-7603-45a2-a63f-6934f040faf9';
+
+-- BLS 242 (Gasses & Vapours, B-Lock)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Non deformable ABS filter canister avoids air corridors',
+      'Excellent filtration performance with high-quality activated carbons'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Il contenitore del filtro in ABS non deformabile evita corridoi d’aria',
+      'Eccellente prestazione di filtrazione grazie a carboni attivi di alta qualità'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapor, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = 'b8fcfe3e-5a90-4168-8713-038a93a7d444';
+
+-- BLS 243 (Gasses & Vapours, B-Lock)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Non deformable ABS filter canister avoids air corridors',
+      'Excellent filtration performance with high-quality activated carbons'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Il contenitore del filtro in ABS non deformabile evita corridoi d’aria',
+      'Eccellente prestazione di filtrazione grazie a carboni attivi di alta qualità'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapor, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = 'dbf7dc9b-84d9-41f2-8e3e-95e674c50020';
+
+-- BLS 244 (Gasses & Vapours, B-Lock)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Non deformable ABS filter canister avoids air corridors',
+      'Excellent filtration performance with high-quality activated carbons'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Il contenitore del filtro in ABS non deformabile evita corridoi d’aria',
+      'Eccellente prestazione di filtrazione grazie a carboni attivi di alta qualità'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapor, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = '2f232f95-e329-4837-b565-15f7bcfe77c8';
+
+-- BLS 253 (Combined, B-Lock)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Non deformable ABS filter canister avoids air corridors',
+      'Excellent filtration performance with high-quality activated carbons'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Il contenitore del filtro in ABS non deformabile evita corridoi d’aria',
+      'Eccellente prestazione di filtrazione grazie a carboni attivi di alta qualità'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapor, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = '3bf24510-1f6e-45bc-94d1-daef3bfed67e';
+
+-- BLS 254 (Combined, B-Lock)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Non deformable ABS filter canister avoids air corridors',
+      'Excellent filtration performance with high-quality activated carbons'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Il contenitore del filtro in ABS non deformabile evita corridoi d’aria',
+      'Eccellente prestazione di filtrazione grazie a carboni attivi di alta qualità'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapor, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = '11637dbb-5ce2-4b10-9d51-cad8cdaea0fb';
+
+-- BLS 401 (Dust, Universal RD40)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Non deformable ABS filter canister allows control over the compression of the activated carbons within',
+      'Dust filtering efficiency 99.99%'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Il contenitore del filtro in ABS non deformabile permette di controllare la compressione dei carboni attivi al suo interno',
+      'Efficienza di filtrazione delle polveri 99,99%'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapour, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = '02fc33fd-c712-45f8-9de0-a2ef41b6a522';
+
+-- BLS 411 (Gasses & Vapours, Universal RD40)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Standard thread connection according to EN 148-1, universal across all respiratory protection devices'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Connessione filettata standard secondo EN 148-1, universale per tutti i dispositivi di protezione respiratoria'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapour, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = '98f0e0c0-2ca7-40d0-ae05-9a4cb701c10d';
+
+-- BLS 412 (Gasses & Vapours, Universal RD40)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Standard thread connection according to EN 148-1, universal across all respiratory protection devices'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Connessione filettata standard secondo EN 148-1, universale per tutti i dispositivi di protezione respiratoria'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapour, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = '5989b386-e80b-4d52-aa1c-3d36f9102836';
+
+-- BLS 413 (Gasses & Vapours, Universal RD40)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Standard thread connection according to EN 148-1, universal across all respiratory protection devices'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Connessione filettata standard secondo EN 148-1, universale per tutti i dispositivi di protezione respiratoria'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapour, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = '5b0231d0-5b00-4b9e-be89-a68ee6fa2444';
+
+commit;
+
+-- Respirators locales backfill - batch 4
+begin;
+
+-- BLS 414 (Gasses & Vapours, Universal RD40)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Standard thread connection according to EN 148-1, universal across all respiratory protection devices'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Connessione filettata standard secondo EN 148-1, universale per tutti i dispositivi di protezione respiratoria'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapour, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = 'ac2c29c8-5a77-4376-9906-8db2063a14ee';
+
+-- BLS 415 (Gasses & Vapours, Universal RD40)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Standard thread connection according to EN 148-1, universal across all respiratory protection devices'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Connessione filettata standard secondo EN 148-1, universale per tutti i dispositivi di protezione respiratoria'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapour, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = 'a55ed9be-cf59-4daa-b3b8-004feb998008';
+
+-- BLS 421 (Combined, Universal RD40)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Standard thread connection according to EN 148-1, universal across all respiratory protection devices'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Connessione filettata standard secondo EN 148-1, universale per tutti i dispositivi di protezione respiratoria'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapour, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = '238715b9-c13d-49e8-b9f0-645560523cc3';
+
+-- BLS 422 (Combined, Universal RD40)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Standard thread connection according to EN 148-1, universal across all respiratory protection devices'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Connessione filettata standard secondo EN 148-1, universale per tutti i dispositivi di protezione respiratoria'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapour, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = 'c736af79-7d80-4741-95ca-d16bfeb3526f';
+
+-- BLS 423 (Combined, Universal RD40)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Standard thread connection according to EN 148-1, universal across all respiratory protection devices'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Connessione filettata standard secondo EN 148-1, universale per tutti i dispositivi di protezione respiratoria'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapour, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = 'dc88fbbd-00ca-4c5a-8ab6-f79029e46aec';
+
+-- BLS 424 (Combined, Universal RD40)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Standard thread connection according to EN 148-1, universal across all respiratory protection devices'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Connessione filettata standard secondo EN 148-1, universale per tutti i dispositivi di protezione respiratoria'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapour, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = '35ad5070-bf2c-4fd5-a06f-d1236398ef47';
+
+-- BLS 425 (Combined, Universal RD40)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Standard thread connection according to EN 148-1, universal across all respiratory protection devices'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Connessione filettata standard secondo EN 148-1, universale per tutti i dispositivi di protezione respiratoria'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapour, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = '1e30fd92-6bf2-41ff-b759-50c54a6ba413';
+
+-- BLS 430 (Combined, Universal RD40)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Standard thread connection according to EN 148-1, universal across all respiratory protection devices'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Connessione filettata standard secondo EN 148-1, universale per tutti i dispositivi di protezione respiratoria'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapour, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = 'eba7e505-193a-402c-a330-8a2e4d4ad6c1';
+
+-- BLS 441 (Dust, Universal RD40)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Standard thread connection according to EN 148-1, universal across all respiratory protection devices',
+      'Aluminium casing to ensure mechanical and heat resistence'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Connessione filettata standard secondo EN 148-1, universale per tutti i dispositivi di protezione respiratoria',
+      'Contenitore in alluminio per garantire resistenza meccanica e al calore'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapour, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = 'ce1e8616-ccf4-4385-b1a3-6bae68f3333f';
+
+-- BLS 442 (Gasses & Vapours, Universal RD40)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Standard thread connection according to EN 148-1, universal across all respiratory protection devices',
+      'Aluminium casing to ensure mechanical and heat resistence'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Connessione filettata standard secondo EN 148-1, universale per tutti i dispositivi di protezione respiratoria',
+      'Contenitore in alluminio per garantire resistenza meccanica e al calore'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapour, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = '24972c1c-0e10-4e97-b2dc-c3538674dfd6';
+
+commit;
+
+-- Respirators locales backfill - batch 2
+begin;
+
+-- BLS 201-3 (Flat filter, B-Lock)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Lightweight and small size with slim profile',
+      'Dust filtering efficiency 99.99%'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Leggero e di piccole dimensioni con profilo sottile',
+      'Efficienza di filtrazione delle polveri 99,99%'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapor, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = 'ab75311e-8a28-42b0-9f93-106100ca3735';
+
+-- BLS 201-3C (Flat filter, B-Lock, carbon)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Lightweight and small size with slim profile',
+      'Dust filtering efficiency 99.99%'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Leggero e di piccole dimensioni con profilo sottile',
+      'Efficienza di filtrazione delle polveri 99,99%'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapor, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = 'c5bd00df-919e-44d4-a2ca-ca8d48e7e738';
+
+-- BLS 202 (Dust filter, B-Lock)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Non deformable ABS filter canister avoids air corridors',
+      'Dust filtering efficiency 99.99%'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Il contenitore del filtro in ABS non deformabile evita corridoi d’aria',
+      'Efficienza di filtrazione delle polveri 99,99%'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapor, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = '94286eee-9255-4877-9db1-a9d7d5004a02';
+
+-- BLS 210 (Gasses & Vapours, B-Lock)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Non deformable ABS filter canister avoids air corridors',
+      'Excellent filtration performance with high-quality activated carbons'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Il contenitore del filtro in ABS non deformabile evita corridoi d’aria',
+      'Eccellente prestazione di filtrazione grazie a carboni attivi di alta qualità'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapor, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = 'ed7b00de-d544-4390-9629-064548d8c198';
+
+-- BLS 211 (Gasses & Vapours, B-Lock)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Non deformable ABS filter canister avoids air corridors',
+      'Excellent filtration performance with high-quality activated carbons'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Il contenitore del filtro in ABS non deformabile evita corridoi d’aria',
+      'Eccellente prestazione di filtrazione grazie a carboni attivi di alta qualità'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapor, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = 'a1d419f0-f667-4f13-bb51-658e42535780';
+
+-- BLS 212 (Gasses & Vapours, B-Lock)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Non deformable ABS filter canister avoids air corridors',
+      'Excellent filtration performance with high-quality activated carbons'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Il contenitore del filtro in ABS non deformabile evita corridoi d’aria',
+      'Eccellente prestazione di filtrazione grazie a carboni attivi di alta qualità'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapor, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = '65569ef7-76dc-4634-b3c5-efea47cc7eab';
+
+-- BLS 213 (Gasses & Vapours, B-Lock)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Non deformable ABS filter canister avoids air corridors',
+      'Excellent filtration performance with high-quality activated carbons'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Il contenitore del filtro in ABS non deformabile evita corridoi d’aria',
+      'Eccellente prestazione di filtrazione grazie a carboni attivi di alta qualità'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapor, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = '4051672d-3615-4fed-8339-44e4d0e8738f';
+
+-- BLS 214 (Gasses & Vapours, B-Lock)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Non deformable ABS filter canister avoids air corridors',
+      'Excellent filtration performance with high-quality activated carbons'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Il contenitore del filtro in ABS non deformabile evita corridoi d’aria',
+      'Eccellente prestazione di filtrazione grazie a carboni attivi di alta qualità'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapor, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = '955d3036-f803-44a9-9491-692747e24569';
+
+-- BLS 221 (Combined, B-Lock)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Non deformable ABS filter canister avoids air corridors',
+      'Excellent filtration performance with high-quality activated carbons'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Il contenitore del filtro in ABS non deformabile evita corridoi d’aria',
+      'Eccellente prestazione di filtrazione grazie a carboni attivi di alta qualità'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapor, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = '0779e5cc-1b02-487c-b4e2-cd505bd4a7ae';
+
+-- BLS 222 (Combined, B-Lock)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Non deformable ABS filter canister avoids air corridors',
+      'Excellent filtration performance with high-quality activated carbons'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Il contenitore del filtro in ABS non deformabile evita corridoi d’aria',
+      'Eccellente prestazione di filtrazione grazie a carboni attivi di alta qualità'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapor, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = 'f96da228-9d82-4b55-9ec5-42ff752ea6c7';
+
+-- BLS 225 (Combined, B-Lock)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Non deformable ABS filter canister avoids air corridors',
+      'Excellent filtration performance with high-quality activated carbons'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Il contenitore del filtro in ABS non deformabile evita corridoi d’aria',
+      'Eccellente prestazione di filtrazione grazie a carboni attivi di alta qualità'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapor, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = '3ca418fd-d279-4aff-bbcd-f47a952da88d';
+
+-- BLS 226 (Combined, B-Lock)
+update public.products
+set
+  features_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Non deformable ABS filter canister avoids air corridors',
+      'Excellent filtration performance with high-quality activated carbons'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'Il contenitore del filtro in ABS non deformabile evita corridoi d’aria',
+      'Eccellente prestazione di filtrazione grazie a carboni attivi di alta qualità'
+    ]::text[])
+  ),
+  applications_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY[
+      'Application depends on the filter used (gas, vapor, particulate, combined, etc.)'
+    ]::text[]),
+    'it', to_jsonb(ARRAY[
+      'L’applicazione dipende dal filtro utilizzato (gas, vapori, particolato, combinato, ecc.)'
+    ]::text[])
+  ),
+  industries_locales = jsonb_build_object(
+    'en', to_jsonb(ARRAY['Chemical manufacturing','paint/spraying','metal working','welding','pharma']::text[]),
+    'it', to_jsonb(ARRAY['Produzione chimica','verniciatura/spruzzatura','lavorazione dei metalli','saldatura','industria farmaceutica']::text[])
+  )
+where id = '11cadd2e-05ac-480b-a2de-786d2729611f';
+
+commit;

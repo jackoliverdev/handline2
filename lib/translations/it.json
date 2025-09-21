@@ -19,7 +19,13 @@
     "mechanicalHazards": "Rischi Meccanici",
     "welding": "Saldatura",
     "industrialSwabs": "Scovoli Industriali",
+    "armProtection": "Protezione delle braccia",
+    "safetyFootwear": "Calzature di sicurezza",
+    "hearingProtection": "Protezione uditiva",
     "respiratoryProtection": "Protezione Respiratoria",
+    "protectiveClothing": "Abbigliamento protettivo e da lavoro",
+    "headProtection": "Protezione della testa",
+    "eyeFaceProtection": "Protezione occhi e viso",
     "aboutDropdown": {
       "ourCompany": "La Nostra Azienda",
       "careers": "Lavora con Noi",
@@ -94,6 +100,9 @@
       "clearAll": "Cancella Tutti i Filtri",
       "category": "Categoria",
       "subCategory": "Sottocategoria",
+      "sleeveLength": "Lunghezza manicotto",
+      "thumbLoop": "Passante per pollice",
+      "closureType": "Tipo di chiusura",
       "temperature": "Resistenza alla Temperatura",
       "cutLevel": "Livello Resistenza Taglio",
       "heatLevel": "Livello Resistenza Calore",
@@ -121,7 +130,23 @@
       "mechanicalHazardsGloves": "Guanti per Rischi Meccanici",
       "weldingGlove": "Guanti da Saldatura",
       "industrialSwabs": "Tamponi Industriali",
-      "respiratoryProtection": "Protezione Respiratoria"
+      "respiratoryProtection": "Protezione Respiratoria",
+      "footwearClass": "Classe calzatura",
+      "esd": "ESD",
+      "widthFit": "Larghezza pianta",
+      "sizeRange": "Intervallo taglie",
+      "toeCap": "Puntale",
+      "soleMaterial": "Materiale suola",
+      "standardCodes": "Codici standard",
+      "protectionType": "Tipo di protezione",
+      "lensTint": "Colore lente",
+      "coating": "Trattamento",
+      "uvCode": "Codice UV",
+      "brimLength": "Lunghezza visiera",
+      "lowTemperature": "Prestazioni a bassa temperatura",
+      "electricalInsulation": "Isolamento elettrico (EN 50365)",
+      "moltenMetalSplash": "Schizzi di metallo fuso (MM)",
+      "ventilation": "Ventilazione"
     },
     "contentTypes": {
       "product": "Prodotto",
@@ -384,6 +409,12 @@
           "generalPurpose": "Guanti per uso generale",
           "mechanical": "Guanti per rischi meccanici",
           "welding": "Guanti per saldatori"
+        },
+        "eyeFace": {
+          "badge": "Protezione occhi e viso",
+          "title": "Protezione occhi e viso",
+          "description": "Occhiali e visiere protettive per ambienti industriali",
+          "detailedDescription": "La nostra gamma per la protezione di occhi e viso include occhiali di sicurezza, occhiali a mascherina e visiere con protezione da arco elettrico, progettati secondo la EN 166 e standard correlati. Massima chiarezza e comfort con trattamenti antiappannanti e antigraffio, filtri UV e opzioni per protezione IR. Ideale per manifattura, edilizia e manutenzione elettrica."
         }
       },
       "industries": {
@@ -459,8 +490,45 @@
           "title": "Protezione vie respiratorie",
           "description": "Dispositivi di protezione respiratoria avanzati per ambienti pericolosi",
           "detailedDescription": "I nostri dispositivi per la protezione delle vie respiratorie forniscono una protezione avanzata contro i contaminanti aerodispersi in ambienti industriali. Dalle maschere antipolvere ai respiratori facciali completi, i nostri prodotti sono progettati per soddisfare i più alti standard di sicurezza garantendo comfort durante l'uso prolungato. Essenziali per costruzioni, produzione, lavorazione chimica e qualsiasi ambiente con contaminanti aerodispersi."
-        }
+        },
+        "hearing": {
+          "badge": "Protezione uditiva",
+          "title": "Protezione uditiva",
+          "description": "Dispositivi per la protezione dell'udito in ambienti rumorosi",
+          "detailedDescription": "La nostra gamma per la protezione uditiva include tappi auricolari monouso e cuffie antirumore montate su elmetto, progettati secondo lo standard EN 352. Soluzioni studiate per ridurre l'esposizione a livelli sonori dannosi mantenendo comfort anche per utilizzi prolungati. Ideali per manifattura, edilizia, aviazione e industria pesante."
+        },
+        "armProtection": {
+          "badge": "Protezione braccia",
+          "title": "Protezione braccia",
+          "description": "Manicotti antitaglio e protezione avambraccio per applicazioni industriali",
+          "detailedDescription": "La nostra gamma per la protezione delle braccia offre affidabile resistenza al taglio e copertura dell'avambraccio per ambienti industriali impegnativi. Realizzati con fibre avanzate e costruzione durevole, i nostri manicotti garantiscono comfort e vestibilità sicura con opzioni come passante per pollice e sistemi di chiusura, aiutando gli operatori a lavorare in sicurezza nella movimentazione di spigoli taglienti, vetro e parti metalliche."
+        },
+        "footwear": {
+          "badge": "Calzature di sicurezza",
+          "title": "Calzature di sicurezza",
+          "description": "Scarponcini e accessori professionali",
+          "detailedDescription": "La nostra gamma di calzature di sicurezza include robusti stivali S3/S3L e accessori ergonomici progettati secondo la norma EN ISO 20345. Pensati per comfort e protezione in ambienti impegnativi, con proprietà antiscivolo, resistenza termica e prestazioni durature."
+        },
+        "head": {
+          "badge": "Protezione della testa",
+          "title": "Protezione della testa",
+          "description": "Caschi di sicurezza e berretti antiurto per ambienti industriali",
+          "detailedDescription": "La nostra gamma per la protezione della testa include caschi di sicurezza e berretti antiurto progettati secondo le norme EN 397, EN 50365 ed EN 812. Opzioni disponibili: prestazioni a bassa temperatura, protezione da schizzi di metallo fuso, isolamento elettrico, ventilazione e compatibilità con visiere e cuffie antirumore."
+        },
+        "eyeFace": {
+          "badge": "Protezione occhi e viso",
+          "title": "Protezione occhi e viso",
+          "description": "Occhiali e visiere protettive per ambienti industriali",
+          "detailedDescription": "La nostra gamma per la protezione di occhi e viso include occhiali di sicurezza, occhiali a mascherina e visiere con protezione da arco elettrico, progettati secondo la EN 166 e standard correlati. Massima chiarezza e comfort con trattamenti antiappannanti e antigraffio, filtri UV e opzioni per protezione IR. Ideale per manifattura, edilizia e manutenzione elettrica."
+        },
+      "clothing": {
+        "badge": "Abbigliamento protettivo",
+        "title": "Abbigliamento protettivo e da lavoro",
+        "description": "Giacche alta visibilità e multirischio per ambienti industriali",
+        "detailedDescription": "La nostra gamma di abbigliamento protettivo include capi ad alta visibilità e giacche multirischio certificate secondo le norme EN, garantendo visibilità, protezione dal calore e dall'arco, prestazioni antistatiche e protezione chimica selettiva. Progettati per durata e comfort in edilizia, utilities, manifattura e logistica."
+      }
       },
+
       "pages": {
         "heat": {
           "badge": "Protezione da rischi termici",
@@ -524,12 +592,31 @@
       "resultsCount": "{count} risultati",
       "contentType": "Tipo di Contenuto", 
       "category": "Categoria",
+        "sleeveLength": "Lunghezza manicotto",
+        "thumbLoop": "Passante per pollice",
+        "closureType": "Tipo di chiusura",
+        "connection": "Attacco",
+        "filterType": "Tipo di filtro",
+        "protectionClass": "Classe di protezione",
         "temperature": "Resistenza alla Temperatura",
       "subCategory": "Sottocategoria",
         "temperatureRating": "Resistenza alla Temperatura",
+        "snr": "SNR",
+        "en352Part": "Parte EN 352",
+        "reusable": "Riutilizzabile",
+        "mountType": "Tipo di montaggio",
+        "bluetooth": "Bluetooth",
       "cutLevel": "Livello Resistenza Taglio",
       "heatLevel": "Livello Resistenza Calore",
       "hazardProtection": "Protezione dai Rischi",
+      "length": "Lunghezza",
+      "min": "Min",
+      "max": "Max",
+      "padSize": "Dimensione tampone",
+      "diameter": "Diametro (mm)",
+      "padLength": "Lunghezza tampone (mm)",
+      "material": "Materiale",
+      "ceCategory": "Categoria CE",
       "hazardProtectionItems": {
         "generalMechanical": "Rischi meccanici generali",
         "highCutRisks": "Rischi di taglio elevati",
@@ -553,7 +640,27 @@
       "mechanicalHazardsGloves": "Guanti per Rischi Meccanici",
       "weldingGlove": "Guanti da Saldatura",
       "industrialSwabs": "Tamponi Industriali",
-      "respiratoryProtection": "Protezione Respiratoria"
+      "respiratoryProtection": "Protezione Respiratoria",
+      "footwearClass": "Classe calzatura",
+      "esd": "ESD",
+      "widthFit": "Larghezza pianta",
+      "sizeRange": "Intervallo taglie",
+      "toeCap": "Puntale",
+      "soleMaterial": "Materiale suola",
+      "standardCodes": "Codici standard",
+      "protectionType": "Tipo di protezione",
+      "lensTint": "Colore lente",
+      "coating": "Trattamento",
+      "uvCode": "Codice UV",
+      "brimLength": "Lunghezza visiera",
+      "lowTemperature": "Prestazioni a bassa temperatura",
+      "electricalInsulation": "Isolamento elettrico (EN 50365)",
+      "moltenMetalSplash": "Schizzi di metallo fuso (MM)",
+      "ventilation": "Ventilazione",
+      "hiVisClass": "Classe alta visibilità",
+      "flameStandard": "Norma calore/fiamma (EN ISO 11612)",
+      "arcClass": "Classe protezione arco",
+      "antistatic": "Antistatico (EN 1149-5)"
     },
     "results": {
       "showing": "{current} di {total} prodotti visualizzati",
@@ -588,6 +695,8 @@
     "productDetails": "Dettagli Prodotto",
     "technicalSpecifications": "Specifiche Tecniche",
     "materials": "Materiali",
+    "size": "Taglie",
+    "attributes": "Attributi",
     "dimensions": "Dimensioni",
     "temperatureRating": "Resistenza al Calore",
     "cutResistanceLevel": "Livello di Resistenza al Taglio",
@@ -1563,6 +1672,7 @@
     },
     "grid": {
       "searchPlaceholder": "Cerca dichiarazioni...",
+      "allLanguages": "Tutte",
       "filterByCategory": "Categorie",
       "categories": "Categorie",
       "declarations": "dichiarazioni",

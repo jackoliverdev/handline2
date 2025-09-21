@@ -14,9 +14,10 @@ interface CareerCardProps {
   post: CareerPost;
   index: number;
   language: string;
+  disableAnimation?: boolean;
 }
 
-export function CareerCard({ post, index, language }: CareerCardProps) {
+export function CareerCard({ post, index, language, disableAnimation = false }: CareerCardProps) {
   const { t } = useLanguage();
   
   // Format the date
@@ -52,12 +53,12 @@ export function CareerCard({ post, index, language }: CareerCardProps) {
   const salaryRange = (post.salary_range_locales && post.salary_range_locales[language]) || post.salary_range;
 
   const item = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 12 },
     show: { 
       opacity: 1, 
       y: 0,
       transition: {
-        duration: 0.5,
+        duration: 0.35,
         ease: "easeOut"
       }
     }
@@ -65,7 +66,11 @@ export function CareerCard({ post, index, language }: CareerCardProps) {
 
   return (
     <motion.div
-      variants={item}
+      variants={disableAnimation ? undefined : item}
+      {...(disableAnimation
+        ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.25 } }
+        : { initial: 'hidden', animate: 'show' }
+      )}
       className="group relative overflow-hidden rounded-xl border bg-white dark:bg-black/50 shadow-lg hover:shadow-2xl transition-all duration-500 border-gray-100 dark:border-gray-700/50 backdrop-blur-sm"
     >
       {/* New Badge */}
@@ -84,9 +89,10 @@ export function CareerCard({ post, index, language }: CareerCardProps) {
       
       {/* Header Section */}
       <motion.div 
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1, duration: 0.4 }}
+        {...(disableAnimation
+          ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.25 } }
+          : { initial: { opacity: 0, y: 10 }, animate: { opacity: 1, y: 0 }, transition: { delay: 0.1, duration: 0.4 } }
+        )}
         className="p-6 pb-4"
       >
         {/* Department Badge */}
@@ -143,9 +149,10 @@ export function CareerCard({ post, index, language }: CareerCardProps) {
           
           {/* Apply Button */}
           <motion.div
-            initial={{ opacity: 0, x: 10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3, duration: 0.3 }}
+            {...(disableAnimation
+              ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.25 } }
+              : { initial: { opacity: 0, x: 10 }, animate: { opacity: 1, x: 0 }, transition: { delay: 0.3, duration: 0.3 } }
+            )}
           >
             <Button 
               variant="outline" 

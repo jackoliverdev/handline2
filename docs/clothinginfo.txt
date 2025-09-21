@@ -1,0 +1,119 @@
+Product Name	type of field	suXXed construction J	suXXeed multifunction J
+Brand 1		uvex	uvex
+Brand 2			
+Tags			
+🇬🇧EN:		High-Vis, Jacket	Jacket, fire-retardant
+🇮🇹IT:		High-Vis, Alta visilitita', Giacca	Giacca, ignifugo
+Short Description			
+🇬🇧EN:		Ergonomic High-Vis Jacket	Multi-function jacket in fire-retardant fabric
+🇮🇹IT:		Giacca alta visibilita' ergonomica	Giacca multifunzione in tessuto ignifugo
+Description			
+🇬🇧EN:		Ergonomic High-Vis work jacket with "high-rise" sleeve design, reflective design elements, stand-up collar, longer back, and multiple pockets (internal/external), some with flaps.	Multi-function jacket certified for internal arc, heat, flame and chemical protection
+🇮🇹IT:		Giacca da lavoro High-Vis ergonomica con forma della manica "high-rise", elementi di design riflettenti, collo montante, parte posteriore più lunga e dotata di numerose tasche (interne/esterne), alcune con risvolto	Giacca multiuso certificata per la protezione da arco elettrico interno, calore, fiamma e sostanze chimiche
+Size	XS-4XL	XS - 4XL	S - 6XL
+Fit	text		
+🇬🇧EN:		Ergonomic	Ergonomic
+🇮🇹IT:		Ergonomico	Ergonomico
+Mens/Womens	icons? Either one or both		
+🇬🇧EN:		Men	Unisex
+🇮🇹IT:		Uomo	Unisex
+Colour	colour options 		
+🇬🇧EN:		Yellow / Dark Blue, Orange / Dark Blue	Graphite, Night Blue
+🇮🇹IT:		Giallo / Blu scuro, Arancione / Blu Scuro	Grafite, Blu scuro
+Material	text		
+🇬🇧EN:		50% CO, 50% PES	49% PPAN-FR, 42% cotton, 5% para-aramid, 3% polyamide, 1% carbon
+🇮🇹IT:		50% CO, 50% PES	49% PPAN-FR, 42% cotone, 5% para-aramide, 3% poliammide, 1% carbonio
+Category			
+🇬🇧EN:		High-visibility clothing	Safety clothing and workwear
+🇮🇹IT:		Abbigliamento ad alta visibilità	Abbigliamento protettivo e da lavoro
+Sub Category			
+🇬🇧EN:		Hi-Vis Jackets	Safety Jackets
+🇮🇹IT:		Giacche ad alta visibilità	Giacche protettive
+Safety Features (4 bullet points)			
+🇬🇧EN:		2 reflective strips each around torso and arm	"Multifunctional waist jacket in an ergonomic fit that meets a wide variety of challenges (for example, handling low 
+hazard chemicals or liquid iron - code E2)"
+		Longer back for increased protection	Attached reflex elements
+		UV protection	"This protective clothing must always be worn as a suit in combination with a jacket with 
+dungarees / trousers and closed to achieve protection levels"
+			Highly resistant and durable
+🇮🇹IT:		2 strisce riflettenti ciascuna su torace e braccia	Giacca multifunzionale a vita con vestibilità ergonomica, adatta a una vasta gamma di sfide (ad esempio, manipolazione di sostanze chimiche a basso rischio o ferro liquido – codice E2)
+		Schiena più lunga per maggiore protezione	Elementi riflettenti applicati
+		Protezione UV	Questo capo protettivo deve sempre essere indossato come completo, in combinazione con una giacca con salopette/pantaloni chiusi, per garantire i livelli di protezione
+			Altamente resistente e durevole
+Comfort Features (4 bullet points)			
+🇬🇧EN:		Ergonomic fit	Ergonomic fit with extended back part
+		Attached stand-up collar	2 side pockets with concelad zipper, 1 breast pocket with concealed velcro closure
+		Elastic in sleeve hem for regulation	Stretch inserts in the back and under sleeves
+		2 side pockets + inside pockets left and right	High-rise sleeve
+🇮🇹IT:		Vestibilità ergonomica	Vestibilità ergonomica con parte posteriore estesa
+		Collo montante integrato	2 tasche laterali con cerniera nascosta, 1 tasca sul petto con chiusura in velcro nascosta
+		Elastico sull’orlo delle maniche per regolazione	Inserti elasticizzati sulla schiena e sotto le maniche
+		2 tasche laterali + tasche interne a sinistra e a destra	Manica a “high-rise”
+Applications (4 bullet points)			
+🇬🇧EN:		Visibility near moving traffic or in construction sites	Electrical installations
+		Staff operating around forklifts and heavy equipment	Operations with low or moderate chemical hazards
+		Public service operators in low-visibility conditions	Welding work
+			
+🇮🇹IT:		Visibilità vicino a traffico in movimento o cantieri	Installazioni elettriche
+		Personale che lavora attorno a carrelli elevatori e macchinari pesanti	Operazioni in presenza di rischi chimici bassi o moderati
+		Operatori dei servizi pubblici in condizioni di scarsa visibilità	Lavori di saldatura
+			
+Industries			
+🇬🇧EN:		Construction, roadworks, warehousing, logistics	Steel production, Utilities, Automotive, Chemicals
+🇮🇹IT:		Edilizia, Cantieri stradali, Magazzinaggio, Logistica	Acciaierie, Servizi pubblici, Automobilistico, Chimico
+CE Category		II	III
+EN ISO 13688	yes/no (icon, similar to glove)		
+EN ISO 11612			TRUE
+A1/A2 = limited flame spread			A1
+B1–B3 = convective heat			B1
+C1–C4 = radiant heat			C1
+D1–D3 = molten aluminium			
+E1–E3 = molten iron			E2
+F1–F3 = contact heat			F1
+EN ISO 13997			
+EN ISO 14116	icon + Index 1,2,3		
+EN ISO 14113			
+EN343			
+Water penetration	Class 1-3		
+Breathability	Class 1-3		
+EN ISO 11611			TRUE
+Class	1/2		1
+Protection	text		A1
+IEC 61482-2	icon + Class 1-2		Class 1
+EN 13034	text string		Type 6
+EN 14605	text string		
+EN 14126	text string		
+EN ISO 20471	icon + Class 1-3	Class 2	
+EN 1150			
+UV Standard 801	icon	Yes	
+EN 17353			
+EN 1149-5	icon		TRUE
+EN 407			
+Limited Flame Spread			
+Contact Heat			
+Convective Heat			
+Radiant Heat			
+Small splashes of Molten Metal			
+Large quantities of Molten Metal			
+EN 14058			
+EN 342			
+Insulation			
+Air permeability			
+Water penetration			
+EN 469			
+EN 1073			
+EN 15614			
+Other EN Standards	list of other applicable EN standard		
+Other Standards	text only	Oeko-Tex® Standard 100	
+ENVIRONMENT			
+Dry / Asciutto	yes/no	Yes	Yes
+Wet / Umido	yes/no		Yes
+Oily or Grease / Oleoso o grasso	yes/no		
+Chemical / Chimico	yes/no		Yes
+Dust / Polveri	yes/no	Yes	Yes
+Biological contaminants / Contaminanti biologici	yes/no		
+Related Product Name 1			
+Related Product Name 2			
+Related Product Name 3			
+Related Product Name 4			
+			

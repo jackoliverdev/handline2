@@ -1,0 +1,163 @@
+Product Name	type of field	Maccrossroad 3.0 high meta	2 MACSOLE 6523 1-4
+Brand 1		Heckel	uvex
+Brand 2			
+Tags			
+🇬🇧EN:			
+🇮🇹IT:			
+Short Description			
+🇬🇧EN:		Safety boot S3/S3L class with rubber sole	Lightweight and flexible safety boot S3L class with rubber sole
+🇮🇹IT:		Scarponcino di sicurezza classe S3/S3L con suola in gomma	Scarponcini S3L leggeri e flessibili con suola in gomma
+Description			
+🇬🇧EN:		Safety boot S3/S3L class with rubber sole	Lightweight and flexible safety boot S3L class with rubber sole resistant to heat, cut and chemicals
+🇮🇹IT:		Scarponcino di sicurezza classe S3/S3L con suola in gomma	Scarponcini S3L leggeri e flessibili con suola in gomma resistente al calore, taglio e sostanze chimiche
+Mens/Womens	icons? Either one or both		
+🇬🇧EN:		Unisex	Unisex
+🇮🇹IT:		Unisex	Unisex
+Size	numeric range	36 - 48	35 - 52
+Width / Fit	normal, wide, etc	11	10, 11, 12, 14
+Colour	text list		
+🇬🇧EN:		Black	Black
+🇮🇹IT:		Nero	Nero
+Weight	number and text (e.g. 840gr at num 42)		
+🇬🇧EN:		700 gr in size 42	
+🇮🇹IT:		700 gr taglia 42	
+Category			
+🇬🇧EN:		Safety footwear	Safety footwear
+🇮🇹IT:		Calzature di sicurezza	Calzature di sicurezza
+Sub Category			
+🇬🇧EN:		Safety boots	Safety boots
+🇮🇹IT:		Stivali di sicurezza	Stivali di sicurezza
+Material	text (all sections)		
+Metal-free		Yes	Yes
+Upper			
+🇬🇧EN:		Full-grain leather	Hydrophobic leather
+🇮🇹IT:		Pelle	Pelle idrofoba
+Lining			
+🇬🇧EN:		3D mesh	Textile mesh
+🇮🇹IT:		maglia 3D	Maglia di tessuto
+Sole			
+🇬🇧EN:		Rubber	Rubber
+🇮🇹IT:		Gomma	Gomma
+Insole			
+🇬🇧EN:		Microfibre + PU foam	
+🇮🇹IT:		Microfibra + schiuma di PU	
+Toe Cap			
+🇬🇧EN:		Rubber-coated	PU foam, Plastic
+🇮🇹IT:		Rivestito in gomma	Schiuma di poliuretano, Plastica
+Safety Features (4 bullet points)			
+🇬🇧EN:		Excellent grip (SRC)	Protection class S3 in accordance with EN ISO 20345:2011, with additional marking for excellent slip resistance (SRC) and heat resistance up to +300 °C (HI HRO)
+		Oil, hydrocarbons and chemical resistant sole, for up to 300˚C	Stable posture even on ladders thanks to the stabilizing footbed support
+		Metatarsal protection 100 Joules fully integrated into the tongue	Antistatic, shock-absorbing PU midsole
+		Metal-free toe cap and penetration resistant sole	Slip, contact-heat and oil/fuel-resistant sole
+🇮🇹IT:		Eccellente aderenza (SRC)	Classe di protezione S3 in conformità alla normativa EN ISO 20345:2011 con marcatura aggiuntiva per ottime proprietà antiscivolo (SRC) e resistenza alle temperature fino a +300 °C (HI HRO)
+		Suola resistente a oli, idrocarburi e sostanze chimiche, fino a 300°C	Postura sicura anche quando sulle scale a pioli grazie al supporto plantare stabilizzante
+		Protezione del metatarso da 100 Joule completamente integrata nella linguetta	Intersuola in PU antistatica e ammortizzante
+		Punta e suola antiperforazione senza metallo	Suola resistente a scivolamento, calore da contatto e oli/carburanti
+Comfort Features (4 bullet points)			
+🇬🇧EN:		Rubber sole with insert in forefoot & heel for excellent shock absorption and flexibility	Absolute comfort thanks to an innovative concept using climate-regulating and breathable materials and perforated design
+		Ergonomic sole supports natural rolling movement of the foot  and all-terrain sole profile disperses surface debris for better grip	Seam-free upper in ultra-soft leather to eliminate pressure points
+		Ankle Guard & reinforced heel supports foot for better stability especially on uneven surfaces while retaining a high level of movement	Removable antistatic insole with moisture-wicking system and shock absorption on heel and forefoot
+		Anatomically shaped insole wih shock absorbers in the heel and forefoot and microfibre layer for better abrasion resistance	Soft padding on collar and dust-resistant tongue
+🇮🇹IT:		Suola in gomma con inserti su avampiede e tallone per eccellente assorbimento degli urti e flessibilità	Comfort assoluto grazie al concept innovativo che utilizza materiali climatizzanti e traspiranti e al design traforato
+		Suola ergonomica che supporta il naturale movimento rotatorio del piede e profilo all-terrain che disperde detriti superficiali per una migliore aderenza	Tomaia priva di cuciture in morbidissima pelle per eliminare i punti di pressione
+		Protezione caviglia e tallone rinforzato supportano il piede per maggiore stabilità, soprattutto su superfici irregolari, mantenendo comunque un alto livello di movimento	Plantare antistatico estraibile con sistema di trasporto dell'umidità e assorbimento degli urti su tallone e avampiede
+		Sottopiede anatomico con ammortizzatori su tallone e avampiede e strato in microfibra per maggiore resistenza all’abrasione	Morbida imbottitura su collarino e linguetta antipolvere
+Applications (4 bullet points)			
+🇬🇧EN:		Activities with high risk of slipping	Moderate applications, requiring high sole durability
+		Presence of chemicals and oil/hydrocarbons	Activities in indoor and outdoor environments
+		Activities with risk of objects falling on the metatarsals	Operations in challenging ground conditions
+			
+🇮🇹IT:		Attività ad alto rischio di scivolamento	Applicazioni moderate, con necessita' di alta robustezza della suola
+		Presenza di sostanze chimiche e oli/idrocarburi	Attivita' in ambiente interno ed esterno
+		Operazioni in presenza di rischio caduta oggetti sul metatarso	Operazioni con difficili condizioni del suolo
+			
+Industries			
+🇬🇧EN:		Utilities, Construction, Oil&Gas, Heavy industry, Rail, Ports, Defense, Agriculture	Utilities, Construction, Oil&Gas, Heavy industry, Rail, Ports, Defense, Agriculture
+🇮🇹IT:		Servizi pubblici, costruzioni, petrolio e gas, industria pesante, settore ferroviario, porti, difesa e agricoltura	Servizi pubblici, costruzioni, petrolio e gas, industria pesante, settore ferroviario, porti, difesa e agricoltura
+CE Category		II	II
+ESD	Yes/No	No	Yes
+EN ISO 20345:2011	text string. Each letter refers to protections and characteristics S3 HI HRO SRA	S3 CI HI HRO M SRC	
+Slip resistance (EN ISO 20345:2011)		SRC	
+EN ISO 20345:2022	 S3 FO HI HRO	S3L FO M CI HI HRO SC SR	S3L FO HI HRO SC SR 
+Class		S3L	S3L
+Special applications			
+Perforation resistance, non-metallic insert, 4.5 mm test nail (PL)			
+Perforation resistance, non-metallic insert, 3.0 mm test nail (PS)			
+Perforation resistance, metal insert (P)			
+Partly conductive footwear (C)			
+Anti-static footwear (A)			
+Heat insulation of the sole complex (HI)		Yes	Yes
+Cold insulation of the sole complex (CI)		Yes	
+Energy absoption of the seat region (E)			
+Water resistance (WR)			
+Metatarsal protection (M)		Yes	
+Ankle protection (AN)			
+Cut resistance of the upper part of the shoe (CR)			
+Abrasion resistance of optional overcaps (SC)			
+Slip resistance on ceramic tile floors with glycerol (SR)		Yes	Yes
+Water penetration and absorption (WPA)			Yes
+Heat resistance of the outsole (HRO)		Yes	Yes
+Fuel resistance and oil resistance (FO)		Yes	Yes
+Outsoles provide hold on ladders (LG)			
+Other EN Standards	text field as there are 9 other standards but very rarely used (super niche) so I'd rather just put the text to say it's certified for whatever it is		DGUV 112-191
+Related Product Name 1			
+Related Product Name 2			
+Related Product Name 3			
+Related Product Name 4			
+
+
+
+Product Name	type of field	tune-up insole
+Brand 1		uvex
+Brand 2		
+Tags		
+🇬🇧EN:		
+🇮🇹IT:		
+Short Description		
+🇬🇧EN:		Antistatic insole for safety footwear
+🇮🇹IT:		Suoletta antistatica per calzature antinfortunistiche
+Description		
+🇬🇧EN:		"Antistatic insole for use in safety 
+footwear. Designed to reduce fatigue by 
+increasing wearer comfort and enhancing 
+ergonomics by optimum support of the arch of 
+the feet. 
+Available with 3 different arch support: High, 
+Medium, Low"
+🇮🇹IT:		"Sottopiede antistatico per utilizzo nelle calzature di sicurezza. Progettato per ridurre l’affaticamento aumentando il comfort dell’utilizzatore e migliorando l’ergonomia grazie al supporto ottimale dell’arco plantare.
+Disponibile con 3 diversi livelli di supporto dell’arco plantare: Alto, Medio, Basso"
+Mens/Womens	icons? Either one or both	
+🇬🇧EN:		Unisex
+🇮🇹IT:		Unisex
+Size	numeric range	35 - 52
+Width / Fit	normal, wide, etc	11
+Colour	text list	
+🇬🇧EN:		Black / Blue - Black / Grey - Black / Orange
+🇮🇹IT:		Nero / Blu - Nero / Gridio - Nero / Arancione
+Category		
+🇬🇧EN:		Safety footwear
+🇮🇹IT:		Calzature di sicurezza
+Sub Category		
+🇬🇧EN:		Insoles and accessories
+🇮🇹IT:		Plantari e accessori
+Material	text 	
+🇬🇧EN:		Insoles and accessories
+🇮🇹IT:		Microvelluto, Poliuretano (PU)
+Key Features (6 bullet points)		
+🇬🇧EN:		Certified with the corrsponding safety shoe in accordance with EN ISO 20145
+		Breathable, moisture-absorbing insole
+		Useable for ESD-footwear
+		Very good cushioning to reduce fatigue of the feet
+		Non-irritating surface structure
+		Antibacterial and antistatic
+🇮🇹IT:		Certificato con la corrispondente scarpa di sicurezza in conformità alla norma EN ISO 20145
+		Soletta traspiranti e che assorbono l'umidità
+		Utilizzabile per calzature ESD
+		Ottima ammortizzazione per ridurre l’affaticamento dei piedi
+		Struttura superficiale non irritante
+		Antibatterico e antistatico
+Related Product Name 1		
+Related Product Name 2		
+Related Product Name 3		
+Related Product Name 4		
+		

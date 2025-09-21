@@ -112,9 +112,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
     setShowPreviewModal(false);
   };
 
-  // Use the original English name for URL generation (not localized)
-  // This ensures URLs work consistently across language changes
-  const encodedProductName = encodeURIComponent(product.name);
+  // Always build URLs from the English name to keep slugs stable across locales
+  const slugSource = (product as any).name_locales?.en || product.name;
+  const encodedProductName = encodeURIComponent(slugSource);
 
   // Get applications with conditional limit based on number of standards shown
   const hasMultipleStandards = !!(product.cut_resistance_level && product.heat_resistance_level);

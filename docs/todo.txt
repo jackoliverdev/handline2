@@ -2,4 +2,8 @@
 - Italian Transaltions
 ✅ Blog edits
 ✅ EN Resource Center
-- Other products
+✅ Products DOCs
+✅ Other products
+- clean up all new products
+- Update all products categories, not gloves bit actual categories now, filter open on category
+- Admin to upload other products - category at top, current gloves
