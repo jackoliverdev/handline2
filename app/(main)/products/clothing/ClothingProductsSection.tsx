@@ -11,6 +11,11 @@ import { HiVisClassFilterMobile } from "@/components/website/products/filters/cl
 import { ArcClassFilterMobile } from "@/components/website/products/filters/clothing/ArcClassFilterMobile";
 import { FlameStandardFilterMobile } from "@/components/website/products/filters/clothing/FlameStandardFilterMobile";
 import { AntistaticFilterMobile } from "@/components/website/products/filters/clothing/AntistaticFilterMobile";
+import { ClothingTypeFilter } from "@/components/website/products/filters/clothing/ClothingTypeFilter";
+import { ClothingTypeFilterMobile } from "@/components/website/products/filters/clothing/ClothingTypeFilterMobile";
+import { ClothingCategoryFilter } from "@/components/website/products/filters/clothing/ClothingCategoryFilter";
+import { ClothingCategoryFilterMobile } from "@/components/website/products/filters/clothing/ClothingCategoryFilterMobile";
+import { CLOTHING_TYPE_TO_CATEGORIES } from "@/content/clothing-categories";
 
 // Clothing – targeted filters (few and focused)
 // We'll add small inline filter UIs here to avoid creating many files.
@@ -37,9 +42,10 @@ function ToggleRow({ label, value, onChange }: { label: string; value: boolean; 
 
 interface ClothingProductsSectionProps {
   products: Product[];
+  pinnedClothingType?: 'welding' | 'high-visibility' | 'safety-workwear';
 }
 
-export function ClothingProductsSection({ products }: ClothingProductsSectionProps) {
+export function ClothingProductsSection({ products, pinnedClothingType }: ClothingProductsSectionProps) {
   // Scope: clothing by EN/IT category/subcategory
   const clothingProducts = useMemo(() => {
     return products.filter((p) => {
@@ -59,6 +65,8 @@ export function ClothingProductsSection({ products }: ClothingProductsSectionPro
   const [hasFlameStd, setHasFlameStd] = useState<boolean>(false); // EN ISO 11612
   const [arcClasses, setArcClasses] = useState<number[]>([]); // IEC 61482-2 class
   const [antistatic, setAntistatic] = useState<boolean>(false); // EN 1149-5
+  const [clothingTypes, setClothingTypes] = useState<string[]>(pinnedClothingType ? [pinnedClothingType] : []);
+  const [clothingCategories, setClothingCategories] = useState<string[]>([]);
 
   // Build options from dataset
   const hiVisOptions = useMemo(() => {
@@ -79,8 +87,21 @@ export function ClothingProductsSection({ products }: ClothingProductsSectionPro
     return Array.from(s).sort((a,b)=>a-b);
   }, [clothingProducts]);
 
+  const clothingTypeOptions = useMemo(() => ['welding','high-visibility','safety-workwear'], []);
+  const clothingCategoryOptions = useMemo(() => {
+    const types = (clothingTypes.length > 0 ? clothingTypes : ['welding','high-visibility','safety-workwear']) as Array<'welding'|'high-visibility'|'safety-workwear'>;
+    if (pinnedClothingType) return CLOTHING_TYPE_TO_CATEGORIES[pinnedClothingType];
+    const s = new Set<string>();
+    types.forEach(t => CLOTHING_TYPE_TO_CATEGORIES[t].forEach(c => s.add(c)));
+    return Array.from(s);
+  }, [clothingTypes, pinnedClothingType]);
+
   const extraFilters = (
     <>
+      {!pinnedClothingType && (
+        <ClothingTypeFilter options={clothingTypeOptions} selected={clothingTypes} onToggle={(v: string)=> setClothingTypes(prev => prev.includes(v) ? prev.filter((x: string)=>x!==v) : [...prev, v])} defaultOpen={!pinnedClothingType} />
+      )}
+      <ClothingCategoryFilter options={clothingCategoryOptions} selected={clothingCategories} onToggle={(v: string)=> setClothingCategories(prev => prev.includes(v) ? prev.filter((x: string)=>x!==v) : [...prev, v])} defaultOpen={!!pinnedClothingType} />
       <HiVisClassFilter options={hiVisOptions} selected={hiVisClasses} onToggle={(c) => setHiVisClasses(prev => prev.includes(c) ? prev.filter(x => x !== c) : [...prev, c])} />
       <FlameStandardFilter value={hasFlameStd} onChange={setHasFlameStd} />
       <ArcClassFilter options={arcOptions} selected={arcClasses} onToggle={(c) => setArcClasses(prev => prev.includes(c) ? prev.filter(x => x !== c) : [...prev, c])} />
@@ -90,6 +111,10 @@ export function ClothingProductsSection({ products }: ClothingProductsSectionPro
 
   const extraFiltersMobile = (
     <>
+      {!pinnedClothingType && (
+        <ClothingTypeFilterMobile options={clothingTypeOptions} selected={clothingTypes} onToggle={(v: string)=> setClothingTypes(prev => prev.includes(v) ? prev.filter((x: string)=>x!==v) : [...prev, v])} />
+      )}
+      <ClothingCategoryFilterMobile options={clothingCategoryOptions} selected={clothingCategories} onToggle={(v: string)=> setClothingCategories(prev => prev.includes(v) ? prev.filter((x: string)=>x!==v) : [...prev, v])} />
       <HiVisClassFilterMobile options={hiVisOptions} selected={hiVisClasses} onToggle={(c) => setHiVisClasses(prev => prev.includes(c) ? prev.filter(x => x !== c) : [...prev, c])} />
       <FlameStandardFilterMobile value={hasFlameStd} onChange={setHasFlameStd} />
       <ArcClassFilterMobile options={arcOptions} selected={arcClasses} onToggle={(c) => setArcClasses(prev => prev.includes(c) ? prev.filter(x => x !== c) : [...prev, c])} />
@@ -108,7 +133,9 @@ export function ClothingProductsSection({ products }: ClothingProductsSectionPro
     const flOk = hasFlameStd ? !!fl : true;
     const arcOk = arcClasses.length === 0 ? true : (typeof arc === 'number' && arcClasses.includes(arc));
     const antiOk = antistatic ? !!anti : true;
-    return visOk && flOk && arcOk && antiOk;
+    const typeOk = clothingTypes.length === 0 ? true : clothingTypes.includes(((p as any).clothing_type || '').toLowerCase());
+    const catOk = clothingCategories.length === 0 ? true : clothingCategories.includes(((p as any).clothing_category || ''));
+    return visOk && flOk && arcOk && antiOk && typeOk && catOk;
   };
 
   return (
@@ -116,6 +143,9 @@ export function ClothingProductsSection({ products }: ClothingProductsSectionPro
       <div className="container mx-auto px-4 sm:px-6">
         <ProductGrid
           products={clothingProducts}
+          hideCategoryFilters={true}
+          categoryExpandedDefault={false}
+          subCategoryExpandedDefault={false}
           extraFiltersRender={extraFilters}
           extraFiltersRenderMobile={extraFiltersMobile}
           extraFilterPredicate={predicate}

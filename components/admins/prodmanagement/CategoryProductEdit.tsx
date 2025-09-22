@@ -17,6 +17,7 @@ import { toast } from "@/components/ui/use-toast";
 import { getProductById, updateProduct, deleteProduct, uploadProductImage, Product } from "@/lib/products-service";
 import { ArrowLeft, Save, Trash, Upload, X, Plus, Tag } from "lucide-react";
 import Link from "next/link";
+import { CLOTHING_TYPE_TO_CATEGORIES } from "@/content/clothing-categories";
 
 interface Props { id: string; slug: string; }
 
@@ -75,6 +76,8 @@ export default function CategoryProductEdit({ id, slug }: Props) {
   const [headAttributes, setHeadAttributes] = useState<any>({ form_factor: '', brim_length: '', size_min_cm: null, size_max_cm: null, weight_g: null, colours: [], ventilation: null, harness_points: null, chinstrap_points: null, sweatband: null, closed_shell: null, euroslot_mm: null, accessories: [] });
   const [clothingStandards, setClothingStandards] = useState<any>({ en_iso_20471: { class: null }, en_iso_11612: {}, iec_61482_2: { class: null }, en_1149_5: false });
   const [clothingAttributes, setClothingAttributes] = useState<any>({ fit: '', gender: '', size_range: '', colours: [], uv_protection: null });
+  const [clothingType, setClothingType] = useState<string>('');
+  const [clothingCategory, setClothingCategory] = useState<string>('');
   const [armAttributes, setArmAttributes] = useState<any>({ thumb_loop: null, closure: '' });
   // Gloves safety JSON
   const defaultSafety: any = { en_388: { enabled: false, abrasion: null, cut: null, tear: null, puncture: null, iso_13997: null, impact_en_13594: null }, en_407: { enabled: false, contact_heat: null, radiant_heat: null, convective_heat: null, limited_flame_spread: null, small_splashes_molten_metal: null, large_quantities_molten_metal: null }, en_511: { enabled: false, contact_cold: null, convective_cold: null, water_permeability: null } };
@@ -143,6 +146,8 @@ export default function CategoryProductEdit({ id, slug }: Props) {
         setHeadAttributes((product as any).head_attributes || { form_factor: '', brim_length: '', size_min_cm: null, size_max_cm: null, weight_g: null, colours: [], ventilation: null, harness_points: null, chinstrap_points: null, sweatband: null, closed_shell: null, euroslot_mm: null, accessories: [] });
         setClothingStandards((product as any).clothing_standards || { en_iso_20471: { class: null }, en_iso_11612: {}, iec_61482_2: { class: null }, en_1149_5: false });
         setClothingAttributes((product as any).clothing_attributes || { fit: '', gender: '', size_range: '', colours: [], uv_protection: null });
+        setClothingType((product as any).clothing_type || '');
+        setClothingCategory((product as any).clothing_category || '');
         setArmAttributes((product as any).arm_attributes || { thumb_loop: null, closure: '' });
         setSafety((product as any).safety && typeof (product as any).safety === 'object' ? (product as any).safety : defaultSafety);
         // Respiratory
@@ -223,6 +228,8 @@ export default function CategoryProductEdit({ id, slug }: Props) {
         head_attributes: headAttributes,
         clothing_standards: clothingStandards,
         clothing_attributes: clothingAttributes,
+        clothing_type: clothingType || null,
+        clothing_category: clothingCategory || null,
         arm_attributes: armAttributes,
         respiratory_standards: respiratoryStandards,
         connections: respConnections,
@@ -636,6 +643,30 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-3">
                       <Label className="font-medium">Attributes</Label>
+                      <div className="space-y-1">
+                        <Label>Clothing Type</Label>
+                        <Select value={clothingType || 'none'} onValueChange={(v)=> setClothingType(v === 'none' ? '' : v)}>
+                          <SelectTrigger><SelectValue placeholder="None" /></SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="none">None</SelectItem>
+                            <SelectItem value="welding">Welding clothing</SelectItem>
+                            <SelectItem value="high-visibility">High-visibility clothing</SelectItem>
+                            <SelectItem value="safety-workwear">Safety clothing and Workwear</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="space-y-1">
+                        <Label>Clothing Category</Label>
+                        <Select disabled={!clothingType} value={clothingCategory || 'none'} onValueChange={(v)=> setClothingCategory(v === 'none' ? '' : v)}>
+                          <SelectTrigger><SelectValue placeholder={!clothingType ? 'Select type first' : 'None'} /></SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="none">None</SelectItem>
+                            {(clothingType && CLOTHING_TYPE_TO_CATEGORIES[clothingType as keyof typeof CLOTHING_TYPE_TO_CATEGORIES] || []).map((opt) => (
+                              <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
                       <div className="space-y-1"><Label>Fit</Label><Input value={clothingAttributes.fit || ''} onChange={(e)=> setClothingAttributes({ ...clothingAttributes, fit: e.target.value })} /></div>
                       <div className="space-y-1"><Label>Size range</Label><Input value={clothingAttributes.size_range || ''} onChange={(e)=> setClothingAttributes({ ...clothingAttributes, size_range: e.target.value })} /></div>
                       <div className="flex items-center gap-2"><Checkbox checked={clothingAttributes.uv_protection === true} onCheckedChange={(v)=> setClothingAttributes({ ...clothingAttributes, uv_protection: v ? true : false })} /><span>UV protection</span></div>

@@ -57,10 +57,17 @@ export function DeclarationsHero({ language }: DeclarationsHeroProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...SPRING_CONFIG, delay: 0.2 }}
-            className="mb-6 md:mb-10"
+            className="mb-6 md:mb-10 space-y-3 md:space-y-4"
           >
-            <p className="max-w-2xl text-base md:text-lg text-brand-secondary dark:text-gray-300">
+            <p className="max-w-3xl text-base md:text-lg text-brand-secondary dark:text-gray-300">
               {t('declarations.hero.description')}
+            </p>
+            <p className="max-w-3xl mx-auto text-center text-sm md:text-base text-brand-secondary dark:text-gray-300">
+              {t('declarations.hero.contactLine.before')} {" "}
+              <Link href="/contact" className="text-brand-primary underline underline-offset-2 hover:opacity-80">
+                {t('declarations.hero.contactLine.linkText')}
+              </Link>{" "}
+              {t('declarations.hero.contactLine.after')}
             </p>
           </motion.div>
 

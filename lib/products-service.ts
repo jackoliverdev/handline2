@@ -224,6 +224,9 @@ export interface Product {
     colours?: string[] | null;
     uv_protection?: boolean | null;
   } | null;
+  // Clothing taxonomy
+  clothing_type?: string | null; // 'welding' | 'high-visibility' | 'safety-workwear'
+  clothing_category?: string | null; // subtype per clothing_type
 }
 
 export function localiseProduct(product: Product, language: Language): Product {

@@ -334,7 +334,7 @@ export function ProductList({ products }: ProductListProps) {
                               <DropdownMenuTrigger asChild>
                                 <Button variant="outline" size="sm" className="rounded-l-none px-2 bg-white dark:bg-black/50 border-brand-primary/30 text-brand-primary hover:bg-brand-primary hover:text-white dark:hover:bg-brand-primary shadow-sm hover:shadow-md" aria-label="Select EU DoC language"><ChevronDown className="h-4 w-4" /></Button>
                               </DropdownMenuTrigger>
-                              <DropdownMenuContent align="end" className="w-44 max-h-96 overflow-y-auto">
+                              <DropdownMenuContent align="end" className="w-60 max-h-96 overflow-y-auto">
                                 <DropdownMenuLabel>Language</DropdownMenuLabel>
                                 <DropdownMenuSeparator />
                                 {DECLARATION_FILTERS.filter((opt) => opt.value !== 'all').map((opt) => {
@@ -393,7 +393,7 @@ export function ProductList({ products }: ProductListProps) {
                               <ChevronDown className="h-4 w-4" />
                             </Button>
                           </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end" className="w-56 max-h-80 overflow-y-auto">
+                          <DropdownMenuContent align="end" className="w-60 max-h-80 overflow-y-auto">
                             <DropdownMenuLabel>Language</DropdownMenuLabel>
                             <DropdownMenuSeparator />
                           {DECLARATION_FILTERS.filter((opt) => opt.value !== 'all').map((opt) => {

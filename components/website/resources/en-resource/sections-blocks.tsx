@@ -8,6 +8,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { PPESection } from '@/lib/ppe-standards/types';
 import { useLanguage } from '@/lib/context/language-context';
 import { supabase } from '@/lib/supabase';
+import { SectionImagesGallery } from '@/components/website/resources/shared/SectionImagesGallery';
 
 interface Props {
   sections: PPESection[];
@@ -32,7 +33,12 @@ export function ENResourceSectionsBlocks({ sections }: Props) {
             className="grid grid-cols-1 md:grid-cols-5 gap-6 items-start rounded-2xl bg-white dark:bg-black/40 border border-gray-200 dark:border-gray-700 shadow-sm p-5 md:p-6"
           >
             <div className="md:col-span-3">
-              <h3 className="text-xl md:text-2xl font-semibold text-brand-dark dark:text-white">
+              <h3 className="flex items-center gap-2 text-xl md:text-2xl font-semibold text-brand-dark dark:text-white">
+                {(s as any).iconUrl && (
+                  <span className="relative inline-block h-6 w-6 md:h-7 md:w-7">
+                    <Image src={(s as any).iconUrl} alt="section icon" fill className="object-contain" />
+                  </span>
+                )}
                 {title}
               </h3>
               {intro && (
@@ -48,10 +54,17 @@ export function ENResourceSectionsBlocks({ sections }: Props) {
                   ))}
                 </ul>
               )}
+              {/* images grid rendered full-width below */}
             </div>
-            <div className="md:col-span-2 relative aspect-[16/10] w-full overflow-hidden rounded-xl">
-              <SectionRelatedProducts ids={s.relatedProductIds || []} lang={language} />
+            <div className="md:col-span-2 relative w-full rounded-xl">
+              <SectionRelatedProducts ids={s.relatedProductIds || []} lang={language} captions={(s as any).relatedProductCaptions} />
             </div>
+            {/* Full-width horizontal gallery below content when available */}
+            {(s as any).extraImages && (s as any).extraImages.length > 0 && (
+              <div className="md:col-span-5">
+                <SectionImagesGallery images={(s as any).extraImages} />
+              </div>
+            )}
           </motion.article>
           );
         })}
@@ -65,9 +78,10 @@ export function ENResourceSectionsBlocks({ sections }: Props) {
 interface SectionRelatedProductsProps {
   ids: string[];
   lang: 'en' | 'it';
+  captions?: Record<string, Record<string, string>>;
 }
 
-function SectionRelatedProducts({ ids, lang }: SectionRelatedProductsProps) {
+function SectionRelatedProducts({ ids, lang, captions }: SectionRelatedProductsProps) {
   const [products, setProducts] = useState<any[]>([]);
   const [index, setIndex] = useState(0);
 
@@ -109,6 +123,9 @@ function SectionRelatedProducts({ ids, lang }: SectionRelatedProductsProps) {
 
   const product = products[index];
   const name: string = (product?.name_locales?.[lang]) || product?.name || '';
+  const caption: string | undefined = captions?.[product?.id]?.[lang] || captions?.[product?.id]?.['en'] || undefined;
+  // Attempt to read caption from injected relatedProductCaptions if present on the parent section prop (via closure capture not available here),
+  // so we rely on a data attribute passed through ids? As a simpler approach, read from product object if backend later adds it. For now, just noop.
   const encoded = encodeURIComponent(name);
 
   const canSlide = products.length > 1;
@@ -117,31 +134,31 @@ function SectionRelatedProducts({ ids, lang }: SectionRelatedProductsProps) {
   const next = () => setIndex((i) => (i + 1) % products.length);
 
   return (
-    <div className="relative w-full h-full">
-      <Link href={`/products/${encoded}`} className="absolute inset-0">
-        {/* Image */}
-        {product?.image_url ? (
-          <Image src={product.image_url} alt={name} fill className="object-contain bg-white" />
-        ) : (
-          <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700" />
-        )}
+    <div className="relative w-full">
+      <Link href={`/products/${encoded}`} className="block group">
+        <div className="relative w-full aspect-[16/10] bg-white dark:bg-black rounded-xl overflow-hidden">
+          {product?.image_url ? (
+            <Image src={product.image_url} alt={name} fill className="object-contain" />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700" />
+          )}
+        </div>
+        <div className="px-3 py-2 bg-white dark:bg-black">
+          <p className="text-sm md:text-base font-medium text-brand-dark dark:text-white truncate group-hover:text-[#F28C38] transition-colors">{name}</p>
+          {caption && (
+            <p className="text-xs text-brand-secondary dark:text-gray-300 truncate group-hover:text-[#F28C38]/90 transition-colors">{caption}</p>
+          )}
+        </div>
       </Link>
 
-      {/* Bottom caption */}
-      <div className="absolute bottom-0 left-0 right-0 bg-white/90 dark:bg-black/70 backdrop-blur-sm px-3 py-2">
-        <Link href={`/products/${encoded}`} className="block">
-          <p className="text-sm md:text-base font-medium text-brand-dark dark:text-white truncate">{name}</p>
-        </Link>
-      </div>
-
-      {/* Arrows */}
+      {/* Arrows over the image area */}
       {canSlide && (
         <>
           <button
             type="button"
             aria-label="Previous"
             onClick={prev}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-[#F5EFE0]/95 dark:bg-[#121212]/90 rounded-full p-1.5 border border-brand-primary/30 hover:bg-brand-primary hover:text-white transition-colors"
+            className="absolute left-2 top-[calc(16/10*50%)] -translate-y-1/2 z-10 bg-[#F5EFE0]/95 dark:bg-[#121212]/90 rounded-full p-1.5 border border-brand-primary/30 hover:bg-brand-primary hover:text-white transition-colors"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
@@ -149,7 +166,7 @@ function SectionRelatedProducts({ ids, lang }: SectionRelatedProductsProps) {
             type="button"
             aria-label="Next"
             onClick={next}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-[#F5EFE0]/95 dark:bg-[#121212]/90 rounded-full p-1.5 border border-brand-primary/30 hover:bg-brand-primary hover:text-white transition-colors"
+            className="absolute right-2 top-[calc(16/10*50%)] -translate-y-1/2 z-10 bg-[#F5EFE0]/95 dark:bg-[#121212]/90 rounded-full p-1.5 border border-brand-primary/30 hover:bg-brand-primary hover:text-white transition-colors"
           >
             <ChevronRight className="h-5 w-5" />
           </button>

@@ -23,6 +23,10 @@ export interface PPESectionRecord {
   intro_locales: Record<string, string>;
   bullets_locales: Record<string, string[]> | string[]; // tolerate array-only legacy
   image_url?: string | null;
+  extra_images?: SectionImageEntry[]; // jsonb gallery with captions
+  related_product_captions?: Record<string, Record<string, string>>; // { productId: { en?: string, it?: string } }
+  standard_icon_id?: string | null;
+  icon_url?: string | null;
   related_product_ids: string[];
   sort_order: number;
   published: boolean;
@@ -53,6 +57,10 @@ export interface PPESection {
   intro: string;
   bullets: string[];
   imageUrl?: string | null;
+  extraImages?: SectionImageEntry[];
+  relatedProductCaptions?: Record<string, Record<string, string>>;
+  iconUrl?: string | null;
+  standardIconId?: string | null;
   relatedProductIds: string[];
   sortOrder: number;
   // raw locales for client-side re-localisation
@@ -66,5 +74,10 @@ export interface PPESectionDetail extends PPESection {
 }
 
 export type PPELanguage = Language;
+
+export interface SectionImageEntry {
+  url: string;
+  caption_locales?: Record<string, string>;
+}
 
 

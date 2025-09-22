@@ -415,18 +415,18 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                     <span>{t('navbar.resourcesDropdown.enResourceCentre')}</span>
                   </Link>
                   <Link 
-                    href="/resources/product-disclaimer" 
-                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-                    onClick={onClose}
-                  >
-                    <span>{t('navbar.resourcesDropdown.productDisclaimer')}</span>
-                  </Link>
-                  <Link 
                     href="/resources/declarations" 
                     className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     onClick={onClose}
                   >
                     <span>{t('navbar.resourcesDropdown.declarations')}</span>
+                  </Link>
+                  <Link 
+                    href="/resources/product-disclaimer" 
+                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                    onClick={onClose}
+                  >
+                    <span>{t('navbar.resourcesDropdown.productDisclaimer')}</span>
                   </Link>
                 </div>
               )}

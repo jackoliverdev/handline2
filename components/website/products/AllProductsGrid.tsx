@@ -67,6 +67,20 @@ import { VentilationFilterMobile } from "@/components/website/products/filters/h
 import { EnStandardFilter } from "@/components/website/products/filters/head/EnStandardFilter";
 import { EnStandardFilterMobile } from "@/components/website/products/filters/head/EnStandardFilterMobile";
 import { FilterSection } from "@/components/website/products/filters/FilterSection";
+// Protective clothing filters
+import { ClothingTypeFilter } from "@/components/website/products/filters/clothing/ClothingTypeFilter";
+import { ClothingCategoryFilter } from "@/components/website/products/filters/clothing/ClothingCategoryFilter";
+import { HiVisClassFilter } from "@/components/website/products/filters/clothing/HiVisClassFilter";
+import { FlameStandardFilter } from "@/components/website/products/filters/clothing/FlameStandardFilter";
+import { ArcClassFilter } from "@/components/website/products/filters/clothing/ArcClassFilter";
+import { AntistaticFilter } from "@/components/website/products/filters/clothing/AntistaticFilter";
+import { ClothingTypeFilterMobile } from "@/components/website/products/filters/clothing/ClothingTypeFilterMobile";
+import { ClothingCategoryFilterMobile } from "@/components/website/products/filters/clothing/ClothingCategoryFilterMobile";
+import { HiVisClassFilterMobile } from "@/components/website/products/filters/clothing/HiVisClassFilterMobile";
+import { FlameStandardFilterMobile } from "@/components/website/products/filters/clothing/FlameStandardFilterMobile";
+import { ArcClassFilterMobile } from "@/components/website/products/filters/clothing/ArcClassFilterMobile";
+import { AntistaticFilterMobile } from "@/components/website/products/filters/clothing/AntistaticFilterMobile";
+import { CLOTHING_TYPE_TO_CATEGORIES } from "@/content/clothing-categories";
 
 interface AllProductsGridProps {
   products: Product[];
@@ -185,6 +199,8 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
   const [selectedClArc, setSelectedClArc] = React.useState<number[]>([]);
   const [selectedClFlame, setSelectedClFlame] = React.useState<boolean>(false);
   const [selectedClAnti, setSelectedClAnti] = React.useState<boolean>(false);
+  const [selectedClTypes, setSelectedClTypes] = React.useState<string[]>([]);
+  const [selectedClCats, setSelectedClCats] = React.useState<string[]>([]);
 
   const connectionOptions = React.useMemo(() => {
     const set = new Set<string>();
@@ -290,6 +306,12 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
     (clothing as any[]).forEach((p: any) => { const c = p.clothing_standards?.iec_61482_2?.class; if (typeof c === 'number') s.add(c); });
     return Array.from(s).sort((a,b)=>a-b);
   }, [clothing]);
+  const clothingTypeOptions = React.useMemo(() => ['welding','high-visibility','safety-workwear'], []);
+  const clothingCategoryOptions = React.useMemo(() => {
+    const set = new Set<string>();
+    Object.values(CLOTHING_TYPE_TO_CATEGORIES).forEach((arr) => (arr as string[]).forEach((c) => set.add(c)));
+    return Array.from(set);
+  }, []);
 
   // Head options
   const headBrimOptions = React.useMemo(() => {
@@ -406,6 +428,15 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
         <VentilationFilter value={selectedHeadVent} onChange={setSelectedHeadVent} />
         <EnStandardFilter selected={selectedHeadStds} onToggle={(opt) => setSelectedHeadStds((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
       </FilterSection>
+
+      <FilterSection title="Protective clothing" defaultExpanded={false}>
+        <ClothingTypeFilter options={clothingTypeOptions} selected={selectedClTypes} onToggle={(v) => setSelectedClTypes((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]))} />
+        <ClothingCategoryFilter options={clothingCategoryOptions} selected={selectedClCats} onToggle={(v) => setSelectedClCats((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]))} />
+        <HiVisClassFilter options={clothingHiVisOptions} selected={selectedHiVis} onToggle={(c) => setSelectedHiVis((prev) => (prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]))} />
+        <FlameStandardFilter value={selectedClFlame} onChange={setSelectedClFlame} />
+        <ArcClassFilter options={clothingArcOptions} selected={selectedClArc} onToggle={(c) => setSelectedClArc((prev) => (prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]))} />
+        <AntistaticFilter value={selectedClAnti} onChange={setSelectedClAnti} />
+      </FilterSection>
     </>
   );
 
@@ -517,6 +548,15 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
         <VentilationFilterMobile value={selectedHeadVent} onChange={setSelectedHeadVent} />
         <EnStandardFilterMobile selected={selectedHeadStds} onToggle={(opt) => setSelectedHeadStds((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
       </FilterSection>
+
+      <FilterSection title="Protective clothing" defaultExpanded={false} variant="mobile">
+        <ClothingTypeFilterMobile options={clothingTypeOptions} selected={selectedClTypes} onToggle={(v) => setSelectedClTypes((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]))} />
+        <ClothingCategoryFilterMobile options={clothingCategoryOptions} selected={selectedClCats} onToggle={(v) => setSelectedClCats((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]))} />
+        <HiVisClassFilterMobile options={clothingHiVisOptions} selected={selectedHiVis} onToggle={(c) => setSelectedHiVis((prev) => (prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]))} />
+        <FlameStandardFilterMobile value={selectedClFlame} onChange={setSelectedClFlame} />
+        <ArcClassFilterMobile options={clothingArcOptions} selected={selectedClArc} onToggle={(c) => setSelectedClArc((prev) => (prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]))} />
+        <AntistaticFilterMobile value={selectedClAnti} onChange={setSelectedClAnti} />
+      </FilterSection>
     </>
   );
 
@@ -528,8 +568,9 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
     const hasFwSel = selectedFwClasses.length > 0 || selectedFwEsd !== null || selectedFwWidths.length > 0 || (selectedFwSize.min !== undefined || selectedFwSize.max !== undefined) || selectedFwToes.length > 0 || selectedFwSoles.length > 0 || selectedFwCodes.length > 0;
     const hasEyeSel = selectedEyeFaceProt.length > 0 || selectedEyeFaceTints.length > 0 || selectedEyeFaceCoats.length > 0 || selectedEyeFaceUv.length > 0;
     const hasHeadSel = selectedHeadBrims.length > 0 || selectedHeadLt || selectedHead50365 || selectedHeadMm || selectedHeadVent || selectedHeadStds.length > 0;
+    const hasClothSel = selectedClTypes.length > 0 || selectedClCats.length > 0 || selectedHiVis.length > 0 || selectedClFlame || selectedClArc.length > 0 || selectedClAnti;
     // If no selections at all, don't filter out anything
-    if (!hasSwabSel && !hasRespSel && !hasArmSel && !hasHearSel && !hasFwSel && !hasEyeSel && !hasHeadSel) return true;
+    if (!hasSwabSel && !hasRespSel && !hasArmSel && !hasHearSel && !hasFwSel && !hasEyeSel && !hasHeadSel && !hasClothSel) return true;
 
     const lenLabel = typeof p.length_cm === "number" ? `${p.length_cm} cm` : undefined;
     const ps: any = p.pad_size_json;
@@ -621,8 +662,12 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
     const clFlOk = selectedClFlame ? !!cFl : true;
     const clArcOk = selectedClArc.length === 0 ? true : (typeof cArc === 'number' && selectedClArc.includes(cArc));
     const clAntiOk = selectedClAnti ? !!cAnti : true;
+    const pType = ((p as any).clothing_type || '').toLowerCase();
+    const pCat = ((p as any).clothing_category || '') as string;
+    const clTypeOk = selectedClTypes.length === 0 ? true : (pType && selectedClTypes.includes(pType));
+    const clCatOk = selectedClCats.length === 0 ? true : (pCat && selectedClCats.includes(pCat));
 
-    return lengthOk && padOk && connOk && typeOk && classOk && armLenOk && armLoopOk && armClosureOk && snrOk && partOk && reuseOk && mountOk && btOk && fwClassOk && fwEsdOk && fwWidthOk && fwSizeOk && fwToeOk && fwSoleOk && fwCodeOk && efProtOk && efTintOk && efCoatOk && efUvOk && headBrimOk && headLtOk && head50365Ok && headMmOk && headVentOk && headStdOk && clVisOk && clFlOk && clArcOk && clAntiOk;
+    return lengthOk && padOk && connOk && typeOk && classOk && armLenOk && armLoopOk && armClosureOk && snrOk && partOk && reuseOk && mountOk && btOk && fwClassOk && fwEsdOk && fwWidthOk && fwSizeOk && fwToeOk && fwSoleOk && fwCodeOk && efProtOk && efTintOk && efCoatOk && efUvOk && headBrimOk && headLtOk && head50365Ok && headMmOk && headVentOk && headStdOk && clVisOk && clFlOk && clArcOk && clAntiOk && clTypeOk && clCatOk;
   };
 
   return (

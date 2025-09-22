@@ -11,7 +11,7 @@
     "partners": "Partner",
     "resources": "Risorse",
     "allProducts": "Tutti i Prodotti",
-    "safetyGloves": "Guanti di Sicurezza",
+    "safetyGloves": "Protezione delle mani",
     "allGloves": "Tutti i Guanti",
     "heatResistant": "Anticalore",
     "cutResistant": "Antitaglio",
@@ -524,8 +524,23 @@
       "clothing": {
         "badge": "Abbigliamento protettivo",
         "title": "Abbigliamento protettivo e da lavoro",
-        "description": "Giacche alta visibilità e multirischio per ambienti industriali",
-        "detailedDescription": "La nostra gamma di abbigliamento protettivo include capi ad alta visibilità e giacche multirischio certificate secondo le norme EN, garantendo visibilità, protezione dal calore e dall'arco, prestazioni antistatiche e protezione chimica selettiva. Progettati per durata e comfort in edilizia, utilities, manifattura e logistica."
+        "description": "Capi alta visibilità e workwear multirischio per ambienti industriali",
+        "detailedDescription": "La nostra gamma di abbigliamento protettivo include capi ad alta visibilità e giacche multirischio certificate secondo le norme EN, garantendo visibilità, protezione dal calore e dall'arco, prestazioni antistatiche e protezione chimica selettiva. Progettati per durata e comfort in edilizia, utilities, manifattura e logistica.",
+        "categoriesDescription": "Scegli tra le nostre linee di abbigliamento dedicate a visibilità, protezione multirischio e saldatura.",
+        "subcategories": {
+          "highVisibility": {
+            "title": "Abbigliamento alta visibilità",
+            "description": "Capi EN ISO 20471 per visibilità professionale e sicurezza"
+          },
+          "safetyWorkwear": {
+            "title": "Abbigliamento di sicurezza e da lavoro",
+            "description": "Workwear durevole e capi multirischio per uso industriale"
+          },
+          "welding": {
+            "title": "Abbigliamento per saldatori",
+            "description": "Abbigliamento resistente a calore e spruzzi per la saldatura"
+          }
+        }
       }
       },
 
@@ -559,6 +574,17 @@
           "title": "Prodotti per saldatori",
           "description": "Sfoglia la nostra gamma completa di guanti per saldatura progettati per attività di lavorazione metalli ad alto calore.",
           "detailedDescription": "I nostri guanti per saldatori forniscono una protezione specializzata per le attività di saldatura e di lavorazione dei metalli, sia ad elevato rischio meccanico e termico che in ambienti di saldatura di precisione. Progettati con materiali resistenti al calore e agli stress meccanici, questi guanti offrono un'eccellente protezione contro scintille, spruzzi e alte temperature mantenendo la destrezza necessaria per il lavoro di precisione."
+        },
+        "clothing": {
+          "highVisibility": {
+            "detailedDescription": "Il nostro abbigliamento ad alta visibilità è certificato EN ISO 20471 e progettato per garantire visibilità affidabile in condizioni di scarsa illuminazione e in aree ad alto rischio. I capi sono disponibili nelle Classi 1–3 e combinano tessuti ad alto contrasto con nastri retroriflettenti di qualità che massimizzano la visibilità a distanza e in movimento. Tessuti traspiranti e durevoli e tagli ergonomici assicurano comfort per tutta la giornata in manutenzione stradale, utilities, logistica ed edilizia, con opzioni invernali e gusci impermeabili per le diverse stagioni."
+          },
+          "safetyWorkwear": {
+            "detailedDescription": "La nostra linea di abbigliamento da lavoro di sicurezza offre protezione multirischio per operazioni industriali dove durata e conformità non sono negoziabili. Alcuni modelli garantiscono prestazioni contro calore e fiamma secondo EN ISO 11612, proprietà antistatiche secondo EN 1149‑5 e protezione opzionale contro l’arco elettrico secondo IEC 61482‑2, abbinate a tessuti robusti, cuciture rinforzate e sistemi di tasche funzionali. Vestibilità moderne ed ergonomiche supportano libertà di movimento e lunga durata, aiutando i team a mantenere la produttività in manutenzione, produzione e attività sul campo."
+          },
+          "welding": {
+            "detailedDescription": "Il nostro abbigliamento per saldatura è pensato per ambienti di fabbricazione impegnativi e protegge il corpo da scintille, spruzzi e calore convettivo. Giacche, grembiuli e manicotti utilizzano tessuti ignifughi e cuciture rinforzate, con design in linea con i requisiti prestazionali EN ISO 11611 ed EN ISO 11612. Il bilanciamento tra traspirabilità e copertura consente agli operatori di lavorare in sicurezza ed efficienza durante attività di saldatura gravose e molatura, mantenendo comfort per tutta la durata del turno."
+          }
         },
         "respiratory": {
           "badge": "Sicurezza Respiratoria",
@@ -661,8 +687,20 @@
       "hiVisClass": "Classe alta visibilità",
       "flameStandard": "Norma calore/fiamma (EN ISO 11612)",
       "arcClass": "Classe protezione arco",
-      "antistatic": "Antistatico (EN 1149-5)"
+      "antistatic": "Antistatico (EN 1149-5)",
+      "clothingType": {
+        "title": "Tipologia abbigliamento",
+        "options": {
+          "welding": "Abbigliamento per saldatori",
+          "highVisibility": "Abbigliamento alta visibilità",
+          "safetyWorkwear": "Abbigliamento di sicurezza e da lavoro"
+        }
+      },
+      "clothingCategory": {
+        "title": "Categoria abbigliamento"
+      }
     },
+    
     "results": {
       "showing": "{current} di {total} prodotti visualizzati",
       "noResults": "Nessun prodotto trovato",
@@ -1116,10 +1154,11 @@
         "uk": "Regno Unito"
       },
       "address": {
-        "title": "Sede Amministrativa",
+      "title": "Sede Amministrativa",
+      "titleUK": "Sede Legale & Indirizzo Operativo UK",
         "content": "Viale Varese 83, 22100 Como (CO), Italia",
         "contentUK": "52 Grosvenor Gardens, London SW1W 0AU, United Kingdom",
-        "operationalTitle": "Sede Operativa",
+      "operationalTitle": "HQ - Uffici & Magazzino",
         "operationalContent": "via Antonio Brusa 34, 22035, Canzo (CO), Italia",
         "operationalContentUK": "52 Grosvenor Gardens, London SW1W 0AU, United Kingdom"
       },
@@ -1658,6 +1697,11 @@
     "categories": {
       "navTitle": "Categorie"
     },
+    "categoriesIntro": {
+      "badge": "Panoramica Categorie",
+      "title": "Standard per Categoria",
+      "description": "Esplora le principali categorie di DPI e scopri quali standard, prove e requisiti si applicano a ciascuna area. Seleziona una categoria qui sotto per entrare nelle guide pratiche, standard chiave e consigli di scelta."
+    },
     "footerCta": {
       "badge": "Aggiornamenti",
       "title": "Resta in contatto per gli ultimi aggiornamenti",
@@ -1699,7 +1743,12 @@
       "badge": "Regolatorio",
       "title": "Dichiarazioni",
       "titleAccent": "di Conformità",
-      "description": "Benvenuto nel nostro archivio delle dichiarazioni di conformità dei prodotti, dove puoi trovare e scaricare i documenti necessari in conformità al Regolamento (UE) 2016/425. Cerca il prodotto richiesto e seleziona la lingua per scaricare la DoC in PDF.",
+      "description": "Benvenuto nel nostro archivio delle dichiarazioni di conformità dei prodotti, dove puoi trovare e scaricare i documenti necessari in conformità al Regolamento (UE) 2016/425. Cerca il prodotto richiesto e seleziona la lingua per scaricare la DoC in PDF. Questa libreria è aggiornata regolarmente; in alcuni casi una singola dichiarazione copre più varianti all'interno di una famiglia di prodotti.",
+      "contactLine": {
+        "before": "Se il prodotto che stai cercando non è presente,",
+        "linkText": "contattaci",
+        "after": ""
+      },
       "viewDeclarations": "Vedi Dichiarazioni",
       "stats": {
         "products": "200+",

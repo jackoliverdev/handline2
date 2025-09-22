@@ -33,7 +33,7 @@ export function Footer() {
           {/* Left side - Company info */}
           <div className="lg:flex-1 lg:max-w-md">
             <div className="flex items-center gap-3">
-              <div className="relative h-14 w-14">
+              <div className="relative h-16 w-16">
                 <Image 
                   src="/faviconBLACK.png" 
                   alt="Hand Line Logo" 
@@ -77,6 +77,10 @@ export function Footer() {
               </button>
               {isProductsOpen && (
                 <div className="mt-2 flex flex-col gap-1 text-sm animate-in slide-in-from-top-2 duration-200">
+                  {/* All products and categories */}
+                  <Link href="/products" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                    {t('navbar.allProducts')}
+                  </Link>
                   <div className="mb-1">
                     <button 
                       onClick={() => setIsGlovesOpen(!isGlovesOpen)}
@@ -105,6 +109,30 @@ export function Footer() {
                       </div>
                     )}
                   </div>
+                  <Link href="/products/industrial-swabs" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                    {t('navbar.industrialSwabs')}
+                  </Link>
+                  <Link href="/products/eye-face" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                    {t('navbar.eyeFaceProtection') || 'Eye & Face Protection'}
+                  </Link>
+                  <Link href="/products/head" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                    {t('navbar.headProtection')}
+                  </Link>
+                  <Link href="/products/footwear" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                    {t('navbar.safetyFootwear')}
+                  </Link>
+                  <Link href="/products/arm-protection" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                    {t('navbar.armProtection')}
+                  </Link>
+                  <Link href="/products/hearing" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                    {t('navbar.hearingProtection')}
+                  </Link>
+                  <Link href="/products/respiratory" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                    {t('navbar.respiratoryProtection')}
+                  </Link>
+                  <Link href="/products/clothing" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                    {t('navbar.protectiveClothing') || 'Protective Clothing'}
+                  </Link>
                 </div>
               )}
             </div>
@@ -140,6 +168,9 @@ export function Footer() {
                 <div className="mt-2 flex flex-col gap-1 text-sm animate-in slide-in-from-top-2 duration-200">
                   <Link href="/about" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
                     {t('footer.sections.company.links.about')}
+                  </Link>
+                  <Link href="/careers" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                    {t('navbar.aboutDropdown.careers') || 'Careers'}
                   </Link>
                   <Link href="/contact" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
                     {t('footer.sections.company.links.contactUs')}

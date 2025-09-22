@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ClipboardCheck, ChevronRight, Mail, Shield, AlertTriangle } from "lucide-react";
+import { ClipboardCheck, ChevronRight, Mail, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -24,7 +24,7 @@ export function ENResourceHero({ language }: ENResourceHeroProps) {
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-primary/20 to-transparent"></div>
 
       <div className="container relative z-10 px-4 md:px-6">
-        <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+        <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
@@ -59,16 +59,11 @@ export function ENResourceHero({ language }: ENResourceHeroProps) {
             transition={{ ...SPRING_CONFIG, delay: 0.2 }}
             className="mb-6 md:mb-8 space-y-3 md:space-y-4"
           >
-            <p className="max-w-3xl text-base md:text-lg text-brand-secondary dark:text-gray-300">
+            <p className="max-w-4xl text-base md:text-lg text-brand-secondary dark:text-gray-300">
               {t('standards.hero.intro')}
             </p>
-            <div className="max-w-3xl mx-auto flex items-start justify-center gap-2 text-center">
-              <AlertTriangle className="h-5 w-5 text-yellow-600 mt-0.5" />
-              <p className="text-sm md:text-base text-brand-secondary dark:text-gray-300">
-                {t('standards.hero.important')}
-              </p>
-            </div>
-            <p className="max-w-3xl mx-auto text-center text-sm md:text-base text-brand-secondary dark:text-gray-300">
+            <p className="max-w-4xl mx-auto text-center text-sm md:text-base text-brand-secondary dark:text-gray-300">
+              {t('standards.hero.important')} {" "}
               {t('standards.hero.contactLine.before')} {" "}
               <Link href="/contact" className="text-brand-primary underline underline-offset-2 hover:opacity-80">
                 {t('standards.hero.contactLine.linkText')}
