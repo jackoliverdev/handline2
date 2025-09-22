@@ -37,6 +37,8 @@ interface MobileFilterSheetProps {
   extraFiltersRender?: React.ReactNode;
   // When true, hide default hazard/work env/temp/industries blocks
   hideDefaultFilters?: boolean;
+  // When true, hide Category and Sub-Category groups
+  hideCategoryFilters?: boolean;
 }
 
 export const MobileFilterSheet = ({
@@ -64,6 +66,7 @@ export const MobileFilterSheet = ({
   activeFiltersCount,
   extraFiltersRender,
   hideDefaultFilters = false,
+  hideCategoryFilters = false,
 }: MobileFilterSheetProps) => {
   const { t } = useLanguage();
   return (
@@ -75,6 +78,7 @@ export const MobileFilterSheet = ({
         
         <div className="flex-1 flex flex-col gap-4 mt-4 overflow-y-auto pr-1">
           {/* Category Filter */}
+          {!hideCategoryFilters && (
           <div>
             <button 
               className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"
@@ -128,9 +132,10 @@ export const MobileFilterSheet = ({
               </div>
             )}
           </div>
+          )}
           
           {/* Sub-Category Filter */}
-          {subCategories.length > 0 && (
+          {!hideCategoryFilters && subCategories.length > 0 && (
             <div>
               <button 
                 className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"

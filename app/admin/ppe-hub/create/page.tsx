@@ -69,6 +69,7 @@ export default function CreatePPECategoryPage() {
   const [saving, setSaving] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState<'en' | 'it'>(language || 'en');
   const [availableProducts, setAvailableProducts] = useState<Product[]>([]);
+  const standardIconsRef = useRef<any[] | null>(null);
 
   // Preload products in the background
   useState(() => {
@@ -76,6 +77,19 @@ export default function CreatePPECategoryPage() {
       try {
         const res = await fetch('/api/products');
         if (res.ok) setAvailableProducts(await res.json());
+      } catch {}
+    })();
+  });
+
+  // Load standard icons
+  useState(() => {
+    (async () => {
+      try {
+        const { data } = await supabase
+          .from('standard_icons')
+          .select('id, standard_name, image_url')
+          .order('standard_name', { ascending: true });
+        standardIconsRef.current = data || [];
       } catch {}
     })();
   });
@@ -264,10 +278,33 @@ export default function CreatePPECategoryPage() {
           intro_locales: (s as any).intro_locales || {},
           bullets_locales: (s as any).bullets_locales || {},
           image_url: s.image_url || null,
+          icon_url: (s as any).icon_url || null,
+          standard_icon_id: (s as any).standard_icon_id || null,
+          related_product_captions: (s as any).related_product_captions || {},
           related_product_ids: s.related_product_ids || [],
           sort_order: s.sort_order || 0,
           published: s.published ?? true,
         }));
+
+        // Save library icons if requested
+        for (const s of sections as any[]) {
+          if (s.save_icon_to_library && s.icon_url && s.icon_library_name) {
+            try {
+              const existing = (standardIconsRef.current || []).find((it: any) => it.image_url === s.icon_url);
+              if (!existing) {
+                const { data, error } = await supabase
+                  .from('standard_icons')
+                  .insert({ standard_name: s.icon_library_name, image_url: s.icon_url })
+                  .select('id, standard_name, image_url')
+                  .single();
+                if (!error && data) {
+                  standardIconsRef.current = [...(standardIconsRef.current || []), data];
+                  s.standard_icon_id = data.id;
+                }
+              }
+            } catch {}
+          }
+        }
         const { error: secErr } = await supabase.from('ppe_sections').upsert(payload, { onConflict: 'id' });
         if (secErr) throw secErr;
       }
@@ -382,6 +419,7 @@ export default function CreatePPECategoryPage() {
                 const titleLocales = (s as any).title_locales || {};
                 const introLocales = (s as any).intro_locales || {};
                 const bulletsLocales = (s as any).bullets_locales || {};
+                const extraImages: any[] = Array.isArray((s as any).extra_images) ? (s as any).extra_images : [];
                 const bullets: string[] = Array.isArray(bulletsLocales[currentLanguage]) ? bulletsLocales[currentLanguage] : [];
                 return (
                   <Card key={(s as any).id || idx} className="p-4 border-dashed">
@@ -392,6 +430,82 @@ export default function CreatePPECategoryPage() {
                           <Trash className="h-3 w-3" />
                         </Button>
                       </div>
+                      {/* Icon selector */}
+                      <div className="space-y-2">
+                        <Label className="text-xs">Icon</Label>
+                        <div className="flex items-center gap-3">
+                          <div className="relative h-10 w-10 rounded bg-muted overflow-hidden border">
+                            {(s as any).icon_url ? (
+                              <Image src={(s as any).icon_url} alt="icon" fill className="object-contain" />
+                            ) : (s as any).standard_icon_id && (s as any).standard_icon_preview ? (
+                              <Image src={(s as any).standard_icon_preview} alt="icon" fill className="object-contain" />
+                            ) : null}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Button type="button" variant="outline" size="sm" className="text-xs" onClick={() => document.getElementById(`icon-upload-${idx}`)?.click()}>Upload</Button>
+                            <input id={`icon-upload-${idx}`} type="file" accept="image/*" className="hidden" onChange={async (e) => {
+                              const inputEl = e.currentTarget as HTMLInputElement;
+                              const file = inputEl.files?.[0];
+                              if (!file) return;
+                              const url = await uploadToBucket('ppehub', `sections/${(s as any).id}/icon`, file);
+                              if (!url) return;
+                              setSections(prev => {
+                                const copy = [...prev] as any[];
+                                copy[idx].icon_url = url;
+                                copy[idx].standard_icon_id = null;
+                                copy[idx].standard_icon_preview = null;
+                                return copy as any;
+                              });
+                              if (inputEl) inputEl.value = '';
+                            }} />
+                            <Select onValueChange={(iconId) => {
+                              setSections(prev => {
+                                const copy = [...prev] as any[];
+                                copy[idx].standard_icon_id = iconId;
+                                const chosen = (standardIconsRef.current || []).find((it: any) => it.id === iconId);
+                                copy[idx].icon_url = chosen?.image_url || null;
+                                copy[idx].standard_icon_preview = chosen?.image_url || null;
+                                copy[idx].icon_library_name = chosen?.standard_name || '';
+                                copy[idx].save_icon_to_library = false;
+                                return copy as any;
+                              });
+                            }}>
+                              <SelectTrigger className="h-8 text-xs w-52"><SelectValue placeholder="Select existing" /></SelectTrigger>
+                              <SelectContent>
+                                {(standardIconsRef.current || []).map((it: any) => (
+                                  <SelectItem key={it.id} value={it.id} className="text-xs">{it.standard_name}</SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          <div>
+                            <Label className="text-xs">Library name</Label>
+                            <Input value={(s as any).icon_library_name || ''} disabled={Boolean((s as any).standard_icon_id)} onChange={(e) => {
+                              setSections(prev => {
+                                const copy = [...prev] as any[];
+                                copy[idx].icon_library_name = e.target.value;
+                                return copy as any;
+                              });
+                            }} className="text-xs h-8" placeholder="e.g., EN 388" />
+                          </div>
+                          {!(s as any).standard_icon_id && (
+                            <label className="flex items-center gap-2 text-xs mt-5 sm:mt-7">
+                              <input type="checkbox" checked={!!(s as any).save_icon_to_library} onChange={(e) => {
+                                setSections(prev => {
+                                  const copy = [...prev] as any[];
+                                  copy[idx].save_icon_to_library = e.target.checked;
+                                  return copy as any;
+                                });
+                              }} />
+                              Save uploaded icon to library
+                            </label>
+                          )}
+                        </div>
+
+                      </div>
+
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <div>
                           <Label className="text-xs">Code</Label>
@@ -421,6 +535,75 @@ export default function CreatePPECategoryPage() {
                         ))}
                       </div>
 
+                      {/* Section images gallery (admin) */}
+                      <div className="space-y-2">
+                        <Label className="text-xs">Section Images</Label>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          {extraImages.map((img, imgIdx) => (
+                            <div key={imgIdx} className="border rounded-md p-2 space-y-2">
+                              <div className="relative w-full aspect-video bg-gray-50 rounded-md overflow-hidden">
+                                {img.url ? (
+                                  <Image src={img.url} alt="section image" fill className="object-contain" />
+                                ) : null}
+                              </div>
+                              <div className="space-y-1">
+                                <Label className="text-xs">Caption ({currentLanguage.toUpperCase()})</Label>
+                                <Input
+                                  value={(img.caption_locales?.[currentLanguage] || '') as string}
+                                  onChange={(e) => {
+                                    setSections(prev => {
+                                      const copy = [...prev] as any[];
+                                      const list = Array.isArray(copy[idx].extra_images) ? [...copy[idx].extra_images] : [];
+                                      const entry = { ...(list[imgIdx] || {}) } as any;
+                                      const caps = { ...(entry.caption_locales || {}) };
+                                      caps[currentLanguage] = e.target.value;
+                                      entry.caption_locales = caps;
+                                      list[imgIdx] = entry;
+                                      copy[idx].extra_images = list;
+                                      return copy as any;
+                                    });
+                                  }}
+                                  className="text-xs h-8"
+                                />
+                              </div>
+                              <div className="flex justify-between">
+                                <Button variant="destructive" size="sm" className="text-xs"
+                                  onClick={() => {
+                                    setSections(prev => {
+                                      const copy = [...prev] as any[];
+                                      const list = Array.isArray(copy[idx].extra_images) ? [...copy[idx].extra_images] : [];
+                                      copy[idx].extra_images = list.filter((_: any, i: number) => i !== imgIdx);
+                                      return copy as any;
+                                    });
+                                  }}
+                                >Remove</Button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <input type="file" accept="image/*" id={`upload-sec-${idx}`} className="hidden" onChange={async (e) => {
+                            const inputEl = e.currentTarget as HTMLInputElement;
+                            const file = inputEl.files?.[0];
+                            if (!file) return;
+                            const url = await uploadToBucket('ppehub', `sections/${(s as any).id}`, file);
+                            if (!url) return;
+                            setSections(prev => {
+                              const copy = [...prev] as any[];
+                              const list = Array.isArray(copy[idx].extra_images) ? [...copy[idx].extra_images] : [];
+                              if (!list.some((it: any) => it?.url === url)) {
+                                list.push({ url, caption_locales: { [currentLanguage]: '' } });
+                              }
+                              copy[idx].extra_images = list;
+                              return copy as any;
+                            });
+                            // reset input
+                            if (inputEl) inputEl.value = '';
+                          }} />
+                          <Button type="button" variant="outline" size="sm" className="text-xs" onClick={() => document.getElementById(`upload-sec-${idx}`)?.click()}>Add image</Button>
+                        </div>
+                      </div>
+
                       {/* Section related products */}
                       <div className="space-y-2">
                         <Label className="text-xs">Related Products</Label>
@@ -428,7 +611,47 @@ export default function CreatePPECategoryPage() {
                           {(s.related_product_ids || []).map((pid: string) => {
                             const product = availableProducts.find((p) => p.id === pid);
                             return product ? (
-                              <MiniProductCard key={pid} product={{ id: product.id, name: product.name, category: product.category || undefined, image_url: product.image_url || undefined }} showRemoveButton onRemove={() => removeRelatedProductFromSection(idx, pid)} />
+                              <div key={pid} className="space-y-2">
+                                <MiniProductCard product={{ id: product.id, name: product.name, category: product.category || undefined, image_url: product.image_url || undefined }} showRemoveButton onRemove={() => removeRelatedProductFromSection(idx, pid)} />
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                  <div>
+                                    <Label className="text-xs">Caption (EN)</Label>
+                                    <Input
+                                      value={(((s as any).related_product_captions || {})[pid]?.en || '') as string}
+                                      onChange={(e) => {
+                                        setSections(prev => {
+                                          const copy = [...prev] as any[];
+                                          const map = { ...((copy[idx] as any).related_product_captions || {}) } as any;
+                                          const entry = { ...(map[pid] || {}) };
+                                          entry.en = e.target.value;
+                                          map[pid] = entry;
+                                          (copy[idx] as any).related_product_captions = map;
+                                          return copy as any;
+                                        });
+                                      }}
+                                      className="text-xs h-8"
+                                    />
+                                  </div>
+                                  <div>
+                                    <Label className="text-xs">Caption (IT)</Label>
+                                    <Input
+                                      value={(((s as any).related_product_captions || {})[pid]?.it || '') as string}
+                                      onChange={(e) => {
+                                        setSections(prev => {
+                                          const copy = [...prev] as any[];
+                                          const map = { ...((copy[idx] as any).related_product_captions || {}) } as any;
+                                          const entry = { ...(map[pid] || {}) };
+                                          entry.it = e.target.value;
+                                          map[pid] = entry;
+                                          (copy[idx] as any).related_product_captions = map;
+                                          return copy as any;
+                                        });
+                                      }}
+                                      className="text-xs h-8"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
                             ) : null;
                           })}
                           {(!s.related_product_ids || (s.related_product_ids as any).length === 0) && (

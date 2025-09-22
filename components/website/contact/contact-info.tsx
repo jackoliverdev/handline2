@@ -143,7 +143,9 @@ export function ContactInfo() {
             <div className="flex items-start gap-3">
               <Building2 className="h-5 w-5 text-brand-primary mt-1" />
               <div>
-                <div className="font-medium text-brand-dark dark:text-white">{t('contact.info.address.title')}</div>
+                <div className="font-medium text-brand-dark dark:text-white">
+                  {selectedOffice === 'italy' ? t('contact.info.address.title') : t('contact.info.address.titleUK')}
+                </div>
                 <div className="text-brand-secondary dark:text-gray-300">
                   {selectedOffice === 'italy' ? t('contact.info.address.content') : t('contact.info.address.contentUK')}
                 </div>

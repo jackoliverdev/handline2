@@ -11,19 +11,19 @@ export function ENResourceOverviewBuckets() {
   const buckets = [
     {
       key: 'regulation',
-      href: '/resources/en-resource-centre/regulation',
+      href: '/resources/ppe-standards/overview?tab=regulation',
       Icon: Scale,
       color: '#0F5B78',
     },
     {
       key: 'categories',
-      href: '/resources/en-resource-centre/categories',
+      href: '/resources/ppe-standards/overview?tab=categories',
       Icon: Shield,
       color: '#F28C38',
     },
     {
       key: 'standards',
-      href: '/resources/en-resource-centre/standards',
+      href: '/resources/ppe-standards/overview?tab=standards',
       Icon: Globe,
       color: '#3BAA36',
     },

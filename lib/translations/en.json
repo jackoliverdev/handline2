@@ -11,7 +11,7 @@
     "partners": "Partners",
     "resources": "Resources",
     "allProducts": "All Products",
-    "safetyGloves": "Safety Gloves",
+    "safetyGloves": "Hand Protection",
     "allGloves": "All Gloves",
     "heatResistant": "Heat-Resistant",
     "cutResistant": "Cut-Resistant",
@@ -494,8 +494,23 @@
         "clothing": {
           "badge": "Protective Clothing",
           "title": "Protective Clothing",
-          "description": "High‑visibility and multi‑risk jackets for industrial environments",
-          "detailedDescription": "Our protective clothing range includes high‑visibility garments and multi‑risk jackets certified to EN standards, providing visibility, heat and arc protection, antistatic performance and selected chemical protection. Designed for durability and comfort across construction, utilities, manufacturing and logistics."
+          "description": "High‑visibility garments and multi‑risk workwear for industrial environments",
+          "detailedDescription": "Our protective clothing range includes high‑visibility garments and multi‑risk jackets certified to EN standards, providing visibility, heat and arc protection, antistatic performance and selected chemical protection. Designed for durability and comfort across construction, utilities, manufacturing and logistics.",
+          "categoriesDescription": "Choose from our specialised clothing ranges designed for visibility, multi‑risk protection and welding applications.",
+          "subcategories": {
+            "highVisibility": {
+              "title": "High‑visibility clothing",
+              "description": "EN ISO 20471 garments for professional visibility and safety"
+            },
+            "safetyWorkwear": {
+              "title": "Safety clothing and Workwear",
+              "description": "Durable workwear and multi‑risk garments for industrial use"
+            },
+            "welding": {
+              "title": "Welding clothing",
+              "description": "Heat and spatter resistant clothing for welding operations"
+            }
+          }
         }
       },
       "pages": {
@@ -529,6 +544,17 @@
           "description": "Browse our complete range of welding gloves designed for high-heat metalworking tasks.",
           "detailedDescription": "Our welding gloves provide specialised protection for welding and high-heat metalworking tasks with superior durability and comfort. Engineered with heat-resistant materials and designed for demanding welding environments, these gloves offer excellent protection against sparks, spatter, and high temperatures whilst maintaining the dexterity needed for precision work."
         },
+      "clothing": {
+        "highVisibility": {
+          "detailedDescription": "Our high‑visibility clothing is certified to EN ISO 20471 and engineered for dependable visibility in low‑light and high‑risk environments. Garments are available in Classes 1–3, combining high‑contrast base fabrics with premium retro‑reflective tape patterns that maximise detection at distance and motion. Breathable, durable textiles and ergonomic cuts ensure day‑long comfort for road maintenance, utilities, logistics and construction teams, with optional winter insulation and waterproof shells to suit seasonal conditions."
+        },
+        "safetyWorkwear": {
+          "detailedDescription": "Our safety workwear range delivers multi‑risk protection for industrial operations where durability and compliance are non‑negotiable. Selected models offer flame and heat performance to EN ISO 11612, antistatic properties to EN 1149‑5 and optional electric‑arc protection to IEC 61482‑2, paired with robust fabrics, reinforced seams and functional pocket systems. Modern, ergonomic fits support freedom of movement and long service life, helping teams maintain productivity across maintenance, manufacturing and field service tasks."
+        },
+        "welding": {
+          "detailedDescription": "Our welding clothing is built for demanding fabrication environments, protecting the torso and limbs from sparks, spatter and convective heat. Jackets, aprons and sleeves feature flame‑retardant fabrics and reinforced stitching, with designs aligned to EN ISO 11611 and EN ISO 11612 performance requirements. Carefully balanced breathability and coverage allow operators to work safely and efficiently during heavy‑duty welding and grinding while maintaining comfort throughout long shifts."
+        }
+      },
         "respiratory": {
           "badge": "Respiratory Safety",
           "title": "Respiratory Protection Products",
@@ -626,7 +652,18 @@
       "hiVisClass": "Hi-Vis class",
       "flameStandard": "Flame/heat standard (EN ISO 11612)",
       "arcClass": "Arc protection class",
-      "antistatic": "Antistatic (EN 1149-5)"
+      "antistatic": "Antistatic (EN 1149-5)",
+      "clothingType": {
+        "title": "Clothing Type",
+        "options": {
+          "welding": "Welding clothing",
+          "highVisibility": "High‑visibility clothing",
+          "safetyWorkwear": "Safety clothing and Workwear"
+        }
+      },
+      "clothingCategory": {
+        "title": "Clothing Category"
+      }
     },
     "results": {
       "showing": "Showing {current} of {total} products",
@@ -1073,10 +1110,11 @@
         "uk": "UK"
       },
       "address": {
-        "title": "Registered Office",
+      "title": "Registered Office",
+      "titleUK": "Registered Office & Business Address",
         "content": "Viale Varese 83, 22100 Como (CO), Italy",
         "contentUK": "52 Grosvenor Gardens, London SW1W 0AU, United Kingdom",
-        "operationalTitle": "Operational Location",
+      "operationalTitle": "HQ Office & Warehouse",
         "operationalContent": "via Antonio Brusa 34, 22035, Canzo (CO), Italy",
         "operationalContentUK": "52 Grosvenor Gardens, London SW1W 0AU, United Kingdom"
       },
@@ -1499,6 +1537,11 @@
     "categories": {
       "navTitle": "Categories"
     },
+    "categoriesIntro": {
+      "badge": "Category Overview",
+      "title": "Standards by Category",
+      "description": "Explore the main PPE categories and learn which standards, tests and requirements apply to each area. Choose a category below to dive into practical guidance, key standards and selection advice."
+    },
     "footerCta": {
       "badge": "Keep up to date",
       "title": "Stay in touch for the latest updates",
@@ -1540,7 +1583,12 @@
       "badge": "Regulatory",
       "title": "Declarations",
       "titleAccent": "of Conformity",
-      "description": "Welcome to our repository of declarations of conformity for products where you can find and download the documents needed, in accordance with Regulation (EU) 2016/425. Please search for the required product and select the language to download the DoC as PDF.",
+      "description": "Welcome to our repository of declarations of conformity for products where you can find and download the documents needed, in accordance with Regulation (EU) 2016/425. Please search for the required product and select the language to download the DoC as PDF. This library is updated regularly; in some cases a single declaration covers multiple variants within a product family.",
+      "contactLine": {
+        "before": "If the product you are looking for is not here,",
+        "linkText": "contact us",
+        "after": ""
+      },
       "viewDeclarations": "View Declarations",
       "stats": {
         "products": "200+",

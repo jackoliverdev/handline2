@@ -50,9 +50,11 @@ interface ProductGridProps {
   // Optional defaults for expanded/collapsed sections (allow page-level customisation)
   categoryExpandedDefault?: boolean;
   subCategoryExpandedDefault?: boolean;
+  // Hide Category and Sub-Category filters entirely (e.g., clothing sub-pages)
+  hideCategoryFilters?: boolean;
 }
 
-export const ProductGrid = ({ products, className = "", initialCategory, extraFiltersRender, extraFiltersRenderMobile, extraFilterPredicate, hideDefaultFilters = false, categoryExpandedDefault, subCategoryExpandedDefault }: ProductGridProps) => {
+export const ProductGrid = ({ products, className = "", initialCategory, extraFiltersRender, extraFiltersRenderMobile, extraFilterPredicate, hideDefaultFilters = false, categoryExpandedDefault, subCategoryExpandedDefault, hideCategoryFilters = false }: ProductGridProps) => {
   const { t, language } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory || "");
@@ -448,22 +450,26 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
               
               <div className="space-y-6">
                 {/* Category Filter */}
-                <CategoryFilter
-                  categories={uniqueCategories}
-                  selectedCategory={selectedCategory}
-                  setSelectedCategory={setSelectedCategory}
-                  isExpanded={expandedSections.category}
-                  toggleSection={toggleSection}
-                />
+                {!hideCategoryFilters && (
+                  <CategoryFilter
+                    categories={uniqueCategories}
+                    selectedCategory={selectedCategory}
+                    setSelectedCategory={setSelectedCategory}
+                    isExpanded={expandedSections.category}
+                    toggleSection={toggleSection}
+                  />
+                )}
                 
                 {/* Sub-Category Filter */}
-                <SubCategoryFilter
-                  subCategories={subcategories}
-                  selectedSubCategories={selectedSubCategories}
-                  toggleSubCategory={toggleSubCategory}
-                  isExpanded={expandedSections.subCategory}
-                  toggleSection={toggleSection}
-                />
+                {!hideCategoryFilters && (
+                  <SubCategoryFilter
+                    subCategories={subcategories}
+                    selectedSubCategories={selectedSubCategories}
+                    toggleSubCategory={toggleSubCategory}
+                    isExpanded={expandedSections.subCategory}
+                    toggleSection={toggleSection}
+                  />
+                )}
                 
                 {/* After Sub-Category: Industries → Work Environment → Gloves */}
                 {(!hideDefaultFilters) && (
@@ -577,6 +583,7 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
                   activeFiltersCount={activeFiltersCount}
                   extraFiltersRender={extraFiltersRenderMobile || extraFiltersRender}
                   hideDefaultFilters={hideDefaultFilters}
+                  hideCategoryFilters={hideCategoryFilters}
                 />
               </Sheet>
             </div>

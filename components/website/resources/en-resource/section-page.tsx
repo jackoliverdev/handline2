@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import type { PPESectionDetail } from '@/lib/ppe-standards/types';
 import { MiniProductCard } from '@/components/app/mini-product-card';
+import { SectionImagesGallery } from '@/components/website/resources/shared/SectionImagesGallery';
 import { useEffect, useState } from 'react';
 
 interface Props {
@@ -45,7 +46,12 @@ export function ENResourceSectionPage({ section }: Props) {
 
           <div className="grid grid-cols-1 md:grid-cols-5 gap-6 items-center">
             <div className="md:col-span-3">
-              <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-brand-dark dark:text-white">
+              <h1 className="flex items-center gap-2 text-3xl md:text-5xl font-bold tracking-tight text-brand-dark dark:text-white">
+                {(section as any).iconUrl && (
+                  <span className="relative inline-block h-7 w-7 md:h-10 md:w-10">
+                    <Image src={(section as any).iconUrl} alt="section icon" fill className="object-contain" />
+                  </span>
+                )}
                 {section.code ? `${section.code} — ${section.title}` : section.title}
               </h1>
               {section.intro && (
@@ -71,6 +77,10 @@ export function ENResourceSectionPage({ section }: Props) {
               </li>)
             )}
           </motion.ul>
+          {/* Optional images gallery */}
+          {(section as any).extraImages && (section as any).extraImages.length > 0 && (
+            <SectionImagesGallery images={(section as any).extraImages} />
+          )}
         </div>
       </section>
 
