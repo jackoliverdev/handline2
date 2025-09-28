@@ -82,30 +82,25 @@ export function ArmSpecs({ product }: { product: Product }) {
           </div>
         )}
 
-        {/* Right tile priority: EN388 chips -> Sleeve features chips -> EN Standard string */}
-        {product.safety && p.safety?.en_388?.enabled ? (
+        {/* EN Standards tile - same as gloves */}
+        {product.safety && (p.safety?.en_388?.enabled || p.safety?.en_iso_21420?.enabled) ? (
           <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
             <div className="flex items-center justify-center gap-2 mb-2">
               <Shield className="h-5 w-5 text-brand-primary" />
-              <h3 className="text-sm font-medium text-brand-dark dark:text-white">EN Standards</h3>
-            </div>
-            <div className="flex items-center justify-center gap-2">
-              <Image src="/images/standards/EN388.png" alt="EN388" width={20} height={20} className="object-contain" />
-              <span className="text-brand-dark dark:text-white font-medium text-md">EN388</span>
-            </div>
-          </div>
-        ) : (p.arm_attributes?.thumb_loop || p.arm_attributes?.closure) ? (
-          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <Shield className="h-5 w-5 text-brand-primary" />
-              <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.sleeveFeatures') || 'Sleeve features'}</h3>
+              <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('products.enStandards')}</h3>
             </div>
             <div className="flex flex-wrap gap-2 justify-center">
-              {p.arm_attributes?.thumb_loop && (
-                <span className="text-xs bg-brand-primary/5 border border-brand-primary/20 text-brand-dark dark:text-white rounded px-2 py-0.5">Thumb loop</span>
+              {p.safety?.en_388?.enabled && (
+                <div className="flex items-center gap-1.5">
+                  <Image src="/images/standards/EN388.png" alt="EN388" width={16} height={16} className="object-contain" />
+                  <span className="text-brand-dark dark:text-white font-medium text-sm">EN388</span>
+                </div>
               )}
-              {p.arm_attributes?.closure && (
-                <span className="text-xs bg-brand-primary/5 border border-brand-primary/20 text-brand-dark dark:text-white rounded px-2 py-0.5">Closure: {String(p.arm_attributes.closure)}</span>
+              {p.safety?.en_iso_21420?.enabled && (
+                <div className="flex items-center gap-1.5">
+                  <Shield className="h-4 w-4 text-brand-primary" />
+                  <span className="text-brand-dark dark:text-white font-medium text-sm">EN ISO 21420</span>
+                </div>
               )}
             </div>
           </div>
@@ -113,7 +108,7 @@ export function ArmSpecs({ product }: { product: Product }) {
           <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
             <div className="flex items-center justify-center gap-2 mb-2">
               <Shield className="h-5 w-5 text-brand-primary" />
-              <h3 className="text-sm font-medium text-brand-dark dark:text-white">EN Standard</h3>
+              <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('products.enStandards')}</h3>
             </div>
             <div className="flex items-center justify-center">
               <span className="text-brand-dark dark:text-white font-medium text-md">{product.en_standard}</span>

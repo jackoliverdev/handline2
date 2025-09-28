@@ -32,7 +32,20 @@ import { HearingStandards } from "@/components/website/products/slug/HearingStan
 import { RespiratoryStandards } from "@/components/website/products/slug/RespiratoryStandards";
 import { ClothingStandards } from "@/components/website/products/slug/ClothingStandards";
 import { EnvironmentPictogramsDisplay } from "@/components/website/products/environment-pictograms";
+import { EyeFaceEnvironment } from "./EyeFaceEnvironment";
 import { Product } from "@/lib/products-service";
+import { EyeFaceComfortFeatures } from "@/components/website/products/slug/EyeFaceComfortFeatures";
+import { HeadComfortFeatures } from "@/components/website/products/slug/HeadComfortFeatures";
+import { HeadOtherDetails } from "@/components/website/products/slug/HeadOtherDetails";
+import { HeadEquipment } from "@/components/website/products/slug/HeadEquipment";
+import { EyeFaceEquipment } from "@/components/website/products/slug/EyeFaceEquipment";
+import { FootwearComfortFeatures } from "@/components/website/products/slug/FootwearComfortFeatures";
+import { HearingComfortFeatures } from "@/components/website/products/slug/HearingComfortFeatures";
+import { HearingOtherDetails } from "@/components/website/products/slug/HearingOtherDetails";
+import { HearingEquipment } from "@/components/website/products/slug/HearingEquipment";
+import { RespiratoryComfortFeatures } from "@/components/website/products/slug/RespiratoryComfortFeatures";
+import { RespiratoryOtherDetails } from "@/components/website/products/slug/RespiratoryOtherDetails";
+import { RespiratoryEquipment } from "@/components/website/products/slug/RespiratoryEquipment";
 
 // Flag components for flag icons
 const FlagIcon = ({ country, className }: { country: 'GB' | 'IT', className?: string }) => {
@@ -176,6 +189,13 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
       router.push('/products#product-grid');
     }
   }, [router]);
+
+  // Swabs never have EN standards → hide the EN Standards tab for swab products
+  const isSwab = ((product.category || '').toLowerCase().includes('swab')) || ((product.sub_category || '').toLowerCase().includes('swab'));
+  const isEyeFace = ((product.category || '').toLowerCase().includes('eye') || (product.category || '').toLowerCase().includes('face') || (product.sub_category || '').toLowerCase().includes('goggle') || (product.sub_category || '').toLowerCase().includes('glasses') || (product.sub_category || '').toLowerCase().includes('visor'));
+  const isHead = ((product.category || '').toLowerCase().includes('head')) || ((product.sub_category || '').toLowerCase().includes('helmet')) || ((product.sub_category || '').toLowerCase().includes('bump'));
+  const isHearing = ((product.category || '').toLowerCase().includes('hearing') || (product.sub_category || '').toLowerCase().includes('ear plug') || (product.sub_category || '').toLowerCase().includes('defender'));
+  const isRespiratory = ((product.category || '').toLowerCase().includes('respir'));
 
   return (
     <main className="bg-brand-light dark:bg-background min-h-screen pt-11">
@@ -361,7 +381,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                   >
                     {t('productPage.applications')}
                   </TabsTrigger>
-                  {(product.safety || product.environment_pictograms) && (
+                  {((product.safety || product.environment_pictograms) && !isSwab) && (
                     <TabsTrigger 
                       value="safety" 
                       className="w-full rounded-lg px-4 py-3 data-[state=active]:bg-brand-primary data-[state=active]:text-white text-left justify-start"
@@ -397,7 +417,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                   >
                     {t('productPage.applications')}
                   </TabsTrigger>
-                  {(product.safety || product.environment_pictograms) && (
+                  {((product.safety || product.environment_pictograms) && !isSwab) && (
                     <TabsTrigger 
                       value="safety" 
                       className="flex-1 rounded-lg px-4 py-2 data-[state=active]:bg-brand-primary data-[state=active]:text-white"
@@ -420,7 +440,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                       {t('productPage.technicalSpecifications')}
                     </h3>
                     {/* Category-specific isolated specs */}
-                    {(product.category?.toLowerCase().includes('respir') || (product as any).filter_type || (product as any).connections) ? (
+                    {(product.category?.toLowerCase().includes('respir') || (product as any).filter_type || (((product as any).connections || []).length > 0)) ? (
                       <RespiratorSpecs product={product} />
                     ) : ((product.category || '').toLowerCase().includes('footwear') || (product.sub_category || '').toLowerCase().includes('boot') || (product.sub_category || '').toLowerCase().includes('insol')) ? (
                       <FootwearSpecs product={product} />
@@ -428,7 +448,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                       <HearingSpecs product={product} />
                     ) : (((product as any).head_standards && Object.keys((product as any).head_standards || {}).length > 0) || (product.category || '').toLowerCase().includes('head') || (product.sub_category || '').toLowerCase().includes('helmet') || (product.sub_category || '').toLowerCase().includes('bump')) ? (
                       <HeadSpecs product={product} />
-                    ) : (((product as any).eye_face_standards && Object.keys((product as any).eye_face_standards || {}).length > 0) || (product.category || '').toLowerCase().includes('eye') || (product.category || '').toLowerCase().includes('face') || (product.sub_category || '').toLowerCase().includes('goggle') || (product.sub_category || '').toLowerCase().includes('visor') || (product.sub_category || '').toLowerCase().includes('glasses')) ? (
+                    ) : ((((product as any).eye_face_standards && Object.keys((product as any).eye_face_standards || {}).length > 0) || ((product as any).eye_face_attributes && Object.keys((product as any).eye_face_attributes || {}).length > 0)) || (product.category || '').toLowerCase().includes('eye') || (product.category || '').toLowerCase().includes('face') || (product.sub_category || '').toLowerCase().includes('goggle') || (product.sub_category || '').toLowerCase().includes('visor') || (product.sub_category || '').toLowerCase().includes('glasses')) ? (
                       <EyeFaceSpecs product={product} />
                     ) : (((product as any).clothing_standards && Object.keys((product as any).clothing_standards || {}).length > 0) || (product.category || '').toLowerCase().includes('clothing') || (product.sub_category || '').toLowerCase().includes('jacket')) ? (
                       <ClothingSpecs product={product} />
@@ -441,18 +461,47 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                     )}
                     
                     {/* Work Environment Suitability */}
-                    {product.environment_pictograms && (
+                    {product.environment_pictograms && !isEyeFace && !isHead && !isHearing && !((product.category || '').toLowerCase().includes('footwear') || (product.sub_category || '').toLowerCase().includes('boot') || (product.sub_category || '').toLowerCase().includes('insol')) && (
                       <EnvironmentPictogramsDisplay environment_pictograms={product.environment_pictograms} />
+                    )}
+                    {product.environment_pictograms && isEyeFace && (
+                      // Lazy import pattern isn't supported in JSX directly; static import component instead
+                      // @ts-ignore - module exists
+                      <EyeFaceEnvironment environment_pictograms={product.environment_pictograms as any} />
                     )}
                   </div>
                 </TabsContent>
                 
                 <TabsContent value="features" className="mt-0">
                   <div className="space-y-4">
+                    {/* Comfort & fit features: Eye & Face, Head, Footwear, Hearing */}
+                    {isEyeFace && (<EyeFaceComfortFeatures product={product} />)}
+                    {((product.category || '').toLowerCase().includes('footwear') || (product.sub_category || '').toLowerCase().includes('boot') || (product.sub_category || '').toLowerCase().includes('insol')) && (
+                      <FootwearComfortFeatures product={product} />
+                    )}
+                    {((product.category || '').toLowerCase().includes('head') || (product.sub_category || '').toLowerCase().includes('helmet') || (product.sub_category || '').toLowerCase().includes('bump')) && (
+                      <HeadComfortFeatures product={product} />
+                    )}
+                    {isHearing && (
+                      <HearingComfortFeatures product={product} />
+                    )}
+                    {isRespiratory && (
+                      <RespiratoryComfortFeatures product={product} />
+                    )}
+                    {/* Equipment blocks */}
+                    {isEyeFace && (
+                      <EyeFaceEquipment product={product} />
+                    )}
+                    {isHearing && (
+                      <HearingEquipment product={product} />
+                    )}
+                    {isRespiratory && (
+                      <RespiratoryEquipment product={product} />
+                    )}
                     <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
                       <div className="flex items-center gap-2 mb-2">
                         <ListChecks className="h-5 w-5 text-brand-primary" />
-                        <h3 className="font-medium text-brand-dark dark:text-white">{t('productPage.features')}</h3>
+                        <h3 className="font-medium text-brand-dark dark:text-white">{(isEyeFace || isHead || isHearing || isRespiratory || (product.category || '').toLowerCase().includes('footwear') || (product.sub_category || '').toLowerCase().includes('boot') || (product.sub_category || '').toLowerCase().includes('insol')) ? t('productPage.safetyFeatures') : t('productPage.features')}</h3>
                       </div>
                       <ul className="list-disc list-inside space-y-1 text-brand-secondary dark:text-gray-300">
                         {currentFeatures && currentFeatures.length > 0 ? (
@@ -464,6 +513,21 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                         )}
                       </ul>
                     </div>
+                    {/* Other details blocks - after Safety features */}
+                    {((product.category || '').toLowerCase().includes('head') || (product.sub_category || '').toLowerCase().includes('helmet') || (product.sub_category || '').toLowerCase().includes('bump')) && (
+                      <HeadOtherDetails product={product} />
+                    )}
+                    {isHearing && (
+                      <HearingOtherDetails product={product} />
+                    )}
+                    {isRespiratory && (
+                      <RespiratoryOtherDetails product={product} />
+                    )}
+
+                    {/* Equipment blocks - last */}
+                    {((product.category || '').toLowerCase().includes('head') || (product.sub_category || '').toLowerCase().includes('helmet') || (product.sub_category || '').toLowerCase().includes('bump')) && (
+                      <HeadEquipment product={product} />
+                    )}
                   </div>
                 </TabsContent>
                 
@@ -508,7 +572,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                   </div>
                 </TabsContent>
                 
-                {(product.safety || (product as any).eye_face_standards || (product as any).respiratory_standards) && (
+                {!isSwab && (product.safety || (product as any).eye_face_standards || (product as any).respiratory_standards) && (
                   <TabsContent value="safety" className="mt-0">
                     <div className="space-y-6">
                       {/* Safety Standards - Environment pictograms moved to specifications */}

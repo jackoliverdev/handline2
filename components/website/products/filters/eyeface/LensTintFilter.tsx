@@ -9,6 +9,13 @@ export function LensTintFilter({ options, selected, onToggle, isExpanded, toggle
   const { t } = useLanguage();
   const [localOpen, setLocalOpen] = useState(false);
   const open = isExpanded ?? localOpen;
+  const humanise = (key: string) => key.replace(/_/g, ' ').toLowerCase();
+  const capitaliseWords = (s: string) => s.replace(/\b\w/g, (m) => m.toUpperCase());
+  const labelFor = (key: string) => {
+    const tKey = `productPage.lensTintTypes.${key}`;
+    const translated = t(tKey);
+    return translated === tKey ? capitaliseWords(humanise(key)) : translated;
+  };
   return (
     <div className="border-b border-brand-primary/10 dark:border-brand-primary/20 pb-4">
       <button className="flex w-full items-center justify-between mb-2" onClick={() => (toggleSection ? toggleSection("eyeFaceTint") : setLocalOpen(v => !v))}>
@@ -20,7 +27,7 @@ export function LensTintFilter({ options, selected, onToggle, isExpanded, toggle
           {options.map(opt => (
             <div key={opt} className="flex items-center space-x-2">
               <Checkbox id={`tint-${opt}`} checked={selected.includes(opt)} onCheckedChange={() => onToggle(opt)} className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary" />
-              <label htmlFor={`tint-${opt}`} className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer">{opt}</label>
+              <label htmlFor={`tint-${opt}`} className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer">{labelFor(opt)}</label>
             </div>
           ))}
         </div>

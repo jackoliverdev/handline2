@@ -161,6 +161,7 @@ export function IndustrialSwabsProductsSection({ products }: IndustrialSwabsProd
         <ProductGrid 
           products={swabsProducts} 
           initialCategory={initialCategory}
+          hideMainCategoryFilter
           extraFiltersRender={(
             <>
               <LengthFilter

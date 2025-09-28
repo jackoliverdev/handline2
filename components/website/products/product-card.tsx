@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Flame, Scissors, ArrowRight, Eye, ListChecks } from "lucide-react";
+import { Flame, Scissors, ArrowRight, Eye, ListChecks, Shield } from "lucide-react";
 import { Product } from "@/lib/products-service";
 import { ProductPreviewModal } from "./product-preview-modal";
 import { useLanguage } from "@/lib/context/language-context";
@@ -121,6 +121,99 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
   const applicationsLimit = hasMultipleStandards ? 3 : 4;
   const topApplications = product.applications ? product.applications.slice(0, applicationsLimit) : [];
 
+  // Head protection standards row (icons + labels) – matches glove standards row compact styling
+  const renderHeadStandardsRow = () => {
+    const hs: any = (product as any).head_standards;
+    const isHead = ((product.category || '').toLowerCase().includes('head')) || ((product.sub_category || '').toLowerCase().includes('helmet')) || ((product.sub_category || '').toLowerCase().includes('bump'));
+    if (!isHead || !hs) return null;
+    const standards: { code: string }[] = [];
+    if (hs?.en397?.present) standards.push({ code: 'EN 397' });
+    if (hs?.en50365) standards.push({ code: 'EN 50365' });
+    if (hs?.en12492) standards.push({ code: 'EN 12492' });
+    if (hs?.en812) standards.push({ code: 'EN 812' });
+    if (!standards.length) return null;
+    return (
+      <div className="flex flex-wrap gap-2">
+        {standards.map(({ code }) => (
+          <div key={code} className="flex items-center gap-1.5">
+            <Shield className="h-3 w-3 text-brand-primary" />
+            <span className="text-[10px] font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">{code}</span>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  const renderFootwearStandardsRow = () => {
+    const fs: any = (product as any).footwear_standards;
+    const fa: any = (product as any).footwear_attributes;
+    const isFootwear = ((product.category || '').toLowerCase().includes('footwear')) || ((product.sub_category || '').toLowerCase().includes('boot')) || ((product.sub_category || '').toLowerCase().includes('insol'));
+    if (!isFootwear || (!fs && !fa)) return null;
+    
+    // Build the EN ISO 20345 marking string
+    const codes: string[] = [];
+    
+    // Add class from attributes
+    if (fa?.class) {
+      codes.push(fa.class);
+    }
+    
+    // Add codes from EN ISO 20345:2022 standards
+    if (Array.isArray(fs?.en_iso_20345_2022)) {
+      codes.push(...fs.en_iso_20345_2022.filter((code: string) => code !== fa?.class));
+    }
+    
+    if (!codes.length) return null;
+    
+    const markingText = `EN ISO 20345 ${codes.join(' ')}`;
+    
+    return (
+      <div className="flex items-center gap-1.5">
+        <div className="flex h-3 w-3 items-center justify-center">
+          <div className="relative w-3 h-3">
+            <Image
+              src="/icons/EN-ISO-20345.png"
+              alt="EN ISO 20345"
+              fill
+              className="object-contain dark:invert"
+            />
+          </div>
+        </div>
+        <span className="text-[10px] font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">{markingText}</span>
+      </div>
+    );
+  };
+
+  const renderHearingStandardsRow = () => {
+    const hs: any = (product as any).hearing_standards;
+    const isHearing = ((product.category || '').toLowerCase().includes('hearing') || (product.sub_category || '').toLowerCase().includes('ear'));
+    if (!isHearing || !hs?.en352) return null;
+    
+    // Build the EN 352 marking string
+    const codes: string[] = [];
+    
+    // Add EN 352 parts (e.g., "EN 352-2")
+    if (Array.isArray(hs.en352.parts)) {
+      codes.push(...hs.en352.parts);
+    }
+    
+    // Add additional requirements (e.g., "S", "V", "W", "E1")
+    if (Array.isArray(hs.en352.additional)) {
+      codes.push(...hs.en352.additional);
+    }
+    
+    if (!codes.length) return null;
+    
+    const markingText = codes.join(' ');
+    
+    return (
+      <div className="flex items-center gap-1.5">
+        <Shield className="h-3 w-3 text-brand-primary" />
+        <span className="text-[10px] font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">{markingText}</span>
+      </div>
+    );
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -187,8 +280,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
           </h3>
         </Link>
         
-        {/* Safety Standards with Green Squares */}
+        {/* Safety Standards with Green Squares (Gloves) and EN166 (Eye & Face) */}
         <div className="space-y-2">
+          {/* Head protection standards row (EN 397/50365/12492/812) */}
+          {renderHeadStandardsRow()}
+          
+          {/* Footwear protection standards row (EN ISO 20345) */}
+          {renderFootwearStandardsRow()}
+
+          {/* Hearing protection standards row (EN 352) */}
+          {renderHearingStandardsRow()}
+
           {(product.cut_resistance_level || product.heat_resistance_level) && (
             <>
               {/* EN Standards - Stacked vertically */}
@@ -253,6 +355,35 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
               </div>
             </>
           )}
+
+          {/* EN166 (Eye & Face) - Frame/Lens markings */}
+          {(() => {
+            const std = (product as any).eye_face_standards;
+            const en166 = std?.en166;
+            const isEyeFace = ((product.category || '').toLowerCase().includes('eye') || (product.category || '').toLowerCase().includes('face') || (product.sub_category || '').toLowerCase().includes('goggle') || (product.sub_category || '').toLowerCase().includes('visor') || (product.sub_category || '').toLowerCase().includes('glasses'));
+            const hasMarks = !!(en166 && (en166.frame_mark || en166.lens_mark));
+            if (!isEyeFace || !hasMarks) return null;
+            return (
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-1.5">
+                  <Eye className="h-3 w-3 text-brand-primary" />
+                  <span className="text-[10px] font-medium text-gray-700 dark:text-gray-300 min-w-[32px]">EN166</span>
+                </div>
+                {en166?.frame_mark && (
+                  <div className="flex items-center gap-1.5 min-w-0">
+                    <span className="text-[10px] text-gray-500 dark:text-gray-400 whitespace-nowrap shrink-0">{t('productPage.frameMark')}</span>
+                    <span className="text-[11px] font-mono text-gray-900 dark:text-white truncate flex-1 min-w-0" title={en166.frame_mark}>{en166.frame_mark}</span>
+                  </div>
+                )}
+                {en166?.lens_mark && (
+                  <div className="flex items-center gap-1.5 min-w-0">
+                    <span className="text-[10px] text-gray-500 dark:text-gray-400 whitespace-nowrap shrink-0">{t('productPage.lensMark')}</span>
+                    <span className="text-[11px] font-mono text-gray-900 dark:text-white truncate flex-1 min-w-0" title={en166.lens_mark}>{en166.lens_mark}</span>
+                  </div>
+                )}
+              </div>
+            );
+          })()}
         </div>
 
         {/* Top 2 Applications */}

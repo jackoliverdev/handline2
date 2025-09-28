@@ -53,6 +53,8 @@ import { CoatingFilter } from "@/components/website/products/filters/eyeface/Coa
 import { CoatingFilterMobile } from "@/components/website/products/filters/eyeface/CoatingFilterMobile";
 import { UvCodeFilter } from "@/components/website/products/filters/eyeface/UvCodeFilter";
 import { UvCodeFilterMobile } from "@/components/website/products/filters/eyeface/UvCodeFilterMobile";
+import { EyeFaceEnStandardFilter } from "@/components/website/products/filters/eyeface/EyeFaceEnStandardFilter";
+import { EyeFaceEnStandardFilterMobile } from "@/components/website/products/filters/eyeface/EyeFaceEnStandardFilterMobile";
 // Head filters
 import { BrimLengthFilter } from "@/components/website/products/filters/head/BrimLengthFilter";
 import { BrimLengthFilterMobile } from "@/components/website/products/filters/head/BrimLengthFilterMobile";
@@ -187,6 +189,7 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
   const [selectedEyeFaceTints, setSelectedEyeFaceTints] = React.useState<string[]>([]);
   const [selectedEyeFaceCoats, setSelectedEyeFaceCoats] = React.useState<string[]>([]);
   const [selectedEyeFaceUv, setSelectedEyeFaceUv] = React.useState<string[]>([]);
+  const [selectedEyeFaceEn, setSelectedEyeFaceEn] = React.useState<string[]>([]);
   // Head state
   const [selectedHeadBrims, setSelectedHeadBrims] = React.useState<string[]>([]);
   const [selectedHeadLt, setSelectedHeadLt] = React.useState<boolean>(false);
@@ -293,6 +296,24 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
   const eyeFaceUvOptions = React.useMemo(() => {
     const s = new Set<string>();
     (eyeFace as any[]).forEach((p: any) => { const v = p.eye_face_attributes?.uv_code; if (v) s.add(String(v)); });
+    return Array.from(s).sort();
+  }, [eyeFace]);
+  const eyeFaceEnOptions = React.useMemo(() => {
+    const s = new Set<string>();
+    (eyeFace as any[]).forEach((p: any) => {
+      const en166 = p.eye_face_standards?.en166;
+      if (!en166) return;
+      const fm = en166.frame_mark as string | undefined;
+      const lm = en166.lens_mark as string | undefined;
+      const ms = en166.mechanical_strength as string | undefined;
+      const am = en166.additional_marking as string | undefined;
+      const oc = typeof en166.optical_class === 'number' ? `Optical class ${en166.optical_class}` : undefined;
+      if (fm) s.add(String(fm));
+      if (lm) s.add(String(lm));
+      if (ms) s.add(String(ms));
+      if (am) s.add(String(am));
+      if (oc) s.add(oc);
+    });
     return Array.from(s).sort();
   }, [eyeFace]);
   // Clothing options
@@ -418,6 +439,7 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
         <LensTintFilter options={eyeFaceTintOptions} selected={selectedEyeFaceTints} onToggle={(opt) => setSelectedEyeFaceTints((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <CoatingFilter options={eyeFaceCoatingOptions} selected={selectedEyeFaceCoats} onToggle={(opt) => setSelectedEyeFaceCoats((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <UvCodeFilter options={eyeFaceUvOptions} selected={selectedEyeFaceUv} onToggle={(opt) => setSelectedEyeFaceUv((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+      <EyeFaceEnStandardFilter options={eyeFaceEnOptions} selected={selectedEyeFaceEn} onToggle={(opt) => setSelectedEyeFaceEn((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
       </FilterSection>
 
       <FilterSection title="Head protection" defaultExpanded={false}>
@@ -538,6 +560,7 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
         <LensTintFilterMobile options={eyeFaceTintOptions} selected={selectedEyeFaceTints} onToggle={(opt) => setSelectedEyeFaceTints((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <CoatingFilterMobile options={eyeFaceCoatingOptions} selected={selectedEyeFaceCoats} onToggle={(opt) => setSelectedEyeFaceCoats((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <UvCodeFilterMobile options={eyeFaceUvOptions} selected={selectedEyeFaceUv} onToggle={(opt) => setSelectedEyeFaceUv((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+      <EyeFaceEnStandardFilterMobile options={eyeFaceEnOptions} selected={selectedEyeFaceEn} onToggle={(opt) => setSelectedEyeFaceEn((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
       </FilterSection>
 
       <FilterSection title="Head protection" defaultExpanded={false} variant="mobile">
@@ -566,7 +589,7 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
     const hasArmSel = selectedArmLengths.length > 0 || selectedArmThumbLoop !== null || selectedArmClosures.length > 0;
     const hasHearSel = selectedSnrs.length > 0 || selectedParts.length > 0 || selectedMounts.length > 0 || selectedReusable !== null || selectedBluetooth !== null;
     const hasFwSel = selectedFwClasses.length > 0 || selectedFwEsd !== null || selectedFwWidths.length > 0 || (selectedFwSize.min !== undefined || selectedFwSize.max !== undefined) || selectedFwToes.length > 0 || selectedFwSoles.length > 0 || selectedFwCodes.length > 0;
-    const hasEyeSel = selectedEyeFaceProt.length > 0 || selectedEyeFaceTints.length > 0 || selectedEyeFaceCoats.length > 0 || selectedEyeFaceUv.length > 0;
+    const hasEyeSel = selectedEyeFaceProt.length > 0 || selectedEyeFaceTints.length > 0 || selectedEyeFaceCoats.length > 0 || selectedEyeFaceUv.length > 0 || selectedEyeFaceEn.length > 0;
     const hasHeadSel = selectedHeadBrims.length > 0 || selectedHeadLt || selectedHead50365 || selectedHeadMm || selectedHeadVent || selectedHeadStds.length > 0;
     const hasClothSel = selectedClTypes.length > 0 || selectedClCats.length > 0 || selectedHiVis.length > 0 || selectedClFlame || selectedClArc.length > 0 || selectedClAnti;
     // If no selections at all, don't filter out anything
@@ -631,6 +654,15 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
     const efTintOk = selectedEyeFaceTints.length === 0 ? true : (!!ef.lens_tint && selectedEyeFaceTints.includes(String(ef.lens_tint)));
     const efCoatOk = selectedEyeFaceCoats.length === 0 ? true : (Array.isArray(ef.coatings) && ef.coatings.some((c: string) => selectedEyeFaceCoats.includes(c)));
     const efUvOk = selectedEyeFaceUv.length === 0 ? true : (!!ef.uv_code && selectedEyeFaceUv.includes(String(ef.uv_code)));
+    const efStd: any = (p as any).eye_face_standards || {};
+    const en = efStd?.en166 || {};
+    const efFlags: string[] = [];
+    if (en.frame_mark) efFlags.push(String(en.frame_mark));
+    if (en.lens_mark) efFlags.push(String(en.lens_mark));
+    if (en.mechanical_strength) efFlags.push(String(en.mechanical_strength));
+    if (en.additional_marking) efFlags.push(String(en.additional_marking));
+    if (typeof en.optical_class === 'number') efFlags.push(`Optical class ${en.optical_class}`);
+    const efEnOk = selectedEyeFaceEn.length === 0 ? true : selectedEyeFaceEn.some(sel => efFlags.includes(sel));
 
     // Head checks
     const hsHead: any = (p as any).head_standards || {};
@@ -667,7 +699,7 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
     const clTypeOk = selectedClTypes.length === 0 ? true : (pType && selectedClTypes.includes(pType));
     const clCatOk = selectedClCats.length === 0 ? true : (pCat && selectedClCats.includes(pCat));
 
-    return lengthOk && padOk && connOk && typeOk && classOk && armLenOk && armLoopOk && armClosureOk && snrOk && partOk && reuseOk && mountOk && btOk && fwClassOk && fwEsdOk && fwWidthOk && fwSizeOk && fwToeOk && fwSoleOk && fwCodeOk && efProtOk && efTintOk && efCoatOk && efUvOk && headBrimOk && headLtOk && head50365Ok && headMmOk && headVentOk && headStdOk && clVisOk && clFlOk && clArcOk && clAntiOk && clTypeOk && clCatOk;
+    return lengthOk && padOk && connOk && typeOk && classOk && armLenOk && armLoopOk && armClosureOk && snrOk && partOk && reuseOk && mountOk && btOk && fwClassOk && fwEsdOk && fwWidthOk && fwSizeOk && fwToeOk && fwSoleOk && fwCodeOk && efProtOk && efTintOk && efCoatOk && efUvOk && efEnOk && headBrimOk && headLtOk && head50365Ok && headMmOk && headVentOk && headStdOk && clVisOk && clFlOk && clArcOk && clAntiOk && clTypeOk && clCatOk;
   };
 
   return (

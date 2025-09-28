@@ -255,6 +255,28 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
     );
   };
 
+  // Arm protection quick badges (compact) - same as gloves
+  const renderArmChips = () => {
+    const safety: any = (product as any).safety;
+    const armAttrs: any = (product as any).arm_attributes;
+    if (!safety && !armAttrs) return null;
+    const chips: string[] = [];
+    if (safety?.en_388?.enabled) chips.push('EN 388');
+    if (safety?.en_iso_21420?.enabled) chips.push('EN ISO 21420');
+    if (armAttrs?.thumb_loop) chips.push('Thumb loop');
+    if (armAttrs?.closure) chips.push(`Closure: ${armAttrs.closure}`);
+    if (!chips.length) return null;
+    return (
+      <div className="flex flex-wrap gap-1.5">
+        {chips.map((c, idx) => (
+          <span key={idx} className="bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 rounded px-2 py-0.5 text-xs">
+            {c}
+          </span>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[800px] max-w-[95vw] p-0 gap-0 bg-white dark:bg-black/100 backdrop-blur-sm border border-gray-100 dark:border-gray-700/50 shadow-2xl max-h-[85vh] overflow-y-auto">
@@ -487,6 +509,7 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
                 {renderEyeFaceChips()}
                 {renderHeadChips()}
                 {renderClothingChips()}
+                {renderArmChips()}
               </div>
             </div>
 

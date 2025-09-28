@@ -10,13 +10,13 @@ export function BrimLengthFilter({ options, selected, onToggle, isExpanded, togg
   const [openLocal, setOpenLocal] = useState(false);
   const open = isExpanded ?? openLocal;
   return (
-    <div className="border-b border-brand-primary/10 dark:border-brand-primary/20 pb-4">
-      <button className="flex w-full items-center justify-between text-left text-sm font-medium text-brand-dark dark:text-white" onClick={() => toggleSection ? toggleSection('brim') : setOpenLocal(!open)}>
+    <div className="pb-0">
+      <button className="flex w-full items-center justify-between text-left text-sm text-brand-dark dark:text-white py-3" onClick={() => toggleSection ? toggleSection('brim') : setOpenLocal(!open)}>
         {t('products.filters.brimLength') || 'Brim length'}
         <ChevronDown className={`h-4 w-4 transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
       {open && (
-        <div className="mt-3 space-y-2">
+        <div className="mt-2 space-y-2">
           {options.map(opt => (
             <label key={opt} className="flex items-center space-x-2">
               <Checkbox id={`brim-${opt}`} checked={selected.includes(opt)} onCheckedChange={() => onToggle(opt)} />

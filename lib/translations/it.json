@@ -141,7 +141,7 @@
       "protectionType": "Tipo di protezione",
       "lensTint": "Colore lente",
       "coating": "Trattamento",
-      "uvCode": "Codice UV",
+      "uvCode": "Protezione UV",
       "brimLength": "Lunghezza visiera",
       "lowTemperature": "Prestazioni a bassa temperatura",
       "electricalInsulation": "Isolamento elettrico (EN 50365)",
@@ -728,14 +728,26 @@
     "backToProducts": "Torna ai prodotti",
     "specifications": "Specifiche",
     "features": "Caratteristiche",
+    "safetyFeatures": "Caratteristiche di sicurezza",
+      "equipment": "Attrezzatura",
+      "otherDetails": "Altri dettagli",
     "applications": "Applicazioni",
     "safety": "Livelli di protezione",
     "documentation": "Documenti",
     "productDetails": "Dettagli Prodotto",
     "technicalSpecifications": "Specifiche Tecniche",
     "materials": "Materiali",
+    "npf": "NPF",
     "size": "Taglie",
+    "comfortFeatures": "Comfort e vestibilità",
     "attributes": "Attributi",
+      "protectiveFilters": "Filtri protettivi",
+      "protectiveFilter": "Filtro protettivo",
+      "sun": "Sole",
+      "glare": "Abbaglio",
+      "ir": "IR",
+      "welding": "Saldatura",
+      "uv": "UV",
     "dimensions": "Dimensioni",
     "temperatureRating": "Resistenza al Calore",
     "cutResistanceLevel": "Livello di Resistenza al Taglio",
@@ -748,7 +760,8 @@
     "productInfo": {
       "brand": "Marca", 
       "size": "Taglia",
-      "length": "Lunghezza"
+      "length": "Lunghezza",
+      "rodLength": "Lunghezza asta"
     },
     "ceCategory": "Categoria CE",
     "category": "Categoria",
@@ -765,6 +778,7 @@
     "noDocuments": "Nessun documento disponibile",
       "opticalClass": "Classe ottica",
       "mechanical": "Meccanico",
+      "coating": "Trattamento",
       "standards": "Standard",
       "weight": "Peso",
       "closedShell": "Calotta chiusa",
@@ -782,7 +796,12 @@
       "uvProtection": "Protezione UV",
       "frameMark": "Marcatura montatura",
       "lensMark": "Marcatura lente",
+      "frame": "Montatura",
+      "lens": "Lente",
       "additionalMarking": "Marcature aggiuntive",
+      "lowTemperature": "Bassa temperatura",
+      "highTemperature": "Alta temperatura",
+      "electricalInsulation": "Isolamento elettrico",
       
       "lateralDeformation": "Deformazione laterale",
       "enIso20345": "EN ISO 20345",
@@ -790,6 +809,7 @@
       "enIso20345_2011": "EN ISO 20345:2011",
       "enIso21420": "EN ISO 21420",
       "stdLabel": {
+        "en397": "Caschi di sicurezza industriali",
         "en169": "Filtri per saldatura",
         "en170": "Filtri UV",
         "en172": "Filtri antiabbagliamento per uso industriale",
@@ -798,7 +818,9 @@
         "en50365": "Isolamento elettrico",
         "en12492": "Caschi da alpinismo",
         "en812": "Berretti antiurto",
-        "en_iso_21420": "Requisiti generali"
+        "en_iso_21420": "Requisiti generali",
+        "en143": "Dispositivi di protezione delle vie respiratorie - Filtri per particelle",
+        "din31813": "Dispositivi di protezione delle vie respiratorie - Filtri per gas"
       },
       "additionalRequirements": "Requisiti supplementari",
       "compatibleWith": "Compatibile con",
@@ -810,6 +832,7 @@
     "chemicalExposure": "Esposizione Chimica",
     "biologicalHazards": "Rischi Biologici",
       "oilyGreasy": "Oleoso / Grasso",
+      "electrical": "Rischio elettrico",
     "suitableFor": "Adatto per",
     "workEnvironments": "ambienti di lavoro",
     "yes": "Sì",
@@ -825,7 +848,67 @@
     "convectiveHeat": "Calore Convettivo",
     "radiantHeat": "Calore Radiante", 
     "smallSplashes": "Piccoli Schizzi",
-    "additionalStandards": "Conformità standard aggiuntivi"
+    "additionalStandards": "Conformità standard aggiuntivi",
+    "coatingTypes": {
+      "anti_fog": "Antiappannante",
+      "scratch_resistant": "Antigraffio",
+      "chemical_resistant": "Resistente agli agenti chimici"
+    },
+      "lensTintTypes": {
+        "transparent": "Trasparente",
+        "clear": "Trasparente",
+        "grey": "Grigio",
+        "smoke": "Fumé",
+        "brown": "Marrone",
+        "amber": "Ambra",
+        "yellow": "Giallo",
+        "green": "Verde",
+        "blue": "Blu",
+        "mirror": "Specchiata"
+      },
+      "footwearAttributes": {
+        "metalFree": "Senza metallo",
+        "esd": "ESD",
+        "slipResistance": "Resistenza allo scivolamento",
+        "waterResistance": "Resistenza all'acqua",
+        "chemicalExposure": "Esposizione chimica",
+        "metatarsalProtection": "Protezione metatarsale"
+      },
+      "hearingAttributes": {
+        "waterResistance": "Resistenza all'acqua",
+        "extremeTemperature": "Temperatura estrema",
+        "mechanicalStress": "Stress meccanico",
+        "electricalInsulation": "Isolamento elettrico",
+        "specialElectrical": "Elettrico speciale",
+        "adjustments": "Regolazioni",
+        "biohazard": "Rischio biologico",
+        "compatibility": "Compatibilità",
+        "decontamination": "Decontaminazione",
+        "flame": "Fiamma",
+        "lowTemperature": "Bassa temperatura",
+        "mhNoise": "Rumore M/H",
+        "radioFrequency": "Radiofrequenza",
+        "temperatureWater": "Temperatura + Acqua"
+      },
+      "respiratoryStandards": {
+        "class": "Classe",
+        "nonReusable": "Non riutilizzabile",
+        "reusable": "Riutilizzabile",
+        "highDust": "Alta polvere",
+        "gasFilters": "Filtri Gas",
+        "gases": {
+          "a": "Gas organici",
+          "b": "Gas inorganici",
+          "e": "Gas acidi", 
+          "k": "Ammoniaca",
+          "ax": "Gas organico < 65°C",
+          "hg": "Mercurio",
+          "no": "Gas nitrosi",
+          "sx": "Gas specifico",
+          "co": "Monossido di carbonio",
+          "p": "Polvere"
+        }
+      }
   },
   "relatedProducts": {
     "title": "Prodotti correlati"

@@ -102,6 +102,7 @@ export function HearingProductsSection({ products }: HearingProductsSectionProps
           extraFiltersRenderMobile={extraFiltersMobile}
           extraFilterPredicate={predicate}
           hideDefaultFilters={true}
+          hideMainCategoryFilter
         />
       </div>
     </section>

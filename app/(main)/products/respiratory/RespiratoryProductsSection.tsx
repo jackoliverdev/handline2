@@ -140,6 +140,7 @@ export function RespiratoryProductsSection({ products }: RespiratoryProductsSect
             </>
           )}
           hideDefaultFilters={true}
+          hideMainCategoryFilter
           extraFilterPredicate={(p: Product) => {
             const hasSel = selectedConnections.length + selectedFilterTypes.length + selectedProtectionClasses.length > 0;
             if (!hasSel) return true;

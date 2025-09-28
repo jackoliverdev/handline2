@@ -11,6 +11,8 @@ import { CoatingFilter } from "@/components/website/products/filters/eyeface/Coa
 import { CoatingFilterMobile } from "@/components/website/products/filters/eyeface/CoatingFilterMobile";
 import { UvCodeFilter } from "@/components/website/products/filters/eyeface/UvCodeFilter";
 import { UvCodeFilterMobile } from "@/components/website/products/filters/eyeface/UvCodeFilterMobile";
+import { EyeFaceEnStandardFilter } from "@/components/website/products/filters/eyeface/EyeFaceEnStandardFilter";
+import { EyeFaceEnStandardFilterMobile } from "@/components/website/products/filters/eyeface/EyeFaceEnStandardFilterMobile";
 
 export function EyeFaceProductsSection({ products }: { products: Product[] }) {
   const scoped = useMemo(() => {
@@ -34,6 +36,7 @@ export function EyeFaceProductsSection({ products }: { products: Product[] }) {
   const [tints, setTints] = useState<string[]>([]);
   const [coatings, setCoatings] = useState<string[]>([]);
   const [uvCodes, setUvCodes] = useState<string[]>([]);
+  const [en166Selections, setEn166Selections] = useState<string[]>([]);
 
   const tintOptions = useMemo(() => {
     const s = new Set<string>();
@@ -51,12 +54,32 @@ export function EyeFaceProductsSection({ products }: { products: Product[] }) {
     return Array.from(s).sort();
   }, [scoped]);
 
+  const en166Options = useMemo(() => {
+    const s = new Set<string>();
+    (scoped as any[]).forEach((p: any) => {
+      const en166 = p.eye_face_standards?.en166;
+      if (!en166) return;
+      const fm = en166.frame_mark as string | undefined;
+      const lm = en166.lens_mark as string | undefined;
+      const ms = en166.mechanical_strength as string | undefined;
+      const am = en166.additional_marking as string | undefined;
+      const oc = typeof en166.optical_class === 'number' ? `Optical class ${en166.optical_class}` : undefined;
+      if (fm) s.add(String(fm));
+      if (lm) s.add(String(lm));
+      if (ms) s.add(String(ms));
+      if (am) s.add(String(am));
+      if (oc) s.add(oc);
+    });
+    return Array.from(s).sort();
+  }, [scoped]);
+
   const extraFilters = (
     <>
       <ProtectionTypeFilter selected={protTypes} onToggle={(v) => setProtTypes(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} />
       <LensTintFilter options={tintOptions} selected={tints} onToggle={(v) => setTints(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} />
       <CoatingFilter options={coatingOptions} selected={coatings} onToggle={(v) => setCoatings(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} />
       <UvCodeFilter options={uvOptions} selected={uvCodes} onToggle={(v) => setUvCodes(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} />
+      <EyeFaceEnStandardFilter options={en166Options} selected={en166Selections} onToggle={(v) => setEn166Selections(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} />
     </>
   );
 
@@ -66,6 +89,7 @@ export function EyeFaceProductsSection({ products }: { products: Product[] }) {
       <LensTintFilterMobile options={tintOptions} selected={tints} onToggle={(v) => setTints(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} />
       <CoatingFilterMobile options={coatingOptions} selected={coatings} onToggle={(v) => setCoatings(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} />
       <UvCodeFilterMobile options={uvOptions} selected={uvCodes} onToggle={(v) => setUvCodes(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} />
+      <EyeFaceEnStandardFilterMobile options={en166Options} selected={en166Selections} onToggle={(v) => setEn166Selections(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} />
     </>
   );
 
@@ -86,7 +110,16 @@ export function EyeFaceProductsSection({ products }: { products: Product[] }) {
     const tintOk = tints.length === 0 ? true : (!!lensTint && tints.includes(lensTint));
     const coatOk = coatings.length === 0 ? true : coatings.every(c => coatingsArr.includes(c)) || coatings.some(c => coatingsArr.includes(c));
     const uvOk = uvCodes.length === 0 ? true : (!!uvCode && uvCodes.includes(uvCode));
-    return protOk && tintOk && coatOk && uvOk;
+    const std: any = (p as any).eye_face_standards || {};
+    const en = std?.en166 || {};
+    const flags: string[] = [];
+    if (en.frame_mark) flags.push(String(en.frame_mark));
+    if (en.lens_mark) flags.push(String(en.lens_mark));
+    if (en.mechanical_strength) flags.push(String(en.mechanical_strength));
+    if (en.additional_marking) flags.push(String(en.additional_marking));
+    if (typeof en.optical_class === 'number') flags.push(`Optical class ${en.optical_class}`);
+    const enOk = en166Selections.length === 0 ? true : en166Selections.some(sel => flags.includes(sel));
+    return protOk && tintOk && coatOk && uvOk && enOk;
   };
 
   return (
@@ -98,6 +131,7 @@ export function EyeFaceProductsSection({ products }: { products: Product[] }) {
           extraFiltersRenderMobile={extraFiltersMobile}
           extraFilterPredicate={predicate}
           hideDefaultFilters={true}
+          hideMainCategoryFilter
         />
       </div>
     </section>

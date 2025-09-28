@@ -21,12 +21,10 @@ export function ArmStandards({ product }: { product: Product }) {
       {/* Title rendered by ProductDetail once for all standards. */}
       {has21420 && (
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-          <div className="flex items-center gap-3 mb-2">
+          <div className="flex items-center gap-3 md:gap-4 flex-wrap">
             <Shield className="h-5 w-5 text-brand-primary" />
             <h3 className="font-medium text-brand-dark dark:text-white">{t('productPage.enIso21420') || 'EN ISO 21420'}</h3>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Badge variant="outline" className="bg-brand-primary/5 border-brand-primary/20">{t('productPage.stdLabel.en_iso_21420') || 'General requirements'}</Badge>
+            <span className="text-sm md:text-base font-semibold text-brand-dark dark:text-white">{t('productPage.stdLabel.en_iso_21420') || 'General requirements'}</span>
           </div>
         </div>
       )}

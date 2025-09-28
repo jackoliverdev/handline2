@@ -52,9 +52,11 @@ interface ProductGridProps {
   subCategoryExpandedDefault?: boolean;
   // Hide Category and Sub-Category filters entirely (e.g., clothing sub-pages)
   hideCategoryFilters?: boolean;
+  // Hide only the main Category filter (keep Sub-Category visible)
+  hideMainCategoryFilter?: boolean;
 }
 
-export const ProductGrid = ({ products, className = "", initialCategory, extraFiltersRender, extraFiltersRenderMobile, extraFilterPredicate, hideDefaultFilters = false, categoryExpandedDefault, subCategoryExpandedDefault, hideCategoryFilters = false }: ProductGridProps) => {
+export const ProductGrid = ({ products, className = "", initialCategory, extraFiltersRender, extraFiltersRenderMobile, extraFilterPredicate, hideDefaultFilters = false, categoryExpandedDefault, subCategoryExpandedDefault, hideCategoryFilters = false, hideMainCategoryFilter = false }: ProductGridProps) => {
   const { t, language } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory || "");
@@ -176,7 +178,7 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
   // Update active filters count when filters change
   useEffect(() => {
     let count = 0;
-    if (selectedCategory && selectedCategory !== "all") count++;
+    if (!hideMainCategoryFilter && selectedCategory && selectedCategory !== "all") count++;
     if (selectedSubCategories.length > 0) count++;
     if (selectedTempRatings.length > 0) count++;
     if (selectedCutLevels.length > 0) count++;
@@ -185,7 +187,7 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
     if (selectedWorkEnvironments.length > 0) count++;
     if (selectedIndustries.length > 0) count++;
     setActiveFiltersCount(count);
-  }, [selectedCategory, selectedSubCategories, selectedTempRatings, selectedCutLevels, selectedHeatLevels, selectedHazardProtections, selectedWorkEnvironments, selectedIndustries]);
+  }, [selectedCategory, selectedSubCategories, selectedTempRatings, selectedCutLevels, selectedHeatLevels, selectedHazardProtections, selectedWorkEnvironments, selectedIndustries, hideMainCategoryFilter]);
   
   // Handle industry selection
   const toggleIndustry = (industry: string) => {
@@ -450,7 +452,7 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
               
               <div className="space-y-6">
                 {/* Category Filter */}
-                {!hideCategoryFilters && (
+                {!hideCategoryFilters && !hideMainCategoryFilter && (
                   <CategoryFilter
                     categories={uniqueCategories}
                     selectedCategory={selectedCategory}
@@ -606,7 +608,7 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
           
           {/* Active Filters - Mobile and Tablet only */}
           <FilterBadges
-            selectedCategory={selectedCategory}
+            selectedCategory={hideMainCategoryFilter ? "" : selectedCategory}
             selectedSubCategories={selectedSubCategories}
             selectedTempRatings={selectedTempRatings}
             selectedHazardProtections={selectedHazardProtections}
