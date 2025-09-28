@@ -106,6 +106,8 @@ export default function CategoryProductEdit({ id, slug }: Props) {
   const [padEnLength, setPadEnLength] = useState<number | ''>('');
   const [padItDiameter, setPadItDiameter] = useState<number | ''>('');
   const [padItLength, setPadItLength] = useState<number | ''>('');
+  const [clothingComfortFeatures, setClothingComfortFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [clothingOtherDetails, setClothingOtherDetails] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   // Swabs generic specs
   const [lengthCm, setLengthCm] = useState<number | null>(null);
   const [ceCategory, setCeCategory] = useState<string>('');
@@ -160,6 +162,8 @@ export default function CategoryProductEdit({ id, slug }: Props) {
         setRespiratoryComfortFeatures((product as any).respiratory_comfort_features_locales || { en: [], it: [] });
         setRespiratoryOtherDetails((product as any).respiratory_other_details_locales || { en: [], it: [] });
         setRespiratoryEquipment((product as any).respiratory_equipment_locales || { en: [], it: [] });
+        setClothingComfortFeatures((product as any).clothing_comfort_features_locales || { en: [], it: [] });
+        setClothingOtherDetails((product as any).clothing_other_details_locales || { en: [], it: [] });
         setFootwearStandards((product as any).footwear_standards || { en_iso_20345_2011: [], en_iso_20345_2022: [], slip_resistance: '' });
         setFootwearAttributes((product as any).footwear_attributes || { class: '', esd: null, metal_free: null, width_fit: [], size_min: null, size_max: null, gender: '', weight_grams: null, weight_ref_size: null, special: [], toe_cap: '', sole_material: '' });
         setFootwearComfortFeatures((product as any).footwear_comfort_features_locales || { en: [], it: [] });
@@ -264,6 +268,8 @@ export default function CategoryProductEdit({ id, slug }: Props) {
         clothing_attributes: clothingAttributes,
         clothing_type: clothingType || null,
         clothing_category: clothingCategory || null,
+        clothing_comfort_features_locales: clothingComfortFeatures,
+        clothing_other_details_locales: clothingOtherDetails,
         arm_attributes: armAttributes,
         eye_face_comfort_features_locales: eyeFaceComfortFeatures,
         eye_face_equipment_locales: eyeFaceEquipment,
@@ -637,6 +643,49 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                   </div>
                 )}
 
+                {slug === 'respiratory' && (
+                  <div className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-3">
+                        <Label className="font-medium">Standards</Label>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                          <div className="space-y-1"><div className="flex items-center gap-2"><Checkbox checked={!!respiratoryStandards.en149?.enabled} onCheckedChange={(v)=> setRespiratoryStandards({ ...respiratoryStandards, en149: { ...(respiratoryStandards.en149||{}), enabled: !!v } })} /><span>EN 149</span></div><Input placeholder="Class e.g. FFP3" value={respiratoryStandards.en149?.class || ''} onChange={(e)=> setRespiratoryStandards({ ...respiratoryStandards, en149: { ...(respiratoryStandards.en149||{}), class: e.target.value } })} /></div>
+                          <div className="space-y-1"><div className="flex items-center gap-2"><Checkbox checked={!!respiratoryStandards.en143?.enabled} onCheckedChange={(v)=> setRespiratoryStandards({ ...respiratoryStandards, en143: { ...(respiratoryStandards.en143||{}), enabled: !!v } })} /><span>EN 143</span></div><Input placeholder="Class e.g. P3" value={respiratoryStandards.en143?.class || ''} onChange={(e)=> setRespiratoryStandards({ ...respiratoryStandards, en143: { ...(respiratoryStandards.en143||{}), class: e.target.value } })} /></div>
+                          <div className="space-y-1"><div className="flex items-center gap-2"><Checkbox checked={!!respiratoryStandards.en14387?.enabled} onCheckedChange={(v)=> setRespiratoryStandards({ ...respiratoryStandards, en14387: { ...(respiratoryStandards.en14387||{}), enabled: !!v } })} /><span>EN 14387</span></div><Input placeholder="Class e.g. A2B2E2K2" value={respiratoryStandards.en14387?.class || ''} onChange={(e)=> setRespiratoryStandards({ ...respiratoryStandards, en14387: { ...(respiratoryStandards.en14387||{}), class: e.target.value, gases: respiratoryStandards.en14387?.gases || {} } })} /></div>
+                          <div className="space-y-1"><div className="flex items-center gap-2"><Checkbox checked={!!respiratoryStandards.en136?.enabled} onCheckedChange={(v)=> setRespiratoryStandards({ ...respiratoryStandards, en136: { ...(respiratoryStandards.en136||{}), enabled: !!v } })} /><span>EN 136</span></div><Input placeholder="Class" value={respiratoryStandards.en136?.class || ''} onChange={(e)=> setRespiratoryStandards({ ...respiratoryStandards, en136: { ...(respiratoryStandards.en136||{}), class: e.target.value } })} /></div>
+                          <div className="space-y-1"><div className="flex items-center gap-2"><Checkbox checked={!!respiratoryStandards.en166?.enabled} onCheckedChange={(v)=> setRespiratoryStandards({ ...respiratoryStandards, en166: { ...(respiratoryStandards.en166||{}), enabled: !!v } })} /><span>EN 166</span></div><Input placeholder="Class" value={respiratoryStandards.en166?.class || ''} onChange={(e)=> setRespiratoryStandards({ ...respiratoryStandards, en166: { ...(respiratoryStandards.en166||{}), class: e.target.value } })} /></div>
+                          <div className="space-y-1"><div className="flex items-center gap-2"><Checkbox checked={!!respiratoryStandards.en140?.enabled} onCheckedChange={(v)=> setRespiratoryStandards({ ...respiratoryStandards, en140: { ...(respiratoryStandards.en140||{}), enabled: !!v } })} /><span>EN 140</span></div></div>
+                          <div className="space-y-1"><div className="flex items-center gap-2"><Checkbox checked={!!respiratoryStandards.din_3181_3?.enabled} onCheckedChange={(v)=> setRespiratoryStandards({ ...respiratoryStandards, din_3181_3: { ...(respiratoryStandards.din_3181_3||{}), enabled: !!v } })} /><span>DIN 3181-3</span></div></div>
+                        </div>
+                        <div className="space-y-1"><Label>EN 14387 gases (comma separated codes, e.g. A,B,E,K)</Label><Input value={Object.keys(respiratoryStandards.en14387?.gases || {}).filter((k)=> respiratoryStandards.en14387?.gases?.[k]).join(', ')} onChange={(e)=> {
+                          const obj: any = {}; e.target.value.split(',').map(s=> s.trim().toUpperCase()).filter(Boolean).forEach((k)=> obj[k] = true);
+                          setRespiratoryStandards({ ...respiratoryStandards, en14387: { ...(respiratoryStandards.en14387||{}), gases: obj } });
+                        }} /></div>
+                      </div>
+                      <div className="space-y-3">
+                        <LocaleListEditor 
+                          title="Comfort features" 
+                          items={respiratoryComfortFeatures[language]} 
+                          onAdd={(val) => setRespiratoryComfortFeatures({ ...respiratoryComfortFeatures, [language]: [...(respiratoryComfortFeatures[language] || []), val] })} 
+                          onRemove={(idx) => setRespiratoryComfortFeatures({ ...respiratoryComfortFeatures, [language]: (respiratoryComfortFeatures[language] || []).filter((_, i) => i !== idx) })} 
+                        />
+                        <LocaleListEditor 
+                          title="Other details" 
+                          items={respiratoryOtherDetails[language]} 
+                          onAdd={(val) => setRespiratoryOtherDetails({ ...respiratoryOtherDetails, [language]: [...(respiratoryOtherDetails[language] || []), val] })} 
+                          onRemove={(idx) => setRespiratoryOtherDetails({ ...respiratoryOtherDetails, [language]: (respiratoryOtherDetails[language] || []).filter((_, i) => i !== idx) })} 
+                        />
+                        <LocaleListEditor 
+                          title="Equipment" 
+                          items={respiratoryEquipment[language]} 
+                          onAdd={(val) => setRespiratoryEquipment({ ...respiratoryEquipment, [language]: [...(respiratoryEquipment[language] || []), val] })} 
+                          onRemove={(idx) => setRespiratoryEquipment({ ...respiratoryEquipment, [language]: (respiratoryEquipment[language] || []).filter((_, i) => i !== idx) })} 
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {slug === 'footwear' && (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-3">
@@ -740,6 +789,18 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                       <div className="space-y-1"><Label>Hi-Vis class</Label><Input type="number" value={clothingStandards.en_iso_20471?.class ?? ''} onChange={(e)=> setClothingStandards({ ...clothingStandards, en_iso_20471: { class: e.target.value === '' ? null : Number(e.target.value) } })} /></div>
                       <div className="space-y-1"><Label>Arc class</Label><Input type="number" value={clothingStandards.iec_61482_2?.class ?? ''} onChange={(e)=> setClothingStandards({ ...clothingStandards, iec_61482_2: { class: e.target.value === '' ? null : Number(e.target.value) } })} /></div>
                       <div className="flex items-center gap-2"><Checkbox checked={!!clothingStandards.en_1149_5} onCheckedChange={(v)=> setClothingStandards({ ...clothingStandards, en_1149_5: !!v })} /><span>EN 1149-5 Antistatic</span></div>
+                      <LocaleListEditor 
+                        title="Comfort features" 
+                        items={clothingComfortFeatures[language]} 
+                        onAdd={(val) => setClothingComfortFeatures({ ...clothingComfortFeatures, [language]: [...(clothingComfortFeatures[language] || []), val] })} 
+                        onRemove={(idx) => setClothingComfortFeatures({ ...clothingComfortFeatures, [language]: (clothingComfortFeatures[language] || []).filter((_, i) => i !== idx) })} 
+                      />
+                      <LocaleListEditor 
+                        title="Other details" 
+                        items={clothingOtherDetails[language]} 
+                        onAdd={(val) => setClothingOtherDetails({ ...clothingOtherDetails, [language]: [...(clothingOtherDetails[language] || []), val] })} 
+                        onRemove={(idx) => setClothingOtherDetails({ ...clothingOtherDetails, [language]: (clothingOtherDetails[language] || []).filter((_, i) => i !== idx) })} 
+                      />
                     </div>
                   </div>
                 )}

@@ -214,6 +214,75 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
     );
   };
 
+  const renderRespiratoryStandardsRow = () => {
+    const rs: any = (product as any).respiratory_standards;
+    const isRespiratory = ((product.category || '').toLowerCase().includes('respir'));
+    if (!isRespiratory || !rs) return null;
+    
+    const standards: string[] = [];
+    
+    // EN 149 - FFP masks (e.g., "EN 149 FFP3 NR")
+    if (rs.en149?.enabled) {
+      let en149Text = 'EN 149';
+      if (rs.en149.class) {
+        en149Text += ` ${rs.en149.class}`;
+      }
+      // Add reusability indicators
+      if (rs.en149.nr === true) en149Text += ' NR';
+      if (rs.en149.r === true) en149Text += ' R';
+      if (rs.en149.d === true) en149Text += ' D';
+      standards.push(en149Text);
+    }
+    
+    // EN 166 - Eye protection (e.g., "EN 166 Class 2")
+    if (rs.en166?.enabled) {
+      let en166Text = 'EN 166';
+      if (rs.en166.class) {
+        en166Text += ` Class ${rs.en166.class}`;
+      }
+      standards.push(en166Text);
+    }
+    
+    // EN 14387 - Gas filters (e.g., "EN 14387 Class 2 A B E K Hg NO")
+    if (rs.en14387?.enabled) {
+      let en14387Text = 'EN 14387';
+      if (rs.en14387.class) {
+        en14387Text += ` ${rs.en14387.class}`;
+      }
+      // Add gas types
+      if (rs.en14387.gases) {
+        const gasTypes: string[] = [];
+        if (rs.en14387.gases.a) gasTypes.push('A');
+        if (rs.en14387.gases.b) gasTypes.push('B');
+        if (rs.en14387.gases.e) gasTypes.push('E');
+        if (rs.en14387.gases.k) gasTypes.push('K');
+        if (rs.en14387.gases.ax) gasTypes.push('AX');
+        if (rs.en14387.gases.hg) gasTypes.push('Hg');
+        if (rs.en14387.gases.no) gasTypes.push('NO');
+        if (rs.en14387.gases.p) gasTypes.push('P');
+        if (rs.en14387.gases.sx) gasTypes.push('SX');
+        if (rs.en14387.gases.co) gasTypes.push('CO');
+        if (gasTypes.length > 0) {
+          en14387Text += ` ${gasTypes.join(' ')}`;
+        }
+      }
+      standards.push(en14387Text);
+    }
+    
+    if (!standards.length) return null;
+    
+    return (
+      <div className="space-y-1">
+        {standards.map((standard, index) => (
+          <div key={index} className="flex items-center gap-1.5">
+            <Shield className="h-3 w-3 text-brand-primary" />
+            <span className="text-[10px] font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">{standard}</span>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -290,6 +359,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
 
           {/* Hearing protection standards row (EN 352) */}
           {renderHearingStandardsRow()}
+
+          {/* Respiratory protection standards row (EN 149/166/14387) */}
+          {renderRespiratoryStandardsRow()}
 
           {(product.cut_resistance_level || product.heat_resistance_level) && (
             <>

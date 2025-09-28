@@ -214,6 +214,9 @@ export interface Product {
   respiratory_comfort_features_locales?: Record<string, string[]> | null;
   respiratory_other_details_locales?: Record<string, string[]> | null;
   respiratory_equipment_locales?: Record<string, string[]> | null;
+  // Clothing protection specific
+  clothing_comfort_features_locales?: Record<string, string[]> | null;
+  clothing_other_details_locales?: Record<string, string[]> | null;
   head_standards?: Record<string, any> | null;
   head_attributes?: {
     form_factor?: string | null;

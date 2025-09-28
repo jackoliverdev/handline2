@@ -102,6 +102,8 @@ export default function CategoryProductCreate({ slug }: Props) {
   const [padEnLength, setPadEnLength] = useState<number | ''>('');
   const [padItDiameter, setPadItDiameter] = useState<number | ''>('');
   const [padItLength, setPadItLength] = useState<number | ''>('');
+  const [clothingComfortFeatures, setClothingComfortFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [clothingOtherDetails, setClothingOtherDetails] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
 
   // Prefill and lock category
   const categoryMap: Record<string, { en: string; it: string }> = {
@@ -205,6 +207,8 @@ export default function CategoryProductCreate({ slug }: Props) {
         clothing_attributes: slug==='clothing' ? clothingAttributes : undefined,
         clothing_type: slug==='clothing' ? (clothingType || null) : undefined,
         clothing_category: slug==='clothing' ? (clothingCategory || null) : undefined,
+        clothing_comfort_features_locales: slug === 'clothing' ? clothingComfortFeatures : undefined,
+        clothing_other_details_locales: slug === 'clothing' ? clothingOtherDetails : undefined,
         arm_attributes: slug==='arm-protection' ? armAttributes : undefined,
         eye_face_comfort_features_locales: slug==='eye-face' ? eyeFaceComfortFeatures : undefined,
         eye_face_equipment_locales: slug==='eye-face' ? eyeFaceEquipment : undefined,
@@ -653,6 +657,18 @@ export default function CategoryProductCreate({ slug }: Props) {
                     <div className="space-y-1"><Label>Hi-Vis class</Label><Input type="number" value={clothingStandards.en_iso_20471?.class ?? ''} onChange={(e)=> setClothingStandards({ ...clothingStandards, en_iso_20471: { class: e.target.value === '' ? null : Number(e.target.value) } })} /></div>
                     <div className="space-y-1"><Label>Arc class</Label><Input type="number" value={clothingStandards.iec_61482_2?.class ?? ''} onChange={(e)=> setClothingStandards({ ...clothingStandards, iec_61482_2: { class: e.target.value === '' ? null : Number(e.target.value) } })} /></div>
                     <div className="flex items-center gap-2"><Checkbox checked={!!clothingStandards.en_1149_5} onCheckedChange={(v)=> setClothingStandards({ ...clothingStandards, en_1149_5: !!v })} /><span>EN 1149-5 Antistatic</span></div>
+                    <LocaleListEditor 
+                      title="Comfort features" 
+                      items={clothingComfortFeatures[language]} 
+                      onAdd={(val) => setClothingComfortFeatures({ ...clothingComfortFeatures, [language]: [...(clothingComfortFeatures[language] || []), val] })} 
+                      onRemove={(idx) => setClothingComfortFeatures({ ...clothingComfortFeatures, [language]: (clothingComfortFeatures[language] || []).filter((_, i) => i !== idx) })} 
+                    />
+                    <LocaleListEditor 
+                      title="Other details" 
+                      items={clothingOtherDetails[language]} 
+                      onAdd={(val) => setClothingOtherDetails({ ...clothingOtherDetails, [language]: [...(clothingOtherDetails[language] || []), val] })} 
+                      onRemove={(idx) => setClothingOtherDetails({ ...clothingOtherDetails, [language]: (clothingOtherDetails[language] || []).filter((_, i) => i !== idx) })} 
+                    />
                   </div>
                 </div>
               )}
