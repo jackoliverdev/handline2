@@ -838,6 +838,9 @@
     "biologicalHazards": "Rischi Biologici",
       "oilyGreasy": "Oleoso / Grasso",
       "electrical": "Rischio elettrico",
+      "electricalRisks": "Rischi elettrici",
+      "radiation": "Radiazione",
+      "lowVisibility": "Bassa visibilità",
     "suitableFor": "Adatto per",
     "workEnvironments": "ambienti di lavoro",
     "yes": "Sì",
@@ -913,6 +916,20 @@
           "co": "Monossido di carbonio",
           "p": "Polvere"
         }
+      },
+      "clothingStandards": {
+        "flameSpread": "Propagazione della fiamma",
+        "convectiveHeat": "Calore convettivo",
+        "radiantHeat": "Calore radiante",
+        "moltenAluminium": "Alluminio fuso",
+        "moltenIron": "Ferro fuso",
+        "contactHeat": "Calore di contatto",
+        "class": "Classe",
+        "protection": "Protezione",
+        "welding": "Saldatura",
+        "waterPenetration": "Penetrazione dell'acqua",
+        "breathability": "Traspirabilità",
+        "enStandards": "Livelli di protezione"
       }
   },
   "relatedProducts": {

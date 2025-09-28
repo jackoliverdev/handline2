@@ -283,6 +283,63 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
     );
   };
 
+  const renderClothingStandardsRow = () => {
+    const cs: any = (product as any).clothing_standards;
+    const isClothing = ((product.category || '').toLowerCase().includes('cloth') || (product.sub_category || '').toLowerCase().includes('jacket'));
+    if (!isClothing || !cs) return null;
+    
+    const standards: string[] = [];
+    
+    // EN ISO 20471 - High visibility
+    if (cs.en_iso_20471?.class) {
+      standards.push('EN ISO 20471');
+    }
+    
+    // EN ISO 11612 - Flame resistant
+    if (cs.en_iso_11612 && Object.keys(cs.en_iso_11612).length > 0) {
+      standards.push('EN ISO 11612');
+    }
+    
+    // EN ISO 11611 - Welding
+    if (cs.en_iso_11611?.class) {
+      standards.push('EN ISO 11611');
+    }
+    
+    // IEC 61482-2 - Arc protection
+    if (cs.iec_61482_2?.class) {
+      standards.push('IEC 61482-2');
+    }
+    
+    // EN 1149-5 - Antistatic
+    if (cs.en_1149_5) {
+      standards.push('EN 1149-5');
+    }
+    
+    // EN 13034 - Chemical protection
+    if (cs.en_13034) {
+      standards.push('EN 13034');
+    }
+    
+    // EN 343 - Weather protection
+    if (cs.en_343 && (cs.en_343.water || cs.en_343.breath)) {
+      standards.push('EN 343');
+    }
+    
+    // UV Standard 801
+    if (cs.uv_standard_801) {
+      standards.push('UV Standard 801');
+    }
+    
+    if (!standards.length) return null;
+    
+    return (
+      <div className="flex items-start gap-1.5">
+        <Shield className="h-3 w-3 text-brand-primary mt-0.5 flex-shrink-0" />
+        <span className="text-[10px] font-medium text-gray-700 dark:text-gray-300 leading-tight break-words">{standards.join(', ')}</span>
+      </div>
+    );
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -362,6 +419,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
 
           {/* Respiratory protection standards row (EN 149/166/14387) */}
           {renderRespiratoryStandardsRow()}
+
+          {/* Clothing protection standards row (EN ISO 20471/11612/11611/13034/etc) */}
+          {renderClothingStandardsRow()}
 
           {(product.cut_resistance_level || product.heat_resistance_level) && (
             <>

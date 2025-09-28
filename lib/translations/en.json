@@ -800,6 +800,9 @@
     "biologicalHazards": "Biological Hazards",
     "oilyGreasy": "Oily / Greasy",
     "electrical": "Electrical risk",
+    "electricalRisks": "Electrical risks",
+    "radiation": "Radiation",
+    "lowVisibility": "Low visibility",
     "suitableFor": "Suitable for",
     "workEnvironments": "work environments",
     "yes": "Yes",
@@ -877,6 +880,20 @@
           "co": "Carbon monoxide",
           "p": "Dust"
         }
+      },
+      "clothingStandards": {
+        "flameSpread": "Flame spread",
+        "convectiveHeat": "Convective heat",
+        "radiantHeat": "Radiant heat",
+        "moltenAluminium": "Molten Aluminium",
+        "moltenIron": "Molten Iron",
+        "contactHeat": "Contact heat",
+        "class": "Class",
+        "protection": "Protection",
+        "welding": "Welding",
+        "waterPenetration": "Water penetration",
+        "breathability": "Breathability",
+        "enStandards": "EN Standards"
       }
   },
   "relatedProducts": {

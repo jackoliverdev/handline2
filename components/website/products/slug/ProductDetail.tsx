@@ -48,6 +48,7 @@ import { RespiratoryOtherDetails } from "@/components/website/products/slug/Resp
 import { RespiratoryEquipment } from "@/components/website/products/slug/RespiratoryEquipment";
 import { ClothingComfortFeatures } from "@/components/website/products/slug/ClothingComfortFeatures";
 import { ClothingOtherDetails } from "@/components/website/products/slug/ClothingOtherDetails";
+import { ClothingEnvironment } from "@/components/website/products/slug/ClothingEnvironment";
 
 // Flag components for flag icons
 const FlagIcon = ({ country, className }: { country: 'GB' | 'IT', className?: string }) => {
@@ -464,13 +465,16 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                     )}
                     
                     {/* Work Environment Suitability */}
-                    {product.environment_pictograms && !isEyeFace && !isHead && !isHearing && !isRespiratory && !((product.category || '').toLowerCase().includes('footwear') || (product.sub_category || '').toLowerCase().includes('boot') || (product.sub_category || '').toLowerCase().includes('insol')) && (
+                    {product.environment_pictograms && !isEyeFace && !isHead && !isHearing && !isRespiratory && !isClothing && !((product.category || '').toLowerCase().includes('footwear') || (product.sub_category || '').toLowerCase().includes('boot') || (product.sub_category || '').toLowerCase().includes('insol')) && (
                       <EnvironmentPictogramsDisplay environment_pictograms={product.environment_pictograms} />
                     )}
                     {product.environment_pictograms && isEyeFace && (
                       // Lazy import pattern isn't supported in JSX directly; static import component instead
                       // @ts-ignore - module exists
                       <EyeFaceEnvironment environment_pictograms={product.environment_pictograms as any} />
+                    )}
+                    {product.environment_pictograms && isClothing && (
+                      <ClothingEnvironment environment_pictograms={product.environment_pictograms} />
                     )}
                   </div>
                 </TabsContent>
