@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -15,9 +15,18 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "@/components/ui/use-toast";
 import Link from "next/link";
 import { Upload, X, Plus, Tag, ArrowLeft } from "lucide-react";
-import { uploadProductImage } from "@/lib/products-service";
+import { uploadProductImage, EnvironmentPictograms } from "@/lib/products-service";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { CLOTHING_TYPE_TO_CATEGORIES } from "@/content/clothing-categories";
+import { BrandSelector } from "@/components/admins/brand-selector";
+import { Brand, getAllBrands } from "@/lib/brands-service";
+import { WorkEnvironmentSuitabilityEditor } from "@/components/admins/work-environment-suitability-editor";
+import { ProductImagesEditor } from "@/components/admins/product-images-editor";
+import { GlovesSafetyStandardsEditor } from "@/components/admins/gloves-safety-standards-editor";
+import { HeadSafetyStandardsEditor } from "@/components/admins/head-safety-standards-editor";
+import { FootwearSafetyStandardsEditor } from "@/components/admins/footwear-safety-standards-editor";
+import { ArmSafetyStandardsEditor } from "@/components/admins/arm-safety-standards-editor";
+import { HearingSafetyStandardsEditor } from "@/components/admins/hearing-safety-standards-editor";
 
 interface Props { slug: string; }
 
@@ -48,14 +57,27 @@ export default function CategoryProductCreate({ slug }: Props) {
   const [outOfStock, setOutOfStock] = useState<boolean>(false);
   const [availabilityStatus, setAvailabilityStatus] = useState<'in_stock' | 'out_of_stock' | 'coming_soon' | 'made_to_order'>('in_stock');
   const [brands, setBrands] = useState<string[]>([]);
+  const [availableBrands, setAvailableBrands] = useState<Brand[]>([]);
   const [orderPriority, setOrderPriority] = useState<number>(0);
   // Swabs generic specs
   const [lengthCm, setLengthCm] = useState<number | null>(null);
   const [ceCategory, setCeCategory] = useState<string>('');
   const [enStandard, setEnStandard] = useState<string>('');
+  const [environmentPictograms, setEnvironmentPictograms] = useState<EnvironmentPictograms>({
+    dry: false,
+    wet: false,
+    dust: false,
+    chemical: false,
+    biological: false,
+    oily_grease: false
+  });
 
   // Images
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [image2Url, setImage2Url] = useState<string | null>(null);
+  const [image3Url, setImage3Url] = useState<string | null>(null);
+  const [image4Url, setImage4Url] = useState<string | null>(null);
+  const [image5Url, setImage5Url] = useState<string | null>(null);
   const coverInputRef = useRef<HTMLInputElement>(null);
   const [technicalSheetUrl, setTechnicalSheetUrl] = useState<string | null>(null);
   const [technicalSheetUrlIt, setTechnicalSheetUrlIt] = useState<string | null>(null);
@@ -69,7 +91,7 @@ export default function CategoryProductCreate({ slug }: Props) {
   const [eyeFaceComfortFeatures, setEyeFaceComfortFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [eyeFaceEquipment, setEyeFaceEquipment] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [hearingStandards, setHearingStandards] = useState<any>({ en352: { parts: [], snr_db: null, hml: { h: null, m: null, l: null }, additional: [] } });
-  const [hearingAttributes, setHearingAttributes] = useState<any>({ reusable: null, mount: '', bluetooth: null, compatible_with: [], accessories: [] });
+  const [hearingAttributes, setHearingAttributes] = useState<any>({ reusable: null, mount: '', bluetooth: null, compatible_with: [], accessories: [], materials: [], size: '', ce_category: '', water_resistance: null, extreme_temperature: null, electrical_insulation: null });
   const [hearingComfortFeatures, setHearingComfortFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [hearingOtherDetails, setHearingOtherDetails] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [hearingEquipment, setHearingEquipment] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
@@ -88,7 +110,7 @@ export default function CategoryProductCreate({ slug }: Props) {
   const [clothingAttributes, setClothingAttributes] = useState<any>({ fit: '', gender: '', size_range: '', colours: [], uv_protection: null });
   const [clothingType, setClothingType] = useState<string>('');
   const [clothingCategory, setClothingCategory] = useState<string>('');
-  const [armAttributes, setArmAttributes] = useState<any>({ thumb_loop: null, closure: '' });
+  const [armAttributes, setArmAttributes] = useState<any>({ thumb_loop: null, closure: '', materials: [], size: '', length_cm: null, ce_category: '' });
   // Gloves safety JSON for create
   const defaultSafety: any = { en_388: { enabled: false, abrasion: null, cut: null, tear: null, puncture: null, iso_13997: null, impact_en_13594: null }, en_407: { enabled: false, contact_heat: null, radiant_heat: null, convective_heat: null, limited_flame_spread: null, small_splashes_molten_metal: null, large_quantities_molten_metal: null }, en_511: { enabled: false, contact_cold: null, convective_cold: null, water_permeability: null } };
   const [safety, setSafety] = useState<any>(defaultSafety);
@@ -104,6 +126,24 @@ export default function CategoryProductCreate({ slug }: Props) {
   const [padItLength, setPadItLength] = useState<number | ''>('');
   const [clothingComfortFeatures, setClothingComfortFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [clothingOtherDetails, setClothingOtherDetails] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+
+  // Load available brands
+  useEffect(() => {
+    const loadBrands = async () => {
+      try {
+        const brands = await getAllBrands();
+        setAvailableBrands(brands);
+      } catch (error) {
+        console.error('Failed to load brands:', error);
+        toast({
+          title: "Error loading brands",
+          description: "Failed to load available brands",
+          variant: "destructive",
+        });
+      }
+    };
+    loadBrands();
+  }, []);
 
   // Prefill and lock category
   const categoryMap: Record<string, { en: string; it: string }> = {
@@ -169,8 +209,8 @@ export default function CategoryProductCreate({ slug }: Props) {
         temperature_rating: temperatureRating,
         cut_resistance_level: cutResistanceLevel,
         heat_resistance_level: heatResistanceLevel,
-        length_cm: slug==='industrial-swabs' ? (lengthCm ?? null) : undefined,
-        ce_category: slug==='industrial-swabs' ? (ceCategory || null) : undefined,
+        length_cm: (slug==='industrial-swabs' || slug==='gloves') ? (lengthCm ?? null) : undefined,
+        ce_category: (slug==='industrial-swabs' || slug==='gloves') ? (ceCategory || null) : undefined,
         en_standard: slug==='industrial-swabs' ? (enStandard || null) : undefined,
         technical_sheet_url: technicalSheetUrl,
         technical_sheet_url_it: technicalSheetUrlIt,
@@ -181,8 +221,13 @@ export default function CategoryProductCreate({ slug }: Props) {
         out_of_stock: outOfStock,
         availability_status: availabilityStatus,
         brands,
+        environment_pictograms: environmentPictograms,
         order_priority: orderPriority,
         image_url: imageUrl,
+        image2_url: image2Url,
+        image3_url: image3Url,
+        image4_url: image4Url,
+        image5_url: image5Url,
         // Category-specific
         safety: slug==='gloves' ? safety : undefined,
         footwear_standards: slug==='footwear' ? footwearStandards : undefined,
@@ -282,6 +327,18 @@ export default function CategoryProductCreate({ slug }: Props) {
                       <div className="space-y-1 sm:space-y-2"><Label>Category</Label><Input value={categoryLocales[language]} disabled /></div>
                       <div className="space-y-1 sm:space-y-2"><Label>Sub-Category</Label><Input value={subCategoryLocales[language]} onChange={(e)=> setSubCategoryLocales({ ...subCategoryLocales, [language]: e.target.value })} /></div>
                     </div>
+                    
+                    {/* Brand Selection */}
+                    <div className="space-y-1 sm:space-y-2">
+                      <BrandSelector
+                        selectedBrands={brands}
+                        onBrandsChange={setBrands}
+                        availableBrands={availableBrands}
+                        onNewBrand={(newBrand) => {
+                          setAvailableBrands([...availableBrands, newBrand]);
+                        }}
+                      />
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -296,9 +353,20 @@ export default function CategoryProductCreate({ slug }: Props) {
                     <div className="space-y-1 sm:space-y-2"><Label>Temperature Rating (°C)</Label><Input type="number" value={temperatureRating === null ? '' : temperatureRating} onChange={(e)=> setTemperatureRating(e.target.value === '' ? null : Number(e.target.value))} /></div>
                     <div className="space-y-1 sm:space-y-2"><Label>Cut Resistance Level</Label><Input value={cutResistanceLevel} onChange={(e)=> setCutResistanceLevel(e.target.value)} /></div>
                     <div className="space-y-1 sm:space-y-2"><Label>Heat Resistance Level</Label><Input value={heatResistanceLevel} onChange={(e)=> setHeatResistanceLevel(e.target.value)} /></div>
+                    <div className="space-y-1 sm:space-y-2"><Label>Length (cm)</Label><Input type="number" value={lengthCm === null ? '' : lengthCm} onChange={(e)=> setLengthCm(e.target.value === '' ? null : Number(e.target.value))} /></div>
+                    <div className="space-y-1 sm:space-y-2"><Label>Size</Label><Input value={sizeLocales.en} onChange={(e)=> setSizeLocales({...sizeLocales, en: e.target.value})} placeholder="e.g. One size, S, M, L, XL" /></div>
+                    <div className="space-y-1 sm:space-y-2"><Label>CE Category</Label><Input value={ceCategory} onChange={(e)=> setCeCategory(e.target.value)} placeholder="e.g. I, II, III" /></div>
                   </div>
                 </CardContent>
               </Card>
+
+              {/* Work Environment Suitability - only for gloves, arm, and swabs */}
+              {(slug === 'gloves' || slug === 'arm' || slug === 'industrial-swabs') && (
+                <WorkEnvironmentSuitabilityEditor
+                  environmentPictograms={environmentPictograms}
+                  onEnvironmentChange={setEnvironmentPictograms}
+                />
+              )}
             </div>
             <div className="md:col-span-2 space-y-6">
               <Card>
@@ -339,24 +407,24 @@ export default function CategoryProductCreate({ slug }: Props) {
         </TabsContent>
 
         <TabsContent value="images" className="mt-4">
-          <Card>
-            <CardHeader><CardTitle>Images</CardTitle><CardDescription>Main image (you can add more after saving).</CardDescription></CardHeader>
-            <CardContent>
-              <Label>Upload Main Image</Label>
-              <input ref={coverInputRef} type="file" accept="image/*" className="hidden" onChange={async (e)=>{ const file = e.target.files?.[0]; if (!file) return; const res = await uploadProductImage('temp', file); if (res.url) setImageUrl(res.url); }} />
-              <div className="border-2 border-dashed rounded-md p-6 text-center cursor-pointer hover:bg-muted/50 transition-colors mt-2" onClick={()=> coverInputRef.current?.click()}>
-                <Upload className="mx-auto h-8 w-8 text-muted-foreground" />
-                <p className="mt-2 text-sm text-muted-foreground">Click to upload</p>
-              </div>
-              {imageUrl && (
-                <div className="relative rounded-md overflow-hidden border mt-2">
-                  <img src={imageUrl} alt="Preview" className="w-full h-52 object-contain" />
-                  <Button type="button" variant="destructive" size="icon" className="absolute top-2 right-2" onClick={()=> setImageUrl(null)}><X className="h-4 w-4" /></Button>
+          <ProductImagesEditor
+            imageUrl={imageUrl}
+            setImageUrl={setImageUrl}
+            image2Url={image2Url}
+            setImage2Url={setImage2Url}
+            image3Url={image3Url}
+            setImage3Url={setImage3Url}
+            image4Url={image4Url}
+            setImage4Url={setImage4Url}
+            image5Url={image5Url}
+            setImage5Url={setImage5Url}
+            productId="temp"
+          />
+          <div className="mt-4">
+            <Button onClick={handleSave} disabled={saving} className="w-full">
+              {saving ? 'Creating…' : 'Create Product'}
+            </Button>
                 </div>
-              )}
-            </CardContent>
-            <CardFooter><Button onClick={handleSave} disabled={saving}>{saving ? 'Creating…' : 'Create Product'}</Button></CardFooter>
-          </Card>
         </TabsContent>
 
         <TabsContent value="safety" className="mt-4">
@@ -404,84 +472,24 @@ export default function CategoryProductCreate({ slug }: Props) {
                 </div>
               )}
               {slug === 'gloves' && (
-                <div className="space-y-8">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="space-y-2 p-4 rounded-md border">
-                      <Label className="font-medium">EN 388</Label>
-                      <div className="flex items-center gap-2"><Checkbox checked={!!safety.en_388?.enabled} onCheckedChange={(v)=> setSafety({ ...safety, en_388: { ...(safety.en_388||{}), enabled: !!v } })} /><span>Enabled</span></div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <div className="space-y-1"><Label>Abrasion</Label><Input type="number" value={safety.en_388?.abrasion ?? ''} onChange={(e)=> setSafety({ ...safety, en_388: { ...(safety.en_388||{}), abrasion: e.target.value === '' ? null : Number(e.target.value) } })} /></div>
-                        <div className="space-y-1"><Label>Cut</Label><Input type="number" value={safety.en_388?.cut ?? ''} onChange={(e)=> setSafety({ ...safety, en_388: { ...(safety.en_388||{}), cut: e.target.value === '' ? null : Number(e.target.value) } })} /></div>
-                        <div className="space-y-1"><Label>Tear</Label><Input type="number" value={safety.en_388?.tear ?? ''} onChange={(e)=> setSafety({ ...safety, en_388: { ...(safety.en_388||{}), tear: e.target.value === '' ? null : Number(e.target.value) } })} /></div>
-                        <div className="space-y-1"><Label>Puncture</Label><Input type="number" value={safety.en_388?.puncture ?? ''} onChange={(e)=> setSafety({ ...safety, en_388: { ...(safety.en_388||{}), puncture: e.target.value === '' ? null : Number(e.target.value) } })} /></div>
-                        <div className="space-y-1 md:col-span-2"><Label>ISO 13997 (A–F)</Label><Input value={safety.en_388?.iso_13997 ?? ''} onChange={(e)=> setSafety({ ...safety, en_388: { ...(safety.en_388||{}), iso_13997: e.target.value || null } })} /></div>
-                        <div className="space-y-1 md:col-span-2"><Label>Impact EN 13594</Label><Input value={safety.en_388?.impact_en_13594 ?? ''} onChange={(e)=> setSafety({ ...safety, en_388: { ...(safety.en_388||{}), impact_en_13594: e.target.value || null } })} /></div>
-                      </div>
-                    </div>
-
-                    <div className="space-y-2 p-4 rounded-md border">
-                      <Label className="font-medium">EN 407</Label>
-                      <div className="flex items-center gap-2"><Checkbox checked={!!safety.en_407?.enabled} onCheckedChange={(v)=> setSafety({ ...safety, en_407: { ...(safety.en_407||{}), enabled: !!v } })} /><span>Enabled</span></div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <div className="space-y-1"><Label>Contact heat</Label><Input type="number" value={safety.en_407?.contact_heat ?? ''} onChange={(e)=> setSafety({ ...safety, en_407: { ...(safety.en_407||{}), contact_heat: e.target.value === '' ? null : Number(e.target.value) } })} /></div>
-                        <div className="space-y-1"><Label>Radiant heat</Label><Input type="number" value={safety.en_407?.radiant_heat ?? ''} onChange={(e)=> setSafety({ ...safety, en_407: { ...(safety.en_407||{}), radiant_heat: e.target.value === '' ? null : Number(e.target.value) } })} /></div>
-                        <div className="space-y-1"><Label>Convective heat</Label><Input type="number" value={safety.en_407?.convective_heat ?? ''} onChange={(e)=> setSafety({ ...safety, en_407: { ...(safety.en_407||{}), convective_heat: e.target.value === '' ? null : Number(e.target.value) } })} /></div>
-                        <div className="space-y-1"><Label>Limited flame</Label><Input type="number" value={safety.en_407?.limited_flame_spread ?? ''} onChange={(e)=> setSafety({ ...safety, en_407: { ...(safety.en_407||{}), limited_flame_spread: e.target.value === '' ? null : Number(e.target.value) } })} /></div>
-                        <div className="space-y-1"><Label>Molten metal (small)</Label><Input type="number" value={safety.en_407?.small_splashes_molten_metal ?? ''} onChange={(e)=> setSafety({ ...safety, en_407: { ...(safety.en_407||{}), small_splashes_molten_metal: e.target.value === '' ? null : Number(e.target.value) } })} /></div>
-                        <div className="space-y-1"><Label>Molten metal (large)</Label><Input value={safety.en_407?.large_quantities_molten_metal ?? ''} onChange={(e)=> setSafety({ ...safety, en_407: { ...(safety.en_407||{}), large_quantities_molten_metal: e.target.value || null } })} /></div>
-                      </div>
-                    </div>
-
-                    <div className="space-y-2 p-4 rounded-md border">
-                      <Label className="font-medium">EN 511</Label>
-                      <div className="flex items-center gap-2"><Checkbox checked={!!safety.en_511?.enabled} onCheckedChange={(v)=> setSafety({ ...safety, en_511: { ...(safety.en_511||{}), enabled: !!v } })} /><span>Enabled</span></div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <div className="space-y-1"><Label>Contact cold</Label><Input type="number" value={safety.en_511?.contact_cold ?? ''} onChange={(e)=> setSafety({ ...safety, en_511: { ...(safety.en_511||{}), contact_cold: e.target.value === '' ? null : Number(e.target.value) } })} /></div>
-                        <div className="space-y-1"><Label>Convective cold</Label><Input type="number" value={safety.en_511?.convective_cold ?? ''} onChange={(e)=> setSafety({ ...safety, en_511: { ...(safety.en_511||{}), convective_cold: e.target.value === '' ? null : Number(e.target.value) } })} /></div>
-                        <div className="space-y-1 md:col-span-2"><Label>Water permeability</Label><Input type="number" value={safety.en_511?.water_permeability ?? ''} onChange={(e)=> setSafety({ ...safety, en_511: { ...(safety.en_511||{}), water_permeability: e.target.value === '' ? null : Number(e.target.value) } })} /></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <GlovesSafetyStandardsEditor 
+                  safety={safety} 
+                  setSafety={setSafety} 
+                />
               )}
               {slug === 'hearing' && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-3">
-                    <Label className="font-medium">Standards</Label>
-                    <div className="space-y-1"><Label>SNR (dB)</Label><Input type="number" value={hearingStandards.en352?.snr_db ?? ''} onChange={(e)=> setHearingStandards({ ...hearingStandards, en352: { ...(hearingStandards.en352||{}), snr_db: e.target.value === '' ? null : Number(e.target.value) } })} /></div>
-                    <div className="grid grid-cols-3 gap-2">
-                      {(['h','m','l'] as const).map(k => (
-                        <div key={k} className="space-y-1"><Label className="uppercase">{k}</Label><Input type="number" value={hearingStandards.en352?.hml?.[k] ?? ''} onChange={(e)=> setHearingStandards({ ...hearingStandards, en352: { ...(hearingStandards.en352||{}), hml: { ...(hearingStandards.en352?.hml||{}), [k]: e.target.value === '' ? null : Number(e.target.value) } } })} /></div>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="space-y-3">
-                    <Label className="font-medium">Attributes</Label>
-                    <div className="flex items-center gap-2"><Checkbox checked={hearingAttributes.reusable === true} onCheckedChange={(v)=> setHearingAttributes({ ...hearingAttributes, reusable: v ? true : false })} /><span>Reusable</span></div>
-                    <div className="flex items-center gap-2"><Checkbox checked={hearingAttributes.bluetooth === true} onCheckedChange={(v)=> setHearingAttributes({ ...hearingAttributes, bluetooth: v ? true : false })} /><span>Bluetooth</span></div>
-                    <div className="space-y-1"><Label>Mount</Label><Input value={hearingAttributes.mount || ''} onChange={(e)=> setHearingAttributes({ ...hearingAttributes, mount: e.target.value })} /></div>
-                  </div>
-                  <div className="md:col-span-2">
-                    <LocaleListEditor 
-                      title="Comfort features" 
-                      items={hearingComfortFeatures[language]} 
-                      onAdd={(val) => setHearingComfortFeatures({ ...hearingComfortFeatures, [language]: [...(hearingComfortFeatures[language] || []), val] })} 
-                      onRemove={(idx) => setHearingComfortFeatures({ ...hearingComfortFeatures, [language]: (hearingComfortFeatures[language] || []).filter((_, i) => i !== idx) })} 
-                    />
-                    <LocaleListEditor 
-                      title="Other details" 
-                      items={hearingOtherDetails[language]} 
-                      onAdd={(val) => setHearingOtherDetails({ ...hearingOtherDetails, [language]: [...(hearingOtherDetails[language] || []), val] })} 
-                      onRemove={(idx) => setHearingOtherDetails({ ...hearingOtherDetails, [language]: (hearingOtherDetails[language] || []).filter((_, i) => i !== idx) })} 
-                    />
-                    <LocaleListEditor 
-                      title="Equipment" 
-                      items={hearingEquipment[language]} 
-                      onAdd={(val) => setHearingEquipment({ ...hearingEquipment, [language]: [...(hearingEquipment[language] || []), val] })} 
-                      onRemove={(idx) => setHearingEquipment({ ...hearingEquipment, [language]: (hearingEquipment[language] || []).filter((_, i) => i !== idx) })} 
-                    />
-                  </div>
-                </div>
+                <HearingSafetyStandardsEditor 
+                  hearingStandards={hearingStandards}
+                  setHearingStandards={setHearingStandards}
+                  hearingAttributes={hearingAttributes}
+                  setHearingAttributes={setHearingAttributes}
+                  hearingComfortFeatures={hearingComfortFeatures}
+                  setHearingComfortFeatures={setHearingComfortFeatures}
+                  hearingOtherDetails={hearingOtherDetails}
+                  setHearingOtherDetails={setHearingOtherDetails}
+                  hearingEquipment={hearingEquipment}
+                  setHearingEquipment={setHearingEquipment}
+                />
               )}
               {slug === 'respiratory' && (
                 <div className="space-y-6">
@@ -528,34 +536,22 @@ export default function CategoryProductCreate({ slug }: Props) {
                 </div>
               )}
               {slug === 'arm-protection' && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-3">
-                    <Label className="font-medium">Attributes</Label>
-                    <div className="flex items-center gap-2"><Checkbox checked={armAttributes.thumb_loop === true} onCheckedChange={(v)=> setArmAttributes({ ...armAttributes, thumb_loop: v ? true : false })} /><span>Thumb loop</span></div>
-                    <div className="space-y-1"><Label>Closure</Label><Input value={armAttributes.closure || ''} onChange={(e)=> setArmAttributes({ ...armAttributes, closure: e.target.value })} /></div>
-                  </div>
-                </div>
+                <ArmSafetyStandardsEditor 
+                  safety={safety}
+                  setSafety={setSafety}
+                  armAttributes={armAttributes}
+                  setArmAttributes={setArmAttributes}
+                />
               )}
               {slug === 'footwear' && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-3">
-                    <Label className="font-medium">Attributes</Label>
-                    <div className="space-y-1"><Label>Class</Label><Input value={footwearAttributes.class || ''} onChange={(e)=> setFootwearAttributes({ ...footwearAttributes, class: e.target.value })} /></div>
-                    <div className="grid grid-cols-2 gap-2">
-                      <div className="flex items-center gap-2"><Checkbox checked={footwearAttributes.esd === true} onCheckedChange={(v)=> setFootwearAttributes({ ...footwearAttributes, esd: v ? true : false })} /><span>ESD</span></div>
-                      <div className="flex items-center gap-2"><Checkbox checked={footwearAttributes.metal_free === true} onCheckedChange={(v)=> setFootwearAttributes({ ...footwearAttributes, metal_free: v ? true : false })} /><span>Metal free</span></div>
-                    </div>
-                    <div className="space-y-1"><Label>Toe cap</Label><Input value={footwearAttributes.toe_cap || ''} onChange={(e)=> setFootwearAttributes({ ...footwearAttributes, toe_cap: e.target.value })} /></div>
-                    <div className="space-y-1"><Label>Sole material</Label><Input value={footwearAttributes.sole_material || ''} onChange={(e)=> setFootwearAttributes({ ...footwearAttributes, sole_material: e.target.value })} /></div>
-                    <LocaleListEditor title="Comfort features" items={footwearComfortFeatures[language]} onAdd={(val)=> setFootwearComfortFeatures({ ...footwearComfortFeatures, [language]: [...(footwearComfortFeatures[language] || []), val] })} onRemove={(idx)=> setFootwearComfortFeatures({ ...footwearComfortFeatures, [language]: (footwearComfortFeatures[language] || []).filter((_,i)=> i!==idx) })} />
-                  </div>
-                  <div className="space-y-3">
-                    <Label className="font-medium">Standards</Label>
-                    <div className="space-y-1"><Label>EN ISO 20345:2011 codes (comma separated)</Label><Input value={(footwearStandards.en_iso_20345_2011||[]).join(', ')} onChange={(e)=> setFootwearStandards({ ...footwearStandards, en_iso_20345_2011: e.target.value.split(',').map(s=> s.trim()).filter(Boolean) })} /></div>
-                    <div className="space-y-1"><Label>EN ISO 20345:2022 codes (comma separated)</Label><Input value={(footwearStandards.en_iso_20345_2022||[]).join(', ')} onChange={(e)=> setFootwearStandards({ ...footwearStandards, en_iso_20345_2022: e.target.value.split(',').map(s=> s.trim()).filter(Boolean) })} /></div>
-                    <div className="space-y-1"><Label>Slip resistance</Label><Input value={footwearStandards.slip_resistance || ''} onChange={(e)=> setFootwearStandards({ ...footwearStandards, slip_resistance: e.target.value })} /></div>
-                  </div>
-                </div>
+                <FootwearSafetyStandardsEditor 
+                  footwearStandards={footwearStandards}
+                  setFootwearStandards={setFootwearStandards}
+                  footwearAttributes={footwearAttributes}
+                  setFootwearAttributes={setFootwearAttributes}
+                  footwearComfortFeatures={footwearComfortFeatures}
+                  setFootwearComfortFeatures={setFootwearComfortFeatures}
+                />
               )}
               {slug === 'eye-face' && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -588,37 +584,18 @@ export default function CategoryProductCreate({ slug }: Props) {
                 </div>
               )}
               {slug === 'head' && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-3">
-                    <Label className="font-medium">Attributes</Label>
-                    <div className="space-y-1"><Label>Form factor</Label><Input value={headAttributes.form_factor || ''} onChange={(e)=> setHeadAttributes({ ...headAttributes, form_factor: e.target.value })} /></div>
-                    <div className="space-y-1"><Label>Brim length</Label><Input value={headAttributes.brim_length || ''} onChange={(e)=> setHeadAttributes({ ...headAttributes, brim_length: e.target.value })} /></div>
-                    <div className="grid grid-cols-2 gap-2">
-                      <div className="space-y-1"><Label>Size min (cm)</Label><Input type="number" value={headAttributes.size_min_cm ?? ''} onChange={(e)=> setHeadAttributes({ ...headAttributes, size_min_cm: e.target.value === '' ? null : Number(e.target.value) })} /></div>
-                      <div className="space-y-1"><Label>Size max (cm)</Label><Input type="number" value={headAttributes.size_max_cm ?? ''} onChange={(e)=> setHeadAttributes({ ...headAttributes, size_max_cm: e.target.value === '' ? null : Number(e.target.value) })} /></div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2">
-                      <div className="flex items-center gap-2"><Checkbox checked={headAttributes.ventilation === true} onCheckedChange={(v)=> setHeadAttributes({ ...headAttributes, ventilation: v ? true : false })} /><span>Ventilation</span></div>
-                      <div className="flex items-center gap-2"><Checkbox checked={headAttributes.closed_shell === true} onCheckedChange={(v)=> setHeadAttributes({ ...headAttributes, closed_shell: v ? true : false })} /><span>Closed shell</span></div>
-                    </div>
-                  </div>
-                  <div className="space-y-3">
-                    <Label className="font-medium">Standards</Label>
-                    <div className="flex items-center gap-2"><Checkbox checked={!!headStandards.en397?.present} onCheckedChange={(v)=> setHeadStandards({ ...headStandards, en397: { ...(headStandards.en397||{}), present: !!v, optional: headStandards.en397?.optional || { low_temperature: false, molten_metal: false } } })} /><span>EN 397</span></div>
-                    <div className="grid grid-cols-2 gap-2 pl-6">
-                      <div className="flex items-center gap-2"><Checkbox checked={!!headStandards.en397?.optional?.low_temperature} onCheckedChange={(v)=> setHeadStandards({ ...headStandards, en397: { ...(headStandards.en397||{}), optional: { ...(headStandards.en397?.optional||{}), low_temperature: !!v } } })} /><span>Low temperature</span></div>
-                      <div className="flex items-center gap-2"><Checkbox checked={!!headStandards.en397?.optional?.molten_metal} onCheckedChange={(v)=> setHeadStandards({ ...headStandards, en397: { ...(headStandards.en397||{}), optional: { ...(headStandards.en397?.optional||{}), molten_metal: !!v } } })} /><span>Molten metal</span></div>
-                    </div>
-                    <div className="flex items-center gap-2"><Checkbox checked={!!headStandards.en50365} onCheckedChange={(v)=> setHeadStandards({ ...headStandards, en50365: !!v })} /><span>EN 50365</span></div>
-                    <div className="flex items-center gap-2"><Checkbox checked={!!headStandards.en12492} onCheckedChange={(v)=> setHeadStandards({ ...headStandards, en12492: !!v })} /><span>EN 12492</span></div>
-                    <div className="flex items-center gap-2"><Checkbox checked={!!headStandards.en812} onCheckedChange={(v)=> setHeadStandards({ ...headStandards, en812: !!v })} /><span>EN 812</span></div>
-                  </div>
-                  <div className="md:col-span-2">
-                    <LocaleListEditor title="Comfort features" items={headComfortFeatures[language]} onAdd={(val)=> setHeadComfortFeatures({ ...headComfortFeatures, [language]: [...(headComfortFeatures[language] || []), val] })} onRemove={(idx)=> setHeadComfortFeatures({ ...headComfortFeatures, [language]: (headComfortFeatures[language] || []).filter((_,i)=> i!==idx) })} />
-                    <LocaleListEditor title="Other details" items={headOtherDetails[language]} onAdd={(val)=> setHeadOtherDetails({ ...headOtherDetails, [language]: [...(headOtherDetails[language] || []), val] })} onRemove={(idx)=> setHeadOtherDetails({ ...headOtherDetails, [language]: (headOtherDetails[language] || []).filter((_,i)=> i!==idx) })} />
-                    <LocaleListEditor title="Equipment" items={headEquipment[language]} onAdd={(val)=> setHeadEquipment({ ...headEquipment, [language]: [...(headEquipment[language] || []), val] })} onRemove={(idx)=> setHeadEquipment({ ...headEquipment, [language]: (headEquipment[language] || []).filter((_,i)=> i!==idx) })} />
-                  </div>
-                </div>
+                <HeadSafetyStandardsEditor 
+                  headStandards={headStandards}
+                  setHeadStandards={setHeadStandards}
+                  headAttributes={headAttributes}
+                  setHeadAttributes={setHeadAttributes}
+                  headComfortFeatures={headComfortFeatures}
+                  setHeadComfortFeatures={setHeadComfortFeatures}
+                  headOtherDetails={headOtherDetails}
+                  setHeadOtherDetails={setHeadOtherDetails}
+                  headEquipment={headEquipment}
+                  setHeadEquipment={setHeadEquipment}
+                />
               )}
               {slug === 'clothing' && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -679,13 +656,117 @@ export default function CategoryProductCreate({ slug }: Props) {
 
         <TabsContent value="documents" className="mt-4">
           <Card>
-            <CardHeader><CardTitle>Documents</CardTitle><CardDescription>Upload technical sheets and declarations (EN/IT)</CardDescription></CardHeader>
+            <CardHeader>
+              <CardTitle>Documents</CardTitle>
+              <CardDescription>Upload technical sheets and declarations (EN/IT)</CardDescription>
+            </CardHeader>
             <CardContent>
+              <div className="space-y-6">
+                {/* Technical Sheets */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Technical Sheets</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div><Label>Technical Sheet (EN)</Label><div className="mt-2 flex items-center gap-2"><input type="file" accept="application/pdf" onChange={async (e)=>{ const f=e.target.files?.[0]; if (!f) return; const url = await uploadPdfToBucket(f,'tech_en'); if (url) setTechnicalSheetUrl(url); }} />{technicalSheetUrl && <a className="text-blue-600" href={technicalSheetUrl} target="_blank" rel="noreferrer">Preview</a>}</div></div>
-                <div><Label>Technical Sheet (IT)</Label><div className="mt-2 flex items-center gap-2"><input type="file" accept="application/pdf" onChange={async (e)=>{ const f=e.target.files?.[0]; if (!f) return; const url = await uploadPdfToBucket(f,'tech_it'); if (url) setTechnicalSheetUrlIt(url); }} />{technicalSheetUrlIt && <a className="text-blue-600" href={technicalSheetUrlIt} target="_blank" rel="noreferrer">Preview</a>}</div></div>
-                <div><Label>Declaration (EN)</Label><div className="mt-2 flex items-center gap-2"><input type="file" accept="application/pdf" onChange={async (e)=>{ const f=e.target.files?.[0]; if (!f) return; const url = await uploadPdfToBucket(f,'doc_en'); if (url) setDeclarationSheetUrl(url); }} />{declarationSheetUrl && <a className="text-blue-600" href={declarationSheetUrl} target="_blank" rel="noreferrer">Preview</a>}</div></div>
-                <div><Label>Declaration (IT)</Label><div className="mt-2 flex items-center gap-2"><input type="file" accept="application/pdf" onChange={async (e)=>{ const f=e.target.files?.[0]; if (!f) return; const url = await uploadPdfToBucket(f,'doc_it'); if (url) setDeclarationSheetUrlIt(url); }} />{declarationSheetUrlIt && <a className="text-blue-600" href={declarationSheetUrlIt} target="_blank" rel="noreferrer">Preview</a>}</div></div>
+                    <div>
+                      <Label>Technical Sheet (EN)</Label>
+                      <div className="mt-2 flex items-center gap-2">
+                        <input 
+                          type="file" 
+                          accept="application/pdf" 
+                          onChange={async (e)=>{ 
+                            const f=e.target.files?.[0]; 
+                            if (!f) return; 
+                            const url = await uploadPdfToBucket(f,'tech_en'); 
+                            if (url) setTechnicalSheetUrl(url); 
+                          }} 
+                        />
+                        {technicalSheetUrl && (
+                          <a className="text-blue-600 hover:underline" href={technicalSheetUrl} target="_blank" rel="noreferrer">
+                            Preview
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                    <div>
+                      <Label>Technical Sheet (IT)</Label>
+                      <div className="mt-2 flex items-center gap-2">
+                        <input 
+                          type="file" 
+                          accept="application/pdf" 
+                          onChange={async (e)=>{ 
+                            const f=e.target.files?.[0]; 
+                            if (!f) return; 
+                            const url = await uploadPdfToBucket(f,'tech_it'); 
+                            if (url) setTechnicalSheetUrlIt(url); 
+                          }} 
+                        />
+                        {technicalSheetUrlIt && (
+                          <a className="text-blue-600 hover:underline" href={technicalSheetUrlIt} target="_blank" rel="noreferrer">
+                            Preview
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Declarations of Conformity */}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-lg font-semibold">Declarations of Conformity</h3>
+                    <Button variant="outline" size="sm" asChild>
+                      <Link href="/admin/declarations">
+                        Manage Declarations
+                      </Link>
+                    </Button>
+                  </div>
+                  <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                      For comprehensive declaration management with multiple languages and UKCA support, use the dedicated Declarations Management page.
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <Label>Declaration (EN)</Label>
+                        <div className="mt-2 flex items-center gap-2">
+                          <input 
+                            type="file" 
+                            accept="application/pdf" 
+                            onChange={async (e)=>{ 
+                              const f=e.target.files?.[0]; 
+                              if (!f) return; 
+                              const url = await uploadPdfToBucket(f,'doc_en'); 
+                              if (url) setDeclarationSheetUrl(url); 
+                            }} 
+                          />
+                          {declarationSheetUrl && (
+                            <a className="text-blue-600 hover:underline" href={declarationSheetUrl} target="_blank" rel="noreferrer">
+                              Preview
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                      <div>
+                        <Label>Declaration (IT)</Label>
+                        <div className="mt-2 flex items-center gap-2">
+                          <input 
+                            type="file" 
+                            accept="application/pdf" 
+                            onChange={async (e)=>{ 
+                              const f=e.target.files?.[0]; 
+                              if (!f) return; 
+                              const url = await uploadPdfToBucket(f,'doc_it'); 
+                              if (url) setDeclarationSheetUrlIt(url); 
+                            }} 
+                          />
+                          {declarationSheetUrlIt && (
+                            <a className="text-blue-600 hover:underline" href={declarationSheetUrlIt} target="_blank" rel="noreferrer">
+                              Preview
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </CardContent>
             <CardFooter><Button onClick={handleSave} disabled={saving}>{saving ? 'Creating…' : 'Create Product'}</Button></CardFooter>

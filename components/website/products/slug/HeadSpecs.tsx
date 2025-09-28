@@ -4,7 +4,7 @@ import { Product } from "@/lib/products-service";
 import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/lib/context/language-context";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Layers, Ruler, Snowflake, Flame, Move, Shield } from "lucide-react";
+import { Layers, Ruler, Snowflake, Flame, Move, Shield, FileText, Palette, Scale } from "lucide-react";
 
 export function HeadSpecs({ product }: { product: Product }) {
   const { t, language } = useLanguage();
@@ -137,7 +137,7 @@ export function HeadSpecs({ product }: { product: Product }) {
       {!isEmpty(weight) && (
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
           <div className="flex items-center gap-2 mb-2">
-            {/* Intentionally no icon for weight to avoid library mismatch */}
+            <Scale className="h-4 w-4 text-brand-primary" />
             <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.weight')}</h4>
           </div>
           <p className="text-sm text-brand-secondary dark:text-gray-300">{weight}</p>
@@ -160,6 +160,7 @@ export function HeadSpecs({ product }: { product: Product }) {
       {stdChips.length > 0 && (
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
           <div className="flex items-center gap-2 mb-2">
+            <FileText className="h-4 w-4 text-brand-primary" />
             <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.standards')}</h4>
           </div>
           <ChipList items={stdChips} maxVisible={4} />
@@ -169,6 +170,7 @@ export function HeadSpecs({ product }: { product: Product }) {
       {(!isEmpty(colours) && colours.length > 0) && (
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
           <div className="flex items-center gap-2 mb-2">
+            <Palette className="h-4 w-4 text-brand-primary" />
             <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.colours')}</h4>
           </div>
           <ChipList items={colours} maxVisible={4} />
@@ -179,6 +181,7 @@ export function HeadSpecs({ product }: { product: Product }) {
     {optChips.length > 0 && (
       <div className="mt-4 group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
         <div className="flex items-center gap-2 mb-3">
+          <Move className="h-4 w-4 text-brand-primary" />
           <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.attributes')}</h4>
         </div>
         <ChipList

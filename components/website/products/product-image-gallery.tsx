@@ -11,6 +11,7 @@ interface ProductImageGalleryProps {
   image2?: string | null;
   image3?: string | null;
   image4?: string | null;
+  image5?: string | null;
   additionalImages?: string[] | null;
   productName: string;
   isFeatured?: boolean;
@@ -23,6 +24,7 @@ export const ProductImageGallery = ({
   image2,
   image3,
   image4,
+  image5,
   additionalImages,
   productName,
   isFeatured,
@@ -37,6 +39,7 @@ export const ProductImageGallery = ({
     ...(image2 ? [image2] : []),
     ...(image3 ? [image3] : []),
     ...(image4 ? [image4] : []),
+    ...(image5 ? [image5] : []),
     ...(additionalImages || [])
   ].filter(Boolean) as string[];
 
