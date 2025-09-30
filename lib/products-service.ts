@@ -198,7 +198,25 @@ export interface Product {
     has_uv?: boolean | null;
     has_arc?: boolean | null;
   } | null;
+  // Eye & Face comfort features (localised bullet list)
+  eye_face_comfort_features_locales?: Record<string, string[]> | null;
+  // Eye & Face equipment list (localised bullet list)
+  eye_face_equipment_locales?: Record<string, string[]> | null;
   // Head protection specific
+  head_comfort_features_locales?: Record<string, string[]> | null;
+  head_other_details_locales?: Record<string, string[]> | null;
+  head_equipment_locales?: Record<string, string[]> | null;
+  // Hearing protection specific
+  hearing_comfort_features_locales?: Record<string, string[]> | null;
+  hearing_other_details_locales?: Record<string, string[]> | null;
+  hearing_equipment_locales?: Record<string, string[]> | null;
+  // Respiratory protection specific
+  respiratory_comfort_features_locales?: Record<string, string[]> | null;
+  respiratory_other_details_locales?: Record<string, string[]> | null;
+  respiratory_equipment_locales?: Record<string, string[]> | null;
+  // Clothing protection specific
+  clothing_comfort_features_locales?: Record<string, string[]> | null;
+  clothing_other_details_locales?: Record<string, string[]> | null;
   head_standards?: Record<string, any> | null;
   head_attributes?: {
     form_factor?: string | null;

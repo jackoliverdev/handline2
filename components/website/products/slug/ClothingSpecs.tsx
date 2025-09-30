@@ -3,6 +3,7 @@
 import { Product } from "@/lib/products-service";
 import { useLanguage } from "@/lib/context/language-context";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Package, Ruler, Users, Award, Shield } from "lucide-react";
 
 export function ClothingSpecs({ product }: { product: Product }) {
   const { t, language } = useLanguage();
@@ -39,74 +40,72 @@ export function ClothingSpecs({ product }: { product: Product }) {
 
   return (
     <TooltipProvider>
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-      {/* Row 1 */}
-      <div className="bg-white dark:bg-black/30 rounded-lg p-4 border border-brand-primary/10 dark:border-brand-primary/20">
-        <h4 className="text-sm font-semibold text-brand-dark dark:text-white mb-2">{t('productPage.materials')}</h4>
-        <div className="text-sm text-brand-secondary dark:text-gray-300">
-          {Array.isArray(materials) && materials.length > 0 ? (
-            <div className="text-center">
-              <div className="text-brand-dark dark:text-white font-medium text-md">{materials[0]}</div>
-              {materials.length > 1 && (
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <button type="button" className="text-sm text-brand-secondary dark:text-gray-300 cursor-help inline-block">
-                      +{materials.length - 1} more
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent className="bg-white dark:bg-black/90 text-brand-dark dark:text-white shadow-lg border border-brand-primary/20 max-w-sm">
-                    <div className="text-sm">
-                      {materials.slice(1).map((m: string, i: number) => (
-                        <div key={i} className="leading-relaxed">{m}</div>
-                      ))}
-                    </div>
-                  </TooltipContent>
-                </Tooltip>
-              )}
+    <div className="space-y-5">
+      {/* Unified grid: Materials spans 2 rows; 3 columns total */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* Materials (full height - row span 2) */}
+        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4 md:row-span-2">
+          <div className="flex items-center gap-2 mb-3">
+            <Package className="h-5 w-5 text-brand-primary" />
+            <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.materials')}</h4>
+          </div>
+          <div className="text-sm text-brand-secondary dark:text-gray-300">
+            {Array.isArray(materials) && materials.length > 0 ? (
+              <div className="space-y-2">
+                {materials.map((m: string, i: number) => (
+                  <div key={i} className="text-brand-dark dark:text-white font-medium text-base leading-relaxed">{m}</div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-brand-secondary dark:text-gray-300">-</div>
+            )}
+          </div>
+        </div>
+
+        {/* Column 2: Size (top) and CE Category (bottom) */}
+        <div className="space-y-4">
+          {/* Size */}
+          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <Ruler className="h-5 w-5 text-brand-primary" />
+              <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.size')}</h4>
             </div>
-          ) : (
-            <div>-</div>
-          )}
-        </div>
-      </div>
-      <div className="bg-white dark:bg-black/30 rounded-lg p-4 border border-brand-primary/10 dark:border-brand-primary/20">
-        <h4 className="text-sm font-semibold text-brand-dark dark:text-white mb-2">{t('productPage.size')}</h4>
-        <div className="text-sm text-brand-secondary dark:text-gray-300">{size || '-'}</div>
-      </div>
-      <div className="bg-white dark:bg-black/30 rounded-lg p-4 border border-brand-primary/10 dark:border-brand-primary/20">
-        <h4 className="text-sm font-semibold text-brand-dark dark:text-white mb-2">{t('productPage.fit')}</h4>
-        <div className="text-sm text-brand-secondary dark:text-gray-300">{ca?.fit || '-'}</div>
-      </div>
+            <div className="text-brand-dark dark:text-white font-medium">{size || '-'}</div>
+          </div>
 
-      {/* Row 2 */}
-      <div className="bg-white dark:bg-black/30 rounded-lg p-4 border border-brand-primary/10 dark:border-brand-primary/20">
-        <h4 className="text-sm font-semibold text-brand-dark dark:text-white mb-2">{t('productPage.gender')}</h4>
-        <div className="text-sm text-brand-secondary dark:text-gray-300">{ca?.gender || '-'}</div>
-      </div>
-      <div className="bg-white dark:bg-black/30 rounded-lg p-4 border border-brand-primary/10 dark:border-brand-primary/20">
-        <h4 className="text-sm font-semibold text-brand-dark dark:text-white mb-2">{t('productPage.colours')}</h4>
-        <div className="flex flex-wrap gap-1.5">
-          {Array.isArray(ca?.colours) && ca.colours.length > 0 ? ca.colours.map((c: string, idx: number) => (
-            <span key={idx} className="text-xs px-2 py-0.5 rounded border border-brand-primary/20 bg-white dark:bg-black/40">{c}</span>
-          )) : <span className="text-sm text-brand-secondary dark:text-gray-300">-</span>}
+          {/* CE Category */}
+          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <Award className="h-5 w-5 text-brand-primary" />
+              <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.ceCategory')}</h4>
+            </div>
+            <div className="text-brand-dark dark:text-white font-medium">{product.ce_category || '-'}</div>
+          </div>
         </div>
-      </div>
-      <div className="bg-white dark:bg-black/30 rounded-lg p-4 border border-brand-primary/10 dark:border-brand-primary/20">
-        <h4 className="text-sm font-semibold text-brand-dark dark:text-white mb-2">{t('productPage.uvProtection')}</h4>
-        <div className="text-sm text-brand-secondary dark:text-gray-300">{ca?.uv_protection ? 'UV 801' : '-'}</div>
-      </div>
 
-      {/* Row 3 */}
-      <div className="bg-white dark:bg-black/30 rounded-lg p-4 border border-brand-primary/10 dark:border-brand-primary/20">
-        <h4 className="text-sm font-semibold text-brand-dark dark:text-white mb-2">{t('productPage.ceCategory')}</h4>
-        <div className="text-sm text-brand-secondary dark:text-gray-300">{product.ce_category || '-'}</div>
-      </div>
-      <div className="md:col-span-2 bg-white dark:bg-black/30 rounded-lg p-4 border border-brand-primary/10 dark:border-brand-primary/20">
-        <h4 className="text-sm font-semibold text-brand-dark dark:text-white mb-2">EN</h4>
-        <div className="flex flex-wrap gap-1.5">
-          {rightChips.length > 0 ? rightChips.map((c, idx) => (
-            <span key={idx} className="text-xs px-2 py-0.5 rounded border border-brand-primary/20 bg-white dark:bg-black/40">{c}</span>
-          )) : <span className="text-sm text-brand-secondary dark:text-gray-300">-</span>}
+        {/* Column 3: Fit (top) and EN Standards (bottom) */}
+        <div className="space-y-4">
+          {/* Fit */}
+          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <Users className="h-5 w-5 text-brand-primary" />
+              <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.fit')}</h4>
+            </div>
+            <div className="text-brand-dark dark:text-white font-medium">{ca?.fit || '-'}</div>
+          </div>
+
+          {/* EN Standards */}
+          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <Shield className="h-5 w-5 text-brand-primary" />
+              <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.clothingStandards.enStandards')}</h4>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {rightChips.length > 0 ? rightChips.map((c, idx) => (
+                <span key={idx} className="text-xs px-2 py-0.5 rounded border border-brand-primary/20 bg-white dark:bg-black/40 text-brand-dark dark:text-white">{c}</span>
+              )) : <span className="text-sm text-brand-secondary dark:text-gray-300">-</span>}
+            </div>
+          </div>
         </div>
       </div>
     </div>

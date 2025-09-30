@@ -66,11 +66,23 @@ export default function CategoryProductCreate({ slug }: Props) {
   // Category-specific minimal defaults (match editor)
   const [eyeFaceAttributes, setEyeFaceAttributes] = useState<any>({ has_ir: false, has_uv: false, has_arc: false, uv_code: '', lens_tint: '', coatings: [] });
   const [eyeFaceStandards, setEyeFaceStandards] = useState<any>({ en166: { optical_class: '', mechanical_strength: '', frame_mark: '', lens_mark: '', additional_marking: '' }, en169: false, en170: false, en172: false, en175: false, gs_et_29: false });
+  const [eyeFaceComfortFeatures, setEyeFaceComfortFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [eyeFaceEquipment, setEyeFaceEquipment] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [hearingStandards, setHearingStandards] = useState<any>({ en352: { parts: [], snr_db: null, hml: { h: null, m: null, l: null }, additional: [] } });
   const [hearingAttributes, setHearingAttributes] = useState<any>({ reusable: null, mount: '', bluetooth: null, compatible_with: [], accessories: [] });
+  const [hearingComfortFeatures, setHearingComfortFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [hearingOtherDetails, setHearingOtherDetails] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [hearingEquipment, setHearingEquipment] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [respiratoryComfortFeatures, setRespiratoryComfortFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [respiratoryOtherDetails, setRespiratoryOtherDetails] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [respiratoryEquipment, setRespiratoryEquipment] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [footwearStandards, setFootwearStandards] = useState<any>({ en_iso_20345_2011: [], en_iso_20345_2022: [], slip_resistance: '' });
   const [footwearAttributes, setFootwearAttributes] = useState<any>({ class: '', esd: null, metal_free: null, width_fit: [], size_min: null, size_max: null, gender: '', weight_grams: null, weight_ref_size: null, special: [], toe_cap: '', sole_material: '' });
+  const [footwearComfortFeatures, setFootwearComfortFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [headStandards, setHeadStandards] = useState<any>({ en397: { present: false, optional: { low_temperature: false, molten_metal: false } }, en50365: false, en12492: false, en812: false });
+  const [headComfortFeatures, setHeadComfortFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [headOtherDetails, setHeadOtherDetails] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [headEquipment, setHeadEquipment] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [headAttributes, setHeadAttributes] = useState<any>({ form_factor: '', brim_length: '', size_min_cm: null, size_max_cm: null, weight_g: null, colours: [], ventilation: null, harness_points: null, chinstrap_points: null, sweatband: null, closed_shell: null, euroslot_mm: null, accessories: [] });
   const [clothingStandards, setClothingStandards] = useState<any>({ en_iso_20471: { class: null }, en_iso_11612: {}, iec_61482_2: { class: null }, en_1149_5: false });
   const [clothingAttributes, setClothingAttributes] = useState<any>({ fit: '', gender: '', size_range: '', colours: [], uv_protection: null });
@@ -90,6 +102,8 @@ export default function CategoryProductCreate({ slug }: Props) {
   const [padEnLength, setPadEnLength] = useState<number | ''>('');
   const [padItDiameter, setPadItDiameter] = useState<number | ''>('');
   const [padItLength, setPadItLength] = useState<number | ''>('');
+  const [clothingComfortFeatures, setClothingComfortFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [clothingOtherDetails, setClothingOtherDetails] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
 
   // Prefill and lock category
   const categoryMap: Record<string, { en: string; it: string }> = {
@@ -173,17 +187,31 @@ export default function CategoryProductCreate({ slug }: Props) {
         safety: slug==='gloves' ? safety : undefined,
         footwear_standards: slug==='footwear' ? footwearStandards : undefined,
         footwear_attributes: slug==='footwear' ? footwearAttributes : undefined,
+        footwear_comfort_features_locales: slug==='footwear' ? footwearComfortFeatures : undefined,
         eye_face_attributes: slug==='eye-face' ? eyeFaceAttributes : undefined,
         eye_face_standards: slug==='eye-face' ? eyeFaceStandards : undefined,
         hearing_standards: slug==='hearing' ? hearingStandards : undefined,
         hearing_attributes: slug==='hearing' ? hearingAttributes : undefined,
+        hearing_comfort_features_locales: slug === 'hearing' ? hearingComfortFeatures : undefined,
+        hearing_other_details_locales: slug === 'hearing' ? hearingOtherDetails : undefined,
+        hearing_equipment_locales: slug === 'hearing' ? hearingEquipment : undefined,
+        respiratory_comfort_features_locales: slug === 'respiratory' ? respiratoryComfortFeatures : undefined,
+        respiratory_other_details_locales: slug === 'respiratory' ? respiratoryOtherDetails : undefined,
+        respiratory_equipment_locales: slug === 'respiratory' ? respiratoryEquipment : undefined,
         head_standards: slug==='head' ? headStandards : undefined,
         head_attributes: slug==='head' ? headAttributes : undefined,
+        head_other_details_locales: slug==='head' ? headOtherDetails : undefined,
+        head_equipment_locales: slug==='head' ? headEquipment : undefined,
+        head_comfort_features_locales: slug==='head' ? headComfortFeatures : undefined,
         clothing_standards: slug==='clothing' ? clothingStandards : undefined,
         clothing_attributes: slug==='clothing' ? clothingAttributes : undefined,
         clothing_type: slug==='clothing' ? (clothingType || null) : undefined,
         clothing_category: slug==='clothing' ? (clothingCategory || null) : undefined,
+        clothing_comfort_features_locales: slug === 'clothing' ? clothingComfortFeatures : undefined,
+        clothing_other_details_locales: slug === 'clothing' ? clothingOtherDetails : undefined,
         arm_attributes: slug==='arm-protection' ? armAttributes : undefined,
+        eye_face_comfort_features_locales: slug==='eye-face' ? eyeFaceComfortFeatures : undefined,
+        eye_face_equipment_locales: slug==='eye-face' ? eyeFaceEquipment : undefined,
         respiratory_standards: slug==='respiratory' ? respiratoryStandards : undefined,
         connections: slug==='respiratory' ? respConnections : undefined,
         filter_type: slug==='respiratory' ? (respFilterType || null) : undefined,
@@ -419,7 +447,7 @@ export default function CategoryProductCreate({ slug }: Props) {
               {slug === 'hearing' && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-3">
-                    <Label className="font-medium">EN 352</Label>
+                    <Label className="font-medium">Standards</Label>
                     <div className="space-y-1"><Label>SNR (dB)</Label><Input type="number" value={hearingStandards.en352?.snr_db ?? ''} onChange={(e)=> setHearingStandards({ ...hearingStandards, en352: { ...(hearingStandards.en352||{}), snr_db: e.target.value === '' ? null : Number(e.target.value) } })} /></div>
                     <div className="grid grid-cols-3 gap-2">
                       {(['h','m','l'] as const).map(k => (
@@ -432,6 +460,26 @@ export default function CategoryProductCreate({ slug }: Props) {
                     <div className="flex items-center gap-2"><Checkbox checked={hearingAttributes.reusable === true} onCheckedChange={(v)=> setHearingAttributes({ ...hearingAttributes, reusable: v ? true : false })} /><span>Reusable</span></div>
                     <div className="flex items-center gap-2"><Checkbox checked={hearingAttributes.bluetooth === true} onCheckedChange={(v)=> setHearingAttributes({ ...hearingAttributes, bluetooth: v ? true : false })} /><span>Bluetooth</span></div>
                     <div className="space-y-1"><Label>Mount</Label><Input value={hearingAttributes.mount || ''} onChange={(e)=> setHearingAttributes({ ...hearingAttributes, mount: e.target.value })} /></div>
+                  </div>
+                  <div className="md:col-span-2">
+                    <LocaleListEditor 
+                      title="Comfort features" 
+                      items={hearingComfortFeatures[language]} 
+                      onAdd={(val) => setHearingComfortFeatures({ ...hearingComfortFeatures, [language]: [...(hearingComfortFeatures[language] || []), val] })} 
+                      onRemove={(idx) => setHearingComfortFeatures({ ...hearingComfortFeatures, [language]: (hearingComfortFeatures[language] || []).filter((_, i) => i !== idx) })} 
+                    />
+                    <LocaleListEditor 
+                      title="Other details" 
+                      items={hearingOtherDetails[language]} 
+                      onAdd={(val) => setHearingOtherDetails({ ...hearingOtherDetails, [language]: [...(hearingOtherDetails[language] || []), val] })} 
+                      onRemove={(idx) => setHearingOtherDetails({ ...hearingOtherDetails, [language]: (hearingOtherDetails[language] || []).filter((_, i) => i !== idx) })} 
+                    />
+                    <LocaleListEditor 
+                      title="Equipment" 
+                      items={hearingEquipment[language]} 
+                      onAdd={(val) => setHearingEquipment({ ...hearingEquipment, [language]: [...(hearingEquipment[language] || []), val] })} 
+                      onRemove={(idx) => setHearingEquipment({ ...hearingEquipment, [language]: (hearingEquipment[language] || []).filter((_, i) => i !== idx) })} 
+                    />
                   </div>
                 </div>
               )}
@@ -457,6 +505,26 @@ export default function CategoryProductCreate({ slug }: Props) {
                     </div>
                     <div className="space-y-1"><Label>EN 14387 gases (comma separated codes, e.g. A,B,E,K)</Label><Input value={Object.keys(respiratoryStandards.en14387?.gases || {}).filter((k)=> respiratoryStandards.en14387?.gases?.[k]).join(', ')} onChange={(e)=> { const obj: any = {}; e.target.value.split(',').map(s=> s.trim().toUpperCase()).filter(Boolean).forEach((k)=> obj[k] = true); setRespiratoryStandards({ ...respiratoryStandards, en14387: { ...(respiratoryStandards.en14387||{}), gases: obj } }); }} /></div>
                   </div>
+                  <div className="space-y-3">
+                    <LocaleListEditor 
+                      title="Comfort features" 
+                      items={respiratoryComfortFeatures[language]} 
+                      onAdd={(val) => setRespiratoryComfortFeatures({ ...respiratoryComfortFeatures, [language]: [...(respiratoryComfortFeatures[language] || []), val] })} 
+                      onRemove={(idx) => setRespiratoryComfortFeatures({ ...respiratoryComfortFeatures, [language]: (respiratoryComfortFeatures[language] || []).filter((_, i) => i !== idx) })} 
+                    />
+                    <LocaleListEditor 
+                      title="Other details" 
+                      items={respiratoryOtherDetails[language]} 
+                      onAdd={(val) => setRespiratoryOtherDetails({ ...respiratoryOtherDetails, [language]: [...(respiratoryOtherDetails[language] || []), val] })} 
+                      onRemove={(idx) => setRespiratoryOtherDetails({ ...respiratoryOtherDetails, [language]: (respiratoryOtherDetails[language] || []).filter((_, i) => i !== idx) })} 
+                    />
+                    <LocaleListEditor 
+                      title="Equipment" 
+                      items={respiratoryEquipment[language]} 
+                      onAdd={(val) => setRespiratoryEquipment({ ...respiratoryEquipment, [language]: [...(respiratoryEquipment[language] || []), val] })} 
+                      onRemove={(idx) => setRespiratoryEquipment({ ...respiratoryEquipment, [language]: (respiratoryEquipment[language] || []).filter((_, i) => i !== idx) })} 
+                    />
+                  </div>
                 </div>
               )}
               {slug === 'arm-protection' && (
@@ -479,6 +547,7 @@ export default function CategoryProductCreate({ slug }: Props) {
                     </div>
                     <div className="space-y-1"><Label>Toe cap</Label><Input value={footwearAttributes.toe_cap || ''} onChange={(e)=> setFootwearAttributes({ ...footwearAttributes, toe_cap: e.target.value })} /></div>
                     <div className="space-y-1"><Label>Sole material</Label><Input value={footwearAttributes.sole_material || ''} onChange={(e)=> setFootwearAttributes({ ...footwearAttributes, sole_material: e.target.value })} /></div>
+                    <LocaleListEditor title="Comfort features" items={footwearComfortFeatures[language]} onAdd={(val)=> setFootwearComfortFeatures({ ...footwearComfortFeatures, [language]: [...(footwearComfortFeatures[language] || []), val] })} onRemove={(idx)=> setFootwearComfortFeatures({ ...footwearComfortFeatures, [language]: (footwearComfortFeatures[language] || []).filter((_,i)=> i!==idx) })} />
                   </div>
                   <div className="space-y-3">
                     <Label className="font-medium">Standards</Label>
@@ -498,6 +567,8 @@ export default function CategoryProductCreate({ slug }: Props) {
                     <div className="space-y-1"><Label>UV code</Label><Input value={eyeFaceAttributes.uv_code || ''} onChange={(e)=> setEyeFaceAttributes({ ...eyeFaceAttributes, uv_code: e.target.value })} /></div>
                     <div className="space-y-1"><Label>Lens tint</Label><Input value={eyeFaceAttributes.lens_tint || ''} onChange={(e)=> setEyeFaceAttributes({ ...eyeFaceAttributes, lens_tint: e.target.value })} /></div>
                     <LocaleListEditor title="Coatings" items={eyeFaceAttributes.coatings || []} onAdd={(val)=> setEyeFaceAttributes({ ...eyeFaceAttributes, coatings: [...(eyeFaceAttributes.coatings||[]), val] })} onRemove={(idx)=> setEyeFaceAttributes({ ...eyeFaceAttributes, coatings: (eyeFaceAttributes.coatings||[]).filter((_:any,i:number)=> i!==idx) })} />
+                    <LocaleListEditor title="Comfort features" items={eyeFaceComfortFeatures[language] || []} onAdd={(val)=> setEyeFaceComfortFeatures({ ...eyeFaceComfortFeatures, [language]: [...(eyeFaceComfortFeatures[language] || []), val] })} onRemove={(idx)=> setEyeFaceComfortFeatures({ ...eyeFaceComfortFeatures, [language]: (eyeFaceComfortFeatures[language] || []).filter((_,i)=> i!==idx) })} />
+                    <LocaleListEditor title="Equipment" items={eyeFaceEquipment[language] || []} onAdd={(val)=> setEyeFaceEquipment({ ...eyeFaceEquipment, [language]: [...(eyeFaceEquipment[language] || []), val] })} onRemove={(idx)=> setEyeFaceEquipment({ ...eyeFaceEquipment, [language]: (eyeFaceEquipment[language] || []).filter((_,i)=> i!==idx) })} />
                   </div>
                   <div className="space-y-3">
                     <Label className="font-medium">Standards</Label>
@@ -542,6 +613,11 @@ export default function CategoryProductCreate({ slug }: Props) {
                     <div className="flex items-center gap-2"><Checkbox checked={!!headStandards.en12492} onCheckedChange={(v)=> setHeadStandards({ ...headStandards, en12492: !!v })} /><span>EN 12492</span></div>
                     <div className="flex items-center gap-2"><Checkbox checked={!!headStandards.en812} onCheckedChange={(v)=> setHeadStandards({ ...headStandards, en812: !!v })} /><span>EN 812</span></div>
                   </div>
+                  <div className="md:col-span-2">
+                    <LocaleListEditor title="Comfort features" items={headComfortFeatures[language]} onAdd={(val)=> setHeadComfortFeatures({ ...headComfortFeatures, [language]: [...(headComfortFeatures[language] || []), val] })} onRemove={(idx)=> setHeadComfortFeatures({ ...headComfortFeatures, [language]: (headComfortFeatures[language] || []).filter((_,i)=> i!==idx) })} />
+                    <LocaleListEditor title="Other details" items={headOtherDetails[language]} onAdd={(val)=> setHeadOtherDetails({ ...headOtherDetails, [language]: [...(headOtherDetails[language] || []), val] })} onRemove={(idx)=> setHeadOtherDetails({ ...headOtherDetails, [language]: (headOtherDetails[language] || []).filter((_,i)=> i!==idx) })} />
+                    <LocaleListEditor title="Equipment" items={headEquipment[language]} onAdd={(val)=> setHeadEquipment({ ...headEquipment, [language]: [...(headEquipment[language] || []), val] })} onRemove={(idx)=> setHeadEquipment({ ...headEquipment, [language]: (headEquipment[language] || []).filter((_,i)=> i!==idx) })} />
+                  </div>
                 </div>
               )}
               {slug === 'clothing' && (
@@ -581,6 +657,18 @@ export default function CategoryProductCreate({ slug }: Props) {
                     <div className="space-y-1"><Label>Hi-Vis class</Label><Input type="number" value={clothingStandards.en_iso_20471?.class ?? ''} onChange={(e)=> setClothingStandards({ ...clothingStandards, en_iso_20471: { class: e.target.value === '' ? null : Number(e.target.value) } })} /></div>
                     <div className="space-y-1"><Label>Arc class</Label><Input type="number" value={clothingStandards.iec_61482_2?.class ?? ''} onChange={(e)=> setClothingStandards({ ...clothingStandards, iec_61482_2: { class: e.target.value === '' ? null : Number(e.target.value) } })} /></div>
                     <div className="flex items-center gap-2"><Checkbox checked={!!clothingStandards.en_1149_5} onCheckedChange={(v)=> setClothingStandards({ ...clothingStandards, en_1149_5: !!v })} /><span>EN 1149-5 Antistatic</span></div>
+                    <LocaleListEditor 
+                      title="Comfort features" 
+                      items={clothingComfortFeatures[language]} 
+                      onAdd={(val) => setClothingComfortFeatures({ ...clothingComfortFeatures, [language]: [...(clothingComfortFeatures[language] || []), val] })} 
+                      onRemove={(idx) => setClothingComfortFeatures({ ...clothingComfortFeatures, [language]: (clothingComfortFeatures[language] || []).filter((_, i) => i !== idx) })} 
+                    />
+                    <LocaleListEditor 
+                      title="Other details" 
+                      items={clothingOtherDetails[language]} 
+                      onAdd={(val) => setClothingOtherDetails({ ...clothingOtherDetails, [language]: [...(clothingOtherDetails[language] || []), val] })} 
+                      onRemove={(idx) => setClothingOtherDetails({ ...clothingOtherDetails, [language]: (clothingOtherDetails[language] || []).filter((_, i) => i !== idx) })} 
+                    />
                   </div>
                 </div>
               )}
@@ -608,8 +696,9 @@ export default function CategoryProductCreate({ slug }: Props) {
   );
 }
 
-function LocaleListEditor({ title, items, onAdd, onRemove, icon }: { title: string; items: string[]; onAdd: (val: string)=> void; onRemove: (index: number)=> void; icon?: boolean; }) {
+function LocaleListEditor({ title, items, onAdd, onRemove, icon }: { title: string; items: string[] | undefined; onAdd: (val: string)=> void; onRemove: (index: number)=> void; icon?: boolean; }) {
   const [val, setVal] = useState("");
+  const safeItems = Array.isArray(items) ? items : [];
   return (
     <Card>
       <CardHeader><CardTitle>{title}</CardTitle></CardHeader>
@@ -619,8 +708,8 @@ function LocaleListEditor({ title, items, onAdd, onRemove, icon }: { title: stri
             <Input placeholder={`Add ${title.toLowerCase().slice(0,-1)}`} value={val} onChange={(e)=> setVal(e.target.value)} onKeyDown={(e)=>{ if (e.key==='Enter' && val.trim()) { onAdd(val.trim()); setVal(''); } }} />
             <Button type="button" size="sm" onClick={()=> { if (val.trim()) { onAdd(val.trim()); setVal(''); } }}><Plus className="h-4 w-4" /></Button>
           </div>
-          {items.length === 0 ? (<p className="text-sm text-muted-foreground">No items added.</p>) : (
-            <div className="flex flex-wrap gap-2">{items.map((item, idx) => (<Badge key={`${item}-${idx}`} variant="outline" className="flex items-center gap-1">{icon && <Tag className="h-3 w-3" />}{item}<Button variant="ghost" size="sm" className="h-4 w-4 p-0" onClick={()=> onRemove(idx)}><X className="h-3 w-3" /></Button></Badge>))}</div>
+          {safeItems.length === 0 ? (<p className="text-sm text-muted-foreground">No items added.</p>) : (
+            <div className="flex flex-wrap gap-2">{safeItems.map((item, idx) => (<Badge key={`${item}-${idx}`} variant="outline" className="flex items-center gap-1">{icon && <Tag className="h-3 w-3" />}{item}<Button variant="ghost" size="sm" className="h-4 w-4 p-0" onClick={()=> onRemove(idx)}><X className="h-3 w-3" /></Button></Badge>))}</div>
           )}
         </div>
       </CardContent>

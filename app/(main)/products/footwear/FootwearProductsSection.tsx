@@ -156,6 +156,7 @@ export function FootwearProductsSection({ products }: FootwearProductsSectionPro
           extraFiltersRenderMobile={extraFiltersMobile}
           hideDefaultFilters={true}
           extraFilterPredicate={predicate}
+          hideMainCategoryFilter
         />
       </div>
     </section>

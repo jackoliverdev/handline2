@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useLanguage } from "@/lib/context/language-context";
 import { ppeRegulationsContent } from "@/content/ppe-regulations";
+import { motion } from "framer-motion";
 
 export function RegulationsTabs() {
   const router = useRouter();
@@ -23,6 +24,33 @@ export function RegulationsTabs() {
     const langCode = language as "en" | "it";
     return ppeRegulationsContent[langCode][section];
   };
+
+  const fadeIn = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  };
+
+  // Custom section component for consistent styling with animations
+  const Section = ({ title, content }: { title: string, content: string }) => (
+    <motion.div 
+      className="mb-8" 
+      initial="hidden" 
+      whileInView="visible" 
+      viewport={{ once: true, margin: "-100px" }}
+      variants={fadeIn}
+    >
+      <h3 className="text-xl font-bold mb-3 text-brand-dark dark:text-white border-l-4 border-brand-primary pl-4 py-2 bg-brand-primary/10 dark:bg-brand-primary/5 rounded-r-md font-heading">{title}</h3>
+      <div
+        dangerouslySetInnerHTML={{ __html: content }}
+        className="legal-content prose prose-slate dark:prose-invert max-w-none text-brand-secondary dark:text-gray-300 
+                   prose-p:mb-4 prose-p:leading-relaxed prose-p:text-base
+                   prose-ul:mb-4 prose-ul:pl-6 prose-li:mb-2 prose-li:leading-relaxed 
+                   prose-ol:mb-4 prose-ol:pl-6 prose-ol:list-decimal
+                   prose-strong:text-brand-dark dark:prose-strong:text-white prose-strong:font-semibold
+                   prose-h4:text-lg prose-h4:font-semibold prose-h4:text-brand-dark dark:prose-h4:text-white prose-h4:mb-3 prose-h4:mt-6"
+      />
+    </motion.div>
+  );
 
   return (
     <div className="w-full bg-brand-light dark:bg-background pb-16">
@@ -53,25 +81,22 @@ export function RegulationsTabs() {
 
           {validTabs.map((key) => (
             <TabsContent key={key} value={key} className="max-w-4xl mx-auto">
-              <div className="rounded-lg p-6 md:p-8 bg-white dark:bg-black/50 border border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm shadow-sm">
+              <motion.article 
+                className="prose prose-lg max-w-none bg-white dark:bg-black/50 p-6 rounded-lg border border-brand-primary/20 dark:border-brand-primary/30 shadow-sm backdrop-blur-sm"
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+                }}
+              >
                 <h2 className="text-3xl font-bold mb-2 text-brand-dark dark:text-white font-heading">{getLocalizedContent(key as any).title}</h2>
                 <p className="text-brand-secondary dark:text-gray-400 mb-8">{getLocalizedContent(key as any).lastUpdated}</p>
 
                 {getLocalizedContent(key as any).sections.map((section: any, index: number) => (
-                  <div key={index} className="mb-8">
-                    <h3 className="text-xl font-semibold mb-4 text-brand-dark dark:text-white font-heading">{section.title}</h3>
-                    <div
-                      dangerouslySetInnerHTML={{ __html: section.content }}
-                      className="legal-content prose prose-slate dark:prose-invert max-w-none text-brand-secondary dark:text-gray-300 
-                                 prose-p:mb-4 prose-p:leading-relaxed prose-p:text-base
-                                 prose-ul:mb-4 prose-ul:pl-6 prose-li:mb-2 prose-li:leading-relaxed 
-                                 prose-ol:mb-4 prose-ol:pl-6 prose-ol:list-decimal
-                                 prose-strong:text-brand-dark dark:prose-strong:text-white prose-strong:font-semibold
-                                 prose-h4:text-lg prose-h4:font-semibold prose-h4:text-brand-dark dark:prose-h4:text-white prose-h4:mb-3 prose-h4:mt-6"
-                    />
-                  </div>
+                  <Section key={index} title={section.title} content={section.content} />
                 ))}
-              </div>
+              </motion.article>
             </TabsContent>
           ))}
         </Tabs>

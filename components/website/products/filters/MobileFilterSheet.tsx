@@ -39,6 +39,8 @@ interface MobileFilterSheetProps {
   hideDefaultFilters?: boolean;
   // When true, hide Category and Sub-Category groups
   hideCategoryFilters?: boolean;
+  // When true, hide only the main Category group (keep Sub-Category)
+  hideMainCategoryFilter?: boolean;
 }
 
 export const MobileFilterSheet = ({
@@ -67,6 +69,7 @@ export const MobileFilterSheet = ({
   extraFiltersRender,
   hideDefaultFilters = false,
   hideCategoryFilters = false,
+  hideMainCategoryFilter = false,
 }: MobileFilterSheetProps) => {
   const { t } = useLanguage();
   return (
@@ -78,7 +81,7 @@ export const MobileFilterSheet = ({
         
         <div className="flex-1 flex flex-col gap-4 mt-4 overflow-y-auto pr-1">
           {/* Category Filter */}
-          {!hideCategoryFilters && (
+          {!hideCategoryFilters && !hideMainCategoryFilter && (
           <div>
             <button 
               className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"

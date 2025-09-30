@@ -82,6 +82,7 @@ export function ArmProductsSection({ products }: ArmProductsSectionProps) {
           extraFiltersRenderMobile={extraFiltersMobile}
           extraFilterPredicate={predicate}
           hideDefaultFilters={true}
+          hideMainCategoryFilter
         />
       </div>
     </section>

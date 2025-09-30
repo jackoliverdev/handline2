@@ -9,6 +9,13 @@ export function CoatingFilter({ options, selected, onToggle, isExpanded, toggleS
   const { t } = useLanguage();
   const [localOpen, setLocalOpen] = useState(false);
   const open = isExpanded ?? localOpen;
+  const humanise = (key: string) => key.replace(/_/g, ' ').replace(/\b\w/g, (m) => m.toUpperCase());
+  const labelFor = (key: string) => {
+    const tKey = `productPage.coatingTypes.${key}`;
+    const translated = t(tKey);
+    // t() returns the key itself when missing
+    return translated === tKey ? humanise(key) : translated;
+  };
   return (
     <div className="border-b border-brand-primary/10 dark:border-brand-primary/20 pb-4">
       <button className="flex w-full items-center justify-between mb-2" onClick={() => (toggleSection ? toggleSection("eyeFaceCoating") : setLocalOpen(v => !v))}>
@@ -20,7 +27,7 @@ export function CoatingFilter({ options, selected, onToggle, isExpanded, toggleS
           {options.map(opt => (
             <div key={opt} className="flex items-center space-x-2">
               <Checkbox id={`coat-${opt}`} checked={selected.includes(opt)} onCheckedChange={() => onToggle(opt)} className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary" />
-              <label htmlFor={`coat-${opt}`} className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer">{opt}</label>
+              <label htmlFor={`coat-${opt}`} className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer">{labelFor(opt)}</label>
             </div>
           ))}
         </div>

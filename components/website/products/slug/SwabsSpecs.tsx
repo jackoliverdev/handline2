@@ -22,7 +22,8 @@ export function SwabsSpecs({ product }: { product: Product }) {
 
   return (
     <div className="space-y-4">
-      <div className="grid grid-cols-3 gap-4">
+      {/* Row 1: Materials + CE Category */}
+      <div className="grid grid-cols-2 gap-4">
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
           <div className="flex items-center justify-center gap-2 mb-2">
             <Layers className="h-5 w-5 text-brand-primary hidden sm:block" />
@@ -41,7 +42,19 @@ export function SwabsSpecs({ product }: { product: Product }) {
             )}
           </div>
         </div>
+        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <Shield className="h-5 w-5 text-brand-primary" />
+            <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.ceCategory')}</h3>
+          </div>
+          <div className="flex items-center justify-center">
+            <span className="text-brand-dark dark:text-white font-medium text-md">{product.ce_category ? `${t('productPage.category')} ${product.ce_category}` : '-'}</span>
+          </div>
+        </div>
+      </div>
 
+      {/* Row 2: Size + Rod Length + Pad Size */}
+      <div className="grid grid-cols-3 gap-4">
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
           <div className="flex items-center justify-center gap-2 mb-2">
             <Move className="h-5 w-5 text-brand-primary hidden sm:block" />
@@ -55,50 +68,22 @@ export function SwabsSpecs({ product }: { product: Product }) {
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
           <div className="flex items-center justify-center gap-2 mb-2">
             <Ruler className="h-5 w-5 text-brand-primary hidden sm:block" />
-            <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.productInfo.length')}</h3>
+            <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.productInfo.rodLength')}</h3>
           </div>
           <div className="flex items-center justify-center">
             <span className="text-brand-dark dark:text-white font-medium text-md">{product.length_cm ? `${product.length_cm} cm` : '-'}</span>
           </div>
         </div>
-      </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        {product.ce_category && (
-          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <Shield className="h-5 w-5 text-brand-primary" />
-              <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.ceCategory')}</h3>
-            </div>
-            <div className="flex items-center justify-center">
-              <span className="text-brand-dark dark:text-white font-medium text-md">{t('productPage.category')} {product.ce_category}</span>
-            </div>
+        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <Ruler className="h-5 w-5 text-brand-primary" />
+            <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.padSize')}</h3>
           </div>
-        )}
-
-        {padSizeDisplay ? (
-          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <Ruler className="h-5 w-5 text-brand-primary" />
-              <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.padSize')}</h3>
-            </div>
-            <div className="flex items-center justify-center">
-              <span className="text-brand-dark dark:text-white font-medium text-md">{padSizeDisplay}</span>
-            </div>
+          <div className="flex items-center justify-center">
+            <span className="text-brand-dark dark:text-white font-medium text-md">{padSizeDisplay || '-'}</span>
           </div>
-        ) : product.en_standard ? (
-          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <Shield className="h-5 w-5 text-brand-primary" />
-              <h3 className="text-sm font-medium text-brand-dark dark:text-white">EN Standard</h3>
-            </div>
-            <div className="flex items-center justify-center">
-              <span className="text-brand-dark dark:text-white font-medium text-md">{product.en_standard}</span>
-            </div>
-          </div>
-        ) : (
-          <div />
-        )}
+        </div>
       </div>
     </div>
   );

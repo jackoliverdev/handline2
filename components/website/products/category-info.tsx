@@ -50,7 +50,7 @@ export const CategoryInfo = ({
   const displayImageAlt = imageAlt || displayTitle || "";
   
   return (
-    <section className="py-4 md:py-6">
+    <section className="py-3 md:py-4">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-10 gap-4 lg:gap-6 items-stretch">
           {/* Text Content - Left Side (70% width) */}
@@ -60,7 +60,7 @@ export const CategoryInfo = ({
             transition={SPRING_CONFIG}
             className="flex items-center lg:col-span-7"
           >
-            <div className="bg-white dark:bg-black/50 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700/50 p-5 md:p-6 h-full flex flex-col justify-center backdrop-blur-sm hover:shadow-xl transition-all duration-500">
+            <div className="bg-white dark:bg-black/50 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700/50 p-4 md:p-5 h-full flex flex-col justify-center backdrop-blur-sm hover:shadow-xl transition-all duration-500">
               <div className="space-y-2">
                 <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-brand-dark dark:text-white font-heading leading-tight">
                   {displayTitle}
@@ -82,7 +82,7 @@ export const CategoryInfo = ({
             transition={{ ...SPRING_CONFIG, delay: 0.1 }}
             className="flex items-center lg:col-span-3"
           >
-            <div className="relative w-full h-[200px] sm:h-[230px] lg:h-[260px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 bg-white dark:bg-black/50 border border-gray-100 dark:border-gray-700/50 group">
+            <div className="relative w-full h-[170px] sm:h-[200px] lg:h-[230px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 bg-white dark:bg-black/50 border border-gray-100 dark:border-gray-700/50 group">
               <Image
                 src={displayImageSrc}
                 alt={displayImageAlt}

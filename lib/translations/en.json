@@ -643,7 +643,7 @@
       "protectionType": "Protection type",
       "lensTint": "Lens tint",
       "coating": "Coating",
-      "uvCode": "UV code",
+      "uvCode": "UV protection",
       "brimLength": "Brim length",
       "lowTemperature": "Low-temperature performance",
       "electricalInsulation": "Electrical insulation (EN 50365)",
@@ -692,6 +692,9 @@
     "backToProducts": "Back to products",
     "specifications": "Specifications",
     "features": "Features",
+    "safetyFeatures": "Safety features",
+      "equipment": "Equipment",
+      "otherDetails": "Other details",
     "applications": "Applications",
     "safety": "EN Standards",
     "documentation": "Documents",
@@ -700,6 +703,7 @@
     "noDocuments": "No documents available",
       "opticalClass": "Optical class",
       "mechanical": "Mechanical",
+      "coating": "Coating",
       "standards": "Standards",
       "weight": "Weight",
       "closedShell": "Closed shell",
@@ -719,7 +723,12 @@
       "uvProtection": "UV protection",
       "frameMark": "Frame mark",
       "lensMark": "Lens mark",
+      "frame": "Frame",
+      "lens": "Lens",
       "additionalMarking": "Additional marking",
+      "lowTemperature": "Low temperature",
+      "highTemperature": "High temperature",
+      "electricalInsulation": "Electrical insulation",
       
       "lateralDeformation": "Lateral deformation",
       "enIso20345": "EN ISO 20345",
@@ -727,6 +736,7 @@
       "enIso20345_2011": "EN ISO 20345:2011",
       "enIso21420": "EN ISO 21420",
       "stdLabel": {
+        "en397": "Industrial safety helmets",
         "en169": "Welding filters",
         "en170": "UV filters",
         "en172": "Sunglare filters for industrial use",
@@ -735,14 +745,30 @@
         "en50365": "Electrical insulation",
         "en12492": "Mountaineering helmets",
         "en812": "Bump caps",
-        "en_iso_21420": "General requirements"
+        "en_iso_21420": "General requirements",
+        "en143": "Respiratory protective devices - Particle filters",
+        "din31813": "Respiratory protective devices - Gas filters"
       },
       "additionalRequirements": "Additional requirements",
     "productDetails": "Product Details",
     "technicalSpecifications": "Technical Specifications",
     "materials": "Materials",
+    "npf": "NPF",
     "size": "Size",
+    "comfortFeatures": "Comfort & fit features",
     "attributes": "Attributes",
+      "protectiveFilters": "Protective filters",
+      "protectiveFilter": "Protective filter",
+      "protection": "Protection",
+      "filtersFitted": "filters fitted",
+      "dust": "Dust",
+      "gasesVapours": "Gases & Vapours",
+      "combined": "Combined",
+      "sun": "Sun",
+      "glare": "Glare",
+      "ir": "IR",
+      "welding": "Welding",
+      "uv": "UV",
     "dimensions": "Dimensions",
     "temperatureRating": "Temperature Rating",
     "cutResistanceLevel": "Cut Resistance Level",
@@ -755,7 +781,8 @@
     "productInfo": {
       "brand": "Brand", 
       "size": "Size",
-      "length": "Length"
+      "length": "Length",
+      "rodLength": "Rod length"
     },
     "ceCategory": "CE Category",
     "category": "Category",
@@ -772,6 +799,10 @@
     "chemicalExposure": "Chemical Exposure",
     "biologicalHazards": "Biological Hazards",
     "oilyGreasy": "Oily / Greasy",
+    "electrical": "Electrical risk",
+    "electricalRisks": "Electrical risks",
+    "radiation": "Radiation",
+    "lowVisibility": "Low visibility",
     "suitableFor": "Suitable for",
     "workEnvironments": "work environments",
     "yes": "Yes",
@@ -789,7 +820,81 @@
     "smallSplashes": "Small Splashes",
     "additionalStandards": "Additional Standards",
     "englishDocument": "English",
-    "italianDocument": "Italiano"
+    "italianDocument": "Italiano",
+    "coatingTypes": {
+      "anti_fog": "Anti Fog",
+      "scratch_resistant": "Scratch Resistant",
+      "chemical_resistant": "Chemical Resistant"
+    },
+      "lensTintTypes": {
+        "transparent": "Transparent",
+        "clear": "Clear",
+        "grey": "Grey",
+        "smoke": "Smoke",
+        "brown": "Brown",
+        "amber": "Amber",
+        "yellow": "Yellow",
+        "green": "Green",
+        "blue": "Blue",
+        "mirror": "Mirror"
+      },
+      "footwearAttributes": {
+        "metalFree": "Metal-free",
+        "esd": "ESD",
+        "slipResistance": "Slip resistance",
+        "waterResistance": "Water resistance",
+        "chemicalExposure": "Chemical exposure",
+        "metatarsalProtection": "Metatarsal protection"
+      },
+      "hearingAttributes": {
+        "waterResistance": "Water resistance",
+        "extremeTemperature": "Extreme temperature",
+        "mechanicalStress": "Mechanical stress",
+        "electricalInsulation": "Electrical insulation",
+        "specialElectrical": "Special electrical",
+        "adjustments": "Adjustments",
+        "biohazard": "Biohazard",
+        "compatibility": "Compatibility",
+        "decontamination": "Decontamination",
+        "flame": "Flame",
+        "lowTemperature": "Low-temperature",
+        "mhNoise": "M/H Noise",
+        "radioFrequency": "Radio frequency",
+        "temperatureWater": "Temperature + Water"
+      },
+      "respiratoryStandards": {
+        "class": "Class",
+        "nonReusable": "Non-reusable",
+        "reusable": "Reusable",
+        "highDust": "High dust",
+        "gasFilters": "Gas Filters",
+        "gases": {
+          "a": "Organic gases",
+          "b": "Inorganic gases", 
+          "e": "Acid gases",
+          "k": "Ammonia",
+          "ax": "Organic gas < 65°C",
+          "hg": "Mercury",
+          "no": "Nitrous gas",
+          "sx": "Specific gas",
+          "co": "Carbon monoxide",
+          "p": "Dust"
+        }
+      },
+      "clothingStandards": {
+        "flameSpread": "Flame spread",
+        "convectiveHeat": "Convective heat",
+        "radiantHeat": "Radiant heat",
+        "moltenAluminium": "Molten Aluminium",
+        "moltenIron": "Molten Iron",
+        "contactHeat": "Contact heat",
+        "class": "Class",
+        "protection": "Protection",
+        "welding": "Welding",
+        "waterPenetration": "Water penetration",
+        "breathability": "Breathability",
+        "enStandards": "EN Standards"
+      }
   },
   "relatedProducts": {
     "title": "Related Products"
@@ -1565,15 +1670,15 @@
         },
         "heatResistance": {
           "title": "PPE Use",
-          "content": "All PPE must be used strictly in line with the manufacturer’s instructions and safety guidelines. Improper use, modification, or use outside the intended scope may reduce the level of protection and increase the risk of injury. Employers and users are responsible for ensuring correct fit and training in proper use, maintaining and storing PPE as instructed, and replacing equipment when damaged, worn, or beyond its service life. PPE should be thoroughly inspected before any use to ensure they present no visible defect or damage. PPE use should never and cannot replace caution and care in handling hazardous materials and/or operating in hazardous environments."
+          "content": "All PPE must be used strictly in line with the manufacturer's instructions and safety guidelines. Improper use, modification, or use outside the intended scope may reduce the level of protection and increase the risk of injury. Employers and users are responsible for ensuring correct fit and training in proper use, maintaining and storing PPE as instructed, and replacing equipment when damaged, worn, or beyond its service life. PPE should be thoroughly inspected before any use to ensure they present no visible defect or damage. PPE use should never and cannot replace caution and care in handling hazardous materials and/or operating in hazardous environments."
         },
         "cutResistance": {
           "title": "Protection levels",
-          "content": "While our personal protective equipment (PPE) is designed and certified in accordance with European regulations and standards, including Regulation (EU) 2016/425, no equipment can offer absolute or unlimited protection. Different types of PPE reduce specific hazards but do not eliminate the risk they are designed to mitigate. As non-exhaustive examples: cut, puncture, abrasion, tear, etc. resistance/protection reduce the risk of mechanical hazards but do not completely prevent or eliminate such risks, flame-resistant PPE lowers the risk of burns but does not prevent injury in all fire situations and are not ‘fire-proof’, cold-protective clothing mitigates frostbite but does not eliminate cold-related injury, chemical-resistant PPE reduce exposure risk but do not guarantee total protection against all substances, insulating gloves and mats reduce the risk of electrocution but cannot fully eliminate electrical hazards, radiation protective equipment mitigates certain radiation exposure risks but does not fully remove them. PPE should always be used as part of a comprehensive workplace safety system, which includes hazard control measures, training, supervision, and safe work procedures."
+          "content": "While our personal protective equipment (PPE) is designed and certified in accordance with European regulations and standards, including Regulation (EU) 2016/425, no equipment can offer absolute or unlimited protection. Different types of PPE reduce specific hazards but do not eliminate the risk they are designed to mitigate. As non-exhaustive examples: cut, puncture, abrasion, tear, etc. resistance/protection reduce the risk of mechanical hazards but do not completely prevent or eliminate such risks, flame-resistant PPE lowers the risk of burns but does not prevent injury in all fire situations and are not 'fire-proof', cold-protective clothing mitigates frostbite but does not eliminate cold-related injury, chemical-resistant PPE reduce exposure risk but do not guarantee total protection against all substances, insulating gloves and mats reduce the risk of electrocution but cannot fully eliminate electrical hazards, radiation protective equipment mitigates certain radiation exposure risks but does not fully remove them. PPE should always be used as part of a comprehensive workplace safety system, which includes hazard control measures, training, supervision, and safe work procedures."
         },
         "generalGuidelines": {
           "title": "PPE Modification & Counterfeit Products",
-          "content": "Any alteration, repair, or modification of PPE invalidates the product’s certification and immediately voids any warranty. Modified equipment cannot be guaranteed to meet the original performance standards and must not be used. Only genuine products, purchased through authorized channels, are covered by certification and warranty. Counterfeit or imitation products may not provide the required level of protection and must not be used. Hand Line Company Srl disclaims all warranties and declines any liability other than where expressly provided or arising from misuse of the PPE."
+          "content": "Any alteration, repair, or modification of PPE invalidates the product's certification and immediately voids any warranty. Modified equipment cannot be guaranteed to meet the original performance standards and must not be used. Only genuine products, purchased through authorized channels, are covered by certification and warranty. Counterfeit or imitation products may not provide the required level of protection and must not be used. Hand Line Company Srl disclaims all warranties and declines any liability other than where expressly provided or arising from misuse of the PPE."
         }
       }
     }
@@ -1617,10 +1722,10 @@
   "careers": {
     "hero": {
       "badge": "Join Hand Line",
-      "titleStart": "Let’s build something big.",
+      "titleStart": "Let's build something big.",
       "titleAccent": "Together.",
       "description1": "At Hand Line, we believe we can make a difference. Every day, we design and deliver products and solutions that protect people and enable organisations worldwide to perform safely and effectively.",
-      "description2": "We are looking for curious minds, bold thinkers, and unstoppable doers who want to grow with us. Whether you’re just starting your career or bringing years of experience, you’ll find opportunities to learn, contribute, and thrive in an international, collaborative environment.",
+      "description2": "We are looking for curious minds, bold thinkers, and unstoppable doers who want to grow with us. Whether you're just starting your career or bringing years of experience, you'll find opportunities to learn, contribute, and thrive in an international, collaborative environment.",
       "title": "Careers at Hand Line",
       "description": "Join our team of passionate professionals dedicated to creating innovative safety solutions. Discover exciting career opportunities that allow you to make a difference in workplace safety.",
       "viewOpenings": "View Current Openings",
