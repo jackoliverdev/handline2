@@ -49,6 +49,8 @@ import { RespiratoryEquipment } from "@/components/website/products/slug/Respira
 import { ClothingComfortFeatures } from "@/components/website/products/slug/ClothingComfortFeatures";
 import { ClothingOtherDetails } from "@/components/website/products/slug/ClothingOtherDetails";
 import { ClothingEnvironment } from "@/components/website/products/slug/ClothingEnvironment";
+import { ProductDeclarations } from "@/components/website/products/slug/ProductDeclarations";
+import { useBrands } from "@/lib/context/brands-context";
 
 // Flag components for flag icons
 const FlagIcon = ({ country, className }: { country: 'GB' | 'IT', className?: string }) => {
@@ -84,29 +86,24 @@ const FlagIcon = ({ country, className }: { country: 'GB' | 'IT', className?: st
   return flags[country];
 };
 
-// Brand logo mapping
-const getBrandLogo = (brandName: string) => {
-  const normalizedBrand = brandName.toLowerCase();
+// Brand logo mapping - fully dynamic system
+const getBrandLogo = (brandName: string, brands: any[], isDarkMode = false) => {
+  const brand = brands.find(b => b.name.toLowerCase() === brandName.toLowerCase());
+  if (!brand) return null;
   
-  if (normalizedBrand.includes('hand line') || normalizedBrand.includes('handline')) {
-    return '/brands/HL_word_logo.PNG';
+  // Use dark mode logo if available and in dark mode, otherwise use light mode logo
+  if (isDarkMode && brand.dark_mode_logo_url) {
+    return brand.dark_mode_logo_url;
   }
   
-  if (normalizedBrand.includes('progloves heat') || (normalizedBrand.includes('proglov') && normalizedBrand.includes('heat'))) {
-    return '/brands/proheatnobg.png';
-  }
-  
-  if (normalizedBrand.includes('progloves cut') || (normalizedBrand.includes('proglov') && normalizedBrand.includes('cut'))) {
-    return '/brands/procutnobg.png';
-  }
-  
-  return null;
+  return brand.logo_url || null;
 };
 
 export function ProductDetail({ product, relatedProducts }: { product: Product, relatedProducts: any[] }) {
   const { t, language } = useLanguage();
   const router = useRouter();
   const { trackProductView, trackSampleRequest, trackContactSubmission, trackDownload } = useAnalytics();
+  const { brands } = useBrands();
   
   // Get localized content based on current language
   const currentFeatures = product.features_locales?.[language] || product.features || [];
@@ -263,6 +260,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
             image2={product.image2_url}
             image3={product.image3_url}
             image4={product.image4_url}
+            image5={product.image5_url}
             additionalImages={product.additional_images}
             productName={product.name_locales?.[language] || product.name || ''}
             isFeatured={product.is_featured}
@@ -292,9 +290,10 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                 {product.brands && product.brands.length > 0 && (
                   <div className="flex items-center gap-1.5 flex-shrink-0">
                     {product.brands.map((brand, index) => {
-                      const logoPath = getBrandLogo(brand);
+                      const lightLogoPath = getBrandLogo(brand, brands, false);
+                      const darkLogoPath = getBrandLogo(brand, brands, true);
                       
-                      if (logoPath) {
+                      if (lightLogoPath) {
                         return (
                           <div 
                             key={index}
@@ -302,39 +301,20 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                           >
                             {/* Light mode image */}
                             <Image
-                              src={logoPath}
+                              src={lightLogoPath}
                               alt={brand}
                               width={60}
                               height={24}
                               className="object-contain block dark:hidden"
                             />
-                            {/* Dark mode image with partial invert */}
-                            <div className="hidden dark:block relative">
-                              <Image
-                                src={logoPath}
-                                alt={brand}
-                                width={60}
-                                height={24}
-                                className="object-contain"
-                              />
-                              {/* Invert overlay for left 55% */}
-                              <div 
-                                className="absolute inset-0 invert"
-                                style={{
-                                  clipPath: 'inset(0 45% 0 0)',
-                                  width: '60px',
-                                  height: '24px'
-                                }}
-                              >
-                                <Image
-                                  src={logoPath}
-                                  alt={brand}
-                                  width={60}
-                                  height={24}
-                                  className="object-contain"
-                                />
-                              </div>
-                            </div>
+                            {/* Dark mode image */}
+                            <Image
+                              src={darkLogoPath || lightLogoPath}
+                              alt={brand}
+                              width={60}
+                              height={24}
+                              className="object-contain hidden dark:block"
+                            />
                           </div>
                         );
                       } else {
@@ -676,53 +656,11 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                       </div>
                     )}
                     
-                    {/* Declaration of Conformity - Dynamic language display */}
-                    {((language === 'en' && product.declaration_sheet_url) || (language === 'it' && product.declaration_sheet_url_it)) && (
-                      <div className="space-y-3">
-                        <h3 className="text-lg font-semibold text-brand-dark dark:text-white">{t('productPage.productDeclarations')}</h3>
-                        <div className="grid gap-3">
-                          {language === 'en' && product.declaration_sheet_url && (
-                            <Button
-                              variant="outline"
-                              size="lg"
-                              className="w-full border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
-                              asChild
-                            >
-                              <a 
-                                href={product.declaration_sheet_url} 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
-                                className="flex items-center justify-center gap-2"
-                                onClick={() => handleDocumentDownload(product.declaration_sheet_url!, 'Declaration of Conformity (EN)', 'declaration')}
-                              >
-                                <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
-                                {t('productPage.download')}
-                              </a>
-                            </Button>
-                          )}
-                          
-                          {language === 'it' && product.declaration_sheet_url_it && (
-                            <Button
-                              variant="outline"
-                              size="lg"
-                              className="w-full border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
-                              asChild
-                            >
-                              <a 
-                                href={product.declaration_sheet_url_it} 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
-                                className="flex items-center justify-center gap-2"
-                                onClick={() => handleDocumentDownload(product.declaration_sheet_url_it!, 'Declaration of Conformity (IT)', 'declaration')}
-                              >
-                                <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
-                                {t('productPage.download')}
-                              </a>
-                            </Button>
-                          )}
-                        </div>
-                      </div>
-                    )}
+                    {/* Declarations of Conformity - Enhanced with UKCA and EU language dropdown */}
+                    <ProductDeclarations 
+                      product={product} 
+                      onDocumentDownload={handleDocumentDownload}
+                    />
 
                     {/* Manufacturers Instruction - Dynamic language display */}
                     {((language === 'en' && product.manufacturers_instruction_url) || (language === 'it' && product.manufacturers_instruction_url_it)) && (

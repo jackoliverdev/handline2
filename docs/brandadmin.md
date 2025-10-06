@@ -37,7 +37,6 @@
 
 ### Data Model (DB)
 
-#### Option 1: Extend Current System (Recommended)
 Keep existing `brands text[]` field and add a separate brands table for management.
 
 ```sql
@@ -61,26 +60,7 @@ ON CONFLICT (name) DO NOTHING;
 CREATE INDEX IF NOT EXISTS brands_name_idx ON public.brands (name);
 ```
 
-#### Option 2: Replace with JSONB (Alternative)
-Replace `brands text[]` with structured brand data.
-
-```sql
--- 1) Add new brands JSONB column
-ALTER TABLE public.products 
-ADD COLUMN IF NOT EXISTS brands_data jsonb DEFAULT '[]'::jsonb;
-
--- 2) Migrate existing data
-UPDATE public.products 
-SET brands_data = jsonb_build_array(
-  jsonb_build_object('name', unnest(brands), 'logo_url', null)
-);
-
--- 3) Add GIN index
-CREATE INDEX IF NOT EXISTS products_brands_data_gin 
-ON public.products USING gin (brands_data);
-```
-
-**Recommendation**: Use Option 1 to maintain backward compatibility and avoid data migration complexity.
+This approach maintains backward compatibility and avoids data migration complexity.
 
 ---
 
@@ -142,6 +122,12 @@ const getBrandLogo = (brandName: string) => {
   // Use brands from context or props
   return getBrandLogoPath(brandName, availableBrands);
 };
+
+// Updated getBrandLogoPath function
+export function getBrandLogoPath(brandName: string, brands: Brand[]): string | null {
+  const brand = brands.find(b => b.name.toLowerCase() === brandName.toLowerCase());
+  return brand?.logo_url || null;
+}
 ```
 
 #### 3) Brand Context Provider
@@ -381,37 +367,43 @@ Add brand-related translation keys:
 #### Brand Logo Upload
 ```ts
 // lib/brands-service.ts
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+
 export async function uploadBrandLogo(file: File): Promise<string> {
-  const formData = new FormData();
-  formData.append('file', file);
+  const supabase = createClientComponentClient();
   
-  // Upload to /api/upload/brand-logo endpoint
-  const response = await fetch('/api/upload/brand-logo', {
-    method: 'POST',
-    body: formData,
-  });
+  // Generate unique filename
+  const fileExt = file.name.split('.').pop();
+  const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+  const filePath = `brands/${fileName}`;
   
-  if (!response.ok) throw new Error('Upload failed');
-  const { url } = await response.json();
-  return url;
+  // Upload to Supabase storage
+  const { data, error } = await supabase.storage
+    .from('products')
+    .upload(filePath, file, {
+      cacheControl: '3600',
+      upsert: false
+    });
+  
+  if (error) throw error;
+  
+  // Get public URL
+  const { data: { publicUrl } } = supabase.storage
+    .from('products')
+    .getPublicUrl(filePath);
+  
+  return publicUrl;
 }
 ```
 
-#### API Endpoint
-```ts
-// app/api/upload/brand-logo/route.ts
-export async function POST(request: Request) {
-  const formData = await request.formData();
-  const file = formData.get('file') as File;
-  
-  // Save to /public/brands/ directory
-  const fileName = `${Date.now()}-${file.name}`;
-  const filePath = path.join(process.cwd(), 'public', 'brands', fileName);
-  
-  // Write file and return public URL
-  return Response.json({ url: `/brands/${fileName}` });
-}
-```
+#### Direct Supabase Upload (No API Endpoint Needed)
+The upload function directly uses Supabase client to upload to the `products` bucket in the `brands/` folder, returning the full Supabase storage URL.
+
+#### Storage Bucket Configuration
+- **Bucket**: `products` (already exists and is public)
+- **Folder**: `brands/` (within the products bucket)
+- **URL Format**: `https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/products/brands/{filename}`
+- **Access**: Public read access (no authentication required for viewing)
 
 ---
 

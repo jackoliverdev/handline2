@@ -772,6 +772,7 @@
     "category": "Categoria",
     "technicalSheets": "Scheda Tecnica",
     "productDeclarations": "Dichiarazione di Conformità",
+    "declarationsOfConformity": "Dichiarazioni di Conformità",
     "manufacturersInstruction": "Istruzioni del Produttore",
     "safetyStandards": "Livelli di Protezione",
     "cut": "Taglio",
@@ -1926,5 +1927,23 @@
     "message": "Utilizziamo cookie essenziali per il corretto funzionamento del sito. Con il tuo consenso useremo cookie di analisi per capire come utilizzi il sito e migliorare i nostri servizi. Puoi modificare la tua scelta in qualsiasi momento nella nostra",
     "accept": "Accetta",
     "decline": "Rifiuta"
+  },
+  "admin": {
+    "brands": {
+      "title": "Marchi",
+      "selectBrands": "Seleziona Marchi",
+      "addNewBrand": "Aggiungi Nuovo Marchio",
+      "brandName": "Nome Marchio",
+      "brandLogo": "Logo Marchio",
+      "createBrand": "Crea Marchio",
+      "noBrandsSelected": "Nessun marchio selezionato",
+      "brandNameRequired": "Il nome del marchio è obbligatorio",
+      "brandNameExists": "Il nome del marchio esiste già",
+      "invalidLogoFile": "Il logo deve essere un file immagine valido (JPEG, PNG, GIF o WebP)",
+      "logoTooLarge": "Il file del logo deve essere inferiore a 5MB",
+      "brandCreated": "Marchio creato con successo",
+      "errorCreatingBrand": "Errore nella creazione del marchio",
+      "errorLoadingBrands": "Impossibile caricare i marchi disponibili"
+    }
   }
 } 

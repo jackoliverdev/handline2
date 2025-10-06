@@ -788,6 +788,7 @@
     "category": "Category",
     "technicalSheets": "Technical Sheet",
     "productDeclarations": "Declaration of Conformity",
+    "declarationsOfConformity": "Declarations of Conformity",
     "manufacturersInstruction": "Manufacturers Instruction",
     "safetyStandards": "Protection Levels",
     "cut": "Cut",
@@ -1899,5 +1900,23 @@
     "mechanicalHazardsGloves": "Mechanical hazards gloves",
     "industrialSwabs": "Industrial swabs",
     "respiratoryProtection": "Respiratory protection"
+  },
+  "admin": {
+    "brands": {
+      "title": "Brands",
+      "selectBrands": "Select Brands",
+      "addNewBrand": "Add New Brand",
+      "brandName": "Brand Name",
+      "brandLogo": "Brand Logo",
+      "createBrand": "Create Brand",
+      "noBrandsSelected": "No brands selected",
+      "brandNameRequired": "Brand name is required",
+      "brandNameExists": "Brand name already exists",
+      "invalidLogoFile": "Logo must be a valid image file (JPEG, PNG, GIF, or WebP)",
+      "logoTooLarge": "Logo file must be less than 5MB",
+      "brandCreated": "Brand created successfully",
+      "errorCreatingBrand": "Error creating brand",
+      "errorLoadingBrands": "Failed to load available brands"
+    }
   }
 } 
