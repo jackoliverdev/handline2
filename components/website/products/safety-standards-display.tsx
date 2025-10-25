@@ -14,8 +14,8 @@ interface SafetyStandardsDisplayProps {
 }
 
 // EN 388 performance levels mapping with A-F letters for higher levels
-const getEN388PerformanceLevel = (value: number | string | null): string => {
-  if (value === null || value === 'X') return 'X';
+const getEN388PerformanceLevel = (value: number | string | null | undefined): string => {
+  if (value === null || value === undefined || value === 'X' || value === '') return 'X';
   if (typeof value === 'number') {
     if (value > 5) {
       // Convert to A-F for values > 5
@@ -24,12 +24,12 @@ const getEN388PerformanceLevel = (value: number | string | null): string => {
     }
     return value.toString();
   }
-  return value.toString();
+  return String(value);
 };
 
 // Professional green color scheme with better shades
-const getGreenPerformanceColour = (value: number | string | null, maxLevel: number = 5): string => {
-  if (value === null || value === 'X' || value === '') {
+const getGreenPerformanceColour = (value: number | string | null | undefined, maxLevel: number = 5): string => {
+  if (value === null || value === undefined || value === 'X' || value === '') {
     return 'bg-white border-2 border-gray-300 text-gray-900'; // White background with black text for X
   }
   
@@ -53,7 +53,7 @@ const getGreenPerformanceColour = (value: number | string | null, maxLevel: numb
     }
   }
   
-  const numValue = typeof value === 'number' ? value : parseInt(value.toString());
+  const numValue = typeof value === 'number' ? value : parseInt(String(value));
   if (isNaN(numValue)) {
     return 'bg-gray-400 dark:bg-gray-600 text-white';
   }
@@ -76,6 +76,9 @@ const getGreenPerformanceColour = (value: number | string | null, maxLevel: numb
 
 const SafetyEN388Display: React.FC<{ data: SafetyEN388 }> = ({ data }) => {
   const { t } = useLanguage();
+  
+  // Handle both iso_13997 and iso_cut naming conventions
+  const isoCut = data.iso_13997 || (data as any).iso_cut || null;
 
   return (
     <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
@@ -126,9 +129,9 @@ const SafetyEN388Display: React.FC<{ data: SafetyEN388 }> = ({ data }) => {
         <div className="text-center">
           <div className="text-xs text-brand-secondary dark:text-gray-400 mb-1">{t('productPage.cut')}</div>
           <div 
-            className={`w-10 h-10 rounded-full flex items-center justify-center mx-auto font-bold text-sm ${getGreenPerformanceColour(data.iso_13997, 5)}`}
+            className={`w-10 h-10 rounded-full flex items-center justify-center mx-auto font-bold text-sm ${getGreenPerformanceColour(isoCut, 5)}`}
           >
-            {getEN388PerformanceLevel(data.iso_13997)}
+            {getEN388PerformanceLevel(isoCut)}
           </div>
         </div>
         
@@ -261,6 +264,11 @@ export const SafetyStandardsDisplay: React.FC<SafetyStandardsDisplayProps> = ({
   hideTitle = false
 }) => {
   const { t } = useLanguage();
+  
+  // Handle both en_388 and en388 naming conventions in database
+  const en388Data = (safety as any).en_388 || (safety as any).en388;
+  const en407Data = (safety as any).en_407 || (safety as any).en407;
+  const en511Data = (safety as any).en_511 || (safety as any).en511;
 
   return (
     <div className={`space-y-4 ${className}`}>
@@ -273,9 +281,9 @@ export const SafetyStandardsDisplay: React.FC<SafetyStandardsDisplayProps> = ({
       
       {/* Main EN Standards */}
       <div className="space-y-4">
-        {safety.en_388?.enabled && <SafetyEN388Display data={safety.en_388} />}
-        {safety.en_407?.enabled && <SafetyEN407Display data={safety.en_407} />}
-        {safety.en_511?.enabled && <SafetyEN511Display data={safety.en_511} />}
+        {en388Data?.enabled && <SafetyEN388Display data={en388Data} />}
+        {en407Data?.enabled && <SafetyEN407Display data={en407Data} />}
+        {en511Data?.enabled && <SafetyEN511Display data={en511Data} />}
       </div>
       
       {/* Additional Standards - Increased font size */}

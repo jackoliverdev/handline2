@@ -90,114 +90,108 @@ export function HeadSpecs({ product }: { product: Product }) {
 
   return (
     <TooltipProvider>
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-      {/* Row 1 */}
-      {!isEmpty(materials) && (
-        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-          <div className="flex items-center gap-2 mb-2">
-            <Layers className="h-4 w-4 text-brand-primary" />
-            <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.materials')}</h4>
-          </div>
-          <div className="text-center">
+    <div className="space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* Materials (full height - row span 2) */}
+        {!isEmpty(materials) && (
+          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4 md:row-span-2">
+            <div className="flex items-center gap-2 mb-2">
+              <Layers className="h-4 w-4 text-brand-primary" />
+              <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.materials')}</h4>
+            </div>
             {Array.isArray(materials) && materials.length > 0 ? (
-              <>
-                <div className="text-brand-dark dark:text-white font-medium text-md truncate" title={materials[0]}>{materials[0]}</div>
-                {materials.length > 1 && (
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <button type="button" className="text-sm text-brand-secondary dark:text-gray-300 cursor-help inline-block">+{materials.length - 1}</button>
-                    </TooltipTrigger>
-                    <TooltipContent className="bg-white dark:bg-black/90 text-brand-dark dark:text-white shadow-lg border border-brand-primary/20 max-w-sm">
-                      <div className="text-sm">
-                        {materials.slice(1).map((m: string, i: number) => (
-                          <div key={i} className="leading-relaxed break-words">{m}</div>
-                        ))}
-                      </div>
-                    </TooltipContent>
-                  </Tooltip>
-                )}
-              </>
+              <div className="space-y-2">
+                {materials.map((m: string, i: number) => (
+                  <div key={i} className="text-brand-dark dark:text-white font-medium">{m}</div>
+                ))}
+              </div>
             ) : (
-              <span className="text-sm text-brand-secondary dark:text-gray-300">-</span>
+              <div className="text-brand-dark dark:text-white font-medium">-</div>
             )}
           </div>
-        </div>
-      )}
+        )}
 
-      {!isEmpty(size) && (
-        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-          <div className="flex items-center gap-2 mb-2">
-            <Ruler className="h-4 w-4 text-brand-primary" />
-            <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.size')}</h4>
+        {!isEmpty(size) && (
+          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <Ruler className="h-4 w-4 text-brand-primary" />
+              <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.size')}</h4>
+            </div>
+            <div className="text-brand-dark dark:text-white font-medium">{size}</div>
           </div>
-          <p className="text-sm text-brand-secondary dark:text-gray-300">{size}</p>
-        </div>
-      )}
+        )}
 
-      {!isEmpty(weight) && (
-        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-          <div className="flex items-center gap-2 mb-2">
-            <Scale className="h-4 w-4 text-brand-primary" />
-            <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.weight')}</h4>
+        {!isEmpty(weight) && (
+          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <Scale className="h-4 w-4 text-brand-primary" />
+              <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.weight')}</h4>
+            </div>
+            <div className="text-brand-dark dark:text-white font-medium">{weight}</div>
           </div>
-          <p className="text-sm text-brand-secondary dark:text-gray-300">{weight}</p>
-        </div>
-      )}
+        )}
 
-      {/* Row 2 */}
-      {!isEmpty(product.ce_category) && (
-        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-          <div className="flex items-center gap-2 mb-2">
-            <Shield className="h-4 w-4 text-brand-primary" />
-            <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.ceCategory')}</h4>
+        {/* Row 2 */}
+        {!isEmpty(product.ce_category) && (
+          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <Shield className="h-4 w-4 text-brand-primary" />
+              <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.ceCategory')}</h4>
+            </div>
+            <Badge variant="outline" className="bg-brand-primary/5 border-brand-primary/20">
+              {product.ce_category}
+            </Badge>
           </div>
-          <Badge variant="outline" className="bg-brand-primary/5 border-brand-primary/20">
-            {product.ce_category}
-          </Badge>
-        </div>
-      )}
+        )}
 
-      {stdChips.length > 0 && (
-        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-          <div className="flex items-center gap-2 mb-2">
-            <FileText className="h-4 w-4 text-brand-primary" />
-            <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.standards')}</h4>
+        {stdChips.length > 0 && (
+          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <FileText className="h-4 w-4 text-brand-primary" />
+              <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.standards')}</h4>
+            </div>
+            <ChipList items={stdChips} maxVisible={4} />
           </div>
-          <ChipList items={stdChips} maxVisible={4} />
-        </div>
-      )}
+        )}
 
-      {(!isEmpty(colours) && colours.length > 0) && (
-        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-          <div className="flex items-center gap-2 mb-2">
-            <Palette className="h-4 w-4 text-brand-primary" />
-            <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.colours')}</h4>
-          </div>
-          <ChipList items={colours} maxVisible={4} />
+      </div>
+      
+      {/* Colours and Attributes - 2 column grid */}
+      {((!isEmpty(colours) && colours.length > 0) || optChips.length > 0) && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {(!isEmpty(colours) && colours.length > 0) && (
+            <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Palette className="h-4 w-4 text-brand-primary" />
+                <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.colours')}</h4>
+              </div>
+              <ChipList items={colours} maxVisible={4} />
+            </div>
+          )}
+          
+          {optChips.length > 0 && (
+            <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Move className="h-4 w-4 text-brand-primary" />
+                <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.attributes')}</h4>
+              </div>
+              <ChipList
+                items={optChips}
+                maxVisible={8}
+                getTooltipLabel={(item) => {
+                  if (item === 'MM') return t('products.filters.moltenMetalSplash') || 'Molten metal splash (MM)';
+                  if (item === 'LD') return 'Lateral deformation (LD)';
+                  if (item === String(std?.en397?.optional?.low_temperature)) return t('products.filters.lowTemperature') || item;
+                  if (item === (t('products.filters.ventilation') || 'Ventilation')) return t('products.filters.ventilation') || item;
+                  if (item === t('productPage.closedShell')) return t('productPage.electricalInsulation') || item;
+                  return item;
+                }}
+              />
+            </div>
+          )}
         </div>
       )}
     </div>
-    {/* Attributes moved below, full width in a compact grid style */}
-    {optChips.length > 0 && (
-      <div className="mt-4 group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-        <div className="flex items-center gap-2 mb-3">
-          <Move className="h-4 w-4 text-brand-primary" />
-          <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.attributes')}</h4>
-        </div>
-        <ChipList
-          items={optChips}
-          maxVisible={8}
-          getTooltipLabel={(item) => {
-            if (item === 'MM') return t('products.filters.moltenMetalSplash') || 'Molten metal splash (MM)';
-            if (item === 'LD') return 'Lateral deformation (LD)';
-            if (item === String(std?.en397?.optional?.low_temperature)) return t('products.filters.lowTemperature') || item;
-            if (item === (t('products.filters.ventilation') || 'Ventilation')) return t('products.filters.ventilation') || item;
-            if (item === t('productPage.closedShell')) return t('productPage.electricalInsulation') || item;
-            return item;
-          }}
-        />
-      </div>
-    )}
     </TooltipProvider>
   );
 }

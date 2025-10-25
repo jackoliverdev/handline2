@@ -9,6 +9,7 @@ interface TemperatureFilterProps {
   toggleTempRating: (temp: string) => void;
   isExpanded: boolean;
   toggleSection: (section: string) => void;
+  nested?: boolean;
 }
 
 export const TemperatureFilter = ({
@@ -17,12 +18,13 @@ export const TemperatureFilter = ({
   toggleTempRating,
   isExpanded,
   toggleSection,
+  nested = false,
 }: TemperatureFilterProps) => {
   const { t } = useLanguage();
   if (tempRatings.length === 0) return null;
 
   return (
-    <div className="border-b border-brand-primary/10 dark:border-brand-primary/20 pb-4">
+    <div className="pb-4">
       <button
         className="flex w-full items-center justify-between mb-2"
         onClick={() => toggleSection("temperature")}
@@ -41,7 +43,7 @@ export const TemperatureFilter = ({
       </button>
 
       {isExpanded && (
-        <div className="max-h-[200px] overflow-y-auto pr-1 space-y-2 mt-2">
+        <div className="max-h-[240px] overflow-y-auto pr-1 space-y-2 mt-2">
           {tempRatings.map((temp) => (
             <div key={temp} className="flex items-center space-x-2 px-1">
               <Checkbox

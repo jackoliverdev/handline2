@@ -13,9 +13,9 @@ export function EnStandardFilter({ selected, onToggle, isExpanded, toggleSection
   const open = isExpanded ?? openLocal;
   const options = ALL_STD;
   return (
-    <div className="border-b border-brand-primary/10 dark:border-brand-primary/20 pb-4">
+    <div className="pb-4">
       <button className="flex w-full items-center justify-between text-left text-sm font-medium text-brand-dark dark:text-white" onClick={() => toggleSection ? toggleSection('enstd') : setOpenLocal(!open)}>
-        EN Standards
+        {t('productPage.safety')}
         <ChevronDown className={`h-4 w-4 transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
       {open && (

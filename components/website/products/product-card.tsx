@@ -124,7 +124,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
   // Head protection standards row (icons + labels) – matches glove standards row compact styling
   const renderHeadStandardsRow = () => {
     const hs: any = (product as any).head_standards;
-    const isHead = ((product.category || '').toLowerCase().includes('head')) || ((product.sub_category || '').toLowerCase().includes('helmet')) || ((product.sub_category || '').toLowerCase().includes('bump'));
+    const categoryLower = (product.category || '').toLowerCase();
+    const subCategoryLower = (product.sub_category || '').toLowerCase();
+    const isHead = categoryLower.includes('head') || categoryLower.includes('testa') || 
+                   subCategoryLower.includes('helmet') || subCategoryLower.includes('casco') || 
+                   subCategoryLower.includes('bump') || subCategoryLower.includes('berretto');
     if (!isHead || !hs) return null;
     const standards: { code: string }[] = [];
     if (hs?.en397?.present) standards.push({ code: 'EN 397' });
@@ -137,7 +141,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
         {standards.map(({ code }) => (
           <div key={code} className="flex items-center gap-1.5">
             <Shield className="h-3 w-3 text-brand-primary" />
-            <span className="text-[10px] font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">{code}</span>
+            <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">{code}</span>
           </div>
         ))}
       </div>
@@ -147,7 +151,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
   const renderFootwearStandardsRow = () => {
     const fs: any = (product as any).footwear_standards;
     const fa: any = (product as any).footwear_attributes;
-    const isFootwear = ((product.category || '').toLowerCase().includes('footwear')) || ((product.sub_category || '').toLowerCase().includes('boot')) || ((product.sub_category || '').toLowerCase().includes('insol'));
+    const categoryLower = (product.category || '').toLowerCase();
+    const subCategoryLower = (product.sub_category || '').toLowerCase();
+    const isFootwear = categoryLower.includes('footwear') || categoryLower.includes('calzature') ||
+                       subCategoryLower.includes('boot') || subCategoryLower.includes('stivali') || subCategoryLower.includes('scarponi') ||
+                       subCategoryLower.includes('insol') || subCategoryLower.includes('solette');
     if (!isFootwear || (!fs && !fa)) return null;
     
     // Build the EN ISO 20345 marking string
@@ -179,14 +187,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
             />
           </div>
         </div>
-        <span className="text-[10px] font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">{markingText}</span>
+        <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">{markingText}</span>
       </div>
     );
   };
 
   const renderHearingStandardsRow = () => {
     const hs: any = (product as any).hearing_standards;
-    const isHearing = ((product.category || '').toLowerCase().includes('hearing') || (product.sub_category || '').toLowerCase().includes('ear'));
+    const cat = (product.category || '').toLowerCase();
+    const sub = (product.sub_category || '').toLowerCase();
+    // English and Italian keywords for hearing protection
+    const isHearing = cat.includes('hearing') || cat.includes('uditiv') || cat.includes('protezione uditiva') || 
+                      sub.includes('ear') || sub.includes('orecch') || sub.includes('tappi') || sub.includes('cuffie');
     if (!isHearing || !hs?.en352) return null;
     
     // Build the EN 352 marking string
@@ -209,7 +221,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
     return (
       <div className="flex items-center gap-1.5">
         <Shield className="h-3 w-3 text-brand-primary" />
-        <span className="text-[10px] font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">{markingText}</span>
+        <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">{markingText}</span>
       </div>
     );
   };
@@ -276,7 +288,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
         {standards.map((standard, index) => (
           <div key={index} className="flex items-center gap-1.5">
             <Shield className="h-3 w-3 text-brand-primary" />
-            <span className="text-[10px] font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">{standard}</span>
+            <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">{standard}</span>
           </div>
         ))}
       </div>
@@ -285,7 +297,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
 
   const renderClothingStandardsRow = () => {
     const cs: any = (product as any).clothing_standards;
-    const isClothing = ((product.category || '').toLowerCase().includes('cloth') || (product.sub_category || '').toLowerCase().includes('jacket'));
+    const categoryLower = (product.category || '').toLowerCase();
+    const subCategoryLower = (product.sub_category || '').toLowerCase();
+    const isClothing = (
+      categoryLower.includes('cloth') || 
+      categoryLower.includes('abbigliamento') || 
+      subCategoryLower.includes('jacket') ||
+      subCategoryLower.includes('giacc')
+    );
     if (!isClothing || !cs) return null;
     
     const standards: string[] = [];
@@ -335,7 +354,39 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
     return (
       <div className="flex items-start gap-1.5">
         <Shield className="h-3 w-3 text-brand-primary mt-0.5 flex-shrink-0" />
-        <span className="text-[10px] font-medium text-gray-700 dark:text-gray-300 leading-tight break-words">{standards.join(', ')}</span>
+        <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 leading-tight break-words">{standards.join(', ')}</span>
+      </div>
+    );
+  };
+
+  const renderArmStandardsRow = () => {
+    const categoryLower = (product.category || '').toLowerCase();
+    const subCategoryLower = (product.sub_category || '').toLowerCase();
+    const isArm = categoryLower.includes('arm') || categoryLower.includes('bracci') || 
+                  subCategoryLower.includes('sleeve') || subCategoryLower.includes('manich');
+    
+    if (!isArm || !product.safety) return null;
+    
+    const standards: string[] = [];
+    
+    // EN ISO 21420 - General requirements for protective gloves
+    if ((product.safety as any).en_iso_21420?.enabled) {
+      standards.push('EN ISO 21420');
+    }
+    
+    // EN 388 - Mechanical risks
+    if ((product.safety as any).en388?.enabled) {
+      standards.push('EN 388');
+    }
+    
+    if (!standards.length) return null;
+    
+    const markingText = standards.join(' ');
+    
+    return (
+      <div className="flex items-center gap-1.5">
+        <Shield className="h-3 w-3 text-brand-primary" />
+        <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">{markingText}</span>
       </div>
     );
   };
@@ -423,6 +474,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
           {/* Clothing protection standards row (EN ISO 20471/11612/11611/13034/etc) */}
           {renderClothingStandardsRow()}
 
+          {/* Arm protection standards row (EN ISO 21420/EN 388) */}
+          {renderArmStandardsRow()}
+
           {(product.cut_resistance_level || product.heat_resistance_level) && (
             <>
               {/* EN Standards - Stacked vertically */}
@@ -492,7 +546,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
           {(() => {
             const std = (product as any).eye_face_standards;
             const en166 = std?.en166;
-            const isEyeFace = ((product.category || '').toLowerCase().includes('eye') || (product.category || '').toLowerCase().includes('face') || (product.sub_category || '').toLowerCase().includes('goggle') || (product.sub_category || '').toLowerCase().includes('visor') || (product.sub_category || '').toLowerCase().includes('glasses'));
+            const categoryLower = (product.category || '').toLowerCase();
+            const subCategoryLower = (product.sub_category || '').toLowerCase();
+            const isEyeFace = (
+              categoryLower.includes('eye') || categoryLower.includes('face') || 
+              categoryLower.includes('occhi') || categoryLower.includes('viso') ||
+              subCategoryLower.includes('goggle') || subCategoryLower.includes('visor') || subCategoryLower.includes('glasses') ||
+              subCategoryLower.includes('occhiali') || subCategoryLower.includes('visiera') || subCategoryLower.includes('schermo')
+            );
             const hasMarks = !!(en166 && (en166.frame_mark || en166.lens_mark));
             if (!isEyeFace || !hasMarks) return null;
             return (
@@ -502,15 +563,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
                   <span className="text-[10px] font-medium text-gray-700 dark:text-gray-300 min-w-[32px]">EN166</span>
                 </div>
                 {en166?.frame_mark && (
-                  <div className="flex items-center gap-1.5 min-w-0">
-                    <span className="text-[10px] text-gray-500 dark:text-gray-400 whitespace-nowrap shrink-0">{t('productPage.frameMark')}</span>
-                    <span className="text-[11px] font-mono text-gray-900 dark:text-white truncate flex-1 min-w-0" title={en166.frame_mark}>{en166.frame_mark}</span>
+                  <div className="min-w-0">
+                    <span className="text-[11px] font-mono font-bold text-gray-900 dark:text-white truncate block" title={en166.frame_mark}>{en166.frame_mark}</span>
                   </div>
                 )}
                 {en166?.lens_mark && (
-                  <div className="flex items-center gap-1.5 min-w-0">
-                    <span className="text-[10px] text-gray-500 dark:text-gray-400 whitespace-nowrap shrink-0">{t('productPage.lensMark')}</span>
-                    <span className="text-[11px] font-mono text-gray-900 dark:text-white truncate flex-1 min-w-0" title={en166.lens_mark}>{en166.lens_mark}</span>
+                  <div className="min-w-0">
+                    <span className="text-[11px] font-mono font-bold text-gray-900 dark:text-white truncate block" title={en166.lens_mark}>{en166.lens_mark}</span>
                   </div>
                 )}
               </div>

@@ -17,9 +17,9 @@ export function LensTintFilter({ options, selected, onToggle, isExpanded, toggle
     return translated === tKey ? capitaliseWords(humanise(key)) : translated;
   };
   return (
-    <div className="border-b border-brand-primary/10 dark:border-brand-primary/20 pb-4">
+    <div className="pb-4">
       <button className="flex w-full items-center justify-between mb-2" onClick={() => (toggleSection ? toggleSection("eyeFaceTint") : setLocalOpen(v => !v))}>
-        <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('products.filters.lensTint') || 'Lens tint'}</h3>
+        <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('products.filters.lensTint')}</h3>
         <ChevronDown className={`h-4 w-4 text-brand-primary transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
       {open && (

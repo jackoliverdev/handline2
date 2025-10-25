@@ -48,7 +48,7 @@ export function FootwearProductsSection({ products }: FootwearProductsSectionPro
 
   // Facet state
   const [selectedClasses, setSelectedClasses] = React.useState<string[]>([]);
-  const [esd, setEsd] = React.useState<null | boolean>(null);
+  const [esd, setEsd] = React.useState<boolean>(false);
   const [selectedWidths, setSelectedWidths] = React.useState<number[]>([]);
   const [sizeRange, setSizeRange] = React.useState<{ min?: number; max?: number }>({});
   const [toeCaps, setToeCaps] = React.useState<string[]>([]);
@@ -131,7 +131,7 @@ export function FootwearProductsSection({ products }: FootwearProductsSectionPro
     const fstd = fp.footwear_standards || {};
     const classes = [fattr.class, ...((fstd.en_iso_20345_2011 || []) as string[]), ...((fstd.en_iso_20345_2022 || []) as string[])].filter(Boolean);
     const classOk = selectedClasses.length === 0 ? true : classes.some((c: string) => selectedClasses.includes(String(c)));
-    const esdOk = esd === null ? true : (typeof fattr.esd === 'boolean' && fattr.esd === esd);
+    const esdOk = !esd ? true : (typeof fattr.esd === 'boolean' && fattr.esd === true);
     const widthOk = selectedWidths.length === 0 ? true : Array.isArray(fattr.width_fit) && fattr.width_fit.some((n: number) => selectedWidths.includes(n));
     const sizeOk = (!sizeRange.min && !sizeRange.max) ? true : (
       (typeof fattr.size_min === 'number' && typeof fattr.size_max === 'number') &&

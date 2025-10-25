@@ -13,14 +13,16 @@ export function LensTintFilterMobile({ options, selected, onToggle }: { options:
     return translated === tKey ? capitaliseWords(humanise(key)) : translated;
   };
   return (
-    <div className="space-y-2">
-      <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('products.filters.lensTint') || 'Lens tint'}</h3>
-      {options.map(opt => (
-        <div key={opt} className="flex items-center space-x-2">
-          <Checkbox id={`tint-m-${opt}`} checked={selected.includes(opt)} onCheckedChange={() => onToggle(opt)} className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary" />
-          <label htmlFor={`tint-m-${opt}`} className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer">{labelFor(opt)}</label>
-        </div>
-      ))}
+    <div className="pb-4">
+      <h3 className="text-base font-medium text-brand-dark dark:text-white mb-2">{t('products.filters.lensTint') || 'Lens tint'}</h3>
+      <div className="space-y-2 max-h-[240px] overflow-y-auto">
+          {options.map(opt => (
+          <div key={opt} className="flex items-center space-x-2">
+            <Checkbox id={`tint-m-${opt}`} checked={selected.includes(opt)} onCheckedChange={() => onToggle(opt)} className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary" />
+            <label htmlFor={`tint-m-${opt}`} className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer">{labelFor(opt)}</label>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

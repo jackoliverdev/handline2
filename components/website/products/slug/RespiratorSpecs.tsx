@@ -32,13 +32,13 @@ export function RespiratorSpecs({ product }: { product: Product }) {
             <Layers className="h-5 w-5 text-brand-primary" />
             <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.materials')}</h4>
           </div>
-          <div className="space-y-1 text-brand-dark dark:text-white">
+          <div className="space-y-1">
             {currentMaterials && currentMaterials.length > 0 ? (
               currentMaterials.map((material, idx) => (
-                <div key={idx} className="text-sm leading-relaxed">{material}</div>
+                <div key={idx} className="text-brand-dark dark:text-white font-medium">{material}</div>
               ))
             ) : (
-              <div className="text-sm">-</div>
+              <div className="text-brand-dark dark:text-white font-medium">-</div>
             )}
           </div>
         </div>
@@ -49,7 +49,7 @@ export function RespiratorSpecs({ product }: { product: Product }) {
             <Move className="h-5 w-5 text-brand-primary" />
             <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.productInfo.size')}</h4>
           </div>
-          <p className="text-brand-dark dark:text-white">{size || '-'}</p>
+          <div className="text-brand-dark dark:text-white font-medium">{size || '-'}</div>
         </div>
 
         {/* Protection Class (Col 3, Row 1) */}
@@ -58,7 +58,7 @@ export function RespiratorSpecs({ product }: { product: Product }) {
             <Shield className="h-5 w-5 text-brand-primary" />
             <h4 className="font-medium text-brand-dark dark:text-white">{t('products.filters.protectionClass') || 'Protection class'}</h4>
           </div>
-          <p className="text-brand-dark dark:text-white">{p.protection_class || '-'}</p>
+          <div className="text-brand-dark dark:text-white font-medium">{p.protection_class || '-'}</div>
         </div>
 
         {/* Connection (Col 2, Row 2) */}
@@ -67,14 +67,8 @@ export function RespiratorSpecs({ product }: { product: Product }) {
             <Link className="h-5 w-5 text-brand-primary" />
             <h4 className="font-medium text-brand-dark dark:text-white">{t('products.filters.connection') || 'Connection'}</h4>
           </div>
-          <div className="flex flex-wrap gap-1">
-            {p.connections && p.connections.length > 0 ? (
-              p.connections.map((c: string, idx: number) => (
-                <span key={idx} className="bg-brand-primary/10 text-brand-primary border border-brand-primary/20 rounded-full px-2 py-0.5 text-xs">{c}</span>
-              ))
-            ) : (
-              <span className="text-brand-dark dark:text-white">-</span>
-            )}
+          <div className="text-brand-dark dark:text-white font-medium">
+            {p.connections && p.connections.length > 0 ? p.connections.join(', ') : '-'}
           </div>
         </div>
 
@@ -84,7 +78,7 @@ export function RespiratorSpecs({ product }: { product: Product }) {
             <Gauge className="h-5 w-5 text-brand-primary" />
             <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.npf') || 'NPF'}</h4>
           </div>
-          <p className="text-brand-dark dark:text-white">{p.npf || '-'}</p>
+          <div className="text-brand-dark dark:text-white font-medium">{p.npf || '-'}</div>
         </div>
       </div>
 
@@ -96,14 +90,8 @@ export function RespiratorSpecs({ product }: { product: Product }) {
             <Users className="h-5 w-5 text-brand-primary" />
             <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.compatibleWith') || 'Compatible with'}</h4>
           </div>
-          <div className="flex flex-wrap gap-1">
-            {p.compatible_with && p.compatible_with.length > 0 ? (
-              p.compatible_with.map((c: string, idx: number) => (
-                <span key={idx} className="bg-brand-primary/10 text-brand-primary border border-brand-primary/20 rounded-full px-2 py-0.5 text-xs">{c}</span>
-              ))
-            ) : (
-              <span className="text-brand-dark dark:text-white">-</span>
-            )}
+          <div className="text-brand-dark dark:text-white font-medium">
+            {p.compatible_with && p.compatible_with.length > 0 ? p.compatible_with.join(', ') : '-'}
           </div>
         </div>
 
@@ -113,7 +101,7 @@ export function RespiratorSpecs({ product }: { product: Product }) {
             <Award className="h-5 w-5 text-brand-primary" />
             <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.ceCategory')}</h4>
           </div>
-          <p className="text-brand-dark dark:text-white">{product.ce_category ? `${t('productPage.category')} ${product.ce_category}` : '-'}</p>
+          <div className="text-brand-dark dark:text-white font-medium">{product.ce_category ? `${t('productPage.category')} ${product.ce_category}` : '-'}</div>
         </div>
 
         {/* EN Standards */}
@@ -122,14 +110,8 @@ export function RespiratorSpecs({ product }: { product: Product }) {
             <Shield className="h-5 w-5 text-brand-primary" />
             <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.standards')}</h4>
           </div>
-          <div className="flex flex-wrap gap-1">
-            {enStandards.length > 0 ? (
-              enStandards.map((std, idx) => (
-                <span key={idx} className="bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 rounded px-2 py-0.5 text-xs">{std}</span>
-              ))
-            ) : (
-              <span className="text-brand-dark dark:text-white">-</span>
-            )}
+          <div className="text-brand-dark dark:text-white font-medium">
+            {enStandards.length > 0 ? enStandards.join(', ') : '-'}
           </div>
         </div>
       </div>

@@ -30,13 +30,13 @@ export const PadSizeFilter = ({
   if (!options || options.length === 0) return null;
 
   return (
-    <div className="border-b border-brand-primary/10 dark:border-brand-primary/20 pb-4">
+    <div className="pb-4">
       <button
         className="flex w-full items-center justify-between mb-2"
         onClick={() => (toggleSection ? toggleSection("padSize") : setLocalExpanded((v) => !v))}
       >
         <h3 className="text-sm font-medium text-brand-dark dark:text-white">
-          {t("products.filters.padSize") || "Pad size"}
+          {t("products.filters.padSize")}
         </h3>
         <ChevronDown className={`h-4 w-4 text-brand-primary transition-transform ${(isExpanded ?? localExpanded) ? "rotate-180" : ""}`} />
       </button>

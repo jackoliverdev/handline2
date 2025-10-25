@@ -13,8 +13,8 @@
     "allProducts": "Tutti i Prodotti",
     "safetyGloves": "Protezione delle mani",
     "allGloves": "Tutti i Guanti",
-    "heatResistant": "Anticalore",
-    "cutResistant": "Antitaglio",
+    "heatResistant": "Guanti Anticalore",
+    "cutResistant": "Guanti Antitaglio",
     "generalPurpose": "Uso Generale",
     "mechanicalHazards": "Rischi Meccanici",
     "welding": "Saldatura",
@@ -22,7 +22,7 @@
     "armProtection": "Protezione delle braccia",
     "safetyFootwear": "Calzature di sicurezza",
     "hearingProtection": "Protezione uditiva",
-    "respiratoryProtection": "Protezione Respiratoria",
+    "respiratoryProtection": "Protezione vie respiratorie",
     "protectiveClothing": "Abbigliamento protettivo e da lavoro",
     "headProtection": "Protezione della testa",
     "eyeFaceProtection": "Protezione occhi e viso",
@@ -85,7 +85,7 @@
       "loadMore": "Carica altri risultati",
       "loading": "Caricamento di altri risultati...",
       "searching": "Ricerca in corso...",
-      "searchingDescription": "Attendere mentre cerchiamo tra i nostri prodotti, settori e risorse.",
+      "searchingDescription": "Stiamo cercando tra i nostri prodotti e contenuto.",
       "error": "Errore di Ricerca",
       "tryAgain": "Riprova",
       "noQuery": "Inizia la Tua Ricerca",
@@ -129,15 +129,15 @@
       "generalPurposeGloves": "Guanti Uso Generale",
       "mechanicalHazardsGloves": "Guanti per Rischi Meccanici",
       "weldingGlove": "Guanti da Saldatura",
-      "industrialSwabs": "Tamponi Industriali",
-      "respiratoryProtection": "Protezione Respiratoria",
+      "industrialSwabs": "Scovoli Industriali",
+      "respiratoryProtection": "Protezione vie respiratorie",
       "footwearClass": "Classe calzatura",
       "esd": "ESD",
       "widthFit": "Larghezza pianta",
-      "sizeRange": "Intervallo taglie",
+      "sizeRange": "Taglia",
       "toeCap": "Puntale",
       "soleMaterial": "Materiale suola",
-      "standardCodes": "Codici standard",
+      "standardCodes": "Marcatura standard EN",
       "protectionType": "Tipo di protezione",
       "lensTint": "Colore lente",
       "coating": "Trattamento",
@@ -324,7 +324,7 @@
     "features": {
       "heatProtection": {
         "title": "Guanti Anticalore",
-        "description": "Il nostro pane e burro. Progettiamo e produciamo guanti per tutti gli ambienti e temperature, superando i 1000C",
+        "description": "Il nostro ambito di specializzazione. Progettiamo e produciamo guanti per tutti gli ambienti e temperature, superando i 1,000°C",
         "cta": "Esplora le soluzioni Anticalore"
       },
       "cutResistance": {
@@ -338,7 +338,7 @@
         "cta": "Scopri il Nostro Processo"
       },
       "headToToe": {
-        "title": "Protezione Completa dalla testa ai pied",
+        "title": "Protezione Completa dalla testa ai piedi",
         "description": "Forniamo soluzioni di sicurezza complete, sia con prodotti propri che collaborando con marchi leader del settore. Offriamo protezione completa ai migliori prezzi.",
         "cta": "Esplora tutti i prodotti"
       }
@@ -350,7 +350,7 @@
   },
   "featuredProducts": {
     "title": "Prodotti in Evidenza",
-    "description": "Scopri i nostri guanti di sicurezza più popolari, progettati per fornire una protezione e un comfort superiori in diverse applicazioni industriali.",
+    "description": "Scopri i nostri dispositivi di sicurezza più popolari, progettati per fornire una protezione e un comfort superiori in diverse applicazioni industriali.",
     "noProducts": "Nessun prodotto in evidenza disponibile al momento.",
     "preview": "Anteprima",
     "previewShort": "Vedi",
@@ -386,7 +386,7 @@
   "industryCta": {
     "badge": "Specialisti nel settore",
     "title": "Pronto a Migliorare la Sicurezza nel Settore",
-    "description": "Scopri la nostra gamma completa di soluzioni di sicurezza specificamente progettate per il settore {industry}. Dalla tecnologia all'avanguardia ai protocolli di sicurezza comprovati.",
+    "description": "Scopri la nostra gamma completa di soluzioni di sicurezza specificamente progettate per il settore {industry}.",
     "buttons": {
       "browseProducts": "Esplora i Nostri Prodotti",
       "contactUs": "Contattaci"
@@ -405,7 +405,7 @@
         "links": {
           "safetyGloves": "Guanti di Sicurezza",
           "heatResistant": "Anticalore",
-          "cutResistant": "Antitaglio",
+          "cutResistant": "Guanti Antitaglio",
           "generalPurpose": "Guanti per uso generale",
           "mechanical": "Guanti per rischi meccanici",
           "welding": "Guanti per saldatori"
@@ -414,7 +414,7 @@
           "badge": "Protezione occhi e viso",
           "title": "Protezione occhi e viso",
           "description": "Occhiali e visiere protettive per ambienti industriali",
-          "detailedDescription": "La nostra gamma per la protezione di occhi e viso include occhiali di sicurezza, occhiali a mascherina e visiere con protezione da arco elettrico, progettati secondo la EN 166 e standard correlati. Massima chiarezza e comfort con trattamenti antiappannanti e antigraffio, filtri UV e opzioni per protezione IR. Ideale per manifattura, edilizia e manutenzione elettrica."
+          "detailedDescription": "Offriamo una gamma di dispositivi per la protezione di occhi e viso che include occhiali di sicurezza, occhiali a mascherina e visiere con protezione da arco elettrico, progettati per superare gli standard ed offrire massima chiarezza e comfort nei diversi ambienti di lavoro."
         }
       },
       "industries": {
@@ -450,6 +450,11 @@
         "badge": "Catalogo",
         "title": "Categorie Prodotti",
         "description": "Esplora la nostra gamma completa di prodotti di sicurezza industriale progettati per proteggere i lavoratori da capo a piedi.",
+        "contactCard": {
+          "title": "Non trovi quello che cerchi?",
+          "description": "Contatta il nostro team e ti aiuteremo a trovare la soluzione di sicurezza adatta alle tue esigenze.",
+          "cta": "Contattaci"
+        },
         "gloves": {
           "badge": "Guanti di Sicurezza",
           "title": "Guanti di Sicurezza",
@@ -459,7 +464,7 @@
           "subcategories": {
             "heat": {
               "title": "Guanti Anticalore",
-              "description": "Protezione termica avanzata per ambienti ad alta temperatura fino a 350°C"
+              "description": "Protezione termica avanzata per ambienti ad alta temperatura fino a 1000°C"
             },
             "mechanical": {
               "title": "Guanti per Rischi Meccanici",
@@ -482,63 +487,66 @@
         "industrialSwabs": {
           "badge": "Scovoli Industriali",
           "title": "Scovoli Industriali",
-          "description": "Soluzioni specializzate di pulizia, lubrificazione e manutenzione per ambienti industriali",
-          "detailedDescription": "I nostri scovoli industriali forniscono soluzioni di pulizia, lubrificazione e manutenzione per ambienti industriali impegnativi. Progettati per attività di di precisione, questi scovoli di alta qualità sono essenziali per la produzione elettronica, l'assemblaggio automobilistico, le applicazioni aerospaziali e la manutenzione industriale in presenza di stampi caldi."
+          "description": "Soluzioni specializzate per la lubrificazione e manutenzione di stampi industriali",
+          "detailedDescription": "I nostri scovoli industriali forniscono soluzioni lubrificazione e manutenzione per ambienti industriali impegnativi. Progettati per attività di precisione in presenza di stampi caldi, i nostri scovoli possono essere prodotti su misura per operazioni di precisione."
         },
         "respiratory": {
           "badge": "Protezione vie respiratorie",
           "title": "Protezione vie respiratorie",
-          "description": "Dispositivi di protezione respiratoria avanzati per ambienti pericolosi",
-          "detailedDescription": "I nostri dispositivi per la protezione delle vie respiratorie forniscono una protezione avanzata contro i contaminanti aerodispersi in ambienti industriali. Dalle maschere antipolvere ai respiratori facciali completi, i nostri prodotti sono progettati per soddisfare i più alti standard di sicurezza garantendo comfort durante l'uso prolungato. Essenziali per costruzioni, produzione, lavorazione chimica e qualsiasi ambiente con contaminanti aerodispersi."
+          "description": "Dispositivi di protezione delle vie respiratorie da diversi agenti contaminanti",
+          "detailedDescription": "I dispositivi per la protezione delle vie respiratorie forniscono una protezione avanzata contro i contaminanti aerodispersi in ambienti industriali. Dalle maschere antipolvere ai respiratori facciali completi, offriamo prodotti progettati per soddisfare i più alti standard di sicurezza garantendo comfort durante l'uso prolungato."
         },
         "hearing": {
           "badge": "Protezione uditiva",
           "title": "Protezione uditiva",
-          "description": "Dispositivi per la protezione dell'udito in ambienti rumorosi",
-          "detailedDescription": "La nostra gamma per la protezione uditiva include tappi auricolari monouso e cuffie antirumore montate su elmetto, progettati secondo lo standard EN 352. Soluzioni studiate per ridurre l'esposizione a livelli sonori dannosi mantenendo comfort anche per utilizzi prolungati. Ideali per manifattura, edilizia, aviazione e industria pesante."
+          "description": "Dispositivi per la protezione dell'udito da ambienti rumorosi",
+          "detailedDescription": "La gamma per la protezione uditiva include tappi auricolari monouso e cuffie antirumore montate su elmetto o indipendenti. Soluzioni studiate per ridurre l'esposizione a livelli sonori dannosi mantenendo comfort anche per utilizzi prolungati. Ideali per manifattura, edilizia, aviazione e industria pesante."
         },
         "armProtection": {
           "badge": "Protezione braccia",
           "title": "Protezione braccia",
           "description": "Manicotti antitaglio e protezione avambraccio per applicazioni industriali",
-          "detailedDescription": "La nostra gamma per la protezione delle braccia offre affidabile resistenza al taglio e copertura dell'avambraccio per ambienti industriali impegnativi. Realizzati con fibre avanzate e costruzione durevole, i nostri manicotti garantiscono comfort e vestibilità sicura con opzioni come passante per pollice e sistemi di chiusura, aiutando gli operatori a lavorare in sicurezza nella movimentazione di spigoli taglienti, vetro e parti metalliche."
+          "detailedDescription": "La gamma per la protezione delle braccia offre affidabile copertura dell'avambraccio per ambienti industriali impegnativi. Con un focus sulla protezione da taglio e calore, i nostri manicotti garantiscono sicurezza, comfort e vestibilità aiutando gli operatori a lavorare in sicurezza nella movimentazione di spigoli taglienti, vetro e parti metalliche."
         },
         "footwear": {
           "badge": "Calzature di sicurezza",
           "title": "Calzature di sicurezza",
-          "description": "Scarponcini e accessori professionali",
-          "detailedDescription": "La nostra gamma di calzature di sicurezza include robusti stivali S3/S3L e accessori ergonomici progettati secondo la norma EN ISO 20345. Pensati per comfort e protezione in ambienti impegnativi, con proprietà antiscivolo, resistenza termica e prestazioni durature."
+          "description": "Protezione dei piedi da rischi industriali",
+          "detailedDescription": "La gamma di calzature di sicurezza include scarpe, sneakers e stivali progettati per diversi rischi secondo la norma EN ISO 20345 e pensati per offrire comfort e protezione in ambienti impegnativi."
         },
         "head": {
           "badge": "Protezione della testa",
           "title": "Protezione della testa",
           "description": "Caschi di sicurezza e berretti antiurto per ambienti industriali",
-          "detailedDescription": "La nostra gamma per la protezione della testa include caschi di sicurezza e berretti antiurto progettati secondo le norme EN 397, EN 50365 ed EN 812. Opzioni disponibili: prestazioni a bassa temperatura, protezione da schizzi di metallo fuso, isolamento elettrico, ventilazione e compatibilità con visiere e cuffie antirumore."
+          "detailedDescription": "La gamma per la protezione della testa include caschi di sicurezza e berretti antiurto progettati secondo le norme EN e compatibili con sistemi di sicurezza completi per la protezione di occhi e udito."
         },
         "eyeFace": {
           "badge": "Protezione occhi e viso",
           "title": "Protezione occhi e viso",
           "description": "Occhiali e visiere protettive per ambienti industriali",
-          "detailedDescription": "La nostra gamma per la protezione di occhi e viso include occhiali di sicurezza, occhiali a mascherina e visiere con protezione da arco elettrico, progettati secondo la EN 166 e standard correlati. Massima chiarezza e comfort con trattamenti antiappannanti e antigraffio, filtri UV e opzioni per protezione IR. Ideale per manifattura, edilizia e manutenzione elettrica."
+          "detailedDescription": "La gamma per la protezione di occhi e viso include occhiali di sicurezza, occhiali a mascherina e visiere con protezione da arco elettrico, progettati secondo le norme EN. Massima chiarezza e comfort con trattamenti antiappannanti e antigraffio, filtri UV e opzioni per protezione IR."
         },
       "clothing": {
         "badge": "Abbigliamento protettivo",
         "title": "Abbigliamento protettivo e da lavoro",
-        "description": "Capi alta visibilità e workwear multirischio per ambienti industriali",
-        "detailedDescription": "La nostra gamma di abbigliamento protettivo include capi ad alta visibilità e giacche multirischio certificate secondo le norme EN, garantendo visibilità, protezione dal calore e dall'arco, prestazioni antistatiche e protezione chimica selettiva. Progettati per durata e comfort in edilizia, utilities, manifattura e logistica.",
+          "description": "Capi alta visibilità e abbigliamento di sicurezza e da lavoro",
+        "detailedDescription": "La gamma di abbigliamento include abbigliamento ad alta visibilità e abbigliamento protettivo e da lavoro certificato secondo le norme EN, garantendo visibilità, protezione e comfort.",
         "categoriesDescription": "Scegli tra le nostre linee di abbigliamento dedicate a visibilità, protezione multirischio e saldatura.",
         "subcategories": {
           "highVisibility": {
             "title": "Abbigliamento alta visibilità",
-            "description": "Capi EN ISO 20471 per visibilità professionale e sicurezza"
+            "description": "Capi EN ISO 20471 per alta visibilità e sicurezza",
+            "detailedDescription": "Abbigliamento ad alta visibilità certificato EN ISO 20471 progettato per garantire visibilità affidabile in condizioni di scarsa illuminazione e in aree ad alto rischio in diverse classi adatte fino a rischi più elevati. Tessuti traspiranti e durevoli e tagli ergonomici assicurano comfort per tutta la giornata in manutenzione stradale, edilizia, logistica e servizi pubblici, con opzioni invernali e impermeabili."
           },
           "safetyWorkwear": {
             "title": "Abbigliamento di sicurezza e da lavoro",
-            "description": "Workwear durevole e capi multirischio per uso industriale"
+            "description": "Abbigliamento da lavoro e di sicurezza per uso industriale",
+            "detailedDescription": "Abbigliamento da lavoro e di sicurezza che offre protezione multirischio per operazioni in ambienti industriali dove durata e conformità non sono negoziabili. Vestibilità moderne ed ergonomiche supportano libertà di movimento e lunga durata, aiutando gli operatori a mantenere la produttività in manutenzione, produzione e attività sul campo."
           },
           "welding": {
             "title": "Abbigliamento per saldatori",
-            "description": "Abbigliamento resistente a calore e spruzzi per la saldatura"
+            "description": "Abbigliamento resistente a calore e spruzzi per la saldatura",
+            "detailedDescription": "Abbigliamento per saldatura pensato per ambienti di fabbricazione impegnativi e protezione da scintille, spruzzi e calore convettivo. Giacche, grembiuli e manicotti utilizzano tessuti ignifughi e cuciture rinforzate, con design in linea con i requisiti prestazionali EN ISO 11611 ed EN ISO 11612. Il bilanciamento tra traspirabilità e copertura consente agli operatori di lavorare in sicurezza mantenendo comfort per tutta la durata del turno."
           }
         }
       }
@@ -555,7 +563,7 @@
           "badge": "Protezione dal Taglio",
           "title": "Prodotti Antitaglio",
           "description": "Sfoglia la nostra gamma completa di guanti antitaglio progettati per la massima protezione contro i rischi da taglio.",
-          "detailedDescription": "I nostri guanti antitaglio forniscono una protezione superiore contro tagli e lacerazioni mantenendo una destrezza e un comfort eccezionali. Progettati con materiali avanzati e testati per raggiungere la resistenza al taglio fino a Livello 5, questi guanti sono essenziali per i lavoratori che maneggiano materiali taglienti, vetro, metalli e per operazioni di assemblaggio di precisione."
+          "detailedDescription": "I nostri guanti antitaglio forniscono una protezione superiore contro tagli e lacerazioni mantenendo una destrezza e un comfort eccezionali. Progettati con materiali avanzati e testati per raggiungere elevatissima resistenza al taglio, questi guanti sono essenziali per i lavoratori che maneggiano materiali taglienti, vetro, metalli e per operazioni di assemblaggio di precisione."
         },
         "general": {
           "badge": "Uso Generale",
@@ -592,9 +600,9 @@
           "description": "Sfoglia la nostra gamma completa di dispositivi di protezione respiratoria per ambienti pericolosi."
         },
         "industrialSwabs": {
-          "badge": "Pulizia di Precisione",
-          "title": "Prodotti Tamponi Industriali",
-          "description": "Sfoglia la nostra gamma completa di tamponi industriali progettati per attività di pulizia di precisione.",
+          "badge": "Operazioni di Precisione",
+          "title": "Prodotti Scovoli Industriali",
+          "description": "Sfoglia la nostra gamma completa di scovoli industriali progettati per attività di pulizia di precisione.",
           "detailedDescription": "Esplora la nostra gamma di soluzioni di pulizia specializzate progettate per applicazioni industriali."
         }
       }
@@ -619,12 +627,14 @@
       "contentType": "Tipo di Contenuto", 
       "category": "Categoria",
         "any": "Tutti",
+        "enStandard": "Norma EN",
         "sleeveLength": "Lunghezza manicotto",
         "thumbLoop": "Passante per pollice",
         "closureType": "Tipo di chiusura",
         "connection": "Attacco",
-        "filterType": "Tipo di filtro",
-        "protectionClass": "Classe di protezione",
+        "filterType": "Tipo di filtro (Filtri)",
+        "protectionClass": "Classe di protezione (Maschere)",
+        "filteredParticles": "Particelle filtrate (Filtri)",
         "temperature": "Resistenza alla Temperatura",
       "subCategory": "Sottocategoria",
         "temperatureRating": "Resistenza alla Temperatura",
@@ -639,7 +649,7 @@
       "length": "Lunghezza",
       "min": "Min",
       "max": "Max",
-      "padSize": "Dimensione tampone",
+      "padSize": "Dimensione scovolo",
       "diameter": "Diametro (mm)",
       "padLength": "Lunghezza tampone (mm)",
       "material": "Materiale",
@@ -666,8 +676,8 @@
       "generalPurposeGloves": "Guanti Uso Generale",
       "mechanicalHazardsGloves": "Guanti per Rischi Meccanici",
       "weldingGlove": "Guanti da Saldatura",
-      "industrialSwabs": "Tamponi Industriali",
-      "respiratoryProtection": "Protezione Respiratoria",
+      "industrialSwabs": "Scovoli Industriali",
+      "respiratoryProtection": "Protezione vie respiratorie",
       "footwearClass": "Classe calzatura",
       "esd": "ESD",
       "widthFit": "Larghezza pianta",
@@ -678,7 +688,7 @@
       "protectionType": "Tipo di protezione",
       "lensTint": "Colore lente",
       "coating": "Trattamento",
-      "uvCode": "Codice UV",
+      "uvCode": "Protezione UV",
       "brimLength": "Lunghezza visiera",
       "lowTemperature": "Prestazioni a bassa temperatura",
       "electricalInsulation": "Isolamento elettrico (EN 50365)",
@@ -688,16 +698,22 @@
       "flameStandard": "Norma calore/fiamma (EN ISO 11612)",
       "arcClass": "Classe protezione arco",
       "antistatic": "Antistatico (EN 1149-5)",
-      "clothingType": {
-        "title": "Tipologia abbigliamento",
-        "options": {
-          "welding": "Abbigliamento per saldatori",
-          "highVisibility": "Abbigliamento alta visibilità",
-          "safetyWorkwear": "Abbigliamento di sicurezza e da lavoro"
-        }
-      },
+      "clothingType": "Tipologia abbigliamento",
+      "size": "Taglie",
       "clothingCategory": {
         "title": "Categoria abbigliamento"
+      },
+      "garmentTypes": {
+        "Aprons": "Grembiuli",
+        "Jackets": "Giacche",
+        "Coveralls": "Tute",
+        "Trousers": "Pantaloni",
+        "Waistcoats": "Gilet",
+        "Body warmers": "Scaldacorpo",
+        "Fleece & Sweatshirts": "Pile e felpe",
+        "Polo & T-shirts": "Polo e magliette",
+        "Other workwear": "Altri indumenti da lavoro",
+        "Accessories": "Accessori"
       }
     },
     
@@ -761,7 +777,7 @@
     "submitEnquiry": "Invia richiesta",
     "contactUs": "Contattaci",
     "requestSample": "Richiedi Campione",
-    "padSize": "Dimensione tampone",
+    "padSize": "Dimensione scovolo",
     "productInfo": {
       "brand": "Marca", 
       "size": "Taglia",
@@ -800,12 +816,14 @@
       "gender": "Genere",
       "colours": "Colori",
       "uvProtection": "Protezione UV",
-      "frameMark": "Marcatura montatura",
-      "lensMark": "Marcatura lente",
+      "frameMark": "Montatura",
+      "lensMark": "Lente",
       "frame": "Montatura",
-      "lens": "Lente",
+      "lens": "Lenti",
+      "arm": "Asta",
+      "headband": "Fascia",
       "additionalMarking": "Marcature aggiuntive",
-      "lowTemperature": "Bassa temperatura",
+      "lowTemperature": "Prestazioni a bassa temperatura",
       "highTemperature": "Alta temperatura",
       "electricalInsulation": "Isolamento elettrico",
       
@@ -894,7 +912,7 @@
         "compatibility": "Compatibilità",
         "decontamination": "Decontaminazione",
         "flame": "Fiamma",
-        "lowTemperature": "Bassa temperatura",
+        "lowTemperature": "Prestazioni a bassa temperatura",
         "mhNoise": "Rumore M/H",
         "radioFrequency": "Radiofrequenza",
         "temperatureWater": "Temperatura + Acqua"
@@ -1019,7 +1037,7 @@
       },
       "2002": {
         "title": "Espansione del Catalogo",
-        "description": "Ampliamo il nostro portfolio di prodotti dedicato alle industrie del vetro e della metallurgia con molti guanti certificati oltre i 350°C. La nostra espansione geografica inizia in 6 mercati in Europa e Medio Oriente, guidata dai nostri clienti italiani esistenti."
+        "description": "Ampliamo il nostro portfolio di prodotti dedicato alle industrie del vetro e della metallurgia con molti guanti certificati oltre i 1000°C. La nostra espansione geografica inizia in 6 mercati in Europa e Medio Oriente, guidata dai nostri clienti italiani esistenti."
       },
       "2003": {
         "title": "Costituzione Societaria",
@@ -1261,7 +1279,7 @@
       },
       "address": {
       "title": "Sede Amministrativa",
-      "titleUK": "Sede Legale & Indirizzo Operativo UK",
+      "titleUK": "Sede Legale & Indirizzo Operativo",
         "content": "Viale Varese 83, 22100 Como (CO), Italia",
         "contentUK": "52 Grosvenor Gardens, London SW1W 0AU, United Kingdom",
       "operationalTitle": "HQ - Uffici & Magazzino",
@@ -1342,7 +1360,7 @@
   },
   "blog": {
     "hero": {
-      "badge": "Notiziario",
+      "badge": "Blog",
       "title": "Hand Line",
       "titleAccent": "Insights",
       "description": "Conoscenza leader, approfondimenti e idee per far progredire la sicurezza in ogni luogo di lavoro.",
@@ -1391,10 +1409,10 @@
       "clearAllFilters": "Cancella tutti i filtri"
     },
     "readArticle": "Leggi l'articolo",
-    "backToBlogs": "Torna al notiziario",
+    "backToBlogs": "Torna al blog",
     "minRead": "min di lettura",
     "featuredArticle": "Articolo in Evidenza",
-    "featuredTitle": "Approfondimenti Esperti",
+    "featuredTitle": "Approfondimenti",
     "featuredDescription": "Scopri le ultime novità e innovazioni nella sicurezza sul lavoro e nella tecnologia di protezione delle mani."
   },
   "careers": {
@@ -1730,7 +1748,7 @@
     "weldingGloves": "Guanti per saldatura",
     "mechanicalHazardsGloves": "Guanti per rischi meccanici",
     "industrialSwabs": "Tamponi industriali",
-    "respiratoryProtection": "Protezione respiratoria"
+    "respiratoryProtection": "Protezione vie respiratorie"
   },
   "standards": {
     "viewStandard": "Vedi Standard",
@@ -1804,7 +1822,7 @@
       "navTitle": "Categorie"
     },
     "categoriesIntro": {
-      "badge": "Panoramica Categorie",
+      "badge": "Standard EN",
       "title": "Standard per Categoria",
       "description": "Esplora le principali categorie di DPI e scopri quali standard, prove e requisiti si applicano a ciascuna area. Seleziona una categoria qui sotto per entrare nelle guide pratiche, standard chiave e consigli di scelta."
     },
@@ -1846,7 +1864,7 @@
   },
   "declarations": {
     "hero": {
-      "badge": "Regolatorio",
+      "badge": "Documentazione normativa",
       "title": "Dichiarazioni",
       "titleAccent": "di Conformità",
       "description": "Benvenuto nel nostro archivio delle dichiarazioni di conformità dei prodotti, dove puoi trovare e scaricare i documenti necessari in conformità al Regolamento (UE) 2016/425. Cerca il prodotto richiesto e seleziona la lingua per scaricare la DoC in PDF. Questa libreria è aggiornata regolarmente; in alcuni casi una singola dichiarazione copre più varianti all'interno di una famiglia di prodotti.",

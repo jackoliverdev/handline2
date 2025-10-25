@@ -30,4 +30,18 @@ export const CLOTHING_TYPE_TO_CATEGORIES: Record<ClothingTypeKey, string[]> = {
   ]
 };
 
+// Simplified garment types for filtering
+export const GARMENT_TYPES = [
+  'Aprons',
+  'Jackets',
+  'Coveralls',
+  'Trousers',
+  'Waistcoats',
+  'Body warmers',
+  'Fleece & Sweatshirts',
+  'Polo & T-shirts',
+  'Other workwear',
+  'Accessories'
+] as const;
+
 

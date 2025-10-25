@@ -21,6 +21,8 @@ import {
   getUniqueIndustries,
   getUniqueSubCategories,
   sortCategoriesByPreference,
+  getUniqueENStandards,
+  matchesENStandards,
 } from "@/lib/product-utils";
 
 // Import filter components
@@ -28,7 +30,7 @@ import { CategoryFilter } from "./filters/CategoryFilter";
 import { SubCategoryFilter } from "./filters/SubCategoryFilter";
 import { TemperatureFilter } from "./filters/TemperatureFilter";
 import { HazardProtectionFilter } from "./filters/HazardProtectionFilter";
-import { WorkEnvironmentFilter } from "./filters/WorkEnvironmentFilter";
+import { ENStandardFilter } from "./filters/ENStandardFilter";
 import { IndustryFilter } from "./filters/IndustryFilter";
 import { FilterBadges } from "./filters/FilterBadges";
 import { MobileFilterSheet } from "./filters/MobileFilterSheet";
@@ -36,7 +38,6 @@ import { FilterSection } from "./filters/FilterSection";
 
 // Import hazard protection helpers
 import { matchesHazardProtection } from "@/content/hazardfilters";
-import { matchesWorkEnvironment } from "@/content/workenvironmentfilters";
 
 interface ProductGridProps {
   products: Product[];
@@ -65,8 +66,8 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
   const [selectedCutLevels, setSelectedCutLevels] = useState<string[]>([]);
   const [selectedHeatLevels, setSelectedHeatLevels] = useState<string[]>([]);
   const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
+  const [selectedENStandards, setSelectedENStandards] = useState<string[]>([]);
   const [selectedHazardProtections, setSelectedHazardProtections] = useState<string[]>([]);
-  const [selectedWorkEnvironments, setSelectedWorkEnvironments] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState<string>("featured");
   const [previewProduct, setPreviewProduct] = useState<Product | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -81,7 +82,7 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
     cutLevel: false,
     heatLevel: false,
     hazardProtection: false,
-    workEnvironment: false,
+    enStandard: false,
     industries: false
   });
   
@@ -154,6 +155,9 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
   // Get unique industries
   const uniqueIndustries = getUniqueIndustries(localizedProducts);
 
+  // Get unique EN standards
+  const uniqueENStandards = getUniqueENStandards(localizedProducts);
+
   // Define preferred subcategory order using ORIGINAL English subcategories for consistent sorting
   const originalPreferredOrder = [
     "Heat resistant gloves",
@@ -184,10 +188,10 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
     if (selectedCutLevels.length > 0) count++;
     if (selectedHeatLevels.length > 0) count++;
     if (selectedHazardProtections.length > 0) count++;
-    if (selectedWorkEnvironments.length > 0) count++;
+    if (selectedENStandards.length > 0) count++;
     if (selectedIndustries.length > 0) count++;
     setActiveFiltersCount(count);
-  }, [selectedCategory, selectedSubCategories, selectedTempRatings, selectedCutLevels, selectedHeatLevels, selectedHazardProtections, selectedWorkEnvironments, selectedIndustries, hideMainCategoryFilter]);
+  }, [selectedCategory, selectedSubCategories, selectedTempRatings, selectedCutLevels, selectedHeatLevels, selectedHazardProtections, selectedENStandards, selectedIndustries, hideMainCategoryFilter]);
   
   // Handle industry selection
   const toggleIndustry = (industry: string) => {
@@ -239,11 +243,11 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
     );
   };
   
-  const toggleWorkEnvironment = (environment: string) => {
-    setSelectedWorkEnvironments(prev => 
-      prev.includes(environment)
-        ? prev.filter(i => i !== environment)
-        : [...prev, environment]
+  const toggleENStandard = (standard: string) => {
+    setSelectedENStandards(prev => 
+      prev.includes(standard)
+        ? prev.filter(i => i !== standard)
+        : [...prev, standard]
     );
   };
   
@@ -255,7 +259,7 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
     setSelectedCutLevels([]);
     setSelectedHeatLevels([]);
     setSelectedHazardProtections([]);
-    setSelectedWorkEnvironments([]);
+    setSelectedENStandards([]);
     setSelectedIndustries([]);
   };
   
@@ -307,12 +311,8 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
         matchesHazardProtection(product.safety, hazardId)
       );
     
-    // Match work environment
-    const matchesWorkEnvironmentFilter =
-      selectedWorkEnvironments.length === 0 ||
-      selectedWorkEnvironments.some(environmentId => 
-        matchesWorkEnvironment(product.environment_pictograms, environmentId)
-      );
+    // Match EN standards
+    const matchesENStandardFilter = matchesENStandards(product, selectedENStandards);
     
     // Match industries
     const matchesIndustries =
@@ -331,7 +331,7 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
            matchesCutLevel && 
            matchesHeatLevel && 
            matchesHazardProtectionFilter && 
-           matchesWorkEnvironmentFilter &&
+           matchesENStandardFilter &&
            matchesIndustries &&
            matchesExtra;
   });
@@ -473,7 +473,7 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
                   />
                 )}
                 
-                {/* After Sub-Category: Industries → Work Environment → Gloves */}
+                {/* After Sub-Category: Industries → EN Standard */}
                 {(!hideDefaultFilters) && (
                   <IndustryFilter
                     industries={uniqueIndustries}
@@ -485,22 +485,24 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
                 )}
 
                 {(!hideDefaultFilters) && (
-                  <WorkEnvironmentFilter
-                    selectedWorkEnvironments={selectedWorkEnvironments}
-                    toggleWorkEnvironment={toggleWorkEnvironment}
-                    isExpanded={expandedSections.workEnvironment}
+                  <ENStandardFilter
+                    standards={uniqueENStandards}
+                    selectedStandards={selectedENStandards}
+                    toggleStandard={toggleENStandard}
+                    isExpanded={expandedSections.enStandard}
                     toggleSection={toggleSection}
                   />
                 )}
 
                 {/* Hazard + Temperature grouped under Gloves */}
                 {(!hideDefaultFilters) && (
-                  <FilterSection title="Gloves" defaultExpanded={false}>
+                  <FilterSection title={t('navbar.safetyGloves')} defaultExpanded={false}>
                     <HazardProtectionFilter
                       selectedHazardProtections={selectedHazardProtections}
                       toggleHazardProtection={toggleHazardProtection}
                       isExpanded={expandedSections.hazardProtection}
                       toggleSection={toggleSection}
+                      nested={true}
                     />
                     <TemperatureFilter
                       tempRatings={uniqueTempRatings}
@@ -508,6 +510,7 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
                       toggleTempRating={toggleTempRating}
                       isExpanded={expandedSections.temperature}
                       toggleSection={toggleSection}
+                      nested={true}
                     />
                   </FilterSection>
                 )}
@@ -574,8 +577,9 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
                   toggleTempRating={toggleTempRating}
                   selectedHazardProtections={selectedHazardProtections}
                   toggleHazardProtection={toggleHazardProtection}
-                  selectedWorkEnvironments={selectedWorkEnvironments}
-                  toggleWorkEnvironment={toggleWorkEnvironment}
+                  enStandards={uniqueENStandards}
+                  selectedENStandards={selectedENStandards}
+                  toggleENStandard={toggleENStandard}
                   industries={uniqueIndustries}
                   selectedIndustries={selectedIndustries}
                   toggleIndustry={toggleIndustry}
@@ -612,13 +616,13 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
             selectedSubCategories={selectedSubCategories}
             selectedTempRatings={selectedTempRatings}
             selectedHazardProtections={selectedHazardProtections}
-            selectedWorkEnvironments={selectedWorkEnvironments}
+            selectedENStandards={selectedENStandards}
             selectedIndustries={selectedIndustries}
             setSelectedCategory={setSelectedCategory}
             toggleSubCategory={toggleSubCategory}
             toggleTempRating={toggleTempRating}
             toggleHazardProtection={toggleHazardProtection}
-            toggleWorkEnvironment={toggleWorkEnvironment}
+            toggleENStandard={toggleENStandard}
             toggleIndustry={toggleIndustry}
             clearFilters={clearFilters}
           />

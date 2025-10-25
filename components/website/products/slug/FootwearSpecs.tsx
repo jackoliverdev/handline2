@@ -4,7 +4,7 @@ import { Product } from "@/lib/products-service";
 import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/lib/context/language-context";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Shield, Zap, Waves, Droplets, FlaskConical, HardHat } from "lucide-react";
+import { Shield, Zap, Waves, Droplets, FlaskConical, HardHat, Layers, Ruler, Move, FileText } from "lucide-react";
 
 export function FootwearSpecs({ product }: { product: Product }) {
   const { t, language } = useLanguage();
@@ -29,13 +29,6 @@ export function FootwearSpecs({ product }: { product: Product }) {
   const hasSlipInCodes = codes.includes('SRC') || codes.includes('SR');
   const stdChips = Array.from(new Set(codes.filter(Boolean)));
 
-  // Parse materials into specific components like EyeFace does
-  const upperMaterial = mats.find((m: string) => m.toLowerCase().includes('upper:'))?.replace(/upper:\s*/i, '') || '-';
-  const liningMaterial = mats.find((m: string) => m.toLowerCase().includes('lining:'))?.replace(/lining:\s*/i, '') || '-';
-  const soleMaterial = mats.find((m: string) => m.toLowerCase().includes('sole:'))?.replace(/sole:\s*/i, '') || '-';
-  const insoleMaterial = mats.find((m: string) => m.toLowerCase().includes('insole:'))?.replace(/insole:\s*/i, '') || '-';
-  const toeCapMaterial = mats.find((m: string) => m.toLowerCase().includes('toe cap:'))?.replace(/toe cap:\s*/i, '') || '-';
-
   return (
     <TooltipProvider>
     <div className="space-y-5">
@@ -43,23 +36,34 @@ export function FootwearSpecs({ product }: { product: Product }) {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Materials (full height - row span 2) */}
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4 md:row-span-2">
-          <h4 className="font-medium text-brand-dark dark:text-white mb-2">{t('productPage.materials')}</h4>
-          <div className="divide-y divide-gray-200 dark:divide-gray-700 text-brand-dark dark:text-white">
-            <div className="flex items-center justify-between py-2"><span>Upper material</span><span className="font-medium">{upperMaterial}</span></div>
-            <div className="flex items-center justify-between py-2"><span>Lining material</span><span className="font-medium">{liningMaterial}</span></div>
-            <div className="flex items-center justify-between py-2"><span>Sole material</span><span className="font-medium">{soleMaterial}</span></div>
-            <div className="flex items-center justify-between py-2"><span>Insole material</span><span className="font-medium">{insoleMaterial}</span></div>
-            <div className="flex items-center justify-between py-2"><span>Toe cap material</span><span className="font-medium">{toeCapMaterial}</span></div>
+          <div className="flex items-center gap-2 mb-2">
+            <Layers className="h-4 w-4 text-brand-primary" />
+            <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.materials')}</h4>
           </div>
+          {Array.isArray(mats) && mats.length > 0 ? (
+            <div className="space-y-2">
+              {mats.map((m: string, i: number) => (
+                <div key={i} className="text-brand-dark dark:text-white font-medium">{m}</div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-brand-dark dark:text-white font-medium">-</div>
+          )}
         </div>
         {/* Size - Col 2, Row 1 */}
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-          <h4 className="font-medium text-brand-dark dark:text-white mb-2">{t('productPage.size')}</h4>
-          <p className="text-brand-dark dark:text-white">{size || '-'}</p>
+          <div className="flex items-center gap-2 mb-2">
+            <Ruler className="h-4 w-4 text-brand-primary" />
+            <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.size')}</h4>
+          </div>
+          <div className="text-brand-dark dark:text-white font-medium">{size || '-'}</div>
         </div>
         {/* Width/Fit - Col 3, Row 1 */}
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-          <h4 className="font-medium text-brand-dark dark:text-white mb-2">{t('products.filters.widthFit') || 'Width / Fit'}</h4>
+          <div className="flex items-center gap-2 mb-2">
+            <Move className="h-4 w-4 text-brand-primary" />
+            <h4 className="font-medium text-brand-dark dark:text-white">{t('products.filters.widthFit') || 'Width / Fit'}</h4>
+          </div>
           <div className="flex flex-wrap gap-1.5">
             {widthFit.length > 0 ? widthFit.map((width, idx) => (
               <span key={idx} className="bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 rounded px-2 py-0.5 text-xs">{width}</span>
@@ -68,7 +72,10 @@ export function FootwearSpecs({ product }: { product: Product }) {
         </div>
         {/* EN Standards - Col 2, Row 2 */}
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-          <h4 className="font-medium text-brand-dark dark:text-white mb-2">{t('products.enStandards')}</h4>
+          <div className="flex items-center gap-2 mb-2">
+            <FileText className="h-4 w-4 text-brand-primary" />
+            <h4 className="font-medium text-brand-dark dark:text-white">{t('products.enStandards')}</h4>
+          </div>
           <div className="space-y-2">
             {Array.isArray(fstd.en_iso_20345_2011) && fstd.en_iso_20345_2011.length > 0 && (
               <div>
@@ -91,8 +98,11 @@ export function FootwearSpecs({ product }: { product: Product }) {
         </div>
         {/* CE Category - Col 3, Row 2 */}
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-          <h4 className="font-medium text-brand-dark dark:text-white mb-2">{t('productPage.ceCategory')}</h4>
-          <p className="text-brand-dark dark:text-white">{product.ce_category || '-'}</p>
+          <div className="flex items-center gap-2 mb-2">
+            <Shield className="h-4 w-4 text-brand-primary" />
+            <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.ceCategory')}</h4>
+          </div>
+          <div className="text-brand-dark dark:text-white font-medium">{product.ce_category || '-'}</div>
         </div>
       </div>
 

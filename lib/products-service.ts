@@ -9,6 +9,7 @@ export interface SafetyEN388 {
   tear: number | null;
   puncture: number | null;
   iso_13997: string | null;
+  iso_cut?: string | null; // Alternative field name for ISO 13997 cut test
   impact_en_13594: string | null;
 }
 

@@ -11,9 +11,9 @@ export function ProtectionTypeFilter({ selected, onToggle, isExpanded, toggleSec
   const open = isExpanded ?? localOpen;
   const options = ['IR','UV','Arc'];
   return (
-    <div className="border-b border-brand-primary/10 dark:border-brand-primary/20 pb-4">
+    <div className="pb-4">
       <button className="flex w-full items-center justify-between mb-2" onClick={() => (toggleSection ? toggleSection("eyeFaceProtectionType") : setLocalOpen(v => !v))}>
-        <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('products.filters.protectionType') || 'Protection type'}</h3>
+        <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('products.filters.protectionType')}</h3>
         <ChevronDown className={`h-4 w-4 text-brand-primary transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
       {open && (

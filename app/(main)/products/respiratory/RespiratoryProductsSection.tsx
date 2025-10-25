@@ -9,9 +9,11 @@ import { ShieldCheck } from "lucide-react";
 import { ConnectionFilter } from "@/components/website/products/filters/respiratory/ConnectionFilter";
 import { FilterTypeFilter } from "@/components/website/products/filters/respiratory/FilterTypeFilter";
 import { ProtectionClassFilter } from "@/components/website/products/filters/respiratory/ProtectionClassFilter";
+import { FilteredParticlesFilter } from "@/components/website/products/filters/respiratory/FilteredParticlesFilter";
 import { ConnectionFilterMobile } from "@/components/website/products/filters/respiratory/ConnectionFilterMobile";
 import { FilterTypeFilterMobile } from "@/components/website/products/filters/respiratory/FilterTypeFilterMobile";
 import { ProtectionClassFilterMobile } from "@/components/website/products/filters/respiratory/ProtectionClassFilterMobile";
+import { FilteredParticlesFilterMobile } from "@/components/website/products/filters/respiratory/FilteredParticlesFilterMobile";
 
 interface RespiratoryProductsSectionProps {
   products: Product[];
@@ -64,6 +66,7 @@ export function RespiratoryProductsSection({ products }: RespiratoryProductsSect
   const [selectedConnections, setSelectedConnections] = useState<string[]>([]);
   const [selectedFilterTypes, setSelectedFilterTypes] = useState<string[]>([]);
   const [selectedProtectionClasses, setSelectedProtectionClasses] = useState<string[]>([]);
+  const [selectedFilteredParticles, setSelectedFilteredParticles] = useState<string[]>([]);
 
   // Option builders
   const connectionOptions = useMemo(() => {
@@ -83,6 +86,22 @@ export function RespiratoryProductsSection({ products }: RespiratoryProductsSect
   const protectionClassOptions = useMemo(() => {
     const set = new Set<string>();
     respiratoryProducts.forEach(p => { if (p.protection_class) set.add(p.protection_class); });
+    return Array.from(set).sort();
+  }, [respiratoryProducts]);
+
+  const filteredParticleOptions = useMemo(() => {
+    const set = new Set<string>();
+    respiratoryProducts.forEach(p => {
+      const respiratoryStandards = p.respiratory_standards as Record<string, any>;
+      if (respiratoryStandards?.en14387?.gases) {
+        const gases = respiratoryStandards.en14387.gases as Record<string, boolean>;
+        Object.keys(gases).forEach(gasKey => {
+          if (gases[gasKey] === true) {
+            set.add(gasKey.toUpperCase());
+          }
+        });
+      }
+    });
     return Array.from(set).sort();
   }, [respiratoryProducts]);
 
@@ -118,6 +137,11 @@ export function RespiratoryProductsSection({ products }: RespiratoryProductsSect
                 selected={selectedProtectionClasses}
                 onToggle={(opt) => toggle(selectedProtectionClasses, setSelectedProtectionClasses, opt)}
               />
+              <FilteredParticlesFilter
+                options={filteredParticleOptions}
+                selected={selectedFilteredParticles}
+                onToggle={(opt) => toggle(selectedFilteredParticles, setSelectedFilteredParticles, opt)}
+              />
             </>
           )}
           extraFiltersRenderMobile={(
@@ -137,18 +161,29 @@ export function RespiratoryProductsSection({ products }: RespiratoryProductsSect
                 selected={selectedProtectionClasses}
                 onToggle={(opt) => toggle(selectedProtectionClasses, setSelectedProtectionClasses, opt)}
               />
+              <FilteredParticlesFilterMobile
+                options={filteredParticleOptions}
+                selected={selectedFilteredParticles}
+                onToggle={(opt) => toggle(selectedFilteredParticles, setSelectedFilteredParticles, opt)}
+              />
             </>
           )}
           hideDefaultFilters={true}
           hideMainCategoryFilter
           extraFilterPredicate={(p: Product) => {
-            const hasSel = selectedConnections.length + selectedFilterTypes.length + selectedProtectionClasses.length > 0;
+            const hasSel = selectedConnections.length + selectedFilterTypes.length + selectedProtectionClasses.length + selectedFilteredParticles.length > 0;
             if (!hasSel) return true;
 
             const connOk = selectedConnections.length === 0 || (!!p.connections && p.connections.some((c: string) => selectedConnections.includes(c)));
             const typeOk = selectedFilterTypes.length === 0 || (!!p.filter_type && selectedFilterTypes.includes(p.filter_type));
             const classOk = selectedProtectionClasses.length === 0 || (!!p.protection_class && selectedProtectionClasses.includes(p.protection_class));
-            return connOk && typeOk && classOk;
+            const particlesOk = selectedFilteredParticles.length === 0 || (() => {
+              const respiratoryStandards = p.respiratory_standards as Record<string, any>;
+              if (!respiratoryStandards?.en14387?.gases) return false;
+              const gases = respiratoryStandards.en14387.gases as Record<string, boolean>;
+              return selectedFilteredParticles.some(particle => gases[particle.toLowerCase()] === true);
+            })();
+            return connOk && typeOk && classOk && particlesOk;
           }}
         />
       </div>

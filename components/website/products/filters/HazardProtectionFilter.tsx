@@ -11,6 +11,7 @@ interface HazardProtectionFilterProps {
   isExpanded: boolean;
   toggleSection: (section: string) => void;
   isMobile?: boolean;
+  nested?: boolean;
 }
 
 export const HazardProtectionFilter = ({
@@ -18,14 +19,15 @@ export const HazardProtectionFilter = ({
   toggleHazardProtection,
   isExpanded,
   toggleSection,
-  isMobile = false
+  isMobile = false,
+  nested = false
 }: HazardProtectionFilterProps) => {
   const { t } = useLanguage();
   
   if (hazardProtectionFilters.length === 0) return null;
 
   return (
-    <div className="border-b border-brand-primary/10 dark:border-brand-primary/20 pb-4">
+    <div className="pb-4">
       <button
         className="flex w-full items-center justify-between mb-2"
         onClick={() => toggleSection('hazardProtection')}
@@ -41,9 +43,9 @@ export const HazardProtectionFilter = ({
       </button>
       
       <div className={isExpanded ? "block" : "hidden"}>
-        <div className={`max-h-[240px] overflow-y-auto pr-1 space-y-3 mt-2 ${isMobile ? 'px-2' : ''}`}>
+        <div className="max-h-[240px] overflow-y-auto pr-1 space-y-2 mt-2">
           {hazardProtectionFilters.map((hazard) => (
-            <div key={hazard.id} className="flex items-center space-x-3 group">
+            <div key={hazard.id} className="flex items-center space-x-2 px-1">
               <Checkbox
                 id={`hazard-${isMobile ? 'mobile-' : ''}${hazard.id}`}
                 checked={selectedHazardProtections.includes(hazard.id)}

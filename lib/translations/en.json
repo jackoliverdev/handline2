@@ -329,7 +329,7 @@
   },
   "featuredProducts": {
     "title": "Featured Products",
-    "description": "Discover our most popular safety gloves, designed to provide superior protection and comfort across different industrial applications.",
+    "description": "Discover our most popular safety products, designed to provide superior protection and comfort across different industrial applications.",
     "noProducts": "No featured products available at the moment.",
     "preview": "Preview",
     "previewShort": "View",
@@ -362,7 +362,7 @@
   "industryCta": {
     "badge": "Specialised Safety Solutions",
     "title": "Ready to Enhance Safety in",
-    "description": "Discover our comprehensive range of safety solutions specifically designed for the {industry} industry. From cutting-edge technology to proven safety protocols.",
+    "description": "Discover our comprehensive range of safety solutions specifically designed for the {industry} industry.",
     "buttons": {
       "browseProducts": "Browse Our Products",
       "contactUs": "Contact Us Today"
@@ -420,6 +420,11 @@
         "badge": "Product Categories",
         "title": "Product Categories",
         "description": "Explore our comprehensive range of industrial safety products designed to protect workers across various industries.",
+        "contactCard": {
+          "title": "Can't see what you're looking for?",
+          "description": "Get in touch with our team and we'll help you find the right safety solution for your needs.",
+          "cta": "Contact Us"
+        },
         "gloves": {
           "badge": "Safety Gloves",
           "title": "Safety Gloves",
@@ -429,7 +434,7 @@
           "subcategories": {
             "heat": {
               "title": "Heat-Resistant Gloves",
-              "description": "Advanced thermal protection for high-temperature environments up to 350°C"
+              "description": "Protection for high-temperature environments and applications"
             },
             "mechanical": {
               "title": "Mechanical Hazards Gloves",
@@ -437,7 +442,7 @@
             },
             "cut": {
               "title": "Cut-Resistant Gloves", 
-              "description": "Superior protection against cuts and lacerations with Level 5 resistance"
+              "description": "Protection against cuts and lacerations and handling of sharp objects"
             },
             "general": {
               "title": "General Use Gloves",
@@ -452,59 +457,59 @@
         "industrialSwabs": {
           "badge": "Industrial Swabs",
           "title": "Industrial Swabs",
-          "description": "Specialised cleaning and maintenance solutions for industrial environments",
-          "detailedDescription": "Our industrial swabs provide specialised cleaning and maintenance solutions for demanding industrial environments. Designed for precision cleaning tasks, these high-quality swabs are essential for electronics manufacturing, automotive assembly, aerospace applications, and general industrial maintenance where cleanliness and precision are critical."
+          "description": "Specialised solutions for industrial mold lubrication and maintenance ",
+          "detailedDescription": "Our industrial swabs provide lubrication and maintenance solutions for demanding industrial environments. Designed for precision tasks involving hot molds, our brushes can be custom-made for specific and high-accuracy operations."
         },
         "respiratory": {
           "badge": "Respiratory Protection",
           "title": "Respiratory Protection",
-          "description": "Advanced respiratory protection equipment for hazardous environments",
-          "detailedDescription": "Our respiratory protection equipment provides advanced protection against airborne hazards in industrial environments. From dust masks to full-face respirators, our products are designed to meet the highest safety standards whilst ensuring comfort during extended use. Essential for construction, manufacturing, chemical processing, and any environment with airborne contaminants."
+          "description": "Respiratory protection equipment against multiple contaminants",
+          "detailedDescription": "Respiratory protection equipment provide advanced defense against airborne contaminants in industrial environments. From dust masks to full-face respirators, we offer products designed to meet the highest safety standards while ensuring comfort during prolonged use."
         },
         "hearing": {
           "badge": "Hearing Protection",
           "title": "Hearing Protection",
           "description": "Hearing protection devices for noisy industrial environments",
-          "detailedDescription": "Our hearing protection range includes disposable ear plugs and helmet-mounted earmuffs engineered to EN 352 standards. Designed to reduce exposure to harmful noise levels whilst maintaining comfort for extended wear. Ideal for manufacturing, construction, aviation, and heavy industry applications."
+          "detailedDescription": "The hearing protection range includes disposable earplugs and earmuffs, either helmet-mounted or standalone. These solutions are designed to reduce exposure to harmful noise levels while maintaining comfort even during prolonged use. Ideal for manufacturing, construction, aviation, and heavy industry."
         },
         "armProtection": {
           "badge": "Arm Protection",
           "title": "Arm protection",
           "description": "Cut-resistant sleeves and arm protection for industrial applications",
-          "detailedDescription": "Our arm protection range delivers reliable cut resistance and forearm coverage for demanding industrial environments. Built with advanced fibres and durable construction, our sleeves ensure comfort and secure fit with options like thumb loops and closure systems, helping operators work safely when handling sharp edges, glass and metal parts."
+          "detailedDescription": "The arm protection range provides reliable forearm coverage for demanding industrial environments. Focusing on cut and heat resistance, our sleeves ensure safety, comfort, and a secure fit, helping operators work safely when handling sharp edges, glass, and metal parts."
         },
         "footwear": {
           "badge": "Safety Footwear",
           "title": "Safety Footwear",
-          "description": "Professional safety boots and accessories",
-          "detailedDescription": "Our safety footwear range includes durable S3/S3L boots and ergonomic accessories designed to EN ISO 20345 standards. Built for comfort and protection across challenging environments, ensuring slip resistance, thermal protection and long‑lasting performance."
+          "description": "Feet protection from safety hazards and slip",
+          "detailedDescription": "The safety footwear range includes shoes, sneakers, and boots designed for various risks in accordance with EN ISO 20345, offering both comfort and protection in demanding environments."
         },
         "head": {
           "badge": "Head Protection",
           "title": "Head Protection",
           "description": "Safety helmets and bump caps for industrial environments",
-          "detailedDescription": "Our head protection range covers safety helmets and bump caps engineered to EN 397, EN 50365 and EN 812 standards. Options include low‑temperature performance, molten metal splash protection, electrical insulation, ventilation and accessory compatibility with visors and earmuffs."
+          "detailedDescription": "The head protection range includes safety helmets and bump caps designed according to EN standards and compatible with complete safety systems for eye and hearing protection."
         },
         "eyeFace": {
           "badge": "Eye & Face Protection",
           "title": "Eye & Face Protection",
           "description": "Protective eyewear and visors for industrial environments",
-          "detailedDescription": "Our eye & face protection range covers safety glasses, sealed goggles and arc‑rated visors designed to EN 166 and related standards. Built for clarity, comfort and reliability with anti‑fog and scratch‑resistant coatings, UV filtering and infrared protection options. Ideal for manufacturing, construction and electrical maintenance."
+          "detailedDescription": "The eye and face protection range includes safety glasses, goggles, and visors with arc flash protection, designed according to EN standards. They offer maximum clarity and comfort with anti-fog and anti-scratch coatings, UV filters, and options for IR protection."
         },
         "clothing": {
           "badge": "Protective Clothing",
           "title": "Protective Clothing",
-          "description": "High‑visibility garments and multi‑risk workwear for industrial environments",
-          "detailedDescription": "Our protective clothing range includes high‑visibility garments and multi‑risk jackets certified to EN standards, providing visibility, heat and arc protection, antistatic performance and selected chemical protection. Designed for durability and comfort across construction, utilities, manufacturing and logistics.",
+          "description": "High‑visibility garments, safety clothing and workwear",
+          "detailedDescription": "The clothing range includes high-visibility garments as well as protective and workwear certified according to EN standards, ensuring visibility, protection, and comfort",
           "categoriesDescription": "Choose from our specialised clothing ranges designed for visibility, multi‑risk protection and welding applications.",
           "subcategories": {
             "highVisibility": {
               "title": "High‑visibility clothing",
-              "description": "EN ISO 20471 garments for professional visibility and safety"
+              "description": "EN ISO 20471 garments for high-visibility and safety"
             },
             "safetyWorkwear": {
               "title": "Safety clothing and Workwear",
-              "description": "Durable workwear and multi‑risk garments for industrial use"
+              "description": "Industrial workwear and safety clothing"
             },
             "welding": {
               "title": "Welding clothing",
@@ -518,13 +523,13 @@
           "badge": "Heat Protection",
           "title": "Heat-Resistant Products",
           "description": "Browse our complete range of heat-resistant gloves designed for extreme temperature protection.",
-          "detailedDescription": "Our heat-resistant gloves provide exceptional thermal protection for workers in high-temperature environments. Engineered with advanced materials and tested to withstand temperatures up to 350°C, these gloves offer superior protection without compromising dexterity. Perfect for glass manufacturing, metalworking, welding, and other high-heat industrial applications."
+          "detailedDescription": "Our heat-resistant gloves provide exceptional thermal protection for workers in high-temperature environments. Engineered with advanced materials and tested to withstand temperatures up to 1000°C, these gloves offer superior protection without compromising dexterity. Perfect for glass manufacturing, metalworking, welding, and other high-heat industrial applications."
         },
         "cut": {
           "badge": "Cut Protection",
           "title": "Cut-Resistant Products", 
           "description": "Browse our complete range of cut-resistant gloves designed for maximum protection against sharp objects.",
-          "detailedDescription": "Our cut-resistant gloves provide superior protection against cuts and lacerations whilst maintaining exceptional dexterity and comfort. Engineered with advanced materials and tested to achieve Level 5 cut resistance, these gloves are essential for workers handling sharp materials, glass, metal fabrication, and precision assembly operations."
+          "detailedDescription": "Our cut-resistant gloves provide superior protection against cuts and lacerations whilst maintaining exceptional dexterity and comfort. Engineered with advanced materials and tested to achieve very high cut resistance, these gloves are essential for workers handling sharp materials, glass, metal fabrication, and precision assembly operations."
         },
         "general": {
           "badge": "General Purpose",
@@ -546,13 +551,13 @@
         },
       "clothing": {
         "highVisibility": {
-          "detailedDescription": "Our high‑visibility clothing is certified to EN ISO 20471 and engineered for dependable visibility in low‑light and high‑risk environments. Garments are available in Classes 1–3, combining high‑contrast base fabrics with premium retro‑reflective tape patterns that maximise detection at distance and motion. Breathable, durable textiles and ergonomic cuts ensure day‑long comfort for road maintenance, utilities, logistics and construction teams, with optional winter insulation and waterproof shells to suit seasonal conditions."
+          "detailedDescription": "High-visibility clothing certified to EN ISO 20471, designed to provide reliable visibility in low-light conditions and high-risk areas across different classes, suitable for even the highest-risk situations. Breathable, durable fabrics and ergonomic cuts ensure all-day comfort in road maintenance, construction, logistics, and public services, with winter and waterproof options available."
         },
         "safetyWorkwear": {
-          "detailedDescription": "Our safety workwear range delivers multi‑risk protection for industrial operations where durability and compliance are non‑negotiable. Selected models offer flame and heat performance to EN ISO 11612, antistatic properties to EN 1149‑5 and optional electric‑arc protection to IEC 61482‑2, paired with robust fabrics, reinforced seams and functional pocket systems. Modern, ergonomic fits support freedom of movement and long service life, helping teams maintain productivity across maintenance, manufacturing and field service tasks."
+          "detailedDescription": "Work and safety clothing that provides multi-risk protection for operations in industrial environments where durability and compliance are non-negotiable. Modern, ergonomic fits support freedom of movement and long-lasting performance, helping operators maintain productivity in maintenance, production, and field activities"
         },
         "welding": {
-          "detailedDescription": "Our welding clothing is built for demanding fabrication environments, protecting the torso and limbs from sparks, spatter and convective heat. Jackets, aprons and sleeves feature flame‑retardant fabrics and reinforced stitching, with designs aligned to EN ISO 11611 and EN ISO 11612 performance requirements. Carefully balanced breathability and coverage allow operators to work safely and efficiently during heavy‑duty welding and grinding while maintaining comfort throughout long shifts."
+          "detailedDescription": "Welding clothing designed for demanding manufacturing environments, providing protection against sparks, spatter, and convective heat. Jackets, aprons, and sleeves use flame-resistant fabrics and reinforced stitching, with designs compliant with EN ISO 11611 and EN ISO 11612 performance requirements. The balance between breathability and coverage allows operators to work safely while maintaining comfort throughout the entire shift."
         }
       },
         "respiratory": {
@@ -561,7 +566,7 @@
           "description": "Browse our complete range of respiratory protection equipment for hazardous environments."
         },
         "industrialSwabs": {
-          "badge": "Precision Cleaning",
+          "badge": "Precision Operations",
           "title": "Industrial Swab Products",
           "description": "Browse our complete range of industrial swabs designed for precision cleaning tasks.",
           "detailedDescription": "Explore our range of specialised cleaning solutions designed for industrial applications."
@@ -585,12 +590,14 @@
       "category": "Category",
       "subCategory": "Sub-Category",
         "any": "Any",
+        "enStandard": "EN Standard",
         "sleeveLength": "Sleeve length",
         "thumbLoop": "Thumb loop",
         "closureType": "Closure type",
         "connection": "Connection",
-        "filterType": "Filter type",
-        "protectionClass": "Protection class",
+        "filterType": "Filter type (Filters)",
+        "protectionClass": "Protection class (Masks)",
+        "filteredParticles": "Filtered particles (Filters)",
         "snr": "SNR",
         "en352Part": "EN 352 part",
         "reusable": "Reusable",
@@ -653,16 +660,22 @@
       "flameStandard": "Flame/heat standard (EN ISO 11612)",
       "arcClass": "Arc protection class",
       "antistatic": "Antistatic (EN 1149-5)",
-      "clothingType": {
-        "title": "Clothing Type",
-        "options": {
-          "welding": "Welding clothing",
-          "highVisibility": "High‑visibility clothing",
-          "safetyWorkwear": "Safety clothing and Workwear"
-        }
-      },
+      "clothingType": "Clothing Type",
+      "size": "Size",
       "clothingCategory": {
         "title": "Clothing Category"
+      },
+      "garmentTypes": {
+        "Aprons": "Aprons",
+        "Jackets": "Jackets",
+        "Coveralls": "Coveralls",
+        "Trousers": "Trousers",
+        "Waistcoats": "Waistcoats",
+        "Body warmers": "Body warmers",
+        "Fleece & Sweatshirts": "Fleece & Sweatshirts",
+        "Polo & T-shirts": "Polo & T-shirts",
+        "Other workwear": "Other workwear",
+        "Accessories": "Accessories"
       }
     },
     "results": {
@@ -725,6 +738,8 @@
       "lensMark": "Lens mark",
       "frame": "Frame",
       "lens": "Lens",
+      "arm": "Arm",
+      "headband": "Headband",
       "additionalMarking": "Additional marking",
       "lowTemperature": "Low temperature",
       "highTemperature": "High temperature",
@@ -969,7 +984,7 @@
       },
       "2002": {
         "title": "Portfolio Expansion",
-        "description": "We enlarge our product portfolio dedicated to the glass and metallurgy industries with many gloves certified over 350°C. Our geographical expansion starts across 6 markets in Europe and Middle East, driven by our existing Italian customers."
+        "description": "We enlarge our product portfolio dedicated to the glass and metallurgy industries with many gloves certified over 1000°C. Our geographical expansion starts across 6 markets in Europe and Middle East, driven by our existing Italian customers."
       },
       "2003": {
         "title": "Company Incorporation",

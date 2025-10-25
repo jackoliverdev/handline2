@@ -270,6 +270,130 @@ export const ArmSafetyStandardsEditor: React.FC<ArmSafetyStandardsEditorProps> =
               )}
             </div>
 
+            {/* EN 407 */}
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <Checkbox 
+                  checked={safety?.en_407?.enabled || false} 
+                  onCheckedChange={(checked) => setSafety({ 
+                    ...safety, 
+                    en_407: { 
+                      ...safety?.en_407, 
+                      enabled: !!checked 
+                    } 
+                  })} 
+                />
+                <Label className="text-sm font-medium">EN 407 - Thermal Risks</Label>
+              </div>
+              
+              {safety?.en_407?.enabled && (
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 ml-6">
+                  <div>
+                    <Label className="text-xs text-gray-600">Flammability (Limited Flame Spread)</Label>
+                    <Input 
+                      type="number" 
+                      min="0" 
+                      max="4" 
+                      value={safety?.en_407?.limited_flame_spread ?? ''} 
+                      onChange={(e) => setSafety({ 
+                        ...safety, 
+                        en_407: { 
+                          ...safety?.en_407, 
+                          limited_flame_spread: e.target.value === '' ? null : parseInt(e.target.value) 
+                        } 
+                      })}
+                      className={`text-center ${getPerformanceColor(safety?.en_407?.limited_flame_spread)}`}
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-xs text-gray-600">Contact Heat</Label>
+                    <Input 
+                      type="number" 
+                      min="0" 
+                      max="4" 
+                      value={safety?.en_407?.contact_heat ?? ''} 
+                      onChange={(e) => setSafety({ 
+                        ...safety, 
+                        en_407: { 
+                          ...safety?.en_407, 
+                          contact_heat: e.target.value === '' ? null : parseInt(e.target.value) 
+                        } 
+                      })}
+                      className={`text-center ${getPerformanceColor(safety?.en_407?.contact_heat)}`}
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-xs text-gray-600">Convective Heat</Label>
+                    <Input 
+                      type="number" 
+                      min="0" 
+                      max="4" 
+                      value={safety?.en_407?.convective_heat ?? ''} 
+                      onChange={(e) => setSafety({ 
+                        ...safety, 
+                        en_407: { 
+                          ...safety?.en_407, 
+                          convective_heat: e.target.value === '' ? null : parseInt(e.target.value) 
+                        } 
+                      })}
+                      className={`text-center ${getPerformanceColor(safety?.en_407?.convective_heat)}`}
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-xs text-gray-600">Radiant Heat</Label>
+                    <Input 
+                      type="number" 
+                      min="0" 
+                      max="4" 
+                      value={safety?.en_407?.radiant_heat ?? ''} 
+                      onChange={(e) => setSafety({ 
+                        ...safety, 
+                        en_407: { 
+                          ...safety?.en_407, 
+                          radiant_heat: e.target.value === '' ? null : parseInt(e.target.value) 
+                        } 
+                      })}
+                      className={`text-center ${getPerformanceColor(safety?.en_407?.radiant_heat)}`}
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-xs text-gray-600">Small Splashes (Molten Metal)</Label>
+                    <Input 
+                      type="number" 
+                      min="0" 
+                      max="4" 
+                      value={safety?.en_407?.small_splashes_molten_metal ?? ''} 
+                      onChange={(e) => setSafety({ 
+                        ...safety, 
+                        en_407: { 
+                          ...safety?.en_407, 
+                          small_splashes_molten_metal: e.target.value === '' ? null : parseInt(e.target.value) 
+                        } 
+                      })}
+                      className={`text-center ${getPerformanceColor(safety?.en_407?.small_splashes_molten_metal)}`}
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-xs text-gray-600">Large Splashes (Molten Metal)</Label>
+                    <Input 
+                      type="number" 
+                      min="0" 
+                      max="4" 
+                      value={safety?.en_407?.large_quantities_molten_metal ?? ''} 
+                      onChange={(e) => setSafety({ 
+                        ...safety, 
+                        en_407: { 
+                          ...safety?.en_407, 
+                          large_quantities_molten_metal: e.target.value === '' ? null : parseInt(e.target.value) 
+                        } 
+                      })}
+                      className={`text-center ${getPerformanceColor(safety?.en_407?.large_quantities_molten_metal)}`}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+
             {/* EN ISO 21420 */}
             <div>
               <div className="flex items-center gap-2 mb-4">
@@ -373,12 +497,17 @@ export const ArmSafetyStandardsEditor: React.FC<ArmSafetyStandardsEditorProps> =
                 EN 388
               </Badge>
             )}
+            {safety?.en_407?.enabled && (
+              <Badge variant="outline" className="bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-800 dark:text-red-200">
+                EN 407
+              </Badge>
+            )}
             {safety?.en_iso_21420?.enabled && (
               <Badge variant="outline" className="bg-purple-50 dark:bg-purple-900/20 border-purple-200 dark:border-purple-800 text-purple-800 dark:text-purple-200">
                 EN ISO 21420
               </Badge>
             )}
-            {(!armAttributes.thumb_loop && !armAttributes.closure && !safety?.en_388?.enabled && !safety?.en_iso_21420?.enabled) && (
+            {(!armAttributes.thumb_loop && !armAttributes.closure && !safety?.en_388?.enabled && !safety?.en_407?.enabled && !safety?.en_iso_21420?.enabled) && (
               <span className="text-sm text-gray-500 italic">No attributes will be displayed</span>
             )}
           </div>

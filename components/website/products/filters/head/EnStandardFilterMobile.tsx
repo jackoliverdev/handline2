@@ -9,14 +9,16 @@ export function EnStandardFilterMobile({ selected, onToggle }: { selected: strin
   const { t } = useLanguage();
   const options = ALL_STD;
   return (
-    <div className="space-y-2">
-      <h3 className="text-sm font-medium text-brand-dark dark:text-white">EN Standards</h3>
-      {options.map(opt => (
-        <div key={opt} className="flex items-center space-x-2">
-          <Checkbox id={`enstd-m-${opt}`} checked={selected.includes(opt)} onCheckedChange={() => onToggle(opt)} />
-          <label htmlFor={`enstd-m-${opt}`} className="text-sm text-brand-secondary dark:text-gray-300">{opt}</label>
-        </div>
-      ))}
+    <div className="pb-4">
+      <h3 className="text-base font-medium text-brand-dark dark:text-white mb-2">{t('productPage.safety')}</h3>
+      <div className="space-y-2 max-h-[240px] overflow-y-auto">
+          {options.map(opt => (
+          <div key={opt} className="flex items-center space-x-2">
+            <Checkbox id={`enstd-m-${opt}`} checked={selected.includes(opt)} onCheckedChange={() => onToggle(opt)} className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary" />
+            <label htmlFor={`enstd-m-${opt}`} className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer">{opt}</label>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

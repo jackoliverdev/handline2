@@ -49,15 +49,13 @@ export function ClothingSpecs({ product }: { product: Product }) {
             <Package className="h-5 w-5 text-brand-primary" />
             <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.materials')}</h4>
           </div>
-          <div className="text-sm text-brand-secondary dark:text-gray-300">
+          <div className="space-y-1">
             {Array.isArray(materials) && materials.length > 0 ? (
-              <div className="space-y-2">
-                {materials.map((m: string, i: number) => (
-                  <div key={i} className="text-brand-dark dark:text-white font-medium text-base leading-relaxed">{m}</div>
-                ))}
-              </div>
+              materials.map((m: string, i: number) => (
+                <div key={i} className="text-brand-dark dark:text-white font-medium">{m}</div>
+              ))
             ) : (
-              <div className="text-brand-secondary dark:text-gray-300">-</div>
+              <div className="text-brand-dark dark:text-white font-medium">-</div>
             )}
           </div>
         </div>
@@ -91,7 +89,7 @@ export function ClothingSpecs({ product }: { product: Product }) {
               <Users className="h-5 w-5 text-brand-primary" />
               <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.fit')}</h4>
             </div>
-            <div className="text-brand-dark dark:text-white font-medium">{ca?.fit || '-'}</div>
+            <div className="text-brand-dark dark:text-white font-medium capitalize">{ca?.fit || '-'}</div>
           </div>
 
           {/* EN Standards */}
@@ -100,10 +98,14 @@ export function ClothingSpecs({ product }: { product: Product }) {
               <Shield className="h-5 w-5 text-brand-primary" />
               <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.clothingStandards.enStandards')}</h4>
             </div>
-            <div className="flex flex-wrap gap-1.5">
-              {rightChips.length > 0 ? rightChips.map((c, idx) => (
-                <span key={idx} className="text-xs px-2 py-0.5 rounded border border-brand-primary/20 bg-white dark:bg-black/40 text-brand-dark dark:text-white">{c}</span>
-              )) : <span className="text-sm text-brand-secondary dark:text-gray-300">-</span>}
+            <div className="space-y-1">
+              {rightChips.length > 0 ? (
+                rightChips.map((chip, idx) => (
+                  <div key={idx} className="text-brand-dark dark:text-white font-medium">{chip}</div>
+                ))
+              ) : (
+                <div className="text-brand-dark dark:text-white font-medium">-</div>
+              )}
             </div>
           </div>
         </div>
