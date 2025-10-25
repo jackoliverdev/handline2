@@ -77,9 +77,9 @@ export function CareerGrid({ careerPosts, language }: CareerGridProps) {
   // Filter career posts based on search query, departments and locations (localised)
   const filteredPosts = careerPosts.filter((post) => {
     const title = (post.title_locales && post.title_locales[language]) || post.title;
-    const description = (post.description_locales && post.description_locales[language]) || post.description;
+    const summary = (post.summary_locales && post.summary_locales[language]) || post.summary;
     const matchesSearch = title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      description.toLowerCase().includes(searchQuery.toLowerCase());
+      summary.toLowerCase().includes(searchQuery.toLowerCase());
     
     const department = (post.department_locales && post.department_locales[language]) || post.department || '';
     const matchesDepartment = selectedDepartments.length === 0 || selectedDepartments.includes(department);

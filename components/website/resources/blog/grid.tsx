@@ -35,11 +35,14 @@ export function BlogGrid({ blogPosts, language, searchQuery: controlledSearch, o
   const [uncontrolledSearch, setUncontrolledSearch] = useState('');
   const searchQuery = controlledSearch !== undefined ? controlledSearch : uncontrolledSearch;
 
-  // Extract unique categories from blog posts (localised from canonical column)
+  // Extract unique categories from blog posts (localised)
   const categories = useMemo(() => {
-    const all = blogPosts.map((post) => (post as any).category).filter(Boolean) as string[];
+    const all = blogPosts.map((post) => {
+      const cat = (post as any).category_locales?.[language] || (post as any).category;
+      return cat;
+    }).filter(Boolean) as string[];
     return Array.from(new Set(all));
-  }, [blogPosts]);
+  }, [blogPosts, language]);
 
   // Handle tag selection
   const toggleTag = (tag: string) => {
@@ -68,7 +71,7 @@ export function BlogGrid({ blogPosts, language, searchQuery: controlledSearch, o
       const matchesSearch = searchQuery === '' || 
         title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         summary.toLowerCase().includes(searchQuery.toLowerCase());
-      const postCategory = (post as any).category || '';
+      const postCategory = (post as any).category_locales?.[language] || (post as any).category || '';
       const matchesCategory = !categoryFilter || postCategory === categoryFilter;
       return matchesSearch && matchesCategory;
     });

@@ -18,8 +18,11 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { toast } from "@/components/ui/use-toast";
 import { MiniProductCard } from "@/components/app/mini-product-card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
-import { ArrowLeft, Save, Eye, Trash, Upload, Plus, Shield, AlertCircle } from "lucide-react";
+import { ArrowLeft, Save, Eye, Trash, Upload, Plus, Shield, AlertCircle, ArrowUp, ArrowDown } from "lucide-react";
 
 interface Product { id: string; name: string; image_url?: string | null; category?: string | null; }
 
@@ -46,6 +49,7 @@ export default function EditPPECategoryPage({ params }: { params: { id: string }
   const [currentLanguage, setCurrentLanguage] = useState<'en' | 'it'>('en');
   const [availableProducts, setAvailableProducts] = useState<Product[]>([]);
   const standardIconsRef = useRef<any[] | null>(null);
+  const [introPreviewTabs, setIntroPreviewTabs] = useState<Record<number, string>>({});
 
   // Image previews
   const [previewHero, setPreviewHero] = useState<string | null>(null);
@@ -196,6 +200,34 @@ export default function EditPPECategoryPage({ params }: { params: { id: string }
       const arr = Array.isArray(m[currentLanguage]) ? [...m[currentLanguage]] : [];
       m[currentLanguage] = arr.filter((_: any, i: number) => i !== bulletIdx);
       (copy[idx] as any).bullets_locales = m;
+      return copy;
+    });
+  };
+
+  // Move section up
+  const moveSectionUp = (idx: number) => {
+    if (idx === 0) return; // Can't move first section up
+    setSections((prev) => {
+      const copy = [...prev];
+      // Swap with previous section
+      [copy[idx - 1], copy[idx]] = [copy[idx], copy[idx - 1]];
+      // Update sort_order for both sections
+      copy[idx - 1].sort_order = (idx - 1 + 1) * 10;
+      copy[idx].sort_order = (idx + 1) * 10;
+      return copy;
+    });
+  };
+
+  // Move section down
+  const moveSectionDown = (idx: number) => {
+    setSections((prev) => {
+      if (idx >= prev.length - 1) return prev; // Can't move last section down
+      const copy = [...prev];
+      // Swap with next section
+      [copy[idx], copy[idx + 1]] = [copy[idx + 1], copy[idx]];
+      // Update sort_order for both sections
+      copy[idx].sort_order = (idx + 1) * 10;
+      copy[idx + 1].sort_order = (idx + 1 + 1) * 10;
       return copy;
     });
   };
@@ -478,9 +510,33 @@ export default function EditPPECategoryPage({ params }: { params: { id: string }
                     <div className="space-y-3">
                       <div className="flex justify-between items-start">
                         <Label className="text-xs sm:text-sm font-medium">Section {idx + 1}</Label>
-                        <Button type="button" variant="destructive" size="sm" onClick={() => setSections((prev) => prev.filter((_, i) => i !== idx))} className="text-xs">
-                          <Trash className="h-3 w-3" />
-                        </Button>
+                        <div className="flex items-center gap-1">
+                          <Button 
+                            type="button" 
+                            variant="outline" 
+                            size="sm" 
+                            onClick={() => moveSectionUp(idx)} 
+                            disabled={idx === 0}
+                            className="text-xs h-7 w-7 p-0"
+                            title="Move up"
+                          >
+                            <ArrowUp className="h-3 w-3" />
+                          </Button>
+                          <Button 
+                            type="button" 
+                            variant="outline" 
+                            size="sm" 
+                            onClick={() => moveSectionDown(idx)} 
+                            disabled={idx === sections.length - 1}
+                            className="text-xs h-7 w-7 p-0"
+                            title="Move down"
+                          >
+                            <ArrowDown className="h-3 w-3" />
+                          </Button>
+                          <Button type="button" variant="destructive" size="sm" onClick={() => setSections((prev) => prev.filter((_, i) => i !== idx))} className="text-xs h-7 w-7 p-0">
+                            <Trash className="h-3 w-3" />
+                          </Button>
+                        </div>
                       </div>
                       {/* Icon selector */}
                       <div className="space-y-2">
@@ -572,8 +628,49 @@ export default function EditPPECategoryPage({ params }: { params: { id: string }
                         </div>
                       </div>
                       <div>
-                        <Label className="text-xs">Intro</Label>
-                        <Textarea value={introLocales[currentLanguage] || ''} onChange={(e) => setSectionLocale(idx, 'intro_locales', e.target.value)} className="min-h-[60px] text-xs" />
+                        <Label className="text-xs">Intro (Markdown)</Label>
+                        <Tabs
+                          value={introPreviewTabs[idx] || "edit"}
+                          onValueChange={(v) => setIntroPreviewTabs(prev => ({ ...prev, [idx]: v }))}
+                          className="w-full"
+                        >
+                          <TabsList className="flex overflow-x-auto whitespace-nowrap flex-nowrap scrollbar-hide px-1">
+                            <TabsTrigger value="edit" className="text-xs">Edit</TabsTrigger>
+                            <TabsTrigger value="preview" className="text-xs">Preview</TabsTrigger>
+                          </TabsList>
+                          <TabsContent value="edit" className="p-0 border-0">
+                            <Textarea 
+                              value={introLocales[currentLanguage] || ''} 
+                              onChange={(e) => setSectionLocale(idx, 'intro_locales', e.target.value)} 
+                              className="min-h-[100px] text-xs font-mono"
+                              placeholder="Write the intro in Markdown format..."
+                            />
+                          </TabsContent>
+                          <TabsContent value="preview" className="p-4 border rounded-md min-h-[100px] markdown-preview text-xs prose prose-sm max-w-none">
+                            {introLocales[currentLanguage] ? (
+                              <ReactMarkdown 
+                                remarkPlugins={[remarkGfm]}
+                                components={{
+                                  a: ({ node, ...props }) => <a className="text-blue-600 hover:text-blue-800 underline" target="_blank" rel="noopener noreferrer" {...props} />,
+                                  img: ({ node, ...props }) => <img className="max-w-full h-auto rounded-md" alt={props.alt || ''} {...props} />,
+                                  h1: ({ node, ...props }) => <h1 className="text-lg font-bold mb-2 mt-3" {...props} />,
+                                  h2: ({ node, ...props }) => <h2 className="text-base font-bold mb-2 mt-3" {...props} />,
+                                  h3: ({ node, ...props }) => <h3 className="text-sm font-bold mb-1 mt-2" {...props} />,
+                                  p: ({ node, ...props }) => <p className="mb-2 leading-relaxed" {...props} />,
+                                  ul: ({ node, ...props }) => <ul className="list-disc pl-4 mb-2 space-y-0.5" {...props} />,
+                                  ol: ({ node, ...props }) => <ol className="list-decimal pl-4 mb-2 space-y-0.5" {...props} />,
+                                  blockquote: ({ node, ...props }) => <blockquote className="border-l-2 border-gray-300 pl-2 italic text-gray-600 my-2" {...props} />,
+                                  code: ({ node, ...props }) => 
+                                    <code className="bg-gray-100 px-1 py-0.5 rounded text-xs font-mono" {...props} />
+                                }}
+                              >
+                                {introLocales[currentLanguage]}
+                              </ReactMarkdown>
+                            ) : (
+                              <p className="text-muted-foreground text-xs">Nothing to preview yet...</p>
+                            )}
+                          </TabsContent>
+                        </Tabs>
                       </div>
                       <div className="space-y-2">
                         <div className="flex justify-between items-center">

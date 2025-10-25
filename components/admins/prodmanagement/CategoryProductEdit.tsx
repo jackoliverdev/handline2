@@ -27,11 +27,13 @@ import { HeadSafetyStandardsEditor } from "@/components/admins/head-safety-stand
 import { FootwearSafetyStandardsEditor } from "@/components/admins/footwear-safety-standards-editor";
 import { ArmSafetyStandardsEditor } from "@/components/admins/arm-safety-standards-editor";
 import { HearingSafetyStandardsEditor } from "@/components/admins/hearing-safety-standards-editor";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 interface Props { id: string; slug: string; }
 
 export default function CategoryProductEdit({ id, slug }: Props) {
   const router = useRouter();
+  const supabase = createClientComponentClient();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -73,7 +75,16 @@ export default function CategoryProductEdit({ id, slug }: Props) {
   const [technicalSheetUrlIt, setTechnicalSheetUrlIt] = useState<string | null>(null);
   const [declarationSheetUrl, setDeclarationSheetUrl] = useState<string | null>(null);
   const [declarationSheetUrlIt, setDeclarationSheetUrlIt] = useState<string | null>(null);
+  const [manufacturersInstructionUrl, setManufacturersInstructionUrl] = useState<string | null>(null);
+  const [manufacturersInstructionUrlIt, setManufacturersInstructionUrlIt] = useState<string | null>(null);
   const coverInputRef = useRef<HTMLInputElement>(null);
+
+  // Related products
+  const [relatedProductId1, setRelatedProductId1] = useState<string | null>(null);
+  const [relatedProductId2, setRelatedProductId2] = useState<string | null>(null);
+  const [relatedProductId3, setRelatedProductId3] = useState<string | null>(null);
+  const [relatedProductId4, setRelatedProductId4] = useState<string | null>(null);
+  const [availableProducts, setAvailableProducts] = useState<any[]>([]);
 
   // Category-specific states (mirror public schema)
   const [eyeFaceAttributes, setEyeFaceAttributes] = useState<any>({ has_ir: false, has_uv: false, has_arc: false, uv_code: '', lens_tint: '', coatings: [] });
@@ -166,6 +177,12 @@ export default function CategoryProductEdit({ id, slug }: Props) {
         setTechnicalSheetUrlIt(product.technical_sheet_url_it || null);
         setDeclarationSheetUrl(product.declaration_sheet_url || null);
         setDeclarationSheetUrlIt(product.declaration_sheet_url_it || null);
+        setManufacturersInstructionUrl((product as any).manufacturers_instruction_url || null);
+        setManufacturersInstructionUrlIt((product as any).manufacturers_instruction_url_it || null);
+        setRelatedProductId1((product as any).related_product_id_1 || null);
+        setRelatedProductId2((product as any).related_product_id_2 || null);
+        setRelatedProductId3((product as any).related_product_id_3 || null);
+        setRelatedProductId4((product as any).related_product_id_4 || null);
 
         // Category-specific blocks
         setEyeFaceAttributes((product as any).eye_face_attributes || { has_ir: false, has_uv: false, has_arc: false, uv_code: '', lens_tint: '', coatings: [] });
@@ -249,6 +266,65 @@ export default function CategoryProductEdit({ id, slug }: Props) {
     loadBrands();
   }, []);
 
+  // Load available products for related products
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('products')
+          .select('id, name, image_url, category, sub_category')
+          .eq('published', true)
+          .order('name');
+        if (error) throw error;
+        setAvailableProducts(data || []);
+      } catch (error) {
+        console.error('Failed to load products:', error);
+      }
+    };
+    loadProducts();
+  }, [supabase]);
+
+  async function uploadPdfToBucket(file: File, prefix: string) {
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${prefix}_${Date.now()}.${fileExt}`;
+      const { error } = await supabase.storage
+        .from('technical-sheets')
+        .upload(fileName, file, { cacheControl: '3600', upsert: true });
+      if (error) throw error;
+      const { data } = supabase.storage.from('technical-sheets').getPublicUrl(fileName);
+      return data.publicUrl as string;
+    } catch (e) {
+      console.error(e);
+      toast({ title: 'Upload Error', description: 'Failed to upload document', variant: 'destructive' });
+      return null;
+    }
+  }
+
+  // Related products helpers
+  const getRelatedProductIds = () => {
+    return [relatedProductId1, relatedProductId2, relatedProductId3, relatedProductId4].filter(Boolean) as string[];
+  };
+
+  const addRelatedProduct = (productId: string) => {
+    if (!relatedProductId1) {
+      setRelatedProductId1(productId);
+    } else if (!relatedProductId2) {
+      setRelatedProductId2(productId);
+    } else if (!relatedProductId3) {
+      setRelatedProductId3(productId);
+    } else if (!relatedProductId4) {
+      setRelatedProductId4(productId);
+    }
+  };
+
+  const removeRelatedProduct = (productId: string) => {
+    if (relatedProductId1 === productId) setRelatedProductId1(null);
+    else if (relatedProductId2 === productId) setRelatedProductId2(null);
+    else if (relatedProductId3 === productId) setRelatedProductId3(null);
+    else if (relatedProductId4 === productId) setRelatedProductId4(null);
+  };
+
   const handleSave = async () => {
     try {
       setSaving(true);
@@ -288,6 +364,12 @@ export default function CategoryProductEdit({ id, slug }: Props) {
         technical_sheet_url_it: technicalSheetUrlIt,
         declaration_sheet_url: declarationSheetUrl,
         declaration_sheet_url_it: declarationSheetUrlIt,
+        manufacturers_instruction_url: manufacturersInstructionUrl,
+        manufacturers_instruction_url_it: manufacturersInstructionUrlIt,
+        related_product_id_1: relatedProductId1,
+        related_product_id_2: relatedProductId2,
+        related_product_id_3: relatedProductId3,
+        related_product_id_4: relatedProductId4,
         updated_at: new Date().toISOString(),
         // Category-specific payloads
         safety: slug === 'gloves' ? safety : (undefined as any),
@@ -389,6 +471,7 @@ export default function CategoryProductEdit({ id, slug }: Props) {
           <TabsTrigger value="images">Images</TabsTrigger>
           <TabsTrigger value="documents">Documents</TabsTrigger>
           <TabsTrigger value="safety">Safety & Specs</TabsTrigger>
+          <TabsTrigger value="related">Related Products</TabsTrigger>
         </TabsList>
 
         <TabsContent value="information" className="space-y-4 mt-4">
@@ -595,33 +678,106 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                 <div>
                   <Label>Technical Sheet (EN)</Label>
                   {technicalSheetUrl ? (
-                        <div className="flex items-center justify-between mt-2 border rounded p-2">
-                          <a href={technicalSheetUrl} className="text-blue-600 hover:underline" target="_blank" rel="noreferrer">Download</a>
+                        <div className="flex items-center justify-between mt-2 border rounded p-3 bg-white dark:bg-gray-900">
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                              {decodeURIComponent(technicalSheetUrl.split('/').pop() || 'Technical Sheet')}
+                            </p>
+                            <a href={technicalSheetUrl} className="text-xs text-blue-600 hover:underline" target="_blank" rel="noreferrer">Download</a>
+                          </div>
                           <Button variant="destructive" size="sm" onClick={()=> setTechnicalSheetUrl(null)}>
                             <X className="h-4 w-4" />
                           </Button>
                         </div>
                       ) : (
-                        <Button variant="outline" className="mt-2" asChild>
-                          <a href="#" onClick={(e)=> e.preventDefault()}>Upload via product detail editor</a>
-                        </Button>
+                        <p className="mt-2 text-sm text-muted-foreground">No technical sheet uploaded</p>
                   )}
                 </div>
                 <div>
                   <Label>Technical Sheet (IT)</Label>
                   {technicalSheetUrlIt ? (
-                        <div className="flex items-center justify-between mt-2 border rounded p-2">
-                          <a href={technicalSheetUrlIt} className="text-blue-600 hover:underline" target="_blank" rel="noreferrer">Download</a>
+                        <div className="flex items-center justify-between mt-2 border rounded p-3 bg-white dark:bg-gray-900">
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                              {decodeURIComponent(technicalSheetUrlIt.split('/').pop() || 'Technical Sheet')}
+                            </p>
+                            <a href={technicalSheetUrlIt} className="text-xs text-blue-600 hover:underline" target="_blank" rel="noreferrer">Download</a>
+                          </div>
                           <Button variant="destructive" size="sm" onClick={()=> setTechnicalSheetUrlIt(null)}>
                             <X className="h-4 w-4" />
                           </Button>
                         </div>
                       ) : (
-                        <Button variant="outline" className="mt-2" asChild>
-                          <a href="#" onClick={(e)=> e.preventDefault()}>Upload via product detail editor</a>
-                        </Button>
+                        <p className="mt-2 text-sm text-muted-foreground">No technical sheet uploaded</p>
                   )}
                 </div>
+                  </div>
+                </div>
+
+                {/* Manufacturers Instructions */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Manufacturers Instructions</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <Label>Manufacturers Instruction (EN)</Label>
+                      {manufacturersInstructionUrl ? (
+                        <div className="flex items-center justify-between mt-2 border rounded p-3 bg-white dark:bg-gray-900">
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                              {decodeURIComponent(manufacturersInstructionUrl.split('/').pop() || 'Manufacturers Instruction')}
+                            </p>
+                            <a href={manufacturersInstructionUrl} className="text-xs text-blue-600 hover:underline" target="_blank" rel="noreferrer">Download</a>
+                          </div>
+                          <Button variant="destructive" size="sm" onClick={()=> setManufacturersInstructionUrl(null)}>
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      ) : (
+                        <div className="mt-2 space-y-2">
+                          <input 
+                            type="file" 
+                            accept="application/pdf" 
+                            onChange={async (e)=>{ 
+                              const f=e.target.files?.[0]; 
+                              if (!f) return; 
+                              const url = await uploadPdfToBucket(f,'manu_en'); 
+                              if (url) setManufacturersInstructionUrl(url); 
+                            }} 
+                            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-brand-primary file:text-white hover:file:bg-brand-primary/90"
+                          />
+                        </div>
+                      )}
+                    </div>
+                    <div>
+                      <Label>Manufacturers Instruction (IT)</Label>
+                      {manufacturersInstructionUrlIt ? (
+                        <div className="flex items-center justify-between mt-2 border rounded p-3 bg-white dark:bg-gray-900">
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                              {decodeURIComponent(manufacturersInstructionUrlIt.split('/').pop() || 'Manufacturers Instruction')}
+                            </p>
+                            <a href={manufacturersInstructionUrlIt} className="text-xs text-blue-600 hover:underline" target="_blank" rel="noreferrer">Download</a>
+                          </div>
+                          <Button variant="destructive" size="sm" onClick={()=> setManufacturersInstructionUrlIt(null)}>
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      ) : (
+                        <div className="mt-2 space-y-2">
+                          <input 
+                            type="file" 
+                            accept="application/pdf" 
+                            onChange={async (e)=>{ 
+                              const f=e.target.files?.[0]; 
+                              if (!f) return; 
+                              const url = await uploadPdfToBucket(f,'manu_it'); 
+                              if (url) setManufacturersInstructionUrlIt(url); 
+                            }} 
+                            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-brand-primary file:text-white hover:file:bg-brand-primary/90"
+                          />
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
 
@@ -636,41 +792,13 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                     </Button>
                   </div>
                   <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-                      For comprehensive declaration management with multiple languages and UKCA support, use the dedicated Declarations Management page.
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      For comprehensive declaration management with multiple languages and UKCA support, use the dedicated{' '}
+                      <Link href="/admin/declarations" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                        Declarations Management page
+                      </Link>
+                      .
                     </p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Label>Declaration (EN)</Label>
-                  {declarationSheetUrl ? (
-                          <div className="flex items-center justify-between mt-2 border rounded p-2">
-                            <a href={declarationSheetUrl} className="text-blue-600 hover:underline" target="_blank" rel="noreferrer">Download</a>
-                            <Button variant="destructive" size="sm" onClick={()=> setDeclarationSheetUrl(null)}>
-                              <X className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        ) : (
-                          <Button variant="outline" className="mt-2" asChild>
-                            <a href="#" onClick={(e)=> e.preventDefault()}>Upload via declarations tool</a>
-                          </Button>
-                  )}
-                </div>
-                <div>
-                  <Label>Declaration (IT)</Label>
-                  {declarationSheetUrlIt ? (
-                          <div className="flex items-center justify-between mt-2 border rounded p-2">
-                            <a href={declarationSheetUrlIt} className="text-blue-600 hover:underline" target="_blank" rel="noreferrer">Download</a>
-                            <Button variant="destructive" size="sm" onClick={()=> setDeclarationSheetUrlIt(null)}>
-                              <X className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        ) : (
-                          <Button variant="outline" className="mt-2" asChild>
-                            <a href="#" onClick={(e)=> e.preventDefault()}>Upload via declarations tool</a>
-                          </Button>
-                        )}
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -944,6 +1072,84 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                   </div>
                 )}
                 
+              </div>
+            </CardContent>
+            <CardFooter><Button onClick={handleSave} disabled={saving}>{saving ? 'Saving…' : 'Save Changes'}</Button></CardFooter>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="related" className="mt-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Related Products</CardTitle>
+              <CardDescription>Link this product to other related products (up to 4)</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-6">
+                {/* Currently Selected */}
+                <div className="space-y-4">
+                  <Label className="text-sm font-medium">Currently Selected Related Products</Label>
+                  <div className="grid gap-2">
+                    {getRelatedProductIds().length > 0 ? (
+                      getRelatedProductIds().map(productId => {
+                        const product = availableProducts.find(p => p.id === productId);
+                        return product ? (
+                          <div key={productId} className="flex items-center justify-between border rounded p-3 bg-white dark:bg-gray-900">
+                            <div className="flex items-center gap-3">
+                              {product.image_url && (
+                                <div className="w-12 h-12 rounded border bg-gray-100 dark:bg-gray-800 overflow-hidden">
+                                  <img src={product.image_url} alt={product.name} className="w-full h-full object-contain" />
+                                </div>
+                              )}
+                              <div>
+                                <p className="font-medium text-sm">{product.name}</p>
+                                <p className="text-xs text-muted-foreground">{product.sub_category || product.category}</p>
+                              </div>
+                            </div>
+                            <Button
+                              variant="destructive"
+                              size="sm"
+                              onClick={() => removeRelatedProduct(productId)}
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        ) : null;
+                      })
+                    ) : (
+                      <p className="text-sm text-muted-foreground">
+                        No related products selected. Add some below.
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Add Related Product */}
+                {getRelatedProductIds().length < 4 && (
+                  <div className="space-y-2">
+                    <Label htmlFor="product-select-edit">Add a related product:</Label>
+                    <Select
+                      onValueChange={(value) => {
+                        if (value) {
+                          addRelatedProduct(value);
+                        }
+                      }}
+                    >
+                      <SelectTrigger id="product-select-edit">
+                        <SelectValue placeholder="Select a product to add..." />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {availableProducts
+                          .filter(product => product.id !== id && !getRelatedProductIds().includes(product.id))
+                          .map((product) => (
+                            <SelectItem key={product.id} value={product.id}>
+                              {product.name}
+                            </SelectItem>
+                          ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
               </div>
             </CardContent>
             <CardFooter><Button onClick={handleSave} disabled={saving}>{saving ? 'Saving…' : 'Save Changes'}</Button></CardFooter>

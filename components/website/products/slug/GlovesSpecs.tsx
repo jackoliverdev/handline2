@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Shield, Ruler, Layers, Move, Snowflake } from "lucide-react";
+import { Hammer, Ruler, Layers, Move, Snowflake, Flame, Shield } from "lucide-react";
 import { useLanguage } from "@/lib/context/language-context";
 import { Product } from "@/lib/products-service";
 
@@ -85,13 +85,13 @@ export function GlovesSpecs({ product }: { product: Product }) {
                 <>
                   {product.safety.en_388?.enabled && (
                     <span className="flex items-center gap-1 text-xs px-2 py-0.5 rounded border border-brand-primary/20 bg-white dark:bg-black/40 text-brand-dark dark:text-white">
-                      <Image src="/images/standards/EN388.png" alt="EN388" width={16} height={16} className="object-contain" />
+                      <Hammer className="h-4 w-4 text-brand-primary" />
                       EN388
                     </span>
                   )}
                   {product.safety.en_407?.enabled && (
                     <span className="flex items-center gap-1 text-xs px-2 py-0.5 rounded border border-brand-primary/20 bg-white dark:bg-black/40 text-brand-dark dark:text-white">
-                      <Image src="/images/standards/EN407.png" alt="EN407" width={16} height={16} className="object-contain" />
+                      <Flame className="h-4 w-4 text-orange-500" />
                       EN407
                     </span>
                   )}

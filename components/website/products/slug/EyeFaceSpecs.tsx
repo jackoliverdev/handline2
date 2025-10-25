@@ -20,12 +20,11 @@ export function EyeFaceSpecs({ product }: { product: Product }) {
   const armMaterial = attrs?.arm_material;
   const headbandMaterial = attrs?.headband_material;
 
-  const stdChips: string[] = [];
-  if (std?.en166) stdChips.push('EN 166');
-  if (std?.en169) stdChips.push('EN 169');
-  if (std?.en170) stdChips.push('EN 170');
-  if (std?.en172) stdChips.push('EN 172');
-  if (std?.gs_et_29) stdChips.push('GS-ET 29');
+  const stdChips: Array<{ label: string; icon: any; color: string }> = [];
+  if (std?.en166) stdChips.push({ label: 'EN 166', icon: Eye, color: 'text-brand-primary' });
+  if (std?.en169) stdChips.push({ label: 'EN 169', icon: Flame, color: 'text-orange-500' });
+  if (std?.en170) stdChips.push({ label: 'EN 170', icon: Shield, color: 'text-yellow-500' });
+  if (std?.en172) stdChips.push({ label: 'EN 172', icon: Sun, color: 'text-blue-500' });
 
   const protChips: string[] = [];
   if (attrs?.has_ir) protChips.push('IR');
@@ -103,9 +102,15 @@ export function EyeFaceSpecs({ product }: { product: Product }) {
             <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.standards')}</h4>
           </div>
           <div className="flex flex-wrap gap-1.5">
-            {stdChips.length > 0 ? stdChips.map((c, idx) => (
-              <span key={idx} className="bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 rounded px-2 py-0.5 text-xs">{c}</span>
-            )) : <span>-</span>}
+            {stdChips.length > 0 ? stdChips.map((c, idx) => {
+              const Icon = c.icon;
+              return (
+                <span key={idx} className="flex items-center gap-1 bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 rounded px-2 py-0.5 text-xs">
+                  <Icon className={`h-4 w-4 ${c.color}`} />
+                  {c.label}
+                </span>
+              );
+            }) : <span>-</span>}
           </div>
         </div>
         {/* Attributes */}

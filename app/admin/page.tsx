@@ -380,7 +380,7 @@ export default function AdminDashboardPage() {
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-medium">Featured Products</h3>
               <Button size="sm" variant="outline" asChild>
-                <Link href="/admin/product">Manage All Products</Link>
+                <Link href="/admin/prod-management">Manage All Products</Link>
               </Button>
             </div>
             

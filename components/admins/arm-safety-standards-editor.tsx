@@ -5,10 +5,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Shield, Layers, Ruler, Move, Plus, X, FileText } from "lucide-react";
+import { Shield, Layers, Ruler, Move, Plus, X, FileText, Snowflake, Droplet, FileCheck } from "lucide-react";
 import { useLanguage } from "@/lib/context/language-context";
 
 interface ArmSafetyStandardsEditorProps {
@@ -420,6 +421,246 @@ export const ArmSafetyStandardsEditor: React.FC<ArmSafetyStandardsEditorProps> =
                   </div>
                 </div>
               )}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* EN 511 - Cold Protection */}
+      <Card>
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Snowflake className="h-5 w-5 text-brand-primary" />
+              <CardTitle className="text-lg">EN 511 - Cold Protection</CardTitle>
+            </div>
+            <div className="flex items-center gap-2">
+              <Checkbox 
+                checked={!!safety.en_511?.enabled} 
+                onCheckedChange={(v) => setSafety({ 
+                  ...safety, 
+                  en_511: { ...(safety.en_511 || {}), enabled: !!v } 
+                })} 
+              />
+              <Label>Enabled</Label>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-3 gap-4">
+            <div>
+              <Label className="text-sm">Convective Cold</Label>
+              <Input 
+                type="number" 
+                value={safety.en_511?.convective_cold ?? ''} 
+                onChange={(e) => setSafety({ 
+                  ...safety, 
+                  en_511: { ...(safety.en_511 || {}), convective_cold: e.target.value === '' ? null : Number(e.target.value) } 
+                })} 
+                min="0" 
+                max="4"
+                className={`text-center font-semibold ${getPerformanceColor(safety.en_511?.convective_cold)}`}
+              />
+            </div>
+            <div>
+              <Label className="text-sm">Contact Cold</Label>
+              <Input 
+                type="number" 
+                value={safety.en_511?.contact_cold ?? ''} 
+                onChange={(e) => setSafety({ 
+                  ...safety, 
+                  en_511: { ...(safety.en_511 || {}), contact_cold: e.target.value === '' ? null : Number(e.target.value) } 
+                })} 
+                min="0" 
+                max="4"
+                className={`text-center font-semibold ${getPerformanceColor(safety.en_511?.contact_cold)}`}
+              />
+            </div>
+            <div>
+              <Label className="text-sm">Water Permeability</Label>
+              <Input 
+                type="number" 
+                value={safety.en_511?.water_permeability ?? ''} 
+                onChange={(e) => setSafety({ 
+                  ...safety, 
+                  en_511: { ...(safety.en_511 || {}), water_permeability: e.target.value === '' ? null : Number(e.target.value) } 
+                })} 
+                min="0" 
+                max="1"
+                className={`text-center font-semibold ${getPerformanceColor(safety.en_511?.water_permeability)}`}
+              />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* EN 374-1 - Chemical Protection */}
+      <Card>
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Droplet className="h-5 w-5 text-brand-primary" />
+              <CardTitle className="text-lg">EN 374-1 - Chemical Protection</CardTitle>
+            </div>
+            <div className="flex items-center gap-2">
+              <Checkbox 
+                checked={!!safety.en_374_1?.enabled} 
+                onCheckedChange={(v) => setSafety({ 
+                  ...safety, 
+                  en_374_1: { ...(safety.en_374_1 || {}), enabled: !!v } 
+                })} 
+              />
+              <Label>Enabled</Label>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label className="text-sm">Type</Label>
+              <Input 
+                value={safety.en_374_1?.type ?? ''} 
+                onChange={(e) => setSafety({ 
+                  ...safety, 
+                  en_374_1: { ...(safety.en_374_1 || {}), type: e.target.value || null } 
+                })} 
+                placeholder="e.g. A, B, C"
+              />
+            </div>
+            <div>
+              <Label className="text-sm">Chemicals Tested</Label>
+              <Input 
+                value={safety.en_374_1?.chemicals_tested ?? ''} 
+                onChange={(e) => setSafety({ 
+                  ...safety, 
+                  en_374_1: { ...(safety.en_374_1 || {}), chemicals_tested: e.target.value || null } 
+                })} 
+                placeholder="e.g. AKL"
+              />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Other EN Standards */}
+      <Card>
+        <CardHeader className="pb-3">
+          <div className="flex items-center gap-2">
+            <FileCheck className="h-5 w-5 text-brand-primary" />
+            <CardTitle className="text-lg">Other Standards & Certifications</CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between py-2 border-b">
+              <div className="flex-1">
+                <Label className="text-sm font-medium">EN 421</Label>
+                <p className="text-xs text-muted-foreground mt-0.5">Ionising radiation and radioactive contamination</p>
+              </div>
+              <Switch 
+                checked={!!safety.en_421} 
+                onCheckedChange={(v) => setSafety({ ...safety, en_421: v })} 
+              />
+            </div>
+            <div className="flex items-center justify-between py-2 border-b">
+              <div className="flex-1">
+                <Label className="text-sm font-medium">EN 374-5</Label>
+                <p className="text-xs text-muted-foreground mt-0.5">Protection against micro-organisms</p>
+              </div>
+              <Switch 
+                checked={!!safety.en_374_5} 
+                onCheckedChange={(v) => setSafety({ ...safety, en_374_5: v })} 
+              />
+            </div>
+            <div className="flex items-center justify-between py-2 border-b">
+              <div className="flex-1">
+                <Label className="text-sm font-medium">EN 381-7</Label>
+                <p className="text-xs text-muted-foreground mt-0.5">Chainsaw protection</p>
+              </div>
+              <Switch 
+                checked={!!safety.en_381_7} 
+                onCheckedChange={(v) => setSafety({ ...safety, en_381_7: v })} 
+              />
+            </div>
+            <div className="flex items-center justify-between py-2 border-b">
+              <div className="flex-1">
+                <Label className="text-sm font-medium">EN 60903</Label>
+                <p className="text-xs text-muted-foreground mt-0.5">Electrical insulating gloves</p>
+              </div>
+              <Switch 
+                checked={!!safety.en_60903} 
+                onCheckedChange={(v) => setSafety({ ...safety, en_60903: v })} 
+              />
+            </div>
+            <div className="flex items-center justify-between py-2 border-b">
+              <div className="flex-1">
+                <Label className="text-sm font-medium">EN 659</Label>
+                <p className="text-xs text-muted-foreground mt-0.5">Firefighters' protective gloves</p>
+              </div>
+              <Switch 
+                checked={!!safety.en_659} 
+                onCheckedChange={(v) => setSafety({ ...safety, en_659: v })} 
+              />
+            </div>
+            <div className="flex items-center justify-between py-2 border-b">
+              <div className="flex-1">
+                <Label className="text-sm font-medium">EN 1082-1</Label>
+                <p className="text-xs text-muted-foreground mt-0.5">Metal mesh gloves</p>
+              </div>
+              <Switch 
+                checked={!!safety.en_1082_1} 
+                onCheckedChange={(v) => setSafety({ ...safety, en_1082_1: v })} 
+              />
+            </div>
+            <div className="flex items-center justify-between py-2 border-b">
+              <div className="flex-1">
+                <Label className="text-sm font-medium">EN 12477</Label>
+                <p className="text-xs text-muted-foreground mt-0.5">Protective gloves for welders</p>
+              </div>
+              <Switch 
+                checked={!!safety.en_12477} 
+                onCheckedChange={(v) => setSafety({ ...safety, en_12477: v })} 
+              />
+            </div>
+            <div className="flex items-center justify-between py-2 border-b">
+              <div className="flex-1">
+                <Label className="text-sm font-medium">EN 16350</Label>
+                <p className="text-xs text-muted-foreground mt-0.5">Electrostatic properties</p>
+              </div>
+              <Switch 
+                checked={!!safety.en_16350} 
+                onCheckedChange={(v) => setSafety({ ...safety, en_16350: v })} 
+              />
+            </div>
+            <div className="flex items-center justify-between py-2 border-b">
+              <div className="flex-1">
+                <Label className="text-sm font-medium">Food Grade</Label>
+                <p className="text-xs text-muted-foreground mt-0.5">Food contact safe</p>
+              </div>
+              <Switch 
+                checked={!!safety.food_grade} 
+                onCheckedChange={(v) => setSafety({ ...safety, food_grade: v })} 
+              />
+            </div>
+            <div className="flex items-center justify-between py-2 border-b">
+              <div className="flex-1">
+                <Label className="text-sm font-medium">Ionising Radiation</Label>
+                <p className="text-xs text-muted-foreground mt-0.5">Protection against ionising radiation</p>
+              </div>
+              <Switch 
+                checked={!!safety.ionising_radiation} 
+                onCheckedChange={(v) => setSafety({ ...safety, ionising_radiation: v })} 
+              />
+            </div>
+            <div className="flex items-center justify-between py-2">
+              <div className="flex-1">
+                <Label className="text-sm font-medium">Radioactive Contamination</Label>
+                <p className="text-xs text-muted-foreground mt-0.5">Protection against radioactive contamination</p>
+              </div>
+              <Switch 
+                checked={!!safety.radioactive_contamination} 
+                onCheckedChange={(v) => setSafety({ ...safety, radioactive_contamination: v })} 
+              />
             </div>
           </div>
         </CardContent>

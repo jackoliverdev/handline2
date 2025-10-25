@@ -5,11 +5,12 @@ import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { nord } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { motion } from 'framer-motion';
-import { ExternalLink, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ExternalLink, Quote, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import type { Components } from 'react-markdown';
 import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogClose } from '@/components/ui/dialog';
 
 interface BlogGalleryImage {
   url: string;
@@ -25,6 +26,7 @@ interface MarkdownContentProps {
 export function MarkdownContent({ content, images }: MarkdownContentProps) {
   const [current, setCurrent] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
+  const [selectedImage, setSelectedImage] = useState<{ url: string; alt?: string } | null>(null);
 
   useEffect(() => {
     if (!images || images.length === 0) return;
@@ -114,14 +116,14 @@ export function MarkdownContent({ content, images }: MarkdownContentProps) {
       </a>
     ),
     img: ({ src, alt }) => (
-      <div className="my-8">
+      <div className="my-8 cursor-pointer group" onClick={() => setSelectedImage({ url: src || '', alt })}>
         <img 
           src={src} 
           alt={alt} 
-          className="rounded-xl w-full h-auto shadow-lg border border-brand-primary/10 dark:border-brand-primary/20 hover:shadow-xl transition-shadow duration-300" 
+          className="rounded-xl w-full h-auto shadow-lg border border-brand-primary/10 dark:border-brand-primary/20 hover:shadow-xl transition-all duration-300 group-hover:scale-[1.02]" 
         />
         {alt && (
-          <p className="text-sm text-gray-500 dark:text-gray-400 text-center mt-2 italic">
+          <p className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-brand-primary text-center mt-2 italic transition-colors">
             {alt}
           </p>
         )}
@@ -192,9 +194,16 @@ export function MarkdownContent({ content, images }: MarkdownContentProps) {
               {images.map((img, idx) => (
                 <div
                   key={img.url + idx}
-                  className="gallery-card relative snap-start flex-shrink-0 w-[300px] sm:w-[360px] md:w-[420px] h-[220px] sm:h-[280px] md:h-[340px] rounded-xl overflow-hidden p-2"
+                  className="gallery-card relative snap-start flex-shrink-0 w-[300px] sm:w-[360px] md:w-[420px] h-[220px] sm:h-[280px] md:h-[340px] rounded-xl overflow-hidden p-2 cursor-pointer group"
+                  onClick={() => setSelectedImage({ url: img.url, alt: 'Blog image' })}
                 >
-                  <Image src={img.url} alt="Blog image" fill className="object-contain" sizes="(max-width: 768px) 70vw, 40vw" />
+                  <Image 
+                    src={img.url} 
+                    alt="Blog image" 
+                    fill 
+                    className="object-contain transition-transform duration-300 group-hover:scale-105" 
+                    sizes="(max-width: 768px) 70vw, 40vw" 
+                  />
                 </div>
               ))}
             </div>
@@ -225,6 +234,35 @@ export function MarkdownContent({ content, images }: MarkdownContentProps) {
           </div>
         </div>
       )}
+
+      {/* Image Lightbox Modal */}
+      <Dialog open={!!selectedImage} onOpenChange={(open) => !open && setSelectedImage(null)}>
+        <DialogContent className="max-w-[98vw] max-h-[98vh] w-auto h-auto p-0 bg-black/95 border-none">
+          <DialogClose className="absolute right-4 top-4 z-50 rounded-full bg-white/10 hover:bg-white/20 p-2 transition-colors">
+            <X className="h-6 w-6 text-white" />
+            <span className="sr-only">Close</span>
+          </DialogClose>
+          {selectedImage && (
+            <div className="relative w-full h-full flex flex-col items-center justify-center p-2">
+              <div className="relative w-full max-w-[96vw] max-h-[90vh] aspect-auto">
+                <Image
+                  src={selectedImage.url}
+                  alt={selectedImage.alt || 'Blog image'}
+                  width={1600}
+                  height={1200}
+                  className="object-contain w-full h-full"
+                  sizes="96vw"
+                />
+              </div>
+              {selectedImage.alt && (
+                <p className="mt-3 text-sm text-white/90 text-center max-w-3xl px-4">
+                  {selectedImage.alt}
+                </p>
+              )}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </motion.article>
   );
 } 

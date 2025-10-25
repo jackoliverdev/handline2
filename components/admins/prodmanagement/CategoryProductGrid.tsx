@@ -8,9 +8,10 @@ import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import Image from "next/image";
-import { Plus, ShoppingBag, Edit, Trash, Star, Thermometer, Scissors, Flame, X, Filter, ChevronDown, ChevronUp } from "lucide-react";
+import { Plus, ShoppingBag, Edit, Trash, Star, Thermometer, Scissors, Flame, X, Filter, ChevronDown, ChevronUp, Copy } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 
 // Category-specific filters (reuse from website)
@@ -70,15 +71,15 @@ export default function CategoryProductGrid({ slug }: Props) {
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [selectedClasses, setSelectedClasses] = useState<string[]>([]);
   const [selectedArmLengths, setSelectedArmLengths] = useState<string[]>([]);
-  const [selectedArmThumbLoop, setSelectedArmThumbLoop] = useState<null | boolean>(null);
+  const [selectedArmThumbLoop, setSelectedArmThumbLoop] = useState<boolean>(false);
   const [selectedArmClosures, setSelectedArmClosures] = useState<string[]>([]);
   const [selectedSnrs, setSelectedSnrs] = useState<number[]>([]);
   const [selectedParts, setSelectedParts] = useState<string[]>([]);
   const [selectedMounts, setSelectedMounts] = useState<string[]>([]);
-  const [selectedReusable, setSelectedReusable] = useState<null | boolean>(null);
-  const [selectedBluetooth, setSelectedBluetooth] = useState<null | boolean>(null);
+  const [selectedReusable, setSelectedReusable] = useState<boolean>(false);
+  const [selectedBluetooth, setSelectedBluetooth] = useState<boolean>(false);
   const [selectedFwClasses, setSelectedFwClasses] = useState<string[]>([]);
-  const [selectedFwEsd, setSelectedFwEsd] = useState<null | boolean>(null);
+  const [selectedFwEsd, setSelectedFwEsd] = useState<boolean>(false);
   const [selectedFwWidths, setSelectedFwWidths] = useState<number[]>([]);
   const [selectedFwSize, setSelectedFwSize] = useState<{ min?: number; max?: number }>({});
   const [selectedFwToes, setSelectedFwToes] = useState<string[]>([]);
@@ -200,7 +201,7 @@ export default function CategoryProductGrid({ slug }: Props) {
 
     const armLenOk = selectedArmLengths.length === 0 ? true : (!!lenLabel && selectedArmLengths.includes(lenLabel));
     const armLoop = (p as any).arm_attributes?.thumb_loop as boolean | undefined;
-    const armLoopOk = selectedArmThumbLoop === null ? true : (typeof armLoop === 'boolean' && armLoop === selectedArmThumbLoop);
+    const armLoopOk = !selectedArmThumbLoop ? true : (typeof armLoop === 'boolean' && armLoop === selectedArmThumbLoop);
     const armClosure = (p as any).arm_attributes?.closure as string | undefined;
     const armClosureOk = selectedArmClosures.length === 0 ? true : (!!armClosure && selectedArmClosures.includes(armClosure));
 
@@ -209,14 +210,14 @@ export default function CategoryProductGrid({ slug }: Props) {
     const pReusable: boolean | undefined = typeof ha?.reusable === 'boolean' ? ha.reusable : undefined; const pMount: string | undefined = ha?.mount; const pBt: boolean | undefined = typeof ha?.bluetooth === 'boolean' ? ha.bluetooth : undefined;
     const snrOk = selectedSnrs.length === 0 ? true : (typeof snr === 'number' && selectedSnrs.includes(snr));
     const partOk = selectedParts.length === 0 ? true : parts.some(pt => selectedParts.includes(pt));
-    const reuseOk = selectedReusable === null ? true : (typeof pReusable === 'boolean' && pReusable === selectedReusable);
+    const reuseOk = !selectedReusable ? true : (typeof pReusable === 'boolean' && pReusable === selectedReusable);
     const mountOk = selectedMounts.length === 0 ? true : (!!pMount && selectedMounts.includes(pMount));
-    const btOk = selectedBluetooth === null ? true : (typeof pBt === 'boolean' && pBt === selectedBluetooth);
+    const btOk = !selectedBluetooth ? true : (typeof pBt === 'boolean' && pBt === selectedBluetooth);
 
     const fp: any = p; const fattr = fp.footwear_attributes || {}; const fstd = fp.footwear_standards || {};
     const classes = [fattr.class, ...(fstd.en_iso_20345_2011 || []), ...(fstd.en_iso_20345_2022 || [])].filter(Boolean) as string[];
     const fwClassOk = selectedFwClasses.length === 0 ? true : classes.some((c: string)=> selectedFwClasses.includes(String(c)));
-    const fwEsdOk = selectedFwEsd === null ? true : (typeof fattr.esd === 'boolean' && fattr.esd === selectedFwEsd);
+    const fwEsdOk = !selectedFwEsd ? true : (typeof fattr.esd === 'boolean' && fattr.esd === selectedFwEsd);
     const fwWidthOk = selectedFwWidths.length === 0 ? true : (Array.isArray(fattr.width_fit) && fattr.width_fit.some((n: number)=> selectedFwWidths.includes(n)));
     const fwSizeOk = (selectedFwSize.min === undefined && selectedFwSize.max === undefined) ? true : ((typeof fattr.size_min === 'number' && typeof fattr.size_max === 'number') && (selectedFwSize.min !== undefined ? fattr.size_max >= selectedFwSize.min : true) && (selectedFwSize.max !== undefined ? fattr.size_min <= selectedFwSize.max : true));
     const fwToeOk = selectedFwToes.length === 0 ? true : (!!fattr.toe_cap && selectedFwToes.includes(String(fattr.toe_cap)));
@@ -319,12 +320,57 @@ export default function CategoryProductGrid({ slug }: Props) {
         <div className="flex-1 min-w-[240px]">
           <p className="text-muted-foreground">Manage your products in this category, add new ones, and control visibility.</p>
         </div>
-        <Button asChild>
-          <Link href={`/admin/prod-management/${slug}/create`}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add New Product
-          </Link>
-        </Button>
+        <div className="flex items-center gap-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                <Copy className="mr-2 h-4 w-4" />
+                Duplicate Product
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-[280px] max-h-[400px] overflow-y-auto">
+              {scoped.length === 0 ? (
+                <div className="px-2 py-6 text-center text-sm text-muted-foreground">
+                  No products available to duplicate
+                </div>
+              ) : (
+                scoped.slice(0, 10).map((product) => (
+                  <DropdownMenuItem key={product.id} asChild>
+                    <Link 
+                      href={`/admin/prod-management/${slug}/create?duplicate=${product.id}`}
+                      className="flex items-start gap-2 cursor-pointer"
+                    >
+                      <div className="flex-shrink-0 w-10 h-10 rounded bg-gray-100 dark:bg-gray-800 overflow-hidden">
+                        {product.image_url ? (
+                          <img src={product.image_url} alt={product.name} className="w-full h-full object-contain" />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center">
+                            <ShoppingBag className="h-4 w-4 text-muted-foreground/40" />
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium truncate">{product.name}</p>
+                        <p className="text-xs text-muted-foreground truncate">{product.sub_category || product.category}</p>
+                      </div>
+                    </Link>
+                  </DropdownMenuItem>
+                ))
+              )}
+              {scoped.length > 10 && (
+                <div className="px-2 py-2 text-xs text-center text-muted-foreground border-t">
+                  Scroll to see {scoped.length - 10} more products
+                </div>
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <Button asChild>
+            <Link href={`/admin/prod-management/${slug}/create`}>
+              <Plus className="mr-2 h-4 w-4" />
+              Add New Product
+            </Link>
+          </Button>
+        </div>
       </div>
 
       {/* Filters and Grid */}

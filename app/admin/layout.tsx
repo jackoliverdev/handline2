@@ -142,6 +142,8 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                     ? 'Blog Management'
                     : pathname?.includes('/careers')
                       ? 'Careers Management'
+                    : pathname?.includes('/brands')
+                      ? 'Brand Management'
                     : pathname?.includes('/product')
                       ? 'Product Management'
                     : pathname?.includes('/help')

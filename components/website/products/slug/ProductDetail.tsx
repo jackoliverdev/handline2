@@ -570,7 +570,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                     <div className="space-y-6">
                       {/* Safety Standards - Environment pictograms moved to specifications */}
                       {/* Generic gloves safety display unless a category-specific standards component is shown below */}
-                      {product.safety && !(((product as any).eye_face_standards && Object.keys((product as any).eye_face_standards || {}).length > 0) || ((product as any).head_standards && Object.keys((product as any).head_standards || {}).length > 0) || ((product as any).footwear_standards && Object.keys((product as any).footwear_standards || {}).length > 0) || ((product as any).arm_attributes && Object.keys((product as any).arm_attributes || {}).length > 0) || ((product as any).safety?.en_iso_21420) || ((product as any).hearing_standards && Object.keys((product as any).hearing_standards || {}).length > 0) || ((product as any).respiratory_standards && Object.keys((product as any).respiratory_standards || {}).length > 0)) && (
+                      {product.safety && !(((product as any).eye_face_standards && Object.keys((product as any).eye_face_standards || {}).length > 0) || ((product as any).head_standards && Object.keys((product as any).head_standards || {}).length > 0) || ((product as any).footwear_standards && Object.keys((product as any).footwear_standards || {}).length > 0) || (((product as any).arm_attributes && Object.keys((product as any).arm_attributes || {}).length > 0) || ((product as any).safety?.en_iso_21420)) || ((product as any).hearing_standards && Object.keys((product as any).hearing_standards || {}).length > 0) || ((product as any).respiratory_standards && Object.keys((product as any).respiratory_standards || {}).length > 0)) && (
                         <SafetyStandardsDisplay safety={product.safety} hideTitle />
                       )}
                       {/* Eye & Face dedicated standards */
@@ -591,7 +591,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                         <FootwearStandards product={product} />
                       )}
                       {/* Arm dedicated standards (EN ISO 21420 + reuse EN chips) */}
-                      {((product as any).arm_attributes || (product as any).safety?.en_iso_21420) && (
+                      {(((product as any).arm_attributes && Object.keys((product as any).arm_attributes || {}).length > 0) || (product as any).safety?.en_iso_21420) && (
                         <ArmStandards product={product} />
                       )}
                       {/* Hearing dedicated standards */}

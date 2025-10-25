@@ -55,9 +55,11 @@ interface ProductGridProps {
   hideCategoryFilters?: boolean;
   // Hide only the main Category filter (keep Sub-Category visible)
   hideMainCategoryFilter?: boolean;
+  // Show glove filters (Hazard/Temp) directly without collapsible wrapper (for /products/gloves)
+  showGloveFiltersExpanded?: boolean;
 }
 
-export const ProductGrid = ({ products, className = "", initialCategory, extraFiltersRender, extraFiltersRenderMobile, extraFilterPredicate, hideDefaultFilters = false, categoryExpandedDefault, subCategoryExpandedDefault, hideCategoryFilters = false, hideMainCategoryFilter = false }: ProductGridProps) => {
+export const ProductGrid = ({ products, className = "", initialCategory, extraFiltersRender, extraFiltersRenderMobile, extraFilterPredicate, hideDefaultFilters = false, categoryExpandedDefault, subCategoryExpandedDefault, hideCategoryFilters = false, hideMainCategoryFilter = false, showGloveFiltersExpanded = false }: ProductGridProps) => {
   const { t, language } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory || "");
@@ -494,25 +496,43 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
                   />
                 )}
 
-                {/* Hazard + Temperature grouped under Gloves */}
+                {/* Hazard + Temperature filters - wrapped or direct based on page */}
                 {(!hideDefaultFilters) && (
-                  <FilterSection title={t('navbar.safetyGloves')} defaultExpanded={false}>
-                    <HazardProtectionFilter
-                      selectedHazardProtections={selectedHazardProtections}
-                      toggleHazardProtection={toggleHazardProtection}
-                      isExpanded={expandedSections.hazardProtection}
-                      toggleSection={toggleSection}
-                      nested={true}
-                    />
-                    <TemperatureFilter
-                      tempRatings={uniqueTempRatings}
-                      selectedTempRatings={selectedTempRatings}
-                      toggleTempRating={toggleTempRating}
-                      isExpanded={expandedSections.temperature}
-                      toggleSection={toggleSection}
-                      nested={true}
-                    />
-                  </FilterSection>
+                  showGloveFiltersExpanded ? (
+                    <>
+                      <HazardProtectionFilter
+                        selectedHazardProtections={selectedHazardProtections}
+                        toggleHazardProtection={toggleHazardProtection}
+                        isExpanded={expandedSections.hazardProtection}
+                        toggleSection={toggleSection}
+                      />
+                      <TemperatureFilter
+                        tempRatings={uniqueTempRatings}
+                        selectedTempRatings={selectedTempRatings}
+                        toggleTempRating={toggleTempRating}
+                        isExpanded={expandedSections.temperature}
+                        toggleSection={toggleSection}
+                      />
+                    </>
+                  ) : (
+                    <FilterSection title={t('navbar.safetyGloves')} defaultExpanded={false}>
+                      <HazardProtectionFilter
+                        selectedHazardProtections={selectedHazardProtections}
+                        toggleHazardProtection={toggleHazardProtection}
+                        isExpanded={expandedSections.hazardProtection}
+                        toggleSection={toggleSection}
+                        nested={true}
+                      />
+                      <TemperatureFilter
+                        tempRatings={uniqueTempRatings}
+                        selectedTempRatings={selectedTempRatings}
+                        toggleTempRating={toggleTempRating}
+                        isExpanded={expandedSections.temperature}
+                        toggleSection={toggleSection}
+                        nested={true}
+                      />
+                    </FilterSection>
+                  )
                 )}
 
                 {/* Extra filters for category-specific pages */}

@@ -223,38 +223,43 @@ const SafetyEN511Display: React.FC<{ data: SafetyEN511 }> = ({ data }) => {
   const { t } = useLanguage();
   
   return (
-    <Card className="border-brand-primary/10 dark:border-brand-primary/20">
-      <CardHeader className="pb-3">
-        <CardTitle className="flex items-center gap-2 text-lg">
-          <Snowflake className="h-5 w-5 text-brand-primary" />
-          EN 511 - Cold Protection
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="grid grid-cols-3 gap-3">
-          <div className="text-center">
-            <div className="mb-1 text-xs text-brand-secondary dark:text-gray-400">Contact Cold</div>
-            <div className={`inline-flex items-center justify-center w-8 h-8 rounded-full border font-bold text-lg ${getGreenPerformanceColour(data.contact_cold, 4)}`}>
-              {getEN388PerformanceLevel(data.contact_cold)}
-            </div>
-          </div>
-          
-          <div className="text-center">
-            <div className="mb-1 text-xs text-brand-secondary dark:text-gray-400">Convective Cold</div>
-            <div className={`inline-flex items-center justify-center w-8 h-8 rounded-full border font-bold text-lg ${getGreenPerformanceColour(data.convective_cold, 4)}`}>
-              {getEN388PerformanceLevel(data.convective_cold)}
-            </div>
-          </div>
-          
-          <div className="text-center">
-            <div className="mb-1 text-xs text-brand-secondary dark:text-gray-400">Water Permeability</div>
-            <div className={`inline-flex items-center justify-center w-8 h-8 rounded-full border font-bold text-lg ${getGreenPerformanceColour(data.water_permeability, 1)}`}>
-              {getEN388PerformanceLevel(data.water_permeability)}
-            </div>
+    <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+      <div className="flex items-center gap-3 mb-3">
+        <Snowflake className="h-5 w-5 text-brand-primary" />
+        <h3 className="font-medium text-brand-dark dark:text-white">
+          EN 511 - {t('productPage.coldProtection')}
+        </h3>
+      </div>
+      
+      <div className="grid grid-cols-3 gap-4">
+        <div className="text-center">
+          <div className="text-xs text-brand-secondary dark:text-gray-400 mb-1">{t('productPage.convectiveCold')}</div>
+          <div 
+            className={`w-10 h-10 rounded-full flex items-center justify-center mx-auto font-bold text-sm ${getGreenPerformanceColour(data.convective_cold, 4)}`}
+          >
+            {getEN388PerformanceLevel(data.convective_cold)}
           </div>
         </div>
-      </CardContent>
-    </Card>
+        
+        <div className="text-center">
+          <div className="text-xs text-brand-secondary dark:text-gray-400 mb-1">{t('productPage.contactCold')}</div>
+          <div 
+            className={`w-10 h-10 rounded-full flex items-center justify-center mx-auto font-bold text-sm ${getGreenPerformanceColour(data.contact_cold, 4)}`}
+          >
+            {getEN388PerformanceLevel(data.contact_cold)}
+          </div>
+        </div>
+        
+        <div className="text-center">
+          <div className="text-xs text-brand-secondary dark:text-gray-400 mb-1">{t('productPage.waterPermeability')}</div>
+          <div 
+            className={`w-10 h-10 rounded-full flex items-center justify-center mx-auto font-bold text-sm ${getGreenPerformanceColour(data.water_permeability, 1)}`}
+          >
+            {getEN388PerformanceLevel(data.water_permeability)}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

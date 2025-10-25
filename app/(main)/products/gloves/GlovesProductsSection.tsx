@@ -79,7 +79,7 @@ export function GlovesProductsSection({ products }: GlovesProductsSectionProps) 
   return (
     <section id="gloves-products" className="pt-6 pb-12">
       <div className="container mx-auto px-4 sm:px-6">
-        <ProductGrid products={gloveProducts} initialCategory={initialCategory} hideMainCategoryFilter />
+        <ProductGrid products={gloveProducts} initialCategory={initialCategory} hideMainCategoryFilter showGloveFiltersExpanded />
       </div>
     </section>
   );

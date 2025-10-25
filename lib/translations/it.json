@@ -391,7 +391,7 @@
       "browseProducts": "Esplora i Nostri Prodotti",
       "contactUs": "Contattaci"
     },
-    "trustIndicator": "Fornitore di aziende leader {industry}"
+    "trustIndicator": "Fornitore di aziende leader nel settore {industry}"
   },
   "footer": {
     "companyDescription": "Produttore italiano specializzato in guanti di sicurezza ad alte prestazioni per ambienti industriali. Proteggiamo le mani con soluzioni innovative dal 1982.",
@@ -875,6 +875,10 @@
     "convectiveHeat": "Calore Convettivo",
     "radiantHeat": "Calore Radiante", 
     "smallSplashes": "Piccoli Schizzi",
+    "coldProtection": "Protezione dal freddo",
+    "convectiveCold": "Freddo convettivo",
+    "contactCold": "Freddo da contatto",
+    "waterPermeability": "Permeabilità all'acqua",
     "additionalStandards": "Conformità standard aggiuntivi",
     "coatingTypes": {
       "anti_fog": "Antiappannante",

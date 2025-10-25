@@ -42,7 +42,7 @@ export function ArmProductsSection({ products }: ArmProductsSectionProps) {
   }, [armProducts]);
 
   const [selectedLengths, setSelectedLengths] = useState<string[]>([]);
-  const [selectedThumbLoop, setSelectedThumbLoop] = useState<null | boolean>(null);
+  const [selectedThumbLoop, setSelectedThumbLoop] = useState<boolean>(false);
   const [selectedClosures, setSelectedClosures] = useState<string[]>([]);
 
   // Inline simple filter UIs reusing same visual style as Swabs filters
@@ -66,7 +66,7 @@ export function ArmProductsSection({ products }: ArmProductsSectionProps) {
     const lenLabel = typeof p.length_cm === 'number' ? `${p.length_cm} cm` : undefined;
     const lengthOk = selectedLengths.length === 0 ? true : (!!lenLabel && selectedLengths.includes(lenLabel));
     const thumb = (p as any).arm_attributes?.thumb_loop as boolean | undefined;
-    const loopOk = selectedThumbLoop === null ? true : (typeof thumb === 'boolean' && thumb === selectedThumbLoop);
+    const loopOk = !selectedThumbLoop ? true : (typeof thumb === 'boolean' && thumb === selectedThumbLoop);
     const closure = (p as any).arm_attributes?.closure as string | undefined;
     const closureOk = selectedClosures.length === 0 ? true : (!!closure && selectedClosures.includes(closure));
     return lengthOk && loopOk && closureOk;
