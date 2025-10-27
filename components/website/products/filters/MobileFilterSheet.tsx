@@ -8,7 +8,6 @@ import { X } from "lucide-react";
 import { FilterSection } from "./FilterSection";
 import { useLanguage } from "@/lib/context/language-context";
 import { hazardProtectionFilters } from "@/content/hazardfilters";
-import { workEnvironmentFilters } from "@/content/workenvironmentfilters";
 
 interface MobileFilterSheetProps {
   isOpen: boolean;
@@ -24,8 +23,9 @@ interface MobileFilterSheetProps {
   toggleTempRating: (temp: string) => void;
   selectedHazardProtections: string[];
   toggleHazardProtection: (hazard: string) => void;
-  selectedWorkEnvironments: string[];
-  toggleWorkEnvironment: (environment: string) => void;
+  enStandards: string[];
+  selectedENStandards: string[];
+  toggleENStandard: (standard: string) => void;
   industries: string[];
   selectedIndustries: string[];
   toggleIndustry: (industry: string) => void;
@@ -35,7 +35,7 @@ interface MobileFilterSheetProps {
   activeFiltersCount: number;
   // Category-specific mobile content
   extraFiltersRender?: React.ReactNode;
-  // When true, hide default hazard/work env/temp/industries blocks
+  // When true, hide default hazard/EN standard/temp/industries blocks
   hideDefaultFilters?: boolean;
   // When true, hide Category and Sub-Category groups
   hideCategoryFilters?: boolean;
@@ -57,8 +57,9 @@ export const MobileFilterSheet = ({
   toggleTempRating,
   selectedHazardProtections,
   toggleHazardProtection,
-  selectedWorkEnvironments,
-  toggleWorkEnvironment,
+  enStandards,
+  selectedENStandards,
+  toggleENStandard,
   industries,
   selectedIndustries,
   toggleIndustry,
@@ -223,41 +224,41 @@ export const MobileFilterSheet = ({
             </div>
           )}
 
-          {/* Work Environment (now after Industries) */}
-          {!hideDefaultFilters && (
+          {/* EN Standard (now after Industries) */}
+          {!hideDefaultFilters && enStandards.length > 0 && (
             <div>
               <button 
                 className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"
-                onClick={() => toggleSection('workEnvironment')}
+                onClick={() => toggleSection('enStandard')}
               >
                 <span className="flex items-center">
-                  {t('products.filters.workEnvironment')}
-                  {selectedWorkEnvironments.length > 0 && (
-                    <Badge className="ml-2 bg-brand-primary text-white">{selectedWorkEnvironments.length}</Badge>
+                  {t('products.filters.enStandard')}
+                  {selectedENStandards.length > 0 && (
+                    <Badge className="ml-2 bg-brand-primary text-white">{selectedENStandards.length}</Badge>
                   )}
                 </span>
                 <ChevronDown 
                   className={`h-4 w-4 text-brand-primary transition-transform ${
-                    expandedSections.workEnvironment ? 'rotate-180' : ''
+                    expandedSections.enStandard ? 'rotate-180' : ''
                   }`}
                 />
               </button>
               
-              {expandedSections.workEnvironment && (
+              {expandedSections.enStandard && (
                 <div className="space-y-2 max-h-40 overflow-y-auto pr-2 mt-2">
-                  {workEnvironmentFilters.map((filter) => (
-                    <div key={filter.id} className="flex items-center space-x-2">
+                  {enStandards.map((standard) => (
+                    <div key={standard} className="flex items-center space-x-2">
                       <Checkbox 
-                        id={`workEnvironment-${filter.id}`} 
-                        checked={selectedWorkEnvironments.includes(filter.id)}
-                        onCheckedChange={() => toggleWorkEnvironment(filter.id)}
+                        id={`enStandard-mobile-${standard}`} 
+                        checked={selectedENStandards.includes(standard)}
+                        onCheckedChange={() => toggleENStandard(standard)}
                         className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary"
                       />
                       <label 
-                        htmlFor={`workEnvironment-${filter.id}`}
+                        htmlFor={`enStandard-mobile-${standard}`}
                         className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer"
                       >
-                        {t(filter.translationKey)}
+                        {standard}
                       </label>
                     </div>
                   ))}
@@ -268,19 +269,19 @@ export const MobileFilterSheet = ({
 
           {/* Gloves group: Hazard Protection + Temperature */}
           {!hideDefaultFilters && (
-            <FilterSection title="Gloves" defaultExpanded={false} variant="mobile">
+            <FilterSection title={t('navbar.safetyGloves')} defaultExpanded={false} variant="mobile">
               {/* Hazard Protection Filter */}
-              <div>
+              <div className="pb-4">
                 <button 
-                  className="flex w-full items-center justify-between py-2 text-left text-sm font-medium text-brand-dark dark:text-white"
+                  className="flex w-full items-center justify-between mb-2"
                   onClick={() => toggleSection('hazardProtection')}
                 >
-                  <span className="flex items-center">
+                  <h3 className="text-sm font-medium text-brand-dark dark:text-white">
                     {t('products.filters.hazardProtection')}
                     {selectedHazardProtections.length > 0 && (
                       <Badge className="ml-2 bg-brand-primary text-white">{selectedHazardProtections.length}</Badge>
                     )}
-                  </span>
+                  </h3>
                   <ChevronDown 
                     className={`h-4 w-4 text-brand-primary transition-transform ${
                       expandedSections.hazardProtection ? 'rotate-180' : ''
@@ -311,17 +312,17 @@ export const MobileFilterSheet = ({
               </div>
 
               {/* Temperature Rating Filter */}
-              <div>
+              <div className="pb-4">
                 <button 
-                  className="flex w-full items-center justify-between py-2 text-left text-sm font-medium text-brand-dark dark:text-white"
+                  className="flex w-full items-center justify-between mb-2"
                   onClick={() => toggleSection('temperature')}
                 >
-                  <span className="flex items-center">
+                  <h3 className="text-sm font-medium text-brand-dark dark:text-white">
                     {t('products.filters.temperature')}
                     {selectedTempRatings.length > 0 && (
                       <Badge className="ml-2 bg-brand-primary text-white">{selectedTempRatings.length}</Badge>
                     )}
-                  </span>
+                  </h3>
                   <ChevronDown 
                     className={`h-4 w-4 text-brand-primary transition-transform ${
                       expandedSections.temperature ? 'rotate-180' : ''

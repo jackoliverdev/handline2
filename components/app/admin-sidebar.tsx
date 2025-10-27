@@ -26,7 +26,8 @@ import {
   ShoppingBag,
   DollarSign,
   Calendar,
-  Factory
+  Factory,
+  Tag
 } from "lucide-react";
 
 interface AdminSidebarProps {
@@ -82,6 +83,11 @@ export function AdminSidebar({ className }: AdminSidebarProps) {
       name: "Product Management",
       href: "/admin/prod-management",
       icon: ShoppingBag,
+    },
+    {
+      name: "Brand Management",
+      href: "/admin/brands",
+      icon: Tag,
     },
     // {
     //   name: "Product Management",

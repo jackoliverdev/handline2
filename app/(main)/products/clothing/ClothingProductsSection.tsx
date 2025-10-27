@@ -13,9 +13,17 @@ import { FlameStandardFilterMobile } from "@/components/website/products/filters
 import { AntistaticFilterMobile } from "@/components/website/products/filters/clothing/AntistaticFilterMobile";
 import { ClothingTypeFilter } from "@/components/website/products/filters/clothing/ClothingTypeFilter";
 import { ClothingTypeFilterMobile } from "@/components/website/products/filters/clothing/ClothingTypeFilterMobile";
-import { ClothingCategoryFilter } from "@/components/website/products/filters/clothing/ClothingCategoryFilter";
-import { ClothingCategoryFilterMobile } from "@/components/website/products/filters/clothing/ClothingCategoryFilterMobile";
-import { CLOTHING_TYPE_TO_CATEGORIES } from "@/content/clothing-categories";
+import { SubCategoryFilter } from "@/components/website/products/filters/SubCategoryFilter";
+import { SubCategoryFilterMobile } from "@/components/website/products/filters/SubCategoryFilterMobile";
+import { ENStandardFilter } from "@/components/website/products/filters/ENStandardFilter";
+import { ENStandardFilterMobile } from "@/components/website/products/filters/ENStandardFilterMobile";
+import { WorkEnvironmentFilter } from "@/components/website/products/filters/WorkEnvironmentFilter";
+import { WorkEnvironmentFilterMobile } from "@/components/website/products/filters/WorkEnvironmentFilterMobile";
+import { SizeFilter } from "@/components/website/products/filters/clothing/SizeFilter";
+import { SizeFilterMobile } from "@/components/website/products/filters/clothing/SizeFilterMobile";
+import { GARMENT_TYPES } from "@/content/clothing-categories";
+import { getUniqueENStandards, matchesENStandards } from "@/lib/product-utils";
+import { workEnvironmentFilters } from "@/content/workenvironmentfilters";
 
 // Clothing – targeted filters (few and focused)
 // We'll add small inline filter UIs here to avoid creating many files.
@@ -61,12 +69,15 @@ export function ClothingProductsSection({ products, pinnedClothingType }: Clothi
   }, [products]);
 
   // Filter state
+  const [subCategories, setSubCategories] = useState<string[]>([]);
+  const [clothingTypes, setClothingTypes] = useState<string[]>([]);
+  const [selectedENStandards, setSelectedENStandards] = useState<string[]>([]);
+  const [selectedWorkEnvironments, setSelectedWorkEnvironments] = useState<string[]>([]);
+  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [hiVisClasses, setHiVisClasses] = useState<number[]>([]); // 1/2/3
   const [hasFlameStd, setHasFlameStd] = useState<boolean>(false); // EN ISO 11612
   const [arcClasses, setArcClasses] = useState<number[]>([]); // IEC 61482-2 class
   const [antistatic, setAntistatic] = useState<boolean>(false); // EN 1149-5
-  const [clothingTypes, setClothingTypes] = useState<string[]>(pinnedClothingType ? [pinnedClothingType] : []);
-  const [clothingCategories, setClothingCategories] = useState<string[]>([]);
 
   // Build options from dataset
   const hiVisOptions = useMemo(() => {
@@ -87,38 +98,103 @@ export function ClothingProductsSection({ products, pinnedClothingType }: Clothi
     return Array.from(s).sort((a,b)=>a-b);
   }, [clothingProducts]);
 
-  const clothingTypeOptions = useMemo(() => ['welding','high-visibility','safety-workwear'], []);
-  const clothingCategoryOptions = useMemo(() => {
-    const types = (clothingTypes.length > 0 ? clothingTypes : ['welding','high-visibility','safety-workwear']) as Array<'welding'|'high-visibility'|'safety-workwear'>;
-    if (pinnedClothingType) return CLOTHING_TYPE_TO_CATEGORIES[pinnedClothingType];
+  const subCategoryOptions = useMemo(() => {
     const s = new Set<string>();
-    types.forEach(t => CLOTHING_TYPE_TO_CATEGORIES[t].forEach(c => s.add(c)));
-    return Array.from(s);
-  }, [clothingTypes, pinnedClothingType]);
+    clothingProducts.forEach(p => {
+      const sub = p.sub_category;
+      if (sub && sub.trim()) s.add(sub.trim());
+    });
+    return Array.from(s).sort();
+  }, [clothingProducts]);
+
+  const clothingTypeOptions = useMemo(() => Array.from(GARMENT_TYPES), []);
+
+  const enStandards = useMemo(() => getUniqueENStandards(clothingProducts), [clothingProducts]);
+
+  const sizeOptions = useMemo(() => {
+    const s = new Set<string>();
+    clothingProducts.forEach(p => {
+      const sizeRange = (p as any).clothing_attributes?.size_range;
+      if (sizeRange && typeof sizeRange === 'string' && sizeRange.trim()) {
+        s.add(sizeRange.trim());
+      }
+    });
+    return Array.from(s).sort();
+  }, [clothingProducts]);
+
+  const [enStandardExpanded, setEnStandardExpanded] = useState(false);
+  const [enStandardMobileExpanded, setEnStandardMobileExpanded] = useState(false);
+  const [workEnvExpanded, setWorkEnvExpanded] = useState(false);
+  const [sizeExpanded, setSizeExpanded] = useState(false);
 
   const extraFilters = (
     <>
       {!pinnedClothingType && (
-        <ClothingTypeFilter options={clothingTypeOptions} selected={clothingTypes} onToggle={(v: string)=> setClothingTypes(prev => prev.includes(v) ? prev.filter((x: string)=>x!==v) : [...prev, v])} defaultOpen={!pinnedClothingType} />
+        <>
+          <SubCategoryFilter subCategories={subCategoryOptions} selectedSubCategories={subCategories} toggleSubCategory={(v) => setSubCategories(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} isExpanded={false} toggleSection={() => {}} />
+        </>
       )}
-      <ClothingCategoryFilter options={clothingCategoryOptions} selected={clothingCategories} onToggle={(v: string)=> setClothingCategories(prev => prev.includes(v) ? prev.filter((x: string)=>x!==v) : [...prev, v])} defaultOpen={!!pinnedClothingType} />
-      <HiVisClassFilter options={hiVisOptions} selected={hiVisClasses} onToggle={(c) => setHiVisClasses(prev => prev.includes(c) ? prev.filter(x => x !== c) : [...prev, c])} />
-      <FlameStandardFilter value={hasFlameStd} onChange={setHasFlameStd} />
-      <ArcClassFilter options={arcOptions} selected={arcClasses} onToggle={(c) => setArcClasses(prev => prev.includes(c) ? prev.filter(x => x !== c) : [...prev, c])} />
-      <AntistaticFilter value={antistatic} onChange={setAntistatic} />
+      <ClothingTypeFilter options={clothingTypeOptions} selected={clothingTypes} onToggle={(v: string)=> setClothingTypes(prev => prev.includes(v) ? prev.filter((x: string)=>x!==v) : [...prev, v])} defaultOpen={false} />
+      {pinnedClothingType === 'high-visibility' && (
+        <HiVisClassFilter options={hiVisOptions} selected={hiVisClasses} onToggle={(c) => setHiVisClasses(prev => prev.includes(c) ? prev.filter(x => x !== c) : [...prev, c])} />
+      )}
+      {(!pinnedClothingType || pinnedClothingType === 'safety-workwear') && (
+        <ENStandardFilter 
+          standards={enStandards} 
+          selectedStandards={selectedENStandards} 
+          toggleStandard={(v) => setSelectedENStandards(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} 
+          isExpanded={enStandardExpanded} 
+          toggleSection={() => setEnStandardExpanded(!enStandardExpanded)} 
+        />
+      )}
+      <WorkEnvironmentFilter 
+        selectedWorkEnvironments={selectedWorkEnvironments} 
+        toggleWorkEnvironment={(v) => setSelectedWorkEnvironments(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} 
+        isExpanded={workEnvExpanded} 
+        toggleSection={() => setWorkEnvExpanded(!workEnvExpanded)} 
+      />
+      <SizeFilter 
+        options={sizeOptions} 
+        selected={selectedSizes} 
+        onToggle={(v) => setSelectedSizes(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} 
+        isExpanded={sizeExpanded} 
+        toggleSection={() => setSizeExpanded(!sizeExpanded)} 
+        defaultOpen={false} 
+      />
     </>
   );
 
   const extraFiltersMobile = (
     <>
       {!pinnedClothingType && (
-        <ClothingTypeFilterMobile options={clothingTypeOptions} selected={clothingTypes} onToggle={(v: string)=> setClothingTypes(prev => prev.includes(v) ? prev.filter((x: string)=>x!==v) : [...prev, v])} />
+        <SubCategoryFilterMobile 
+          subCategories={subCategoryOptions} 
+          selectedSubCategories={subCategories} 
+          toggleSubCategory={(v: string) => setSubCategories(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} 
+        />
       )}
-      <ClothingCategoryFilterMobile options={clothingCategoryOptions} selected={clothingCategories} onToggle={(v: string)=> setClothingCategories(prev => prev.includes(v) ? prev.filter((x: string)=>x!==v) : [...prev, v])} />
-      <HiVisClassFilterMobile options={hiVisOptions} selected={hiVisClasses} onToggle={(c) => setHiVisClasses(prev => prev.includes(c) ? prev.filter(x => x !== c) : [...prev, c])} />
-      <FlameStandardFilterMobile value={hasFlameStd} onChange={setHasFlameStd} />
-      <ArcClassFilterMobile options={arcOptions} selected={arcClasses} onToggle={(c) => setArcClasses(prev => prev.includes(c) ? prev.filter(x => x !== c) : [...prev, c])} />
-      <AntistaticFilterMobile value={antistatic} onChange={setAntistatic} />
+      <ClothingTypeFilterMobile options={clothingTypeOptions} selected={clothingTypes} onToggle={(v: string)=> setClothingTypes(prev => prev.includes(v) ? prev.filter((x: string)=>x!==v) : [...prev, v])} />
+      {pinnedClothingType === 'high-visibility' && (
+        <HiVisClassFilterMobile options={hiVisOptions} selected={hiVisClasses} onToggle={(c) => setHiVisClasses(prev => prev.includes(c) ? prev.filter(x => x !== c) : [...prev, c])} />
+      )}
+      {(!pinnedClothingType || pinnedClothingType === 'safety-workwear') && (
+        <ENStandardFilterMobile 
+          standards={enStandards} 
+          selectedStandards={selectedENStandards} 
+          toggleStandard={(v: string) => setSelectedENStandards(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} 
+          isExpanded={enStandardMobileExpanded} 
+          toggleSection={() => setEnStandardMobileExpanded(!enStandardMobileExpanded)} 
+        />
+      )}
+      <WorkEnvironmentFilterMobile 
+        selectedWorkEnvironments={selectedWorkEnvironments} 
+        toggleWorkEnvironment={(v: string) => setSelectedWorkEnvironments(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} 
+      />
+      <SizeFilterMobile 
+        options={sizeOptions} 
+        selected={selectedSizes} 
+        onToggle={(v: string) => setSelectedSizes(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} 
+      />
     </>
   );
 
@@ -129,13 +205,25 @@ export function ClothingProductsSection({ products, pinnedClothingType }: Clothi
     const arc = cs?.iec_61482_2?.class as number | undefined;
     const anti = cs?.en_1149_5 as boolean | undefined;
 
+    const subCatOk = subCategories.length === 0 ? true : subCategories.includes(p.sub_category || '');
+    const typeOk = clothingTypes.length === 0 ? true : (() => {
+      const sub = (p.sub_category || '').toLowerCase();
+      return clothingTypes.some(ct => sub.includes(ct.toLowerCase()));
+    })();
+    const enStdOk = selectedENStandards.length === 0 ? true : matchesENStandards(p, selectedENStandards);
+    const workEnvOk = selectedWorkEnvironments.length === 0 ? true : (() => {
+      const envs = (p as any).work_environment_suitability || [];
+      return selectedWorkEnvironments.some((env: string) => envs.includes(env));
+    })();
+    const sizeOk = selectedSizes.length === 0 ? true : (() => {
+      const sizeRange = (p as any).clothing_attributes?.size_range;
+      return selectedSizes.includes(sizeRange);
+    })();
     const visOk = hiVisClasses.length === 0 ? true : (typeof vis === 'number' && hiVisClasses.includes(vis));
     const flOk = hasFlameStd ? !!fl : true;
     const arcOk = arcClasses.length === 0 ? true : (typeof arc === 'number' && arcClasses.includes(arc));
     const antiOk = antistatic ? !!anti : true;
-    const typeOk = clothingTypes.length === 0 ? true : clothingTypes.includes(((p as any).clothing_type || '').toLowerCase());
-    const catOk = clothingCategories.length === 0 ? true : clothingCategories.includes(((p as any).clothing_category || ''));
-    return visOk && flOk && arcOk && antiOk && typeOk && catOk;
+    return subCatOk && typeOk && enStdOk && workEnvOk && sizeOk && visOk && flOk && arcOk && antiOk;
   };
 
   return (

@@ -10,9 +10,9 @@ export function ClothingCategoryFilter({ options, selected, onToggle, isExpanded
   const [localOpen, setLocalOpen] = useState(!!defaultOpen);
   const open = isExpanded ?? localOpen;
   return (
-    <div className="border-b border-brand-primary/10 dark:border-brand-primary/20 pb-4">
+    <div className="pb-4">
       <button className="flex w-full items-center justify-between mb-2" onClick={() => (toggleSection ? toggleSection("clothingCategory") : setLocalOpen(v => !v))}>
-        <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('products.filters.clothingCategory.title') || 'Clothing Category'}</h3>
+        <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('products.filters.clothingCategory.title')}</h3>
         <ChevronDown className={`h-4 w-4 text-brand-primary transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
       {open && (

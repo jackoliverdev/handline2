@@ -42,7 +42,7 @@ export default function EditCareerPage({ params }: PageProps) {
   const [responsibilitiesLocales, setResponsibilitiesLocales] = useState<{en: string[], it: string[]}>({ en: [], it: [] });
   const [requirementsLocales, setRequirementsLocales] = useState<{en: string[], it: string[]}>({ en: [], it: [] });
   const [benefitsLocales, setBenefitsLocales] = useState<{en: string[], it: string[]}>({ en: [], it: [] });
-  const [salaryRange, setSalaryRange] = useState<string>("");
+  const [salaryRangeLocales, setSalaryRangeLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
   const [workSite, setWorkSite] = useState<string>("");
   const [workSiteLocales, setWorkSiteLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
   const [isPublished, setIsPublished] = useState(false);
@@ -69,7 +69,7 @@ export default function EditCareerPage({ params }: PageProps) {
         setResponsibilitiesLocales({ en: post.responsibilities_locales?.en || post.responsibilities || [], it: post.responsibilities_locales?.it || [] });
         setRequirementsLocales({ en: post.requirements_locales?.en || post.requirements || [], it: post.requirements_locales?.it || [] });
         setBenefitsLocales({ en: post.benefits_locales?.en || post.benefits || [], it: post.benefits_locales?.it || [] });
-        setSalaryRange(post.salary_range || "");
+        setSalaryRangeLocales({ en: post.salary_range_locales?.en || post.salary_range || '', it: post.salary_range_locales?.it || '' });
         setWorkSite(post.work_site || "");
         setWorkSiteLocales({ en: post.work_site_locales?.en || post.work_site || '', it: post.work_site_locales?.it || '' });
         setIsPublished(!!post.is_published);
@@ -121,7 +121,8 @@ export default function EditCareerPage({ params }: PageProps) {
         responsibilities_locales: (responsibilitiesLocales.en.length || responsibilitiesLocales.it.length) ? responsibilitiesLocales : undefined,
         requirements_locales: (requirementsLocales.en.length || requirementsLocales.it.length) ? requirementsLocales : undefined,
         benefits_locales: (benefitsLocales.en.length || benefitsLocales.it.length) ? benefitsLocales : undefined,
-        salary_range: salaryRange || null, is_published: isPublished, is_featured: isFeatured,
+        salary_range_locales: (salaryRangeLocales.en || salaryRangeLocales.it) ? salaryRangeLocales : undefined,
+        salary_range: salaryRangeLocales.en || null, is_published: isPublished, is_featured: isFeatured,
       });
       toast({ title: "Saved", description: "Role updated." });
     } catch (error) {
@@ -242,7 +243,7 @@ export default function EditCareerPage({ params }: PageProps) {
                 </div>
                 <div className="space-y-1 sm:space-y-2">
                   <Label htmlFor="salary" className="text-xs sm:text-sm">Salary Range</Label>
-                  <Input id="salary" value={salaryRange} onChange={(e) => setSalaryRange(e.target.value)} placeholder="Optional" className="text-xs sm:text-sm h-8 sm:h-10" />
+                  <Input id="salary" value={salaryRangeLocales[currentLanguage]} onChange={(e) => setSalaryRangeLocales(prev => ({ ...prev, [currentLanguage]: e.target.value }))} placeholder="Optional" className="text-xs sm:text-sm h-8 sm:h-10" />
                 </div>
               </CardContent>
               <CardFooter className="flex flex-col sm:flex-row sm:justify-between gap-2 sm:gap-0">

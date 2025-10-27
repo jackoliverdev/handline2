@@ -9,9 +9,11 @@ import { PadSizeFilterMobile } from "@/components/website/products/filters/swabs
 import { ConnectionFilter } from "@/components/website/products/filters/respiratory/ConnectionFilter";
 import { FilterTypeFilter } from "@/components/website/products/filters/respiratory/FilterTypeFilter";
 import { ProtectionClassFilter } from "@/components/website/products/filters/respiratory/ProtectionClassFilter";
+import { FilteredParticlesFilter } from "@/components/website/products/filters/respiratory/FilteredParticlesFilter";
 import { ConnectionFilterMobile } from "@/components/website/products/filters/respiratory/ConnectionFilterMobile";
 import { FilterTypeFilterMobile } from "@/components/website/products/filters/respiratory/FilterTypeFilterMobile";
 import { ProtectionClassFilterMobile } from "@/components/website/products/filters/respiratory/ProtectionClassFilterMobile";
+import { FilteredParticlesFilterMobile } from "@/components/website/products/filters/respiratory/FilteredParticlesFilterMobile";
 import type { Product } from "@/lib/products-service";
 import { SnrFilter } from "@/components/website/products/filters/hearing/SnrFilter";
 import { SnrFilterMobile } from "@/components/website/products/filters/hearing/SnrFilterMobile";
@@ -69,6 +71,7 @@ import { VentilationFilterMobile } from "@/components/website/products/filters/h
 import { EnStandardFilter } from "@/components/website/products/filters/head/EnStandardFilter";
 import { EnStandardFilterMobile } from "@/components/website/products/filters/head/EnStandardFilterMobile";
 import { FilterSection } from "@/components/website/products/filters/FilterSection";
+import { useLanguage } from "@/lib/context/language-context";
 // Protective clothing filters
 import { ClothingTypeFilter } from "@/components/website/products/filters/clothing/ClothingTypeFilter";
 import { ClothingCategoryFilter } from "@/components/website/products/filters/clothing/ClothingCategoryFilter";
@@ -89,6 +92,7 @@ interface AllProductsGridProps {
 }
 
 export function AllProductsGrid({ products }: AllProductsGridProps) {
+  const { t } = useLanguage();
   const swabs = React.useMemo(
     () => products.filter((p) => (p.category || "").toLowerCase().includes("swab")),
     [products]
@@ -168,17 +172,18 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
   const [selectedConnections, setSelectedConnections] = React.useState<string[]>([]);
   const [selectedTypes, setSelectedTypes] = React.useState<string[]>([]);
   const [selectedClasses, setSelectedClasses] = React.useState<string[]>([]);
+  const [selectedFilteredParticles, setSelectedFilteredParticles] = React.useState<string[]>([]);
   const [selectedArmLengths, setSelectedArmLengths] = React.useState<string[]>([]);
-  const [selectedArmThumbLoop, setSelectedArmThumbLoop] = React.useState<null | boolean>(null);
+  const [selectedArmThumbLoop, setSelectedArmThumbLoop] = React.useState<boolean>(false);
   const [selectedArmClosures, setSelectedArmClosures] = React.useState<string[]>([]);
   const [selectedSnrs, setSelectedSnrs] = React.useState<number[]>([]);
   const [selectedParts, setSelectedParts] = React.useState<string[]>([]);
   const [selectedMounts, setSelectedMounts] = React.useState<string[]>([]);
-  const [selectedReusable, setSelectedReusable] = React.useState<null | boolean>(null);
-  const [selectedBluetooth, setSelectedBluetooth] = React.useState<null | boolean>(null);
+  const [selectedReusable, setSelectedReusable] = React.useState<boolean>(false);
+  const [selectedBluetooth, setSelectedBluetooth] = React.useState<boolean>(false);
   // Footwear state
   const [selectedFwClasses, setSelectedFwClasses] = React.useState<string[]>([]);
-  const [selectedFwEsd, setSelectedFwEsd] = React.useState<null | boolean>(null);
+  const [selectedFwEsd, setSelectedFwEsd] = React.useState<boolean>(false);
   const [selectedFwWidths, setSelectedFwWidths] = React.useState<number[]>([]);
   const [selectedFwSize, setSelectedFwSize] = React.useState<{ min?: number; max?: number }>({});
   const [selectedFwToes, setSelectedFwToes] = React.useState<string[]>([]);
@@ -218,6 +223,21 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
   const classOptions = React.useMemo(() => {
     const set = new Set<string>();
     respiratory.forEach(p => p.protection_class && set.add(p.protection_class));
+    return Array.from(set).sort();
+  }, [respiratory]);
+  const filteredParticleOptions = React.useMemo(() => {
+    const set = new Set<string>();
+    respiratory.forEach(p => {
+      const respiratoryStandards = p.respiratory_standards as Record<string, any>;
+      if (respiratoryStandards?.en14387?.gases) {
+        const gases = respiratoryStandards.en14387.gases as Record<string, boolean>;
+        Object.keys(gases).forEach(gasKey => {
+          if (gases[gasKey] === true) {
+            set.add(gasKey.toUpperCase());
+          }
+        });
+      }
+    });
     return Array.from(set).sort();
   }, [respiratory]);
   const armLengthOptions = React.useMemo(() => {
@@ -343,7 +363,7 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
 
   const extraFilters = (
     <>
-      <FilterSection title="Swabs" defaultExpanded={false}>
+      <FilterSection title={t('navbar.industrialSwabs')} defaultExpanded={false}>
         <LengthFilter
           options={lengthOptions}
           selected={selectedLengths}
@@ -364,7 +384,7 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
         />
       </FilterSection>
 
-      <FilterSection title="Respiratory protection" defaultExpanded={false}>
+      <FilterSection title={t('navbar.respiratoryProtection')} defaultExpanded={false}>
         <ConnectionFilter
           options={connectionOptions}
           selected={selectedConnections}
@@ -392,9 +412,18 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
             )
           }
         />
+        <FilteredParticlesFilter
+          options={filteredParticleOptions}
+          selected={selectedFilteredParticles}
+          onToggle={(opt) =>
+            setSelectedFilteredParticles((prev) =>
+              prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
+            )
+          }
+        />
       </FilterSection>
 
-      <FilterSection title="Arm protection" defaultExpanded={false}>
+      <FilterSection title={t('navbar.armProtection')} defaultExpanded={false}>
         <ArmLengthFilter
           options={armLengthOptions}
           selected={selectedArmLengths}
@@ -416,7 +445,7 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
         />
       </FilterSection>
 
-      <FilterSection title="Hearing protection" defaultExpanded={false}>
+      <FilterSection title={t('navbar.hearingProtection')} defaultExpanded={false}>
         <SnrFilter options={snrOptions} selected={selectedSnrs} onToggle={(opt) => setSelectedSnrs((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <En352PartFilter options={partOptions} selected={selectedParts} onToggle={(opt) => setSelectedParts((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <ReusableFilter value={selectedReusable} onChange={setSelectedReusable} />
@@ -424,7 +453,7 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
         <BluetoothFilter value={selectedBluetooth} onChange={setSelectedBluetooth} />
       </FilterSection>
 
-      <FilterSection title="Footwear" defaultExpanded={false}>
+      <FilterSection title={t('navbar.safetyFootwear')} defaultExpanded={false}>
         <ClassFilter options={fwClassOptions} selected={selectedFwClasses} onToggle={(opt) => setSelectedFwClasses((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <ESDFilter value={selectedFwEsd} onChange={setSelectedFwEsd} />
         <WidthFilter options={fwWidthOptions} selected={selectedFwWidths} onToggle={(opt) => setSelectedFwWidths((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
@@ -434,7 +463,7 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
         <StandardCodeFilter options={fwCodeOptions} selected={selectedFwCodes} onToggle={(opt) => setSelectedFwCodes((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
       </FilterSection>
 
-      <FilterSection title="Eye & face protection" defaultExpanded={false}>
+      <FilterSection title={t('navbar.eyeFaceProtection')} defaultExpanded={false}>
         <ProtectionTypeFilter selected={selectedEyeFaceProt} onToggle={(opt) => setSelectedEyeFaceProt((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <LensTintFilter options={eyeFaceTintOptions} selected={selectedEyeFaceTints} onToggle={(opt) => setSelectedEyeFaceTints((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <CoatingFilter options={eyeFaceCoatingOptions} selected={selectedEyeFaceCoats} onToggle={(opt) => setSelectedEyeFaceCoats((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
@@ -442,7 +471,7 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
       <EyeFaceEnStandardFilter options={eyeFaceEnOptions} selected={selectedEyeFaceEn} onToggle={(opt) => setSelectedEyeFaceEn((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
       </FilterSection>
 
-      <FilterSection title="Head protection" defaultExpanded={false}>
+      <FilterSection title={t('navbar.headProtection')} defaultExpanded={false}>
         <BrimLengthFilter options={headBrimOptions} selected={selectedHeadBrims} onToggle={(opt) => setSelectedHeadBrims((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <LowTemperatureFilter value={selectedHeadLt} onChange={setSelectedHeadLt} />
         <ElectricalInsulationFilter value={selectedHead50365} onChange={setSelectedHead50365} />
@@ -451,7 +480,7 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
         <EnStandardFilter selected={selectedHeadStds} onToggle={(opt) => setSelectedHeadStds((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
       </FilterSection>
 
-      <FilterSection title="Protective clothing" defaultExpanded={false}>
+      <FilterSection title={t('navbar.protectiveClothing')} defaultExpanded={false}>
         <ClothingTypeFilter options={clothingTypeOptions} selected={selectedClTypes} onToggle={(v) => setSelectedClTypes((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]))} />
         <ClothingCategoryFilter options={clothingCategoryOptions} selected={selectedClCats} onToggle={(v) => setSelectedClCats((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]))} />
         <HiVisClassFilter options={clothingHiVisOptions} selected={selectedHiVis} onToggle={(c) => setSelectedHiVis((prev) => (prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]))} />
@@ -464,7 +493,7 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
 
   const extraFiltersMobile = (
     <>
-      <FilterSection title="Swabs" defaultExpanded={false} variant="mobile">
+      <FilterSection title={t('navbar.industrialSwabs')} defaultExpanded={false} variant="mobile">
         <LengthFilterMobile
           options={lengthOptions}
           selected={selectedLengths}
@@ -485,7 +514,7 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
         />
       </FilterSection>
 
-      <FilterSection title="Respiratory protection" defaultExpanded={false} variant="mobile">
+      <FilterSection title={t('navbar.respiratoryProtection')} defaultExpanded={false} variant="mobile">
         <ConnectionFilterMobile
           options={connectionOptions}
           selected={selectedConnections}
@@ -513,9 +542,18 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
             )
           }
         />
+        <FilteredParticlesFilterMobile
+          options={filteredParticleOptions}
+          selected={selectedFilteredParticles}
+          onToggle={(opt) =>
+            setSelectedFilteredParticles((prev) =>
+              prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]
+            )
+          }
+        />
       </FilterSection>
 
-      <FilterSection title="Arm protection" defaultExpanded={false} variant="mobile">
+      <FilterSection title={t('navbar.armProtection')} defaultExpanded={false} variant="mobile">
         <ArmLengthFilterMobile
           options={armLengthOptions}
           selected={selectedArmLengths}
@@ -537,7 +575,7 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
         />
       </FilterSection>
 
-      <FilterSection title="Hearing protection" defaultExpanded={false} variant="mobile">
+      <FilterSection title={t('navbar.hearingProtection')} defaultExpanded={false} variant="mobile">
         <SnrFilterMobile options={snrOptions} selected={selectedSnrs} onToggle={(opt) => setSelectedSnrs((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <En352PartFilterMobile options={partOptions} selected={selectedParts} onToggle={(opt) => setSelectedParts((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <ReusableFilterMobile value={selectedReusable} onChange={setSelectedReusable} />
@@ -545,7 +583,7 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
         <BluetoothFilterMobile value={selectedBluetooth} onChange={setSelectedBluetooth} />
       </FilterSection>
 
-      <FilterSection title="Footwear" defaultExpanded={false} variant="mobile">
+      <FilterSection title={t('navbar.safetyFootwear')} defaultExpanded={false} variant="mobile">
         <ClassFilterMobile options={fwClassOptions} selected={selectedFwClasses} onToggle={(opt) => setSelectedFwClasses((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <ESDFilterMobile value={selectedFwEsd} onChange={setSelectedFwEsd} />
         <WidthFilterMobile options={fwWidthOptions} selected={selectedFwWidths} onToggle={(opt) => setSelectedFwWidths((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
@@ -555,7 +593,7 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
         <StandardCodeFilterMobile options={fwCodeOptions} selected={selectedFwCodes} onToggle={(opt) => setSelectedFwCodes((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
       </FilterSection>
 
-      <FilterSection title="Eye & face protection" defaultExpanded={false} variant="mobile">
+      <FilterSection title={t('navbar.eyeFaceProtection')} defaultExpanded={false} variant="mobile">
         <ProtectionTypeFilterMobile selected={selectedEyeFaceProt} onToggle={(opt) => setSelectedEyeFaceProt((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <LensTintFilterMobile options={eyeFaceTintOptions} selected={selectedEyeFaceTints} onToggle={(opt) => setSelectedEyeFaceTints((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <CoatingFilterMobile options={eyeFaceCoatingOptions} selected={selectedEyeFaceCoats} onToggle={(opt) => setSelectedEyeFaceCoats((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
@@ -563,7 +601,7 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
       <EyeFaceEnStandardFilterMobile options={eyeFaceEnOptions} selected={selectedEyeFaceEn} onToggle={(opt) => setSelectedEyeFaceEn((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
       </FilterSection>
 
-      <FilterSection title="Head protection" defaultExpanded={false} variant="mobile">
+      <FilterSection title={t('navbar.headProtection')} defaultExpanded={false} variant="mobile">
         <BrimLengthFilterMobile options={headBrimOptions} selected={selectedHeadBrims} onToggle={(opt) => setSelectedHeadBrims((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <LowTemperatureFilterMobile value={selectedHeadLt} onChange={setSelectedHeadLt} />
         <ElectricalInsulationFilterMobile value={selectedHead50365} onChange={setSelectedHead50365} />
@@ -572,7 +610,7 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
         <EnStandardFilterMobile selected={selectedHeadStds} onToggle={(opt) => setSelectedHeadStds((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
       </FilterSection>
 
-      <FilterSection title="Protective clothing" defaultExpanded={false} variant="mobile">
+      <FilterSection title={t('navbar.protectiveClothing')} defaultExpanded={false} variant="mobile">
         <ClothingTypeFilterMobile options={clothingTypeOptions} selected={selectedClTypes} onToggle={(v) => setSelectedClTypes((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]))} />
         <ClothingCategoryFilterMobile options={clothingCategoryOptions} selected={selectedClCats} onToggle={(v) => setSelectedClCats((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]))} />
         <HiVisClassFilterMobile options={clothingHiVisOptions} selected={selectedHiVis} onToggle={(c) => setSelectedHiVis((prev) => (prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]))} />
@@ -586,9 +624,9 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
   const predicate = (p: Product) => {
     const hasSwabSel = selectedLengths.length > 0 || selectedPadSizes.length > 0;
     const hasRespSel = selectedConnections.length > 0 || selectedTypes.length > 0 || selectedClasses.length > 0;
-    const hasArmSel = selectedArmLengths.length > 0 || selectedArmThumbLoop !== null || selectedArmClosures.length > 0;
-    const hasHearSel = selectedSnrs.length > 0 || selectedParts.length > 0 || selectedMounts.length > 0 || selectedReusable !== null || selectedBluetooth !== null;
-    const hasFwSel = selectedFwClasses.length > 0 || selectedFwEsd !== null || selectedFwWidths.length > 0 || (selectedFwSize.min !== undefined || selectedFwSize.max !== undefined) || selectedFwToes.length > 0 || selectedFwSoles.length > 0 || selectedFwCodes.length > 0;
+    const hasArmSel = selectedArmLengths.length > 0 || selectedArmThumbLoop || selectedArmClosures.length > 0;
+    const hasHearSel = selectedSnrs.length > 0 || selectedParts.length > 0 || selectedMounts.length > 0 || selectedReusable || selectedBluetooth;
+    const hasFwSel = selectedFwClasses.length > 0 || selectedFwEsd || selectedFwWidths.length > 0 || (selectedFwSize.min !== undefined || selectedFwSize.max !== undefined) || selectedFwToes.length > 0 || selectedFwSoles.length > 0 || selectedFwCodes.length > 0;
     const hasEyeSel = selectedEyeFaceProt.length > 0 || selectedEyeFaceTints.length > 0 || selectedEyeFaceCoats.length > 0 || selectedEyeFaceUv.length > 0 || selectedEyeFaceEn.length > 0;
     const hasHeadSel = selectedHeadBrims.length > 0 || selectedHeadLt || selectedHead50365 || selectedHeadMm || selectedHeadVent || selectedHeadStds.length > 0;
     const hasClothSel = selectedClTypes.length > 0 || selectedClCats.length > 0 || selectedHiVis.length > 0 || selectedClFlame || selectedClArc.length > 0 || selectedClAnti;
@@ -606,11 +644,17 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
     const connOk = selectedConnections.length === 0 ? true : (!!p.connections && p.connections.some(c => selectedConnections.includes(c)));
     const typeOk = selectedTypes.length === 0 ? true : (!!p.filter_type && selectedTypes.includes(p.filter_type));
     const classOk = selectedClasses.length === 0 ? true : (!!p.protection_class && selectedClasses.includes(p.protection_class));
+    const particlesOk = selectedFilteredParticles.length === 0 ? true : (() => {
+      const respiratoryStandards = p.respiratory_standards as Record<string, any>;
+      if (!respiratoryStandards?.en14387?.gases) return false;
+      const gases = respiratoryStandards.en14387.gases as Record<string, boolean>;
+      return selectedFilteredParticles.some(particle => gases[particle.toLowerCase()] === true);
+    })();
 
     const armLenLabel = typeof p.length_cm === 'number' ? `${p.length_cm} cm` : undefined;
     const armLenOk = selectedArmLengths.length === 0 ? true : (!!armLenLabel && selectedArmLengths.includes(armLenLabel));
     const armLoop = (p as any).arm_attributes?.thumb_loop as boolean | undefined;
-    const armLoopOk = selectedArmThumbLoop === null ? true : (typeof armLoop === 'boolean' && armLoop === selectedArmThumbLoop);
+    const armLoopOk = !selectedArmThumbLoop ? true : (typeof armLoop === 'boolean' && armLoop === true);
     const armClosure = (p as any).arm_attributes?.closure as string | undefined;
     const armClosureOk = selectedArmClosures.length === 0 ? true : (!!armClosure && selectedArmClosures.includes(armClosure));
 
@@ -623,16 +667,16 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
     const pBt: boolean | undefined = typeof ha?.bluetooth === 'boolean' ? ha.bluetooth : undefined;
     const snrOk = selectedSnrs.length === 0 ? true : (typeof snr === 'number' && selectedSnrs.includes(snr));
     const partOk = selectedParts.length === 0 ? true : parts.some(pt => selectedParts.includes(pt));
-    const reuseOk = selectedReusable === null ? true : (typeof pReusable === 'boolean' && pReusable === selectedReusable);
+    const reuseOk = !selectedReusable ? true : (typeof pReusable === 'boolean' && pReusable === true);
     const mountOk = selectedMounts.length === 0 ? true : (!!pMount && selectedMounts.includes(pMount));
-    const btOk = selectedBluetooth === null ? true : (typeof pBt === 'boolean' && pBt === selectedBluetooth);
+    const btOk = !selectedBluetooth ? true : (typeof pBt === 'boolean' && pBt === true);
     // Footwear checks
     const fp: any = p;
     const fattr = fp.footwear_attributes || {};
     const fstd = fp.footwear_standards || {};
     const classes = [fattr.class, ...((fstd.en_iso_20345_2011 || []) as string[]), ...((fstd.en_iso_20345_2022 || []) as string[])].filter(Boolean) as string[];
     const fwClassOk = selectedFwClasses.length === 0 ? true : classes.some((c: string) => selectedFwClasses.includes(String(c)));
-    const fwEsdOk = selectedFwEsd === null ? true : (typeof fattr.esd === 'boolean' && fattr.esd === selectedFwEsd);
+    const fwEsdOk = !selectedFwEsd ? true : (typeof fattr.esd === 'boolean' && fattr.esd === true);
     const fwWidthOk = selectedFwWidths.length === 0 ? true : (Array.isArray(fattr.width_fit) && fattr.width_fit.some((n: number) => selectedFwWidths.includes(n)));
     const fwSizeOk = (selectedFwSize.min === undefined && selectedFwSize.max === undefined) ? true : (
       (typeof fattr.size_min === 'number' && typeof fattr.size_max === 'number') &&
@@ -699,7 +743,7 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
     const clTypeOk = selectedClTypes.length === 0 ? true : (pType && selectedClTypes.includes(pType));
     const clCatOk = selectedClCats.length === 0 ? true : (pCat && selectedClCats.includes(pCat));
 
-    return lengthOk && padOk && connOk && typeOk && classOk && armLenOk && armLoopOk && armClosureOk && snrOk && partOk && reuseOk && mountOk && btOk && fwClassOk && fwEsdOk && fwWidthOk && fwSizeOk && fwToeOk && fwSoleOk && fwCodeOk && efProtOk && efTintOk && efCoatOk && efUvOk && efEnOk && headBrimOk && headLtOk && head50365Ok && headMmOk && headVentOk && headStdOk && clVisOk && clFlOk && clArcOk && clAntiOk && clTypeOk && clCatOk;
+    return lengthOk && padOk && connOk && typeOk && classOk && particlesOk && armLenOk && armLoopOk && armClosureOk && snrOk && partOk && reuseOk && mountOk && btOk && fwClassOk && fwEsdOk && fwWidthOk && fwSizeOk && fwToeOk && fwSoleOk && fwCodeOk && efProtOk && efTintOk && efCoatOk && efUvOk && efEnOk && headBrimOk && headLtOk && head50365Ok && headMmOk && headVentOk && headStdOk && clVisOk && clFlOk && clArcOk && clAntiOk && clTypeOk && clCatOk;
   };
 
   return (

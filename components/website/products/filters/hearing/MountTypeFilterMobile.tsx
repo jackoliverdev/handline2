@@ -12,9 +12,9 @@ interface Props {
 export const MountTypeFilterMobile = ({ options, selected, onToggle }: Props) => {
   const { t } = useLanguage();
   return (
-    <div className="mt-2">
-      <h3 className="text-sm font-medium text-brand-dark dark:text-white mb-2">{t('products.filters.mountType') || 'Mount type'}</h3>
-      <div className="space-y-2">
+    <div className="pb-4">
+      <h3 className="text-base font-medium text-brand-dark dark:text-white mb-2">{t('products.filters.mountType') || 'Mount type'}</h3>
+      <div className="space-y-2 max-h-[240px] overflow-y-auto">
         {options.map(opt => (
           <div key={opt} className="flex items-center space-x-2">
             <Checkbox id={`mount-mobile-${opt}`} checked={selected.includes(opt)} onCheckedChange={() => onToggle(opt)} className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary" />

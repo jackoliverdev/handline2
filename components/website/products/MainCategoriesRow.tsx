@@ -3,65 +3,25 @@
 import { CategoryCard } from "./category-card";
 import { useLanguage } from "@/lib/context/language-context";
 import { motion } from "framer-motion";
-import { Grid3X3, ChevronLeft, ChevronRight } from "lucide-react";
+import { Grid3X3, MessageCircle, ChevronRight } from "lucide-react";
 import React from "react";
+import Link from "next/link";
 
 // Local image map aligned with CategoryInfo defaults
 const categoryImageMap: Record<string, string> = {
-  gloves: "/glovecats/49K-C_A.webp",
-  industrialSwabs: "/images/HLC_SWABS_main.jpg",
-  respiratory: "/images/products/categories/respirator.jpeg",
-  armProtection: "/images/products/categories/armppe.webp",
-  hearing: "/images/products/categories/single use ear plugs.webp",
-  footwear: "/images/products/categories/safetyboot.png",
-  eyeFace: "/images/products/categories/metalfreeglasses.jpg",
-  head: "/images/products/categories/Safety helmet suitable for low temperatures and splash protection.webp",
-  clothing: "/images/products/categories/High-Vis, Jacket High-Vis.webp",
+  gloves: "/glovecats/49K-C_A.webp", // No new gloves image provided, keeping existing
+  industrialSwabs: "/categoryimages/CAT_swabs_Hero.webp",
+  respiratory: "/categoryimages/CAT_respiratory_Hero.webp",
+  armProtection: "/categoryimages/CAT_sleeves_Hero.webp",
+  hearing: "/categoryimages/CAT_hearing_Hero.webp",
+  footwear: "/categoryimages/CAT_footwear_Hero.webp",
+  eyeFace: "/categoryimages/CAT_eyes_Hero.webp",
+  head: "/categoryimages/CAT_head_Hero.webp",
+  clothing: "/categoryimages/CAT_clothing-SUBCAT_HighVis_Hero.webp",
 };
 
 export const MainCategoriesRow = () => {
   const { t } = useLanguage();
-  const scrollRef = React.useRef<HTMLDivElement | null>(null);
-  const [canScrollLeft, setCanScrollLeft] = React.useState(false);
-  const [canScrollRight, setCanScrollRight] = React.useState(false);
-
-  const updateScrollButtons = React.useCallback(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    setCanScrollLeft(el.scrollLeft > 0);
-    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 1);
-  }, []);
-
-  React.useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    updateScrollButtons();
-    el.addEventListener("scroll", updateScrollButtons, { passive: true });
-    window.addEventListener("resize", updateScrollButtons, { passive: true });
-    return () => {
-      el.removeEventListener("scroll", updateScrollButtons as any);
-      window.removeEventListener("resize", updateScrollButtons as any);
-    };
-  }, [updateScrollButtons]);
-
-  const getStep = (): number => {
-    const el = scrollRef.current;
-    if (!el) return 300;
-    const inner = el.firstElementChild as HTMLElement | null;
-    if (!inner) return 300;
-    const firstItem = inner.querySelector(':scope > div') as HTMLElement | null;
-    if (!firstItem) return 300;
-    const gap = parseFloat(getComputedStyle(inner).columnGap || '0') || 0;
-    return firstItem.offsetWidth + gap;
-  };
-
-  const scrollByAmount = (dir: "left" | "right") => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const step = getStep();
-    const amount = step * (dir === "left" ? -1 : 1);
-    el.scrollBy({ left: amount, behavior: "smooth" });
-  };
 
   const categories = [
     {
@@ -177,14 +137,9 @@ export const MainCategoriesRow = () => {
           </div>
         </div>
 
-        {/* Horizontal, scrollable row of categories with desktop arrows */}
-        <div className="relative -mx-4 sm:mx-0">
-          {/* Scroll container */}
-          <div
-            ref={scrollRef}
-            className="overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700"
-          >
-            <div className="px-4 flex gap-6 lg:gap-8 snap-x snap-mandatory">
+        {/* Mobile: horizontal scrollable row */}
+        <div className="md:hidden overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700 -mx-4 sm:mx-0">
+          <div className="px-4 flex gap-6 lg:gap-8 snap-x snap-mandatory">
             {categories.map((c, index) => (
               <div key={c.key} className="snap-start flex-none w-[260px] sm:w-[300px]">
                 <CategoryCard
@@ -198,33 +153,80 @@ export const MainCategoriesRow = () => {
                 />
               </div>
             ))}
+            {/* Contact Card for Mobile */}
+            <div className="snap-start flex-none w-[260px] sm:w-[300px]">
+              <ContactCard index={categories.length} />
             </div>
           </div>
-          {/* Desktop arrows */}
-          {canScrollLeft && (
-            <button
-              type="button"
-              aria-label="Scroll left"
-              onClick={() => scrollByAmount("left")}
-              className="group hidden sm:block absolute -left-6 top-1/2 -translate-y-1/2 z-10 bg-white/90 dark:bg-black/70 backdrop-blur-sm shadow-lg rounded-full p-2 border-2 border-brand-primary/30 dark:border-brand-primary/40 hover:border-transparent hover:bg-gradient-to-br hover:from-[#F08515] hover:to-[#E67A2C] dark:hover:from-[#F08515] dark:hover:to-[#E67A2C] transition-all"
-            >
-              <ChevronLeft className="h-5 w-5 text-brand-primary group-hover:text-white" />
-            </button>
-          )}
-          {canScrollRight && (
-            <button
-              type="button"
-              aria-label="Scroll right"
-              onClick={() => scrollByAmount("right")}
-              className="group hidden sm:block absolute -right-6 top-1/2 -translate-y-1/2 z-10 bg-white/90 dark:bg-black/70 backdrop-blur-sm shadow-lg rounded-full p-2 border-2 border-brand-primary/30 dark:border-brand-primary/40 hover:border-transparent hover:bg-gradient-to-br hover:from-[#F08515] hover:to-[#E67A2C] dark:hover:from-[#F08515] dark:hover:to-[#E67A2C] transition-all"
-            >
-              <ChevronRight className="h-5 w-5 text-brand-primary group-hover:text-white" />
-            </button>
-          )}
+        </div>
+
+        {/* Desktop: 2 rows x 5 columns grid */}
+        <div className="hidden md:grid grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-8">
+          {categories.map((c, index) => (
+            <CategoryCard
+              key={c.key}
+              title={c.title}
+              description={c.description}
+              imageSrc={c.imageSrc}
+              imageAlt={c.title}
+              href={c.href}
+              index={index}
+              noShadow
+            />
+          ))}
+          {/* Contact Card - 10th item */}
+          <ContactCard index={categories.length} />
         </div>
       </div>
     </section>
   );
 };
 
-
+// Contact Card Component
+const ContactCard = ({ index }: { index: number }) => {
+  const { t } = useLanguage();
+  const SPRING_CONFIG = { stiffness: 100, damping: 30, mass: 1 };
+  
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ ...SPRING_CONFIG, delay: index * 0.1 }}
+      className="group h-full"
+    >
+      <Link href="/contact" className="block h-full">
+        <div className="relative bg-white dark:bg-black/50 rounded-2xl shadow-none transition-all duration-500 overflow-hidden border border-gray-100 dark:border-gray-700/50 group-hover:border-brand-primary/50 backdrop-blur-sm h-full flex flex-col">
+          {/* Icon section - matching aspect ratio of image */}
+          <div className="relative aspect-[4/3] overflow-hidden flex items-center justify-center">
+            <MessageCircle className="h-16 w-16 text-brand-primary transition-transform duration-700 group-hover:scale-105" />
+            {/* Brand gradient overlay on hover */}
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          </div>
+          
+          {/* Content */}
+          <div className="p-6 flex-1 flex flex-col">
+            <div className="flex items-start justify-between gap-4 flex-1">
+              <div className="flex-1 flex flex-col h-full">
+                <h3 className="text-lg font-bold text-brand-dark dark:text-white font-heading mb-3 group-hover:text-brand-primary transition-colors duration-300 leading-tight">
+                  {t("products.categories.main.contactCard.title")}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed flex-1 line-clamp-3">
+                  {t("products.categories.main.contactCard.description")}
+                </p>
+              </div>
+              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-brand-primary/10 group-hover:bg-brand-primary group-hover:scale-110 transition-all duration-300 flex-shrink-0 mt-1">
+                <ChevronRight className="h-4 w-4 text-brand-primary group-hover:text-white transition-all duration-300" />
+              </div>
+            </div>
+          </div>
+          
+          {/* Enhanced hover effect overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-brand-primary/0 via-transparent to-brand-primary/0 group-hover:from-brand-primary/5 group-hover:to-brand-primary/5 transition-all duration-500 pointer-events-none rounded-2xl" />
+          
+          {/* Bottom accent line */}
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-primary/0 via-brand-primary to-brand-primary/0 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center" />
+        </div>
+      </Link>
+    </motion.div>
+  );
+};

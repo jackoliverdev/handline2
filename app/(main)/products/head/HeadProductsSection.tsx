@@ -17,7 +17,6 @@ import { VentilationFilter } from "@/components/website/products/filters/head/Ve
 import { VentilationFilterMobile } from "@/components/website/products/filters/head/VentilationFilterMobile";
 import { EnStandardFilter } from "@/components/website/products/filters/head/EnStandardFilter";
 import { EnStandardFilterMobile } from "@/components/website/products/filters/head/EnStandardFilterMobile";
-import { FilterSection } from "@/components/website/products/filters/FilterSection";
 
 export function HeadProductsSection({ products }: { products: Product[] }) {
   const headProducts = useMemo(() => {
@@ -47,29 +46,23 @@ export function HeadProductsSection({ products }: { products: Product[] }) {
 
   const extraFilters = (
     <>
-      {/* EN Standards directly under Sub-Category */}
       <EnStandardFilter selected={stds} onToggle={(opt) => setStds(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <FilterSection title="Features" defaultExpanded={false}>
-        <BrimLengthFilter options={brimOptions} selected={selectedBrims} onToggle={(opt) => setSelectedBrims(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-        <LowTemperatureFilter value={ltOnly} onChange={setLtOnly} withDivider={false} />
-        <ElectricalInsulationFilter value={e50365} onChange={setE50365} withDivider={false} />
-        <MoltenMetalFilter value={mmOnly} onChange={setMmOnly} withDivider={false} />
-        <VentilationFilter value={ventOnly} onChange={setVentOnly} withDivider={false} />
-      </FilterSection>
+      <BrimLengthFilter options={brimOptions} selected={selectedBrims} onToggle={(opt) => setSelectedBrims(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
+      <LowTemperatureFilter value={ltOnly} onChange={setLtOnly} />
+      <ElectricalInsulationFilter value={e50365} onChange={setE50365} />
+      <MoltenMetalFilter value={mmOnly} onChange={setMmOnly} />
+      <VentilationFilter value={ventOnly} onChange={setVentOnly} />
     </>
   );
 
   const extraFiltersMobile = (
     <>
-      {/* EN Standards directly under Sub-Category (mobile) */}
       <EnStandardFilterMobile selected={stds} onToggle={(opt) => setStds(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <FilterSection title="Features" defaultExpanded={false} variant="mobile">
-        <BrimLengthFilterMobile options={brimOptions} selected={selectedBrims} onToggle={(opt) => setSelectedBrims(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-        <LowTemperatureFilterMobile value={ltOnly} onChange={setLtOnly} />
-        <ElectricalInsulationFilterMobile value={e50365} onChange={setE50365} />
-        <MoltenMetalFilterMobile value={mmOnly} onChange={setMmOnly} />
-        <VentilationFilterMobile value={ventOnly} onChange={setVentOnly} />
-      </FilterSection>
+      <BrimLengthFilterMobile options={brimOptions} selected={selectedBrims} onToggle={(opt) => setSelectedBrims(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
+      <LowTemperatureFilterMobile value={ltOnly} onChange={setLtOnly} />
+      <ElectricalInsulationFilterMobile value={e50365} onChange={setE50365} />
+      <MoltenMetalFilterMobile value={mmOnly} onChange={setMmOnly} />
+      <VentilationFilterMobile value={ventOnly} onChange={setVentOnly} />
     </>
   );
 

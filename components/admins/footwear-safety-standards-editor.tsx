@@ -5,9 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Shield, Zap, Waves, Droplets, FlaskConical, HardHat, Footprints, Plus, X, Layers, Ruler, Scale, FileText } from "lucide-react";
+import { Shield, Zap, Waves, Droplets, FlaskConical, HardHat, Footprints, Plus, X, Layers, Ruler, Scale, FileText, FileCheck } from "lucide-react";
 import { useLanguage } from "@/lib/context/language-context";
 
 interface FootwearSafetyStandardsEditorProps {
@@ -497,6 +498,70 @@ export const FootwearSafetyStandardsEditor: React.FC<FootwearSafetyStandardsEdit
               <Plus className="h-4 w-4 mr-2" />
               Add Special Feature
             </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Other Standards & Certifications */}
+      <Card>
+        <CardHeader className="pb-3">
+          <div className="flex items-center gap-2">
+            <FileCheck className="h-5 w-5 text-brand-primary" />
+            <CardTitle className="text-lg">Other Standards & Certifications</CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between py-2 border-b">
+              <div className="flex-1">
+                <Label className="text-sm font-medium">EN 421</Label>
+                <p className="text-xs text-muted-foreground mt-0.5">Ionising radiation and radioactive contamination</p>
+              </div>
+              <Switch 
+                checked={!!footwearStandards.en_421} 
+                onCheckedChange={(v) => setFootwearStandards({ ...footwearStandards, en_421: v })} 
+              />
+            </div>
+            <div className="flex items-center justify-between py-2 border-b">
+              <div className="flex-1">
+                <Label className="text-sm font-medium">EN 659</Label>
+                <p className="text-xs text-muted-foreground mt-0.5">Firefighters' protective footwear</p>
+              </div>
+              <Switch 
+                checked={!!footwearStandards.en_659} 
+                onCheckedChange={(v) => setFootwearStandards({ ...footwearStandards, en_659: v })} 
+              />
+            </div>
+            <div className="flex items-center justify-between py-2 border-b">
+              <div className="flex-1">
+                <Label className="text-sm font-medium">Food Grade</Label>
+                <p className="text-xs text-muted-foreground mt-0.5">Food contact safe</p>
+              </div>
+              <Switch 
+                checked={!!footwearStandards.food_grade} 
+                onCheckedChange={(v) => setFootwearStandards({ ...footwearStandards, food_grade: v })} 
+              />
+            </div>
+            <div className="flex items-center justify-between py-2 border-b">
+              <div className="flex-1">
+                <Label className="text-sm font-medium">Ionising Radiation</Label>
+                <p className="text-xs text-muted-foreground mt-0.5">Protection against ionising radiation</p>
+              </div>
+              <Switch 
+                checked={!!footwearStandards.ionising_radiation} 
+                onCheckedChange={(v) => setFootwearStandards({ ...footwearStandards, ionising_radiation: v })} 
+              />
+            </div>
+            <div className="flex items-center justify-between py-2">
+              <div className="flex-1">
+                <Label className="text-sm font-medium">Radioactive Contamination</Label>
+                <p className="text-xs text-muted-foreground mt-0.5">Protection against radioactive contamination</p>
+              </div>
+              <Switch 
+                checked={!!footwearStandards.radioactive_contamination} 
+                onCheckedChange={(v) => setFootwearStandards({ ...footwearStandards, radioactive_contamination: v })} 
+              />
+            </div>
           </div>
         </CardContent>
       </Card>

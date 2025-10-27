@@ -6,9 +6,11 @@ import { Switch } from "@/components/ui/switch";
 export function FlameStandardFilterMobile({ value, onChange }: { value: boolean; onChange: (v: boolean) => void; }) {
   const { t } = useLanguage();
   return (
-    <div className="flex items-center justify-between py-3 border-b border-brand-primary/10 dark:border-brand-primary/20">
-      <span className="text-sm text-brand-dark dark:text-white">{t('products.filters.flameStandard') || 'Flame/heat standard (EN ISO 11612)'}</span>
-      <Switch checked={value} onCheckedChange={onChange} />
+    <div className="pb-4">
+      <div className="flex items-center justify-between">
+        <h3 className="text-base font-medium text-brand-dark dark:text-white">{t('products.filters.flameStandard')}</h3>
+        <Switch checked={value} onCheckedChange={onChange} />
+      </div>
     </div>
   );
 }

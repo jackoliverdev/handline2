@@ -12,8 +12,8 @@ interface Props {
 export const ConnectionFilterMobile = ({ options, selected, onToggle }: Props) => {
   const { t } = useLanguage();
   return (
-    <div className="border-b border-brand-primary/10 dark:border-brand-primary/20 pb-4">
-      <h3 className="text-base font-medium text-brand-dark dark:text-white mb-2">{t('products.filters.connection') || 'Connection'}</h3>
+    <div className="pb-4">
+      <h3 className="text-base font-medium text-brand-dark dark:text-white mb-2">{t('products.filters.connection')}</h3>
       <div className="space-y-2 max-h-[240px] overflow-y-auto">
         {options.map(opt => (
           <div key={opt} className="flex items-center space-x-2">

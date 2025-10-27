@@ -58,7 +58,7 @@ export const ProductImageGallery = ({
     <div className="space-y-5">
       {/* Main displayed image */}
       <div 
-        className="group relative aspect-square overflow-hidden rounded-lg border bg-black dark:bg-black shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm dark:backdrop-blur-none"
+        className="group relative aspect-square overflow-hidden rounded-lg border bg-white dark:bg-black shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm dark:backdrop-blur-none"
         onMouseEnter={() => setIsZoomed(true)}
         onMouseLeave={() => setIsZoomed(false)}
       >
@@ -111,8 +111,8 @@ export const ProductImageGallery = ({
               key={index} 
               className={`relative aspect-square overflow-hidden rounded-lg cursor-pointer transition-all duration-200 transform ${
                 selectedImage === image 
-                  ? 'ring-2 ring-[#F08515] ring-offset-2 dark:ring-offset-gray-900 shadow-md scale-105 bg-black dark:bg-black' 
-                  : 'border bg-black dark:bg-black border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm dark:backdrop-blur-none opacity-80 hover:opacity-100 hover:shadow-md'
+                  ? 'ring-2 ring-[#F08515] ring-offset-2 dark:ring-offset-gray-900 shadow-md scale-105 bg-white dark:bg-black' 
+                  : 'border bg-white dark:bg-black border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm dark:backdrop-blur-none opacity-80 hover:opacity-100 hover:shadow-md'
               }`}
               onClick={() => setSelectedImage(image)}
             >

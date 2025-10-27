@@ -22,7 +22,7 @@ export const IndustryFilter = ({
   if (industries.length === 0) return null;
 
   return (
-    <div className="border-b border-brand-primary/10 dark:border-brand-primary/20 pb-4">
+    <div className="pb-4">
       <button
         className="flex w-full items-center justify-between mb-2"
         onClick={() => toggleSection("industries")}

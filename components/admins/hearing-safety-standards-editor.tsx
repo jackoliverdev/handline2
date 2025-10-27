@@ -5,10 +5,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Layers, Volume2, Mic, Settings, Shield, Droplets, Thermometer, Zap, Users, Bluetooth, Plus, X, Ear, FileText } from "lucide-react";
+import { Layers, Volume2, Mic, Settings, Shield, Droplets, Thermometer, Zap, Users, Bluetooth, Plus, X, Ear, FileText, FileCheck } from "lucide-react";
 import { useLanguage } from "@/lib/context/language-context";
 
 interface HearingSafetyStandardsEditorProps {
@@ -601,6 +602,70 @@ export const HearingSafetyStandardsEditor: React.FC<HearingSafetyStandardsEditor
               <Plus className="h-4 w-4 mr-2" />
               Add Accessory
             </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Other Standards & Certifications */}
+      <Card>
+        <CardHeader className="pb-3">
+          <div className="flex items-center gap-2">
+            <FileCheck className="h-5 w-5 text-brand-primary" />
+            <CardTitle className="text-lg">Other Standards & Certifications</CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between py-2 border-b">
+              <div className="flex-1">
+                <Label className="text-sm font-medium">EN 421</Label>
+                <p className="text-xs text-muted-foreground mt-0.5">Ionising radiation and radioactive contamination</p>
+              </div>
+              <Switch 
+                checked={!!hearingStandards.en_421} 
+                onCheckedChange={(v) => setHearingStandards({ ...hearingStandards, en_421: v })} 
+              />
+            </div>
+            <div className="flex items-center justify-between py-2 border-b">
+              <div className="flex-1">
+                <Label className="text-sm font-medium">EN 659</Label>
+                <p className="text-xs text-muted-foreground mt-0.5">Firefighters' protective hearing protection</p>
+              </div>
+              <Switch 
+                checked={!!hearingStandards.en_659} 
+                onCheckedChange={(v) => setHearingStandards({ ...hearingStandards, en_659: v })} 
+              />
+            </div>
+            <div className="flex items-center justify-between py-2 border-b">
+              <div className="flex-1">
+                <Label className="text-sm font-medium">Food Grade</Label>
+                <p className="text-xs text-muted-foreground mt-0.5">Food contact safe</p>
+              </div>
+              <Switch 
+                checked={!!hearingStandards.food_grade} 
+                onCheckedChange={(v) => setHearingStandards({ ...hearingStandards, food_grade: v })} 
+              />
+            </div>
+            <div className="flex items-center justify-between py-2 border-b">
+              <div className="flex-1">
+                <Label className="text-sm font-medium">Ionising Radiation</Label>
+                <p className="text-xs text-muted-foreground mt-0.5">Protection against ionising radiation</p>
+              </div>
+              <Switch 
+                checked={!!hearingStandards.ionising_radiation} 
+                onCheckedChange={(v) => setHearingStandards({ ...hearingStandards, ionising_radiation: v })} 
+              />
+            </div>
+            <div className="flex items-center justify-between py-2">
+              <div className="flex-1">
+                <Label className="text-sm font-medium">Radioactive Contamination</Label>
+                <p className="text-xs text-muted-foreground mt-0.5">Protection against radioactive contamination</p>
+              </div>
+              <Switch 
+                checked={!!hearingStandards.radioactive_contamination} 
+                onCheckedChange={(v) => setHearingStandards({ ...hearingStandards, radioactive_contamination: v })} 
+              />
+            </div>
           </div>
         </CardContent>
       </Card>

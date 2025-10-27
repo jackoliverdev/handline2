@@ -2,7 +2,7 @@
 
 import { Product } from "@/lib/products-service";
 import { Badge } from "@/components/ui/badge";
-import { Sun, Sparkles, Flame, Hammer, Shield } from "lucide-react";
+import { Sun, Sparkles, Flame, Hammer, Shield, Eye, Glasses } from "lucide-react";
 import { useLanguage } from "@/lib/context/language-context";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -20,12 +20,11 @@ export function EyeFaceSpecs({ product }: { product: Product }) {
   const armMaterial = attrs?.arm_material;
   const headbandMaterial = attrs?.headband_material;
 
-  const stdChips: string[] = [];
-  if (std?.en166) stdChips.push('EN 166');
-  if (std?.en169) stdChips.push('EN 169');
-  if (std?.en170) stdChips.push('EN 170');
-  if (std?.en172) stdChips.push('EN 172');
-  if (std?.gs_et_29) stdChips.push('GS-ET 29');
+  const stdChips: Array<{ label: string; icon: any; color: string }> = [];
+  if (std?.en166) stdChips.push({ label: 'EN 166', icon: Eye, color: 'text-brand-primary' });
+  if (std?.en169) stdChips.push({ label: 'EN 169', icon: Flame, color: 'text-orange-500' });
+  if (std?.en170) stdChips.push({ label: 'EN 170', icon: Shield, color: 'text-yellow-500' });
+  if (std?.en172) stdChips.push({ label: 'EN 172', icon: Sun, color: 'text-blue-500' });
 
   const protChips: string[] = [];
   if (attrs?.has_ir) protChips.push('IR');
@@ -39,17 +38,35 @@ export function EyeFaceSpecs({ product }: { product: Product }) {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Materials (full height - row span 2) */}
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4 md:row-span-2">
-          <h4 className="font-medium text-brand-dark dark:text-white mb-2">{t('productPage.materials')}</h4>
-          <div className="divide-y divide-gray-200 dark:divide-gray-700 text-brand-dark dark:text-white">
-            <div className="flex items-center justify-between py-2"><span>Lens material</span><span className="font-medium">{lensMaterial ? String(lensMaterial) : '-'}</span></div>
-            <div className="flex items-center justify-between py-2"><span>Frame material</span><span className="font-medium">{frameMaterial ? String(frameMaterial) : '-'}</span></div>
-            <div className="flex items-center justify-between py-2"><span>Arm material</span><span className="font-medium">{armMaterial ? String(armMaterial) : '-'}</span></div>
-            <div className="flex items-center justify-between py-2"><span>Headband material</span><span className="font-medium">{headbandMaterial ? String(headbandMaterial) : '-'}</span></div>
+          <div className="flex items-center gap-2 mb-2">
+            <Eye className="h-4 w-4 text-brand-primary" />
+            <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.materials')}</h4>
+          </div>
+          <div className="space-y-3 text-brand-dark dark:text-white">
+            <div className="flex items-center justify-between">
+              <span>{t('productPage.lens')}</span>
+              <span className="font-medium">{lensMaterial ? String(lensMaterial) : '-'}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span>{t('productPage.frame')}</span>
+              <span className="font-medium">{frameMaterial ? String(frameMaterial) : '-'}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span>{t('productPage.arm')}</span>
+              <span className="font-medium">{armMaterial ? String(armMaterial) : '-'}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span>{t('productPage.headband')}</span>
+              <span className="font-medium">{headbandMaterial ? String(headbandMaterial) : '-'}</span>
+            </div>
           </div>
         </div>
         {/* Coating */}
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-          <h4 className="font-medium text-brand-dark dark:text-white mb-2">{t('productPage.coating')}</h4>
+          <div className="flex items-center gap-2 mb-2">
+            <Sparkles className="h-4 w-4 text-brand-primary" />
+            <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.coating')}</h4>
+          </div>
           {coatings.length > 0 ? (
             <div className="flex flex-wrap gap-2">
               {coatings.map((c: string, idx: number) => {
@@ -72,21 +89,36 @@ export function EyeFaceSpecs({ product }: { product: Product }) {
         </div>
         {/* Optical class */}
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-          <h4 className="font-medium text-brand-dark dark:text-white mb-2">{t('productPage.opticalClass')}</h4>
+          <div className="flex items-center gap-2 mb-2">
+            <Glasses className="h-4 w-4 text-brand-primary" />
+            <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.opticalClass')}</h4>
+          </div>
           <p className="text-brand-dark dark:text-white">{opticalClass ?? '-'}</p>
         </div>
         {/* Standards */}
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-          <h4 className="font-medium text-brand-dark dark:text-white mb-2">{t('productPage.standards')}</h4>
+          <div className="flex items-center gap-2 mb-2">
+            <Shield className="h-4 w-4 text-brand-primary" />
+            <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.standards')}</h4>
+          </div>
           <div className="flex flex-wrap gap-1.5">
-            {stdChips.length > 0 ? stdChips.map((c, idx) => (
-              <span key={idx} className="bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 rounded px-2 py-0.5 text-xs">{c}</span>
-            )) : <span>-</span>}
+            {stdChips.length > 0 ? stdChips.map((c, idx) => {
+              const Icon = c.icon;
+              return (
+                <span key={idx} className="flex items-center gap-1 bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 rounded px-2 py-0.5 text-xs">
+                  <Icon className={`h-4 w-4 ${c.color}`} />
+                  {c.label}
+                </span>
+              );
+            }) : <span>-</span>}
           </div>
         </div>
         {/* Attributes */}
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-          <h4 className="font-medium text-brand-dark dark:text-white mb-2">{t('productPage.attributes')}</h4>
+          <div className="flex items-center gap-2 mb-2">
+            <Shield className="h-4 w-4 text-brand-primary" />
+            <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.attributes')}</h4>
+          </div>
           <div className="flex flex-wrap gap-1.5">
             {protChips.length > 0 ? protChips.map((c, idx) => (
               <span key={idx} className="bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 rounded px-2 py-0.5 text-xs">{c}</span>

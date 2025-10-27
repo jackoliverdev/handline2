@@ -44,7 +44,7 @@ export default function CreateCareerPage() {
   const [responsibilitiesLocales, setResponsibilitiesLocales] = useState<{en: string[], it: string[]}>({ en: [], it: [] });
   const [requirementsLocales, setRequirementsLocales] = useState<{en: string[], it: string[]}>({ en: [], it: [] });
   const [benefitsLocales, setBenefitsLocales] = useState<{en: string[], it: string[]}>({ en: [], it: [] });
-  const [salaryRange, setSalaryRange] = useState<string>("");
+  const [salaryRangeLocales, setSalaryRangeLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
   const [isPublished, setIsPublished] = useState(false);
   const [isFeatured, setIsFeatured] = useState(false);
   const [currentArrayItem, setCurrentArrayItem] = useState("");
@@ -96,7 +96,8 @@ export default function CreateCareerPage() {
         responsibilities_locales: (responsibilitiesLocales.en.length || responsibilitiesLocales.it.length) ? responsibilitiesLocales : undefined,
         requirements_locales: (requirementsLocales.en.length || requirementsLocales.it.length) ? requirementsLocales : undefined,
         benefits_locales: (benefitsLocales.en.length || benefitsLocales.it.length) ? benefitsLocales : undefined,
-        salary_range: salaryRange || null,
+        salary_range_locales: (salaryRangeLocales.en || salaryRangeLocales.it) ? salaryRangeLocales : undefined,
+        salary_range: salaryRangeLocales.en || null,
         is_published: isPublished,
         is_featured: isFeatured,
       };
@@ -116,6 +117,7 @@ export default function CreateCareerPage() {
           delete fallback.responsibilities_locales;
           delete fallback.requirements_locales;
           delete fallback.benefits_locales;
+          delete fallback.salary_range_locales;
           await createCareer(fallback);
         } else {
           throw err;
@@ -216,7 +218,7 @@ export default function CreateCareerPage() {
                 </div>
                 <div className="space-y-1 sm:space-y-2">
                   <Label htmlFor="salary" className="text-xs sm:text-sm">Salary Range</Label>
-                  <Input id="salary" value={salaryRange} onChange={(e) => setSalaryRange(e.target.value)} placeholder="Optional" className="text-xs sm:text-sm h-8 sm:h-10" />
+                  <Input id="salary" value={salaryRangeLocales[currentLanguage]} onChange={(e) => setSalaryRangeLocales(prev => ({ ...prev, [currentLanguage]: e.target.value }))} placeholder="Optional" className="text-xs sm:text-sm h-8 sm:h-10" />
                 </div>
               </CardContent>
               <CardFooter className="flex flex-col sm:flex-row sm:justify-between gap-2 sm:gap-0">

@@ -45,7 +45,7 @@ export function CareerCard({ post, index, language, disableAnimation = false }: 
 
   // Localised fields
   const title = (post.title_locales && post.title_locales[language]) || post.title;
-  const description = (post.description_locales && post.description_locales[language]) || post.description;
+  const summary = (post.summary_locales && post.summary_locales[language]) || post.summary;
   const location = (post.location_locales && post.location_locales[language]) || post.location;
   const department = (post.department_locales && post.department_locales[language]) || post.department;
   const jobType = (post.job_type_locales && post.job_type_locales[language]) || post.job_type;
@@ -111,7 +111,7 @@ export function CareerCard({ post, index, language, disableAnimation = false }: 
         
         {/* Job Summary */}
         <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-3 leading-relaxed mb-4">
-          {description}
+          {summary}
         </p>
       </motion.div>
       

@@ -18,78 +18,68 @@ export function HearingSpecs({ product }: { product: Product }) {
 
   return (
     <div className="space-y-4">
-      <div className="grid grid-cols-3 gap-4">
-        {/* Row 1: Materials, Size, SNR */}
-        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <Layers className="h-5 w-5 text-brand-primary hidden sm:block" />
-            <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.materials')}</h3>
+      {/* Main grid: Materials spans 3 rows on left, 5 other specs in 2 columns on right */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* Materials (full height - spans 3 rows) */}
+        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4 md:row-span-3">
+          <div className="flex items-center gap-2 mb-2">
+            <Layers className="h-5 w-5 text-brand-primary" />
+            <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.materials')}</h4>
           </div>
-          <div className="flex items-center justify-center">
-            {materials && materials.length > 0 ? (
-              <div className="text-center">
-                <div className="text-brand-dark dark:text-white font-medium text-md">{materials[0]}</div>
-                {materials.length > 1 && (
-                  <div className="text-sm text-brand-secondary dark:text-gray-300">+{materials.length - 1} more</div>
-                )}
-              </div>
-            ) : (
-              <span className="text-brand-dark dark:text-white font-medium text-md">-</span>
-            )}
-          </div>
+          {materials && materials.length > 0 ? (
+            <div className="space-y-1">
+              {materials.map((m: string, i: number) => (
+                <div key={i} className="text-brand-dark dark:text-white font-medium">{m}</div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-brand-dark dark:text-white font-medium">-</div>
+          )}
         </div>
 
+        {/* Size */}
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <Move className="h-5 w-5 text-brand-primary hidden sm:block" />
-            <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.productInfo.size')}</h3>
+          <div className="flex items-center gap-2 mb-2">
+            <Move className="h-5 w-5 text-brand-primary" />
+            <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.productInfo.size')}</h4>
           </div>
-          <div className="flex items-center justify-center">
-            <span className="text-brand-dark dark:text-white font-medium text-md">{size || '-'}</span>
-          </div>
+          <div className="text-brand-dark dark:text-white font-medium">{size || '-'}</div>
         </div>
 
+        {/* SNR */}
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <Volume2 className="h-5 w-5 text-brand-primary hidden sm:block" />
-            <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.snr') || 'SNR'}</h3>
+          <div className="flex items-center gap-2 mb-2">
+            <Volume2 className="h-5 w-5 text-brand-primary" />
+            <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.snr') || 'SNR'}</h4>
           </div>
-          <div className="flex items-center justify-center">
-            <span className="text-brand-dark dark:text-white font-medium text-md">{snr ? `${snr} dB` : '-'}</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-3 gap-4">
-        {/* Row 2: EN 352 Parts, Mount type, CE Category */}
-        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <Mic className="h-5 w-5 text-brand-primary hidden sm:block" />
-            <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.en352Parts') || 'EN 352 Parts'}</h3>
-          </div>
-          <div className="flex items-center justify-center">
-            <span className="text-brand-dark dark:text-white font-medium text-md">{parts.length ? parts.join(', ') : '-'}</span>
-          </div>
+          <div className="text-brand-dark dark:text-white font-medium">{snr ? `${snr} dB` : '-'}</div>
         </div>
 
+        {/* EN 352 Parts */}
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <Settings className="h-5 w-5 text-brand-primary hidden sm:block" />
-            <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('products.filters.mountType') || 'Mount type'}</h3>
-          </div>
-          <div className="flex items-center justify-center">
-            <span className="text-brand-dark dark:text-white font-medium text-md">{mount || '-'}</span>
-          </div>
-        </div>
-
-        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-          <div className="flex items-center justify-center gap-2 mb-2">
+          <div className="flex items-center gap-2 mb-2">
             <Shield className="h-5 w-5 text-brand-primary" />
-            <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.ceCategory')}</h3>
+            <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.en352Parts') || 'EN 352 Parts'}</h4>
           </div>
-          <div className="flex items-center justify-center">
-            <span className="text-brand-dark dark:text-white font-medium text-md">{product.ce_category || '-'}</span>
+          <div className="text-brand-dark dark:text-white font-medium">{parts.length ? parts.join(', ') : '-'}</div>
+        </div>
+
+        {/* Mount type */}
+        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+          <div className="flex items-center gap-2 mb-2">
+            <Settings className="h-5 w-5 text-brand-primary" />
+            <h4 className="font-medium text-brand-dark dark:text-white">{t('products.filters.mountType') || 'Mount type'}</h4>
           </div>
+          <div className="text-brand-dark dark:text-white font-medium capitalize">{mount || '-'}</div>
+        </div>
+
+        {/* CE Category - spans 2 columns */}
+        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4 md:col-span-2">
+          <div className="flex items-center gap-2 mb-2">
+            <Shield className="h-5 w-5 text-brand-primary" />
+            <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.ceCategory')}</h4>
+          </div>
+          <div className="text-brand-dark dark:text-white font-medium">{product.ce_category ? `${t('productPage.category')} ${product.ce_category}` : '-'}</div>
         </div>
       </div>
 

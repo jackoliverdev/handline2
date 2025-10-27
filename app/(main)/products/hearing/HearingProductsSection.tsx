@@ -36,9 +36,9 @@ export function HearingProductsSection({ products }: HearingProductsSectionProps
   // Filter states (to be connected to UI components)
   const [selectedSnrs, setSelectedSnrs] = useState<number[]>([]);
   const [selectedParts, setSelectedParts] = useState<string[]>([]);
-  const [reusable, setReusable] = useState<null | boolean>(null);
+  const [reusable, setReusable] = useState<boolean>(false);
   const [mountTypes, setMountTypes] = useState<string[]>([]);
-  const [bluetooth, setBluetooth] = useState<null | boolean>(null);
+  const [bluetooth, setBluetooth] = useState<boolean>(false);
 
   // Build options
   const snrOptions = useMemo(() => {
@@ -87,9 +87,9 @@ export function HearingProductsSection({ products }: HearingProductsSectionProps
 
     const snrOk = selectedSnrs.length === 0 ? true : (typeof snr === 'number' && selectedSnrs.includes(snr));
     const partOk = selectedParts.length === 0 ? true : parts.some((pt) => selectedParts.includes(pt));
-    const reuseOk = reusable === null ? true : (typeof pReusable === 'boolean' && pReusable === reusable);
+    const reuseOk = !reusable ? true : (typeof pReusable === 'boolean' && pReusable === true);
     const mountOk = mountTypes.length === 0 ? true : (!!pMount && mountTypes.includes(pMount));
-    const btOk = bluetooth === null ? true : (typeof pBt === 'boolean' && pBt === bluetooth);
+    const btOk = !bluetooth ? true : (typeof pBt === 'boolean' && pBt === true);
     return snrOk && partOk && reuseOk && mountOk && btOk;
   };
 
