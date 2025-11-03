@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -12,10 +12,13 @@ import { Shield, FileText, Plus, X, FileCheck } from "lucide-react";
 import { useLanguage } from "@/lib/context/language-context";
 
 interface HeadSafetyStandardsEditorProps {
+  language: 'en' | 'it';
   headStandards: any;
   setHeadStandards: (standards: any) => void;
   headAttributes: any;
   setHeadAttributes: (attributes: any) => void;
+  headTechSpecsLocales: { en: { form_factor: string; brim_length: string; colours: string[]; additional_features: string[] }; it: { form_factor: string; brim_length: string; colours: string[]; additional_features: string[] } };
+  setHeadTechSpecsLocales: (specs: { en: { form_factor: string; brim_length: string; colours: string[]; additional_features: string[] }; it: { form_factor: string; brim_length: string; colours: string[]; additional_features: string[] } }) => void;
   headComfortFeatures: { en: string[]; it: string[] };
   setHeadComfortFeatures: (features: { en: string[]; it: string[] }) => void;
   headOtherDetails: { en: string[]; it: string[] };
@@ -25,10 +28,13 @@ interface HeadSafetyStandardsEditorProps {
 }
 
 export const HeadSafetyStandardsEditor: React.FC<HeadSafetyStandardsEditorProps> = ({ 
+  language,
   headStandards, 
   setHeadStandards,
   headAttributes,
   setHeadAttributes,
+  headTechSpecsLocales,
+  setHeadTechSpecsLocales,
   headComfortFeatures,
   setHeadComfortFeatures,
   headOtherDetails,
@@ -36,15 +42,22 @@ export const HeadSafetyStandardsEditor: React.FC<HeadSafetyStandardsEditorProps>
   headEquipment,
   setHeadEquipment
 }) => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
+
+  // Local state for input fields
+  const [comfortFeatureInput, setComfortFeatureInput] = useState('');
+  const [otherDetailInput, setOtherDetailInput] = useState('');
+  const [equipmentInput, setEquipmentInput] = useState('');
+  const [colourInput, setColourInput] = useState('');
+  const [additionalFeatureInput, setAdditionalFeatureInput] = useState('');
 
   const addComfortFeature = () => {
-    const newFeature = prompt('Enter comfort feature:');
-    if (newFeature?.trim()) {
+    if (comfortFeatureInput.trim()) {
       setHeadComfortFeatures({
         ...headComfortFeatures,
-        [language]: [...(headComfortFeatures[language] || []), newFeature.trim()]
+        [language]: [...(headComfortFeatures[language] || []), comfortFeatureInput.trim()]
       });
+      setComfortFeatureInput('');
     }
   };
 
@@ -56,12 +69,12 @@ export const HeadSafetyStandardsEditor: React.FC<HeadSafetyStandardsEditorProps>
   };
 
   const addOtherDetail = () => {
-    const newDetail = prompt('Enter other detail:');
-    if (newDetail?.trim()) {
+    if (otherDetailInput.trim()) {
       setHeadOtherDetails({
         ...headOtherDetails,
-        [language]: [...(headOtherDetails[language] || []), newDetail.trim()]
+        [language]: [...(headOtherDetails[language] || []), otherDetailInput.trim()]
       });
+      setOtherDetailInput('');
     }
   };
 
@@ -73,12 +86,12 @@ export const HeadSafetyStandardsEditor: React.FC<HeadSafetyStandardsEditorProps>
   };
 
   const addEquipment = () => {
-    const newEquipment = prompt('Enter equipment:');
-    if (newEquipment?.trim()) {
+    if (equipmentInput.trim()) {
       setHeadEquipment({
         ...headEquipment,
-        [language]: [...(headEquipment[language] || []), newEquipment.trim()]
+        [language]: [...(headEquipment[language] || []), equipmentInput.trim()]
       });
+      setEquipmentInput('');
     }
   };
 
@@ -90,19 +103,48 @@ export const HeadSafetyStandardsEditor: React.FC<HeadSafetyStandardsEditorProps>
   };
 
   const addColour = () => {
-    const newColour = prompt('Enter colour:');
-    if (newColour?.trim()) {
-      setHeadAttributes({
-        ...headAttributes,
-        colours: [...(headAttributes.colours || []), newColour.trim()]
+    if (colourInput.trim()) {
+      setHeadTechSpecsLocales({
+        ...headTechSpecsLocales,
+        [language]: {
+          ...headTechSpecsLocales[language],
+          colours: [...(headTechSpecsLocales[language].colours || []), colourInput.trim()]
+        }
       });
+      setColourInput('');
     }
   };
 
   const removeColour = (index: number) => {
-    setHeadAttributes({
-      ...headAttributes,
-      colours: (headAttributes.colours || []).filter((_: any, i: number) => i !== index)
+    setHeadTechSpecsLocales({
+      ...headTechSpecsLocales,
+      [language]: {
+        ...headTechSpecsLocales[language],
+        colours: (headTechSpecsLocales[language].colours || []).filter((_, i) => i !== index)
+      }
+    });
+  };
+
+  const addAdditionalFeature = () => {
+    if (additionalFeatureInput.trim()) {
+      setHeadTechSpecsLocales({
+        ...headTechSpecsLocales,
+        [language]: {
+          ...headTechSpecsLocales[language],
+          additional_features: [...(headTechSpecsLocales[language].additional_features || []), additionalFeatureInput.trim()]
+        }
+      });
+      setAdditionalFeatureInput('');
+    }
+  };
+
+  const removeAdditionalFeature = (index: number) => {
+    setHeadTechSpecsLocales({
+      ...headTechSpecsLocales,
+      [language]: {
+        ...headTechSpecsLocales[language],
+        additional_features: (headTechSpecsLocales[language].additional_features || []).filter((_, i) => i !== index)
+      }
     });
   };
 
@@ -122,16 +164,22 @@ export const HeadSafetyStandardsEditor: React.FC<HeadSafetyStandardsEditorProps>
               <div>
                 <Label className="text-sm font-medium">Form Factor</Label>
                 <Input 
-                  value={headAttributes.form_factor || ''} 
-                  onChange={(e) => setHeadAttributes({ ...headAttributes, form_factor: e.target.value })} 
+                  value={headTechSpecsLocales[language].form_factor || ''} 
+                  onChange={(e) => setHeadTechSpecsLocales({ 
+                    ...headTechSpecsLocales, 
+                    [language]: { ...headTechSpecsLocales[language], form_factor: e.target.value } 
+                  })} 
                   placeholder="e.g. Full brim, Cap style"
                 />
               </div>
               <div>
                 <Label className="text-sm font-medium">Brim Length</Label>
                 <Input 
-                  value={headAttributes.brim_length || ''} 
-                  onChange={(e) => setHeadAttributes({ ...headAttributes, brim_length: e.target.value })} 
+                  value={headTechSpecsLocales[language].brim_length || ''} 
+                  onChange={(e) => setHeadTechSpecsLocales({ 
+                    ...headTechSpecsLocales, 
+                    [language]: { ...headTechSpecsLocales[language], brim_length: e.target.value } 
+                  })} 
                   placeholder="e.g. Short, Long"
                 />
               </div>
@@ -168,25 +216,37 @@ export const HeadSafetyStandardsEditor: React.FC<HeadSafetyStandardsEditorProps>
             <div className="space-y-4">
               <div>
                 <Label className="text-sm font-medium">Colours</Label>
-                <div className="space-y-2">
+                <div className="space-y-2 mt-2">
+                  <div className="flex gap-2">
+                    <Input 
+                      placeholder="Add colour" 
+                      value={colourInput} 
+                      onChange={(e) => setColourInput(e.target.value)} 
+                      onKeyDown={(e) => { if (e.key === 'Enter' && colourInput.trim()) { addColour(); } }} 
+                    />
+                    <Button type="button" size="sm" onClick={addColour}>
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  {(headTechSpecsLocales[language].colours || []).length === 0 ? (
+                    <p className="text-sm text-muted-foreground">No items added.</p>
+                  ) : (
                   <div className="flex flex-wrap gap-2">
-                    {(headAttributes.colours || []).map((colour: string, index: number) => (
-                      <Badge key={index} variant="outline" className="bg-brand-primary/5 border-brand-primary/20">
+                      {(headTechSpecsLocales[language].colours || []).map((colour: string, index: number) => (
+                        <Badge key={`${colour}-${index}`} variant="outline" className="flex items-center gap-1">
                         {colour}
-                        <button
-                          type="button"
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="h-4 w-4 p-0" 
                           onClick={() => removeColour(index)}
-                          className="ml-2 text-red-500 hover:text-red-700"
                         >
                           <X className="h-3 w-3" />
-                        </button>
+                          </Button>
                       </Badge>
                     ))}
                   </div>
-                  <Button type="button" variant="outline" size="sm" onClick={addColour}>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Add Colour
-                  </Button>
+                  )}
                 </div>
               </div>
               <div className="space-y-3">
@@ -219,15 +279,12 @@ export const HeadSafetyStandardsEditor: React.FC<HeadSafetyStandardsEditorProps>
                       </Badge>
                     )}
                     {/* Show additional features array */}
-                    {(headAttributes.features || []).map((feature: string, index: number) => (
+                    {(headTechSpecsLocales[language].additional_features || []).map((feature: string, index: number) => (
                       <Badge key={index} variant="outline" className="bg-brand-primary/5 border-brand-primary/20">
                         {feature}
                         <button
                           type="button"
-                          onClick={() => setHeadAttributes({
-                            ...headAttributes,
-                            features: (headAttributes.features || []).filter((_: any, i: number) => i !== index)
-                          })}
+                          onClick={() => removeAdditionalFeature(index)}
                           className="ml-2 text-red-500 hover:text-red-700"
                         >
                           <X className="h-3 w-3" />
@@ -252,18 +309,17 @@ export const HeadSafetyStandardsEditor: React.FC<HeadSafetyStandardsEditorProps>
                         <Label className="text-sm">Closed Shell</Label>
                       </div>
                     </div>
-                    <Button type="button" variant="outline" size="sm" onClick={() => {
-                      const newFeature = prompt('Enter additional feature:');
-                      if (newFeature?.trim()) {
-                        setHeadAttributes({
-                          ...headAttributes,
-                          features: [...(headAttributes.features || []), newFeature.trim()]
-                        });
-                      }
-                    }}>
-                      <Plus className="h-4 w-4 mr-2" />
-                      Add Additional Feature
+                    <div className="flex gap-2 mt-2">
+                      <Input 
+                        placeholder="Add additional feature" 
+                        value={additionalFeatureInput} 
+                        onChange={(e) => setAdditionalFeatureInput(e.target.value)} 
+                        onKeyDown={(e) => { if (e.key === 'Enter' && additionalFeatureInput.trim()) { addAdditionalFeature(); } }} 
+                      />
+                      <Button type="button" size="sm" onClick={addAdditionalFeature}>
+                        <Plus className="h-4 w-4" />
                     </Button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -298,22 +354,57 @@ export const HeadSafetyStandardsEditor: React.FC<HeadSafetyStandardsEditorProps>
             </div>
             
             {headStandards.en397?.present && (
-              <div className="ml-6 space-y-2">
-                <div className="flex items-center gap-2">
-                  <Checkbox 
-                    checked={!!headStandards.en397?.optional?.low_temperature} 
-                    onCheckedChange={(v) => setHeadStandards({ 
+              <div className="ml-6 space-y-3">
+                <div className="space-y-1">
+                  <Label className="text-xs text-gray-600">Low Temperature</Label>
+                  <Input 
+                    placeholder="e.g. -20°C or -30°C" 
+                    value={headStandards.en397?.optional?.low_temperature || ''} 
+                    onChange={(e) => setHeadStandards({ 
                       ...headStandards, 
                       en397: { 
                         ...(headStandards.en397 || {}), 
                         optional: { 
                           ...(headStandards.en397?.optional || {}), 
-                          low_temperature: !!v 
+                          low_temperature: e.target.value 
                         } 
                       } 
                     })} 
                   />
-                  <Label className="text-sm">Low Temperature (-30°C)</Label>
+                </div>
+                <div className="space-y-1">
+                  <Label className="text-xs text-gray-600">High Temperature</Label>
+                  <Input 
+                    placeholder="e.g. 150°C" 
+                    value={headStandards.en397?.optional?.high_temperature || ''} 
+                    onChange={(e) => setHeadStandards({ 
+                      ...headStandards, 
+                      en397: { 
+                        ...(headStandards.en397 || {}), 
+                        optional: { 
+                          ...(headStandards.en397?.optional || {}), 
+                          high_temperature: e.target.value 
+                        } 
+                      } 
+                    })} 
+                  />
+                </div>
+                <div className="space-y-1">
+                  <Label className="text-xs text-gray-600">Electrical Insulation</Label>
+                  <Input 
+                    placeholder="e.g. 440 V a.c." 
+                    value={headStandards.en397?.optional?.electrical_insulation || ''} 
+                    onChange={(e) => setHeadStandards({ 
+                      ...headStandards, 
+                      en397: { 
+                        ...(headStandards.en397 || {}), 
+                        optional: { 
+                          ...(headStandards.en397?.optional || {}), 
+                          electrical_insulation: e.target.value 
+                        } 
+                      } 
+                    })} 
+                  />
                 </div>
                 <div className="flex items-center gap-2">
                   <Checkbox 
@@ -355,7 +446,7 @@ export const HeadSafetyStandardsEditor: React.FC<HeadSafetyStandardsEditorProps>
                 checked={!!headStandards.en50365} 
                 onCheckedChange={(v) => setHeadStandards({ ...headStandards, en50365: !!v })} 
               />
-              <Label className="text-sm font-medium">EN 50365 - Electrical Insulation</Label>
+              <Label className="text-sm font-medium">EN 50365 - Electrical Insulation (use EN 397 field above instead)</Label>
             </div>
 
             <div className="flex items-center gap-2">
@@ -383,27 +474,37 @@ export const HeadSafetyStandardsEditor: React.FC<HeadSafetyStandardsEditorProps>
           <CardTitle className="text-lg">Comfort Features</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-3">
+          <div className="space-y-4">
+            <div className="flex gap-2">
+              <Input 
+                placeholder="Add comfort feature" 
+                value={comfortFeatureInput} 
+                onChange={(e) => setComfortFeatureInput(e.target.value)} 
+                onKeyDown={(e) => { if (e.key === 'Enter' && comfortFeatureInput.trim()) { addComfortFeature(); } }} 
+              />
+              <Button type="button" size="sm" onClick={addComfortFeature}>
+                <Plus className="h-4 w-4" />
+              </Button>
+            </div>
+            {(headComfortFeatures[language] || []).length === 0 ? (
+              <p className="text-sm text-muted-foreground">No items added.</p>
+            ) : (
+              <div className="flex flex-wrap gap-2">
             {(headComfortFeatures[language] || []).map((feature: string, index: number) => (
-              <div key={index} className="flex items-center gap-2">
-                <Badge variant="outline" className="bg-brand-primary/5 border-brand-primary/20 flex-1">
+                  <Badge key={`${feature}-${index}`} variant="outline" className="flex items-center gap-1">
                   {feature}
-                </Badge>
                 <Button
-                  type="button"
                   variant="ghost"
                   size="sm"
+                      className="h-4 w-4 p-0" 
                   onClick={() => removeComfortFeature(index)}
-                  className="text-red-500 hover:text-red-700"
                 >
-                  <X className="h-4 w-4" />
+                      <X className="h-3 w-3" />
                 </Button>
+                  </Badge>
+                ))}
               </div>
-            ))}
-            <Button type="button" variant="outline" size="sm" onClick={addComfortFeature}>
-              <Plus className="h-4 w-4 mr-2" />
-              Add Comfort Feature
-            </Button>
+            )}
           </div>
         </CardContent>
       </Card>
@@ -414,27 +515,37 @@ export const HeadSafetyStandardsEditor: React.FC<HeadSafetyStandardsEditorProps>
           <CardTitle className="text-lg">Other Details</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-3">
+          <div className="space-y-4">
+            <div className="flex gap-2">
+              <Input 
+                placeholder="Add other detail" 
+                value={otherDetailInput} 
+                onChange={(e) => setOtherDetailInput(e.target.value)} 
+                onKeyDown={(e) => { if (e.key === 'Enter' && otherDetailInput.trim()) { addOtherDetail(); } }} 
+              />
+              <Button type="button" size="sm" onClick={addOtherDetail}>
+                <Plus className="h-4 w-4" />
+              </Button>
+            </div>
+            {(headOtherDetails[language] || []).length === 0 ? (
+              <p className="text-sm text-muted-foreground">No items added.</p>
+            ) : (
+              <div className="flex flex-wrap gap-2">
             {(headOtherDetails[language] || []).map((detail: string, index: number) => (
-              <div key={index} className="flex items-center gap-2">
-                <Badge variant="outline" className="bg-brand-primary/5 border-brand-primary/20 flex-1">
+                  <Badge key={`${detail}-${index}`} variant="outline" className="flex items-center gap-1">
                   {detail}
-                </Badge>
                 <Button
-                  type="button"
                   variant="ghost"
                   size="sm"
+                      className="h-4 w-4 p-0" 
                   onClick={() => removeOtherDetail(index)}
-                  className="text-red-500 hover:text-red-700"
                 >
-                  <X className="h-4 w-4" />
+                      <X className="h-3 w-3" />
                 </Button>
+                  </Badge>
+                ))}
               </div>
-            ))}
-            <Button type="button" variant="outline" size="sm" onClick={addOtherDetail}>
-              <Plus className="h-4 w-4 mr-2" />
-              Add Other Detail
-            </Button>
+            )}
           </div>
         </CardContent>
       </Card>
@@ -445,27 +556,37 @@ export const HeadSafetyStandardsEditor: React.FC<HeadSafetyStandardsEditorProps>
           <CardTitle className="text-lg">Equipment</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-3">
+          <div className="space-y-4">
+            <div className="flex gap-2">
+              <Input 
+                placeholder="Add equipment" 
+                value={equipmentInput} 
+                onChange={(e) => setEquipmentInput(e.target.value)} 
+                onKeyDown={(e) => { if (e.key === 'Enter' && equipmentInput.trim()) { addEquipment(); } }} 
+              />
+              <Button type="button" size="sm" onClick={addEquipment}>
+                <Plus className="h-4 w-4" />
+              </Button>
+            </div>
+            {(headEquipment[language] || []).length === 0 ? (
+              <p className="text-sm text-muted-foreground">No items added.</p>
+            ) : (
+              <div className="flex flex-wrap gap-2">
             {(headEquipment[language] || []).map((equipment: string, index: number) => (
-              <div key={index} className="flex items-center gap-2">
-                <Badge variant="outline" className="bg-brand-primary/5 border-brand-primary/20 flex-1">
+                  <Badge key={`${equipment}-${index}`} variant="outline" className="flex items-center gap-1">
                   {equipment}
-                </Badge>
                 <Button
-                  type="button"
                   variant="ghost"
                   size="sm"
+                      className="h-4 w-4 p-0" 
                   onClick={() => removeEquipment(index)}
-                  className="text-red-500 hover:text-red-700"
                 >
-                  <X className="h-4 w-4" />
+                      <X className="h-3 w-3" />
                 </Button>
+                  </Badge>
+                ))}
               </div>
-            ))}
-            <Button type="button" variant="outline" size="sm" onClick={addEquipment}>
-              <Plus className="h-4 w-4 mr-2" />
-              Add Equipment
-            </Button>
+            )}
           </div>
         </CardContent>
       </Card>
@@ -534,84 +655,171 @@ export const HeadSafetyStandardsEditor: React.FC<HeadSafetyStandardsEditorProps>
         </CardContent>
       </Card>
 
-      {/* Attributes Preview */}
+      {/* Head Protection Attributes */}
       <Card>
         <CardHeader className="pb-3">
-          <CardTitle className="text-lg">Attributes Preview</CardTitle>
+          <CardTitle className="text-lg">Head Protection Attributes</CardTitle>
           <p className="text-sm text-gray-600 dark:text-gray-400">
-            These attributes will be displayed as badges on the product detail page based on your settings above
+            These attributes will be displayed as yes/no cards on the product detail page
           </p>
         </CardHeader>
         <CardContent>
-          <div className="space-y-3">
-            <Label className="text-sm font-medium">Current Attributes:</Label>
-            <div className="flex flex-wrap gap-2">
-              {/* Temperature from EN 397 optional */}
-              {headStandards?.en397?.optional?.low_temperature && (
-                <Badge variant="outline" className="bg-brand-primary/5 border-brand-primary/20">
-                  {headStandards.en397.optional.low_temperature}
-                </Badge>
-              )}
-              
-              {/* Molten Metal from EN 397 optional */}
-              {headStandards?.en397?.optional?.molten_metal && (
-                <Badge variant="outline" className="bg-brand-primary/5 border-brand-primary/20">
-                  MM
-                </Badge>
-              )}
-              
-              {/* Lateral Deformation from EN 397 optional */}
-              {headStandards?.en397?.optional?.lateral_deformation && (
-                <Badge variant="outline" className="bg-brand-primary/5 border-brand-primary/20">
-                  LD
-                </Badge>
-              )}
-              
-              {/* Ventilation from attributes */}
-              {headAttributes?.ventilation && (
-                <Badge variant="outline" className="bg-brand-primary/5 border-brand-primary/20">
-                  Ventilation
-                </Badge>
-              )}
-              
-              {/* Closed Shell from attributes */}
-              {headAttributes?.closed_shell && (
-                <Badge variant="outline" className="bg-brand-primary/5 border-brand-primary/20">
-                  Closed Shell
-                </Badge>
-              )}
-              
-              {/* Additional Features from attributes */}
-              {(headAttributes?.features || []).map((feature: string, index: number) => (
-                <Badge key={index} variant="outline" className="bg-brand-primary/5 border-brand-primary/20">
-                  {feature}
-                </Badge>
-              ))}
-              
-              {/* Brim Length from attributes */}
-              {headAttributes?.brim_length === 'short' && (
-                <Badge variant="outline" className="bg-brand-primary/5 border-brand-primary/20">
-                  Short Brim
-                </Badge>
-              )}
-              {headAttributes?.brim_length === 'long' && (
-                <Badge variant="outline" className="bg-brand-primary/5 border-brand-primary/20">
-                  Long Brim
-                </Badge>
-              )}
-              
-              {/* Show message if no attributes */}
-              {!headStandards?.en397?.optional?.low_temperature && 
-               !headStandards?.en397?.optional?.molten_metal && 
-               !headStandards?.en397?.optional?.lateral_deformation && 
-               !headAttributes?.ventilation && 
-               !headAttributes?.closed_shell && 
-               (!headAttributes?.features || headAttributes.features.length === 0) && 
-               headAttributes?.brim_length !== 'short' && 
-               headAttributes?.brim_length !== 'long' && (
-                <span className="text-sm text-gray-500 italic">No attributes will be displayed</span>
-              )}
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {[
+              { 
+                key: 'lowTemp', 
+                enabled: Boolean(headStandards?.en397?.optional?.low_temperature), 
+                Icon: Shield,
+                label: 'Low Temperature'
+              },
+              { 
+                key: 'highTemp', 
+                enabled: Boolean(headStandards?.en397?.optional?.high_temperature), 
+                Icon: Shield,
+                label: 'High Temperature'
+              },
+              { 
+                key: 'electricalIns', 
+                enabled: Boolean(headStandards?.en397?.optional?.electrical_insulation), 
+                Icon: Shield,
+                label: 'Electrical Insulation'
+              },
+              { 
+                key: 'moltenMetal', 
+                enabled: Boolean(headStandards?.en397?.optional?.molten_metal), 
+                Icon: Shield,
+                label: 'Molten Metal (MM)'
+              },
+              { 
+                key: 'lateralDef', 
+                enabled: Boolean(headStandards?.en397?.optional?.lateral_deformation), 
+                Icon: Shield,
+                label: 'Lateral Deformation (LD)'
+              },
+              { 
+                key: 'ventilation', 
+                enabled: Boolean(headAttributes?.ventilation), 
+                Icon: Shield,
+                label: 'Ventilation'
+              },
+            ].map((item) => {
+              const { Icon } = item;
+              return (
+                <div
+                  key={item.key}
+                  className={`group relative overflow-hidden rounded-lg border shadow-sm transition-all duration-300 hover:shadow-md backdrop-blur-sm p-3 ${
+                    item.enabled
+                      ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
+                      : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800'
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center gap-2">
+                      <Icon className={`h-4 w-4 ${item.enabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`} />
+                      <h4 className={`font-medium text-sm ${item.enabled ? 'text-green-800 dark:text-green-200' : 'text-red-800 dark:text-red-200'}`}>{item.label}</h4>
+                    </div>
+                    <div className={`text-sm font-bold ${item.enabled ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'}`}>
+                      {item.enabled ? 'Yes' : 'No'}
+                    </div>
+                  </div>
+                  <div className="mt-2">
+                    {item.key === 'lowTemp' && (
+                      <Checkbox 
+                        checked={item.enabled} 
+                        onCheckedChange={(v) => {
+                          setHeadStandards({ 
+                            ...headStandards, 
+                            en397: { 
+                              ...(headStandards.en397 || {}), 
+                              optional: { 
+                                ...(headStandards.en397?.optional || {}), 
+                                low_temperature: v ? '-30°C' : '' 
+                              } 
+                            } 
+                          });
+                        }} 
+                      />
+                    )}
+                    {item.key === 'highTemp' && (
+                      <Checkbox 
+                        checked={item.enabled} 
+                        onCheckedChange={(v) => {
+                          setHeadStandards({ 
+                            ...headStandards, 
+                            en397: { 
+                              ...(headStandards.en397 || {}), 
+                              optional: { 
+                                ...(headStandards.en397?.optional || {}), 
+                                high_temperature: v ? '150°C' : '' 
+                              } 
+                            } 
+                          });
+                        }} 
+                      />
+                    )}
+                    {item.key === 'electricalIns' && (
+                      <Checkbox 
+                        checked={item.enabled} 
+                        onCheckedChange={(v) => {
+                          setHeadStandards({ 
+                            ...headStandards, 
+                            en397: { 
+                              ...(headStandards.en397 || {}), 
+                              optional: { 
+                                ...(headStandards.en397?.optional || {}), 
+                                electrical_insulation: v ? '440 V a.c.' : '' 
+                              } 
+                            } 
+                          });
+                        }} 
+                      />
+                    )}
+                    {item.key === 'moltenMetal' && (
+                      <Checkbox 
+                        checked={item.enabled} 
+                        onCheckedChange={(v) => {
+                          setHeadStandards({ 
+                            ...headStandards, 
+                            en397: { 
+                              ...(headStandards.en397 || {}), 
+                              optional: { 
+                                ...(headStandards.en397?.optional || {}), 
+                                molten_metal: v ? true : false 
+                              } 
+                            } 
+                          });
+                        }} 
+                      />
+                    )}
+                    {item.key === 'lateralDef' && (
+                      <Checkbox 
+                        checked={item.enabled} 
+                        onCheckedChange={(v) => {
+                          setHeadStandards({ 
+                            ...headStandards, 
+                            en397: { 
+                              ...(headStandards.en397 || {}), 
+                              optional: { 
+                                ...(headStandards.en397?.optional || {}), 
+                                lateral_deformation: v ? true : false 
+                              } 
+                            } 
+                          });
+                        }} 
+                      />
+                    )}
+                    {item.key === 'ventilation' && (
+                      <Checkbox 
+                        checked={item.enabled} 
+                        onCheckedChange={(v) => {
+                          setHeadAttributes({ ...headAttributes, ventilation: v ? true : false });
+                        }} 
+                      />
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </CardContent>
       </Card>

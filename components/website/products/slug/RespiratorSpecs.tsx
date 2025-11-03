@@ -14,12 +14,13 @@ export function RespiratorSpecs({ product }: { product: Product }) {
 
   // Extract EN standards for display
   const enStandards: string[] = [];
-  if (std?.en149) enStandards.push('EN 149');
-  if (std?.en166) enStandards.push('EN 166');
-  if (std?.en136) enStandards.push('EN 136');
-  if (std?.en14387) enStandards.push('EN 14387');
-  if (std?.en143) enStandards.push('EN 143');
-  if (std?.din_3181_3) enStandards.push('DIN 3181-3');
+  if (std?.en149?.enabled) enStandards.push('EN 149');
+  if (std?.en143?.enabled) enStandards.push('EN 143');
+  if (std?.en166?.enabled) enStandards.push('EN 166');
+  if (std?.en136?.enabled) enStandards.push('EN 136');
+  if (std?.en140?.enabled) enStandards.push('EN 140');
+  if (std?.en14387?.enabled) enStandards.push('EN 14387');
+  if (std?.din_3181_3?.enabled) enStandards.push('DIN 3181-3');
 
   return (
     <TooltipProvider>
@@ -124,19 +125,19 @@ export function RespiratorSpecs({ product }: { product: Product }) {
         {[
           { 
             key: 'dust', 
-            enabled: (product as any).filter_type === 'Dust', 
+            enabled: Boolean((product as any).respiratory_standards?.has_dust), 
             Icon: Wind,
             label: t('productPage.dust')
           },
           { 
             key: 'gasesVapours', 
-            enabled: (product as any).filter_type === 'Gasses & Vapours', 
+            enabled: Boolean((product as any).respiratory_standards?.has_gases_vapours), 
             Icon: FlaskConical,
             label: t('productPage.gasesVapours')
           },
           { 
             key: 'combined', 
-            enabled: (product as any).filter_type === 'Combined', 
+            enabled: Boolean((product as any).respiratory_standards?.has_combined), 
             Icon: Zap,
             label: t('productPage.combined')
           },

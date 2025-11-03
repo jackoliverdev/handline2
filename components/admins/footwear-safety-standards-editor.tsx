@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -12,31 +12,48 @@ import { Shield, Zap, Waves, Droplets, FlaskConical, HardHat, Footprints, Plus, 
 import { useLanguage } from "@/lib/context/language-context";
 
 interface FootwearSafetyStandardsEditorProps {
+  language: 'en' | 'it';
   footwearStandards: any;
   setFootwearStandards: (standards: any) => void;
   footwearAttributes: any;
   setFootwearAttributes: (attributes: any) => void;
+  footwearMaterialsLocales: { en: { upper: string; lining: string; sole: string; insole: string; toe_cap: string }; it: { upper: string; lining: string; sole: string; insole: string; toe_cap: string } };
+  setFootwearMaterialsLocales: (materials: { en: { upper: string; lining: string; sole: string; insole: string; toe_cap: string }; it: { upper: string; lining: string; sole: string; insole: string; toe_cap: string } }) => void;
   footwearComfortFeatures: { en: string[]; it: string[] };
   setFootwearComfortFeatures: (features: { en: string[]; it: string[] }) => void;
+  footwearSpecialFeatures: { en: string[]; it: string[] };
+  setFootwearSpecialFeatures: (features: { en: string[]; it: string[] }) => void;
 }
 
 export const FootwearSafetyStandardsEditor: React.FC<FootwearSafetyStandardsEditorProps> = ({ 
+  language,
   footwearStandards, 
   setFootwearStandards,
   footwearAttributes,
   setFootwearAttributes,
+  footwearMaterialsLocales,
+  setFootwearMaterialsLocales,
   footwearComfortFeatures,
-  setFootwearComfortFeatures
+  setFootwearComfortFeatures,
+  footwearSpecialFeatures,
+  setFootwearSpecialFeatures
 }) => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
+
+  // Local state for input fields
+  const [comfortFeatureInput, setComfortFeatureInput] = useState('');
+  const [widthFitInput, setWidthFitInput] = useState('');
+  const [specialFeatureInput, setSpecialFeatureInput] = useState('');
+  const [en2011Input, setEn2011Input] = useState('');
+  const [en2022Input, setEn2022Input] = useState('');
 
   const addComfortFeature = () => {
-    const newFeature = prompt('Enter comfort feature:');
-    if (newFeature?.trim()) {
+    if (comfortFeatureInput.trim()) {
       setFootwearComfortFeatures({
         ...footwearComfortFeatures,
-        [language]: [...(footwearComfortFeatures[language] || []), newFeature.trim()]
+        [language]: [...(footwearComfortFeatures[language] || []), comfortFeatureInput.trim()]
       });
+      setComfortFeatureInput('');
     }
   };
 
@@ -48,12 +65,12 @@ export const FootwearSafetyStandardsEditor: React.FC<FootwearSafetyStandardsEdit
   };
 
   const addWidthFit = () => {
-    const newWidth = prompt('Enter width/fit value:');
-    if (newWidth?.trim()) {
+    if (widthFitInput.trim()) {
       setFootwearAttributes({
         ...footwearAttributes,
-        width_fit: [...(footwearAttributes.width_fit || []), newWidth.trim()]
+        width_fit: [...(footwearAttributes.width_fit || []), widthFitInput.trim()]
       });
+      setWidthFitInput('');
     }
   };
 
@@ -65,29 +82,39 @@ export const FootwearSafetyStandardsEditor: React.FC<FootwearSafetyStandardsEdit
   };
 
   const addSpecialFeature = () => {
-    const newFeature = prompt('Enter special feature:');
-    if (newFeature?.trim()) {
-      setFootwearAttributes({
-        ...footwearAttributes,
-        special: [...(footwearAttributes.special || []), newFeature.trim()]
+    if (specialFeatureInput.trim()) {
+      setFootwearSpecialFeatures({
+        ...footwearSpecialFeatures,
+        [language]: [...(footwearSpecialFeatures[language] || []), specialFeatureInput.trim()]
       });
+      setSpecialFeatureInput('');
     }
   };
 
   const removeSpecialFeature = (index: number) => {
-    setFootwearAttributes({
-      ...footwearAttributes,
-      special: (footwearAttributes.special || []).filter((_: any, i: number) => i !== index)
+    setFootwearSpecialFeatures({
+      ...footwearSpecialFeatures,
+      [language]: (footwearSpecialFeatures[language] || []).filter((_, i) => i !== index)
     });
   };
 
-  const addStandardCode = (standard: 'en_iso_20345_2011' | 'en_iso_20345_2022') => {
-    const newCode = prompt(`Enter ${standard} code:`);
-    if (newCode?.trim()) {
+  const addStandardCode2011 = () => {
+    if (en2011Input.trim()) {
       setFootwearStandards({
         ...footwearStandards,
-        [standard]: [...(footwearStandards[standard] || []), newCode.trim()]
+        en_iso_20345_2011: [...(footwearStandards.en_iso_20345_2011 || []), en2011Input.trim()]
       });
+      setEn2011Input('');
+    }
+  };
+
+  const addStandardCode2022 = () => {
+    if (en2022Input.trim()) {
+      setFootwearStandards({
+        ...footwearStandards,
+        en_iso_20345_2022: [...(footwearStandards.en_iso_20345_2022 || []), en2022Input.trim()]
+      });
+      setEn2022Input('');
     }
   };
 
@@ -121,6 +148,88 @@ export const FootwearSafetyStandardsEditor: React.FC<FootwearSafetyStandardsEdit
 
   return (
     <div className="space-y-6">
+      {/* Comfort Features */}
+      <Card>
+        <CardHeader className="pb-3">
+          <CardTitle className="text-lg">Comfort Features</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div className="flex gap-2">
+              <Input 
+                placeholder="Add comfort feature" 
+                value={comfortFeatureInput} 
+                onChange={(e) => setComfortFeatureInput(e.target.value)} 
+                onKeyDown={(e) => { if (e.key === 'Enter' && comfortFeatureInput.trim()) { addComfortFeature(); } }} 
+              />
+              <Button type="button" size="sm" onClick={addComfortFeature}>
+                <Plus className="h-4 w-4" />
+              </Button>
+            </div>
+            {(footwearComfortFeatures[language] || []).length === 0 ? (
+              <p className="text-sm text-muted-foreground">No items added.</p>
+            ) : (
+              <div className="flex flex-wrap gap-2">
+                {(footwearComfortFeatures[language] || []).map((feature: string, index: number) => (
+                  <Badge key={`${feature}-${index}`} variant="outline" className="flex items-center gap-1">
+                    {feature}
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="h-4 w-4 p-0" 
+                      onClick={() => removeComfortFeature(index)}
+                    >
+                      <X className="h-3 w-3" />
+                    </Button>
+                  </Badge>
+                ))}
+              </div>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Special Features */}
+      <Card>
+        <CardHeader className="pb-3">
+          <CardTitle className="text-lg">Special Features</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div className="flex gap-2">
+              <Input 
+                placeholder="Add special feature" 
+                value={specialFeatureInput} 
+                onChange={(e) => setSpecialFeatureInput(e.target.value)} 
+                onKeyDown={(e) => { if (e.key === 'Enter' && specialFeatureInput.trim()) { addSpecialFeature(); } }} 
+              />
+              <Button type="button" size="sm" onClick={addSpecialFeature}>
+                <Plus className="h-4 w-4" />
+              </Button>
+            </div>
+            {(footwearSpecialFeatures[language] || []).length === 0 ? (
+              <p className="text-sm text-muted-foreground">No items added.</p>
+            ) : (
+              <div className="flex flex-wrap gap-2">
+                {(footwearSpecialFeatures[language] || []).map((feature: string, index: number) => (
+                  <Badge key={`${feature}-${index}`} variant="outline" className="flex items-center gap-1">
+                    {feature}
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="h-4 w-4 p-0" 
+                      onClick={() => removeSpecialFeature(index)}
+                    >
+                      <X className="h-3 w-3" />
+                    </Button>
+                  </Badge>
+                ))}
+              </div>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Technical Specifications */}
       <Card>
         <CardHeader className="pb-3">
@@ -138,40 +247,40 @@ export const FootwearSafetyStandardsEditor: React.FC<FootwearSafetyStandardsEdit
                   <div>
                     <Label className="text-xs text-gray-600">Upper Material</Label>
                     <Input 
-                      value={footwearAttributes.upper_material || ''} 
-                      onChange={(e) => setFootwearAttributes({ ...footwearAttributes, upper_material: e.target.value })} 
+                      value={footwearMaterialsLocales[language].upper || ''} 
+                      onChange={(e) => setFootwearMaterialsLocales({ ...footwearMaterialsLocales, [language]: { ...footwearMaterialsLocales[language], upper: e.target.value } })} 
                       placeholder="e.g. Leather, Synthetic"
                     />
                   </div>
                   <div>
                     <Label className="text-xs text-gray-600">Lining Material</Label>
                     <Input 
-                      value={footwearAttributes.lining_material || ''} 
-                      onChange={(e) => setFootwearAttributes({ ...footwearAttributes, lining_material: e.target.value })} 
+                      value={footwearMaterialsLocales[language].lining || ''} 
+                      onChange={(e) => setFootwearMaterialsLocales({ ...footwearMaterialsLocales, [language]: { ...footwearMaterialsLocales[language], lining: e.target.value } })} 
                       placeholder="e.g. Textile, Mesh"
                     />
                   </div>
                   <div>
                     <Label className="text-xs text-gray-600">Sole Material</Label>
                     <Input 
-                      value={footwearAttributes.sole_material || ''} 
-                      onChange={(e) => setFootwearAttributes({ ...footwearAttributes, sole_material: e.target.value })} 
+                      value={footwearMaterialsLocales[language].sole || ''} 
+                      onChange={(e) => setFootwearMaterialsLocales({ ...footwearMaterialsLocales, [language]: { ...footwearMaterialsLocales[language], sole: e.target.value } })} 
                       placeholder="e.g. PU, Rubber"
                     />
                   </div>
                   <div>
                     <Label className="text-xs text-gray-600">Insole Material</Label>
                     <Input 
-                      value={footwearAttributes.insole_material || ''} 
-                      onChange={(e) => setFootwearAttributes({ ...footwearAttributes, insole_material: e.target.value })} 
+                      value={footwearMaterialsLocales[language].insole || ''} 
+                      onChange={(e) => setFootwearMaterialsLocales({ ...footwearMaterialsLocales, [language]: { ...footwearMaterialsLocales[language], insole: e.target.value } })} 
                       placeholder="e.g. EVA, Foam"
                     />
                   </div>
                   <div>
                     <Label className="text-xs text-gray-600">Toe Cap Material</Label>
                     <Input 
-                      value={footwearAttributes.toe_cap || ''} 
-                      onChange={(e) => setFootwearAttributes({ ...footwearAttributes, toe_cap: e.target.value })} 
+                      value={footwearMaterialsLocales[language].toe_cap || ''} 
+                      onChange={(e) => setFootwearMaterialsLocales({ ...footwearMaterialsLocales, [language]: { ...footwearMaterialsLocales[language], toe_cap: e.target.value } })} 
                       placeholder="e.g. Steel, Composite"
                     />
                   </div>
@@ -205,24 +314,36 @@ export const FootwearSafetyStandardsEditor: React.FC<FootwearSafetyStandardsEdit
                   <div>
                     <Label className="text-xs text-gray-600">Width/Fit</Label>
                     <div className="space-y-2">
-                      <div className="flex flex-wrap gap-2">
-                        {(footwearAttributes.width_fit || []).map((width: string, index: number) => (
-                          <Badge key={index} variant="outline" className="bg-brand-primary/5 border-brand-primary/20">
-                            {width}
-                            <button
-                              type="button"
-                              onClick={() => removeWidthFit(index)}
-                              className="ml-2 text-red-500 hover:text-red-700"
-                            >
-                              <X className="h-3 w-3" />
-                            </button>
-                          </Badge>
-                        ))}
+                      <div className="flex gap-2">
+                        <Input 
+                          placeholder="Add width/fit value" 
+                          value={widthFitInput} 
+                          onChange={(e) => setWidthFitInput(e.target.value)} 
+                          onKeyDown={(e) => { if (e.key === 'Enter' && widthFitInput.trim()) { addWidthFit(); } }} 
+                        />
+                        <Button type="button" size="sm" onClick={addWidthFit}>
+                          <Plus className="h-4 w-4" />
+                        </Button>
                       </div>
-                      <Button type="button" variant="outline" size="sm" onClick={addWidthFit}>
-                        <Plus className="h-4 w-4 mr-2" />
-                        Add Width/Fit
-                      </Button>
+                      {(footwearAttributes.width_fit || []).length === 0 ? (
+                        <p className="text-sm text-muted-foreground">No items added.</p>
+                      ) : (
+                        <div className="flex flex-wrap gap-2">
+                          {(footwearAttributes.width_fit || []).map((width: string, index: number) => (
+                            <Badge key={`${width}-${index}`} variant="outline" className="flex items-center gap-1">
+                              {width}
+                              <Button 
+                                variant="ghost" 
+                                size="sm" 
+                                className="h-4 w-4 p-0" 
+                                onClick={() => removeWidthFit(index)}
+                              >
+                                <X className="h-3 w-3" />
+                              </Button>
+                            </Badge>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div>
@@ -272,74 +393,92 @@ export const FootwearSafetyStandardsEditor: React.FC<FootwearSafetyStandardsEdit
           <div className="space-y-6">
             {/* EN ISO 20345:2011 */}
             <div>
-              <div className="flex items-center justify-between mb-3">
-                <Label className="text-sm font-medium">EN ISO 20345:2011</Label>
-                <Button type="button" variant="outline" size="sm" onClick={() => addStandardCode('en_iso_20345_2011')}>
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add Code
-                </Button>
+              <div className="mb-3">
+                <Label className="text-sm font-medium mb-2 block">EN ISO 20345:2011</Label>
+                <div className="flex gap-2">
+                  <Input 
+                    placeholder="e.g. S3, SRC, etc." 
+                    value={en2011Input} 
+                    onChange={(e) => setEn2011Input(e.target.value)} 
+                    onKeyDown={(e) => { if (e.key === 'Enter' && en2011Input.trim()) { addStandardCode2011(); } }} 
+                  />
+                  <Button type="button" size="sm" onClick={addStandardCode2011}>
+                    <Plus className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
-              <div className="flex flex-wrap gap-2">
-                {(footwearStandards.en_iso_20345_2011 || []).map((code: string, index: number) => {
-                  const isClass = isClassCode(code);
-                  const rank = isClass ? classRank(code) : 0;
-                  return (
-                    <Badge 
-                      key={index} 
-                      variant="outline" 
-                      className={`${isClass ? classColour(rank) : 'bg-emerald-500 text-white border-emerald-500'}`}
-                    >
-                      {code.toUpperCase()}
-                      <button
-                        type="button"
-                        onClick={() => removeStandardCode('en_iso_20345_2011', index)}
-                        className="ml-2 text-white hover:text-gray-200"
+              {(footwearStandards.en_iso_20345_2011 || []).length === 0 ? (
+                <p className="text-sm text-muted-foreground">No codes added.</p>
+              ) : (
+                <div className="flex flex-wrap gap-2">
+                  {(footwearStandards.en_iso_20345_2011 || []).map((code: string, index: number) => {
+                    const isClass = isClassCode(code);
+                    const rank = isClass ? classRank(code) : 0;
+                    return (
+                      <Badge 
+                        key={`${code}-${index}`}
+                        variant="outline" 
+                        className={`flex items-center gap-1 ${isClass ? classColour(rank) : 'bg-emerald-500 text-white border-emerald-500'}`}
                       >
-                        <X className="h-3 w-3" />
-                      </button>
-                    </Badge>
-                  );
-                })}
-                {(footwearStandards.en_iso_20345_2011 || []).length === 0 && (
-                  <span className="text-sm text-gray-500 italic">No codes added</span>
-                )}
-              </div>
+                        {code.toUpperCase()}
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="h-4 w-4 p-0 text-white hover:text-gray-200" 
+                          onClick={() => removeStandardCode('en_iso_20345_2011', index)}
+                        >
+                          <X className="h-3 w-3" />
+                        </Button>
+                      </Badge>
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
             {/* EN ISO 20345:2022 */}
             <div>
-              <div className="flex items-center justify-between mb-3">
-                <Label className="text-sm font-medium">EN ISO 20345:2022</Label>
-                <Button type="button" variant="outline" size="sm" onClick={() => addStandardCode('en_iso_20345_2022')}>
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add Code
-                </Button>
+              <div className="mb-3">
+                <Label className="text-sm font-medium mb-2 block">EN ISO 20345:2022</Label>
+                <div className="flex gap-2">
+                  <Input 
+                    placeholder="e.g. S3, SRC, etc." 
+                    value={en2022Input} 
+                    onChange={(e) => setEn2022Input(e.target.value)} 
+                    onKeyDown={(e) => { if (e.key === 'Enter' && en2022Input.trim()) { addStandardCode2022(); } }} 
+                  />
+                  <Button type="button" size="sm" onClick={addStandardCode2022}>
+                    <Plus className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
-              <div className="flex flex-wrap gap-2">
-                {(footwearStandards.en_iso_20345_2022 || []).map((code: string, index: number) => {
-                  const isClass = isClassCode(code);
-                  const rank = isClass ? classRank(code) : 0;
-                  return (
-                    <Badge 
-                      key={index} 
-                      variant="outline" 
-                      className={`${isClass ? classColour(rank) : 'bg-emerald-500 text-white border-emerald-500'}`}
-                    >
-                      {code.toUpperCase()}
-                      <button
-                        type="button"
-                        onClick={() => removeStandardCode('en_iso_20345_2022', index)}
-                        className="ml-2 text-white hover:text-gray-200"
+              {(footwearStandards.en_iso_20345_2022 || []).length === 0 ? (
+                <p className="text-sm text-muted-foreground">No codes added.</p>
+              ) : (
+                <div className="flex flex-wrap gap-2">
+                  {(footwearStandards.en_iso_20345_2022 || []).map((code: string, index: number) => {
+                    const isClass = isClassCode(code);
+                    const rank = isClass ? classRank(code) : 0;
+                    return (
+                      <Badge 
+                        key={`${code}-${index}`}
+                        variant="outline" 
+                        className={`flex items-center gap-1 ${isClass ? classColour(rank) : 'bg-emerald-500 text-white border-emerald-500'}`}
                       >
-                        <X className="h-3 w-3" />
-                      </button>
-                    </Badge>
-                  );
-                })}
-                {(footwearStandards.en_iso_20345_2022 || []).length === 0 && (
-                  <span className="text-sm text-gray-500 italic">No codes added</span>
-                )}
-              </div>
+                        {code.toUpperCase()}
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="h-4 w-4 p-0 text-white hover:text-gray-200" 
+                          onClick={() => removeStandardCode('en_iso_20345_2022', index)}
+                        >
+                          <X className="h-3 w-3" />
+                        </Button>
+                      </Badge>
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
             {/* Slip Resistance */}
@@ -399,7 +538,7 @@ export const FootwearSafetyStandardsEditor: React.FC<FootwearSafetyStandardsEdit
               },
               { 
                 key: 'metatarsal_protection', 
-                enabled: Boolean(footwearAttributes.special && Array.isArray(footwearAttributes.special) && footwearAttributes.special.includes('metatarsal_protection')), 
+                enabled: footwearAttributes.metatarsal_protection === true, 
                 Icon: HardHat,
                 label: 'Metatarsal Protection'
               },
@@ -450,54 +589,14 @@ export const FootwearSafetyStandardsEditor: React.FC<FootwearSafetyStandardsEdit
                     )}
                     {item.key === 'metatarsal_protection' && (
                       <Checkbox 
-                        checked={Boolean(footwearAttributes.special && Array.isArray(footwearAttributes.special) && footwearAttributes.special.includes('metatarsal_protection'))} 
-                        onCheckedChange={(v) => {
-                          const special = footwearAttributes.special || [];
-                          if (v) {
-                            if (!special.includes('metatarsal_protection')) {
-                              setFootwearAttributes({ ...footwearAttributes, special: [...special, 'metatarsal_protection'] });
-                            }
-                          } else {
-                            setFootwearAttributes({ ...footwearAttributes, special: special.filter((s: string) => s !== 'metatarsal_protection') });
-                          }
-                        }} 
+                        checked={footwearAttributes.metatarsal_protection === true} 
+                        onCheckedChange={(v) => setFootwearAttributes({ ...footwearAttributes, metatarsal_protection: v ? true : false })} 
                       />
                     )}
                   </div>
                 </div>
               );
             })}
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Special Features */}
-      <Card>
-        <CardHeader className="pb-3">
-          <CardTitle className="text-lg">Special Features</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            {(footwearAttributes.special || []).map((feature: string, index: number) => (
-              <div key={index} className="flex items-center gap-2">
-                <Badge variant="outline" className="bg-brand-primary/5 border-brand-primary/20 flex-1">
-                  {feature}
-                </Badge>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => removeSpecialFeature(index)}
-                  className="text-red-500 hover:text-red-700"
-                >
-                  <X className="h-4 w-4" />
-                </Button>
-              </div>
-            ))}
-            <Button type="button" variant="outline" size="sm" onClick={addSpecialFeature}>
-              <Plus className="h-4 w-4 mr-2" />
-              Add Special Feature
-            </Button>
           </div>
         </CardContent>
       </Card>
@@ -565,37 +664,9 @@ export const FootwearSafetyStandardsEditor: React.FC<FootwearSafetyStandardsEdit
           </div>
         </CardContent>
       </Card>
-
-      {/* Comfort Features */}
-      <Card>
-        <CardHeader className="pb-3">
-          <CardTitle className="text-lg">Comfort Features</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            {(footwearComfortFeatures[language] || []).map((feature: string, index: number) => (
-              <div key={index} className="flex items-center gap-2">
-                <Badge variant="outline" className="bg-brand-primary/5 border-brand-primary/20 flex-1">
-                  {feature}
-                </Badge>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => removeComfortFeature(index)}
-                  className="text-red-500 hover:text-red-700"
-                >
-                  <X className="h-4 w-4" />
-                </Button>
-              </div>
-            ))}
-            <Button type="button" variant="outline" size="sm" onClick={addComfortFeature}>
-              <Plus className="h-4 w-4 mr-2" />
-              Add Comfort Feature
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 };
+
+
+

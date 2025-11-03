@@ -25,7 +25,7 @@ export const ENStandardFilter = ({
   if (standards.length === 0) return null;
 
   return (
-    <div className="pb-4">
+    <div className="pb-2">
       <button
         className="flex w-full items-center justify-between mb-2"
         onClick={() => toggleSection("enStandard")}

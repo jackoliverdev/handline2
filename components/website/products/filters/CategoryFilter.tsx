@@ -18,7 +18,7 @@ export const CategoryFilter = ({
 }: CategoryFilterProps) => {
   const { t } = useLanguage();
   return (
-    <div className="pb-4">
+    <div className="pb-2">
       <button
         className="flex w-full items-center justify-between mb-2"
         onClick={() => toggleSection("category")}

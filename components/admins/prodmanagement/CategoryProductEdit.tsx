@@ -15,7 +15,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "@/components/ui/use-toast";
 import { getProductById, updateProduct, deleteProduct, uploadProductImage, Product, EnvironmentPictograms } from "@/lib/products-service";
-import { ArrowLeft, Save, Trash, Upload, X, Plus, Tag } from "lucide-react";
+import { ArrowLeft, Save, Trash, Upload, X, Plus, Tag, Sun, Droplets, Wind, FlaskConical, Bug, Zap, Shield, Eye } from "lucide-react";
 import Link from "next/link";
 import { CLOTHING_TYPE_TO_CATEGORIES } from "@/content/clothing-categories";
 import { BrandSelector } from "@/components/admins/brand-selector";
@@ -87,12 +87,16 @@ export default function CategoryProductEdit({ id, slug }: Props) {
   const [availableProducts, setAvailableProducts] = useState<any[]>([]);
 
   // Category-specific states (mirror public schema)
-  const [eyeFaceAttributes, setEyeFaceAttributes] = useState<any>({ has_ir: false, has_uv: false, has_arc: false, uv_code: '', lens_tint: '', coatings: [] });
+  const [eyeFaceAttributes, setEyeFaceAttributes] = useState<any>({ has_ir: false, has_uv: false, has_arc: false, has_sun: false, has_glare: false, has_welding: false, uv_code: '', lens_tint: '' });
   const [eyeFaceStandards, setEyeFaceStandards] = useState<any>({ en166: { optical_class: '', mechanical_strength: '', frame_mark: '', lens_mark: '', additional_marking: '' }, en169: false, en170: false, en172: false, en175: false, gs_et_29: false });
+  const [eyeFaceCoatingsLocales, setEyeFaceCoatingsLocales] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [eyeFaceMaterialsLocales, setEyeFaceMaterialsLocales] = useState<{ en: { lens: string; frame: string; arm: string; headband: string }; it: { lens: string; frame: string; arm: string; headband: string } }>({ en: { lens: '', frame: '', arm: '', headband: '' }, it: { lens: '', frame: '', arm: '', headband: '' } });
   const [eyeFaceComfortFeatures, setEyeFaceComfortFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [eyeFaceEquipment, setEyeFaceEquipment] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [hearingStandards, setHearingStandards] = useState<any>({ en352: { parts: [], snr_db: null, hml: { h: null, m: null, l: null }, additional: [] } });
-  const [hearingAttributes, setHearingAttributes] = useState<any>({ reusable: null, mount: '', bluetooth: null, compatible_with: [], accessories: [], materials: [], size: '', ce_category: '', water_resistance: null, extreme_temperature: null, electrical_insulation: null });
+  const [hearingAttributes, setHearingAttributes] = useState<any>({ reusable: null, mount: '', bluetooth: null, materials: [], size: '', ce_category: '', water_resistance: null, extreme_temperature: null, electrical_insulation: null });
+  const [hearingCompatibleWithLocales, setHearingCompatibleWithLocales] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [hearingAccessoriesLocales, setHearingAccessoriesLocales] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [hearingComfortFeatures, setHearingComfortFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [hearingOtherDetails, setHearingOtherDetails] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [hearingEquipment, setHearingEquipment] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
@@ -100,28 +104,33 @@ export default function CategoryProductEdit({ id, slug }: Props) {
   const [respiratoryOtherDetails, setRespiratoryOtherDetails] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [respiratoryEquipment, setRespiratoryEquipment] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [footwearStandards, setFootwearStandards] = useState<any>({ en_iso_20345_2011: [], en_iso_20345_2022: [], slip_resistance: '' });
-  const [footwearAttributes, setFootwearAttributes] = useState<any>({ class: '', esd: null, metal_free: null, width_fit: [], size_min: null, size_max: null, gender: '', weight_grams: null, weight_ref_size: null, special: [], toe_cap: '', sole_material: '' });
+  const [footwearAttributes, setFootwearAttributes] = useState<any>({ class: '', esd: null, metal_free: null, width_fit: [], size_min: null, size_max: null, gender: '', weight_grams: null, weight_ref_size: null, special: [], toe_cap: '', sole_material: '', upper_material: '', lining_material: '', insole_material: '', metatarsal_protection: null });
+  const [footwearMaterialsLocales, setFootwearMaterialsLocales] = useState<{ en: { upper: string; lining: string; sole: string; insole: string; toe_cap: string }; it: { upper: string; lining: string; sole: string; insole: string; toe_cap: string } }>({ en: { upper: '', lining: '', sole: '', insole: '', toe_cap: '' }, it: { upper: '', lining: '', sole: '', insole: '', toe_cap: '' } });
   const [footwearComfortFeatures, setFootwearComfortFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [footwearSpecialFeatures, setFootwearSpecialFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [headStandards, setHeadStandards] = useState<any>({ en397: { present: false, optional: { low_temperature: false, molten_metal: false } }, en50365: false, en12492: false, en812: false });
   const [headComfortFeatures, setHeadComfortFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [headOtherDetails, setHeadOtherDetails] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [headEquipment, setHeadEquipment] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [headTechSpecsLocales, setHeadTechSpecsLocales] = useState<{ en: { form_factor: string; brim_length: string; colours: string[]; additional_features: string[] }; it: { form_factor: string; brim_length: string; colours: string[]; additional_features: string[] } }>({ en: { form_factor: '', brim_length: '', colours: [], additional_features: [] }, it: { form_factor: '', brim_length: '', colours: [], additional_features: [] } });
   const [headAttributes, setHeadAttributes] = useState<any>({ form_factor: '', brim_length: '', size_min_cm: null, size_max_cm: null, weight_g: null, colours: [], ventilation: null, harness_points: null, chinstrap_points: null, sweatband: null, closed_shell: null, euroslot_mm: null, accessories: [] });
   const [clothingStandards, setClothingStandards] = useState<any>({ en_iso_20471: { class: null }, en_iso_11612: {}, iec_61482_2: { class: null }, en_1149_5: false });
   const [clothingAttributes, setClothingAttributes] = useState<any>({ fit: '', gender: '', size_range: '', colours: [], uv_protection: null });
   const [clothingType, setClothingType] = useState<string>('');
   const [clothingCategory, setClothingCategory] = useState<string>('');
-  const [armAttributes, setArmAttributes] = useState<any>({ thumb_loop: null, closure: '', materials: [], size: '', length_cm: null, ce_category: '' });
+  const [armAttributes, setArmAttributes] = useState<any>({ thumb_loop: null, closure: '', size: '', length_cm: null, ce_category: '' });
+  const [armMaterialsLocales, setArmMaterialsLocales] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   // Gloves safety JSON
   const defaultSafety: any = { en_388: { enabled: false, abrasion: null, cut: null, tear: null, puncture: null, iso_13997: null, impact_en_13594: null }, en_407: { enabled: false, contact_heat: null, radiant_heat: null, convective_heat: null, limited_flame_spread: null, small_splashes_molten_metal: null, large_quantities_molten_metal: null }, en_511: { enabled: false, contact_cold: null, convective_cold: null, water_permeability: null } };
   const [safety, setSafety] = useState<any>(defaultSafety);
   // Respiratory-specific
-  const [respiratoryStandards, setRespiratoryStandards] = useState<any>({ en149: { enabled: false, class: '', r: false, nr: false, d: false }, en14387: { enabled: false, class: '', gases: {} }, en143: { enabled: false, class: '', r: false, nr: false }, en136: { enabled: false, class: '' }, en140: { enabled: false }, en166: { enabled: false, class: '' }, din_3181_3: { enabled: false } });
-  const [respConnections, setRespConnections] = useState<string[]>([]);
+  const [respiratoryStandards, setRespiratoryStandards] = useState<any>({ en149: { enabled: false, class: '', r: false, nr: false, d: false }, en14387: { enabled: false, class: '', gases: {} }, en143: { enabled: false, class: '', r: false, nr: false }, en136: { enabled: false, class: '' }, en140: { enabled: false }, en166: { enabled: false, class: '' }, din_3181_3: { enabled: false }, has_dust: false, has_gases_vapours: false, has_combined: false });
+  const [respConnectionsLocales, setRespConnectionsLocales] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [respFilterType, setRespFilterType] = useState<string>('');
   const [respProtectionClass, setRespProtectionClass] = useState<string>('');
+  const [respNpf, setRespNpf] = useState<string>('');
   const [respProtectionCodes, setRespProtectionCodes] = useState<string[]>([]);
-  const [respCompatibleWith, setRespCompatibleWith] = useState<string[]>([]);
+  const [respCompatibleWithLocales, setRespCompatibleWithLocales] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   // Swabs-specific pad size JSON
   const [padEnDiameter, setPadEnDiameter] = useState<number | ''>('');
   const [padEnLength, setPadEnLength] = useState<number | ''>('');
@@ -185,12 +194,17 @@ export default function CategoryProductEdit({ id, slug }: Props) {
         setRelatedProductId4((product as any).related_product_id_4 || null);
 
         // Category-specific blocks
-        setEyeFaceAttributes((product as any).eye_face_attributes || { has_ir: false, has_uv: false, has_arc: false, uv_code: '', lens_tint: '', coatings: [] });
+        setEyeFaceAttributes((product as any).eye_face_attributes || { has_ir: false, has_uv: false, has_arc: false, has_sun: false, has_glare: false, has_welding: false, uv_code: '', lens_tint: '' });
         setEyeFaceStandards((product as any).eye_face_standards || { en166: { optical_class: '', mechanical_strength: '', frame_mark: '', lens_mark: '', additional_marking: '' }, en169: false, en170: false, en172: false, en175: false, gs_et_29: false });
+        setEyeFaceCoatingsLocales((product as any).coatings_locales || { en: [], it: [] });
+        setEyeFaceMaterialsLocales((product as any).eye_face_materials_locales || { en: { lens: '', frame: '', arm: '', headband: '' }, it: { lens: '', frame: '', arm: '', headband: '' } });
         setEyeFaceComfortFeatures((product as any).eye_face_comfort_features_locales || { en: [], it: [] });
         setEyeFaceEquipment((product as any).eye_face_equipment_locales || { en: [], it: [] });
         setHearingStandards((product as any).hearing_standards || { en352: { parts: [], snr_db: null, hml: { h: null, m: null, l: null }, additional: [] } });
-        setHearingAttributes((product as any).hearing_attributes || { reusable: null, mount: '', bluetooth: null, compatible_with: [], accessories: [], materials: [], size: '', ce_category: '', water_resistance: null, extreme_temperature: null, electrical_insulation: null });
+        const ha = (product as any).hearing_attributes || {};
+        setHearingAttributes({ reusable: ha.reusable ?? null, mount: ha.mount ?? '', bluetooth: ha.bluetooth ?? null, materials: ha.materials ?? [], size: ha.size ?? '', ce_category: ha.ce_category ?? '', water_resistance: ha.water_resistance ?? null, extreme_temperature: ha.extreme_temperature ?? null, electrical_insulation: ha.electrical_insulation ?? null });
+        setHearingCompatibleWithLocales(ha.compatible_with_locales || { en: [], it: [] });
+        setHearingAccessoriesLocales(ha.accessories_locales || { en: [], it: [] });
         setHearingComfortFeatures((product as any).hearing_comfort_features_locales || { en: [], it: [] });
         setHearingOtherDetails((product as any).hearing_other_details_locales || { en: [], it: [] });
         setHearingEquipment((product as any).hearing_equipment_locales || { en: [], it: [] });
@@ -200,26 +214,32 @@ export default function CategoryProductEdit({ id, slug }: Props) {
         setClothingComfortFeatures((product as any).clothing_comfort_features_locales || { en: [], it: [] });
         setClothingOtherDetails((product as any).clothing_other_details_locales || { en: [], it: [] });
         setFootwearStandards((product as any).footwear_standards || { en_iso_20345_2011: [], en_iso_20345_2022: [], slip_resistance: '' });
-        setFootwearAttributes((product as any).footwear_attributes || { class: '', esd: null, metal_free: null, width_fit: [], size_min: null, size_max: null, gender: '', weight_grams: null, weight_ref_size: null, special: [], toe_cap: '', sole_material: '' });
+        setFootwearAttributes((product as any).footwear_attributes || { class: '', esd: null, metal_free: null, width_fit: [], size_min: null, size_max: null, gender: '', weight_grams: null, weight_ref_size: null, special: [], toe_cap: '', sole_material: '', upper_material: '', lining_material: '', insole_material: '', metatarsal_protection: null });
+        setFootwearMaterialsLocales((product as any).footwear_materials_locales || { en: { upper: '', lining: '', sole: '', insole: '', toe_cap: '' }, it: { upper: '', lining: '', sole: '', insole: '', toe_cap: '' } });
         setFootwearComfortFeatures((product as any).footwear_comfort_features_locales || { en: [], it: [] });
+        setFootwearSpecialFeatures((product as any).footwear_special_features_locales || { en: [], it: [] });
         setHeadStandards((product as any).head_standards || { en397: { present: false, optional: { low_temperature: false, molten_metal: false } }, en50365: false, en12492: false, en812: false });
         setHeadComfortFeatures((product as any).head_comfort_features_locales || { en: [], it: [] });
         setHeadOtherDetails((product as any).head_other_details_locales || { en: [], it: [] });
         setHeadEquipment((product as any).head_equipment_locales || { en: [], it: [] });
+        setHeadTechSpecsLocales((product as any).head_tech_specs_locales || { en: { form_factor: '', brim_length: '', colours: [], additional_features: [] }, it: { form_factor: '', brim_length: '', colours: [], additional_features: [] } });
         setHeadAttributes((product as any).head_attributes || { form_factor: '', brim_length: '', size_min_cm: null, size_max_cm: null, weight_g: null, colours: [], ventilation: null, harness_points: null, chinstrap_points: null, sweatband: null, closed_shell: null, euroslot_mm: null, accessories: [] });
         setClothingStandards((product as any).clothing_standards || { en_iso_20471: { class: null }, en_iso_11612: {}, iec_61482_2: { class: null }, en_1149_5: false });
         setClothingAttributes((product as any).clothing_attributes || { fit: '', gender: '', size_range: '', colours: [], uv_protection: null });
         setClothingType((product as any).clothing_type || '');
         setClothingCategory((product as any).clothing_category || '');
-        setArmAttributes((product as any).arm_attributes || { thumb_loop: null, closure: '', materials: [], size: '', length_cm: null, ce_category: '' });
+        const aa = (product as any).arm_attributes || {};
+        setArmAttributes({ thumb_loop: aa.thumb_loop ?? null, closure: aa.closure ?? '', size: aa.size ?? '', length_cm: aa.length_cm ?? null, ce_category: aa.ce_category ?? '' });
+        setArmMaterialsLocales(aa.materials_locales || { en: [], it: [] });
         setSafety((product as any).safety && typeof (product as any).safety === 'object' ? (product as any).safety : defaultSafety);
         // Respiratory
-        setRespiratoryStandards((product as any).respiratory_standards || { en149: { enabled: false, class: '', r: false, nr: false, d: false }, en14387: { enabled: false, class: '', gases: {} }, en143: { enabled: false, class: '', r: false, nr: false }, en136: { enabled: false, class: '' }, en140: { enabled: false }, en166: { enabled: false, class: '' }, din_3181_3: { enabled: false } });
-        setRespConnections(Array.isArray((product as any).connections) ? (product as any).connections : []);
+        setRespiratoryStandards((product as any).respiratory_standards || { en149: { enabled: false, class: '', r: false, nr: false, d: false }, en14387: { enabled: false, class: '', gases: {} }, en143: { enabled: false, class: '', r: false, nr: false }, en136: { enabled: false, class: '' }, en140: { enabled: false }, en166: { enabled: false, class: '' }, din_3181_3: { enabled: false }, has_dust: false, has_gases_vapours: false, has_combined: false });
+        setRespConnectionsLocales((product as any).connections_locales || { en: [], it: [] });
         setRespFilterType((product as any).filter_type || '');
         setRespProtectionClass((product as any).protection_class || '');
+        setRespNpf((product as any).npf || '');
         setRespProtectionCodes(Array.isArray((product as any).protection_codes) ? (product as any).protection_codes : []);
-        setRespCompatibleWith(Array.isArray((product as any).compatible_with) ? (product as any).compatible_with : []);
+        setRespCompatibleWithLocales((product as any).compatible_with_locales || { en: [], it: [] });
         // Swabs pad size
         const ps: any = (product as any).pad_size_json || {};
         setPadEnDiameter(typeof ps?.en?.diameter_mm === 'number' ? ps.en.diameter_mm : '');
@@ -372,11 +392,17 @@ export default function CategoryProductEdit({ id, slug }: Props) {
         related_product_id_4: relatedProductId4,
         updated_at: new Date().toISOString(),
         // Category-specific payloads
-        safety: slug === 'gloves' ? safety : (undefined as any),
+        safety: (slug === 'gloves' || slug === 'arm-protection') ? safety : (undefined as any),
         eye_face_attributes: eyeFaceAttributes,
         eye_face_standards: eyeFaceStandards,
+        coatings_locales: eyeFaceCoatingsLocales,
+        eye_face_materials_locales: eyeFaceMaterialsLocales,
         hearing_standards: hearingStandards,
-        hearing_attributes: hearingAttributes,
+        hearing_attributes: {
+          ...hearingAttributes,
+          compatible_with_locales: hearingCompatibleWithLocales,
+          accessories_locales: hearingAccessoriesLocales
+        },
         hearing_comfort_features_locales: hearingComfortFeatures,
         hearing_other_details_locales: hearingOtherDetails,
         hearing_equipment_locales: hearingEquipment,
@@ -385,27 +411,34 @@ export default function CategoryProductEdit({ id, slug }: Props) {
         respiratory_equipment_locales: respiratoryEquipment,
         footwear_standards: footwearStandards,
         footwear_attributes: footwearAttributes,
+        footwear_materials_locales: footwearMaterialsLocales,
+        footwear_comfort_features_locales: footwearComfortFeatures,
+        footwear_special_features_locales: footwearSpecialFeatures,
         head_standards: headStandards,
         head_attributes: headAttributes,
+        head_tech_specs_locales: headTechSpecsLocales,
         head_other_details_locales: headOtherDetails,
         head_equipment_locales: headEquipment,
         head_comfort_features_locales: headComfortFeatures,
-        footwear_comfort_features_locales: footwearComfortFeatures,
         clothing_standards: clothingStandards,
         clothing_attributes: clothingAttributes,
         clothing_type: clothingType || null,
         clothing_category: clothingCategory || null,
         clothing_comfort_features_locales: clothingComfortFeatures,
         clothing_other_details_locales: clothingOtherDetails,
-        arm_attributes: armAttributes,
+        arm_attributes: {
+          ...armAttributes,
+          materials_locales: armMaterialsLocales
+        },
         eye_face_comfort_features_locales: eyeFaceComfortFeatures,
         eye_face_equipment_locales: eyeFaceEquipment,
         respiratory_standards: respiratoryStandards,
-        connections: respConnections,
+        connections_locales: respConnectionsLocales,
         filter_type: respFilterType || undefined,
         protection_class: respProtectionClass || undefined,
+        npf: respNpf || undefined,
         protection_codes: respProtectionCodes,
-        compatible_with: respCompatibleWith,
+        compatible_with_locales: respCompatibleWithLocales,
         pad_size_json: ((): any => {
           const en = { diameter_mm: typeof padEnDiameter === 'number' ? padEnDiameter : undefined, length_mm: typeof padEnLength === 'number' ? padEnLength : undefined };
           const it = { diametro_mm: typeof padItDiameter === 'number' ? padItDiameter : undefined, lunghezza_mm: typeof padItLength === 'number' ? padItLength : undefined };
@@ -415,7 +448,7 @@ export default function CategoryProductEdit({ id, slug }: Props) {
           return { ...(hasEn ? { en } : {}), ...(hasIt ? { it } : {}) };
         })(),
         length_cm: (slug === 'industrial-swabs' || slug === 'gloves') ? (lengthCm ?? null) : undefined,
-        ce_category: (slug === 'industrial-swabs' || slug === 'gloves') ? (ceCategory || null) : undefined,
+        ce_category: (slug === 'industrial-swabs' || slug === 'gloves' || slug === 'hearing' || slug === 'clothing' || slug === 'respiratory' || slug === 'footwear' || slug === 'head' || slug === 'arm-protection') ? (ceCategory || null) : undefined,
         en_standard: slug === 'industrial-swabs' ? (enStandard || null) : undefined,
       } as any;
 
@@ -529,6 +562,8 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                 </CardHeader>
                 <CardContent>
                   <div className="grid gap-3 sm:gap-4 sm:grid-cols-2">
+                    {slug !== 'respiratory' && (
+                      <>
                     <div className="space-y-1 sm:space-y-2">
                       <Label>Temperature Rating (°C)</Label>
                       <Input type="number" value={temperatureRating === null ? '' : temperatureRating} onChange={(e)=> setTemperatureRating(e.target.value === '' ? null : Number(e.target.value))} />
@@ -545,6 +580,8 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                       <Label>Length (cm)</Label>
                       <Input type="number" value={lengthCm === null ? '' : lengthCm} onChange={(e)=> setLengthCm(e.target.value === '' ? null : Number(e.target.value))} />
                     </div>
+                      </>
+                    )}
                     <div className="space-y-1 sm:space-y-2">
                       <Label>Size</Label>
                       <Input value={sizeLocales.en} onChange={(e)=> setSizeLocales({...sizeLocales, en: e.target.value})} placeholder="e.g. One size, S, M, L, XL" />
@@ -621,14 +658,38 @@ export default function CategoryProductEdit({ id, slug }: Props) {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Features */}
-                <LocaleListEditor title="Features" items={featuresLocales[language]} onAdd={(val)=> setFeaturesLocales({ ...featuresLocales, [language]: [...featuresLocales[language], val] })} onRemove={(idx)=> setFeaturesLocales({ ...featuresLocales, [language]: featuresLocales[language].filter((_,i)=> i!==idx) })} />
+                {/* Features / Safety Features */}
+                <LocaleListEditor title={(slug === 'hearing' || slug === 'footwear') ? 'Safety Features' : 'Features'} items={featuresLocales[language]} onAdd={(val)=> setFeaturesLocales({ ...featuresLocales, [language]: [...featuresLocales[language], val] })} onRemove={(idx)=> setFeaturesLocales({ ...featuresLocales, [language]: featuresLocales[language].filter((_,i)=> i!==idx) })} />
                 {/* Applications */}
                 <LocaleListEditor title="Applications" items={applicationsLocales[language]} onAdd={(val)=> setApplicationsLocales({ ...applicationsLocales, [language]: [...applicationsLocales[language], val] })} onRemove={(idx)=> setApplicationsLocales({ ...applicationsLocales, [language]: applicationsLocales[language].filter((_,i)=> i!==idx) })} />
                 {/* Industries */}
                 <LocaleListEditor title="Industries" items={industriesLocales[language]} onAdd={(val)=> setIndustriesLocales({ ...industriesLocales, [language]: [...industriesLocales[language], val] })} onRemove={(idx)=> setIndustriesLocales({ ...industriesLocales, [language]: industriesLocales[language].filter((_,i)=> i!==idx) })} />
                 {/* Materials */}
+                {slug === 'footwear' ? (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Materials</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground">
+                        Materials for footwear products are managed in the <strong>Safety & Specs</strong> tab with detailed breakdown (Upper, Lining, Sole, Insole, Toe Cap).
+                      </p>
+                    </CardContent>
+                  </Card>
+                ) : slug === 'eye-face' ? (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Materials</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground">
+                        Materials for eye-face products are managed in the <strong>Safety & Specs</strong> tab with detailed breakdown (Lens, Frame, Arm, Headband).
+                      </p>
+                    </CardContent>
+                  </Card>
+                ) : (
                 <LocaleListEditor title="Materials" items={materialsLocales[language]} onAdd={(val)=> setMaterialsLocales({ ...materialsLocales, [language]: [...materialsLocales[language], val] })} onRemove={(idx)=> setMaterialsLocales({ ...materialsLocales, [language]: materialsLocales[language].filter((_,i)=> i!==idx) })} />
+                )}
                 {/* Tags */}
                 <LocaleListEditor title="Tags" items={tagsLocales[language]} onAdd={(val)=> setTagsLocales({ ...tagsLocales, [language]: [...tagsLocales[language], val] })} onRemove={(idx)=> setTagsLocales({ ...tagsLocales, [language]: tagsLocales[language].filter((_,i)=> i!==idx) })} icon />
                 {/* Size */}
@@ -690,7 +751,19 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                           </Button>
                         </div>
                       ) : (
-                        <p className="mt-2 text-sm text-muted-foreground">No technical sheet uploaded</p>
+                        <div className="mt-2 space-y-2">
+                          <input 
+                            type="file" 
+                            accept="application/pdf" 
+                            onChange={async (e)=>{ 
+                              const f=e.target.files?.[0]; 
+                              if (!f) return; 
+                              const url = await uploadPdfToBucket(f,'tech_en'); 
+                              if (url) setTechnicalSheetUrl(url); 
+                            }} 
+                            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-brand-primary file:text-white hover:file:bg-brand-primary/90"
+                          />
+                        </div>
                   )}
                 </div>
                 <div>
@@ -708,7 +781,19 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                           </Button>
                         </div>
                       ) : (
-                        <p className="mt-2 text-sm text-muted-foreground">No technical sheet uploaded</p>
+                        <div className="mt-2 space-y-2">
+                          <input 
+                            type="file" 
+                            accept="application/pdf" 
+                            onChange={async (e)=>{ 
+                              const f=e.target.files?.[0]; 
+                              if (!f) return; 
+                              const url = await uploadPdfToBucket(f,'tech_it'); 
+                              if (url) setTechnicalSheetUrlIt(url); 
+                            }} 
+                            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-brand-primary file:text-white hover:file:bg-brand-primary/90"
+                          />
+                        </div>
                   )}
                 </div>
                   </div>
@@ -816,42 +901,333 @@ export default function CategoryProductEdit({ id, slug }: Props) {
             <CardContent>
               <div className="space-y-8">
                 {slug === 'eye-face' && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-3">
-                      <Label className="font-medium">Attributes</Label>
-                      <div className="flex items-center gap-2"><Checkbox checked={!!eyeFaceAttributes.has_ir} onCheckedChange={(v)=> setEyeFaceAttributes({ ...eyeFaceAttributes, has_ir: !!v })} /><span>IR protection</span></div>
-                      <div className="flex items-center gap-2"><Checkbox checked={!!eyeFaceAttributes.has_uv} onCheckedChange={(v)=> setEyeFaceAttributes({ ...eyeFaceAttributes, has_uv: !!v })} /><span>UV protection</span></div>
-                      <div className="flex items-center gap-2"><Checkbox checked={!!eyeFaceAttributes.has_arc} onCheckedChange={(v)=> setEyeFaceAttributes({ ...eyeFaceAttributes, has_arc: !!v })} /><span>Arc protection</span></div>
-                      <div className="space-y-1"><Label>UV code</Label><Input value={eyeFaceAttributes.uv_code || ''} onChange={(e)=> setEyeFaceAttributes({ ...eyeFaceAttributes, uv_code: e.target.value })} /></div>
-                      <div className="space-y-1"><Label>Lens tint</Label><Input value={eyeFaceAttributes.lens_tint || ''} onChange={(e)=> setEyeFaceAttributes({ ...eyeFaceAttributes, lens_tint: e.target.value })} /></div>
-                    <LocaleListEditor title="Coatings" items={eyeFaceAttributes.coatings || []} onAdd={(val)=> setEyeFaceAttributes({ ...eyeFaceAttributes, coatings: [...(eyeFaceAttributes.coatings||[]), val] })} onRemove={(idx)=> setEyeFaceAttributes({ ...eyeFaceAttributes, coatings: (eyeFaceAttributes.coatings||[]).filter((_:any,i:number)=> i!==idx) })} />
-                    <LocaleListEditor title="Comfort features" items={eyeFaceComfortFeatures[language] || []} onAdd={(val)=> setEyeFaceComfortFeatures({ ...eyeFaceComfortFeatures, [language]: [...(eyeFaceComfortFeatures[language] || []), val] })} onRemove={(idx)=> setEyeFaceComfortFeatures({ ...eyeFaceComfortFeatures, [language]: (eyeFaceComfortFeatures[language] || []).filter((_,i)=> i!==idx) })} />
-                    <LocaleListEditor title="Equipment" items={eyeFaceEquipment[language] || []} onAdd={(val)=> setEyeFaceEquipment({ ...eyeFaceEquipment, [language]: [...(eyeFaceEquipment[language] || []), val] })} onRemove={(idx)=> setEyeFaceEquipment({ ...eyeFaceEquipment, [language]: (eyeFaceEquipment[language] || []).filter((_,i)=> i!==idx) })} />
+                  <>
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>Attributes</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                          <div className="flex items-center gap-2">
+                            <Checkbox checked={!!eyeFaceAttributes.has_ir} onCheckedChange={(v)=> setEyeFaceAttributes({ ...eyeFaceAttributes, has_ir: !!v })} />
+                            <Label className="font-normal">IR protection</Label>
                     </div>
-                    <div className="space-y-3">
-                      <Label className="font-medium">Standards</Label>
-                      <div className="grid grid-cols-2 gap-3">
-                        <div className="space-y-1"><Label>EN 166 Optical class</Label><Input value={eyeFaceStandards.en166?.optical_class || ''} onChange={(e)=> setEyeFaceStandards({ ...eyeFaceStandards, en166: { ...eyeFaceStandards.en166, optical_class: e.target.value } })} /></div>
-                        <div className="space-y-1"><Label>EN 166 Mechanical strength</Label><Input value={eyeFaceStandards.en166?.mechanical_strength || ''} onChange={(e)=> setEyeFaceStandards({ ...eyeFaceStandards, en166: { ...eyeFaceStandards.en166, mechanical_strength: e.target.value } })} /></div>
-                        <div className="space-y-1 md:col-span-2"><Label>Frame mark</Label><Input value={eyeFaceStandards.en166?.frame_mark || ''} onChange={(e)=> setEyeFaceStandards({ ...eyeFaceStandards, en166: { ...eyeFaceStandards.en166, frame_mark: e.target.value } })} /></div>
-                        <div className="space-y-1 md:col-span-2"><Label>Lens mark</Label><Input value={eyeFaceStandards.en166?.lens_mark || ''} onChange={(e)=> setEyeFaceStandards({ ...eyeFaceStandards, en166: { ...eyeFaceStandards.en166, lens_mark: e.target.value } })} /></div>
-                        <div className="space-y-1 md:col-span-2"><Label>Additional marking</Label><Input value={eyeFaceStandards.en166?.additional_marking || ''} onChange={(e)=> setEyeFaceStandards({ ...eyeFaceStandards, en166: { ...eyeFaceStandards.en166, additional_marking: e.target.value } })} /></div>
+                          <div className="flex items-center gap-2">
+                            <Checkbox checked={!!eyeFaceAttributes.has_uv} onCheckedChange={(v)=> setEyeFaceAttributes({ ...eyeFaceAttributes, has_uv: !!v })} />
+                            <Label className="font-normal">UV protection</Label>
                       </div>
-                      <div className="grid grid-cols-2 gap-2">
+                          <div className="flex items-center gap-2">
+                            <Checkbox checked={!!eyeFaceAttributes.has_arc} onCheckedChange={(v)=> setEyeFaceAttributes({ ...eyeFaceAttributes, has_arc: !!v })} />
+                            <Label className="font-normal">Arc protection</Label>
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="space-y-1">
+                            <Label>UV code</Label>
+                            <Input value={eyeFaceAttributes.uv_code || ''} onChange={(e)=> setEyeFaceAttributes({ ...eyeFaceAttributes, uv_code: e.target.value })} />
+                          </div>
+                          <div className="space-y-1">
+                            <Label>Lens tint</Label>
+                            <Input value={eyeFaceAttributes.lens_tint || ''} onChange={(e)=> setEyeFaceAttributes({ ...eyeFaceAttributes, lens_tint: e.target.value })} />
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>Coatings</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <LocaleListEditor 
+                          title="" 
+                          items={eyeFaceCoatingsLocales[language] || []} 
+                          onAdd={(val)=> setEyeFaceCoatingsLocales({ ...eyeFaceCoatingsLocales, [language]: [...(eyeFaceCoatingsLocales[language] || []), val] })} 
+                          onRemove={(idx)=> setEyeFaceCoatingsLocales({ ...eyeFaceCoatingsLocales, [language]: (eyeFaceCoatingsLocales[language] || []).filter((_,i)=> i!==idx) })} 
+                        />
+                      </CardContent>
+                    </Card>
+
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>Materials</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                    <div className="space-y-3">
+                          <div>
+                            <Label className="text-xs text-gray-600">Lens Material</Label>
+                            <Input 
+                              value={eyeFaceMaterialsLocales[language].lens || ''} 
+                              onChange={(e) => setEyeFaceMaterialsLocales({ ...eyeFaceMaterialsLocales, [language]: { ...eyeFaceMaterialsLocales[language], lens: e.target.value } })} 
+                              placeholder="e.g. PC, Polycarbonate"
+                            />
+                      </div>
+                          <div>
+                            <Label className="text-xs text-gray-600">Frame Material</Label>
+                            <Input 
+                              value={eyeFaceMaterialsLocales[language].frame || ''} 
+                              onChange={(e) => setEyeFaceMaterialsLocales({ ...eyeFaceMaterialsLocales, [language]: { ...eyeFaceMaterialsLocales[language], frame: e.target.value } })} 
+                              placeholder="e.g. Plastic, Nylon"
+                            />
+                          </div>
+                          <div>
+                            <Label className="text-xs text-gray-600">Arm Material</Label>
+                            <Input 
+                              value={eyeFaceMaterialsLocales[language].arm || ''} 
+                              onChange={(e) => setEyeFaceMaterialsLocales({ ...eyeFaceMaterialsLocales, [language]: { ...eyeFaceMaterialsLocales[language], arm: e.target.value } })} 
+                              placeholder="e.g. Plastic, Rubber"
+                            />
+                          </div>
+                          <div>
+                            <Label className="text-xs text-gray-600">Headband Material</Label>
+                            <Input 
+                              value={eyeFaceMaterialsLocales[language].headband || ''} 
+                              onChange={(e) => setEyeFaceMaterialsLocales({ ...eyeFaceMaterialsLocales, [language]: { ...eyeFaceMaterialsLocales[language], headband: e.target.value } })} 
+                              placeholder="e.g. Fabric, Elastic"
+                            />
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>Standards</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div>
+                          <Label className="text-base font-medium mb-3 block">EN 166</Label>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div className="space-y-1">
+                              <Label>Optical class</Label>
+                              <Input value={eyeFaceStandards.en166?.optical_class || ''} onChange={(e)=> setEyeFaceStandards({ ...eyeFaceStandards, en166: { ...eyeFaceStandards.en166, optical_class: e.target.value } })} />
+                            </div>
+                            <div className="space-y-1">
+                              <Label>Mechanical strength</Label>
+                              <Input value={eyeFaceStandards.en166?.mechanical_strength || ''} onChange={(e)=> setEyeFaceStandards({ ...eyeFaceStandards, en166: { ...eyeFaceStandards.en166, mechanical_strength: e.target.value } })} />
+                            </div>
+                            <div className="space-y-1 md:col-span-2">
+                              <Label>Frame mark</Label>
+                              <Input value={eyeFaceStandards.en166?.frame_mark || ''} onChange={(e)=> setEyeFaceStandards({ ...eyeFaceStandards, en166: { ...eyeFaceStandards.en166, frame_mark: e.target.value } })} />
+                            </div>
+                            <div className="space-y-1 md:col-span-2">
+                              <Label>Lens mark</Label>
+                              <Input value={eyeFaceStandards.en166?.lens_mark || ''} onChange={(e)=> setEyeFaceStandards({ ...eyeFaceStandards, en166: { ...eyeFaceStandards.en166, lens_mark: e.target.value } })} />
+                            </div>
+                            <div className="space-y-1 md:col-span-2">
+                              <Label>Additional marking</Label>
+                              <Input value={eyeFaceStandards.en166?.additional_marking || ''} onChange={(e)=> setEyeFaceStandards({ ...eyeFaceStandards, en166: { ...eyeFaceStandards.en166, additional_marking: e.target.value } })} />
+                            </div>
+                          </div>
+                        </div>
+                        <div>
+                          <Label className="text-base font-medium mb-3 block">Additional Standards</Label>
+                          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                         {['en169','en170','en172','en175','gs_et_29'].map(code => (
-                          <div key={code} className="flex items-center gap-2"><Checkbox checked={!!eyeFaceStandards[code]} onCheckedChange={(v)=> setEyeFaceStandards({ ...eyeFaceStandards, [code]: !!v })} /><span className="uppercase">{code.replace('_','-')}</span></div>
+                              <div key={code} className="flex items-center gap-2">
+                                <Checkbox checked={!!eyeFaceStandards[code]} onCheckedChange={(v)=> setEyeFaceStandards({ ...eyeFaceStandards, [code]: !!v })} />
+                                <Label className="font-normal uppercase">{code.replace('_','-')}</Label>
+                              </div>
                         ))}
                       </div>
                     </div>
+                      </CardContent>
+                    </Card>
+
+                    <LocaleListEditor 
+                      title="Comfort features" 
+                      items={eyeFaceComfortFeatures[language] || []} 
+                      onAdd={(val)=> setEyeFaceComfortFeatures({ ...eyeFaceComfortFeatures, [language]: [...(eyeFaceComfortFeatures[language] || []), val] })} 
+                      onRemove={(idx)=> setEyeFaceComfortFeatures({ ...eyeFaceComfortFeatures, [language]: (eyeFaceComfortFeatures[language] || []).filter((_,i)=> i!==idx) })} 
+                    />
+
+                    <LocaleListEditor 
+                      title="Equipment" 
+                      items={eyeFaceEquipment[language] || []} 
+                      onAdd={(val)=> setEyeFaceEquipment({ ...eyeFaceEquipment, [language]: [...(eyeFaceEquipment[language] || []), val] })} 
+                      onRemove={(idx)=> setEyeFaceEquipment({ ...eyeFaceEquipment, [language]: (eyeFaceEquipment[language] || []).filter((_,i)=> i!==idx) })} 
+                    />
+                  </>
+                )}
+
+                {slug === 'eye-face' && (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Protective Filters</CardTitle>
+                      <CardDescription className="text-xs sm:text-sm">
+                        Configure which protective filters this eye/face protection provides
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                        {[
+                          { 
+                            key: 'has_sun' as const, 
+                            icon: 'Sun', 
+                            label: 'Sun',
+                            description: 'Sun protection'
+                          },
+                          { 
+                            key: 'has_glare' as const, 
+                            icon: 'Eye', 
+                            label: 'Glare',
+                            description: 'Anti-glare protection'
+                          },
+                          { 
+                            key: 'has_ir' as const, 
+                            icon: 'Flame', 
+                            label: 'IR',
+                            description: 'Infrared protection'
+                          },
+                          { 
+                            key: 'has_welding' as const, 
+                            icon: 'Zap', 
+                            label: 'Welding',
+                            description: 'Welding protection'
+                          },
+                          { 
+                            key: 'has_uv' as const, 
+                            icon: 'Sun', 
+                            label: 'UV',
+                            description: 'UV protection'
+                          },
+                        ].map((item) => {
+                          const isEnabled = eyeFaceAttributes[item.key] || false;
+                          
+                          return (
+                            <div
+                              key={item.key}
+                              className={`group relative overflow-hidden rounded-lg border shadow-sm transition-all duration-300 hover:shadow-md backdrop-blur-sm p-4 ${
+                                isEnabled
+                                  ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
+                                  : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800'
+                              }`}
+                            >
+                              <div className="flex items-center justify-between mb-3">
+                                <div className="flex items-center gap-3">
+                                  {item.icon === 'Sun' && <Sun className={`h-5 w-5 ${isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`} />}
+                                  {item.icon === 'Eye' && <Eye className={`h-5 w-5 ${isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`} />}
+                                  {item.icon === 'Flame' && <Shield className={`h-5 w-5 ${isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`} />}
+                                  {item.icon === 'Zap' && <Zap className={`h-5 w-5 ${isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`} />}
+                                  <div>
+                                    <Label className={`font-medium text-sm ${
+                                      isEnabled ? 'text-green-800 dark:text-green-200' : 'text-red-800 dark:text-red-200'
+                                    }`}>
+                                      {item.label}
+                                    </Label>
                   </div>
+                                </div>
+                                <Switch
+                                  checked={isEnabled}
+                                  onCheckedChange={(checked) => setEyeFaceAttributes({
+                                    ...eyeFaceAttributes,
+                                    [item.key]: checked
+                                  })}
+                                  className="data-[state=checked]:bg-green-600"
+                                />
+                              </div>
+                              
+                              <p className={`text-xs ${
+                                isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
+                              }`}>
+                                {item.description}
+                              </p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {slug === 'eye-face' && (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Work Environment Suitability</CardTitle>
+                      <CardDescription className="text-xs sm:text-sm">
+                        Configure which work environments this eye/face protection is suitable for
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        {[
+                          { 
+                            key: 'chemical' as const, 
+                            icon: 'FlaskConical', 
+                            label: 'Chemical Exposure',
+                            description: 'Suitable for chemical exposure'
+                          },
+                          { 
+                            key: 'biological' as const, 
+                            icon: 'Bug', 
+                            label: 'Biological Hazards',
+                            description: 'Suitable for biological hazards'
+                          },
+                          { 
+                            key: 'electrical' as const, 
+                            icon: 'Zap', 
+                            label: 'Electrical risk',
+                            description: 'Suitable for electrical risk'
+                          },
+                        ].map((item) => {
+                          const isEnabled = environmentPictograms[item.key] || false;
+                          
+                          return (
+                            <div
+                              key={item.key}
+                              className={`group relative overflow-hidden rounded-lg border shadow-sm transition-all duration-300 hover:shadow-md backdrop-blur-sm p-4 ${
+                                isEnabled
+                                  ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
+                                  : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800'
+                              }`}
+                            >
+                              <div className="flex items-center justify-between mb-3">
+                                <div className="flex items-center gap-3">
+                                  {item.icon === 'FlaskConical' && <FlaskConical className={`h-5 w-5 ${isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`} />}
+                                  {item.icon === 'Bug' && <Bug className={`h-5 w-5 ${isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`} />}
+                                  {item.icon === 'Zap' && <Zap className={`h-5 w-5 ${isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`} />}
+                                  <div>
+                                    <Label className={`font-medium text-sm ${
+                                      isEnabled ? 'text-green-800 dark:text-green-200' : 'text-red-800 dark:text-red-200'
+                                    }`}>
+                                      {item.label}
+                                    </Label>
+                                  </div>
+                                </div>
+                                <Switch
+                                  checked={isEnabled}
+                                  onCheckedChange={(checked) => setEnvironmentPictograms({
+                                    ...environmentPictograms,
+                                    [item.key]: checked
+                                  })}
+                                  className="data-[state=checked]:bg-green-600"
+                                />
+                              </div>
+                              
+                              <p className={`text-xs ${
+                                isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
+                              }`}>
+                                {item.description}
+                              </p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </CardContent>
+                  </Card>
                 )}
 
                 {slug === 'hearing' && (
                   <HearingSafetyStandardsEditor 
+                    language={language}
                     hearingStandards={hearingStandards}
                     setHearingStandards={setHearingStandards}
                     hearingAttributes={hearingAttributes}
                     setHearingAttributes={setHearingAttributes}
+                    hearingCompatibleWithLocales={hearingCompatibleWithLocales}
+                    setHearingCompatibleWithLocales={setHearingCompatibleWithLocales}
+                    hearingAccessoriesLocales={hearingAccessoriesLocales}
+                    setHearingAccessoriesLocales={setHearingAccessoriesLocales}
                     hearingComfortFeatures={hearingComfortFeatures}
                     setHearingComfortFeatures={setHearingComfortFeatures}
                     hearingOtherDetails={hearingOtherDetails}
@@ -863,9 +1239,12 @@ export default function CategoryProductEdit({ id, slug }: Props) {
 
                 {slug === 'respiratory' && (
                   <div className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-3">
-                        <Label className="font-medium">Standards</Label>
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-base">Standards</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-4">
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                           <div className="space-y-1"><div className="flex items-center gap-2"><Checkbox checked={!!respiratoryStandards.en149?.enabled} onCheckedChange={(v)=> setRespiratoryStandards({ ...respiratoryStandards, en149: { ...(respiratoryStandards.en149||{}), enabled: !!v } })} /><span>EN 149</span></div><Input placeholder="Class e.g. FFP3" value={respiratoryStandards.en149?.class || ''} onChange={(e)=> setRespiratoryStandards({ ...respiratoryStandards, en149: { ...(respiratoryStandards.en149||{}), class: e.target.value } })} /></div>
                           <div className="space-y-1"><div className="flex items-center gap-2"><Checkbox checked={!!respiratoryStandards.en143?.enabled} onCheckedChange={(v)=> setRespiratoryStandards({ ...respiratoryStandards, en143: { ...(respiratoryStandards.en143||{}), enabled: !!v } })} /><span>EN 143</span></div><Input placeholder="Class e.g. P3" value={respiratoryStandards.en143?.class || ''} onChange={(e)=> setRespiratoryStandards({ ...respiratoryStandards, en143: { ...(respiratoryStandards.en143||{}), class: e.target.value } })} /></div>
@@ -875,12 +1254,109 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                           <div className="space-y-1"><div className="flex items-center gap-2"><Checkbox checked={!!respiratoryStandards.en140?.enabled} onCheckedChange={(v)=> setRespiratoryStandards({ ...respiratoryStandards, en140: { ...(respiratoryStandards.en140||{}), enabled: !!v } })} /><span>EN 140</span></div></div>
                           <div className="space-y-1"><div className="flex items-center gap-2"><Checkbox checked={!!respiratoryStandards.din_3181_3?.enabled} onCheckedChange={(v)=> setRespiratoryStandards({ ...respiratoryStandards, din_3181_3: { ...(respiratoryStandards.din_3181_3||{}), enabled: !!v } })} /><span>DIN 3181-3</span></div></div>
                       </div>
-                        <div className="space-y-1"><Label>EN 14387 gases (comma separated codes, e.g. A,B,E,K)</Label><Input value={Object.keys(respiratoryStandards.en14387?.gases || {}).filter((k)=> respiratoryStandards.en14387?.gases?.[k]).join(', ')} onChange={(e)=> {
-                          const obj: any = {}; e.target.value.split(',').map(s=> s.trim().toUpperCase()).filter(Boolean).forEach((k)=> obj[k] = true);
-                          setRespiratoryStandards({ ...respiratoryStandards, en14387: { ...(respiratoryStandards.en14387||{}), gases: obj } });
-                        }} /></div>
+
+                        {respiratoryStandards.en149?.enabled && (
+                          <div className="space-y-2">
+                            <Label>EN 149 Attributes</Label>
+                            <div className="grid grid-cols-3 gap-4">
+                              <div className="flex items-center gap-2">
+                                <Checkbox 
+                                  checked={!!respiratoryStandards.en149?.nr} 
+                                  onCheckedChange={(v) => setRespiratoryStandards({ 
+                                    ...respiratoryStandards, 
+                                    en149: { ...(respiratoryStandards.en149 || {}), nr: !!v } 
+                                  })} 
+                                />
+                                <Label className="font-normal">NR (Non-reusable)</Label>
                     </div>
-                    <div className="space-y-3">
+                              <div className="flex items-center gap-2">
+                                <Checkbox 
+                                  checked={!!respiratoryStandards.en149?.r} 
+                                  onCheckedChange={(v) => setRespiratoryStandards({ 
+                                    ...respiratoryStandards, 
+                                    en149: { ...(respiratoryStandards.en149 || {}), r: !!v } 
+                                  })} 
+                                />
+                                <Label className="font-normal">R (Reusable)</Label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <Checkbox 
+                                  checked={!!respiratoryStandards.en149?.d} 
+                                  onCheckedChange={(v) => setRespiratoryStandards({ 
+                                    ...respiratoryStandards, 
+                                    en149: { ...(respiratoryStandards.en149 || {}), d: !!v } 
+                                  })} 
+                                />
+                                <Label className="font-normal">D (High dust)</Label>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+
+                        {respiratoryStandards.en14387?.enabled && (
+                          <div className="space-y-2">
+                            <Label>EN 14387 Gas Filters (click tiles to toggle)</Label>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                              {[
+                                { code: 'a', label: 'Organic gases', color: 'bg-amber-700', textColor: 'text-white' },
+                                { code: 'b', label: 'Inorganic gases', color: 'bg-gray-500', textColor: 'text-white' },
+                                { code: 'e', label: 'Acid gases', color: 'bg-yellow-500', textColor: 'text-black' },
+                                { code: 'k', label: 'Ammonia', color: 'bg-green-600', textColor: 'text-white' },
+                                { code: 'ax', label: 'Organic gas < 65°C', color: 'bg-amber-600', textColor: 'text-white' },
+                                { code: 'hg', label: 'Mercury', color: 'bg-red-600', textColor: 'text-white' },
+                                { code: 'no', label: 'Nitrous gas', color: 'bg-blue-600', textColor: 'text-white' },
+                                { code: 'sx', label: 'Specific gas', color: 'bg-orange-600', textColor: 'text-white' },
+                                { code: 'co', label: 'Carbon monoxide', color: 'bg-black', textColor: 'text-white' },
+                                { code: 'p', label: 'Dust', color: 'bg-gray-100', textColor: 'text-black' },
+                              ].map((gas) => {
+                                const currentGases = respiratoryStandards.en14387?.gases || {};
+                                // Check both lowercase and uppercase versions
+                                const isActive = !!(currentGases[gas.code] || currentGases[gas.code.toUpperCase()]);
+                                const displayCode = gas.code === 'hg' ? 'Hg' : gas.code.toUpperCase();
+                                
+                                return (
+                                  <div 
+                                    key={gas.code}
+                                    onClick={() => {
+                                      const newGases = { ...currentGases };
+                                      // Remove both uppercase and lowercase versions
+                                      delete newGases[gas.code];
+                                      delete newGases[gas.code.toUpperCase()];
+                                      // If was inactive, add it as lowercase
+                                      if (!isActive) {
+                                        newGases[gas.code] = true;
+                                      }
+                                      setRespiratoryStandards({
+                                        ...respiratoryStandards,
+                                        en14387: {
+                                          ...(respiratoryStandards.en14387 || {}),
+                                          gases: newGases
+                                        }
+                                      });
+                                    }}
+                                    className={`cursor-pointer rounded-lg border-2 p-2.5 transition-all ${
+                                      isActive 
+                                        ? `${gas.color} ${gas.textColor} border-gray-700 shadow-md` 
+                                        : 'bg-gray-50 border-gray-300 hover:border-gray-400'
+                                    }`}
+                                  >
+                                    <div className="text-center">
+                                      <div className={`text-sm font-bold font-mono mb-0.5 ${isActive ? '' : 'text-gray-900'}`}>
+                                        {displayCode}
+                                      </div>
+                                      <div className={`text-xs ${isActive ? '' : 'text-gray-600'}`}>
+                                        {gas.label}
+                                      </div>
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        )}
+                    </div>
+                      </CardContent>
+                    </Card>
                         <LocaleListEditor 
                           title="Comfort features" 
                           items={respiratoryComfortFeatures[language]} 
@@ -900,27 +1376,110 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                           onRemove={(idx) => setRespiratoryEquipment({ ...respiratoryEquipment, [language]: (respiratoryEquipment[language] || []).filter((_, i) => i !== idx) })} 
                         />
                       </div>
+                )}
+
+                {slug === 'respiratory' && (
+                  <Card className="mt-6">
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-lg">Protection (filters fitted)</CardTitle>
+                      <CardDescription className="text-xs sm:text-sm">
+                        Configure which protection this respiratory product provides
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {[
+                          { 
+                            key: 'has_dust' as const, 
+                            icon: 'Wind', 
+                            label: 'Dust',
+                            description: 'Dust protection'
+                          },
+                          { 
+                            key: 'has_gases_vapours' as const, 
+                            icon: 'FlaskConical', 
+                            label: 'Gases & Vapours',
+                            description: 'Gases & Vapours protection'
+                          },
+                          { 
+                            key: 'has_combined' as const, 
+                            icon: 'Zap', 
+                            label: 'Combined',
+                            description: 'Combined protection'
+                          },
+                        ].map((item) => {
+                          const isEnabled = respiratoryStandards[item.key] || false;
+                          
+                          return (
+                            <div
+                              key={item.key}
+                              className={`group relative overflow-hidden rounded-lg border shadow-sm transition-all duration-300 hover:shadow-md backdrop-blur-sm p-4 ${
+                                isEnabled
+                                  ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
+                                  : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800'
+                              }`}
+                            >
+                              <div className="flex items-center justify-between mb-3">
+                                <div className="flex items-center gap-3">
+                                  {item.icon === 'Wind' && <Wind className={`h-5 w-5 ${isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`} />}
+                                  {item.icon === 'FlaskConical' && <FlaskConical className={`h-5 w-5 ${isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`} />}
+                                  {item.icon === 'Zap' && <Zap className={`h-5 w-5 ${isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`} />}
+                                  <div>
+                                    <Label className={`font-medium text-sm ${
+                                      isEnabled ? 'text-green-800 dark:text-green-200' : 'text-red-800 dark:text-red-200'
+                                    }`}>
+                                      {item.label}
+                                    </Label>
                     </div>
                   </div>
+                                <Switch
+                                  checked={isEnabled}
+                                  onCheckedChange={(checked) => setRespiratoryStandards({
+                                    ...respiratoryStandards,
+                                    [item.key]: checked
+                                  })}
+                                  className="data-[state=checked]:bg-green-600"
+                                />
+                              </div>
+                              
+                              <p className={`text-xs ${
+                                isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
+                              }`}>
+                                {item.description}
+                              </p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </CardContent>
+                  </Card>
                 )}
 
                 {slug === 'footwear' && (
                   <FootwearSafetyStandardsEditor 
+                    language={language}
                     footwearStandards={footwearStandards}
                     setFootwearStandards={setFootwearStandards}
                     footwearAttributes={footwearAttributes}
                     setFootwearAttributes={setFootwearAttributes}
+                    footwearMaterialsLocales={footwearMaterialsLocales}
+                    setFootwearMaterialsLocales={setFootwearMaterialsLocales}
                     footwearComfortFeatures={footwearComfortFeatures}
                     setFootwearComfortFeatures={setFootwearComfortFeatures}
+                    footwearSpecialFeatures={footwearSpecialFeatures}
+                    setFootwearSpecialFeatures={setFootwearSpecialFeatures}
                   />
                 )}
 
                 {slug === 'head' && (
                   <HeadSafetyStandardsEditor 
+                    language={language}
                     headStandards={headStandards}
                     setHeadStandards={setHeadStandards}
                     headAttributes={headAttributes}
                     setHeadAttributes={setHeadAttributes}
+                    headTechSpecsLocales={headTechSpecsLocales}
+                    setHeadTechSpecsLocales={setHeadTechSpecsLocales}
                     headComfortFeatures={headComfortFeatures}
                     setHeadComfortFeatures={setHeadComfortFeatures}
                     headOtherDetails={headOtherDetails}
@@ -932,10 +1491,15 @@ export default function CategoryProductEdit({ id, slug }: Props) {
 
                 {slug === 'arm-protection' && (
                   <ArmSafetyStandardsEditor 
+                    language={language}
                     safety={safety}
                     setSafety={setSafety}
                     armAttributes={armAttributes}
                     setArmAttributes={setArmAttributes}
+                    materialsLocales={armMaterialsLocales}
+                    setMaterialsLocales={setArmMaterialsLocales}
+                    environmentPictograms={environmentPictograms}
+                    onEnvironmentChange={setEnvironmentPictograms}
                   />
                 )}
 
@@ -992,6 +1556,124 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                   </div>
                 )}
 
+                {slug === 'clothing' && (
+                  <Card className="mt-6">
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-lg">Work Environment Suitability</CardTitle>
+                      <CardDescription className="text-xs sm:text-sm">
+                        Configure which work environments this clothing is suitable for
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        {[
+                          { 
+                            key: 'dry' as const, 
+                            icon: 'Sun', 
+                            label: 'Dry Conditions',
+                            description: 'Suitable for dry conditions'
+                          },
+                          { 
+                            key: 'wet' as const, 
+                            icon: 'Droplets', 
+                            label: 'Wet Conditions',
+                            description: 'Suitable for wet conditions'
+                          },
+                          { 
+                            key: 'dust' as const, 
+                            icon: 'Wind', 
+                            label: 'Dusty Conditions',
+                            description: 'Suitable for dusty conditions'
+                          },
+                          { 
+                            key: 'chemical' as const, 
+                            icon: 'FlaskConical', 
+                            label: 'Chemical Exposure',
+                            description: 'Suitable for chemical exposure'
+                          },
+                          { 
+                            key: 'biological' as const, 
+                            icon: 'Bug', 
+                            label: 'Biological Hazards',
+                            description: 'Suitable for biological hazards'
+                          },
+                          { 
+                            key: 'oily_grease' as const, 
+                            icon: 'Zap', 
+                            label: 'Oily / Greasy',
+                            description: 'Suitable for oily / greasy'
+                          },
+                          { 
+                            key: 'electrical' as const, 
+                            icon: 'Zap', 
+                            label: 'Electrical risks',
+                            description: 'Suitable for electrical risks'
+                          },
+                          { 
+                            key: 'radiation' as const, 
+                            icon: 'Shield', 
+                            label: 'Radiation',
+                            description: 'Suitable for radiation'
+                          },
+                          { 
+                            key: 'low_visibility' as const, 
+                            icon: 'Eye', 
+                            label: 'Low visibility',
+                            description: 'Suitable for low visibility'
+                          },
+                        ].map((item) => {
+                          const isEnabled = environmentPictograms[item.key] || false;
+                          
+                          return (
+                            <div
+                              key={item.key}
+                              className={`group relative overflow-hidden rounded-lg border shadow-sm transition-all duration-300 hover:shadow-md backdrop-blur-sm p-4 ${
+                                isEnabled
+                                  ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
+                                  : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800'
+                              }`}
+                            >
+                              <div className="flex items-center justify-between mb-3">
+                                <div className="flex items-center gap-3">
+                                  {item.icon === 'Sun' && <Sun className={`h-5 w-5 ${isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`} />}
+                                  {item.icon === 'Droplets' && <Droplets className={`h-5 w-5 ${isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`} />}
+                                  {item.icon === 'Wind' && <Wind className={`h-5 w-5 ${isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`} />}
+                                  {item.icon === 'FlaskConical' && <FlaskConical className={`h-5 w-5 ${isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`} />}
+                                  {item.icon === 'Bug' && <Bug className={`h-5 w-5 ${isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`} />}
+                                  {item.icon === 'Zap' && <Zap className={`h-5 w-5 ${isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`} />}
+                                  {item.icon === 'Shield' && <Shield className={`h-5 w-5 ${isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`} />}
+                                  {item.icon === 'Eye' && <Eye className={`h-5 w-5 ${isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`} />}
+                                  <div>
+                                    <Label className={`font-medium text-sm ${
+                                      isEnabled ? 'text-green-800 dark:text-green-200' : 'text-red-800 dark:text-red-200'
+                                    }`}>
+                                      {item.label}
+                                    </Label>
+                                  </div>
+                                </div>
+                                <Switch
+                                  checked={isEnabled}
+                                  onCheckedChange={(checked) => setEnvironmentPictograms({
+                                    ...environmentPictograms,
+                                    [item.key]: checked
+                                  })}
+                                  className="data-[state=checked]:bg-green-600"
+                                />
+                              </div>
+                              
+                              <p className={`text-xs ${
+                                isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
+                              }`}>
+                                {item.description}
+                              </p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+
                 {slug === 'industrial-swabs' && (
                   <div className="space-y-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -1027,48 +1709,177 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                 {slug === 'respiratory' && (
                   <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-1"><Label>Connections (comma separated)</Label><Input value={respConnections.join(', ')} onChange={(e)=> setRespConnections(e.target.value.split(',').map(s=> s.trim()).filter(Boolean))} /></div>
                       <div className="space-y-1"><Label>Filter type</Label><Input value={respFilterType} onChange={(e)=> setRespFilterType(e.target.value)} /></div>
                       <div className="space-y-1"><Label>Protection class</Label><Input value={respProtectionClass} onChange={(e)=> setRespProtectionClass(e.target.value)} /></div>
+                      <div className="space-y-1"><Label>NPF</Label><Input value={respNpf} onChange={(e)=> setRespNpf(e.target.value)} placeholder="e.g. 20" /></div>
                       <div className="space-y-1"><Label>Protection codes (comma separated)</Label><Input value={respProtectionCodes.join(', ')} onChange={(e)=> setRespProtectionCodes(e.target.value.split(',').map(s=> s.trim()).filter(Boolean))} /></div>
-                      <div className="space-y-1 md:col-span-2"><Label>Compatible with (comma separated)</Label><Input value={respCompatibleWith.join(', ')} onChange={(e)=> setRespCompatibleWith(e.target.value.split(',').map(s=> s.trim()).filter(Boolean))} /></div>
                     </div>
-                    <div className="space-y-3">
-                      <Label className="font-medium">Standards</Label>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                        <div className="space-y-1"><div className="flex items-center gap-2"><Checkbox checked={!!respiratoryStandards.en149?.enabled} onCheckedChange={(v)=> setRespiratoryStandards({ ...respiratoryStandards, en149: { ...(respiratoryStandards.en149||{}), enabled: !!v } })} /><span>EN 149</span></div><Input placeholder="Class e.g. FFP3" value={respiratoryStandards.en149?.class || ''} onChange={(e)=> setRespiratoryStandards({ ...respiratoryStandards, en149: { ...(respiratoryStandards.en149||{}), class: e.target.value } })} /></div>
-                        <div className="space-y-1"><div className="flex items-center gap-2"><Checkbox checked={!!respiratoryStandards.en143?.enabled} onCheckedChange={(v)=> setRespiratoryStandards({ ...respiratoryStandards, en143: { ...(respiratoryStandards.en143||{}), enabled: !!v } })} /><span>EN 143</span></div><Input placeholder="Class e.g. P3" value={respiratoryStandards.en143?.class || ''} onChange={(e)=> setRespiratoryStandards({ ...respiratoryStandards, en143: { ...(respiratoryStandards.en143||{}), class: e.target.value } })} /></div>
-                        <div className="space-y-1"><div className="flex items-center gap-2"><Checkbox checked={!!respiratoryStandards.en14387?.enabled} onCheckedChange={(v)=> setRespiratoryStandards({ ...respiratoryStandards, en14387: { ...(respiratoryStandards.en14387||{}), enabled: !!v } })} /><span>EN 14387</span></div><Input placeholder="Class e.g. A2B2E2K2" value={respiratoryStandards.en14387?.class || ''} onChange={(e)=> setRespiratoryStandards({ ...respiratoryStandards, en14387: { ...(respiratoryStandards.en14387||{}), class: e.target.value, gases: respiratoryStandards.en14387?.gases || {} } })} /></div>
-                        <div className="space-y-1"><div className="flex items-center gap-2"><Checkbox checked={!!respiratoryStandards.en136?.enabled} onCheckedChange={(v)=> setRespiratoryStandards({ ...respiratoryStandards, en136: { ...(respiratoryStandards.en136||{}), enabled: !!v } })} /><span>EN 136</span></div><Input placeholder="Class" value={respiratoryStandards.en136?.class || ''} onChange={(e)=> setRespiratoryStandards({ ...respiratoryStandards, en136: { ...(respiratoryStandards.en136||{}), class: e.target.value } })} /></div>
-                        <div className="space-y-1"><div className="flex items-center gap-2"><Checkbox checked={!!respiratoryStandards.en166?.enabled} onCheckedChange={(v)=> setRespiratoryStandards({ ...respiratoryStandards, en166: { ...(respiratoryStandards.en166||{}), enabled: !!v } })} /><span>EN 166</span></div><Input placeholder="Class" value={respiratoryStandards.en166?.class || ''} onChange={(e)=> setRespiratoryStandards({ ...respiratoryStandards, en166: { ...(respiratoryStandards.en166||{}), class: e.target.value } })} /></div>
-                        <div className="space-y-1"><div className="flex items-center gap-2"><Checkbox checked={!!respiratoryStandards.en140?.enabled} onCheckedChange={(v)=> setRespiratoryStandards({ ...respiratoryStandards, en140: { ...(respiratoryStandards.en140||{}), enabled: !!v } })} /><span>EN 140</span></div></div>
-                        <div className="space-y-1"><div className="flex items-center gap-2"><Checkbox checked={!!respiratoryStandards.din_3181_3?.enabled} onCheckedChange={(v)=> setRespiratoryStandards({ ...respiratoryStandards, din_3181_3: { ...(respiratoryStandards.din_3181_3||{}), enabled: !!v } })} /><span>DIN 3181-3</span></div></div>
+                    
+                    {/* Connections Section */}
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-base">Connections</CardTitle>
+                        <CardDescription className="text-sm">Select respiratory products or add custom connection types (e.g. B-Lock)</CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        {/* Display Selected Connections */}
+                        {respConnectionsLocales[language].length > 0 && (
+                          <div className="flex flex-wrap gap-2">
+                            {respConnectionsLocales[language].map((conn, idx) => (
+                              <Badge key={`conn-${idx}`} variant="outline" className="flex items-center gap-1 px-3 py-1">
+                                {conn}
+                                <Button variant="ghost" size="sm" className="h-4 w-4 p-0 ml-1" onClick={() => setRespConnectionsLocales({ ...respConnectionsLocales, [language]: respConnectionsLocales[language].filter((_, i) => i !== idx) })}>
+                                  <X className="h-3 w-3" />
+                                </Button>
+                              </Badge>
+                            ))}
                       </div>
-                      <div className="space-y-1"><Label>EN 14387 gases (comma separated codes, e.g. A,B,E,K)</Label><Input value={Object.keys(respiratoryStandards.en14387?.gases || {}).filter((k)=> respiratoryStandards.en14387?.gases?.[k]).join(', ')} onChange={(e)=> {
-                        const obj: any = {}; e.target.value.split(',').map(s=> s.trim().toUpperCase()).filter(Boolean).forEach((k)=> obj[k] = true);
-                        setRespiratoryStandards({ ...respiratoryStandards, en14387: { ...(respiratoryStandards.en14387||{}), gases: obj } });
-                      }} /></div>
+                        )}
+                        
+                        {/* Add from Products Dropdown */}
+                        <div className="space-y-2">
+                          <Label className="text-sm">Select from respiratory products:</Label>
+                          <Select onValueChange={(value) => {
+                            if (value && !respConnectionsLocales[language].includes(value)) {
+                              setRespConnectionsLocales({ ...respConnectionsLocales, [language]: [...respConnectionsLocales[language], value] });
+                            }
+                          }}>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select a product..." />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {availableProducts
+                                .filter(p => {
+                                  const cat = (p.category || '').toLowerCase();
+                                  const sub = (p.sub_category || '').toLowerCase();
+                                  return cat.includes('respiratory') || sub.includes('mask') || sub.includes('filter') || sub.includes('respirator');
+                                })
+                                .map((product) => (
+                                  <SelectItem key={product.id} value={product.name}>
+                                    {product.name}
+                                  </SelectItem>
+                                ))}
+                            </SelectContent>
+                          </Select>
                     </div>
-                    <div className="space-y-3">
-                      <LocaleListEditor 
-                        title="Comfort features" 
-                        items={respiratoryComfortFeatures[language]} 
-                        onAdd={(val) => setRespiratoryComfortFeatures({ ...respiratoryComfortFeatures, [language]: [...(respiratoryComfortFeatures[language] || []), val] })} 
-                        onRemove={(idx) => setRespiratoryComfortFeatures({ ...respiratoryComfortFeatures, [language]: (respiratoryComfortFeatures[language] || []).filter((_, i) => i !== idx) })} 
-                      />
-                      <LocaleListEditor 
-                        title="Other details" 
-                        items={respiratoryOtherDetails[language]} 
-                        onAdd={(val) => setRespiratoryOtherDetails({ ...respiratoryOtherDetails, [language]: [...(respiratoryOtherDetails[language] || []), val] })} 
-                        onRemove={(idx) => setRespiratoryOtherDetails({ ...respiratoryOtherDetails, [language]: (respiratoryOtherDetails[language] || []).filter((_, i) => i !== idx) })} 
-                      />
-                      <LocaleListEditor 
-                        title="Equipment" 
-                        items={respiratoryEquipment[language]} 
-                        onAdd={(val) => setRespiratoryEquipment({ ...respiratoryEquipment, [language]: [...(respiratoryEquipment[language] || []), val] })} 
-                        onRemove={(idx) => setRespiratoryEquipment({ ...respiratoryEquipment, [language]: (respiratoryEquipment[language] || []).filter((_, i) => i !== idx) })} 
-                      />
+                        
+                        {/* Add Custom Text */}
+                        <div className="space-y-2">
+                          <Label className="text-sm">Or add custom connection type:</Label>
+                          <div className="flex gap-2">
+                            <Input 
+                              placeholder="e.g. B-Lock, RD40..." 
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                  const val = e.currentTarget.value.trim();
+                                  if (val && !respConnectionsLocales[language].includes(val)) {
+                                    setRespConnectionsLocales({ ...respConnectionsLocales, [language]: [...respConnectionsLocales[language], val] });
+                                    e.currentTarget.value = '';
+                                  }
+                                }
+                              }}
+                            />
+                            <Button 
+                              type="button" 
+                              size="sm" 
+                              onClick={(e) => {
+                                const input = e.currentTarget.previousElementSibling as HTMLInputElement;
+                                const val = input?.value.trim();
+                                if (val && !respConnectionsLocales[language].includes(val)) {
+                                  setRespConnectionsLocales({ ...respConnectionsLocales, [language]: [...respConnectionsLocales[language], val] });
+                                  input.value = '';
+                                }
+                              }}
+                            >
+                              <Plus className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                    
+                    {/* Compatible With Section */}
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-base">Compatible With</CardTitle>
+                        <CardDescription className="text-sm">Select respiratory products or add custom compatibility info (e.g. BLS200Filters)</CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        {/* Display Selected Compatible Items */}
+                        {respCompatibleWithLocales[language].length > 0 && (
+                          <div className="flex flex-wrap gap-2">
+                            {respCompatibleWithLocales[language].map((item, idx) => (
+                              <Badge key={`comp-${idx}`} variant="outline" className="flex items-center gap-1 px-3 py-1">
+                                {item}
+                                <Button variant="ghost" size="sm" className="h-4 w-4 p-0 ml-1" onClick={() => setRespCompatibleWithLocales({ ...respCompatibleWithLocales, [language]: respCompatibleWithLocales[language].filter((_, i) => i !== idx) })}>
+                                  <X className="h-3 w-3" />
+                                </Button>
+                              </Badge>
+                            ))}
+                          </div>
+                        )}
+                        
+                        {/* Add from Products Dropdown */}
+                        <div className="space-y-2">
+                          <Label className="text-sm">Select from respiratory products:</Label>
+                          <Select onValueChange={(value) => {
+                            if (value && !respCompatibleWithLocales[language].includes(value)) {
+                              setRespCompatibleWithLocales({ ...respCompatibleWithLocales, [language]: [...respCompatibleWithLocales[language], value] });
+                            }
+                          }}>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select a product..." />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {availableProducts
+                                .filter(p => {
+                                  const cat = (p.category || '').toLowerCase();
+                                  const sub = (p.sub_category || '').toLowerCase();
+                                  return cat.includes('respiratory') || sub.includes('mask') || sub.includes('filter') || sub.includes('respirator');
+                                })
+                                .map((product) => (
+                                  <SelectItem key={product.id} value={product.name}>
+                                    {product.name}
+                                  </SelectItem>
+                                ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        
+                        {/* Add Custom Text */}
+                        <div className="space-y-2">
+                          <Label className="text-sm">Or add custom compatibility info:</Label>
+                          <div className="flex gap-2">
+                            <Input 
+                              placeholder="e.g. BLS200Filters, A2P3..." 
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                  const val = e.currentTarget.value.trim();
+                                  if (val && !respCompatibleWithLocales[language].includes(val)) {
+                                    setRespCompatibleWithLocales({ ...respCompatibleWithLocales, [language]: [...respCompatibleWithLocales[language], val] });
+                                    e.currentTarget.value = '';
+                                  }
+                                }
+                              }}
+                            />
+                            <Button 
+                              type="button" 
+                              size="sm" 
+                              onClick={(e) => {
+                                const input = e.currentTarget.previousElementSibling as HTMLInputElement;
+                                const val = input?.value.trim();
+                                if (val && !respCompatibleWithLocales[language].includes(val)) {
+                                  setRespCompatibleWithLocales({ ...respCompatibleWithLocales, [language]: [...respCompatibleWithLocales[language], val] });
+                                  input.value = '';
+                                }
+                              }}
+                            >
+                              <Plus className="h-4 w-4" />
+                            </Button>
                     </div>
+                        </div>
+                      </CardContent>
+                    </Card>
                   </div>
                 )}
                 

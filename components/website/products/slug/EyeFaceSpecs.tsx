@@ -14,11 +14,18 @@ export function EyeFaceSpecs({ product }: { product: Product }) {
   const materials = product.materials_locales?.[language] || [];
   const opticalClass = std?.en166?.optical_class;
   const mech = std?.en166?.mechanical_strength;
-  const coatings: string[] = Array.isArray(attrs?.coatings) ? attrs.coatings : [];
-  const lensMaterial = attrs?.lens_material;
-  const frameMaterial = attrs?.frame_material;
-  const armMaterial = attrs?.arm_material;
-  const headbandMaterial = attrs?.headband_material;
+  // Read from new coatings_locales with fallback to old coatings field
+  const coatingsLocales = (product as any).coatings_locales?.[language] || (product as any).coatings_locales?.en;
+  const coatings: string[] = Array.isArray(coatingsLocales) 
+    ? coatingsLocales 
+    : Array.isArray(attrs?.coatings) ? attrs.coatings : [];
+  
+  // Read from new eye_face_materials_locales only (no fallback to old attributes)
+  const materialsLocale = (product as any).eye_face_materials_locales?.[language] || (product as any).eye_face_materials_locales?.en;
+  const lensMaterial = materialsLocale?.lens;
+  const frameMaterial = materialsLocale?.frame;
+  const armMaterial = materialsLocale?.arm;
+  const headbandMaterial = materialsLocale?.headband;
 
   const stdChips: Array<{ label: string; icon: any; color: string }> = [];
   if (std?.en166) stdChips.push({ label: 'EN 166', icon: Eye, color: 'text-brand-primary' });
@@ -67,25 +74,9 @@ export function EyeFaceSpecs({ product }: { product: Product }) {
             <Sparkles className="h-4 w-4 text-brand-primary" />
             <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.coating')}</h4>
           </div>
-          {coatings.length > 0 ? (
-            <div className="flex flex-wrap gap-2">
-              {coatings.map((c: string, idx: number) => {
-                const label = String(c)
-                  .replace(/_/g, ' ')
-                  .replace(/\b\w/g, (m) => m.toUpperCase());
-                return (
-                  <span
-                    key={`${c}-${idx}`}
-                    className="bg-brand-primary/10 text-brand-primary border border-brand-primary/20 rounded-full px-3 py-1 text-xs"
-                  >
-                    {label}
-                  </span>
-                );
-              })}
-            </div>
-          ) : (
-            <p className="text-brand-secondary dark:text-gray-300">-</p>
-          )}
+          <div className="text-brand-dark dark:text-white font-medium">
+            {coatings.length > 0 ? coatings.join(', ') : '-'}
+          </div>
         </div>
         {/* Optical class */}
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
@@ -93,7 +84,7 @@ export function EyeFaceSpecs({ product }: { product: Product }) {
             <Glasses className="h-4 w-4 text-brand-primary" />
             <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.opticalClass')}</h4>
           </div>
-          <p className="text-brand-dark dark:text-white">{opticalClass ?? '-'}</p>
+          <div className="text-brand-dark dark:text-white font-medium">{opticalClass ? `Class ${opticalClass}` : '-'}</div>
         </div>
         {/* Standards */}
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
@@ -101,16 +92,8 @@ export function EyeFaceSpecs({ product }: { product: Product }) {
             <Shield className="h-4 w-4 text-brand-primary" />
             <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.standards')}</h4>
           </div>
-          <div className="flex flex-wrap gap-1.5">
-            {stdChips.length > 0 ? stdChips.map((c, idx) => {
-              const Icon = c.icon;
-              return (
-                <span key={idx} className="flex items-center gap-1 bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 rounded px-2 py-0.5 text-xs">
-                  <Icon className={`h-4 w-4 ${c.color}`} />
-                  {c.label}
-                </span>
-              );
-            }) : <span>-</span>}
+          <div className="text-brand-dark dark:text-white font-medium">
+            {stdChips.length > 0 ? stdChips.map(c => c.label).join(', ') : '-'}
           </div>
         </div>
         {/* Attributes */}
@@ -119,10 +102,8 @@ export function EyeFaceSpecs({ product }: { product: Product }) {
             <Shield className="h-4 w-4 text-brand-primary" />
             <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.attributes')}</h4>
           </div>
-          <div className="flex flex-wrap gap-1.5">
-            {protChips.length > 0 ? protChips.map((c, idx) => (
-              <span key={idx} className="bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 rounded px-2 py-0.5 text-xs">{c}</span>
-            )) : <span>-</span>}
+          <div className="text-brand-dark dark:text-white font-medium">
+            {protChips.length > 0 ? protChips.join(', ') : '-'}
           </div>
         </div>
       </div>
@@ -131,11 +112,11 @@ export function EyeFaceSpecs({ product }: { product: Product }) {
       <h3 className="text-lg font-semibold text-brand-dark dark:text-white mb-4">{t('productPage.protectiveFilters')}</h3>
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         {[
-          { key: 'sun', enabled: Boolean(std?.en172), Icon: Sun },
-          { key: 'glare', enabled: Boolean(std?.en172), Icon: Sparkles },
-          { key: 'ir', enabled: Boolean(attrs?.has_ir || std?.en169), Icon: Flame },
-          { key: 'welding', enabled: Boolean(std?.en169), Icon: Hammer },
-          { key: 'uv', enabled: Boolean(attrs?.has_uv || std?.en170), Icon: Shield },
+          { key: 'sun', enabled: Boolean(attrs?.has_sun), Icon: Sun },
+          { key: 'glare', enabled: Boolean(attrs?.has_glare), Icon: Sparkles },
+          { key: 'ir', enabled: Boolean(attrs?.has_ir), Icon: Flame },
+          { key: 'welding', enabled: Boolean(attrs?.has_welding), Icon: Hammer },
+          { key: 'uv', enabled: Boolean(attrs?.has_uv), Icon: Shield },
         ].map((item) => {
           const { Icon } = item;
           return (

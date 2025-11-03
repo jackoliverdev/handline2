@@ -8,6 +8,9 @@ import { Shield, Zap, Waves, Droplets, FlaskConical, HardHat, Layers, Ruler, Mov
 
 export function FootwearSpecs({ product }: { product: Product }) {
   const { t, language } = useLanguage();
+  // Check for new footwear_materials_locales structure first, fallback to materials_locales
+  const fwMatsLocale = (product as any).footwear_materials_locales?.[language] || (product as any).footwear_materials_locales?.en;
+  const hasFwMats = fwMatsLocale && (fwMatsLocale.upper || fwMatsLocale.lining || fwMatsLocale.sole || fwMatsLocale.insole || fwMatsLocale.toe_cap);
   const mats = product.materials_locales?.[language] || product.materials_locales?.en || [];
   const explicitSize = product.size_locales?.[language] || product.size_locales?.en;
   const inferSizeFromRange = () => {
@@ -35,20 +38,30 @@ export function FootwearSpecs({ product }: { product: Product }) {
       {/* Unified grid: Materials spans 2 rows; 2x2 grid for other specs */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Materials (full height - row span 2) */}
-        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4 md:row-span-2">
+        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4 md:row-span-2 flex flex-col">
           <div className="flex items-center gap-2 mb-2">
             <Layers className="h-4 w-4 text-brand-primary" />
             <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.materials')}</h4>
           </div>
-          {Array.isArray(mats) && mats.length > 0 ? (
-            <div className="space-y-2">
-              {mats.map((m: string, i: number) => (
-                <div key={i} className="text-brand-dark dark:text-white font-medium">{m}</div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-brand-dark dark:text-white font-medium">-</div>
-          )}
+          <div className="flex-1">
+            {hasFwMats ? (
+              <div className="space-y-1.5 text-sm">
+                {fwMatsLocale.upper && <div className="text-brand-dark dark:text-white"><span className="text-brand-secondary dark:text-gray-400">{t('productPage.materialLabels.upper')}:</span> <span className="font-medium">{fwMatsLocale.upper}</span></div>}
+                {fwMatsLocale.lining && <div className="text-brand-dark dark:text-white"><span className="text-brand-secondary dark:text-gray-400">{t('productPage.materialLabels.lining')}:</span> <span className="font-medium">{fwMatsLocale.lining}</span></div>}
+                {fwMatsLocale.sole && <div className="text-brand-dark dark:text-white"><span className="text-brand-secondary dark:text-gray-400">{t('productPage.materialLabels.sole')}:</span> <span className="font-medium">{fwMatsLocale.sole}</span></div>}
+                {fwMatsLocale.insole && <div className="text-brand-dark dark:text-white"><span className="text-brand-secondary dark:text-gray-400">{t('productPage.materialLabels.insole')}:</span> <span className="font-medium">{fwMatsLocale.insole}</span></div>}
+                {fwMatsLocale.toe_cap && <div className="text-brand-dark dark:text-white"><span className="text-brand-secondary dark:text-gray-400">{t('productPage.materialLabels.toeCap')}:</span> <span className="font-medium">{fwMatsLocale.toe_cap}</span></div>}
+              </div>
+            ) : Array.isArray(mats) && mats.length > 0 ? (
+              <div className="space-y-2">
+                {mats.map((m: string, i: number) => (
+                  <div key={i} className="text-brand-dark dark:text-white font-medium">{m}</div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-brand-dark dark:text-white font-medium">-</div>
+            )}
+          </div>
         </div>
         {/* Size - Col 2, Row 1 */}
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
@@ -142,7 +155,7 @@ export function FootwearSpecs({ product }: { product: Product }) {
           },
           { 
             key: 'metatarsalProtection', 
-            enabled: Boolean(fattr.special && Array.isArray(fattr.special) && fattr.special.includes('metatarsal_protection')), 
+            enabled: Boolean(fattr.metatarsal_protection), 
             Icon: HardHat,
             label: t('productPage.footwearAttributes.metatarsalProtection')
           },

@@ -17,7 +17,7 @@ export default async function ArmProtectionPage() {
   return (
     <main className="bg-brand-light dark:bg-background">
       <ProductsHero showDescription={false} />
-      <CategoryInfo categoryType="armProtection" imageSrc="/images/products/categories/armppe.webp" />
+      <CategoryInfo categoryType="armProtection" />
       <ArmProductsSection products={products} />
     </main>
   );

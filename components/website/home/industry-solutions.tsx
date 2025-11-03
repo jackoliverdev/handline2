@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, ChevronRight, Shield, Factory } from "lucide-react";
+import { ArrowRight, Shield } from "lucide-react";
 import { getAllIndustries, Industry } from "@/lib/industries-service";
 import { useLanguage } from "@/lib/context/language-context";
 import { motion } from "framer-motion";
@@ -50,7 +49,6 @@ const cardVariants = {
 export const IndustrySolutions = () => {
   const [industries, setIndustries] = useState<Industry[]>([]);
   const [loading, setLoading] = useState(true);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const { t, language } = useLanguage();
   
   useEffect(() => {
@@ -68,29 +66,6 @@ export const IndustrySolutions = () => {
     
     loadIndustries();
   }, [language]);
-  
-  // Get the first paragraph of the description for a summary
-  const getShortDescription = (industry: Industry) => {
-    // If content is available, use that for a better summary
-    if (industry.content) {
-      // Extract the first paragraph after a heading or the first paragraph overall
-      const contentParagraphs = industry.content.split('\n\n');
-      // Look for the first paragraph that's not a heading
-      for (const paragraph of contentParagraphs) {
-        if (!paragraph.startsWith('#') && paragraph.trim().length > 0) {
-          return paragraph.length > 100 
-            ? paragraph.substring(0, 100) + '...' 
-            : paragraph;
-        }
-      }
-    }
-    
-    // Fall back to description if content is not available
-    const firstParagraph = industry.description.split('\n\n')[0];
-    return firstParagraph.length > 100 
-      ? firstParagraph.substring(0, 100) + '...' 
-      : firstParagraph;
-  };
 
   return (
     <motion.section 
@@ -106,20 +81,6 @@ export const IndustrySolutions = () => {
           className="flex flex-col items-center mb-16 text-center"
         >
           <div className="flex flex-col items-center">
-            <Link href="/industries" className="inline-block transition-transform duration-300 mb-4">
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.1 }}
-                className="inline-flex items-center rounded-full bg-white/80 dark:bg-black/60 px-3 py-1 text-xs sm:text-sm border border-brand-primary backdrop-blur-sm cursor-pointer"
-              >
-                <Factory className="mr-1.5 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 text-brand-primary" />
-                <span className="text-brand-dark dark:text-white font-medium font-heading">
-                  {t('industrySolutions.badge')}
-                </span>
-              </motion.div>
-            </Link>
             <div className="inline-flex items-center justify-center mb-4">
               <motion.div 
                 initial={{ width: 0 }}
@@ -164,10 +125,7 @@ export const IndustrySolutions = () => {
             <p className="text-lg text-brand-secondary dark:text-gray-300">{t('industrySolutions.noIndustries')}</p>
           </motion.div>
         ) : (
-          <div 
-            ref={scrollContainerRef}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {industries.map((industry, index) => (
               <motion.div 
                 key={industry.id}
@@ -213,7 +171,7 @@ export const IndustrySolutions = () => {
                     >
                       <CardContent className="p-5">
                         <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
-                          {getShortDescription(industry)}
+                          {industry.showcase_description || industry.description}
                         </p>
                         <div className="flex items-center text-brand-primary font-medium group-hover:text-brand-primary/90 transition-colors duration-300">
                           <span className="relative">
@@ -241,4 +199,4 @@ export const IndustrySolutions = () => {
       </div>
     </motion.section>
   );
-}; 
+};

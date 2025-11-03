@@ -18,7 +18,7 @@ export const ToeCapFilter = ({ options, selected, onToggle, isExpanded, toggleSe
   const [localExpanded, setLocalExpanded] = useState(false);
   const open = isExpanded ?? localExpanded;
   return (
-    <div className="pb-4">
+    <div className="pb-2">
       <button className="flex w-full items-center justify-between mb-2" onClick={() => (toggleSection ? toggleSection("toeCap") : setLocalExpanded(v => !v))}>
         <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('products.filters.toeCap')}</h3>
         <ChevronDown className={`h-4 w-4 text-brand-primary transition-transform ${open ? 'rotate-180' : ''}`} />

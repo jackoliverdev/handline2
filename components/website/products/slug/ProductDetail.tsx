@@ -40,6 +40,7 @@ import { HeadOtherDetails } from "@/components/website/products/slug/HeadOtherDe
 import { HeadEquipment } from "@/components/website/products/slug/HeadEquipment";
 import { EyeFaceEquipment } from "@/components/website/products/slug/EyeFaceEquipment";
 import { FootwearComfortFeatures } from "@/components/website/products/slug/FootwearComfortFeatures";
+import { FootwearSpecialFeatures } from "@/components/website/products/slug/FootwearSpecialFeatures";
 import { HearingComfortFeatures } from "@/components/website/products/slug/HearingComfortFeatures";
 import { HearingOtherDetails } from "@/components/website/products/slug/HearingOtherDetails";
 import { HearingEquipment } from "@/components/website/products/slug/HearingEquipment";
@@ -49,6 +50,7 @@ import { RespiratoryEquipment } from "@/components/website/products/slug/Respira
 import { ClothingComfortFeatures } from "@/components/website/products/slug/ClothingComfortFeatures";
 import { ClothingOtherDetails } from "@/components/website/products/slug/ClothingOtherDetails";
 import { ClothingEnvironment } from "@/components/website/products/slug/ClothingEnvironment";
+import { ArmProtectionAttributes } from "@/components/website/products/slug/ArmProtectionAttributes";
 import { ProductDeclarations } from "@/components/website/products/slug/ProductDeclarations";
 import { useBrands } from "@/lib/context/brands-context";
 
@@ -461,65 +463,130 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                 
                 <TabsContent value="features" className="mt-0">
                   <div className="space-y-4">
-                    {/* Comfort & fit features: Eye & Face, Head, Footwear, Hearing */}
-                    {isEyeFace && (<EyeFaceComfortFeatures product={product} />)}
-                    {((product.category || '').toLowerCase().includes('footwear') || (product.sub_category || '').toLowerCase().includes('boot') || (product.sub_category || '').toLowerCase().includes('insol')) && (
-                      <FootwearComfortFeatures product={product} />
+                    {/* Eye & Face: Safety features FIRST */}
+                    {isEyeFace && (
+                      <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          <ListChecks className="h-5 w-5 text-brand-primary" />
+                          <h3 className="font-medium text-brand-dark dark:text-white">{t('productPage.safetyFeatures')}</h3>
+                        </div>
+                        <ul className="list-disc list-inside space-y-1 text-brand-secondary dark:text-gray-300">
+                          {currentFeatures && currentFeatures.length > 0 ? (
+                            currentFeatures.map((feature: string, idx: number) => (
+                              <li key={idx}>{feature}</li>
+                            ))
+                          ) : (
+                            <li>-</li>
+                          )}
+                        </ul>
+                      </div>
                     )}
-                    {((product.category || '').toLowerCase().includes('head') || (product.sub_category || '').toLowerCase().includes('helmet') || (product.sub_category || '').toLowerCase().includes('bump')) && (
-                      <HeadComfortFeatures product={product} />
+                    {/* Eye & Face: Then Comfort & fit, Equipment */}
+                    {isEyeFace && (
+                      <>
+                        <EyeFaceComfortFeatures product={product} />
+                        <EyeFaceEquipment product={product} />
+                      </>
+                    )}
+
+                    {/* Head: Safety features FIRST */}
+                    {isHead && (
+                      <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          <ListChecks className="h-5 w-5 text-brand-primary" />
+                          <h3 className="font-medium text-brand-dark dark:text-white">{t('productPage.safetyFeatures')}</h3>
+                        </div>
+                        <ul className="list-disc list-inside space-y-1 text-brand-secondary dark:text-gray-300">
+                          {currentFeatures && currentFeatures.length > 0 ? (
+                            currentFeatures.map((feature: string, idx: number) => (
+                              <li key={idx}>{feature}</li>
+                            ))
+                          ) : (
+                            <li>-</li>
+                          )}
+                        </ul>
+                      </div>
+                    )}
+                    {/* Head: Then Comfort, Equipment, Other */}
+                    {isHead && (
+                      <>
+                        <HeadComfortFeatures product={product} />
+                        <HeadEquipment product={product} />
+                        <HeadOtherDetails product={product} />
+                      </>
+                    )}
+
+                    {/* Comfort & fit features: Footwear, Hearing */}
+                    {((product.category || '').toLowerCase().includes('footwear') || (product.sub_category || '').toLowerCase().includes('boot') || (product.sub_category || '').toLowerCase().includes('insol')) && (
+                      <>
+                        <FootwearComfortFeatures product={product} />
+                        <FootwearSpecialFeatures product={product} />
+                      </>
                     )}
                     {isHearing && (
                       <HearingComfortFeatures product={product} />
                     )}
+                    {/* Respiratory: Safety features FIRST */}
                     {isRespiratory && (
-                      <RespiratoryComfortFeatures product={product} />
+                      <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          <ListChecks className="h-5 w-5 text-brand-primary" />
+                          <h3 className="font-medium text-brand-dark dark:text-white">{t('productPage.safetyFeatures')}</h3>
+                        </div>
+                        <ul className="list-disc list-inside space-y-1 text-brand-secondary dark:text-gray-300">
+                          {currentFeatures && currentFeatures.length > 0 ? (
+                            currentFeatures.map((feature: string, idx: number) => (
+                              <li key={idx}>{feature}</li>
+                            ))
+                          ) : (
+                            <li>-</li>
+                          )}
+                        </ul>
+                      </div>
+                    )}
+                    {/* Respiratory: Then Comfort, Equipment, Other */}
+                    {isRespiratory && (
+                      <>
+                        <RespiratoryComfortFeatures product={product} />
+                        <RespiratoryEquipment product={product} />
+                        <RespiratoryOtherDetails product={product} />
+                      </>
                     )}
                     {isClothing && (
                       <ClothingComfortFeatures product={product} />
                     )}
-                    {/* Equipment blocks */}
-                    {isEyeFace && (
-                      <EyeFaceEquipment product={product} />
-                    )}
+                    {/* Equipment blocks for Hearing */}
                     {isHearing && (
                       <HearingEquipment product={product} />
                     )}
-                    {isRespiratory && (
-                      <RespiratoryEquipment product={product} />
-                    )}
-                    <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-                      <div className="flex items-center gap-2 mb-2">
-                        <ListChecks className="h-5 w-5 text-brand-primary" />
-                        <h3 className="font-medium text-brand-dark dark:text-white">{(isEyeFace || isHead || isHearing || isRespiratory || isClothing || (product.category || '').toLowerCase().includes('footwear') || (product.sub_category || '').toLowerCase().includes('boot') || (product.sub_category || '').toLowerCase().includes('insol')) ? t('productPage.safetyFeatures') : t('productPage.features')}</h3>
+                    {/* Safety features for OTHER categories (NOT eye-face, respiratory, or head) */}
+                    {!isRespiratory && !isEyeFace && !isHead && (
+                      <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          <ListChecks className="h-5 w-5 text-brand-primary" />
+                          <h3 className="font-medium text-brand-dark dark:text-white">{(isHearing || isClothing || (product.category || '').toLowerCase().includes('footwear') || (product.sub_category || '').toLowerCase().includes('boot') || (product.sub_category || '').toLowerCase().includes('insol')) ? t('productPage.safetyFeatures') : t('productPage.features')}</h3>
+                        </div>
+                        <ul className="list-disc list-inside space-y-1 text-brand-secondary dark:text-gray-300">
+                          {currentFeatures && currentFeatures.length > 0 ? (
+                            currentFeatures.map((feature: string, idx: number) => (
+                              <li key={idx}>{feature}</li>
+                            ))
+                          ) : (
+                            <li>-</li>
+                          )}
+                        </ul>
                       </div>
-                      <ul className="list-disc list-inside space-y-1 text-brand-secondary dark:text-gray-300">
-                        {currentFeatures && currentFeatures.length > 0 ? (
-                          currentFeatures.map((feature: string, idx: number) => (
-                            <li key={idx}>{feature}</li>
-                          ))
-                        ) : (
-                          <li>-</li>
-                        )}
-                      </ul>
-                    </div>
-                    {/* Other details blocks - after Safety features */}
-                    {((product.category || '').toLowerCase().includes('head') || (product.sub_category || '').toLowerCase().includes('helmet') || (product.sub_category || '').toLowerCase().includes('bump')) && (
-                      <HeadOtherDetails product={product} />
                     )}
+                    {/* Arm Protection Attributes - after main Features */}
+                    {((product.category || '').toLowerCase().includes('arm') || (product.sub_category || '').toLowerCase().includes('sleeve')) && (
+                      <ArmProtectionAttributes product={product} />
+                    )}
+                    {/* Other details blocks - after Safety features (non-head, non-respiratory) */}
                     {isHearing && (
                       <HearingOtherDetails product={product} />
                     )}
-                    {isRespiratory && (
-                      <RespiratoryOtherDetails product={product} />
-                    )}
                     {isClothing && (
                       <ClothingOtherDetails product={product} />
-                    )}
-
-                    {/* Equipment blocks - last */}
-                    {((product.category || '').toLowerCase().includes('head') || (product.sub_category || '').toLowerCase().includes('helmet') || (product.sub_category || '').toLowerCase().includes('bump')) && (
-                      <HeadEquipment product={product} />
                     )}
                   </div>
                 </TabsContent>

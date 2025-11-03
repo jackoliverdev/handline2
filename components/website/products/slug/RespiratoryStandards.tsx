@@ -21,6 +21,7 @@ export function RespiratoryStandards({ product }: { product: Product }) {
   const hasEn149 = Boolean(std?.en149?.enabled);
   const hasEn166 = Boolean(std?.en166?.enabled);
   const hasEn136 = Boolean(std?.en136?.enabled);
+  const hasEn140 = Boolean(std?.en140?.enabled);
   const hasEn14387 = Boolean(std?.en14387?.enabled);
   const hasEn143 = Boolean(std?.en143?.enabled);
   const hasDin31813 = Boolean(std?.din_3181_3?.enabled);
@@ -89,6 +90,9 @@ export function RespiratoryStandards({ product }: { product: Product }) {
     const colorClass = getGasFilterColor(gasType);
     const textColorClass = ['a', 'ax', 'hg', 'no', 'k', 'sx', 'co'].includes(gasType) ? 'text-white' : 'text-black';
     
+    // Special formatting for mercury - capital H, lowercase g
+    const displayText = gasType === 'hg' ? 'Hg' : gasType.toUpperCase();
+    
     return (
       <div key={gasType}>
         <div className="text-xs text-brand-secondary dark:text-gray-400 mb-1">{gasLabel}</div>
@@ -98,7 +102,7 @@ export function RespiratoryStandards({ product }: { product: Product }) {
             : 'bg-gray-50 dark:bg-gray-800/20 border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400'
         }`}>
           <span className="font-mono tracking-tight">
-            {isPresent ? gasType.toUpperCase() : '–'}
+            {isPresent ? displayText : '–'}
           </span>
         </div>
       </div>
@@ -106,7 +110,7 @@ export function RespiratoryStandards({ product }: { product: Product }) {
   };
 
   // Don't render if no standards are present
-  if (!hasEn149 && !hasEn166 && !hasEn136 && !hasEn14387 && !hasEn143 && !hasDin31813) return null;
+  if (!hasEn149 && !hasEn143 && !hasEn166 && !hasEn136 && !hasEn140 && !hasEn14387 && !hasDin31813) return null;
 
   return (
     <div className="space-y-4">
@@ -126,7 +130,20 @@ export function RespiratoryStandards({ product }: { product: Product }) {
         </div>
       )}
 
-      {/* Row 2: EN 166 and EN 136 (Two columns) */}
+      {/* Row 2: EN 143 (Particle filters with class) */}
+      {hasEn143 && (
+        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+          <div className="flex items-center gap-3 mb-3">
+            <Wind className="h-5 w-5 text-brand-primary" />
+            <h3 className="font-medium text-brand-dark dark:text-white">EN 143</h3>
+          </div>
+          <div className="grid grid-cols-1 gap-3">
+            {renderClassTile(t('productPage.respiratoryStandards.class'), std.en143?.class || '')}
+          </div>
+        </div>
+      )}
+
+      {/* Row 3: EN 166 and EN 136 (Two columns) */}
       {(hasEn166 || hasEn136) && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* EN 166 */}
@@ -189,22 +206,22 @@ export function RespiratoryStandards({ product }: { product: Product }) {
         </div>
       )}
 
-      {/* Other standards (EN 143, DIN 3181-3) in a single compact block */}
-      {(hasEn143 || hasDin31813) && (
+      {/* Other standards (EN 140, DIN 3181-3) in a single compact block */}
+      {(hasEn140 || hasDin31813) && (
         <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
           <div className="space-y-3">
-            {hasEn143 && (
+            {hasEn140 && (
               <div className="flex items-center gap-3">
                 <Shield className="h-5 w-5 text-brand-primary" />
-                <div className="font-medium text-brand-dark dark:text-white min-w-[90px] md:min-w-[120px]">EN 143</div>
-                <div className="text-sm md:text-base font-semibold text-brand-dark dark:text-white">{t('productPage.stdLabel.en143')}</div>
+                <div className="font-medium text-brand-dark dark:text-white min-w-[90px] md:min-w-[120px]">EN 140</div>
+                <div className="text-sm md:text-base text-brand-dark dark:text-white">{t('productPage.stdLabel.en140')}</div>
               </div>
             )}
             {hasDin31813 && (
               <div className="flex items-center gap-3">
                 <Shield className="h-5 w-5 text-brand-primary" />
                 <div className="font-medium text-brand-dark dark:text-white min-w-[90px] md:min-w-[120px]">DIN 3181-3</div>
-                <div className="text-sm md:text-base font-semibold text-brand-dark dark:text-white">{t('productPage.stdLabel.din31813')}</div>
+                <div className="text-sm md:text-base text-brand-dark dark:text-white">{t('productPage.stdLabel.din31813')}</div>
               </div>
             )}
           </div>

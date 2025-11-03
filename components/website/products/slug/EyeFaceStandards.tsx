@@ -31,8 +31,8 @@ export function EyeFaceStandards({ product }: { product: Product }) {
             <h3 className="font-medium text-brand-dark dark:text-white">EN 166</h3>
           </div>
 
-          {/* Simplified layout: only Frame and Lens marks */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Frame and Lens marks */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
             <div className="min-w-0">
               <div className="text-sm font-semibold text-brand-dark dark:text-white mb-1">{t('productPage.frame') || 'Frame'}</div>
               <div className="text-base text-brand-dark dark:text-white font-mono tracking-tight whitespace-nowrap overflow-x-auto max-w-full">
@@ -46,6 +46,16 @@ export function EyeFaceStandards({ product }: { product: Product }) {
               </div>
             </div>
           </div>
+
+          {/* Additional marking - only show if it has a value */}
+          {en166.additional_marking && (
+            <div className="min-w-0">
+              <div className="text-sm font-semibold text-brand-dark dark:text-white mb-1">{t('productPage.additionalMarking') || 'Additional marking'}</div>
+              <div className="text-base text-brand-dark dark:text-white font-mono tracking-tight whitespace-nowrap overflow-x-auto max-w-full">
+                {en166.additional_marking}
+              </div>
+            </div>
+          )}
         </div>
       )}
 
