@@ -116,6 +116,7 @@ export default function CategoryProductEdit({ id, slug }: Props) {
   const [headAttributes, setHeadAttributes] = useState<any>({ form_factor: '', brim_length: '', size_min_cm: null, size_max_cm: null, weight_g: null, colours: [], ventilation: null, harness_points: null, chinstrap_points: null, sweatband: null, closed_shell: null, euroslot_mm: null, accessories: [] });
   const [clothingStandards, setClothingStandards] = useState<any>({ en_iso_20471: { class: null }, en_iso_11612: {}, iec_61482_2: { class: null }, en_1149_5: false });
   const [clothingAttributes, setClothingAttributes] = useState<any>({ fit: '', gender: '', size_range: '', colours: [], uv_protection: null });
+  const [clothingAttributesLocales, setClothingAttributesLocales] = useState<{ en: { fit: string; size_range: string }; it: { fit: string; size_range: string } }>({ en: { fit: '', size_range: '' }, it: { fit: '', size_range: '' } });
   const [clothingType, setClothingType] = useState<string>('');
   const [clothingCategory, setClothingCategory] = useState<string>('');
   const [armAttributes, setArmAttributes] = useState<any>({ thumb_loop: null, closure: '', size: '', length_cm: null, ce_category: '' });
@@ -226,6 +227,7 @@ export default function CategoryProductEdit({ id, slug }: Props) {
         setHeadAttributes((product as any).head_attributes || { form_factor: '', brim_length: '', size_min_cm: null, size_max_cm: null, weight_g: null, colours: [], ventilation: null, harness_points: null, chinstrap_points: null, sweatband: null, closed_shell: null, euroslot_mm: null, accessories: [] });
         setClothingStandards((product as any).clothing_standards || { en_iso_20471: { class: null }, en_iso_11612: {}, iec_61482_2: { class: null }, en_1149_5: false });
         setClothingAttributes((product as any).clothing_attributes || { fit: '', gender: '', size_range: '', colours: [], uv_protection: null });
+        setClothingAttributesLocales((product as any).clothing_attributes_locales || { en: { fit: '', size_range: '' }, it: { fit: '', size_range: '' } });
         setClothingType((product as any).clothing_type || '');
         setClothingCategory((product as any).clothing_category || '');
         const aa = (product as any).arm_attributes || {};
@@ -422,6 +424,7 @@ export default function CategoryProductEdit({ id, slug }: Props) {
         head_comfort_features_locales: headComfortFeatures,
         clothing_standards: clothingStandards,
         clothing_attributes: clothingAttributes,
+        clothing_attributes_locales: clothingAttributesLocales,
         clothing_type: clothingType || null,
         clothing_category: clothingCategory || null,
         clothing_comfort_features_locales: clothingComfortFeatures,
@@ -1504,7 +1507,7 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                 )}
 
                 {slug === 'clothing' && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-6">
                     <div className="space-y-3">
                       <Label className="font-medium">Attributes</Label>
                       <div className="space-y-1">
@@ -1531,21 +1534,221 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                           </SelectContent>
                         </Select>
                       </div>
-                      <div className="space-y-1"><Label>Fit</Label><Input value={clothingAttributes.fit || ''} onChange={(e)=> setClothingAttributes({ ...clothingAttributes, fit: e.target.value })} /></div>
-                      <div className="space-y-1"><Label>Size range</Label><Input value={clothingAttributes.size_range || ''} onChange={(e)=> setClothingAttributes({ ...clothingAttributes, size_range: e.target.value })} /></div>
+                      <div className="space-y-1"><Label>Fit</Label><Input value={clothingAttributesLocales[language].fit || ''} onChange={(e)=> setClothingAttributesLocales({ ...clothingAttributesLocales, [language]: { ...clothingAttributesLocales[language], fit: e.target.value } })} /></div>
+                      <div className="space-y-1"><Label>Size range</Label><Input value={clothingAttributesLocales[language].size_range || ''} onChange={(e)=> setClothingAttributesLocales({ ...clothingAttributesLocales, [language]: { ...clothingAttributesLocales[language], size_range: e.target.value } })} /></div>
                       <div className="flex items-center gap-2"><Checkbox checked={clothingAttributes.uv_protection === true} onCheckedChange={(v)=> setClothingAttributes({ ...clothingAttributes, uv_protection: v ? true : false })} /><span>UV protection</span></div>
                     </div>
+                    {/* EN ISO 20471 - Hi-Vis */}
+                    <Card>
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-lg">EN ISO 20471 - High Visibility</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="space-y-2">
+                          <Label>Class</Label>
+                          <Input 
+                            placeholder="e.g. 2"
+                            value={clothingStandards.en_iso_20471?.class ?? ''} 
+                            onChange={(e)=> setClothingStandards({ ...clothingStandards, en_iso_20471: { class: e.target.value || null } })} 
+                          />
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* EN ISO 11612 - Heat & Flame */}
+                    <Card>
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-lg">EN ISO 11612 - Heat & Flame Protection</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                          <div className="space-y-2">
+                            <Label>A1 - Flame spread</Label>
+                            <Input 
+                              placeholder="e.g. A1"
+                              value={clothingStandards.en_iso_11612?.a1 ?? ''} 
+                              onChange={(e)=> setClothingStandards({ 
+                                ...clothingStandards, 
+                                en_iso_11612: { ...(clothingStandards.en_iso_11612 || {}), a1: e.target.value || null } 
+                              })} 
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label>A2 - Flame spread</Label>
+                            <Input 
+                              placeholder="e.g. A2"
+                              value={clothingStandards.en_iso_11612?.a2 ?? ''} 
+                              onChange={(e)=> setClothingStandards({ 
+                                ...clothingStandards, 
+                                en_iso_11612: { ...(clothingStandards.en_iso_11612 || {}), a2: e.target.value || null } 
+                              })} 
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label>B - Convective heat</Label>
+                            <Input 
+                              placeholder="e.g. B1"
+                              value={clothingStandards.en_iso_11612?.b ?? ''} 
+                              onChange={(e)=> setClothingStandards({ 
+                                ...clothingStandards, 
+                                en_iso_11612: { ...(clothingStandards.en_iso_11612 || {}), b: e.target.value || null } 
+                              })} 
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label>C - Radiant heat</Label>
+                            <Input 
+                              placeholder="e.g. C1"
+                              value={clothingStandards.en_iso_11612?.c ?? ''} 
+                              onChange={(e)=> setClothingStandards({ 
+                                ...clothingStandards, 
+                                en_iso_11612: { ...(clothingStandards.en_iso_11612 || {}), c: e.target.value || null } 
+                              })} 
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label>D - Aluminium splash</Label>
+                            <Input 
+                              placeholder="e.g. D1"
+                              value={clothingStandards.en_iso_11612?.d ?? ''} 
+                              onChange={(e)=> setClothingStandards({ 
+                                ...clothingStandards, 
+                                en_iso_11612: { ...(clothingStandards.en_iso_11612 || {}), d: e.target.value || null } 
+                              })} 
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label>E - Iron splash</Label>
+                            <Input 
+                              placeholder="e.g. E2"
+                              value={clothingStandards.en_iso_11612?.e ?? ''} 
+                              onChange={(e)=> setClothingStandards({ 
+                                ...clothingStandards, 
+                                en_iso_11612: { ...(clothingStandards.en_iso_11612 || {}), e: e.target.value || null } 
+                              })} 
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label>F - Contact heat</Label>
+                            <Input 
+                              placeholder="e.g. F1"
+                              value={clothingStandards.en_iso_11612?.f ?? ''} 
+                              onChange={(e)=> setClothingStandards({ 
+                                ...clothingStandards, 
+                                en_iso_11612: { ...(clothingStandards.en_iso_11612 || {}), f: e.target.value || null } 
+                              })} 
+                            />
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* EN ISO 11611 - Welding */}
+                    <Card>
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-lg">EN ISO 11611 - Welding</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="space-y-2">
+                          <Label>Class</Label>
+                          <Input 
+                            placeholder="e.g. Class 1"
+                            value={clothingStandards.en_iso_11611?.class ?? ''} 
+                            onChange={(e)=> setClothingStandards({ ...clothingStandards, en_iso_11611: { class: e.target.value || null } })} 
+                          />
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* IEC 61482-2 - Arc */}
+                    <Card>
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-lg">IEC 61482-2 - Arc Protection</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="space-y-2">
+                          <Label>Class</Label>
+                          <Input 
+                            placeholder="e.g. Class 1"
+                            value={clothingStandards.iec_61482_2?.class ?? ''} 
+                            onChange={(e)=> setClothingStandards({ ...clothingStandards, iec_61482_2: { class: e.target.value || null } })} 
+                          />
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* EN 343 - Weather Protection */}
+                    <Card>
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-lg">EN 343 - Weather Protection</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label>Water resistance</Label>
+                            <Input 
+                              placeholder="e.g. 2"
+                              value={clothingStandards.en_343?.water ?? ''} 
+                              onChange={(e)=> setClothingStandards({ 
+                                ...clothingStandards, 
+                                en_343: { ...(clothingStandards.en_343 || {}), water: e.target.value || null } 
+                              })} 
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label>Breathability</Label>
+                            <Input 
+                              placeholder="e.g. 2"
+                              value={clothingStandards.en_343?.breath ?? ''} 
+                              onChange={(e)=> setClothingStandards({ 
+                                ...clothingStandards, 
+                                en_343: { ...(clothingStandards.en_343 || {}), breath: e.target.value || null } 
+                              })} 
+                            />
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* Other Standards */}
+                    <Card>
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-lg">Other Standards</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="flex items-center gap-2">
+                          <Checkbox 
+                            checked={!!clothingStandards.en_1149_5} 
+                            onCheckedChange={(v)=> setClothingStandards({ ...clothingStandards, en_1149_5: !!v })} 
+                          />
+                          <Label>EN 1149-5 - Antistatic</Label>
+                        </div>
+                        <div className="space-y-2">
+                          <Label>EN 13034 - Chemical splash protection</Label>
+                          <Input 
+                            placeholder="e.g. Type 6"
+                            value={clothingStandards.en_13034 ?? ''} 
+                            onChange={(e)=> setClothingStandards({ ...clothingStandards, en_13034: e.target.value || null })} 
+                          />
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Checkbox 
+                            checked={!!clothingStandards.uv_standard_801} 
+                            onCheckedChange={(v)=> setClothingStandards({ ...clothingStandards, uv_standard_801: !!v })} 
+                          />
+                          <Label>UV Standard 801</Label>
+                        </div>
+                      </CardContent>
+                    </Card>
                     <div className="space-y-3">
-                      <Label className="font-medium">Standards</Label>
-                      <div className="space-y-1"><Label>Hi-Vis class</Label><Input type="number" value={clothingStandards.en_iso_20471?.class ?? ''} onChange={(e)=> setClothingStandards({ ...clothingStandards, en_iso_20471: { class: e.target.value === '' ? null : Number(e.target.value) } })} /></div>
-                      <div className="space-y-1"><Label>Arc class</Label><Input type="number" value={clothingStandards.iec_61482_2?.class ?? ''} onChange={(e)=> setClothingStandards({ ...clothingStandards, iec_61482_2: { class: e.target.value === '' ? null : Number(e.target.value) } })} /></div>
-                      <div className="flex items-center gap-2"><Checkbox checked={!!clothingStandards.en_1149_5} onCheckedChange={(v)=> setClothingStandards({ ...clothingStandards, en_1149_5: !!v })} /><span>EN 1149-5 Antistatic</span></div>
                       <LocaleListEditor 
                         title="Comfort features" 
                         items={clothingComfortFeatures[language]} 
                         onAdd={(val) => setClothingComfortFeatures({ ...clothingComfortFeatures, [language]: [...(clothingComfortFeatures[language] || []), val] })} 
                         onRemove={(idx) => setClothingComfortFeatures({ ...clothingComfortFeatures, [language]: (clothingComfortFeatures[language] || []).filter((_, i) => i !== idx) })} 
                       />
+                    </div>
+                    <div className="space-y-3">
                       <LocaleListEditor 
                         title="Other details" 
                         items={clothingOtherDetails[language]} 

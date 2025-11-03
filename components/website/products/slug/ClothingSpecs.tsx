@@ -11,32 +11,27 @@ export function ClothingSpecs({ product }: { product: Product }) {
   const size = product.size_locales?.[language] || product.size_locales?.en || null;
   const cs: any = (product as any).clothing_standards || {};
   const ca: any = (product as any).clothing_attributes || {};
+  const caLocales: any = (product as any).clothing_attributes_locales || {};
+  const fit = caLocales[language]?.fit || caLocales.en?.fit || ca?.fit;
 
-  const hiVis = cs?.en_iso_20471?.class as number | undefined;
+  const hiVis = cs?.en_iso_20471?.class;
   const has11612 = !!cs?.en_iso_11612;
-  const en11611 = cs?.en_iso_11611?.class as number | undefined;
-  const arc = cs?.iec_61482_2?.class as number | undefined;
+  const en11611 = cs?.en_iso_11611?.class;
+  const arc = cs?.iec_61482_2?.class;
   const antistatic = !!cs?.en_1149_5;
   const type13034 = cs?.en_13034 as string | undefined;
+  const hasEn343 = Boolean(cs?.en_343 && (cs.en_343.water || cs.en_343.breath));
+  const uvStandard = !!cs?.uv_standard_801;
 
   const rightChips: string[] = [];
-  if (typeof hiVis === 'number') rightChips.push(`EN ISO 20471 C${hiVis}`);
-  if (has11612) {
-    const v = cs.en_iso_11612;
-    const parts: string[] = [];
-    if (v?.a1) parts.push('A1');
-    if (v?.a2) parts.push('A2');
-    if (typeof v?.b === 'number') parts.push(`B${v.b}`);
-    if (typeof v?.c === 'number') parts.push(`C${v.c}`);
-    if (typeof v?.d === 'number') parts.push(`D${v.d}`);
-    if (typeof v?.e === 'number') parts.push(`E${v.e}`);
-    if (typeof v?.f === 'number') parts.push(`F${v.f}`);
-    if (parts.length) rightChips.push(`EN ISO 11612 ${parts.join('/')}`);
-  }
-  if (typeof en11611 === 'number') rightChips.push(`EN ISO 11611 C${en11611}`);
-  if (typeof arc === 'number') rightChips.push(`IEC 61482-2 C${arc}`);
+  if (hiVis) rightChips.push(`EN ISO 20471 ${hiVis}`);
+  if (has11612) rightChips.push('EN ISO 11612');
+  if (en11611) rightChips.push(`EN ISO 11611 ${en11611}`);
+  if (arc) rightChips.push(`IEC 61482-2 ${arc}`);
+  if (hasEn343) rightChips.push('EN 343');
   if (antistatic) rightChips.push('EN 1149-5');
   if (type13034) rightChips.push(`EN 13034 ${type13034}`);
+  if (uvStandard) rightChips.push('UV Standard 801');
 
   return (
     <TooltipProvider>
@@ -75,7 +70,7 @@ export function ClothingSpecs({ product }: { product: Product }) {
             <Users className="h-5 w-5 text-brand-primary" />
             <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.fit')}</h4>
           </div>
-          <div className="text-brand-dark dark:text-white font-medium capitalize">{ca?.fit || '-'}</div>
+          <div className="text-brand-dark dark:text-white font-medium capitalize">{fit || '-'}</div>
         </div>
 
         {/* CE Category - Column 2, Row 2 */}
@@ -93,14 +88,8 @@ export function ClothingSpecs({ product }: { product: Product }) {
             <Shield className="h-5 w-5 text-brand-primary" />
             <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.clothingStandards.enStandards')}</h4>
           </div>
-          <div className="space-y-1">
-            {rightChips.length > 0 ? (
-              rightChips.map((chip, idx) => (
-                <div key={idx} className="text-xs px-2 py-0.5 rounded border border-brand-primary/20 bg-white dark:bg-black/40 text-brand-dark dark:text-white inline-block mb-1 mr-1">{chip}</div>
-              ))
-            ) : (
-              <span className="text-sm text-brand-secondary dark:text-gray-300">-</span>
-            )}
+          <div className="text-brand-dark dark:text-white font-medium">
+            {rightChips.length > 0 ? rightChips.join(', ') : '-'}
           </div>
         </div>
       </div>

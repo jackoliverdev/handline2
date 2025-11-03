@@ -5,13 +5,13 @@ import { Product } from "@/lib/products-service";
 import { Shield, Flame, Zap, Droplets } from "lucide-react";
 
 type ClothingStandards = {
-  en_iso_20471?: { class?: number };
-  en_iso_11612?: { a?: number | boolean; a1?: boolean; a2?: boolean; b?: number; c?: number; d?: number; e?: number; f?: number };
-  en_iso_11611?: { class?: number };
-  iec_61482_2?: { class?: number };
+  en_iso_20471?: { class?: string | number | null };
+  en_iso_11612?: { a1?: string | null; a2?: string | null; b?: string | null; c?: string | null; d?: string | null; e?: string | null; f?: string | null };
+  en_iso_11611?: { class?: string | null };
+  iec_61482_2?: { class?: string | null };
   en_1149_5?: boolean;
   en_13034?: string;
-  en_343?: { water?: number; breath?: number };
+  en_343?: { water?: string | null; breath?: string | null };
   uv_standard_801?: boolean;
 };
 
@@ -47,12 +47,12 @@ export function ClothingStandards({ product }: { product: Product }) {
 
   // EN ISO 20471
   if (std.en_iso_20471?.class) {
-    standards.push({ code: "EN ISO 20471", label: `Class ${std.en_iso_20471.class}` });
+    standards.push({ code: "EN ISO 20471", label: String(std.en_iso_20471.class) });
   }
 
   // IEC 61482-2
   if (std.iec_61482_2?.class) {
-    standards.push({ code: "IEC 61482-2", label: `Class ${std.iec_61482_2.class}` });
+    standards.push({ code: "IEC 61482-2", label: String(std.iec_61482_2.class) });
   }
 
   // EN 1149-5
@@ -89,33 +89,33 @@ export function ClothingStandards({ product }: { product: Product }) {
               (() => {
                 const s = std.en_iso_11612!;
                 const labels: string[] = [];
-                if (s.a1) labels.push("A1");
-                if ((s as any).a2) labels.push("A2");
+                if (s.a1) labels.push(String(s.a1));
+                if (s.a2) labels.push(String(s.a2));
                 return labels.join("+") || false;
               })(), 
-              Boolean(std.en_iso_11612?.a1 || (std.en_iso_11612 as any)?.a2)
+              Boolean(std.en_iso_11612?.a1 || std.en_iso_11612?.a2)
             )}
             {renderEn11612Attribute(t('productPage.clothingStandards.convectiveHeat'), 
-              typeof std.en_iso_11612?.b === 'number' ? `B${std.en_iso_11612.b}` : false,
-              typeof std.en_iso_11612?.b === 'number'
+              std.en_iso_11612?.b || false,
+              Boolean(std.en_iso_11612?.b)
             )}
             {renderEn11612Attribute(t('productPage.clothingStandards.radiantHeat'), 
-              typeof std.en_iso_11612?.c === 'number' ? `C${std.en_iso_11612.c}` : false,
-              typeof std.en_iso_11612?.c === 'number'
+              std.en_iso_11612?.c || false,
+              Boolean(std.en_iso_11612?.c)
             )}
             
             {/* Row 2 */}
             {renderEn11612Attribute(t('productPage.clothingStandards.moltenAluminium'), 
-              typeof std.en_iso_11612?.d === 'number' ? `D${std.en_iso_11612.d}` : false,
-              typeof std.en_iso_11612?.d === 'number'
+              std.en_iso_11612?.d || false,
+              Boolean(std.en_iso_11612?.d)
             )}
             {renderEn11612Attribute(t('productPage.clothingStandards.moltenIron'), 
-              typeof std.en_iso_11612?.e === 'number' ? `E${std.en_iso_11612.e}` : false,
-              typeof std.en_iso_11612?.e === 'number'
+              std.en_iso_11612?.e || false,
+              Boolean(std.en_iso_11612?.e)
             )}
             {renderEn11612Attribute(t('productPage.clothingStandards.contactHeat'), 
-              typeof std.en_iso_11612?.f === 'number' ? `F${std.en_iso_11612.f}` : false,
-              typeof std.en_iso_11612?.f === 'number'
+              std.en_iso_11612?.f || false,
+              Boolean(std.en_iso_11612?.f)
             )}
           </div>
         </div>
@@ -130,7 +130,7 @@ export function ClothingStandards({ product }: { product: Product }) {
           </div>
           <div className="grid grid-cols-2 gap-3">
             {renderEn11612Attribute(t('productPage.clothingStandards.class'), 
-              `Class ${std.en_iso_11611?.class || ''}`,
+              std.en_iso_11611?.class || false,
               Boolean(std.en_iso_11611?.class)
             )}
             {renderEn11612Attribute(t('productPage.clothingStandards.protection'), 
@@ -150,12 +150,12 @@ export function ClothingStandards({ product }: { product: Product }) {
           </div>
           <div className="grid grid-cols-2 gap-3">
             {renderEn11612Attribute(t('productPage.clothingStandards.waterPenetration'), 
-              typeof std.en_343?.water === 'number' ? `Class ${std.en_343.water}` : false,
-              typeof std.en_343?.water === 'number'
+              std.en_343?.water || false,
+              Boolean(std.en_343?.water)
             )}
             {renderEn11612Attribute(t('productPage.clothingStandards.breathability'), 
-              typeof std.en_343?.breath === 'number' ? `Class ${std.en_343.breath}` : false,
-              typeof std.en_343?.breath === 'number'
+              std.en_343?.breath || false,
+              Boolean(std.en_343?.breath)
             )}
           </div>
         </div>

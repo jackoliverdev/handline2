@@ -552,19 +552,41 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                         <RespiratoryOtherDetails product={product} />
                       </>
                     )}
+                    {/* Clothing: Safety features FIRST */}
                     {isClothing && (
-                      <ClothingComfortFeatures product={product} />
+                      <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          <ListChecks className="h-5 w-5 text-brand-primary" />
+                          <h3 className="font-medium text-brand-dark dark:text-white">{t('productPage.safetyFeatures')}</h3>
+                        </div>
+                        <ul className="list-disc list-inside space-y-1 text-brand-secondary dark:text-gray-300">
+                          {currentFeatures && currentFeatures.length > 0 ? (
+                            currentFeatures.map((feature: string, idx: number) => (
+                              <li key={idx}>{feature}</li>
+                            ))
+                          ) : (
+                            <li>-</li>
+                          )}
+                        </ul>
+                      </div>
+                    )}
+                    {/* Clothing: Then Comfort and Other */}
+                    {isClothing && (
+                      <>
+                        <ClothingComfortFeatures product={product} />
+                        <ClothingOtherDetails product={product} />
+                      </>
                     )}
                     {/* Equipment blocks for Hearing */}
                     {isHearing && (
                       <HearingEquipment product={product} />
                     )}
-                    {/* Safety features for OTHER categories (NOT eye-face, respiratory, or head) */}
-                    {!isRespiratory && !isEyeFace && !isHead && (
+                    {/* Safety features for OTHER categories (NOT eye-face, respiratory, head, or clothing) */}
+                    {!isRespiratory && !isEyeFace && !isHead && !isClothing && (
                       <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
                         <div className="flex items-center gap-2 mb-2">
                           <ListChecks className="h-5 w-5 text-brand-primary" />
-                          <h3 className="font-medium text-brand-dark dark:text-white">{(isHearing || isClothing || (product.category || '').toLowerCase().includes('footwear') || (product.sub_category || '').toLowerCase().includes('boot') || (product.sub_category || '').toLowerCase().includes('insol')) ? t('productPage.safetyFeatures') : t('productPage.features')}</h3>
+                          <h3 className="font-medium text-brand-dark dark:text-white">{(isHearing || (product.category || '').toLowerCase().includes('footwear') || (product.sub_category || '').toLowerCase().includes('boot') || (product.sub_category || '').toLowerCase().includes('insol')) ? t('productPage.safetyFeatures') : t('productPage.features')}</h3>
                         </div>
                         <ul className="list-disc list-inside space-y-1 text-brand-secondary dark:text-gray-300">
                           {currentFeatures && currentFeatures.length > 0 ? (
@@ -581,12 +603,9 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                     {((product.category || '').toLowerCase().includes('arm') || (product.sub_category || '').toLowerCase().includes('sleeve')) && (
                       <ArmProtectionAttributes product={product} />
                     )}
-                    {/* Other details blocks - after Safety features (non-head, non-respiratory) */}
+                    {/* Other details blocks - after Safety features (non-head, non-respiratory, non-clothing) */}
                     {isHearing && (
                       <HearingOtherDetails product={product} />
-                    )}
-                    {isClothing && (
-                      <ClothingOtherDetails product={product} />
                     )}
                   </div>
                 </TabsContent>
