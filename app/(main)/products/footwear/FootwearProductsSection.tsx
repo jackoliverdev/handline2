@@ -58,7 +58,10 @@ export function FootwearProductsSection({ products }: FootwearProductsSectionPro
       if (p.footwear_attributes?.class) s.add(String(p.footwear_attributes.class));
       const c2011: string[] = p.footwear_standards?.en_iso_20345_2011 || [];
       const c2022: string[] = p.footwear_standards?.en_iso_20345_2022 || [];
-      [...c2011, ...c2022].forEach((c) => c && s.add(String(c)));
+      // Only include codes that start with 'S' (class codes: SB, S1, S2, etc.)
+      [...c2011, ...c2022].forEach((c) => {
+        if (c && String(c).match(/^S/i)) s.add(String(c));
+      });
     });
     return Array.from(s).sort();
   }, [footwearProducts]);
@@ -94,7 +97,14 @@ export function FootwearProductsSection({ products }: FootwearProductsSectionPro
 
   const stdCodeOptions = React.useMemo(() => {
     const s = new Set<string>();
-    footwearProducts.forEach((p: any) => (p.footwear_standards?.en_iso_20345_2022 || []).forEach((c: string) => c && s.add(c)));
+    footwearProducts.forEach((p: any) => {
+      const c2011: string[] = p.footwear_standards?.en_iso_20345_2011 || [];
+      const c2022: string[] = p.footwear_standards?.en_iso_20345_2022 || [];
+      // Only include codes that DON'T start with 'S' (additional codes: PL, HI, CI, etc.)
+      [...c2011, ...c2022].forEach((c: string) => {
+        if (c && !String(c).match(/^S/i)) s.add(c);
+      });
+    });
     return Array.from(s).sort();
   }, [footwearProducts]);
 
@@ -136,7 +146,7 @@ export function FootwearProductsSection({ products }: FootwearProductsSectionPro
     );
     const toeOk = toeCaps.length === 0 ? true : (!!fattr.toe_cap && toeCaps.includes(String(fattr.toe_cap)));
     const soleOk = soles.length === 0 ? true : (!!fattr.sole_material && soles.includes(String(fattr.sole_material)));
-    const codes: string[] = (fstd.en_iso_20345_2022 || []) as string[];
+    const codes: string[] = [...((fstd.en_iso_20345_2011 || []) as string[]), ...((fstd.en_iso_20345_2022 || []) as string[])];
     const codeOk = stdCodes.length === 0 ? true : codes.some((c) => stdCodes.includes(c));
     return classOk && esdOk && widthOk && sizeOk && toeOk && soleOk && codeOk;
   };
