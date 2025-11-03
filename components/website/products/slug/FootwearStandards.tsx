@@ -3,7 +3,8 @@
 import { Product } from "@/lib/products-service";
 import { useLanguage } from "@/lib/context/language-context";
 import { Badge } from "@/components/ui/badge";
-import { Footprints } from "lucide-react";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Footprints, AlertTriangle } from "lucide-react";
 
 export function FootwearStandards({ product }: { product: Product }) {
   const { t } = useLanguage();
@@ -11,6 +12,9 @@ export function FootwearStandards({ product }: { product: Product }) {
 
   const codes2011: string[] = Array.isArray(fstd.en_iso_20345_2011) ? fstd.en_iso_20345_2011 : [];
   const codes2022: string[] = Array.isArray(fstd.en_iso_20345_2022) ? fstd.en_iso_20345_2022 : [];
+
+  // Check if we have any additional standards to display
+  const hasAdditionalStandards = fstd.en_421 || fstd.en_659 || fstd.food_grade || fstd.ionising_radiation || fstd.radioactive_contamination;
 
   const unique = (arr: string[]) => Array.from(new Set(arr.filter(Boolean)));
 
@@ -89,6 +93,49 @@ export function FootwearStandards({ product }: { product: Product }) {
     <div className="space-y-4">
       {(codes2011.length > 0) && renderStandardBox(t('productPage.enIso20345_2011') || 'EN ISO 20345:2011', codes2011)}
       {(codes2022.length > 0) && renderStandardBox(t('productPage.enIso20345_2022') || 'EN ISO 20345:2022', codes2022)}
+      
+      {/* Additional footwear standards */}
+      {hasAdditionalStandards && (
+        <Card className="border-brand-primary/10 dark:border-brand-primary/20">
+          <CardHeader className="pb-3">
+            <div className="flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5 text-brand-primary" />
+              <h3 className="font-medium text-brand-dark dark:text-white">
+                {t('productPage.additionalStandards')}
+              </h3>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap gap-2">
+              {fstd.en_421 && (
+                <Badge className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/10 text-sm px-3 py-1">
+                  EN 421 - {t('productPage.stdLabel.en421')}
+                </Badge>
+              )}
+              {fstd.en_659 && (
+                <Badge className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/10 text-sm px-3 py-1">
+                  EN 659 - {t('productPage.stdLabel.en659')}
+                </Badge>
+              )}
+              {fstd.food_grade && (
+                <Badge className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/10 text-sm px-3 py-1">
+                  {t('productPage.stdLabel.foodGrade')}
+                </Badge>
+              )}
+              {fstd.ionising_radiation && (
+                <Badge className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/10 text-sm px-3 py-1">
+                  {t('productPage.stdLabel.ionisingRadiation')}
+                </Badge>
+              )}
+              {fstd.radioactive_contamination && (
+                <Badge className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/10 text-sm px-3 py-1">
+                  {t('productPage.stdLabel.radioactiveContamination')}
+                </Badge>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }

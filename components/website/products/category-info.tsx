@@ -104,17 +104,18 @@ export const CategoryInfo = ({
 };
 
 // Helper function to get default images for category types
+// Using the same image paths as MainCategoriesRow for consistency
 function getDefaultImageForCategory(categoryType: string): string {
   const imageMap = {
     gloves: "/glovecats/49K-C_A.webp",
-    respiratory: "/images/products/categories/respirator.jpeg",
-    industrialSwabs: "/images/HLC_SWABS_main.jpg",
-    armProtection: "/images/products/categories/armppe.webp",
-    footwear: "/images/products/categories/safetyboot.png",
-    hearing: "/images/products/categories/single use ear plugs.webp",
-    eyeFace: "/images/products/categories/metalfreeglasses.jpg",
-    head: "/images/products/categories/Safety helmet suitable for low temperatures and splash protection.webp",
-    clothing: "/images/products/categories/High-Vis, Jacket High-Vis.webp",
+    industrialSwabs: "/categoryimages/CAT_swabs_Hero.webp",
+    respiratory: "/categoryimages/CAT_respiratory_Hero.webp",
+    armProtection: "/categoryimages/CAT_sleeves_Hero.webp",
+    hearing: "/categoryimages/CAT_hearing_Hero.webp",
+    footwear: "/categoryimages/CAT_footwear_Hero.webp",
+    eyeFace: "/categoryimages/CAT_eyes_Hero.webp",
+    head: "/categoryimages/CAT_head_Hero.webp",
+    clothing: "/categoryimages/CAT_clothing-SUBCAT_HighVis_Hero.webp",
     heat: "/glovecats/152-14 3L20_A.webp",
     cut: "/glovecats/HL8801 DSR_A.webp",
     general: "/glovecats/HL 6WWG_A.webp",

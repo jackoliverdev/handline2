@@ -62,6 +62,9 @@ export interface EnvironmentPictograms {
   chemical?: boolean;
   biological?: boolean;
   oily_grease?: boolean;
+  electrical?: boolean;
+  radiation?: boolean;
+  low_visibility?: boolean;
 }
 
 export type AvailabilityStatus = 'in_stock' | 'made_to_order' | 'out_of_stock' | 'coming_soon';
@@ -307,15 +310,24 @@ export function getDocUrl(product: Product, targetLang: string, kind: 'eu' | 'uk
 
 /**
  * Fetch all products from Supabase
+ * @param includeUnpublished Whether to include unpublished products (default: false)
  */
-export async function getAllProducts(): Promise<{ products: Product[] }> {
+export async function getAllProducts(includeUnpublished: boolean = false): Promise<{ products: Product[] }> {
   try {
-    console.log('Fetching all products from Supabase...', new Date().toISOString());
+    console.log('Fetching all products from Supabase...', includeUnpublished ? '(including unpublished)' : '(published only)', new Date().toISOString());
     
-    // Add cache busting by using a fresh query each time
-    const { data, error } = await supabase
+    // Create query and add filter for published status if needed
+    let query = supabase
       .from('products')
-      .select('*', { head: false, count: 'exact' })
+      .select('*', { head: false, count: 'exact' });
+      
+    // Only include published products for the public website
+    if (!includeUnpublished) {
+      query = query.eq('published', true);
+    }
+    
+    // Add sorting
+    const { data, error } = await query
       .order('is_featured', { ascending: false })
       .order('order_priority', { ascending: false })
       .order('created_at', { ascending: false });

@@ -3,7 +3,8 @@
 import { useLanguage } from "@/lib/context/language-context";
 import { Product } from "@/lib/products-service";
 import { Badge } from "@/components/ui/badge";
-import { Shield, HardHat, Snowflake } from "lucide-react";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Shield, HardHat, Snowflake, AlertTriangle } from "lucide-react";
 
 export function HeadStandards({ product }: { product: Product }) {
   const { t } = useLanguage();
@@ -13,17 +14,17 @@ export function HeadStandards({ product }: { product: Product }) {
   const en397 = std?.en397 || {};
   const opt = en397?.optional || {};
 
-  const additional: Array<{ code: string; labelKey: string }> = [];
-  if (std?.en50365) additional.push({ code: 'EN 50365', labelKey: 'productPage.stdLabel.en50365' });
-  if (std?.en12492) additional.push({ code: 'EN 12492', labelKey: 'productPage.stdLabel.en12492' });
+  // Check if we have any additional standards to display
+  const hasAdditionalStandards = std?.en_421 || std?.en_659 || std?.food_grade || std?.ionising_radiation || std?.radioactive_contamination || std?.en50365 || std?.en12492;
 
   const optChips: Array<{ key: 'low_temperature' | 'high_temperature' | 'electrical_insulation' | 'lateral_deformation' | 'molten_metal'; label: string; enabled: boolean }> = [];
-  // Low temperature (string like "-30°C")
+  // Low temperature (string like "-30°C" or "-20°C")
   optChips.push({ key: 'low_temperature', label: String(opt?.low_temperature || '-'), enabled: Boolean(opt?.low_temperature) });
-  // High temperature (optional boolean/string if present)
+  // High temperature (string like "150°C")
   optChips.push({ key: 'high_temperature', label: String(opt?.high_temperature || '-'), enabled: Boolean(opt?.high_temperature) });
-  // Electrical insulation – reflect EN 50365 if present
-  optChips.push({ key: 'electrical_insulation', label: std?.en50365 ? '✓' : '-', enabled: Boolean(std?.en50365) });
+  // Electrical insulation (string like "440 V a.c." from EN 397 only - no fallback)
+  const electricalValue = opt?.electrical_insulation || '';
+  optChips.push({ key: 'electrical_insulation', label: electricalValue || '-', enabled: Boolean(electricalValue) });
   // Lateral deformation (LD)
   optChips.push({ key: 'lateral_deformation', label: 'LD', enabled: Boolean(opt?.lateral_deformation) });
   // Molten metals (MM)
@@ -97,22 +98,56 @@ export function HeadStandards({ product }: { product: Product }) {
       )}
 
       {/* Additional head standards */}
-      {additional.length > 0 && (
-        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-          <div className="flex items-center gap-3 mb-3">
-            <Shield className="h-5 w-5 text-brand-primary" />
-            <h3 className="font-medium text-brand-dark dark:text-white">{t('productPage.additionalStandards')}</h3>
-          </div>
-          <div className="space-y-3">
-            {additional.map((s) => (
-              <div key={s.code} className="flex items-center gap-3">
-                <Shield className="h-5 w-5 text-brand-primary" />
-                <div className="font-medium text-brand-dark dark:text-white min-w-[90px] md:min-w-[120px]">{s.code}</div>
-                <div className="text-sm md:text-base font-semibold text-brand-dark dark:text-white">{t(s.labelKey) || ''}</div>
-              </div>
-            ))}
-          </div>
-        </div>
+      {hasAdditionalStandards && (
+        <Card className="border-brand-primary/10 dark:border-brand-primary/20">
+          <CardHeader className="pb-3">
+            <div className="flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5 text-brand-primary" />
+              <h3 className="font-medium text-brand-dark dark:text-white">
+                {t('productPage.additionalStandards')}
+              </h3>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap gap-2">
+              {std?.en50365 && (
+                <Badge className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/10 text-sm px-3 py-1">
+                  EN 50365 - {t('productPage.stdLabel.en50365') || 'Electrical Insulation'}
+                </Badge>
+              )}
+              {std?.en12492 && (
+                <Badge className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/10 text-sm px-3 py-1">
+                  EN 12492 - {t('productPage.stdLabel.en12492') || 'Mountaineering Helmets'}
+                </Badge>
+              )}
+              {std?.en_421 && (
+                <Badge className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/10 text-sm px-3 py-1">
+                  EN 421 - {t('productPage.stdLabel.en421')}
+                </Badge>
+              )}
+              {std?.en_659 && (
+                <Badge className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/10 text-sm px-3 py-1">
+                  EN 659 - {t('productPage.stdLabel.en659')}
+                </Badge>
+              )}
+              {std?.food_grade && (
+                <Badge className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/10 text-sm px-3 py-1">
+                  {t('productPage.stdLabel.foodGrade')}
+                </Badge>
+              )}
+              {std?.ionising_radiation && (
+                <Badge className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/10 text-sm px-3 py-1">
+                  {t('productPage.stdLabel.ionisingRadiation')}
+                </Badge>
+              )}
+              {std?.radioactive_contamination && (
+                <Badge className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/10 text-sm px-3 py-1">
+                  {t('productPage.stdLabel.radioactiveContamination')}
+                </Badge>
+              )}
+            </div>
+          </CardContent>
+        </Card>
       )}
     </div>
   );

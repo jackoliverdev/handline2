@@ -13,6 +13,8 @@ import { UvCodeFilter } from "@/components/website/products/filters/eyeface/UvCo
 import { UvCodeFilterMobile } from "@/components/website/products/filters/eyeface/UvCodeFilterMobile";
 import { EyeFaceEnStandardFilter } from "@/components/website/products/filters/eyeface/EyeFaceEnStandardFilter";
 import { EyeFaceEnStandardFilterMobile } from "@/components/website/products/filters/eyeface/EyeFaceEnStandardFilterMobile";
+import { WorkEnvironmentFilter } from "@/components/website/products/filters/eyeface/WorkEnvironmentFilter";
+import { WorkEnvironmentFilterMobile } from "@/components/website/products/filters/eyeface/WorkEnvironmentFilterMobile";
 
 export function EyeFaceProductsSection({ products }: { products: Product[] }) {
   const scoped = useMemo(() => {
@@ -37,15 +39,16 @@ export function EyeFaceProductsSection({ products }: { products: Product[] }) {
   const [coatings, setCoatings] = useState<string[]>([]);
   const [uvCodes, setUvCodes] = useState<string[]>([]);
   const [en166Selections, setEn166Selections] = useState<string[]>([]);
+  const [workEnvSelections, setWorkEnvSelections] = useState<string[]>([]);
 
   const tintOptions = useMemo(() => {
     const s = new Set<string>();
-    (scoped as any[]).forEach((p: any) => { const v = p.eye_face_attributes?.lens_tint; if (v) s.add(String(v)); });
+    (scoped as any[]).forEach((p: any) => { const v = p.eye_face_attributes?.lens_tint; if (v) s.add(String(v).toLowerCase()); });
     return Array.from(s).sort();
   }, [scoped]);
   const coatingOptions = useMemo(() => {
     const s = new Set<string>();
-    (scoped as any[]).forEach((p: any) => { (p.eye_face_attributes?.coatings || []).forEach((c: string) => c && s.add(c)); });
+    (scoped as any[]).forEach((p: any) => { (p.eye_face_attributes?.coatings || []).forEach((c: string) => c && s.add(String(c).toLowerCase())); });
     return Array.from(s).sort();
   }, [scoped]);
   const uvOptions = useMemo(() => {
@@ -73,13 +76,18 @@ export function EyeFaceProductsSection({ products }: { products: Product[] }) {
     return Array.from(s).sort();
   }, [scoped]);
 
+  const workEnvOptions = useMemo(() => {
+    // Always show all 3 options regardless of product data
+    return ['biological', 'chemical', 'electrical'];
+  }, []);
+
   const extraFilters = (
     <>
       <ProtectionTypeFilter selected={protTypes} onToggle={(v) => setProtTypes(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} />
       <LensTintFilter options={tintOptions} selected={tints} onToggle={(v) => setTints(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} />
       <CoatingFilter options={coatingOptions} selected={coatings} onToggle={(v) => setCoatings(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} />
+      <WorkEnvironmentFilter options={workEnvOptions} selected={workEnvSelections} onToggle={(v) => setWorkEnvSelections(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} />
       <UvCodeFilter options={uvOptions} selected={uvCodes} onToggle={(v) => setUvCodes(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} />
-      <EyeFaceEnStandardFilter options={en166Options} selected={en166Selections} onToggle={(v) => setEn166Selections(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} />
     </>
   );
 
@@ -88,8 +96,8 @@ export function EyeFaceProductsSection({ products }: { products: Product[] }) {
       <ProtectionTypeFilterMobile selected={protTypes} onToggle={(v) => setProtTypes(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} />
       <LensTintFilterMobile options={tintOptions} selected={tints} onToggle={(v) => setTints(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} />
       <CoatingFilterMobile options={coatingOptions} selected={coatings} onToggle={(v) => setCoatings(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} />
+      <WorkEnvironmentFilterMobile options={workEnvOptions} selected={workEnvSelections} onToggle={(v) => setWorkEnvSelections(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} />
       <UvCodeFilterMobile options={uvOptions} selected={uvCodes} onToggle={(v) => setUvCodes(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} />
-      <EyeFaceEnStandardFilterMobile options={en166Options} selected={en166Selections} onToggle={(v) => setEn166Selections(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} />
     </>
   );
 
@@ -107,8 +115,9 @@ export function EyeFaceProductsSection({ products }: { products: Product[] }) {
       (protTypes.includes('UV') && hasUV) ||
       (protTypes.includes('Arc') && hasArc)
     );
-    const tintOk = tints.length === 0 ? true : (!!lensTint && tints.includes(lensTint));
-    const coatOk = coatings.length === 0 ? true : coatings.every(c => coatingsArr.includes(c)) || coatings.some(c => coatingsArr.includes(c));
+    const tintOk = tints.length === 0 ? true : (!!lensTint && tints.includes(lensTint.toLowerCase()));
+    const coatingsArrLower = coatingsArr.map(c => String(c).toLowerCase());
+    const coatOk = coatings.length === 0 ? true : coatings.every(c => coatingsArrLower.includes(c)) || coatings.some(c => coatingsArrLower.includes(c));
     const uvOk = uvCodes.length === 0 ? true : (!!uvCode && uvCodes.includes(uvCode));
     const std: any = (p as any).eye_face_standards || {};
     const en = std?.en166 || {};
@@ -119,7 +128,17 @@ export function EyeFaceProductsSection({ products }: { products: Product[] }) {
     if (en.additional_marking) flags.push(String(en.additional_marking));
     if (typeof en.optical_class === 'number') flags.push(`Optical class ${en.optical_class}`);
     const enOk = en166Selections.length === 0 ? true : en166Selections.some(sel => flags.includes(sel));
-    return protOk && tintOk && coatOk && uvOk && enOk;
+    
+    // Work environment filtering
+    const envPictograms: any = (p as any).environment_pictograms || {};
+    const workEnvOk = workEnvSelections.length === 0 ? true : workEnvSelections.every(sel => {
+      if (sel === 'chemical') return !!envPictograms.chemical;
+      if (sel === 'biological') return !!envPictograms.biological;
+      if (sel === 'electrical') return !!envPictograms.electrical;
+      return false;
+    });
+    
+    return protOk && tintOk && coatOk && uvOk && enOk && workEnvOk;
   };
 
   return (

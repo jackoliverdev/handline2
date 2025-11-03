@@ -18,7 +18,7 @@ export const ClosureTypeFilter = ({ options, selected, onToggle, isExpanded, tog
   const [localOpen, setLocalOpen] = useState(false);
   const open = isExpanded ?? localOpen;
   return (
-    <div className="pb-4">
+    <div className="pb-2">
       <button className="flex w-full items-center justify-between mb-2" onClick={() => (toggleSection ? toggleSection('closureType') : setLocalOpen(v => !v))}>
         <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('products.filters.closureType')}</h3>
         <ChevronDown className={`h-4 w-4 text-brand-primary transition-transform ${open ? 'rotate-180' : ''}`} />

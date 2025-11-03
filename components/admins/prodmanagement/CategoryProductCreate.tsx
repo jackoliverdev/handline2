@@ -103,6 +103,8 @@ export default function CategoryProductCreate({ slug }: Props) {
   const [eyeFaceEquipment, setEyeFaceEquipment] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [hearingStandards, setHearingStandards] = useState<any>({ en352: { parts: [], snr_db: null, hml: { h: null, m: null, l: null }, additional: [] } });
   const [hearingAttributes, setHearingAttributes] = useState<any>({ reusable: null, mount: '', bluetooth: null, compatible_with: [], accessories: [], materials: [], size: '', ce_category: '', water_resistance: null, extreme_temperature: null, electrical_insulation: null });
+  const [hearingCompatibleWithLocales, setHearingCompatibleWithLocales] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [hearingAccessoriesLocales, setHearingAccessoriesLocales] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [hearingComfortFeatures, setHearingComfortFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [hearingOtherDetails, setHearingOtherDetails] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [hearingEquipment, setHearingEquipment] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
@@ -112,16 +114,20 @@ export default function CategoryProductCreate({ slug }: Props) {
   const [footwearStandards, setFootwearStandards] = useState<any>({ en_iso_20345_2011: [], en_iso_20345_2022: [], slip_resistance: '' });
   const [footwearAttributes, setFootwearAttributes] = useState<any>({ class: '', esd: null, metal_free: null, width_fit: [], size_min: null, size_max: null, gender: '', weight_grams: null, weight_ref_size: null, special: [], toe_cap: '', sole_material: '' });
   const [footwearComfortFeatures, setFootwearComfortFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [footwearMaterialsLocales, setFootwearMaterialsLocales] = useState<{ en: { upper: string; lining: string; sole: string; insole: string; toe_cap: string }; it: { upper: string; lining: string; sole: string; insole: string; toe_cap: string } }>({ en: { upper: '', lining: '', sole: '', insole: '', toe_cap: '' }, it: { upper: '', lining: '', sole: '', insole: '', toe_cap: '' } });
+  const [footwearSpecialFeatures, setFootwearSpecialFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [headStandards, setHeadStandards] = useState<any>({ en397: { present: false, optional: { low_temperature: false, molten_metal: false } }, en50365: false, en12492: false, en812: false });
   const [headComfortFeatures, setHeadComfortFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [headOtherDetails, setHeadOtherDetails] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [headEquipment, setHeadEquipment] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [headAttributes, setHeadAttributes] = useState<any>({ form_factor: '', brim_length: '', size_min_cm: null, size_max_cm: null, weight_g: null, colours: [], ventilation: null, harness_points: null, chinstrap_points: null, sweatband: null, closed_shell: null, euroslot_mm: null, accessories: [] });
+  const [headTechSpecsLocales, setHeadTechSpecsLocales] = useState<{ en: { form_factor: string; brim_length: string; colours: string[]; additional_features: string[] }; it: { form_factor: string; brim_length: string; colours: string[]; additional_features: string[] } }>({ en: { form_factor: '', brim_length: '', colours: [], additional_features: [] }, it: { form_factor: '', brim_length: '', colours: [], additional_features: [] } });
   const [clothingStandards, setClothingStandards] = useState<any>({ en_iso_20471: { class: null }, en_iso_11612: {}, iec_61482_2: { class: null }, en_1149_5: false });
   const [clothingAttributes, setClothingAttributes] = useState<any>({ fit: '', gender: '', size_range: '', colours: [], uv_protection: null });
   const [clothingType, setClothingType] = useState<string>('');
   const [clothingCategory, setClothingCategory] = useState<string>('');
   const [armAttributes, setArmAttributes] = useState<any>({ thumb_loop: null, closure: '', materials: [], size: '', length_cm: null, ce_category: '' });
+  const [armMaterialsLocales, setArmMaterialsLocales] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   // Gloves safety JSON for create
   const defaultSafety: any = { en_388: { enabled: false, abrasion: null, cut: null, tear: null, puncture: null, iso_13997: null, impact_en_13594: null }, en_407: { enabled: false, contact_heat: null, radiant_heat: null, convective_heat: null, limited_flame_spread: null, small_splashes_molten_metal: null, large_quantities_molten_metal: null }, en_511: { enabled: false, contact_cold: null, convective_cold: null, water_permeability: null } };
   const [safety, setSafety] = useState<any>(defaultSafety);
@@ -658,10 +664,15 @@ export default function CategoryProductCreate({ slug }: Props) {
               )}
               {slug === 'hearing' && (
                 <HearingSafetyStandardsEditor 
+                  language={language}
                   hearingStandards={hearingStandards}
                   setHearingStandards={setHearingStandards}
                   hearingAttributes={hearingAttributes}
                   setHearingAttributes={setHearingAttributes}
+                  hearingCompatibleWithLocales={hearingCompatibleWithLocales}
+                  setHearingCompatibleWithLocales={setHearingCompatibleWithLocales}
+                  hearingAccessoriesLocales={hearingAccessoriesLocales}
+                  setHearingAccessoriesLocales={setHearingAccessoriesLocales}
                   hearingComfortFeatures={hearingComfortFeatures}
                   setHearingComfortFeatures={setHearingComfortFeatures}
                   hearingOtherDetails={hearingOtherDetails}
@@ -716,20 +727,30 @@ export default function CategoryProductCreate({ slug }: Props) {
               )}
               {slug === 'arm-protection' && (
                 <ArmSafetyStandardsEditor 
+                  language={language}
                   safety={safety}
                   setSafety={setSafety}
                   armAttributes={armAttributes}
                   setArmAttributes={setArmAttributes}
+                  materialsLocales={armMaterialsLocales}
+                  setMaterialsLocales={setArmMaterialsLocales}
+                  environmentPictograms={environmentPictograms}
+                  onEnvironmentChange={setEnvironmentPictograms}
                 />
               )}
               {slug === 'footwear' && (
                 <FootwearSafetyStandardsEditor 
+                  language={language}
                   footwearStandards={footwearStandards}
                   setFootwearStandards={setFootwearStandards}
                   footwearAttributes={footwearAttributes}
                   setFootwearAttributes={setFootwearAttributes}
                   footwearComfortFeatures={footwearComfortFeatures}
                   setFootwearComfortFeatures={setFootwearComfortFeatures}
+                  footwearMaterialsLocales={footwearMaterialsLocales}
+                  setFootwearMaterialsLocales={setFootwearMaterialsLocales}
+                  footwearSpecialFeatures={footwearSpecialFeatures}
+                  setFootwearSpecialFeatures={setFootwearSpecialFeatures}
                 />
               )}
               {slug === 'eye-face' && (
@@ -764,6 +785,7 @@ export default function CategoryProductCreate({ slug }: Props) {
               )}
               {slug === 'head' && (
                 <HeadSafetyStandardsEditor 
+                  language={language}
                   headStandards={headStandards}
                   setHeadStandards={setHeadStandards}
                   headAttributes={headAttributes}
@@ -774,6 +796,8 @@ export default function CategoryProductCreate({ slug }: Props) {
                   setHeadOtherDetails={setHeadOtherDetails}
                   headEquipment={headEquipment}
                   setHeadEquipment={setHeadEquipment}
+                  headTechSpecsLocales={headTechSpecsLocales}
+                  setHeadTechSpecsLocales={setHeadTechSpecsLocales}
                 />
               )}
               {slug === 'clothing' && (

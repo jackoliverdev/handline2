@@ -7,25 +7,35 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Shield, Layers, Ruler, Move, Plus, X, FileText, Snowflake, Droplet, FileCheck } from "lucide-react";
+import { Shield, Ruler, Move, Snowflake, Droplet, FileCheck, Sun, Wind, FlaskConical, Bug, Zap } from "lucide-react";
 import { useLanguage } from "@/lib/context/language-context";
+import { EnvironmentPictograms } from "@/lib/products-service";
 
 interface ArmSafetyStandardsEditorProps {
+  language: 'en' | 'it';
   safety: any;
   setSafety: (safety: any) => void;
   armAttributes: any;
   setArmAttributes: (attributes: any) => void;
+  materialsLocales: { en: string[]; it: string[] };
+  setMaterialsLocales: (locales: { en: string[]; it: string[] }) => void;
+  environmentPictograms: EnvironmentPictograms;
+  onEnvironmentChange: (environmentPictograms: EnvironmentPictograms) => void;
 }
 
 export const ArmSafetyStandardsEditor: React.FC<ArmSafetyStandardsEditorProps> = ({ 
+  language,
   safety, 
   setSafety,
   armAttributes,
-  setArmAttributes
+  setArmAttributes,
+  materialsLocales,
+  setMaterialsLocales,
+  environmentPictograms,
+  onEnvironmentChange
 }) => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
 
   // Helper function for performance color coding (same as gloves)
   const getPerformanceColor = (value: number | string | null): string => {
@@ -41,106 +51,27 @@ export const ArmSafetyStandardsEditor: React.FC<ArmSafetyStandardsEditorProps> =
     return 'bg-gray-100 border-gray-200';
   };
 
-  const addMaterial = () => {
-    const newMaterial = prompt('Enter material:');
-    if (newMaterial?.trim()) {
-      const currentMaterials = armAttributes.materials || [];
-      setArmAttributes({
-        ...armAttributes,
-        materials: [...currentMaterials, newMaterial.trim()]
-      });
-    }
-  };
-
-  const removeMaterial = (index: number) => {
-    const currentMaterials = armAttributes.materials || [];
-    setArmAttributes({
-      ...armAttributes,
-      materials: currentMaterials.filter((_: any, i: number) => i !== index)
-    });
-  };
-
   return (
     <div className="space-y-6">
-      {/* Technical Specifications */}
+      {/* Length - Arm Protection Specific */}
       <Card>
         <CardHeader className="pb-3">
           <div className="flex items-center gap-2">
-            <Layers className="h-5 w-5 text-brand-primary" />
-            <CardTitle className="text-lg">Technical Specifications</CardTitle>
+            <Ruler className="h-5 w-5 text-brand-primary" />
+            <CardTitle className="text-lg">Arm Protection Length</CardTitle>
           </div>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <div>
-                <Label className="text-sm font-medium">Materials</Label>
-                <div className="space-y-3 mt-2">
-                  <div className="space-y-2">
-                    {(armAttributes.materials || []).map((material: string, index: number) => (
-                      <div key={index} className="flex items-center gap-2">
-                        <Badge variant="outline" className="bg-brand-primary/5 border-brand-primary/20 flex-1">
-                          {material}
-                        </Badge>
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => removeMaterial(index)}
-                          className="text-red-500 hover:text-red-700"
-                        >
-                          <X className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    ))}
-                    <Button type="button" variant="outline" size="sm" onClick={addMaterial}>
-                      <Plus className="h-4 w-4 mr-2" />
-                      Add Material
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="space-y-4">
-              <div>
-                <Label className="text-sm font-medium">Size & Dimensions</Label>
-                <div className="space-y-3 mt-2">
-                  <div>
-                    <Label className="text-xs text-gray-600">Size</Label>
-                    <Input 
-                      value={armAttributes.size || ''} 
-                      onChange={(e) => setArmAttributes({ ...armAttributes, size: e.target.value })} 
-                      placeholder="e.g. M / L, S / M / L"
-                    />
-                  </div>
-                  <div>
-                    <Label className="text-xs text-gray-600">Length (cm)</Label>
-                    <Input 
-                      type="number" 
-                      value={armAttributes.length_cm ?? ''} 
-                      onChange={(e) => setArmAttributes({ ...armAttributes, length_cm: e.target.value === '' ? null : Number(e.target.value) })} 
-                      placeholder="40"
-                    />
-                  </div>
-                  <div>
-                    <Label className="text-xs text-gray-600">CE Category</Label>
-                    <Select 
-                      value={armAttributes.ce_category || ''} 
-                      onValueChange={(value) => setArmAttributes({ ...armAttributes, ce_category: value })}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select CE Category" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="I">Category I</SelectItem>
-                        <SelectItem value="II">Category II</SelectItem>
-                        <SelectItem value="III">Category III</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="max-w-md">
+            <Label className="text-sm font-medium">Length (cm)</Label>
+            <Input 
+              type="number" 
+              value={armAttributes.length_cm ?? ''} 
+              onChange={(e) => setArmAttributes({ ...armAttributes, length_cm: e.target.value === '' ? null : Number(e.target.value) })} 
+              placeholder="40"
+              className="mt-2"
+            />
+            <p className="text-xs text-muted-foreground mt-1">Length of the arm sleeve in centimetres</p>
           </div>
         </CardContent>
       </Card>
@@ -699,12 +630,12 @@ export const ArmSafetyStandardsEditor: React.FC<ArmSafetyStandardsEditorProps> =
                   onValueChange={(value) => setArmAttributes({ ...armAttributes, closure: value })}
                 >
                   <SelectTrigger className="mt-2">
-                    <SelectValue placeholder="Select closure type" />
+                    <SelectValue placeholder={language === 'it' ? 'Seleziona tipo di chiusura' : 'Select closure type'} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="velcro">Velcro</SelectItem>
-                    <SelectItem value="elastic">Elastic</SelectItem>
-                    <SelectItem value="none">None</SelectItem>
+                    <SelectItem value="velcro">{language === 'it' ? 'Velcro' : 'Velcro'}</SelectItem>
+                    <SelectItem value="elastic">{language === 'it' ? 'Elastico' : 'Elastic'}</SelectItem>
+                    <SelectItem value="none">{language === 'it' ? 'Nessuno' : 'None'}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -713,44 +644,99 @@ export const ArmSafetyStandardsEditor: React.FC<ArmSafetyStandardsEditorProps> =
         </CardContent>
       </Card>
 
-      {/* Attributes Preview */}
+      {/* Work Environment Suitability */}
       <Card>
         <CardHeader className="pb-3">
-          <CardTitle className="text-lg">Attributes Preview</CardTitle>
+          <CardTitle className="text-lg">Work Environment Suitability</CardTitle>
           <p className="text-sm text-gray-600 dark:text-gray-400">
-            These attributes will be displayed on the product detail page
+            Configure which work environments this arm protection is suitable for
           </p>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-wrap gap-2">
-            {armAttributes.thumb_loop && (
-              <Badge variant="outline" className="bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800 text-green-800 dark:text-green-200">
-                Thumb Loop
-              </Badge>
-            )}
-            {armAttributes.closure && (
-              <Badge variant="outline" className="bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-200">
-                {armAttributes.closure.charAt(0).toUpperCase() + armAttributes.closure.slice(1)} Closure
-              </Badge>
-            )}
-            {safety?.en_388?.enabled && (
-              <Badge variant="outline" className="bg-orange-50 dark:bg-orange-900/20 border-orange-200 dark:border-orange-800 text-orange-800 dark:text-orange-200">
-                EN 388
-              </Badge>
-            )}
-            {safety?.en_407?.enabled && (
-              <Badge variant="outline" className="bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-800 dark:text-red-200">
-                EN 407
-              </Badge>
-            )}
-            {safety?.en_iso_21420?.enabled && (
-              <Badge variant="outline" className="bg-purple-50 dark:bg-purple-900/20 border-purple-200 dark:border-purple-800 text-purple-800 dark:text-purple-200">
-                EN ISO 21420
-              </Badge>
-            )}
-            {(!armAttributes.thumb_loop && !armAttributes.closure && !safety?.en_388?.enabled && !safety?.en_407?.enabled && !safety?.en_iso_21420?.enabled) && (
-              <span className="text-sm text-gray-500 italic">No attributes will be displayed</span>
-            )}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {[
+              { 
+                key: 'dry' as const, 
+                icon: Sun, 
+                label: 'Dry Conditions',
+                description: 'Suitable for dry conditions'
+              },
+              { 
+                key: 'wet' as const, 
+                icon: Droplet, 
+                label: 'Wet Conditions',
+                description: 'Suitable for wet conditions'
+              },
+              { 
+                key: 'dust' as const, 
+                icon: Wind, 
+                label: 'Dusty Conditions',
+                description: 'Suitable for dusty conditions'
+              },
+              { 
+                key: 'chemical' as const, 
+                icon: FlaskConical, 
+                label: 'Chemical Exposure',
+                description: 'Suitable for chemical exposure'
+              },
+              { 
+                key: 'biological' as const, 
+                icon: Bug, 
+                label: 'Biological Hazards',
+                description: 'Suitable for biological hazards'
+              },
+              { 
+                key: 'oily_grease' as const, 
+                icon: Zap, 
+                label: 'Oily / Greasy',
+                description: 'Suitable for oily / greasy'
+              },
+            ].map((item) => {
+              const IconComponent = item.icon;
+              const isEnabled = environmentPictograms[item.key] || false;
+              
+              return (
+                <div
+                  key={item.key}
+                  className={`group relative overflow-hidden rounded-lg border shadow-sm transition-all duration-300 hover:shadow-md backdrop-blur-sm p-4 ${
+                    isEnabled
+                      ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
+                      : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800'
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-3">
+                      <IconComponent 
+                        className={`h-5 w-5 ${
+                          isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
+                        }`} 
+                      />
+                      <div>
+                        <Label className={`font-medium text-sm ${
+                          isEnabled ? 'text-green-800 dark:text-green-200' : 'text-red-800 dark:text-red-200'
+                        }`}>
+                          {item.label}
+                        </Label>
+                      </div>
+                    </div>
+                    <Switch
+                      checked={isEnabled}
+                      onCheckedChange={(checked) => onEnvironmentChange({
+                        ...environmentPictograms,
+                        [item.key]: checked
+                      })}
+                      className="data-[state=checked]:bg-green-600"
+                    />
+                  </div>
+                  
+                  <p className={`text-xs ${
+                    isEnabled ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
+                  }`}>
+                    {item.description}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </CardContent>
       </Card>

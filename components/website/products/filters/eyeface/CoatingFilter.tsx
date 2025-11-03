@@ -17,7 +17,7 @@ export function CoatingFilter({ options, selected, onToggle, isExpanded, toggleS
     return translated === tKey ? humanise(key) : translated;
   };
   return (
-    <div className="pb-4">
+    <div className="pb-2">
       <button className="flex w-full items-center justify-between mb-2" onClick={() => (toggleSection ? toggleSection("eyeFaceCoating") : setLocalOpen(v => !v))}>
         <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('products.filters.coating')}</h3>
         <ChevronDown className={`h-4 w-4 text-brand-primary transition-transform ${open ? 'rotate-180' : ''}`} />

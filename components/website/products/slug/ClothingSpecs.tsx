@@ -41,72 +41,66 @@ export function ClothingSpecs({ product }: { product: Product }) {
   return (
     <TooltipProvider>
     <div className="space-y-5">
-      {/* Unified grid: Materials spans 2 rows; 3 columns total */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {/* Materials (full height - row span 2) */}
-        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4 md:row-span-2">
-          <div className="flex items-center gap-2 mb-3">
+      {/* Unified grid: Materials spans 2 rows; 2x2 grid for other specs */}
+      <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4">
+        {/* Materials - Column 1, Rows 1-2 (full height) */}
+        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4 md:row-span-2 flex flex-col">
+          <div className="flex items-center gap-2 mb-2">
             <Package className="h-5 w-5 text-brand-primary" />
             <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.materials')}</h4>
           </div>
-          <div className="space-y-1">
-            {Array.isArray(materials) && materials.length > 0 ? (
-              materials.map((m: string, i: number) => (
+          {Array.isArray(materials) && materials.length > 0 ? (
+            <div className="space-y-1 flex-1">
+              {materials.map((m: string, i: number) => (
                 <div key={i} className="text-brand-dark dark:text-white font-medium">{m}</div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-brand-dark dark:text-white font-medium">-</div>
+          )}
+        </div>
+
+        {/* Size - Column 2, Row 1 */}
+        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+          <div className="flex items-center gap-2 mb-2">
+            <Ruler className="h-5 w-5 text-brand-primary" />
+            <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.size')}</h4>
+          </div>
+          <div className="text-brand-dark dark:text-white font-medium">{size || '-'}</div>
+        </div>
+
+        {/* Fit - Column 3, Row 1 */}
+        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+          <div className="flex items-center gap-2 mb-2">
+            <Users className="h-5 w-5 text-brand-primary" />
+            <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.fit')}</h4>
+          </div>
+          <div className="text-brand-dark dark:text-white font-medium capitalize">{ca?.fit || '-'}</div>
+        </div>
+
+        {/* CE Category - Column 2, Row 2 */}
+        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+          <div className="flex items-center gap-2 mb-2">
+            <Award className="h-5 w-5 text-brand-primary" />
+            <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.ceCategory')}</h4>
+          </div>
+          <div className="text-brand-dark dark:text-white font-medium">{product.ce_category || '-'}</div>
+        </div>
+
+        {/* EN Standards - Column 3, Row 2 */}
+        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+          <div className="flex items-center gap-2 mb-2">
+            <Shield className="h-5 w-5 text-brand-primary" />
+            <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.clothingStandards.enStandards')}</h4>
+          </div>
+          <div className="space-y-1">
+            {rightChips.length > 0 ? (
+              rightChips.map((chip, idx) => (
+                <div key={idx} className="text-xs px-2 py-0.5 rounded border border-brand-primary/20 bg-white dark:bg-black/40 text-brand-dark dark:text-white inline-block mb-1 mr-1">{chip}</div>
               ))
             ) : (
-              <div className="text-brand-dark dark:text-white font-medium">-</div>
+              <span className="text-sm text-brand-secondary dark:text-gray-300">-</span>
             )}
-          </div>
-        </div>
-
-        {/* Column 2: Size (top) and CE Category (bottom) */}
-        <div className="space-y-4">
-          {/* Size */}
-          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <Ruler className="h-5 w-5 text-brand-primary" />
-              <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.size')}</h4>
-            </div>
-            <div className="text-brand-dark dark:text-white font-medium">{size || '-'}</div>
-          </div>
-
-          {/* CE Category */}
-          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <Award className="h-5 w-5 text-brand-primary" />
-              <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.ceCategory')}</h4>
-            </div>
-            <div className="text-brand-dark dark:text-white font-medium">{product.ce_category || '-'}</div>
-          </div>
-        </div>
-
-        {/* Column 3: Fit (top) and EN Standards (bottom) */}
-        <div className="space-y-4">
-          {/* Fit */}
-          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <Users className="h-5 w-5 text-brand-primary" />
-              <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.fit')}</h4>
-            </div>
-            <div className="text-brand-dark dark:text-white font-medium capitalize">{ca?.fit || '-'}</div>
-          </div>
-
-          {/* EN Standards */}
-          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <Shield className="h-5 w-5 text-brand-primary" />
-              <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.clothingStandards.enStandards')}</h4>
-            </div>
-            <div className="space-y-1">
-              {rightChips.length > 0 ? (
-                rightChips.map((chip, idx) => (
-                  <div key={idx} className="text-brand-dark dark:text-white font-medium">{chip}</div>
-                ))
-              ) : (
-                <div className="text-brand-dark dark:text-white font-medium">-</div>
-              )}
-            </div>
           </div>
         </div>
       </div>

@@ -271,12 +271,12 @@ export const MobileFilterSheet = ({
           {!hideDefaultFilters && (
             <FilterSection title={t('navbar.safetyGloves')} defaultExpanded={false} variant="mobile">
               {/* Hazard Protection Filter */}
-              <div className="pb-4">
+              <div className="pb-2">
                 <button 
                   className="flex w-full items-center justify-between mb-2"
                   onClick={() => toggleSection('hazardProtection')}
                 >
-                  <h3 className="text-sm font-medium text-brand-dark dark:text-white">
+                  <h3 className="text-base font-medium text-brand-dark dark:text-white">
                     {t('products.filters.hazardProtection')}
                     {selectedHazardProtections.length > 0 && (
                       <Badge className="ml-2 bg-brand-primary text-white">{selectedHazardProtections.length}</Badge>
@@ -312,12 +312,12 @@ export const MobileFilterSheet = ({
               </div>
 
               {/* Temperature Rating Filter */}
-              <div className="pb-4">
+              <div className="pb-2">
                 <button 
                   className="flex w-full items-center justify-between mb-2"
                   onClick={() => toggleSection('temperature')}
                 >
-                  <h3 className="text-sm font-medium text-brand-dark dark:text-white">
+                  <h3 className="text-base font-medium text-brand-dark dark:text-white">
                     {t('products.filters.temperature')}
                     {selectedTempRatings.length > 0 && (
                       <Badge className="ml-2 bg-brand-primary text-white">{selectedTempRatings.length}</Badge>

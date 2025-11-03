@@ -14,16 +14,17 @@ type CategoryInfo = {
   href: string;
 };
 
+// Using the same image paths as the public-facing MainCategoriesRow for consistency
 const categoryImageMap: Record<string, string> = {
   gloves: "/glovecats/49K-C_A.webp",
-  industrialSwabs: "/images/HLC_SWABS_main.jpg",
-  respiratory: "/images/products/categories/respirator.jpeg",
-  armProtection: "/images/products/categories/armppe.webp",
-  hearing: "/images/products/categories/single use ear plugs.webp",
-  footwear: "/images/products/categories/safetyboot.png",
-  eyeFace: "/images/products/categories/metalfreeglasses.jpg",
-  head: "/images/products/categories/Safety helmet suitable for low temperatures and splash protection.webp",
-  clothing: "/images/products/categories/High-Vis, Jacket High-Vis.webp",
+  industrialSwabs: "/categoryimages/CAT_swabs_Hero.webp",
+  respiratory: "/categoryimages/CAT_respiratory_Hero.webp",
+  armProtection: "/categoryimages/CAT_sleeves_Hero.webp",
+  hearing: "/categoryimages/CAT_hearing_Hero.webp",
+  footwear: "/categoryimages/CAT_footwear_Hero.webp",
+  eyeFace: "/categoryimages/CAT_eyes_Hero.webp",
+  head: "/categoryimages/CAT_head_Hero.webp",
+  clothing: "/categoryimages/CAT_clothing-SUBCAT_HighVis_Hero.webp",
 };
 
 export default function CategoryOverview() {

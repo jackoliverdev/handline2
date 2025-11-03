@@ -39,12 +39,8 @@ export function FootwearProductsSection({ products }: FootwearProductsSectionPro
     });
   }, [products]);
 
-  // Initial category for the grid (respect current locale label where possible)
-  const initialCategory = React.useMemo(() => {
-    if (!footwearProducts.length) return undefined;
-    const p = footwearProducts[0];
-    return language === 'it' ? (p.category_locales?.it || p.category) : p.category;
-  }, [footwearProducts, language]);
+  // Don't set initial category for footwear - show all footwear products
+  const initialCategory = "all";
 
   // Facet state
   const [selectedClasses, setSelectedClasses] = React.useState<string[]>([]);

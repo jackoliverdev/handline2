@@ -57,6 +57,7 @@ export default function CategoryProductGrid({ slug }: Props) {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  const [duplicateSearchQuery, setDuplicateSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState<string>("featured");
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -104,7 +105,8 @@ export default function CategoryProductGrid({ slug }: Props) {
     async function loadProducts() {
       try {
         setLoading(true);
-        const { products } = await getAllProducts();
+        // Include unpublished products in the admin view
+        const { products } = await getAllProducts(true);
         setProducts(products || []);
       } catch (e) {
         console.error("Failed to load products", e);
@@ -328,40 +330,54 @@ export default function CategoryProductGrid({ slug }: Props) {
                 Duplicate Product
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-[280px] max-h-[400px] overflow-y-auto">
-              {scoped.length === 0 ? (
-                <div className="px-2 py-6 text-center text-sm text-muted-foreground">
-                  No products available to duplicate
-                </div>
-              ) : (
-                scoped.slice(0, 10).map((product) => (
-                  <DropdownMenuItem key={product.id} asChild>
-                    <Link 
-                      href={`/admin/prod-management/${slug}/create?duplicate=${product.id}`}
-                      className="flex items-start gap-2 cursor-pointer"
-                    >
-                      <div className="flex-shrink-0 w-10 h-10 rounded bg-gray-100 dark:bg-gray-800 overflow-hidden">
-                        {product.image_url ? (
-                          <img src={product.image_url} alt={product.name} className="w-full h-full object-contain" />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center">
-                            <ShoppingBag className="h-4 w-4 text-muted-foreground/40" />
-                          </div>
-                        )}
+            <DropdownMenuContent align="end" className="w-[320px]">
+              <div className="px-2 py-2 border-b">
+                <Input
+                  type="text"
+                  placeholder="Search products..."
+                  value={duplicateSearchQuery}
+                  onChange={(e) => setDuplicateSearchQuery(e.target.value)}
+                  className="h-8 text-sm"
+                />
+              </div>
+              <div className="max-h-[400px] overflow-y-auto">
+                {(() => {
+                  const filteredProducts = scoped.filter((product) =>
+                    product.name.toLowerCase().includes(duplicateSearchQuery.toLowerCase())
+                  );
+                  
+                  if (filteredProducts.length === 0) {
+                    return (
+                      <div className="px-2 py-6 text-center text-sm text-muted-foreground">
+                        {duplicateSearchQuery ? "No products match your search" : "No products available to duplicate"}
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium truncate">{product.name}</p>
-                        <p className="text-xs text-muted-foreground truncate">{product.sub_category || product.category}</p>
-                      </div>
-                    </Link>
-                  </DropdownMenuItem>
-                ))
-              )}
-              {scoped.length > 10 && (
-                <div className="px-2 py-2 text-xs text-center text-muted-foreground border-t">
-                  Scroll to see {scoped.length - 10} more products
-                </div>
-              )}
+                    );
+                  }
+                  
+                  return filteredProducts.map((product) => (
+                    <DropdownMenuItem key={product.id} asChild>
+                      <Link 
+                        href={`/admin/prod-management/${slug}/create?duplicate=${product.id}`}
+                        className="flex items-start gap-2 cursor-pointer"
+                      >
+                        <div className="flex-shrink-0 w-10 h-10 rounded bg-gray-100 dark:bg-gray-800 overflow-hidden">
+                          {product.image_url ? (
+                            <img src={product.image_url} alt={product.name} className="w-full h-full object-contain" />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center">
+                              <ShoppingBag className="h-4 w-4 text-muted-foreground/40" />
+                            </div>
+                          )}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium truncate">{product.name}</p>
+                          <p className="text-xs text-muted-foreground truncate">{product.sub_category || product.category}</p>
+                        </div>
+                      </Link>
+                    </DropdownMenuItem>
+                  ));
+                })()}
+              </div>
             </DropdownMenuContent>
           </DropdownMenu>
           <Button asChild>
@@ -607,9 +623,8 @@ export default function CategoryProductGrid({ slug }: Props) {
                       </div>
                     </div>
                     <div className="p-2 sm:p-3 border-t">
-                      <div className="flex flex-col sm:flex-row justify-between items-start gap-1 mb-2">
+                      <div className="mb-2">
                         <h3 className="text-xs sm:text-sm font-medium line-clamp-1">{product.name}</h3>
-                        <Badge variant="outline" className="capitalize text-[10px] sm:text-xs px-1.5 h-5 shrink-0 mt-1 sm:mt-0">{product.category || 'Uncategorised'}</Badge>
                       </div>
                       <p className="text-[10px] sm:text-xs text-muted-foreground line-clamp-1 mb-2">{product.short_description || product.description?.substring(0, 60) || "No description"}</p>
                       <div className="flex flex-wrap gap-1 text-[10px] sm:text-xs mb-2">

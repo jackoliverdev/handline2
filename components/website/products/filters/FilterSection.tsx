@@ -24,13 +24,13 @@ export function FilterSection({
   const [expanded, setExpanded] = React.useState<boolean>(defaultExpanded);
 
   return (
-    <div className={`${variant === "desktop" ? "mb-2" : ""} ${className}`}>
+    <div className={`${variant === "desktop" ? "pb-2" : ""} ${className}`}>
       <button
         type="button"
-        className={`flex w-full items-center justify-between ${variant === "mobile" ? "py-2 px-2" : "mb-2 px-1.5 py-1.5"} rounded-md bg-brand-primary/5 dark:bg-brand-primary/10 hover:bg-brand-primary/10 dark:hover:bg-brand-primary/15 transition-colors`}
+        className={`flex w-full items-center justify-between ${variant === "mobile" ? "py-2 text-left text-base" : "mb-2"}`}
         onClick={() => setExpanded((e) => !e)}
       >
-        <h3 className={`${variant === "mobile" ? "text-sm" : "text-xs"} font-semibold text-brand-primary dark:text-brand-primary flex items-center`}>
+        <h3 className={`${variant === "mobile" ? "text-base" : "text-sm"} font-medium text-brand-primary dark:text-brand-primary flex items-center`}>
           {title}
           {typeof countBadge === "number" && countBadge > 0 && (
             <Badge className="ml-2 bg-brand-primary text-white">{countBadge}</Badge>

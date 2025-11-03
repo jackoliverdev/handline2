@@ -19,6 +19,7 @@ interface WorkEnvironmentSuitabilityEditorProps {
   environmentPictograms: EnvironmentPictograms;
   onEnvironmentChange: (environmentPictograms: EnvironmentPictograms) => void;
   className?: string;
+  showExtendedItems?: boolean; // Show all 9 items (for clothing) or just 6 standard items
 }
 
 interface EnvironmentItem {
@@ -31,11 +32,12 @@ interface EnvironmentItem {
 export function WorkEnvironmentSuitabilityEditor({ 
   environmentPictograms, 
   onEnvironmentChange,
-  className = "" 
+  className = "",
+  showExtendedItems = false
 }: WorkEnvironmentSuitabilityEditorProps) {
   const { t } = useLanguage();
 
-  const environmentItems: EnvironmentItem[] = [
+  const allEnvironmentItems: EnvironmentItem[] = [
     {
       key: 'dry',
       icon: Sun,
@@ -72,7 +74,32 @@ export function WorkEnvironmentSuitabilityEditor({
       label: t('productPage.oilyGreasy'),
       description: t('productPage.suitableFor') + ' ' + t('productPage.oilyGreasy').toLowerCase(),
     },
+    {
+      key: 'electrical',
+      icon: Zap,
+      label: 'Electrical risks',
+      description: 'Suitable for electrical risks',
+    },
+    {
+      key: 'radiation',
+      icon: Sun,
+      label: 'Radiation',
+      description: 'Suitable for radiation',
+    },
+    {
+      key: 'low_visibility',
+      icon: Sun,
+      label: 'Low visibility',
+      description: 'Suitable for low visibility',
+    },
   ];
+
+  // Filter items based on whether extended items should be shown
+  const environmentItems = showExtendedItems 
+    ? allEnvironmentItems 
+    : allEnvironmentItems.filter(item => 
+        ['dry', 'wet', 'dust', 'chemical', 'biological', 'oily_grease'].includes(item.key)
+      );
 
   const handleToggle = (key: keyof EnvironmentPictograms, enabled: boolean) => {
     onEnvironmentChange({
