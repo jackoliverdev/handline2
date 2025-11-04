@@ -115,15 +115,15 @@ function getDefaultImageForCategory(categoryType: string): string {
     footwear: "/categoryimages/CAT_footwear_Hero.webp",
     eyeFace: "/categoryimages/CAT_eyes_Hero.webp",
     head: "/categoryimages/CAT_head_Hero.webp",
-    clothing: "/categoryimages/CAT_clothing-SUBCAT_HighVis_Hero.webp",
+    clothing: "/categoryimages/CAT_clothing-SUBCAT_HighVis_Hero (1).webp",
     heat: "/glovecats/152-14 3L20_A.webp",
     cut: "/glovecats/HL8801 DSR_A.webp",
     general: "/glovecats/HL 6WWG_A.webp",
     mechanical: "/glovecats/HL1001B_A.webp",
     welding: "/glovecats/49K-C_A.webp",
-    'clothing-highVisibility': "/images/clothingcats/High-visibility clothing.jpeg",
-    'clothing-safetyWorkwear': "/images/clothingcats/Safety clothing and Workwear.jpeg",
-    'clothing-welding': "/images/clothingcats/Welding clothing.jpeg"
+    'clothing-highVisibility': "/categoryimages/CAT_clothing-SUBCAT_HighVis_Hero (1).webp",
+    'clothing-safetyWorkwear': "/categoryimages/SUBCAT_workwear-safety_Hero (1).webp",
+    'clothing-welding': "/categoryimages/SUBCAT_welding_Hero (1).webp"
   };
   
   return imageMap[categoryType as keyof typeof imageMap] || "";

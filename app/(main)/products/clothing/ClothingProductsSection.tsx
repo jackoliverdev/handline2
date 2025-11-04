@@ -19,8 +19,8 @@ import { ENStandardFilter } from "@/components/website/products/filters/ENStanda
 import { ENStandardFilterMobile } from "@/components/website/products/filters/ENStandardFilterMobile";
 import { WorkEnvironmentFilter } from "@/components/website/products/filters/WorkEnvironmentFilter";
 import { WorkEnvironmentFilterMobile } from "@/components/website/products/filters/WorkEnvironmentFilterMobile";
-import { SizeFilter } from "@/components/website/products/filters/clothing/SizeFilter";
-import { SizeFilterMobile } from "@/components/website/products/filters/clothing/SizeFilterMobile";
+import { ClothingSizeRangeFilter } from "@/components/website/products/filters/clothing/ClothingSizeRangeFilter";
+import { ClothingSizeRangeFilterMobile } from "@/components/website/products/filters/clothing/ClothingSizeRangeFilterMobile";
 import { GARMENT_TYPES } from "@/content/clothing-categories";
 import { getUniqueENStandards, matchesENStandards } from "@/lib/product-utils";
 import { workEnvironmentFilters } from "@/content/workenvironmentfilters";
@@ -73,7 +73,7 @@ export function ClothingProductsSection({ products, pinnedClothingType }: Clothi
   const [clothingTypes, setClothingTypes] = useState<string[]>([]);
   const [selectedENStandards, setSelectedENStandards] = useState<string[]>([]);
   const [selectedWorkEnvironments, setSelectedWorkEnvironments] = useState<string[]>([]);
-  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
+  const [sizeRange, setSizeRange] = useState<{ min?: number; max?: number }>({});
   const [hiVisClasses, setHiVisClasses] = useState<number[]>([]); // 1/2/3
   const [hasFlameStd, setHasFlameStd] = useState<boolean>(false); // EN ISO 11612
   const [arcClasses, setArcClasses] = useState<number[]>([]); // IEC 61482-2 class
@@ -111,15 +111,16 @@ export function ClothingProductsSection({ products, pinnedClothingType }: Clothi
 
   const enStandards = useMemo(() => getUniqueENStandards(clothingProducts), [clothingProducts]);
 
-  const sizeOptions = useMemo(() => {
-    const s = new Set<string>();
-    clothingProducts.forEach(p => {
-      const sizeRange = (p as any).clothing_attributes?.size_range;
-      if (sizeRange && typeof sizeRange === 'string' && sizeRange.trim()) {
-        s.add(sizeRange.trim());
-      }
+  const sizeBounds = useMemo(() => {
+    let min = Infinity, max = -Infinity;
+    clothingProducts.forEach((p: any) => {
+      const sizeMin = p.clothing_attributes?.size_min;
+      const sizeMax = p.clothing_attributes?.size_max;
+      if (typeof sizeMin === 'number') min = Math.min(min, sizeMin);
+      if (typeof sizeMax === 'number') max = Math.max(max, sizeMax);
     });
-    return Array.from(s).sort();
+    if (!isFinite(min) || !isFinite(max)) return null;
+    return { min, max };
   }, [clothingProducts]);
 
   const [enStandardExpanded, setEnStandardExpanded] = useState(false);
@@ -153,13 +154,12 @@ export function ClothingProductsSection({ products, pinnedClothingType }: Clothi
         isExpanded={workEnvExpanded} 
         toggleSection={() => setWorkEnvExpanded(!workEnvExpanded)} 
       />
-      <SizeFilter 
-        options={sizeOptions} 
-        selected={selectedSizes} 
-        onToggle={(v) => setSelectedSizes(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} 
-        isExpanded={sizeExpanded} 
-        toggleSection={() => setSizeExpanded(!sizeExpanded)} 
-        defaultOpen={false} 
+      <ClothingSizeRangeFilter 
+        bounds={sizeBounds} 
+        value={sizeRange} 
+        onChange={setSizeRange}
+        isExpanded={sizeExpanded}
+        toggleSection={() => setSizeExpanded(!sizeExpanded)}
       />
     </>
   );
@@ -190,10 +190,10 @@ export function ClothingProductsSection({ products, pinnedClothingType }: Clothi
         selectedWorkEnvironments={selectedWorkEnvironments} 
         toggleWorkEnvironment={(v: string) => setSelectedWorkEnvironments(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} 
       />
-      <SizeFilterMobile 
-        options={sizeOptions} 
-        selected={selectedSizes} 
-        onToggle={(v: string) => setSelectedSizes(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} 
+      <ClothingSizeRangeFilterMobile 
+        bounds={sizeBounds} 
+        value={sizeRange} 
+        onChange={setSizeRange}
       />
     </>
   );
@@ -215,10 +215,12 @@ export function ClothingProductsSection({ products, pinnedClothingType }: Clothi
       const envs = (p as any).work_environment_suitability || [];
       return selectedWorkEnvironments.some((env: string) => envs.includes(env));
     })();
-    const sizeOk = selectedSizes.length === 0 ? true : (() => {
-      const sizeRange = (p as any).clothing_attributes?.size_range;
-      return selectedSizes.includes(sizeRange);
-    })();
+    const sizeOk = (!sizeRange.min && !sizeRange.max) ? true : (
+      (typeof (p as any).clothing_attributes?.size_min === 'number' && 
+       typeof (p as any).clothing_attributes?.size_max === 'number') &&
+      (sizeRange.min ? (p as any).clothing_attributes.size_max >= sizeRange.min : true) &&
+      (sizeRange.max ? (p as any).clothing_attributes.size_min <= sizeRange.max : true)
+    );
     const visOk = hiVisClasses.length === 0 ? true : (typeof vis === 'number' && hiVisClasses.includes(vis));
     const flOk = hasFlameStd ? !!fl : true;
     const arcOk = arcClasses.length === 0 ? true : (typeof arc === 'number' && arcClasses.includes(arc));

@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Shield } from "lucide-react";
-import { getAllIndustries, Industry } from "@/lib/industries-service";
+import { ArrowRight, Shield, Factory, ChevronRight } from "lucide-react";
+import { getFeaturedIndustries, Industry } from "@/lib/industries-service";
 import { useLanguage } from "@/lib/context/language-context";
 import { motion } from "framer-motion";
 
@@ -46,6 +47,19 @@ const cardVariants = {
   })
 };
 
+const buttonVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: 0.6,
+      duration: 0.5,
+      ease: "easeOut"
+    }
+  }
+};
+
 export const IndustrySolutions = () => {
   const [industries, setIndustries] = useState<Industry[]>([]);
   const [loading, setLoading] = useState(true);
@@ -54,9 +68,9 @@ export const IndustrySolutions = () => {
   useEffect(() => {
     const loadIndustries = async () => {
       try {
-        const { data } = await getAllIndustries(language);
-        // Take only the first 4 industries for display
-        setIndustries(data.slice(0, 4));
+        const { data } = await getFeaturedIndustries(language);
+        // Get featured industries (max 4, ordered by position)
+        setIndustries(data);
       } catch (error) {
         console.error("Error loading industries:", error);
       } finally {
@@ -196,6 +210,24 @@ export const IndustrySolutions = () => {
             ))}
           </div>
         )}
+        
+        <motion.div 
+          variants={buttonVariants}
+          className="flex justify-center mt-7 sm:mt-9"
+        >
+          <Button asChild variant="default" className="group bg-brand-primary text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:bg-brand-primary/90 hover:scale-105 transform">
+            <Link href="/industries" className="flex items-center gap-1.5">
+              <Factory className="h-4 w-4 sm:h-5 sm:w-5" />
+              <span>{t('industrySolutions.viewAll')}</span>
+              <motion.div
+                whileHover={{ x: 3 }}
+                transition={{ duration: 0.2 }}
+              >
+                <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
+              </motion.div>
+            </Link>
+          </Button>
+        </motion.div>
       </div>
     </motion.section>
   );

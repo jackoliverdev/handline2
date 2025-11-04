@@ -23,7 +23,7 @@ export function ENResourceSectionsList({ categorySlug, sections }: Props) {
             transition={{ duration: 0.3, delay: idx * 0.05 }}
             className="group rounded-2xl overflow-hidden bg-white dark:bg-black/40 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow"
           >
-            <Link href={`/resources/en-resource-centre/${categorySlug}/${s.slug}`} className="block">
+            <Link href={`/resources/ppe-standards/${categorySlug}/${s.slug}`} className="block">
               <div className="relative aspect-[16/9] w-full overflow-hidden">
                 {s.imageUrl && (
                   <Image src={s.imageUrl} alt={s.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />

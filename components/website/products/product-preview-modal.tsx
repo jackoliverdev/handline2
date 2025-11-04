@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Flame, Scissors, ArrowRight, X, Snowflake, Move, Shield } from "lucide-react";
+import { Flame, Scissors, ArrowRight, X, Snowflake, Move, Shield, Hammer } from "lucide-react";
 import { Product } from "@/lib/products-service";
 import { useLanguage } from "@/lib/context/language-context";
 
@@ -209,9 +209,6 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
     if (hs?.en50365) chips.push('EN 50365');
     if (hs?.en12492) chips.push('EN 12492');
     if (hs?.en812) chips.push('EN 812');
-    if (hs?.en397?.optional?.low_temperature) chips.push(String(hs.en397.optional.low_temperature));
-    if (hs?.en397?.optional?.molten_metal) chips.push('MM');
-    if (hs?.en397?.optional?.lateral_deformation) chips.push('LD');
     if (!chips.length) return null;
     return (
       <div className="flex flex-wrap gap-1.5">
@@ -479,13 +476,7 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
                       {/* EN 388 - Mechanical Risks */}
                       {((product.safety as any).en_388?.enabled || (product.safety as any).en388?.enabled) && (
                         <div className="flex items-center gap-3">
-                          <Image
-                            src="/images/standards/EN388.png"
-                            alt="EN388"
-                            width={20}
-                            height={20}
-                            className="object-contain"
-                          />
+                          <Hammer className="h-5 w-5 text-brand-primary" />
                           <div className="flex items-center gap-2">
                             <span className="text-xs font-medium text-brand-dark dark:text-white">EN 388</span>
                             <div className="flex gap-1">
@@ -516,13 +507,7 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
                       {/* EN 407 - Thermal Risks */}
                       {((product.safety as any).en_407?.enabled || (product.safety as any).en407?.enabled) && (
                         <div className="flex items-center gap-3">
-                          <Image
-                            src="/images/standards/EN407.png"
-                            alt="EN407"
-                            width={20}
-                            height={20}
-                            className="object-contain"
-                          />
+                          <Flame className="h-5 w-5 text-orange-500" />
                           <div className="flex items-center gap-2">
                             <span className="text-xs font-medium text-brand-dark dark:text-white">EN 407</span>
                             <div className="flex gap-1">

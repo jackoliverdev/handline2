@@ -29,7 +29,7 @@ export const ResourcesCategoryList = () => {
       description: t('standards.hero.description'),
       imageSrc: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/industries//Glass_Manufacturing.png",
       imageAlt: t('standards.grid.badge'),
-      href: "/resources/en-resource-centre"
+      href: "/resources/ppe-standards"
     },
     {
       title: "Compliance Declarations",

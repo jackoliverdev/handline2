@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Flame, Scissors, ArrowRight, Eye, ListChecks, Shield } from "lucide-react";
+import { Flame, Scissors, ArrowRight, Eye, ListChecks, Shield, Hammer, Snowflake } from "lucide-react";
 import { Product } from "@/lib/products-service";
 import { ProductPreviewModal } from "./product-preview-modal";
 import { useLanguage } from "@/lib/context/language-context";
@@ -484,16 +484,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
                 {/* EN388 Standard */}
                 {product.cut_resistance_level && (
                   <div className="flex items-center gap-1.5">
-                    <div className="flex h-3 w-3 items-center justify-center">
-                      <div className="relative w-3 h-3">
-                        <Image
-                          src="/images/standards/EN388.png"
-                          alt="EN388"
-                          fill
-                          className="object-contain dark:invert"
-                        />
-                      </div>
-                    </div>
+                    <Hammer className="h-3 w-3 text-brand-primary flex-shrink-0" />
                     <span className="text-[10px] font-medium text-gray-700 dark:text-gray-300 min-w-[32px]">
                       EN388
                     </span>
@@ -513,16 +504,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
                 {/* EN407 Standard */}
                 {product.heat_resistance_level && (
                   <div className="flex items-center gap-1.5">
-                    <div className="flex h-3 w-3 items-center justify-center">
-                      <div className="relative w-3 h-3">
-                        <Image
-                          src="/images/standards/EN407.png"
-                          alt="EN407"
-                          fill
-                          className="object-contain dark:invert"
-                        />
-                      </div>
-                    </div>
+                    <Flame className="h-3 w-3 text-orange-500 flex-shrink-0" />
                     <span className="text-[10px] font-medium text-gray-700 dark:text-gray-300 min-w-[32px]">
                       EN407
                     </span>

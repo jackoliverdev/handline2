@@ -37,9 +37,9 @@ export function ENResourceSectionPage({ section }: Props) {
       <section className="relative pt-20 md:pt-28 pb-6 md:pb-8">
         <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="mb-4 text-sm text-brand-secondary dark:text-gray-300">
-            <Link href="/resources/en-resource-centre" className="hover:text-brand-primary">PPE Standards Hub</Link>
+            <Link href="/resources/ppe-standards" className="hover:text-brand-primary">PPE Standards Hub</Link>
             <ChevronRight className="inline h-4 w-4 mx-1" />
-            <Link href={`/resources/en-resource-centre/${section.category.slug}`} className="hover:text-brand-primary">{section.category.title}</Link>
+            <Link href={`/resources/ppe-standards/${section.category.slug}`} className="hover:text-brand-primary">{section.category.title}</Link>
             <ChevronRight className="inline h-4 w-4 mx-1" />
             <span className="text-brand-dark dark:text-white font-medium">{section.code ? `${section.code} — ${section.title}` : section.title}</span>
           </nav>
