@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { AvailabilityStatus } from "@/lib/products-service";
 import { useLanguage } from "@/lib/context/language-context";
+import { useBrands } from "@/lib/context/brands-context";
 
 interface ProductInfoDisplayProps {
   brands: string[];
@@ -27,18 +28,17 @@ interface ProductInfoDisplayProps {
   className?: string;
 }
 
-// Brand logo mapping
-const getBrandLogo = (brandName: string) => {
-  switch (brandName) {
-    case 'Hand Line':
-      return '/brands/HL_word_logo.PNG';
-    case 'ProGloves Heat':
-      return '/brands/proheat.png';
-    case 'ProGloves Cut':
-      return '/brands/procut.png';
-    default:
-      return null;
+// Brand logo mapping - fully dynamic system
+const getBrandLogo = (brandName: string, brands: any[], isDarkMode = false) => {
+  const brand = brands.find(b => b.name.toLowerCase() === brandName.toLowerCase());
+  if (!brand) return null;
+  
+  // Use dark mode logo if available and in dark mode, otherwise use light mode logo
+  if (isDarkMode && brand.dark_mode_logo_url) {
+    return brand.dark_mode_logo_url;
   }
+  
+  return brand.logo_url || null;
 };
 
 // Availability status configuration
@@ -96,6 +96,7 @@ export const ProductInfoDisplay: React.FC<ProductInfoDisplayProps> = ({
   className = ""
 }) => {
   const { t, language } = useLanguage();
+  const { brands: availableBrands } = useBrands();
   
   // Get localised tags
   const tags = tags_locales?.[language] || tags_locales?.en || [];
@@ -143,9 +144,10 @@ export const ProductInfoDisplay: React.FC<ProductInfoDisplayProps> = ({
           {brands.length > 0 ? (
             <div className="flex items-center gap-1.5 flex-wrap w-full">
               {brands.map((brand, index) => {
-                const logoPath = getBrandLogo(brand);
+                const lightLogoPath = getBrandLogo(brand, availableBrands, false);
+                const darkLogoPath = getBrandLogo(brand, availableBrands, true);
                 
-                if (logoPath) {
+                if (lightLogoPath) {
                   return (
                     <div 
                       key={index}
@@ -153,39 +155,20 @@ export const ProductInfoDisplay: React.FC<ProductInfoDisplayProps> = ({
                     >
                       {/* Light mode image */}
                       <Image
-                        src={logoPath}
+                        src={lightLogoPath}
                         alt={brand}
                         width={60}
                         height={20}
                         className="object-contain block dark:hidden"
                       />
-                      {/* Dark mode image with partial invert */}
-                      <div className="hidden dark:block relative">
-                        <Image
-                          src={logoPath}
-                          alt={brand}
-                          width={60}
-                          height={20}
-                          className="object-contain"
-                        />
-                        {/* Invert overlay for left 55% */}
-                        <div 
-                          className="absolute inset-0 invert"
-                          style={{
-                            clipPath: 'inset(0 45% 0 0)',
-                            width: '60px',
-                            height: '20px'
-                          }}
-                        >
-                          <Image
-                            src={logoPath}
-                            alt={brand}
-                            width={60}
-                            height={20}
-                            className="object-contain"
-                          />
-                        </div>
-                      </div>
+                      {/* Dark mode image */}
+                      <Image
+                        src={darkLogoPath || lightLogoPath}
+                        alt={brand}
+                        width={60}
+                        height={20}
+                        className="object-contain hidden dark:block"
+                      />
                     </div>
                   );
                 } else {

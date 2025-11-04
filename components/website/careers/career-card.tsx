@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Calendar, Clock, ArrowRight, MapPin, Briefcase, Building, Euro } from 'lucide-react';
+import { Calendar, Clock, ArrowRight, MapPin, Briefcase, Building, Euro, Car } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -14,9 +14,10 @@ interface CareerCardProps {
   post: CareerPost;
   index: number;
   language: string;
+  disableAnimation?: boolean;
 }
 
-export function CareerCard({ post, index, language }: CareerCardProps) {
+export function CareerCard({ post, index, language, disableAnimation = false }: CareerCardProps) {
   const { t } = useLanguage();
   
   // Format the date
@@ -44,19 +45,20 @@ export function CareerCard({ post, index, language }: CareerCardProps) {
 
   // Localised fields
   const title = (post.title_locales && post.title_locales[language]) || post.title;
-  const description = (post.description_locales && post.description_locales[language]) || post.description;
+  const summary = (post.summary_locales && post.summary_locales[language]) || post.summary;
   const location = (post.location_locales && post.location_locales[language]) || post.location;
   const department = (post.department_locales && post.department_locales[language]) || post.department;
   const jobType = (post.job_type_locales && post.job_type_locales[language]) || post.job_type;
+  const workSite = (post.work_site_locales && post.work_site_locales[language]) || post.work_site;
   const salaryRange = (post.salary_range_locales && post.salary_range_locales[language]) || post.salary_range;
 
   const item = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 12 },
     show: { 
       opacity: 1, 
       y: 0,
       transition: {
-        duration: 0.5,
+        duration: 0.35,
         ease: "easeOut"
       }
     }
@@ -64,7 +66,11 @@ export function CareerCard({ post, index, language }: CareerCardProps) {
 
   return (
     <motion.div
-      variants={item}
+      variants={disableAnimation ? undefined : item}
+      {...(disableAnimation
+        ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.25 } }
+        : { initial: 'hidden', animate: 'show' }
+      )}
       className="group relative overflow-hidden rounded-xl border bg-white dark:bg-black/50 shadow-lg hover:shadow-2xl transition-all duration-500 border-gray-100 dark:border-gray-700/50 backdrop-blur-sm"
     >
       {/* New Badge */}
@@ -83,9 +89,10 @@ export function CareerCard({ post, index, language }: CareerCardProps) {
       
       {/* Header Section */}
       <motion.div 
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1, duration: 0.4 }}
+        {...(disableAnimation
+          ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.25 } }
+          : { initial: { opacity: 0, y: 10 }, animate: { opacity: 1, y: 0 }, transition: { delay: 0.1, duration: 0.4 } }
+        )}
         className="p-6 pb-4"
       >
         {/* Department Badge */}
@@ -104,30 +111,28 @@ export function CareerCard({ post, index, language }: CareerCardProps) {
         
         {/* Job Summary */}
         <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-3 leading-relaxed mb-4">
-          {description}
+          {summary}
         </p>
       </motion.div>
       
       {/* Job Details */}
       <div className="px-6 pb-4">
-        <div className="grid grid-cols-1 gap-3">
-          {/* Location & Job Type */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-              <MapPin className="mr-2 h-4 w-4 text-brand-primary flex-shrink-0" />
-              <span className="truncate">{location}</span>
-            </div>
-            <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-              <Clock className="mr-2 h-4 w-4 text-brand-primary flex-shrink-0" />
-              <span>{jobType}</span>
-            </div>
+        <div className="grid grid-cols-1 gap-2">
+          {/* Job Type */}
+          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+            <Clock className="mr-2 h-4 w-4 text-brand-primary flex-shrink-0" />
+            <span>{jobType}</span>
           </div>
-          
-          {/* Salary Range */}
-          {salaryRange && (
+          {/* Location */}
+          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+            <MapPin className="mr-2 h-4 w-4 text-brand-primary flex-shrink-0" />
+            <span className="truncate">{location}</span>
+          </div>
+          {/* Work site (on-site / hybrid / remote / travel %) */}
+          {workSite && (
             <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-              <Euro className="mr-2 h-4 w-4 text-brand-primary flex-shrink-0" />
-              <span className="font-medium text-gray-700 dark:text-gray-300">{salaryRange}</span>
+              <Car className="mr-2 h-4 w-4 text-brand-primary flex-shrink-0" />
+              <span className="truncate">{workSite}</span>
             </div>
           )}
         </div>
@@ -144,9 +149,10 @@ export function CareerCard({ post, index, language }: CareerCardProps) {
           
           {/* Apply Button */}
           <motion.div
-            initial={{ opacity: 0, x: 10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3, duration: 0.3 }}
+            {...(disableAnimation
+              ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.25 } }
+              : { initial: { opacity: 0, x: 10 }, animate: { opacity: 1, x: 0 }, transition: { delay: 0.3, duration: 0.3 } }
+            )}
           >
             <Button 
               variant="outline" 
@@ -155,7 +161,7 @@ export function CareerCard({ post, index, language }: CareerCardProps) {
               asChild
             >
               <Link href={`/careers/${post.slug}`} className="flex items-center">
-                <span className="text-sm font-medium">View Details</span>
+                <span className="text-sm font-medium">{t('careers.viewDetails')}</span>
                 <motion.div
                   initial={{ x: 0 }}
                   whileHover={{ x: 2 }}

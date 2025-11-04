@@ -12,7 +12,7 @@ interface CategoryInfoProps {
   description?: string;
   imageSrc?: string;
   imageAlt?: string;
-  categoryType?: 'gloves' | 'respiratory' | 'industrialSwabs' | 'heat' | 'cut' | 'general' | 'mechanical' | 'welding';
+  categoryType?: 'gloves' | 'respiratory' | 'industrialSwabs' | 'armProtection' | 'hearing' | 'footwear' | 'eyeFace' | 'head' | 'clothing' | 'heat' | 'cut' | 'general' | 'mechanical' | 'welding' | 'clothing-highVisibility' | 'clothing-safetyWorkwear' | 'clothing-welding';
 }
 
 export const CategoryInfo = ({ 
@@ -25,25 +25,34 @@ export const CategoryInfo = ({
   const { t } = useLanguage();
   
   // Use localized content if categoryType is provided, otherwise use props
+  const isGloveSubCategory = !!categoryType && ['heat', 'cut', 'general', 'mechanical', 'welding'].includes(categoryType as string);
+  const isClothingSubCategory = !!categoryType && (categoryType as string).startsWith('clothing-');
+
+  const clothingSubKey = isClothingSubCategory ? (categoryType as string).split('-')[1] : undefined; // highVisibility | safetyWorkwear | welding
+
   const displayTitle = categoryType 
-    ? ((['heat', 'cut', 'general', 'mechanical', 'welding'].includes(categoryType)) 
+    ? (isGloveSubCategory
         ? t(`products.categories.main.gloves.subcategories.${categoryType}.title`)
-        : t(`products.categories.main.${categoryType}.title`))
+        : isClothingSubCategory && clothingSubKey
+          ? t(`products.categories.main.clothing.subcategories.${clothingSubKey}.title`)
+          : t(`products.categories.main.${categoryType}.title`))
     : title;
     
   const displayDescription = categoryType
-    ? ((['heat', 'cut', 'general', 'mechanical', 'welding'].includes(categoryType))
-        ? t(`products.categories.pages.${categoryType}.detailedDescription`) 
-        : t(`products.categories.main.${categoryType}.detailedDescription`))
+    ? (isGloveSubCategory
+        ? t(`products.categories.pages.${categoryType}.detailedDescription`)
+        : isClothingSubCategory && clothingSubKey
+          ? t(`products.categories.pages.clothing.${clothingSubKey}.detailedDescription`)
+          : t(`products.categories.main.${categoryType}.detailedDescription`))
     : description;
     
   const displayImageSrc = imageSrc || (categoryType ? getDefaultImageForCategory(categoryType) : "");
   const displayImageAlt = imageAlt || displayTitle || "";
   
   return (
-    <section className="py-12 md:py-16">
+    <section className="py-3 md:py-4">
       <div className="container mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-10 gap-8 lg:gap-12 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-10 gap-4 lg:gap-6 items-stretch">
           {/* Text Content - Left Side (70% width) */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -51,19 +60,15 @@ export const CategoryInfo = ({
             transition={SPRING_CONFIG}
             className="flex items-center lg:col-span-7"
           >
-            <div className="bg-white dark:bg-black/50 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700/50 p-8 md:p-10 h-full flex flex-col justify-center backdrop-blur-sm hover:shadow-xl transition-all duration-500">
-              <div className="space-y-4">
-                <div className="inline-flex items-center rounded-full bg-brand-primary/10 px-4 py-2 text-sm border border-brand-primary/20">
-                  <span className="text-brand-primary font-medium">{t('products.categoryOverview')}</span>
-                </div>
-                
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-brand-dark dark:text-white font-heading leading-tight">
+            <div className="bg-white dark:bg-black/50 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700/50 p-4 md:p-5 h-full flex flex-col justify-center backdrop-blur-sm hover:shadow-xl transition-all duration-500">
+              <div className="space-y-2">
+                <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-brand-dark dark:text-white font-heading leading-tight">
                   {displayTitle}
                 </h2>
                 
-                <div className="w-20 h-1 bg-gradient-to-r from-brand-primary to-brand-primary rounded-full"></div>
+                <div className="w-14 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary rounded-full"></div>
                 
-                <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 leading-snug">
                   {displayDescription}
                 </p>
               </div>
@@ -77,7 +82,7 @@ export const CategoryInfo = ({
             transition={{ ...SPRING_CONFIG, delay: 0.1 }}
             className="flex items-center lg:col-span-3"
           >
-            <div className="relative w-full h-full min-h-[400px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 bg-white dark:bg-black/50 border border-gray-100 dark:border-gray-700/50 group">
+            <div className="relative w-full h-[170px] sm:h-[200px] lg:h-[230px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 bg-white dark:bg-black/50 border border-gray-100 dark:border-gray-700/50 group">
               <Image
                 src={displayImageSrc}
                 alt={displayImageAlt}
@@ -99,16 +104,26 @@ export const CategoryInfo = ({
 };
 
 // Helper function to get default images for category types
+// Using the same image paths as MainCategoriesRow for consistency
 function getDefaultImageForCategory(categoryType: string): string {
   const imageMap = {
     gloves: "/glovecats/49K-C_A.webp",
-    respiratory: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/products/Categories/respiratory_protection.png",
-    industrialSwabs: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/products/Categories/Industrial_swabs.png",
+    industrialSwabs: "/categoryimages/CAT_swabs_Hero.webp",
+    respiratory: "/categoryimages/CAT_respiratory_Hero.webp",
+    armProtection: "/categoryimages/CAT_sleeves_Hero.webp",
+    hearing: "/categoryimages/CAT_hearing_Hero.webp",
+    footwear: "/categoryimages/CAT_footwear_Hero.webp",
+    eyeFace: "/categoryimages/CAT_eyes_Hero.webp",
+    head: "/categoryimages/CAT_head_Hero.webp",
+    clothing: "/categoryimages/CAT_clothing-SUBCAT_HighVis_Hero (1).webp",
     heat: "/glovecats/152-14 3L20_A.webp",
     cut: "/glovecats/HL8801 DSR_A.webp",
     general: "/glovecats/HL 6WWG_A.webp",
     mechanical: "/glovecats/HL1001B_A.webp",
-    welding: "/glovecats/49K-C_A.webp"
+    welding: "/glovecats/49K-C_A.webp",
+    'clothing-highVisibility': "/categoryimages/CAT_clothing-SUBCAT_HighVis_Hero (1).webp",
+    'clothing-safetyWorkwear': "/categoryimages/SUBCAT_workwear-safety_Hero (1).webp",
+    'clothing-welding': "/categoryimages/SUBCAT_welding_Hero (1).webp"
   };
   
   return imageMap[categoryType as keyof typeof imageMap] || "";

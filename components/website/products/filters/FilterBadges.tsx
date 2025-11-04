@@ -3,20 +3,19 @@ import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import { useLanguage } from "@/lib/context/language-context";
 import { hazardProtectionFilters } from "@/content/hazardfilters";
-import { workEnvironmentFilters } from "@/content/workenvironmentfilters";
 
 interface FilterBadgesProps {
   selectedCategory: string;
   selectedSubCategories: string[];
   selectedTempRatings: string[];
   selectedHazardProtections: string[];
-  selectedWorkEnvironments: string[];
+  selectedENStandards: string[];
   selectedIndustries: string[];
   setSelectedCategory: (category: string) => void;
   toggleSubCategory: (subCategory: string) => void;
   toggleTempRating: (temp: string) => void;
   toggleHazardProtection: (hazard: string) => void;
-  toggleWorkEnvironment: (environment: string) => void;
+  toggleENStandard: (standard: string) => void;
   toggleIndustry: (industry: string) => void;
   clearFilters: () => void;
 }
@@ -26,13 +25,13 @@ export const FilterBadges = ({
   selectedSubCategories,
   selectedTempRatings,
   selectedHazardProtections,
-  selectedWorkEnvironments,
+  selectedENStandards,
   selectedIndustries,
   setSelectedCategory,
   toggleSubCategory,
   toggleTempRating,
   toggleHazardProtection,
-  toggleWorkEnvironment,
+  toggleENStandard,
   toggleIndustry,
   clearFilters,
 }: FilterBadgesProps) => {
@@ -42,7 +41,7 @@ export const FilterBadges = ({
     selectedSubCategories.length +
     selectedTempRatings.length +
     selectedHazardProtections.length +
-    selectedWorkEnvironments.length +
+    selectedENStandards.length +
     selectedIndustries.length;
   
   if (activeFiltersCount === 0) return null;
@@ -124,20 +123,18 @@ export const FilterBadges = ({
         </Badge>
       ))}
       
-      {selectedWorkEnvironments.map(environment => (
+      {selectedENStandards.map(standard => (
         <Badge 
-          key={environment}
+          key={standard}
           variant="secondary" 
           className="flex items-center gap-1 bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/20"
         >
-          {workEnvironmentFilters.find(f => f.id === environment)?.translationKey 
-            ? t(workEnvironmentFilters.find(f => f.id === environment)!.translationKey)
-            : workEnvironmentFilters.find(f => f.id === environment)?.name || environment}
+          {standard}
           <Button 
             variant="ghost" 
             size="icon" 
             className="h-4 w-4 p-0 hover:bg-transparent"
-            onClick={() => toggleWorkEnvironment(environment)}
+            onClick={() => toggleENStandard(standard)}
           >
             <X className="h-3 w-3" />
           </Button>

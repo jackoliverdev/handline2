@@ -10,11 +10,12 @@ import { useLanguage } from "@/lib/context/language-context";
 interface SafetyStandardsDisplayProps {
   safety: SafetyStandards;
   className?: string;
+  hideTitle?: boolean;
 }
 
 // EN 388 performance levels mapping with A-F letters for higher levels
-const getEN388PerformanceLevel = (value: number | string | null): string => {
-  if (value === null || value === 'X') return 'X';
+const getEN388PerformanceLevel = (value: number | string | null | undefined): string => {
+  if (value === null || value === undefined || value === 'X' || value === '') return 'X';
   if (typeof value === 'number') {
     if (value > 5) {
       // Convert to A-F for values > 5
@@ -23,12 +24,12 @@ const getEN388PerformanceLevel = (value: number | string | null): string => {
     }
     return value.toString();
   }
-  return value.toString();
+  return String(value);
 };
 
 // Professional green color scheme with better shades
-const getGreenPerformanceColour = (value: number | string | null, maxLevel: number = 5): string => {
-  if (value === null || value === 'X' || value === '') {
+const getGreenPerformanceColour = (value: number | string | null | undefined, maxLevel: number = 5): string => {
+  if (value === null || value === undefined || value === 'X' || value === '') {
     return 'bg-white border-2 border-gray-300 text-gray-900'; // White background with black text for X
   }
   
@@ -52,7 +53,7 @@ const getGreenPerformanceColour = (value: number | string | null, maxLevel: numb
     }
   }
   
-  const numValue = typeof value === 'number' ? value : parseInt(value.toString());
+  const numValue = typeof value === 'number' ? value : parseInt(String(value));
   if (isNaN(numValue)) {
     return 'bg-gray-400 dark:bg-gray-600 text-white';
   }
@@ -75,6 +76,9 @@ const getGreenPerformanceColour = (value: number | string | null, maxLevel: numb
 
 const SafetyEN388Display: React.FC<{ data: SafetyEN388 }> = ({ data }) => {
   const { t } = useLanguage();
+  
+  // Handle both iso_13997 and iso_cut naming conventions
+  const isoCut = data.iso_13997 || (data as any).iso_cut || null;
 
   return (
     <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
@@ -125,9 +129,9 @@ const SafetyEN388Display: React.FC<{ data: SafetyEN388 }> = ({ data }) => {
         <div className="text-center">
           <div className="text-xs text-brand-secondary dark:text-gray-400 mb-1">{t('productPage.cut')}</div>
           <div 
-            className={`w-10 h-10 rounded-full flex items-center justify-center mx-auto font-bold text-sm ${getGreenPerformanceColour(data.iso_13997, 5)}`}
+            className={`w-10 h-10 rounded-full flex items-center justify-center mx-auto font-bold text-sm ${getGreenPerformanceColour(isoCut, 5)}`}
           >
-            {getEN388PerformanceLevel(data.iso_13997)}
+            {getEN388PerformanceLevel(isoCut)}
           </div>
         </div>
         
@@ -219,59 +223,72 @@ const SafetyEN511Display: React.FC<{ data: SafetyEN511 }> = ({ data }) => {
   const { t } = useLanguage();
   
   return (
-    <Card className="border-brand-primary/10 dark:border-brand-primary/20">
-      <CardHeader className="pb-3">
-        <CardTitle className="flex items-center gap-2 text-lg">
-          <Snowflake className="h-5 w-5 text-brand-primary" />
-          EN 511 - Cold Protection
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="grid grid-cols-3 gap-3">
-          <div className="text-center">
-            <div className="mb-1 text-xs text-brand-secondary dark:text-gray-400">Contact Cold</div>
-            <div className={`inline-flex items-center justify-center w-8 h-8 rounded-full border font-bold text-lg ${getGreenPerformanceColour(data.contact_cold, 4)}`}>
-              {getEN388PerformanceLevel(data.contact_cold)}
-            </div>
-          </div>
-          
-          <div className="text-center">
-            <div className="mb-1 text-xs text-brand-secondary dark:text-gray-400">Convective Cold</div>
-            <div className={`inline-flex items-center justify-center w-8 h-8 rounded-full border font-bold text-lg ${getGreenPerformanceColour(data.convective_cold, 4)}`}>
-              {getEN388PerformanceLevel(data.convective_cold)}
-            </div>
-          </div>
-          
-          <div className="text-center">
-            <div className="mb-1 text-xs text-brand-secondary dark:text-gray-400">Water Permeability</div>
-            <div className={`inline-flex items-center justify-center w-8 h-8 rounded-full border font-bold text-lg ${getGreenPerformanceColour(data.water_permeability, 1)}`}>
-              {getEN388PerformanceLevel(data.water_permeability)}
-            </div>
+    <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+      <div className="flex items-center gap-3 mb-3">
+        <Snowflake className="h-5 w-5 text-brand-primary" />
+        <h3 className="font-medium text-brand-dark dark:text-white">
+          EN 511 - {t('productPage.coldProtection')}
+        </h3>
+      </div>
+      
+      <div className="grid grid-cols-3 gap-4">
+        <div className="text-center">
+          <div className="text-xs text-brand-secondary dark:text-gray-400 mb-1">{t('productPage.convectiveCold')}</div>
+          <div 
+            className={`w-10 h-10 rounded-full flex items-center justify-center mx-auto font-bold text-sm ${getGreenPerformanceColour(data.convective_cold, 4)}`}
+          >
+            {getEN388PerformanceLevel(data.convective_cold)}
           </div>
         </div>
-      </CardContent>
-    </Card>
+        
+        <div className="text-center">
+          <div className="text-xs text-brand-secondary dark:text-gray-400 mb-1">{t('productPage.contactCold')}</div>
+          <div 
+            className={`w-10 h-10 rounded-full flex items-center justify-center mx-auto font-bold text-sm ${getGreenPerformanceColour(data.contact_cold, 4)}`}
+          >
+            {getEN388PerformanceLevel(data.contact_cold)}
+          </div>
+        </div>
+        
+        <div className="text-center">
+          <div className="text-xs text-brand-secondary dark:text-gray-400 mb-1">{t('productPage.waterPermeability')}</div>
+          <div 
+            className={`w-10 h-10 rounded-full flex items-center justify-center mx-auto font-bold text-sm ${getGreenPerformanceColour(data.water_permeability, 1)}`}
+          >
+            {getEN388PerformanceLevel(data.water_permeability)}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
 export const SafetyStandardsDisplay: React.FC<SafetyStandardsDisplayProps> = ({ 
   safety, 
-  className = "" 
+  className = "",
+  hideTitle = false
 }) => {
   const { t } = useLanguage();
+  
+  // Handle both en_388 and en388 naming conventions in database
+  const en388Data = (safety as any).en_388 || (safety as any).en388;
+  const en407Data = (safety as any).en_407 || (safety as any).en407;
+  const en511Data = (safety as any).en_511 || (safety as any).en511;
 
   return (
     <div className={`space-y-4 ${className}`}>
       {/* Page title */}
-      <h3 className="text-lg font-semibold text-brand-dark dark:text-white mb-6">
-        {t('productPage.safetyStandards')}
-      </h3>
+      {!hideTitle && (
+        <h3 className="text-lg font-semibold text-brand-dark dark:text-white mb-6">
+          {t('productPage.safetyStandards')}
+        </h3>
+      )}
       
       {/* Main EN Standards */}
       <div className="space-y-4">
-        {safety.en_388?.enabled && <SafetyEN388Display data={safety.en_388} />}
-        {safety.en_407?.enabled && <SafetyEN407Display data={safety.en_407} />}
-        {safety.en_511?.enabled && <SafetyEN511Display data={safety.en_511} />}
+        {en388Data?.enabled && <SafetyEN388Display data={en388Data} />}
+        {en407Data?.enabled && <SafetyEN407Display data={en407Data} />}
+        {en511Data?.enabled && <SafetyEN511Display data={en511Data} />}
       </div>
       
       {/* Additional Standards - Increased font size */}

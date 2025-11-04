@@ -2,6 +2,8 @@
 
 import { CareersHero } from './hero';
 import { CareerGrid } from './career-grid';
+import { WhyJoin } from './why-join';
+import { CareersCTA } from './careers-cta';
 import { useLanguage } from '@/lib/context/language-context';
 import type { CareerPost } from '@/lib/career-service';
 import { useEffect, useState } from 'react';
@@ -38,8 +40,9 @@ export default function CareerRoot({ careerPosts }: { careerPosts: CareerPost[] 
           </p>
         </div>
       )}
-      {/* CareerGrid temporarily disabled */}
-      {/* <CareerGrid careerPosts={careerPosts} language={language} /> */}
+      <CareerGrid careerPosts={careerPosts} language={language} />
+      <WhyJoin />
+      <CareersCTA />
     </main>
   );
 } 

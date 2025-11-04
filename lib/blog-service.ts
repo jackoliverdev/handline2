@@ -14,12 +14,24 @@ export interface BlogPost {
   tags: string[];
   published_at?: string;
   is_published?: boolean;
+  is_featured?: boolean;
   created_at?: string;
   updated_at?: string;
   title_locales?: { [lang: string]: string };
   summary_locales?: { [lang: string]: string };
   content_locales?: { [lang: string]: string };
   tags_locales?: { [lang: string]: string[] };
+  category?: string | null;
+  category_locales?: { [lang: string]: string };
+  extra_images_locales?: Array<{
+    url: string;
+    width?: number;
+    height?: number;
+  }>;
+  related_product_id_1?: string | null;
+  related_product_id_2?: string | null;
+  related_product_id_3?: string | null;
+  related_product_id_4?: string | null;
 }
 
 /**
@@ -29,6 +41,7 @@ export async function getAllBlogs(options: {
   published?: boolean;
   featured?: boolean;
   tags?: string[];
+  category?: string;
   limit?: number;
   offset?: number;
 } = {}) {
@@ -42,9 +55,16 @@ export async function getAllBlogs(options: {
     if (options.published !== undefined) {
       query = query.eq('is_published', options.published);
     }
+    if (options.featured !== undefined) {
+      query = query.eq('is_featured', options.featured);
+    }
     
     if (options.tags && options.tags.length > 0) {
       query = query.contains('tags', options.tags);
+    }
+    if (options.category) {
+      // Filter by canonical category column
+      query = query.eq('category', options.category);
     }
     
     // Apply pagination
@@ -113,7 +133,7 @@ export async function getBlogBySlug(slug: string, language: Language = 'en') {
 export async function createBlog(blogData: Omit<BlogPost, 'id' | 'created_at' | 'updated_at'>) {
   try {
     // Generate a unique ID
-    const newBlog = {
+    const newBlog: any = {
       ...blogData,
       id: uuidv4(),
       slug: blogData.slug || createSlug(blogData.title)
@@ -220,6 +240,33 @@ export async function toggleBlogPublished(id: string) {
 }
 
 /**
+ * Toggle the featured status of a blog post
+ */
+export async function toggleBlogFeatured(id: string) {
+  try {
+    // Get current featured status
+    const { data: blog, error: fetchError } = await supabase
+      .from('blog_posts')
+      .select('is_featured')
+      .eq('id', id)
+      .single();
+    if (fetchError) throw fetchError;
+
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .update({ is_featured: !blog.is_featured })
+      .eq('id', id)
+      .select()
+      .single();
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.error('Error toggling blog featured status:', error);
+    throw error;
+  }
+}
+
+/**
  * Get related blog posts by tags
  */
 export async function getRelatedBlogs(excludeId: string, tags: string[], limit: number = 3, language: Language = 'en') {
@@ -283,6 +330,33 @@ export async function uploadBlogCoverImage(blogId: string, file: File): Promise<
 }
 
 /**
+ * Upload an extra blog image to Supabase storage
+ */
+export async function uploadBlogExtraImage(blogId: string, file: File): Promise<{ url: string | null }> {
+  try {
+    if (!blogId) {
+      throw new Error('Blog ID is required for image upload');
+    }
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${blogId}/${Date.now()}-${Math.random().toString(36).slice(2,8)}.${fileExt}`;
+    const { error } = await supabase.storage
+      .from('blog-covers')
+      .upload(fileName, file);
+    if (error) {
+      console.error('Error uploading blog extra image:', error);
+      return { url: null };
+    }
+    const { data: { publicUrl } } = supabase.storage
+      .from('blog-covers')
+      .getPublicUrl(fileName);
+    return { url: publicUrl };
+  } catch (error) {
+    console.error('Error uploading blog extra image:', error);
+    return { url: null };
+  }
+}
+
+/**
  * Create a URL-friendly slug from a title
  */
 function createSlug(title: string): string {
@@ -301,5 +375,6 @@ export function localiseBlog(post: BlogPost, language: Language): BlogPost {
     summary: post.summary_locales?.[language] || post.summary_locales?.en || post.summary,
     content: post.content_locales?.[language] || post.content_locales?.en || post.content,
     tags: post.tags_locales?.[language] || post.tags_locales?.en || post.tags || [],
+    category: post.category_locales?.[language] || post.category_locales?.en || post.category || null,
   };
 } 

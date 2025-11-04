@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Star, ArrowRight, User, Clock, Calendar } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import type { BlogPost } from '@/lib/blog-service';
@@ -70,6 +71,20 @@ export function FeaturedBlog({ blog, language, t }: FeaturedBlogProps) {
             className="space-y-6"
           >
             <div>
+              {/* Category Badge above title (localized) */}
+              <div className="mb-3">
+                <Badge className={`text-xs font-medium border px-2 py-1 rounded-full ${
+                  ((blog as any).category_locales?.[language] || blog.category || '').toLowerCase().includes('innovation')
+                    ? 'bg-[#F28C38]/10 text-[#F28C38] border-[#F28C38]/20'
+                    : ((blog as any).category_locales?.[language] || blog.category || '').toLowerCase().includes('sustain')
+                    ? 'bg-[#3BAA36]/10 text-[#3BAA36] border-[#3BAA36]/20'
+                    : ((blog as any).category_locales?.[language] || blog.category || '').toLowerCase().includes('compliance') || ((blog as any).category_locales?.[language] || blog.category || '').toLowerCase().includes('safety') || ((blog as any).category_locales?.[language] || blog.category || '').toLowerCase().includes('sicurezza') || ((blog as any).category_locales?.[language] || blog.category || '').toLowerCase().includes('conformità')
+                    ? 'bg-[#0F5B78]/10 text-[#0F5B78] border-[#0F5B78]/20'
+                    : 'bg-gray-200/40 text-gray-700 dark:text-gray-200 dark:bg-gray-700/40 border-gray-300/40'
+                }`}>
+                  {(blog as any).category_locales?.[language] || blog.category || t('blog.categoriesBuckets.buckets.other.title')}
+                </Badge>
+              </div>
               <h3 className="text-2xl font-bold text-brand-dark dark:text-white mb-3">
                 {(blog.title_locales && blog.title_locales[language]) || blog.title}
               </h3>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { X, User, Shield, Menu, ChevronRight, ChevronDown, FileText, Users, Factory, Flame, Scissors, Settings, Briefcase, Globe, Newspaper, BookOpen, FileCheck, LayoutDashboard, MessageCircle, Home } from "lucide-react";
+import { X, User, Shield, Menu, ChevronRight, ChevronDown, FileText, Users, Factory, Flame, Scissors, Settings, Briefcase, Globe, Newspaper, BookOpen, FileCheck, MessageCircle, Home, Package } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { useLanguage } from "@/lib/context/language-context";
@@ -121,7 +121,7 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
               >
                 <div className="flex items-center">
                   <div className="w-7 h-7 bg-gradient-to-br from-[#F28C38] to-[#E67A2C] text-white rounded-full flex items-center justify-center mr-2.5">
-                    <LayoutDashboard className="h-4 w-4" />
+                    <Package className="h-4 w-4" />
                   </div>
                   <span className="text-sm">{t('navbar.products')}</span>
                 </div>
@@ -141,7 +141,6 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                       className="flex items-center"
                       onClick={onClose}
                     >
-                      <LayoutDashboard className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
                       <span className="text-sm">{t('navbar.allProducts')}</span>
                     </Link>
                   </div>
@@ -152,7 +151,6 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                     onClick={() => toggleCategory('gloves')}
                   >
                     <div className="flex items-center">
-                      <Shield className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
                       <span className="text-sm">{t('navbar.safetyGloves')}</span>
                     </div>
                     {expandedCategory === 'gloves' ? (
@@ -210,32 +208,92 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                   )}
 
                   {/* Industrial Swabs */}
-                  {/* 
                   <div className="py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors">
                     <Link 
                       href="/products/industrial-swabs"
                       className="flex items-center"
                       onClick={onClose}
                     >
-                      <Scissors className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
                       <span className="text-sm">{t('navbar.industrialSwabs')}</span>
                     </Link>
                   </div>
-                  */}
+
+                  {/* Eye & Face Protection */}
+                  <div className="py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors">
+                    <Link 
+                      href="/products/eye-face"
+                      className="flex items-center"
+                      onClick={onClose}
+                    >
+                      <span className="text-sm">{t('navbar.eyeFaceProtection') || 'Eye & Face Protection'}</span>
+                    </Link>
+                  </div>
+
+                  {/* Head Protection */}
+                  <div className="py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors">
+                    <Link 
+                      href="/products/head"
+                      className="flex items-center"
+                      onClick={onClose}
+                    >
+                      <span className="text-sm">{t('navbar.headProtection')}</span>
+                    </Link>
+                  </div>
+
+                  {/* Safety Footwear */}
+                  <div className="py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors">
+                    <Link 
+                      href="/products/footwear"
+                      className="flex items-center"
+                      onClick={onClose}
+                    >
+                      <span className="text-sm">{t('navbar.safetyFootwear')}</span>
+                    </Link>
+                  </div>
+
+                  {/* Arm Protection */}
+                  <div className="py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors">
+                    <Link 
+                      href="/products/arm-protection"
+                      className="flex items-center"
+                      onClick={onClose}
+                    >
+                      <span className="text-sm">{t('navbar.armProtection')}</span>
+                    </Link>
+                  </div>
 
                   {/* Respiratory Protection */}
-                  {/* 
                   <div className="py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors">
                     <Link 
                       href="/products/respiratory"
                       className="flex items-center"
                       onClick={onClose}
                     >
-                      <Shield className="h-4 w-4 text-slate-500 dark:text-slate-400 mr-2" />
                       <span className="text-sm">{t('navbar.respiratoryProtection')}</span>
                     </Link>
                   </div>
-                  */}
+ 
+                  {/* Hearing Protection */}
+                  <div className="py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors">
+                    <Link 
+                      href="/products/hearing"
+                      className="flex items-center"
+                      onClick={onClose}
+                    >
+                      <span className="text-sm">{t('navbar.hearingProtection')}</span>
+                    </Link>
+                  </div>
+
+                  {/* Protective Clothing */}
+                  <div className="py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors">
+                    <Link 
+                      href="/products/clothing"
+                      className="flex items-center"
+                      onClick={onClose}
+                    >
+                      <span className="text-sm">{t('navbar.protectiveClothing') || 'Protective Clothing'}</span>
+                    </Link>
+                  </div>
                 </div>
               )}
             </div>
@@ -289,6 +347,13 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                   >
                     <span>{t('navbar.aboutDropdown.esg')}</span>
                   </Link>
+                  <Link 
+                    href="/careers" 
+                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                    onClick={onClose}
+                  >
+                    <span>{t('navbar.aboutDropdown.careers')}</span>
+                  </Link>
                 </div>
               )}
             </div>
@@ -308,7 +373,6 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
             </div>
             
             {/* Resources section */}
-            {/*
             <div>
               <div 
                 className="flex items-center justify-between px-3 py-1.5 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-black/60 transition-colors cursor-pointer"
@@ -336,26 +400,19 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                   >
                     <span>{t('navbar.resourcesDropdown.blog')}</span>
                   </Link>
-                  <Link 
+                  {/* <Link 
                     href="/resources/case-studies" 
                     className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     onClick={onClose}
                   >
                     <span>{t('navbar.resourcesDropdown.caseStudies')}</span>
-                  </Link>
+                  </Link> */}
                   <Link 
-                    href="/resources/en-resource-centre" 
+                    href="/resources/ppe-standards" 
                     className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     onClick={onClose}
                   >
                     <span>{t('navbar.resourcesDropdown.enResourceCentre')}</span>
-                  </Link>
-                  <Link 
-                    href="/resources/product-disclaimer" 
-                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-                    onClick={onClose}
-                  >
-                    <span>{t('navbar.resourcesDropdown.productDisclaimer')}</span>
                   </Link>
                   <Link 
                     href="/resources/declarations" 
@@ -364,10 +421,16 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                   >
                     <span>{t('navbar.resourcesDropdown.declarations')}</span>
                   </Link>
+                  <Link 
+                    href="/resources/product-disclaimer" 
+                    className="flex items-center py-1.5 text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                    onClick={onClose}
+                  >
+                    <span>{t('navbar.resourcesDropdown.productDisclaimer')}</span>
+                  </Link>
                 </div>
               )}
             </div>
-            */}
           </div>
           
           {/* Language Selector */}

@@ -22,8 +22,14 @@ const getNavItems = (t: any) => [
     dropdownItems: [
       { href: "/products", label: t("navbar.allProducts") },
       { href: "/products/gloves", label: t("navbar.safetyGloves") },
-      // { href: "/products/industrial-swabs", label: t("navbar.industrialSwabs") },
-      // { href: "/products/respiratory", label: t("navbar.respiratoryProtection") },
+      { href: "/products/industrial-swabs", label: t("navbar.industrialSwabs") },
+          { href: "/products/eye-face", label: t("navbar.eyeFaceProtection") || 'Eye & Face Protection' },
+      { href: "/products/head", label: t("navbar.headProtection") },
+      { href: "/products/footwear", label: t("navbar.safetyFootwear") },
+      { href: "/products/arm-protection", label: t("navbar.armProtection") },
+      { href: "/products/hearing", label: t("navbar.hearingProtection") },
+      { href: "/products/respiratory", label: t("navbar.respiratoryProtection") },
+      { href: "/products/clothing", label: t("navbar.protectiveClothing") || 'Protective Clothing' },
     ]
   },
   { href: "/industries", label: t("navbar.industries") },
@@ -34,27 +40,25 @@ const getNavItems = (t: any) => [
     dropdownItems: [
       { href: "/about", label: t("navbar.aboutDropdown.ourCompany") },
       { href: "/about/esg", label: t("navbar.aboutDropdown.esg") },
-      // { href: "/careers", label: t("navbar.aboutDropdown.careers") },
+      { href: "/careers", label: t("navbar.aboutDropdown.careers") },
     ]
   },
   { 
     href: "/partners", 
     label: t("navbar.partners")
   },
-  /*
   { 
     href: "/resources", 
     label: t("navbar.resources"),
     hasDropdown: true,
     dropdownItems: [
       { href: "/resources/blog", label: t("navbar.resourcesDropdown.blog") },
-      { href: "/resources/case-studies", label: t("navbar.resourcesDropdown.caseStudies") },
-      { href: "/resources/en-resource-centre", label: t("navbar.resourcesDropdown.enResourceCentre") },
-      { href: "/resources/product-disclaimer", label: t("navbar.resourcesDropdown.productDisclaimer") },
+      // { href: "/resources/case-studies", label: t("navbar.resourcesDropdown.caseStudies") },
+      { href: "/resources/ppe-standards", label: t("navbar.resourcesDropdown.enResourceCentre") },
       { href: "/resources/declarations", label: t("navbar.resourcesDropdown.declarations") },
+      { href: "/resources/product-disclaimer", label: t("navbar.resourcesDropdown.productDisclaimer") },
     ]
   },
-  */
   { href: "/contact", label: t("navbar.contact") },
 ];
 
@@ -86,7 +90,7 @@ export const NavBar = () => {
     if (item.href === "/resources" && (
       pathname.startsWith("/resources/blog") || 
       pathname.startsWith("/resources/case-studies") || 
-      pathname.startsWith("/resources/en-resource-centre") ||
+      pathname.startsWith("/resources/ppe-standards") ||
       pathname.startsWith("/resources/product-disclaimer") ||
       pathname.startsWith("/resources/declarations")
     )) return true;
@@ -247,8 +251,13 @@ export const NavBar = () => {
               <nav className="flex items-center space-x-8">
                 {NAV_ITEMS.map((item) => (
                   <div key={item.href} className="relative group">
-                    <Link
-                      href={item.href}
+                    <a
+                      href={item.hasDropdown && item.href === '/resources' ? '#' : item.href}
+                      onClick={(e) => {
+                        if (item.hasDropdown && item.href === '/resources') {
+                          e.preventDefault();
+                        }
+                      }}
                       className={`
                         text-sm font-medium transition-colors flex items-center
                         ${isNavItemActive(item) 
@@ -259,7 +268,7 @@ export const NavBar = () => {
                     >
                       {item.label}
                       {item.hasDropdown && <ChevronDown className="h-4 w-4 ml-1" />}
-                    </Link>
+                    </a>
                     
                     {item.hasDropdown && (
                       <div className="absolute left-0 mt-1 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out">

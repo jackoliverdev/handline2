@@ -146,6 +146,11 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
   const manuInstructionEnRef = useRef<HTMLInputElement>(null);
   const manuInstructionItRef = useRef<HTMLInputElement>(null);
   const [isUploadingDocs, setIsUploadingDocs] = useState(false);
+  // DoC JSON locales (EU)
+  const [declarationDocLocales, setDeclarationDocLocales] = useState<Array<{ lang: string; url: string }>>([]);
+  const docLocaleFileRef = useRef<HTMLInputElement>(null);
+  const [newDocLang, setNewDocLang] = useState<string>('');
+  const [isUploadingDocLocale, setIsUploadingDocLocale] = useState(false);
   
   // Related product state
   const [relatedProductId1, setRelatedProductId1] = useState<string | null>(null);
@@ -451,6 +456,29 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
     }
   };
   
+  // Upload DoC JSON language
+  const uploadDocLocale = async (file: File, lang: string): Promise<string | null> => {
+    if (!file) return null;
+    try {
+      setIsUploadingDocLocale(true);
+      const fileExt = file.name.split('.').pop();
+      const safeLang = (lang || 'en').trim();
+      const fileName = `${id}_declaration_${safeLang}.${fileExt}`;
+      const { data, error } = await supabase.storage
+        .from('technical-sheets')
+        .upload(fileName, file, { cacheControl: '3600', upsert: true });
+      if (error) throw error;
+      const { data: urlData } = supabase.storage.from('technical-sheets').getPublicUrl(fileName);
+      return urlData.publicUrl;
+    } catch (err) {
+      console.error('Error uploading DoC locale:', err);
+      toast({ title: 'Upload Error', description: 'Failed to upload declaration document', variant: 'destructive' });
+      return null;
+    } finally {
+      setIsUploadingDocLocale(false);
+    }
+  };
+
   // Handle document uploads
   const handleDocumentUpload = async (e: React.ChangeEvent<HTMLInputElement>, type: 'technical' | 'declaration' | 'manufacturers', language: 'en' | 'it') => {
     const file = e.target.files?.[0];
@@ -634,6 +662,19 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
           setComingSoon(product.coming_soon || false);
           setAvailabilityStatus(product.availability_status || 'in_stock');
           setBrands(product.brands || []);
+
+          // Load EU DoC JSON
+          const docs = Array.isArray((product as any).declaration_docs_locales) ? (product as any).declaration_docs_locales : [];
+          const eu = docs.filter((d: any) => d && (d.kind === 'eu' || d.kind === 'multi'))
+            .flatMap((d: any) => {
+              if (d.kind === 'eu') return [{ lang: d.lang, url: d.url }];
+              if (Array.isArray(d.langs)) return d.langs.map((l: string) => ({ lang: l, url: d.url }));
+              return [];
+            });
+          const withLegacy = [...eu];
+          if (product.declaration_sheet_url && !withLegacy.find(e => e.lang === 'en')) withLegacy.push({ lang: 'en', url: product.declaration_sheet_url });
+          if (product.declaration_sheet_url_it && !withLegacy.find(e => e.lang === 'it')) withLegacy.push({ lang: 'it', url: product.declaration_sheet_url_it });
+          setDeclarationDocLocales(withLegacy);
           setLengthCm(product.length_cm ?? null);
           setCeCategory(product.ce_category || '');
           setEnStandard(product.en_standard || '');
@@ -2352,7 +2393,47 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
               <CardDescription>Upload technical sheets, declaration documents, and manufacturers instructions for this product.</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-6">
+              <div className="space-y-8">
+                {/* Declarations of Conformity (EU) JSON */}
+                <div className="space-y-4">
+                  <Label>Declarations of Conformity (EU)</Label>
+                  <div className="rounded-md border p-4 bg-gray-50 dark:bg-gray-800 space-y-3">
+                    <div className="flex flex-wrap gap-2">
+                      {declarationDocLocales.map((d, idx) => (
+                        <Badge key={idx} variant="outline" className="flex items-center gap-2">
+                          <span>{d.lang}</span>
+                          <a href={d.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline text-xs">Download</a>
+                          <Button type="button" variant="ghost" size="sm" onClick={async () => {
+                            const next = declarationDocLocales.filter((_, i) => i !== idx);
+                            setDeclarationDocLocales(next);
+                            await updateProduct(id, { declaration_docs_locales: next.map(x => ({ lang: x.lang, kind: 'eu', url: x.url })) });
+                          }}>Remove</Button>
+                        </Badge>
+                      ))}
+                      {declarationDocLocales.length === 0 && (
+                        <p className="text-sm text-muted-foreground">No EU DoC uploaded yet.</p>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Input placeholder="Language code (e.g. en, it, es)" className="w-48" value={newDocLang} onChange={(e) => setNewDocLang(e.target.value)} />
+                      <input ref={docLocaleFileRef} type="file" accept=".pdf" className="hidden" onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file || !newDocLang) return;
+                        const url = await uploadDocLocale(file, newDocLang);
+                        if (url) {
+                          const next = [...declarationDocLocales, { lang: newDocLang.trim(), url }];
+                          setDeclarationDocLocales(next);
+                          await updateProduct(id, { declaration_docs_locales: next.map(x => ({ lang: x.lang, kind: 'eu', url: x.url })) });
+                          setNewDocLang('');
+                        }
+                        if (docLocaleFileRef.current) docLocaleFileRef.current.value = '';
+                      }} />
+                      <Button type="button" variant="outline" onClick={() => docLocaleFileRef.current?.click()} disabled={!newDocLang || isUploadingDocLocale}>
+                        {isUploadingDocLocale ? 'Uploading...' : 'Add Language + Upload PDF'}
+                      </Button>
+                    </div>
+                  </div>
+                </div>
                 {/* Technical Sheet English */}
                 <div className="space-y-4">
                   <Label>Technical Sheet (English)</Label>

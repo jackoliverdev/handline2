@@ -9,6 +9,7 @@ export interface SafetyEN388 {
   tear: number | null;
   puncture: number | null;
   iso_13997: string | null;
+  iso_cut?: string | null; // Alternative field name for ISO 13997 cut test
   impact_en_13594: string | null;
 }
 
@@ -61,6 +62,9 @@ export interface EnvironmentPictograms {
   chemical?: boolean;
   biological?: boolean;
   oily_grease?: boolean;
+  electrical?: boolean;
+  radiation?: boolean;
+  low_visibility?: boolean;
 }
 
 export type AvailabilityStatus = 'in_stock' | 'made_to_order' | 'out_of_stock' | 'coming_soon';
@@ -75,7 +79,8 @@ export interface Product {
   temperature_rating?: number | null;
   cut_resistance_level?: string | null;
   heat_resistance_level?: string | null;
-  en_standard?: 'EN388' | 'EN407' | null;
+  // Note: historically restricted to EN388/EN407; widen to support other categories (e.g., EN ISO 21420 for swabs)
+  en_standard?: string | null;
   features: string[];
   applications: string[];
   industries: string[];
@@ -87,8 +92,17 @@ export interface Product {
   additional_images?: string[] | null;
   technical_sheet_url?: string | null;
   declaration_sheet_url?: string | null;
+  // Dedicated UKCA declaration URL
+  ukca_declaration_url?: string | null;
   technical_sheet_url_it?: string | null;
   declaration_sheet_url_it?: string | null;
+  // New declarations JSON locales
+  declaration_docs_locales?: Array<{
+    lang: string; // e.g. 'en','it','es','multi'
+    kind: 'eu' | 'uk' | 'multi';
+    url: string;
+    langs?: string[]; // if kind === 'multi', list of languages covered in the PDF
+  }> | null;
   manufacturers_instruction_url?: string | null;
   manufacturers_instruction_url_it?: string | null;
   is_featured: boolean;
@@ -111,6 +125,8 @@ export interface Product {
   availability_status: AvailabilityStatus;
   safety: SafetyStandards;
   environment_pictograms: EnvironmentPictograms;
+  // Swab specific pad size JSON (localised structure)
+  pad_size_json?: Record<string, any> | null;
   // Locales fields (optional for typing)
   name_locales?: Record<string, string>;
   description_locales?: Record<string, string>;
@@ -121,6 +137,118 @@ export interface Product {
   applications_locales?: Record<string, string[]>;
   industries_locales?: Record<string, string[]>;
   materials_locales?: Record<string, string[]>;
+  // Respirator-specific fields
+  protection_class?: string | null;
+  npf?: string | null;
+  connections?: string[] | null;
+  compatible_with?: string[] | null;
+  filter_type?: string | null;
+  protection_codes?: string[] | null;
+  ean?: string | null;
+  respiratory_standards?: Record<string, any> | null;
+  // Arm-specific attributes
+  arm_attributes?: {
+    thumb_loop?: boolean;
+    closure?: 'velcro' | 'elastic' | 'none' | string;
+  } | null;
+  // Hearing-specific
+  hearing_standards?: {
+    en352?: {
+      parts?: string[];
+      snr_db?: number | null;
+      hml?: { h?: number | null; m?: number | null; l?: number | null };
+      additional?: string[];
+    }
+  } | null;
+  hearing_attributes?: {
+    reusable?: boolean | null; // true => R, false => NR
+    mount?: 'headband' | 'helmet' | 'banded' | 'none' | string;
+    bluetooth?: boolean | null;
+    compatible_with?: string[];
+    accessories?: string[];
+  } | null;
+  // Footwear-specific
+  footwear_standards?: {
+    en_iso_20345_2011?: string[];
+    en_iso_20345_2022?: string[];
+    slip_resistance?: string | null;
+  } | null;
+  footwear_attributes?: {
+    class?: string | null;
+    esd?: boolean | null;
+    metal_free?: boolean | null;
+    width_fit?: number[] | null;
+    size_min?: number | null;
+    size_max?: number | null;
+    gender?: string | null;
+    weight_grams?: number | null;
+    weight_ref_size?: number | null;
+    special?: string[] | null;
+    toe_cap?: string | null;
+    sole_material?: string | null;
+  } | null;
+  // Eye & Face specific
+  eye_face_standards?: Record<string, any> | null;
+  eye_face_attributes?: {
+    form_factor?: string | null;
+    lens_tint?: string | null;
+    lens_material?: string | null;
+    frame_material?: string | null;
+    headband_material?: string | null;
+    coatings?: string[] | null;
+    uv_code?: string | null;
+    transmission_percent?: number | null;
+    has_ir?: boolean | null;
+    has_uv?: boolean | null;
+    has_arc?: boolean | null;
+  } | null;
+  // Eye & Face comfort features (localised bullet list)
+  eye_face_comfort_features_locales?: Record<string, string[]> | null;
+  // Eye & Face equipment list (localised bullet list)
+  eye_face_equipment_locales?: Record<string, string[]> | null;
+  // Head protection specific
+  head_comfort_features_locales?: Record<string, string[]> | null;
+  head_other_details_locales?: Record<string, string[]> | null;
+  head_equipment_locales?: Record<string, string[]> | null;
+  // Hearing protection specific
+  hearing_comfort_features_locales?: Record<string, string[]> | null;
+  hearing_other_details_locales?: Record<string, string[]> | null;
+  hearing_equipment_locales?: Record<string, string[]> | null;
+  // Respiratory protection specific
+  respiratory_comfort_features_locales?: Record<string, string[]> | null;
+  respiratory_other_details_locales?: Record<string, string[]> | null;
+  respiratory_equipment_locales?: Record<string, string[]> | null;
+  // Clothing protection specific
+  clothing_comfort_features_locales?: Record<string, string[]> | null;
+  clothing_other_details_locales?: Record<string, string[]> | null;
+  head_standards?: Record<string, any> | null;
+  head_attributes?: {
+    form_factor?: string | null;
+    brim_length?: string | null; // short | long
+    size_min_cm?: number | null;
+    size_max_cm?: number | null;
+    weight_g?: number | null;
+    colours?: string[] | null;
+    ventilation?: boolean | null;
+    harness_points?: number | null;
+    chinstrap_points?: number | null;
+    sweatband?: boolean | null;
+    closed_shell?: boolean | null;
+    euroslot_mm?: number | null;
+    accessories?: string[] | null;
+  } | null;
+  // Clothing specific
+  clothing_standards?: Record<string, any> | null;
+  clothing_attributes?: {
+    fit?: string | null;
+    gender?: string | null;
+    size_range?: string | null;
+    colours?: string[] | null;
+    uv_protection?: boolean | null;
+  } | null;
+  // Clothing taxonomy
+  clothing_type?: string | null; // 'welding' | 'high-visibility' | 'safety-workwear'
+  clothing_category?: string | null; // subtype per clothing_type
 }
 
 export function localiseProduct(product: Product, language: Language): Product {
@@ -144,17 +272,62 @@ export function localiseProduct(product: Product, language: Language): Product {
   };
 }
 
+// Helpers for DoC JSON
+export function getAvailableDocLangs(product: Product): string[] {
+  const entries = Array.isArray(product.declaration_docs_locales) ? product.declaration_docs_locales : [];
+  const langs = new Set<string>();
+  for (const e of entries) {
+    if (e.kind === 'eu') langs.add(e.lang);
+    if (e.kind === 'multi' && Array.isArray(e.langs)) e.langs.forEach((l) => langs.add(l));
+  }
+  // Include legacy if present
+  if (product.declaration_sheet_url) langs.add('English');
+  if (product.declaration_sheet_url_it) langs.add('Italiano');
+  return Array.from(langs).sort();
+}
+
+export function getDocUrl(product: Product, targetLang: string, kind: 'eu' | 'uk' = 'eu'): string | null {
+  const entries = Array.isArray(product.declaration_docs_locales) ? product.declaration_docs_locales : [];
+  // 1) exact match
+  const exact = entries.find((e) => e.kind === kind && e.lang === targetLang);
+  if (exact) return exact.url;
+  // 2) multi that contains targetLang
+  const multi = entries.find((e) => (e.kind === 'multi' || e.kind === 'eu') && Array.isArray(e.langs) && e.langs.includes(targetLang));
+  if (multi) return multi.url;
+  // 3) fallbacks
+  const enExact = entries.find((e) => e.kind === kind && (e.lang === 'en' || e.lang.toLowerCase() === 'english'));
+  if (enExact) return enExact.url;
+  const enMulti = entries.find((e) => (e.kind === 'multi' || e.kind === 'eu') && Array.isArray(e.langs) && (e.langs.includes('en') || e.langs.includes('English')));
+  if (enMulti) return enMulti.url;
+  // 4) legacy columns as last resort (EU only)
+  if (kind === 'eu') {
+    if ((targetLang === 'it' || targetLang.toLowerCase() === 'italiano') && product.declaration_sheet_url_it) return product.declaration_sheet_url_it;
+    if (product.declaration_sheet_url) return product.declaration_sheet_url;
+    if ((targetLang === 'en' || targetLang.toLowerCase() === 'english') && product.declaration_sheet_url_it) return product.declaration_sheet_url_it;
+  }
+  return null;
+}
+
 /**
  * Fetch all products from Supabase
+ * @param includeUnpublished Whether to include unpublished products (default: false)
  */
-export async function getAllProducts(): Promise<{ products: Product[] }> {
+export async function getAllProducts(includeUnpublished: boolean = false): Promise<{ products: Product[] }> {
   try {
-    console.log('Fetching all products from Supabase...', new Date().toISOString());
+    console.log('Fetching all products from Supabase...', includeUnpublished ? '(including unpublished)' : '(published only)', new Date().toISOString());
     
-    // Add cache busting by using a fresh query each time
-    const { data, error } = await supabase
+    // Create query and add filter for published status if needed
+    let query = supabase
       .from('products')
-      .select('*', { head: false, count: 'exact' })
+      .select('*', { head: false, count: 'exact' });
+      
+    // Only include published products for the public website
+    if (!includeUnpublished) {
+      query = query.eq('published', true);
+    }
+    
+    // Add sorting
+    const { data, error } = await query
       .order('is_featured', { ascending: false })
       .order('order_priority', { ascending: false })
       .order('created_at', { ascending: false });
@@ -181,7 +354,9 @@ export async function getAllProducts(): Promise<{ products: Product[] }> {
       coming_soon: product.coming_soon ?? false,
       availability_status: product.availability_status || 'in_stock',
       safety: product.safety && typeof product.safety === 'object' ? product.safety : {},
-      environment_pictograms: product.environment_pictograms && typeof product.environment_pictograms === 'object' ? product.environment_pictograms : {}
+      environment_pictograms: product.environment_pictograms && typeof product.environment_pictograms === 'object' ? product.environment_pictograms : {},
+      footwear_standards: product.footwear_standards && typeof product.footwear_standards === 'object' ? product.footwear_standards : {},
+      footwear_attributes: product.footwear_attributes && typeof product.footwear_attributes === 'object' ? product.footwear_attributes : {}
     }));
     
     console.log(`Fetched ${products.length} products at ${new Date().toISOString()}`);

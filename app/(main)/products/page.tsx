@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import { ProductsHero } from "@/components/website/products/hero";
 import { DesignPrinciples } from "@/components/website/products/design-principles";
-import { CategoryList } from "@/components/website/products/category-list";
-import { ProductGrid } from "@/components/website/products/product-grid";
+import { MainCategoriesRow } from "@/components/website/products/MainCategoriesRow";
+import { AllProductsGrid } from "@/components/website/products/AllProductsGrid";
 import { getAllProducts } from "@/lib/products-service";
 
 export const metadata: Metadata = {
@@ -21,12 +21,12 @@ export default async function ProductsPage() {
     <main className="bg-brand-light dark:bg-background">
       <ProductsHero />
       <DesignPrinciples />
-      <CategoryList />
+      <MainCategoriesRow />
       
       {/* Product Grid Section */}
       <section className="py-16">
         <div className="container mx-auto px-4 sm:px-6">
-          <ProductGrid products={products} />
+          <AllProductsGrid products={products} />
         </div>
       </section>
     </main>

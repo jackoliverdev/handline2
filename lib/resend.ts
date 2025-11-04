@@ -1,6 +1,6 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+export const resend = new Resend(process.env.RESEND_API_KEY);
 
 export interface ContactFormData {
   name: string;
@@ -35,7 +35,9 @@ export interface ProductInquiryData {
   productName: string;
 }
 
-export async function sendContactEmail(data: ContactFormData) {
+type EmailAttachment = { filename: string; content: string; contentType?: string };
+
+export async function sendContactEmail(data: ContactFormData, attachments?: EmailAttachment[]) {
   try {
     const { data: result, error } = await resend.emails.send({
       from: 'Hand Line Website <noreply@resend.dev>',
@@ -64,6 +66,7 @@ export async function sendContactEmail(data: ContactFormData) {
           </div>
         </div>
       `,
+      attachments: attachments && attachments.length > 0 ? attachments.map(a => ({ filename: a.filename, content: a.content, contentType: a.contentType })) : undefined,
     });
 
     if (error) {

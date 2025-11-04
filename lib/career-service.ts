@@ -19,6 +19,7 @@ export interface CareerPost {
   location: string;
   department: string;
   job_type: string;
+  work_site?: string | null;
   salary_range?: string | null;
   image_url?: string | null;
   published_at?: string | null;
@@ -37,6 +38,7 @@ export interface CareerPost {
   location_locales?: { [lang: string]: string };
   department_locales?: { [lang: string]: string };
   job_type_locales?: { [lang: string]: string };
+  work_site_locales?: { [lang: string]: string };
   salary_range_locales?: { [lang: string]: string };
 }
 
@@ -176,6 +178,177 @@ export async function getRelatedCareerPosts(excludeSlug: string, department: str
 }
 
 /**
+ * Get a career post by ID
+ */
+export async function getCareerById(id: string) {
+  try {
+    const { data, error } = await supabase
+      .from('careers')
+      .select('*')
+      .eq('id', id)
+      .single();
+    if (error) throw error;
+    return data as CareerPost;
+  } catch (error) {
+    console.error('Error getting career post by id:', error);
+    throw error;
+  }
+}
+
+/**
+ * Create a URL-friendly slug from a title
+ */
+function createSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^\w\s]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/--+/g, '-')
+    .trim();
+}
+
+/**
+ * Create a new career post
+ */
+export async function createCareer(post: Omit<CareerPost, 'id' | 'created_at' | 'updated_at'>) {
+  try {
+    const payload: any = {
+      ...post,
+      slug: post.slug || createSlug(post.title),
+      responsibilities: post.responsibilities || [],
+      requirements: post.requirements || [],
+      benefits: post.benefits || [],
+    };
+
+    if (payload.is_published && !payload.published_at) {
+      payload.published_at = new Date().toISOString();
+    }
+
+    const { data, error } = await supabase
+      .from('careers')
+      .insert([payload])
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data as CareerPost;
+  } catch (error) {
+    console.error('Error creating career post:', error);
+    throw error;
+  }
+}
+
+/**
+ * Update an existing career post
+ */
+export async function updateCareer(id: string, updates: Partial<CareerPost>) {
+  try {
+    const next: any = { ...updates };
+    if (updates.title && !updates.slug) {
+      next.slug = createSlug(updates.title);
+    }
+    if (typeof updates.is_published === 'boolean') {
+      if (updates.is_published && !updates.published_at) {
+        next.published_at = new Date().toISOString();
+      }
+      if (!updates.is_published) {
+        next.published_at = null;
+      }
+    }
+    if (updates.responsibilities === undefined && updates.requirements === undefined && updates.benefits === undefined) {
+      // no-op
+    } else {
+      next.responsibilities = updates.responsibilities ?? [];
+      next.requirements = updates.requirements ?? [];
+      next.benefits = updates.benefits ?? [];
+    }
+
+    const { data, error } = await supabase
+      .from('careers')
+      .update(next)
+      .eq('id', id)
+      .select()
+      .single();
+    if (error) throw error;
+    return data as CareerPost;
+  } catch (error) {
+    console.error('Error updating career post:', error);
+    throw error;
+  }
+}
+
+/**
+ * Delete a career post
+ */
+export async function deleteCareer(id: string) {
+  try {
+    const { error } = await supabase
+      .from('careers')
+      .delete()
+      .eq('id', id);
+    if (error) throw error;
+    return true;
+  } catch (error) {
+    console.error('Error deleting career post:', error);
+    throw error;
+  }
+}
+
+/**
+ * Toggle publish status for a career post
+ */
+export async function toggleCareerPublished(id: string) {
+  try {
+    const { data: current, error: fetchError } = await supabase
+      .from('careers')
+      .select('is_published, published_at')
+      .eq('id', id)
+      .single();
+    if (fetchError) throw fetchError;
+
+    const nextIsPublished = !current.is_published;
+    const nextPublishedAt = nextIsPublished ? new Date().toISOString() : null;
+
+    const { data, error } = await supabase
+      .from('careers')
+      .update({ is_published: nextIsPublished, published_at: nextPublishedAt })
+      .eq('id', id)
+      .select()
+      .single();
+    if (error) throw error;
+    return data as CareerPost;
+  } catch (error) {
+    console.error('Error toggling career publish status:', error);
+    throw error;
+  }
+}
+
+/**
+ * Toggle featured status for a career post
+ */
+export async function toggleCareerFeatured(id: string) {
+  try {
+    const { data: current, error: fetchError } = await supabase
+      .from('careers')
+      .select('is_featured')
+      .eq('id', id)
+      .single();
+    if (fetchError) throw fetchError;
+
+    const { data, error } = await supabase
+      .from('careers')
+      .update({ is_featured: !current.is_featured })
+      .eq('id', id)
+      .select()
+      .single();
+    if (error) throw error;
+    return data as CareerPost;
+  } catch (error) {
+    console.error('Error toggling career featured status:', error);
+    throw error;
+  }
+}
+/**
  * Localise a career post
  */
 export function localiseCareerPost(post: CareerPost, language: Language): CareerPost {
@@ -194,4 +367,4 @@ export function localiseCareerPost(post: CareerPost, language: Language): Career
     job_type: post.job_type_locales?.[language] || post.job_type_locales?.en || post.job_type,
     salary_range: post.salary_range_locales?.[language] || post.salary_range_locales?.en || post.salary_range,
   };
-} 
+}

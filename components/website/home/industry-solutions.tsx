@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, ChevronRight, Shield, Factory } from "lucide-react";
-import { getAllIndustries, Industry } from "@/lib/industries-service";
+import { ArrowRight, Shield, Factory, ChevronRight } from "lucide-react";
+import { getFeaturedIndustries, Industry } from "@/lib/industries-service";
 import { useLanguage } from "@/lib/context/language-context";
 import { motion } from "framer-motion";
 
@@ -47,18 +47,30 @@ const cardVariants = {
   })
 };
 
+const buttonVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: 0.6,
+      duration: 0.5,
+      ease: "easeOut"
+    }
+  }
+};
+
 export const IndustrySolutions = () => {
   const [industries, setIndustries] = useState<Industry[]>([]);
   const [loading, setLoading] = useState(true);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const { t, language } = useLanguage();
   
   useEffect(() => {
     const loadIndustries = async () => {
       try {
-        const { data } = await getAllIndustries(language);
-        // Take only the first 4 industries for display
-        setIndustries(data.slice(0, 4));
+        const { data } = await getFeaturedIndustries(language);
+        // Get featured industries (max 4, ordered by position)
+        setIndustries(data);
       } catch (error) {
         console.error("Error loading industries:", error);
       } finally {
@@ -68,29 +80,6 @@ export const IndustrySolutions = () => {
     
     loadIndustries();
   }, [language]);
-  
-  // Get the first paragraph of the description for a summary
-  const getShortDescription = (industry: Industry) => {
-    // If content is available, use that for a better summary
-    if (industry.content) {
-      // Extract the first paragraph after a heading or the first paragraph overall
-      const contentParagraphs = industry.content.split('\n\n');
-      // Look for the first paragraph that's not a heading
-      for (const paragraph of contentParagraphs) {
-        if (!paragraph.startsWith('#') && paragraph.trim().length > 0) {
-          return paragraph.length > 100 
-            ? paragraph.substring(0, 100) + '...' 
-            : paragraph;
-        }
-      }
-    }
-    
-    // Fall back to description if content is not available
-    const firstParagraph = industry.description.split('\n\n')[0];
-    return firstParagraph.length > 100 
-      ? firstParagraph.substring(0, 100) + '...' 
-      : firstParagraph;
-  };
 
   return (
     <motion.section 
@@ -106,20 +95,6 @@ export const IndustrySolutions = () => {
           className="flex flex-col items-center mb-16 text-center"
         >
           <div className="flex flex-col items-center">
-            <Link href="/industries" className="inline-block transition-transform duration-300 mb-4">
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.1 }}
-                className="inline-flex items-center rounded-full bg-white/80 dark:bg-black/60 px-3 py-1 text-xs sm:text-sm border border-brand-primary backdrop-blur-sm cursor-pointer"
-              >
-                <Factory className="mr-1.5 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 text-brand-primary" />
-                <span className="text-brand-dark dark:text-white font-medium font-heading">
-                  {t('industrySolutions.badge')}
-                </span>
-              </motion.div>
-            </Link>
             <div className="inline-flex items-center justify-center mb-4">
               <motion.div 
                 initial={{ width: 0 }}
@@ -164,10 +139,7 @@ export const IndustrySolutions = () => {
             <p className="text-lg text-brand-secondary dark:text-gray-300">{t('industrySolutions.noIndustries')}</p>
           </motion.div>
         ) : (
-          <div 
-            ref={scrollContainerRef}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {industries.map((industry, index) => (
               <motion.div 
                 key={industry.id}
@@ -213,7 +185,7 @@ export const IndustrySolutions = () => {
                     >
                       <CardContent className="p-5">
                         <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
-                          {getShortDescription(industry)}
+                          {industry.showcase_description || industry.description}
                         </p>
                         <div className="flex items-center text-brand-primary font-medium group-hover:text-brand-primary/90 transition-colors duration-300">
                           <span className="relative">
@@ -238,7 +210,25 @@ export const IndustrySolutions = () => {
             ))}
           </div>
         )}
+        
+        <motion.div 
+          variants={buttonVariants}
+          className="flex justify-center mt-7 sm:mt-9"
+        >
+          <Button asChild variant="default" className="group bg-brand-primary text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:bg-brand-primary/90 hover:scale-105 transform">
+            <Link href="/industries" className="flex items-center gap-1.5">
+              <Factory className="h-4 w-4 sm:h-5 sm:w-5" />
+              <span>{t('industrySolutions.viewAll')}</span>
+              <motion.div
+                whileHover={{ x: 3 }}
+                transition={{ duration: 0.2 }}
+              >
+                <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
+              </motion.div>
+            </Link>
+          </Button>
+        </motion.div>
       </div>
     </motion.section>
   );
-}; 
+};

@@ -5,106 +5,104 @@ import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { nord } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { motion } from 'framer-motion';
-import { ExternalLink, Quote } from 'lucide-react';
+import { ExternalLink, Quote, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import type { Components } from 'react-markdown';
+import Image from 'next/image';
+import { useState, useRef, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogClose } from '@/components/ui/dialog';
+
+interface BlogGalleryImage {
+  url: string;
+  width?: number;
+  height?: number;
+}
 
 interface MarkdownContentProps {
   content: string;
+  images?: BlogGalleryImage[];
 }
 
-export function MarkdownContent({ content }: MarkdownContentProps) {
+export function MarkdownContent({ content, images }: MarkdownContentProps) {
+  const [current, setCurrent] = useState(0);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [selectedImage, setSelectedImage] = useState<{ url: string; alt?: string } | null>(null);
+
+  useEffect(() => {
+    if (!images || images.length === 0) return;
+    const container = trackRef.current;
+    if (!container) return;
+    const idx = Math.min(current, Math.max(0, images.length - 1));
+    const cards = container.querySelectorAll<HTMLElement>(".gallery-card");
+    const target = cards[idx];
+    if (!target) return;
+    const containerRect = container.getBoundingClientRect();
+    const targetRect = target.getBoundingClientRect();
+    const targetCenter = targetRect.left + container.scrollLeft + targetRect.width / 2;
+    const desired = containerRect.left + container.scrollLeft + containerRect.width / 2;
+    const delta = targetCenter - desired;
+    container.scrollTo({ left: container.scrollLeft + delta, behavior: 'smooth' });
+  }, [current, images]);
+
+  const prev = () => setCurrent((c) => (c - 1 + (images?.length || 0)) % (images?.length || 1));
+  const next = () => setCurrent((c) => (c + 1) % (images?.length || 1));
   // Define markdown components with proper type annotations
   const markdownComponents: Components = {
     h1: ({ children }) => (
-      <motion.h1 
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="text-3xl font-bold mt-8 mb-4 text-brand-dark dark:text-white bg-gradient-to-r from-brand-primary to-brand-primary bg-clip-text text-transparent"
-      >
+      <h1 className="text-3xl font-bold mt-8 mb-4 text-brand-dark dark:text-white bg-gradient-to-r from-brand-primary to-brand-primary bg-clip-text text-transparent">
         {children}
-      </motion.h1>
+      </h1>
     ),
     h2: ({ children }) => (
-      <motion.h2 
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="text-2xl font-bold mt-6 mb-4 text-brand-dark dark:text-white relative"
-      >
+      <h2 className="text-2xl font-bold mt-6 mb-4 text-brand-dark dark:text-white relative">
         <span className="absolute -left-4 top-0 h-full w-1 bg-gradient-to-b from-brand-primary to-brand-primary rounded-full" />
         {children}
-      </motion.h2>
+      </h2>
     ),
     h3: ({ children }) => (
-      <motion.h3 
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.4 }}
-        className="text-xl font-bold mt-4 mb-3 text-brand-dark dark:text-white"
-      >
+      <h3 className="text-xl font-bold mt-4 mb-3 text-brand-dark dark:text-white">
         {children}
-      </motion.h3>
+      </h3>
     ),
     h4: ({ children }) => (
-      <motion.h4 
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.4 }}
-        className="text-lg font-bold mt-4 mb-2 text-brand-dark dark:text-white"
-      >
+      <h4 className="text-lg font-bold mt-4 mb-2 text-brand-dark dark:text-white">
         {children}
-      </motion.h4>
+      </h4>
     ),
     p: ({ children }) => (
-      <motion.p 
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.4 }}
-        className="my-4 text-base leading-7 text-brand-secondary dark:text-gray-300"
-      >
+      <p className="my-4 text-base leading-7 text-brand-secondary dark:text-gray-300">
         {children}
-      </motion.p>
+      </p>
     ),
     ul: ({ children }) => (
-      <motion.ul 
-        initial={{ opacity: 0, x: -10 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.4 }}
-        className="list-disc pl-6 my-4 text-brand-secondary dark:text-gray-300 space-y-1"
-      >
+      <ul className="list-disc list-outside pl-6 my-5 text-brand-secondary dark:text-gray-300 space-y-2 marker:text-brand-primary">
         {children}
-      </motion.ul>
+      </ul>
     ),
     ol: ({ children }) => (
-      <motion.ol 
-        initial={{ opacity: 0, x: -10 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.4 }}
-        className="list-decimal pl-6 my-4 text-brand-secondary dark:text-gray-300 space-y-1"
-      >
+      <ol className="list-decimal list-outside pl-6 my-5 text-brand-secondary dark:text-gray-300 space-y-2 marker:text-brand-primary marker:font-semibold">
         {children}
-      </motion.ol>
+      </ol>
     ),
-    li: ({ children }) => <li className="mb-1 hover:text-brand-dark dark:hover:text-white transition-colors duration-200">{children}</li>,
+    li: ({ children }) => (
+      <li className="leading-7 rounded-md px-2 py-1 -mx-2 hover:bg-brand-primary/5 dark:hover:bg-brand-primary/10 transition-colors duration-200">
+        {children}
+      </li>
+    ),
+    strong: ({ children }) => (
+      <strong className="text-brand-dark dark:text-white font-semibold">{children}</strong>
+    ),
+    em: ({ children }) => (
+      <em className="text-brand-secondary dark:text-gray-300">{children}</em>
+    ),
+    hr: () => (
+      <hr className="my-8 border-t border-brand-primary/20" />
+    ),
     blockquote: ({ children }) => (
-      <motion.blockquote 
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="border-l-4 border-brand-primary/70 pl-6 pr-4 italic my-6 bg-brand-primary/5 dark:bg-black/30 py-4 rounded-r-xl text-brand-secondary dark:text-gray-300 relative"
-      >
+      <blockquote className="border-l-4 border-brand-primary/70 pl-6 pr-4 italic my-6 bg-brand-primary/5 dark:bg-black/30 py-4 rounded-r-xl text-brand-secondary dark:text-gray-300 relative">
         <Quote className="absolute top-2 right-2 h-6 w-6 text-brand-primary/30" />
         {children}
-      </motion.blockquote>
+      </blockquote>
     ),
     a: ({ href, children }) => (
       <a 
@@ -118,34 +116,23 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
       </a>
     ),
     img: ({ src, alt }) => (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="my-8"
-      >
+      <div className="my-8 cursor-pointer group" onClick={() => setSelectedImage({ url: src || '', alt })}>
         <img 
           src={src} 
           alt={alt} 
-          className="rounded-xl w-full h-auto shadow-lg border border-brand-primary/10 dark:border-brand-primary/20 hover:shadow-xl transition-shadow duration-300" 
+          className="rounded-xl w-full h-auto shadow-lg border border-brand-primary/10 dark:border-brand-primary/20 hover:shadow-xl transition-all duration-300 group-hover:scale-[1.02]" 
         />
         {alt && (
-          <p className="text-sm text-gray-500 dark:text-gray-400 text-center mt-2 italic">
+          <p className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-brand-primary text-center mt-2 italic transition-colors">
             {alt}
           </p>
         )}
-      </motion.div>
+      </div>
     ),
     code: ({ className, children }) => {
       const match = /language-(\w+)/.exec(className || '');
       return match ? (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-        >
+        <div>
           <SyntaxHighlighter
             style={nord}
             language={match[1]}
@@ -154,7 +141,7 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
           >
             {String(children).replace(/\n$/, '')}
           </SyntaxHighlighter>
-        </motion.div>
+        </div>
       ) : (
         <code className="bg-brand-primary/10 text-brand-dark dark:text-white px-2 py-1 rounded-md font-mono text-sm border border-brand-primary/20">
           {children}
@@ -162,15 +149,9 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
       );
     },
     table: ({ children }) => (
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.4 }}
-        className="overflow-x-auto my-6 rounded-xl border border-brand-primary/10 dark:border-brand-primary/20 shadow-sm"
-      >
+      <div className="overflow-x-auto my-6 rounded-xl border border-brand-primary/10 dark:border-brand-primary/20 shadow-sm">
         <table className="min-w-full divide-y divide-brand-primary/10 dark:divide-brand-primary/20">{children}</table>
-      </motion.div>
+      </div>
     ),
     th: ({ children }) => (
       <th className="px-6 py-4 text-left text-sm font-semibold bg-gradient-to-r from-brand-primary/10 to-brand-primary/10 text-brand-dark dark:text-white border-b border-brand-primary/20">
@@ -186,10 +167,9 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
 
   return (
     <motion.article 
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
       className="prose prose-lg max-w-none bg-white dark:bg-black/50 p-8 rounded-xl border border-gray-100 dark:border-gray-700/50 shadow-sm backdrop-blur-sm dark:backdrop-blur-none hover:shadow-md transition-shadow duration-300"
     >
       <ReactMarkdown
@@ -198,6 +178,91 @@ export function MarkdownContent({ content }: MarkdownContentProps) {
       >
         {content}
       </ReactMarkdown>
+      
+      {/* Images Gallery - integrated into the same container */}
+      {images && images.length > 0 && (
+        <div className="mt-8">
+          <div className="relative">
+            <div
+              ref={trackRef}
+              className="flex overflow-x-auto snap-x snap-mandatory gap-5 py-2 scrollbar-hide"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              <style jsx global>{`
+                .scrollbar-hide::-webkit-scrollbar { display: none; }
+              `}</style>
+              {images.map((img, idx) => (
+                <div
+                  key={img.url + idx}
+                  className="gallery-card relative snap-start flex-shrink-0 w-[300px] sm:w-[360px] md:w-[420px] h-[220px] sm:h-[280px] md:h-[340px] rounded-xl overflow-hidden p-2 cursor-pointer group"
+                  onClick={() => setSelectedImage({ url: img.url, alt: 'Blog image' })}
+                >
+                  <Image 
+                    src={img.url} 
+                    alt="Blog image" 
+                    fill 
+                    className="object-contain transition-transform duration-300 group-hover:scale-105" 
+                    sizes="(max-width: 768px) 70vw, 40vw" 
+                  />
+                </div>
+              ))}
+            </div>
+
+            {images.length > 1 && (
+              <>
+                <button
+                  onClick={prev}
+                  aria-label="Previous images"
+                  className="hidden md:block absolute -left-8 top-1/2 -translate-y-1/2 z-20 bg-white/90 dark:bg-[#121212]/95 backdrop-blur-sm shadow-2xl rounded-full p-3 border-2 border-brand-primary/20 dark:border-brand-primary/30 hover:border-brand-primary hover:bg-gradient-to-br hover:from-[#F08515] hover:to-[#E67A2C] dark:hover:bg-brand-primary hover:shadow-2xl transition-all duration-300 group"
+                >
+                  <ChevronLeft className="h-6 w-6 text-gray-700 dark:text-gray-200 group-hover:text-white transition-colors" />
+                </button>
+                <button
+                  onClick={next}
+                  aria-label="Next images"
+                  className="hidden md:block absolute -right-8 top-1/2 -translate-y-1/2 z-20 bg-white/90 dark:bg-[#121212]/95 backdrop-blur-sm shadow-2xl rounded-full p-3 border-2 border-brand-primary/20 dark:border-brand-primary/30 hover:border-brand-primary hover:bg-gradient-to-br hover:from-[#F08515] hover:to-[#E67A2C] dark:hover:bg-brand-primary hover:shadow-2xl transition-all duration-300 group"
+                >
+                  <ChevronRight className="h-6 w-6 text-gray-700 dark:text-gray-200 group-hover:text-white transition-colors" />
+                </button>
+                {/* Mobile mini controls */}
+                <div className="md:hidden flex items-center justify-center gap-4 mt-4">
+                  <Button variant="outline" size="sm" onClick={prev} className="border-brand-primary text-brand-primary hover:bg-white">Prev</Button>
+                  <Button variant="default" size="sm" onClick={next} className="bg-brand-primary hover:bg-brand-primary/90 text-white">Next</Button>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Image Lightbox Modal */}
+      <Dialog open={!!selectedImage} onOpenChange={(open) => !open && setSelectedImage(null)}>
+        <DialogContent className="max-w-[98vw] max-h-[98vh] w-auto h-auto p-0 bg-black/95 border-none">
+          <DialogClose className="absolute right-4 top-4 z-50 rounded-full bg-white/10 hover:bg-white/20 p-2 transition-colors">
+            <X className="h-6 w-6 text-white" />
+            <span className="sr-only">Close</span>
+          </DialogClose>
+          {selectedImage && (
+            <div className="relative w-full h-full flex flex-col items-center justify-center p-2">
+              <div className="relative w-full max-w-[96vw] max-h-[90vh] aspect-auto">
+                <Image
+                  src={selectedImage.url}
+                  alt={selectedImage.alt || 'Blog image'}
+                  width={1600}
+                  height={1200}
+                  className="object-contain w-full h-full"
+                  sizes="96vw"
+                />
+              </div>
+              {selectedImage.alt && (
+                <p className="mt-3 text-sm text-white/90 text-center max-w-3xl px-4">
+                  {selectedImage.alt}
+                </p>
+              )}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </motion.article>
   );
 } 

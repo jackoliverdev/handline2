@@ -32,7 +32,7 @@ export function ProductDisclaimerContent({ language }: ProductDisclaimerContentP
   );
 
   return (
-    <section className="py-16 md:py-24 bg-brand-light dark:bg-background">
+    <section className="pt-4 pb-10 md:pt-6 md:pb-14 bg-brand-light dark:bg-background">
       <div className="container mx-auto px-4 md:px-6">
         <div 
           id="disclaimer-content" 
@@ -48,64 +48,25 @@ export function ProductDisclaimerContent({ language }: ProductDisclaimerContentP
               visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
             }}
           >
-            <motion.h2 
-              className="text-3xl font-bold mt-0 mb-6 text-brand-dark dark:text-white font-heading"
-              variants={fadeIn}
-            >
-              {t('standards.productDisclaimer.sections.usage.title')}
-            </motion.h2>
+            {/* Make PPE Selection a section like the others for consistent styling */}
+            <Section 
+              title={t('standards.productDisclaimer.sections.usage.title')} 
+              content={t('standards.productDisclaimer.sections.usage.content')} 
+            />
             
-            <motion.p 
-              className="my-4 text-lg leading-7 text-brand-secondary dark:text-gray-300"
-              variants={fadeIn}
-            >
-              {t('standards.productDisclaimer.sections.usage.content')}
-            </motion.p>
-            
-            <div className="mt-8 space-y-4">
+            <div className="mt-6 space-y-4">
               <Section 
                 title={t('standards.productDisclaimer.sections.heatResistance.title')} 
                 content={t('standards.productDisclaimer.sections.heatResistance.content')} 
               />
-              
               <Section 
                 title={t('standards.productDisclaimer.sections.cutResistance.title')} 
                 content={t('standards.productDisclaimer.sections.cutResistance.content')} 
               />
-              
               <Section 
                 title={t('standards.productDisclaimer.sections.generalGuidelines.title')} 
                 content={t('standards.productDisclaimer.sections.generalGuidelines.content')} 
               />
-              
-              <Section 
-                title={t('standards.productDisclaimer.sections.limitations.title')} 
-                content={t('standards.productDisclaimer.sections.limitations.content')} 
-              />
-              
-              <Section 
-                title={t('standards.productDisclaimer.sections.properSelection.title')} 
-                content={t('standards.productDisclaimer.sections.properSelection.content')} 
-              />
-              
-              <Section 
-                title={t('standards.productDisclaimer.sections.modification.title')} 
-                content={t('standards.productDisclaimer.sections.modification.content')} 
-              />
-              
-              <motion.div 
-                className="mt-12 p-6 bg-brand-primary/10 dark:bg-brand-primary/5 rounded-lg border border-brand-primary/30 dark:border-brand-primary/20"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-50px" }}
-                variants={{
-                  hidden: { opacity: 0, scale: 0.95 },
-                  visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } }
-                }}
-              >
-                <h3 className="text-xl font-bold mb-3 text-brand-dark dark:text-white font-heading">{t('standards.productDisclaimer.sections.legalNotice.title')}</h3>
-                <p className="text-base leading-7 text-brand-secondary dark:text-gray-300">{t('standards.productDisclaimer.sections.legalNotice.content')}</p>
-              </motion.div>
             </div>
           </motion.article>
         </div>

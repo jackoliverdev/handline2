@@ -2,6 +2,10 @@
 
 import { Product } from "@/lib/products-service";
 import { ProductGrid } from "@/components/website/products/product-grid";
+import { LengthFilter } from "@/components/website/products/filters/swabs/LengthFilter";
+import { PadSizeFilter } from "@/components/website/products/filters/swabs/PadSizeFilter";
+import { LengthFilterMobile } from "@/components/website/products/filters/swabs/LengthFilterMobile";
+import { PadSizeFilterMobile } from "@/components/website/products/filters/swabs/PadSizeFilterMobile";
 import { useLanguage } from "@/lib/context/language-context";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -15,6 +19,10 @@ interface IndustrialSwabsProductsSectionProps {
 export function IndustrialSwabsProductsSection({ products }: IndustrialSwabsProductsSectionProps) {
   const { t, language } = useLanguage();
   const [initialCategory, setInitialCategory] = useState<string | undefined>(undefined);
+  const [lengthRange, setLengthRange] = useState<{ min: number; max: number } | null>(null);
+  const [padRange, setPadRange] = useState<{ diameter?: { min: number; max: number }; length?: { min: number; max: number } }>({});
+  const [selectedLengths, setSelectedLengths] = useState<string[]>([]);
+  const [selectedPadSizes, setSelectedPadSizes] = useState<string[]>([]);
   
   // Filter products for industrial swabs category - very strict filtering to match other sections
   const swabsProducts = products.filter(product => {
@@ -108,57 +116,94 @@ export function IndustrialSwabsProductsSection({ products }: IndustrialSwabsProd
   // Update initialCategory when language or swabsProducts change
   useEffect(() => {
     setInitialCategory(getCategoryForFilter());
+    // Compute bounds for filters
+    if (swabsProducts.length) {
+      // Build discrete options from existing data
+      const lengthOpts = Array.from(
+        new Set(
+          swabsProducts
+            .map((p) => (typeof p.length_cm === 'number' ? `${p.length_cm} cm` : null))
+            .filter((v): v is string => !!v)
+        )
+      ).sort((a, b) => parseInt(a) - parseInt(b));
+      // Initialise range for backward compatibility (unused in UI now)
+      const nums = swabsProducts.map((p) => p.length_cm).filter((v): v is number => typeof v === 'number');
+      if (nums.length) setLengthRange({ min: Math.min(...nums), max: Math.max(...nums) });
+
+      const padOpts = Array.from(
+        new Set(
+          swabsProducts
+            .map((p) => {
+              const ps: any = p.pad_size_json;
+              const d = ps?.en?.diameter_mm;
+              const l = ps?.en?.length_mm;
+              return typeof d === 'number' && typeof l === 'number' ? `${d}×${l} mm` : null;
+            })
+            .filter((v): v is string => !!v)
+        )
+      ).sort((a, b) => parseInt(a) - parseInt(b));
+
+      setAvailableLengthOptions(lengthOptsRef => lengthOpts);
+      setAvailablePadSizeOptions(padOptsRef => padOpts);
+    }
   }, [language, swabsProducts.length]);
 
+  // Local state to keep available options
+  const [availableLengthOptions, setAvailableLengthOptions] = useState<string[]>([]);
+  const [availablePadSizeOptions, setAvailablePadSizeOptions] = useState<string[]>([]);
+
   return (
-    <section id="products" className="py-16">
+    <section id="products" className="py-10">
       <div className="container mx-auto px-4 sm:px-6">
-        <div className="text-center mb-12">
-          <div className="flex flex-col items-center">
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              className="inline-flex items-center rounded-full bg-white/80 dark:bg-black/60 px-3 py-1 text-xs sm:text-sm border border-[#F28C38] backdrop-blur-sm mb-4"
-            >
-              <Brush className="mr-1.5 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 text-[#F28C38]" />
-              <span className="text-brand-dark dark:text-white font-medium font-heading">
-                {t('products.categories.pages.industrialSwabs.badge')}
-              </span>
-            </motion.div>
-            <div className="inline-flex items-center justify-center mb-4">
-              <motion.div 
-                initial={{ width: 0 }}
-                whileInView={{ width: "2.5rem" }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="h-1 w-10 bg-[#F28C38] rounded-full mr-3"
-              ></motion.div>
-              <h2 className="text-3xl md:text-4xl font-bold text-brand-dark dark:text-white font-heading">
-                {t('products.categories.pages.industrialSwabs.title')}
-              </h2>
-              <motion.div 
-                initial={{ width: 0 }}
-                whileInView={{ width: "2.5rem" }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="h-1 w-10 bg-[#F28C38] rounded-full ml-3"
-              ></motion.div>
-            </div>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="text-lg text-brand-secondary dark:text-gray-300 max-w-2xl mx-auto"
-            >
-              {t('products.categories.pages.industrialSwabs.description')}
-            </motion.p>
-          </div>
-        </div>
+        {/* Match gloves and respirators: remove pill and subtitle; tighter spacing */}
+        <div className="mb-4" />
         
-        <ProductGrid products={swabsProducts} initialCategory={initialCategory} />
+        <ProductGrid 
+          products={swabsProducts} 
+          initialCategory={initialCategory}
+          hideMainCategoryFilter
+          extraFiltersRender={(
+            <>
+              <LengthFilter
+                options={availableLengthOptions}
+                selected={selectedLengths}
+                onToggle={(opt) => setSelectedLengths(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])}
+              />
+              <PadSizeFilter
+                options={availablePadSizeOptions}
+                selected={selectedPadSizes}
+                onToggle={(opt) => setSelectedPadSizes(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])}
+              />
+            </>
+          )}
+          extraFiltersRenderMobile={(
+            <>
+              <LengthFilterMobile
+                options={availableLengthOptions}
+                selected={selectedLengths}
+                onToggle={(opt) => setSelectedLengths(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])}
+              />
+              <PadSizeFilterMobile
+                options={availablePadSizeOptions}
+                selected={selectedPadSizes}
+                onToggle={(opt) => setSelectedPadSizes(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])}
+              />
+            </>
+          )}
+          hideDefaultFilters={true}
+          extraFilterPredicate={(p) => {
+            // Length (discrete options now)
+            const lengthLabel = typeof p.length_cm === 'number' ? `${p.length_cm} cm` : undefined;
+            const lengthOk = selectedLengths.length === 0 || (!!lengthLabel && selectedLengths.includes(lengthLabel));
+            // Pad size (discrete)
+            const ps: any = p.pad_size_json;
+            const d = ps?.en?.diameter_mm as number | undefined;
+            const l = ps?.en?.length_mm as number | undefined;
+            const padLabel = typeof d === 'number' && typeof l === 'number' ? `${d}×${l} mm` : undefined;
+            const padOk = selectedPadSizes.length === 0 || (!!padLabel && selectedPadSizes.includes(padLabel));
+            return lengthOk && padOk;
+          }}
+        />
       </div>
     </section>
   );

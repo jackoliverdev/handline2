@@ -20,12 +20,14 @@ import {
   ChevronsRight,
   ShieldAlert,
   FileText,
+  Briefcase,
   HelpCircle,
   MessagesSquare,
   ShoppingBag,
   DollarSign,
   Calendar,
-  Factory
+  Factory,
+  Tag
 } from "lucide-react";
 
 interface AdminSidebarProps {
@@ -79,23 +81,48 @@ export function AdminSidebar({ className }: AdminSidebarProps) {
     },
     {
       name: "Product Management",
-      href: "/admin/product",
+      href: "/admin/prod-management",
       icon: ShoppingBag,
     },
     {
-      name: "User Management",
-      href: "/admin/users",
-      icon: Users,
+      name: "Brand Management",
+      href: "/admin/brands",
+      icon: Tag,
     },
+    // {
+    //   name: "Product Management",
+    //   href: "/admin/product",
+    //   icon: ShoppingBag,
+    // },
     {
       name: "Blog Management",
       href: "/admin/blogs",
       icon: FileText,
     },
     {
+      name: "Careers Management",
+      href: "/admin/careers",
+      icon: Briefcase,
+    },
+    {
       name: "Industry Management",
       href: "/admin/industries",
       icon: Factory,
+    },
+    {
+      name: "PPE Hub Management",
+      href: "/admin/ppe-hub",
+      icon: ShieldAlert,
+    },
+    {
+      name: "Declaration Management",
+      href: "/admin/declarations",
+      icon: FileText,
+    },
+    {
+      name: "User Management",
+      href: "/admin/users",
+      icon: Users,
     },
   ];
   

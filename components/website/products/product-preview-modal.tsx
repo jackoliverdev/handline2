@@ -6,13 +6,13 @@ import Link from "next/link";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Flame, Scissors, ArrowRight, X, Snowflake } from "lucide-react";
+import { Flame, Scissors, ArrowRight, X, Snowflake, Move, Shield, Hammer } from "lucide-react";
 import { Product } from "@/lib/products-service";
 import { useLanguage } from "@/lib/context/language-context";
 
 // Professional green color scheme function (same as safety standards display)
-const getGreenPerformanceColour = (value: number | string | null, maxLevel: number = 5): string => {
-  if (value === null || value === 'X' || value === '') {
+const getGreenPerformanceColour = (value: number | string | null | undefined, maxLevel: number = 5): string => {
+  if (value === null || value === undefined || value === 'X' || value === '') {
     return 'bg-white border border-gray-300 text-gray-900'; // White background with grey border for X
   }
   
@@ -36,7 +36,7 @@ const getGreenPerformanceColour = (value: number | string | null, maxLevel: numb
     }
   }
   
-  const numValue = typeof value === 'number' ? value : parseInt(value.toString());
+  const numValue = typeof value === 'number' ? value : parseInt(String(value));
   if (isNaN(numValue)) {
     return 'bg-gray-400 text-white';
   }
@@ -70,11 +70,10 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   
-  // Use the original English name for URL generation (not localized)
-  // This ensures URLs work consistently across language changes
-  const encodedProductName = encodeURIComponent(product.name);
+  // Always build URLs from the English name to keep slugs stable across locales
+  const encodedProductName = encodeURIComponent((product as any).name_locales?.en || product.name);
   
   // Function to clean and validate image URLs
   const cleanImageUrl = (url: string | null | undefined): string | null => {
@@ -101,6 +100,181 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
   
   // State to track the currently selected image
   const [selectedImage, setSelectedImage] = useState(allImages[0] || "");
+
+  // Respiratory standards quick badges (compact)
+  const renderRespiratoryStandards = () => {
+    const rs: any = (product as any).respiratory_standards;
+    if (!rs || typeof rs !== 'object') return null;
+
+    const chips: { label: string; value?: string; sub?: string }[] = [];
+    if (rs.en149?.enabled) chips.push({ label: 'EN149', value: rs.en149.class, sub: [rs.en149.nr ? 'NR' : null, rs.en149.r ? 'R' : null, rs.en149.d ? 'D' : null].filter(Boolean).join('/') });
+    if (rs.en143?.enabled) chips.push({ label: 'EN143', value: rs.en143.class, sub: rs.en143.r ? 'R' : (rs.en143.nr ? 'NR' : undefined) });
+    
+    // EN 14387 - Build full marking with gas types
+    if (rs.en14387?.enabled) {
+      let en14387Text = `EN 14387${rs.en14387.class ? ` ${rs.en14387.class}` : ''}`;
+      if (rs.en14387.gases) {
+        const gasTypes: string[] = [];
+        if (rs.en14387.gases.a) gasTypes.push('A');
+        if (rs.en14387.gases.b) gasTypes.push('B');
+        if (rs.en14387.gases.e) gasTypes.push('E');
+        if (rs.en14387.gases.k) gasTypes.push('K');
+        if (rs.en14387.gases.ax) gasTypes.push('AX');
+        if (rs.en14387.gases.hg) gasTypes.push('Hg');
+        if (rs.en14387.gases.no) gasTypes.push('NO');
+        if (rs.en14387.gases.p) gasTypes.push('P');
+        if (rs.en14387.gases.sx) gasTypes.push('SX');
+        if (rs.en14387.gases.co) gasTypes.push('CO');
+        if (gasTypes.length > 0) {
+          en14387Text += ` ${gasTypes.join('')}`;
+        }
+      }
+      chips.push({ label: en14387Text });
+    }
+    
+    if (rs.en136?.enabled) chips.push({ label: 'EN136', value: rs.en136.class });
+    if (rs.en140?.enabled) chips.push({ label: 'EN140' });
+    if (rs.en166?.enabled) chips.push({ label: 'EN166', value: rs.en166.class });
+    if (chips.length === 0) return null;
+
+    return (
+      <div className="flex flex-wrap gap-1.5">
+        {chips.map((c, idx) => (
+          <span key={idx} className="bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 rounded px-2 py-0.5 text-xs">
+            {c.label}{c.value ? ` ${c.value}` : ''}{c.sub ? ` ${c.sub}` : ''}
+          </span>
+        ))}
+      </div>
+    );
+  };
+
+  // Hearing standards - now handled in specifications section below
+  const renderHearingStandards = () => {
+    return null; // Removed - now showing in specifications section
+  };
+
+  // Footwear quick badges (compact)
+  const renderFootwearChips = () => {
+    const fs: any = (product as any).footwear_standards;
+    const fa: any = (product as any).footwear_attributes;
+    if (!fs && !fa) return null;
+    const chips: string[] = [];
+    const codes: string[] = Array.isArray(fs?.en_iso_20345_2022) ? fs.en_iso_20345_2022 : [];
+    if (codes.length) chips.push(...codes);
+    if (typeof fa?.class === 'string' && fa.class) chips.push(fa.class);
+    if (typeof fa?.esd === 'boolean') chips.push(fa.esd ? 'ESD' : 'Non-ESD');
+    if (!chips.length) return null;
+    return (
+      <div className="flex flex-wrap gap-1.5">
+        {chips.map((c, idx) => (
+          <span key={idx} className="bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 rounded px-2 py-0.5 text-xs">
+            {c}
+          </span>
+        ))}
+      </div>
+    );
+  };
+
+  // Eye & Face quick badges (compact)
+  const renderEyeFaceChips = () => {
+    const std: any = (product as any).eye_face_standards;
+    const attrs: any = (product as any).eye_face_attributes;
+    if (!std && !attrs) return null;
+    const chips: string[] = [];
+    if (std?.en166) chips.push('EN 166');
+    if (std?.en170) chips.push('EN 170');
+    if (std?.gs_et_29) chips.push('GS-ET 29');
+    if (attrs?.has_ir) chips.push('IR');
+    if (attrs?.has_uv) chips.push(attrs?.uv_code ? attrs.uv_code : 'UV');
+    if (attrs?.has_arc) chips.push('Arc');
+    if (!chips.length) return null;
+    return (
+      <div className="flex flex-wrap gap-1.5">
+        {chips.map((c, idx) => (
+          <span key={idx} className="bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 rounded px-2 py-0.5 text-xs">
+            {c}
+          </span>
+        ))}
+      </div>
+    );
+  };
+
+  // Head protection quick badges (compact)
+  const renderHeadChips = () => {
+    const hs: any = (product as any).head_standards;
+    const ha: any = (product as any).head_attributes;
+    if (!hs && !ha) return null;
+    const chips: string[] = [];
+    if (hs?.en397?.present) chips.push('EN 397');
+    if (hs?.en50365) chips.push('EN 50365');
+    if (hs?.en12492) chips.push('EN 12492');
+    if (hs?.en812) chips.push('EN 812');
+    if (!chips.length) return null;
+    return (
+      <div className="flex flex-wrap gap-1.5">
+        {chips.map((c, idx) => (
+          <span key={idx} className="bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 rounded px-2 py-0.5 text-xs">
+            {c}
+          </span>
+        ))}
+      </div>
+    );
+  };
+
+  // Clothing quick badges (compact)
+  const renderClothingChips = () => {
+    const cs: any = (product as any).clothing_standards;
+    if (!cs) return null;
+    const chips: string[] = [];
+    if (typeof cs?.en_iso_20471?.class === 'number') chips.push(`EN ISO 20471 C${cs.en_iso_20471.class}`);
+    if (cs?.en_iso_11612) {
+      const v = cs.en_iso_11612;
+      const parts: string[] = [];
+      if (v?.a1) parts.push('A1');
+      if (v?.a2) parts.push('A2');
+      if (typeof v?.b === 'number') parts.push(`B${v.b}`);
+      if (typeof v?.c === 'number') parts.push(`C${v.c}`);
+      if (typeof v?.d === 'number') parts.push(`D${v.d}`);
+      if (typeof v?.e === 'number') parts.push(`E${v.e}`);
+      if (typeof v?.f === 'number') parts.push(`F${v.f}`);
+      if (parts.length) chips.push(`EN ISO 11612 ${parts.join('/')}`);
+    }
+    if (typeof cs?.en_iso_11611?.class === 'number') chips.push(`EN ISO 11611 C${cs.en_iso_11611.class}`);
+    if (typeof cs?.iec_61482_2?.class === 'number') chips.push(`IEC 61482-2 C${cs.iec_61482_2.class}`);
+    if (cs?.en_1149_5) chips.push('EN 1149-5');
+    if (cs?.en_13034) chips.push(`EN 13034 ${cs.en_13034}`);
+    if (!chips.length) return null;
+    return (
+      <div className="flex flex-wrap gap-1.5">
+        {chips.map((c, idx) => (
+          <span key={idx} className="bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 rounded px-2 py-0.5 text-xs">
+            {c}
+          </span>
+        ))}
+      </div>
+    );
+  };
+
+  // Arm protection quick badges (compact) - same as gloves
+  const renderArmChips = () => {
+    const safety: any = (product as any).safety;
+    const armAttrs: any = (product as any).arm_attributes;
+    if (!safety && !armAttrs) return null;
+    const chips: string[] = [];
+    // Don't add EN 388 here as it's already shown in the detailed badges above with performance levels
+    if (safety?.en_iso_21420?.enabled) chips.push('EN ISO 21420');
+    // Removed thumb_loop and closure as they are attributes, not standards
+    if (!chips.length) return null;
+    return (
+      <div className="flex flex-wrap gap-1.5">
+        {chips.map((c, idx) => (
+          <span key={idx} className="bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 rounded px-2 py-0.5 text-xs">
+            {c}
+          </span>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -193,35 +367,131 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
             </div>
 
             {/* Specifications - Compact */}
-            <div className="space-y-3">
-              <h4 className="text-base font-semibold text-brand-dark dark:text-white font-heading">{t('productPage.specifications')}</h4>
+            {(() => {
+              const isSwab = product.category?.toLowerCase().includes('swab') || product.sub_category?.toLowerCase().includes('swab');
+              const swabSize = product.size_locales?.[language] || product.size_locales?.en || null;
+              const hasSwabContent = isSwab && swabSize;
               
-              <div className="space-y-2">
-                {/* EN Standards from Safety JSON with performance numbers */}
-                {product.safety && (product.safety.en_388?.enabled || product.safety.en_407?.enabled || product.safety.en_511?.enabled) ? (
+              // For swabs: only show if size exists
+              if (isSwab && !hasSwabContent) {
+                return null;
+              }
+              
+              return (
+                <div className="space-y-3">
+                  <h4 className="text-base font-semibold text-brand-dark dark:text-white font-heading">{t('productPage.specifications')}</h4>
+                  
+                  <div className="space-y-2">
+                    {/* Special handling for swabs - show size if available */}
+                    {isSwab && swabSize ? (
+                      <div className="flex items-center bg-white dark:bg-black/30 rounded-lg p-3 border border-gray-100 dark:border-gray-700/50 shadow-sm">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/10 mr-3">
+                          <Move className="h-4 w-4 text-brand-primary" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-gray-600 dark:text-gray-400">{t('productPage.productInfo.size')}</p>
+                          <p className="text-sm font-semibold text-gray-900 dark:text-white">{swabSize}</p>
+                        </div>
+                      </div>
+                    ) : null}
+                    
+                    {/* Hearing Protection Specifications */}
+                    {!isSwab && (product as any).hearing_standards?.en352 ? (
+                      <>
+                        {/* Specifications Box */}
+                        <div className="bg-white dark:bg-black/30 rounded-lg p-3 border border-gray-100 dark:border-gray-700/50 shadow-sm">
+                          <div className="space-y-2">
+                            {/* H, M, L Frequency Attenuation */}
+                            {(product as any).hearing_standards.en352.hml && (
+                              <div className="flex items-center justify-between">
+                                <span className="text-xs text-gray-600 dark:text-gray-400">Attenuation (H, M, L)</span>
+                                <span className="text-sm font-semibold text-brand-dark dark:text-white">
+                                  {(product as any).hearing_standards.en352.hml.h}, {(product as any).hearing_standards.en352.hml.m}, {(product as any).hearing_standards.en352.hml.l} dB
+                                </span>
+                              </div>
+                            )}
+                            {/* Mount Type */}
+                            {(product as any).hearing_attributes?.mount && (product as any).hearing_attributes.mount !== 'none' && (
+                              <div className="flex items-center justify-between">
+                                <span className="text-xs text-gray-600 dark:text-gray-400">Mount</span>
+                                <span className="text-sm font-semibold text-brand-dark dark:text-white capitalize">
+                                  {(product as any).hearing_attributes.mount}
+                                </span>
+                              </div>
+                            )}
+                            {/* Reusable Status */}
+                            {typeof (product as any).hearing_attributes?.reusable === 'boolean' && (
+                              <div className="flex items-center justify-between">
+                                <span className="text-xs text-gray-600 dark:text-gray-400">Type</span>
+                                <span className="text-sm font-semibold text-brand-dark dark:text-white">
+                                  {(product as any).hearing_attributes.reusable ? 'Reusable' : 'Disposable'}
+                                </span>
+                              </div>
+                            )}
+                            {/* SNR Value */}
+                            {typeof (product as any).hearing_standards.en352.snr_db === 'number' && (
+                              <div className="flex items-center justify-between">
+                                <span className="text-xs text-gray-600 dark:text-gray-400">SNR</span>
+                                <span className="text-sm font-semibold text-brand-dark dark:text-white">
+                                  {(product as any).hearing_standards.en352.snr_db} dB
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        
+                        {/* EN 352 Standards Box */}
+                        <div className="bg-white dark:bg-black/30 rounded-lg p-3 border border-gray-100 dark:border-gray-700/50 shadow-sm">
+                          <div className="flex items-center gap-3">
+                            <Shield className="h-5 w-5 text-brand-primary" />
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <span className="text-xs font-medium text-brand-dark dark:text-white">EN 352</span>
+                              {(() => {
+                                const parts: string[] = Array.isArray((product as any).hearing_standards.en352.parts) ? (product as any).hearing_standards.en352.parts : [];
+                                const additional: string[] = Array.isArray((product as any).hearing_standards.en352.additional) ? (product as any).hearing_standards.en352.additional : [];
+                                const allCodes = [...parts, ...additional];
+                                return allCodes.length > 0 ? (
+                                  <div className="flex flex-wrap gap-1">
+                                    {allCodes.map((code, idx) => (
+                                      <span
+                                        key={idx}
+                                        className="text-xs px-2 py-0.5 rounded bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 font-medium"
+                                      >
+                                        {code}
+                                      </span>
+                                    ))}
+                                  </div>
+                                ) : null;
+                              })()}
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    ) : null}
+                    
+                    {/* EN Standards from Safety JSON with performance numbers */}
+                    {!isSwab && !(product as any).hearing_standards?.en352 && product.safety && ((product.safety as any).en_388?.enabled || (product.safety as any).en388?.enabled || (product.safety as any).en_407?.enabled || (product.safety as any).en407?.enabled || product.safety.en_511?.enabled) ? (
                   <div className="bg-white dark:bg-black/30 rounded-lg p-3 border border-gray-100 dark:border-gray-700/50 shadow-sm">
                     <div className="space-y-3">
                       {/* EN 388 - Mechanical Risks */}
-                      {product.safety.en_388?.enabled && (
+                      {((product.safety as any).en_388?.enabled || (product.safety as any).en388?.enabled) && (
                         <div className="flex items-center gap-3">
-                          <Image
-                            src="/images/standards/EN388.png"
-                            alt="EN388"
-                            width={20}
-                            height={20}
-                            className="object-contain"
-                          />
+                          <Hammer className="h-5 w-5 text-brand-primary" />
                           <div className="flex items-center gap-2">
                             <span className="text-xs font-medium text-brand-dark dark:text-white">EN 388</span>
                             <div className="flex gap-1">
-                              {[
-                                product.safety.en_388.abrasion,
-                                product.safety.en_388.cut,
-                                product.safety.en_388.tear,
-                                product.safety.en_388.puncture,
-                                product.safety.en_388.iso_13997,
-                                product.safety.en_388.impact_en_13594
-                              ].map((value, index) => (
+                              {(() => {
+                                const en388Data = (product.safety as any).en_388 || (product.safety as any).en388;
+                                if (!en388Data) return [];
+                                return [
+                                  en388Data.abrasion ?? null,
+                                  en388Data.cut ?? null,
+                                  en388Data.tear ?? null,
+                                  en388Data.puncture ?? null,
+                                  en388Data.iso_13997 || en388Data.iso_cut || null,
+                                  en388Data.impact_en_13594 ?? null
+                                ];
+                              })().map((value, index) => (
                                 <span
                                   key={index}
                                   className={`text-xs px-1 py-0.5 rounded w-6 h-6 flex items-center justify-center font-medium ${getGreenPerformanceColour(value)}`}
@@ -235,26 +505,24 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
                       )}
                       
                       {/* EN 407 - Thermal Risks */}
-                      {product.safety.en_407?.enabled && (
+                      {((product.safety as any).en_407?.enabled || (product.safety as any).en407?.enabled) && (
                         <div className="flex items-center gap-3">
-                          <Image
-                            src="/images/standards/EN407.png"
-                            alt="EN407"
-                            width={20}
-                            height={20}
-                            className="object-contain"
-                          />
+                          <Flame className="h-5 w-5 text-orange-500" />
                           <div className="flex items-center gap-2">
                             <span className="text-xs font-medium text-brand-dark dark:text-white">EN 407</span>
                             <div className="flex gap-1">
-                              {[
-                                product.safety.en_407.limited_flame_spread,
-                                product.safety.en_407.contact_heat,
-                                product.safety.en_407.convective_heat,
-                                product.safety.en_407.radiant_heat,
-                                product.safety.en_407.small_splashes_molten_metal,
-                                product.safety.en_407.large_quantities_molten_metal
-                              ].map((value, index) => (
+                              {(() => {
+                                const en407Data = (product.safety as any).en_407 || (product.safety as any).en407;
+                                if (!en407Data) return [];
+                                return [
+                                  en407Data.limited_flame_spread ?? null,
+                                  en407Data.contact_heat ?? null,
+                                  en407Data.convective_heat ?? null,
+                                  en407Data.radiant_heat ?? null,
+                                  en407Data.small_splashes_molten_metal ?? null,
+                                  en407Data.large_quantities_molten_metal ?? null
+                                ];
+                              })().map((value, index) => (
                                 <span
                                   key={index}
                                   className={`text-xs px-1 py-0.5 rounded w-6 h-6 flex items-center justify-center font-medium ${getGreenPerformanceColour(value, 4)}`}
@@ -327,44 +595,60 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
                     )}
                   </>
                 )}
-              </div>
-            </div>
+                    {/* Respiratory standards compact chips */}
+                    {!isSwab && renderRespiratoryStandards()}
+                    {!isSwab && renderHearingStandards()}
+                    {!isSwab && renderFootwearChips()}
+                    {!isSwab && renderEyeFaceChips()}
+                    {!isSwab && renderHeadChips()}
+                    {!isSwab && renderClothingChips()}
+                    {!isSwab && renderArmChips()}
+                  </div>
+                </div>
+              );
+            })()}
 
             {/* Key Features - Compact */}
-            {product.features && product.features.length > 0 && (
-              <div className="space-y-2">
-                <h4 className="text-base font-semibold text-brand-dark dark:text-white font-heading">{t('products.keyFeatures')}</h4>
-                <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-3 border border-gray-100 dark:border-gray-700/50">
-                  <ul className="space-y-1">
-                    {product.features.slice(0, 3).map((feature, index) => (
-                      <li key={index} className="flex items-start">
-                        <div className="w-1.5 h-1.5 bg-brand-primary rounded-full mt-1.5 mr-2 flex-shrink-0"></div>
-                        <span className="text-gray-700 dark:text-gray-300 text-sm">{feature}</span>
-                      </li>
-                    ))}
-                    {product.features.length > 3 && (
-                      <li className="text-brand-primary text-sm font-medium">
-                        +{product.features.length - 3} more
-                      </li>
-                    )}
-                  </ul>
+            {(() => {
+              const currentFeatures = product.features_locales?.[language] || product.features || [];
+              return currentFeatures.length > 0 && (
+                <div className="space-y-2">
+                  <h4 className="text-base font-semibold text-brand-dark dark:text-white font-heading">{t('products.keyFeatures')}</h4>
+                  <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-3 border border-gray-100 dark:border-gray-700/50">
+                    <ul className="space-y-1">
+                      {currentFeatures.slice(0, 3).map((feature, index) => (
+                        <li key={index} className="flex items-start">
+                          <div className="w-1.5 h-1.5 bg-brand-primary rounded-full mt-1.5 mr-2 flex-shrink-0"></div>
+                          <span className="text-gray-700 dark:text-gray-300 text-sm">{feature}</span>
+                        </li>
+                      ))}
+                      {currentFeatures.length > 3 && (
+                        <li className="text-brand-primary text-sm font-medium">
+                          +{currentFeatures.length - 3} more
+                        </li>
+                      )}
+                    </ul>
+                  </div>
                 </div>
-              </div>
-            )}
+              );
+            })()}
 
             {/* Industries - Compact */}
-            {product.industries && product.industries.length > 0 && (
-              <div className="space-y-2">
-                <h4 className="text-base font-semibold text-brand-dark dark:text-white font-heading">{t('productPage.industries')}</h4>
-                <div className="flex flex-wrap gap-1.5">
-                  {product.industries.map((industry) => (
-                    <div key={industry} className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 py-1 px-2 rounded text-xs font-medium border border-gray-200 dark:border-gray-700">
-                      {industry}
-                    </div>
-                  ))}
+            {(() => {
+              const currentIndustries = product.industries_locales?.[language] || product.industries || [];
+              return currentIndustries.length > 0 && (
+                <div className="space-y-2">
+                  <h4 className="text-base font-semibold text-brand-dark dark:text-white font-heading">{t('productPage.industries')}</h4>
+                  <div className="flex flex-wrap gap-1.5">
+                    {currentIndustries.map((industry) => (
+                      <div key={industry} className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 py-1 px-2 rounded text-xs font-medium border border-gray-200 dark:border-gray-700">
+                        {industry}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              );
+            })()}
           </div>
         </div>
 

@@ -23,6 +23,14 @@ export function CareerGrid({ careerPosts, language }: CareerGridProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [departments, setDepartments] = useState<string[]>([]);
   const [locations, setLocations] = useState<string[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handle = () => setIsMobile(typeof window !== 'undefined' && window.innerWidth < 768);
+    handle();
+    window.addEventListener('resize', handle);
+    return () => window.removeEventListener('resize', handle);
+  }, []);
 
   // Extract unique departments and locations from career posts (localised)
   useEffect(() => {
@@ -69,9 +77,9 @@ export function CareerGrid({ careerPosts, language }: CareerGridProps) {
   // Filter career posts based on search query, departments and locations (localised)
   const filteredPosts = careerPosts.filter((post) => {
     const title = (post.title_locales && post.title_locales[language]) || post.title;
-    const description = (post.description_locales && post.description_locales[language]) || post.description;
+    const summary = (post.summary_locales && post.summary_locales[language]) || post.summary;
     const matchesSearch = title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      description.toLowerCase().includes(searchQuery.toLowerCase());
+      summary.toLowerCase().includes(searchQuery.toLowerCase());
     
     const department = (post.department_locales && post.department_locales[language]) || post.department || '';
     const matchesDepartment = selectedDepartments.length === 0 || selectedDepartments.includes(department);
@@ -87,23 +95,23 @@ export function CareerGrid({ careerPosts, language }: CareerGridProps) {
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3,
+        staggerChildren: 0.06,
+        delayChildren: 0.2,
         ease: "easeOut",
       },
     },
   };
 
   return (
-    <section className="bg-[#F5EFE0]/80 dark:bg-background py-16">
+    <section className="py-16 -mt-20 sm:-mt-28 md:-mt-32 lg:-mt-40 bg-[#F5EFE0]/80 dark:bg-background relative">
       <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: -15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          {...(isMobile
+            ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.25 } }
+            : { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.35 } }
+          )}
           className="text-center mb-12"
           id="career-positions"
           style={{ scrollMarginTop: "60px" }}
@@ -124,10 +132,10 @@ export function CareerGrid({ careerPosts, language }: CareerGridProps) {
 
         {/* Search and Filters Section */}
         <motion.div 
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          {...(isMobile
+            ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.25 } }
+            : { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.35 } }
+          )}
           className="bg-white dark:bg-black/50 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-700/50 p-6 mb-8 backdrop-blur-sm"
         >
           {/* Search Bar */}
@@ -136,7 +144,7 @@ export function CareerGrid({ careerPosts, language }: CareerGridProps) {
             <Input
               type="text"
               placeholder={t('careers.grid.searchPlaceholder')}
-              className="pl-12 h-12 text-base border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:bg-white dark:focus:bg-gray-800"
+              className="pl-12 pr-4 h-12 w-full rounded-xl text-base border-gray-100 dark:border-gray-700/50 bg-white dark:bg-black/50 placeholder:text-gray-500 dark:placeholder:text-gray-400 shadow-md hover:shadow-lg transition-all duration-300 focus-visible:ring-brand-primary"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -232,46 +240,62 @@ export function CareerGrid({ careerPosts, language }: CareerGridProps) {
 
         {/* Results Summary */}
         <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.3, delay: 0.3 }}
+          {...(isMobile
+            ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.25 } }
+            : { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.3 } }
+          )}
           className="flex items-center justify-between mb-8"
         >
           <div className="flex items-center">
             <Briefcase className="mr-2 h-5 w-5 text-brand-primary" />
             <p className="text-lg font-medium text-brand-dark dark:text-white">
-              {filteredPosts.length} {filteredPosts.length === 1 ? 'Position' : 'Positions'} Available
+              {filteredPosts.length === 1
+                ? t('careers.grid.positionsAvailableSingular')
+                : t('careers.grid.positionsAvailablePlural').replace('{count}', String(filteredPosts.length))}
             </p>
           </div>
           {hasActiveFilters && (
             <p className="text-sm text-brand-secondary dark:text-gray-400">
-              Filtered from {careerPosts.length} total positions
+              {t('careers.grid.filteredFrom').replace('{total}', String(careerPosts.length))}
             </p>
           )}
         </motion.div>
 
         {/* Career Grid */}
         {filteredPosts.length > 0 ? (
-          <motion.div
-            key={`${selectedDepartments.length}-${selectedLocations.length}-${searchQuery.length}`}
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
-          >
-            {filteredPosts.map((post, index) => (
-              <CareerCard key={post.slug} post={post} index={index} language={language} />
-            ))}
-          </motion.div>
+          isMobile ? (
+            <motion.div
+              key={`${selectedDepartments.length}-${selectedLocations.length}-${searchQuery.length}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.25 }}
+              className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+            >
+              {filteredPosts.map((post, index) => (
+                <CareerCard key={post.slug} post={post} index={index} language={language} disableAnimation={true} />
+              ))}
+            </motion.div>
+          ) : (
+            <motion.div
+              key={`${selectedDepartments.length}-${selectedLocations.length}-${searchQuery.length}`}
+              variants={container}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+            >
+              {filteredPosts.map((post, index) => (
+                <CareerCard key={post.slug} post={post} index={index} language={language} />
+              ))}
+            </motion.div>
+          )
         ) : (
           <motion.div
             key={`empty-${selectedDepartments.length}-${selectedLocations.length}-${searchQuery.length}`}
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            {...(isMobile
+              ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.25 } }
+              : { initial: { opacity: 0, y: 10 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.5, delay: 0.3 } }
+            )}
             className="flex flex-col items-center justify-center py-16 text-center"
           >
             <div className="bg-white dark:bg-black/50 rounded-full p-6 mb-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm">
@@ -289,7 +313,7 @@ export function CareerGrid({ careerPosts, language }: CareerGridProps) {
                 onClick={clearFilters}
                 className="mt-4 border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white"
               >
-                Clear all filters
+                {t('careers.grid.clearAllFilters')}
               </Button>
             )}
           </motion.div>

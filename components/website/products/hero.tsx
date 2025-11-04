@@ -14,10 +14,10 @@ type ProductsHeroProps = {
 };
 
 export const ProductsHero = ({ showDescription = true }: ProductsHeroProps) => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage() as any;
 
   return (
-    <section className="relative overflow-hidden bg-brand-light dark:bg-background pt-16 pb-4 md:pt-32 md:pb-8">
+    <section className="relative overflow-hidden bg-brand-light dark:bg-background pt-16 pb-2 md:pt-32 md:pb-4">
       {/* Decorative Elements */}
       <div className="absolute -top-32 -right-32 h-[300px] w-[300px] md:h-[500px] md:w-[500px] rounded-full bg-brand-primary/5 blur-3xl dark:bg-brand-primary/10"></div>
       <div className="absolute -bottom-32 -left-32 h-[250px] w-[250px] md:h-[400px] md:w-[400px] rounded-full bg-brand-primary/10 blur-3xl dark:bg-brand-primary/5"></div>
@@ -30,11 +30,10 @@ export const ProductsHero = ({ showDescription = true }: ProductsHeroProps) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...SPRING_CONFIG, delay: 0.1 }}
-            className="relative mb-6 md:mb-8"
+            className="relative mb-2 md:mb-3"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-brand-dark dark:text-white font-heading">
-              {t("productsHero.heading.line1Start")} <span className="text-brand-primary">{t("productsHero.heading.line1Highlight")}</span><br className="md:hidden" /> <span className="hidden md:inline">{t("productsHero.heading.line1End")}</span><br className="hidden md:block" />
-              <span className="md:hidden">{t("productsHero.heading.line1End")} </span>{t("productsHero.heading.line2")}
+            <h1 className={`text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-brand-dark dark:text-white font-heading whitespace-normal ${language === 'en' ? 'md:whitespace-nowrap' : 'md:whitespace-normal'}`}>
+              {t("productsHero.heading.line1Start")} <span className="text-brand-primary">{t("productsHero.heading.line1Highlight")}</span> {t("productsHero.heading.line1End")} {t("productsHero.heading.line2")}
             </h1>
           </motion.div>
 
@@ -46,10 +45,10 @@ export const ProductsHero = ({ showDescription = true }: ProductsHeroProps) => {
               transition={{ ...SPRING_CONFIG, delay: 0.2 }}
               className="mb-6 md:mb-8"
             >
-              <p className="max-w-4xl text-base md:text-lg text-brand-secondary dark:text-gray-300 mb-4 md:mb-6">
+              <p className="max-w-8xl text-base md:text-lg text-brand-secondary dark:text-gray-300 mb-4 md:mb-6">
                 {t("productsHero.description")}
               </p>
-              <p className="max-w-4xl text-base md:text-lg text-brand-secondary dark:text-gray-300">
+              <p className="max-w-8xl text-base md:text-lg text-brand-secondary dark:text-gray-300">
                 {t("productsHero.secondDescription")}
               </p>
             </motion.div>

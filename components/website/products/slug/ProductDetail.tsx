@@ -2,7 +2,17 @@
 import React from 'react';
 import Link from "next/link";
 import Image from "next/image";
+import { ArmSpecs } from "@/components/website/products/slug/ArmSpecs";
+import { GlovesSpecs } from "@/components/website/products/slug/GlovesSpecs";
+import { SwabsSpecs } from "@/components/website/products/slug/SwabsSpecs";
+import { RespiratorSpecs } from "@/components/website/products/slug/RespiratorSpecs";
+import { HearingSpecs } from "@/components/website/products/slug/HearingSpecs";
+import { EyeFaceSpecs } from "@/components/website/products/slug/EyeFaceSpecs";
+import { FootwearSpecs } from "@/components/website/products/slug/FootwearSpecs";
+import { HeadSpecs } from "@/components/website/products/slug/HeadSpecs";
+import { ClothingSpecs } from "@/components/website/products/slug/ClothingSpecs";
 import { useLanguage } from "@/lib/context/language-context";
+import { useRouter } from "next/navigation";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -14,8 +24,35 @@ import { ProductCard } from "@/components/website/products/product-card";
 import { SampleModal } from "@/components/website/products/sample-modal";
 import { ContactModal } from "@/components/website/products/contact-modal";
 import { SafetyStandardsDisplay } from "@/components/website/products/safety-standards-display";
+import { EyeFaceStandards } from "@/components/website/products/slug/EyeFaceStandards";
+import { HeadStandards } from "@/components/website/products/slug/HeadStandards";
+import { FootwearStandards } from "@/components/website/products/slug/FootwearStandards";
+import { ArmStandards } from "@/components/website/products/slug/ArmStandards";
+import { HearingStandards } from "@/components/website/products/slug/HearingStandards";
+import { RespiratoryStandards } from "@/components/website/products/slug/RespiratoryStandards";
+import { ClothingStandards } from "@/components/website/products/slug/ClothingStandards";
 import { EnvironmentPictogramsDisplay } from "@/components/website/products/environment-pictograms";
+import { EyeFaceEnvironment } from "./EyeFaceEnvironment";
 import { Product } from "@/lib/products-service";
+import { EyeFaceComfortFeatures } from "@/components/website/products/slug/EyeFaceComfortFeatures";
+import { HeadComfortFeatures } from "@/components/website/products/slug/HeadComfortFeatures";
+import { HeadOtherDetails } from "@/components/website/products/slug/HeadOtherDetails";
+import { HeadEquipment } from "@/components/website/products/slug/HeadEquipment";
+import { EyeFaceEquipment } from "@/components/website/products/slug/EyeFaceEquipment";
+import { FootwearComfortFeatures } from "@/components/website/products/slug/FootwearComfortFeatures";
+import { FootwearSpecialFeatures } from "@/components/website/products/slug/FootwearSpecialFeatures";
+import { HearingComfortFeatures } from "@/components/website/products/slug/HearingComfortFeatures";
+import { HearingOtherDetails } from "@/components/website/products/slug/HearingOtherDetails";
+import { HearingEquipment } from "@/components/website/products/slug/HearingEquipment";
+import { RespiratoryComfortFeatures } from "@/components/website/products/slug/RespiratoryComfortFeatures";
+import { RespiratoryOtherDetails } from "@/components/website/products/slug/RespiratoryOtherDetails";
+import { RespiratoryEquipment } from "@/components/website/products/slug/RespiratoryEquipment";
+import { ClothingComfortFeatures } from "@/components/website/products/slug/ClothingComfortFeatures";
+import { ClothingOtherDetails } from "@/components/website/products/slug/ClothingOtherDetails";
+import { ClothingEnvironment } from "@/components/website/products/slug/ClothingEnvironment";
+import { ArmProtectionAttributes } from "@/components/website/products/slug/ArmProtectionAttributes";
+import { ProductDeclarations } from "@/components/website/products/slug/ProductDeclarations";
+import { useBrands } from "@/lib/context/brands-context";
 
 // Flag components for flag icons
 const FlagIcon = ({ country, className }: { country: 'GB' | 'IT', className?: string }) => {
@@ -51,28 +88,24 @@ const FlagIcon = ({ country, className }: { country: 'GB' | 'IT', className?: st
   return flags[country];
 };
 
-// Brand logo mapping
-const getBrandLogo = (brandName: string) => {
-  const normalizedBrand = brandName.toLowerCase();
+// Brand logo mapping - fully dynamic system
+const getBrandLogo = (brandName: string, brands: any[], isDarkMode = false) => {
+  const brand = brands.find(b => b.name.toLowerCase() === brandName.toLowerCase());
+  if (!brand) return null;
   
-  if (normalizedBrand.includes('hand line') || normalizedBrand.includes('handline')) {
-    return '/brands/HL_word_logo.PNG';
+  // Use dark mode logo if available and in dark mode, otherwise use light mode logo
+  if (isDarkMode && brand.dark_mode_logo_url) {
+    return brand.dark_mode_logo_url;
   }
   
-  if (normalizedBrand.includes('progloves heat') || (normalizedBrand.includes('proglov') && normalizedBrand.includes('heat'))) {
-    return '/brands/proheatnobg.png';
-  }
-  
-  if (normalizedBrand.includes('progloves cut') || (normalizedBrand.includes('proglov') && normalizedBrand.includes('cut'))) {
-    return '/brands/procutnobg.png';
-  }
-  
-  return null;
+  return brand.logo_url || null;
 };
 
 export function ProductDetail({ product, relatedProducts }: { product: Product, relatedProducts: any[] }) {
   const { t, language } = useLanguage();
+  const router = useRouter();
   const { trackProductView, trackSampleRequest, trackContactSubmission, trackDownload } = useAnalytics();
+  const { brands } = useBrands();
   
   // Get localized content based on current language
   const currentFeatures = product.features_locales?.[language] || product.features || [];
@@ -86,6 +119,18 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
 
   // Get localised size and other info
   const size = product.size_locales?.[language] || product.size_locales?.en || null;
+
+  // Compute pad size display if available (primarily for Industrial Swabs)
+  const padSizeDisplay: string | null = React.useMemo(() => {
+    const raw = (product as any).pad_size_json;
+    if (!raw || typeof raw !== 'object') return null;
+    const locale = raw[language] || raw.en;
+    if (!locale || typeof locale !== 'object') return null;
+    const diameter = locale.diameter_mm ?? locale.diametro_mm ?? null;
+    const length = locale.length_mm ?? locale.lunghezza_mm ?? null;
+    if (diameter && length) return `Ø ${diameter} × ${length} mm`;
+    return null;
+  }, [product, language]);
 
   // Track product view on component mount
   React.useEffect(() => {
@@ -115,6 +160,47 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
     // The actual download is handled by the link
   };
 
+  // Derive category link for breadcrumb navigation
+  const categoryLabel = product.category_locales?.[language] || product.category || '';
+  const categoryHref: string | null = React.useMemo(() => {
+    const cat = (product.category || '').toLowerCase();
+    const sub = (product.sub_category || '').toLowerCase();
+    if (cat.includes('respir')) return '/products/respiratory';
+    if (cat.includes('swab')) return '/products/industrial-swabs';
+    if (cat.includes('hearing') || sub.includes('ear')) return '/products/hearing';
+    if (cat.includes('footwear') || sub.includes('boot') || sub.includes('insol')) return '/products/footwear';
+    if (cat.includes('eye') || cat.includes('face') || sub.includes('goggle') || sub.includes('glasses') || sub.includes('visor')) return '/products/eye-face';
+    if (cat.includes('head') || sub.includes('helmet') || sub.includes('bump')) return '/products/head';
+    if (cat.includes('cloth') || sub.includes('jacket')) return '/products/clothing';
+    if (cat.includes('arm') || sub.includes('sleeve')) return '/products/arm-protection';
+    // Default to gloves
+    if (cat.includes('hand') || cat.includes('glove')) return '/products/gloves';
+    return null;
+  }, [product]);
+
+  // Back button behaviour: return to previous in-site page if possible, else fallback
+  const handleBackNav = React.useCallback(() => {
+    if (typeof window !== 'undefined') {
+      const ref = document.referrer;
+      const fromSameOrigin = ref && ref.startsWith(window.location.origin);
+      if (fromSameOrigin) {
+        router.back();
+        return;
+      }
+      // Fallback when there is no referrer or external source
+      router.push('/products#product-grid');
+    }
+  }, [router]);
+
+  // Swabs never have EN standards → hide the EN Standards tab for swab products
+  const isSwab = ((product.category || '').toLowerCase().includes('swab')) || ((product.sub_category || '').toLowerCase().includes('swab'));
+  const isEyeFace = ((product.category || '').toLowerCase().includes('eye') || (product.category || '').toLowerCase().includes('face') || (product.sub_category || '').toLowerCase().includes('goggle') || (product.sub_category || '').toLowerCase().includes('glasses') || (product.sub_category || '').toLowerCase().includes('visor'));
+  const isHead = ((product.category || '').toLowerCase().includes('head')) || ((product.sub_category || '').toLowerCase().includes('helmet')) || ((product.sub_category || '').toLowerCase().includes('bump'));
+  const isHearing = ((product.category || '').toLowerCase().includes('hearing') || (product.sub_category || '').toLowerCase().includes('ear plug') || (product.sub_category || '').toLowerCase().includes('defender'));
+  const isRespiratory = ((product.category || '').toLowerCase().includes('respir'));
+  const isClothing = ((product.category || '').toLowerCase().includes('cloth') || (product.sub_category || '').toLowerCase().includes('jacket'));
+  const isFootwear = ((product.category || '').toLowerCase().includes('footwear') || (product.sub_category || '').toLowerCase().includes('boot') || (product.sub_category || '').toLowerCase().includes('insol'));
+
   return (
     <main className="bg-brand-light dark:bg-background min-h-screen pt-11">
       {/* Breadcrumb */}
@@ -136,6 +222,17 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
               <Package className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
               <span className="font-medium">{t('navbar.products')}</span>
             </Link>
+            {categoryHref && (
+              <>
+                <ChevronRight className="h-4 w-4 text-brand-primary/60" />
+                <Link
+                  href={categoryHref}
+                  className="inline-flex items-center gap-1.5 text-brand-secondary hover:text-brand-primary dark:text-gray-400 dark:hover:text-brand-primary transition-colors duration-200 group"
+                >
+                  <span className="font-medium">{categoryLabel}</span>
+                </Link>
+              </>
+            )}
             <ChevronRight className="h-4 w-4 text-brand-primary/60" />
             <span className="text-brand-dark dark:text-white font-semibold bg-brand-primary/10 dark:bg-brand-primary/20 px-3 py-1 rounded-full text-xs uppercase tracking-wide">
               {product.name_locales?.[language] || product.name || ''}
@@ -149,14 +246,14 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
         <Button 
           variant="outline" 
           size="sm" 
-          asChild 
           className="mb-6 bg-white/90 dark:bg-black/70 hover:bg-white dark:hover:bg-black/90 border-brand-primary/30 dark:border-brand-primary/50 hover:border-brand-primary text-brand-primary hover:text-brand-primary transition-all duration-300 hover:scale-105 hover:shadow-lg backdrop-blur-sm group"
+          onClick={handleBackNav}
         >
-          <Link href="/products#product-grid" className="flex items-center gap-2">
+          <span className="flex items-center gap-2">
             <ChevronLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
             <Package className="h-4 w-4" />
             <span className="font-medium">{t('productPage.backToProducts')}</span>
-          </Link>
+          </span>
         </Button>
         
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
@@ -166,6 +263,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
             image2={product.image2_url}
             image3={product.image3_url}
             image4={product.image4_url}
+            image5={product.image5_url}
             additionalImages={product.additional_images}
             productName={product.name_locales?.[language] || product.name || ''}
             isFeatured={product.is_featured}
@@ -195,9 +293,10 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                 {product.brands && product.brands.length > 0 && (
                   <div className="flex items-center gap-1.5 flex-shrink-0">
                     {product.brands.map((brand, index) => {
-                      const logoPath = getBrandLogo(brand);
+                      const lightLogoPath = getBrandLogo(brand, brands, false);
+                      const darkLogoPath = getBrandLogo(brand, brands, true);
                       
-                      if (logoPath) {
+                      if (lightLogoPath) {
                         return (
                           <div 
                             key={index}
@@ -205,39 +304,20 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                           >
                             {/* Light mode image */}
                             <Image
-                              src={logoPath}
+                              src={lightLogoPath}
                               alt={brand}
                               width={60}
                               height={24}
                               className="object-contain block dark:hidden"
                             />
-                            {/* Dark mode image with partial invert */}
-                            <div className="hidden dark:block relative">
-                              <Image
-                                src={logoPath}
-                                alt={brand}
-                                width={60}
-                                height={24}
-                                className="object-contain"
-                              />
-                              {/* Invert overlay for left 55% */}
-                              <div 
-                                className="absolute inset-0 invert"
-                                style={{
-                                  clipPath: 'inset(0 45% 0 0)',
-                                  width: '60px',
-                                  height: '24px'
-                                }}
-                              >
-                                <Image
-                                  src={logoPath}
-                                  alt={brand}
-                                  width={60}
-                                  height={24}
-                                  className="object-contain"
-                                />
-                              </div>
-                            </div>
+                            {/* Dark mode image */}
+                            <Image
+                              src={darkLogoPath || lightLogoPath}
+                              alt={brand}
+                              width={60}
+                              height={24}
+                              className="object-contain hidden dark:block"
+                            />
                           </div>
                         );
                       } else {
@@ -288,7 +368,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                   >
                     {t('productPage.applications')}
                   </TabsTrigger>
-                  {(product.safety || product.environment_pictograms) && (
+                  {((product.safety || product.environment_pictograms) && !isSwab) && (
                     <TabsTrigger 
                       value="safety" 
                       className="w-full rounded-lg px-4 py-3 data-[state=active]:bg-brand-primary data-[state=active]:text-white text-left justify-start"
@@ -324,7 +404,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                   >
                     {t('productPage.applications')}
                   </TabsTrigger>
-                  {(product.safety || product.environment_pictograms) && (
+                  {((product.safety || product.environment_pictograms) && !isSwab) && (
                     <TabsTrigger 
                       value="safety" 
                       className="flex-1 rounded-lg px-4 py-2 data-[state=active]:bg-brand-primary data-[state=active]:text-white"
@@ -346,166 +426,207 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                     <h3 className="text-lg font-semibold text-brand-dark dark:text-white mb-4">
                       {t('productPage.technicalSpecifications')}
                     </h3>
-                    <div className="grid grid-cols-3 gap-4">
-                      {/* Materials Tile */}
-                      <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-                        <div className="flex items-center justify-center gap-2 mb-2">
-                          <Layers className="h-5 w-5 text-brand-primary hidden sm:block" />
-                          <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.materials')}</h3>
-                        </div>
-                        <div className="flex items-center justify-center">
-                          {currentMaterials && currentMaterials.length > 0 ? (
-                            <div className="text-center">
-                              <div className="text-brand-dark dark:text-white font-medium text-md">
-                                {currentMaterials[0]}
-                              </div>
-                              {currentMaterials.length > 1 && (
-                                <div className="text-sm text-brand-secondary dark:text-gray-300">
-                                  +{currentMaterials.length - 1} more
-                                </div>
-                              )}
-                            </div>
-                          ) : (
-                            <span className="text-brand-dark dark:text-white font-medium text-md">-</span>
-                          )}
-                        </div>
-                      </div>
-                      
-                      {/* Size */}
-                      <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-                        <div className="flex items-center justify-center gap-2 mb-2">
-                          <Move className="h-5 w-5 text-brand-primary hidden sm:block" />
-                          <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.productInfo.size')}</h3>
-                        </div>
-                        <div className="flex items-center justify-center">
-                          <span className="text-brand-dark dark:text-white font-medium text-md">
-                            {size || '-'}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Length */}
-                      <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-                        <div className="flex items-center justify-center gap-2 mb-2">
-                          <Ruler className="h-5 w-5 text-brand-primary hidden sm:block" />
-                          <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.productInfo.length')}</h3>
-                        </div>
-                        <div className="flex items-center justify-center">
-                          <span className="text-brand-dark dark:text-white font-medium text-md">
-                            {product.length_cm ? `${product.length_cm} cm` : '-'}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* CE Category and EN Standards */}
-                    <div className="space-y-4">
-                      {/* CE Category and EN Standard - Side by Side Tiles */}
-                      <div className="grid grid-cols-2 gap-4">
-                        {product.ce_category && (
-                          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4 flex flex-col">
-                            <div className="flex items-center justify-center gap-2 mb-2">
-                              <Shield className="h-5 w-5 text-brand-primary" />
-                              <h3 className="text-sm font-medium text-brand-dark dark:text-white">{t('productPage.ceCategory')}</h3>
-                            </div>
-                          <div className="flex-1 flex items-center justify-center">
-                            <span className="text-brand-dark dark:text-white font-medium text-md">{t('productPage.category')} {product.ce_category}</span>
-                          </div>
-                          </div>
-                        )}
-                        
-                        {/* EN Standards from Safety JSON */}
-                        {product.safety && (product.safety.en_388?.enabled || product.safety.en_407?.enabled || product.safety.en_511?.enabled) && (
-                          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-                            <div className="flex items-center justify-center gap-2 mb-2">
-                              <Shield className="h-5 w-5 text-brand-primary" />
-                              <h3 className="text-sm font-medium text-brand-dark dark:text-white">EN Standards</h3>
-                            </div>
-                            <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-3">
-                              {/* EN 388 - Mechanical Risks */}
-                              {product.safety.en_388?.enabled && (
-                                <div className="flex items-center gap-1">
-                                  <Image
-                                    src="/images/standards/EN388.png"
-                                    alt="EN388"
-                                    width={20}
-                                    height={20}
-                                    className="object-contain"
-                                  />
-                                  <span className="text-brand-dark dark:text-white font-medium text-md">EN388</span>
-                                </div>
-                              )}
-                              
-                              {/* EN 407 - Thermal Risks */}
-                              {product.safety.en_407?.enabled && (
-                                <>
-                                  {product.safety.en_388?.enabled && <span className="text-brand-secondary dark:text-gray-400 hidden sm:inline">•</span>}
-                                  <div className="flex items-center gap-1">
-                                    <Image
-                                      src="/images/standards/EN407.png"
-                                      alt="EN407"
-                                      width={20}
-                                      height={20}
-                                      className="object-contain"
-                                    />
-                                    <span className="text-brand-dark dark:text-white font-medium text-md">EN407</span>
-                                  </div>
-                                </>
-                              )}
-                              
-                              {/* EN 511 - Cold Risks */}
-                              {product.safety.en_511?.enabled && (
-                                <>
-                                  {(product.safety.en_388?.enabled || product.safety.en_407?.enabled) && <span className="text-brand-secondary dark:text-gray-400 hidden sm:inline">•</span>}
-                                  <div className="flex items-center gap-1">
-                                    <Snowflake className="h-5 w-5 text-blue-500" />
-                                    <span className="text-brand-dark dark:text-white font-medium text-md">EN511</span>
-                                  </div>
-                                </>
-                              )}
-                            </div>
-                          </div>
-                        )}
-                        
-                        {/* Fallback when safety exists but no standards are enabled, or when no safety data exists */}
-                        {((product.safety && !product.safety.en_388?.enabled && !product.safety.en_407?.enabled && !product.safety.en_511?.enabled) || !product.safety) && product.en_standard && (
-                          <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-                            <div className="flex items-center justify-center gap-2 mb-2">
-                              <Shield className="h-5 w-5 text-brand-primary" />
-                              <h3 className="text-sm font-medium text-brand-dark dark:text-white">EN Standard</h3>
-                            </div>
-                            <div className="flex items-center justify-center">
-                              <span className="text-brand-dark dark:text-white font-medium text-md">{product.en_standard}</span>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
+                    {/* Category-specific isolated specs */}
+                    {(product.category?.toLowerCase().includes('respir') || (product as any).filter_type || (((product as any).connections || []).length > 0)) ? (
+                      <RespiratorSpecs product={product} />
+                    ) : ((product.category || '').toLowerCase().includes('footwear') || (product.sub_category || '').toLowerCase().includes('boot') || (product.sub_category || '').toLowerCase().includes('insol')) ? (
+                      <FootwearSpecs product={product} />
+                    ) : ((((product as any).hearing_standards && Object.keys((product as any).hearing_standards || {}).length > 0) && !!(product as any).hearing_standards.en352) || (product.category || '').toLowerCase().includes('hearing') || (product.sub_category || '').toLowerCase().includes('ear')) ? (
+                      <HearingSpecs product={product} />
+                    ) : (((product as any).head_standards && Object.keys((product as any).head_standards || {}).length > 0) || (product.category || '').toLowerCase().includes('head') || (product.sub_category || '').toLowerCase().includes('helmet') || (product.sub_category || '').toLowerCase().includes('bump')) ? (
+                      <HeadSpecs product={product} />
+                    ) : ((((product as any).eye_face_standards && Object.keys((product as any).eye_face_standards || {}).length > 0) || ((product as any).eye_face_attributes && Object.keys((product as any).eye_face_attributes || {}).length > 0)) || (product.category || '').toLowerCase().includes('eye') || (product.category || '').toLowerCase().includes('face') || (product.sub_category || '').toLowerCase().includes('goggle') || (product.sub_category || '').toLowerCase().includes('visor') || (product.sub_category || '').toLowerCase().includes('glasses')) ? (
+                      <EyeFaceSpecs product={product} />
+                    ) : (((product as any).clothing_standards && Object.keys((product as any).clothing_standards || {}).length > 0) || (product.category || '').toLowerCase().includes('clothing') || (product.sub_category || '').toLowerCase().includes('jacket')) ? (
+                      <ClothingSpecs product={product} />
+                    ) : (product.category?.toLowerCase().includes('swab') || product.sub_category?.toLowerCase().includes('swab')) ? (
+                      <SwabsSpecs product={product} />
+                    ) : ((product.category || '').toLowerCase().includes('arm') || (product.sub_category || '').toLowerCase().includes('sleeve')) ? (
+                      <ArmSpecs product={product} />
+                    ) : (
+                      <GlovesSpecs product={product} />
+                    )}
                     
                     {/* Work Environment Suitability */}
-                    {product.environment_pictograms && (
+                    {product.environment_pictograms && !isEyeFace && !isHead && !isHearing && !isRespiratory && !isClothing && !((product.category || '').toLowerCase().includes('footwear') || (product.sub_category || '').toLowerCase().includes('boot') || (product.sub_category || '').toLowerCase().includes('insol')) && (
                       <EnvironmentPictogramsDisplay environment_pictograms={product.environment_pictograms} />
+                    )}
+                    {product.environment_pictograms && isEyeFace && (
+                      // Lazy import pattern isn't supported in JSX directly; static import component instead
+                      // @ts-ignore - module exists
+                      <EyeFaceEnvironment environment_pictograms={product.environment_pictograms as any} />
+                    )}
+                    {product.environment_pictograms && isClothing && (
+                      <ClothingEnvironment environment_pictograms={product.environment_pictograms} />
                     )}
                   </div>
                 </TabsContent>
                 
                 <TabsContent value="features" className="mt-0">
                   <div className="space-y-4">
-                    <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
-                      <div className="flex items-center gap-2 mb-2">
-                        <ListChecks className="h-5 w-5 text-brand-primary" />
-                        <h3 className="font-medium text-brand-dark dark:text-white">{t('productPage.features')}</h3>
+                    {/* Eye & Face: Safety features FIRST */}
+                    {isEyeFace && (
+                      <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          <ListChecks className="h-5 w-5 text-brand-primary" />
+                          <h3 className="font-medium text-brand-dark dark:text-white">{t('productPage.safetyFeatures')}</h3>
+                        </div>
+                        <ul className="list-disc list-inside space-y-1 text-brand-secondary dark:text-gray-300">
+                          {currentFeatures && currentFeatures.length > 0 ? (
+                            currentFeatures.map((feature: string, idx: number) => (
+                              <li key={idx}>{feature}</li>
+                            ))
+                          ) : (
+                            <li>-</li>
+                          )}
+                        </ul>
                       </div>
-                      <ul className="list-disc list-inside space-y-1 text-brand-secondary dark:text-gray-300">
-                        {currentFeatures && currentFeatures.length > 0 ? (
-                          currentFeatures.map((feature: string, idx: number) => (
-                            <li key={idx}>{feature}</li>
-                          ))
-                        ) : (
-                          <li>-</li>
-                        )}
-                      </ul>
-                    </div>
+                    )}
+                    {/* Eye & Face: Then Comfort & fit, Equipment */}
+                    {isEyeFace && (
+                      <>
+                        <EyeFaceComfortFeatures product={product} />
+                        <EyeFaceEquipment product={product} />
+                      </>
+                    )}
+
+                    {/* Head: Safety features FIRST */}
+                    {isHead && (
+                      <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          <ListChecks className="h-5 w-5 text-brand-primary" />
+                          <h3 className="font-medium text-brand-dark dark:text-white">{t('productPage.safetyFeatures')}</h3>
+                        </div>
+                        <ul className="list-disc list-inside space-y-1 text-brand-secondary dark:text-gray-300">
+                          {currentFeatures && currentFeatures.length > 0 ? (
+                            currentFeatures.map((feature: string, idx: number) => (
+                              <li key={idx}>{feature}</li>
+                            ))
+                          ) : (
+                            <li>-</li>
+                          )}
+                        </ul>
+                      </div>
+                    )}
+                    {/* Head: Then Comfort, Equipment, Other */}
+                    {isHead && (
+                      <>
+                        <HeadComfortFeatures product={product} />
+                        <HeadEquipment product={product} />
+                        <HeadOtherDetails product={product} />
+                      </>
+                    )}
+
+                    {/* Footwear: Safety features FIRST */}
+                    {isFootwear && (
+                      <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          <ListChecks className="h-5 w-5 text-brand-primary" />
+                          <h3 className="font-medium text-brand-dark dark:text-white">{t('productPage.safetyFeatures')}</h3>
+                        </div>
+                        <ul className="list-disc list-inside space-y-1 text-brand-secondary dark:text-gray-300">
+                          {currentFeatures && currentFeatures.length > 0 ? (
+                            currentFeatures.map((feature: string, idx: number) => (
+                              <li key={idx}>{feature}</li>
+                            ))
+                          ) : (
+                            <li>-</li>
+                          )}
+                        </ul>
+                      </div>
+                    )}
+                    {/* Footwear: Then Comfort and Special */}
+                    {isFootwear && (
+                      <>
+                        <FootwearComfortFeatures product={product} />
+                        <FootwearSpecialFeatures product={product} />
+                      </>
+                    )}
+                    {/* Comfort & fit features: Hearing */}
+                    {isHearing && (
+                      <HearingComfortFeatures product={product} />
+                    )}
+                    {/* Respiratory: Safety features FIRST */}
+                    {isRespiratory && (
+                      <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          <ListChecks className="h-5 w-5 text-brand-primary" />
+                          <h3 className="font-medium text-brand-dark dark:text-white">{t('productPage.safetyFeatures')}</h3>
+                        </div>
+                        <ul className="list-disc list-inside space-y-1 text-brand-secondary dark:text-gray-300">
+                          {currentFeatures && currentFeatures.length > 0 ? (
+                            currentFeatures.map((feature: string, idx: number) => (
+                              <li key={idx}>{feature}</li>
+                            ))
+                          ) : (
+                            <li>-</li>
+                          )}
+                        </ul>
+                      </div>
+                    )}
+                    {/* Respiratory: Then Comfort, Equipment, Other */}
+                    {isRespiratory && (
+                      <>
+                        <RespiratoryComfortFeatures product={product} />
+                        <RespiratoryEquipment product={product} />
+                        <RespiratoryOtherDetails product={product} />
+                      </>
+                    )}
+                    {/* Clothing: Safety features FIRST */}
+                    {isClothing && (
+                      <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          <ListChecks className="h-5 w-5 text-brand-primary" />
+                          <h3 className="font-medium text-brand-dark dark:text-white">{t('productPage.safetyFeatures')}</h3>
+                        </div>
+                        <ul className="list-disc list-inside space-y-1 text-brand-secondary dark:text-gray-300">
+                          {currentFeatures && currentFeatures.length > 0 ? (
+                            currentFeatures.map((feature: string, idx: number) => (
+                              <li key={idx}>{feature}</li>
+                            ))
+                          ) : (
+                            <li>-</li>
+                          )}
+                        </ul>
+                      </div>
+                    )}
+                    {/* Clothing: Then Comfort and Other */}
+                    {isClothing && (
+                      <>
+                        <ClothingComfortFeatures product={product} />
+                        <ClothingOtherDetails product={product} />
+                      </>
+                    )}
+                    {/* Equipment blocks for Hearing */}
+                    {isHearing && (
+                      <HearingEquipment product={product} />
+                    )}
+                    {/* Safety features for OTHER categories (NOT eye-face, respiratory, head, clothing, or footwear) */}
+                    {!isRespiratory && !isEyeFace && !isHead && !isClothing && !isFootwear && (
+                      <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          <ListChecks className="h-5 w-5 text-brand-primary" />
+                          <h3 className="font-medium text-brand-dark dark:text-white">{isHearing ? t('productPage.safetyFeatures') : t('productPage.features')}</h3>
+                        </div>
+                        <ul className="list-disc list-inside space-y-1 text-brand-secondary dark:text-gray-300">
+                          {currentFeatures && currentFeatures.length > 0 ? (
+                            currentFeatures.map((feature: string, idx: number) => (
+                              <li key={idx}>{feature}</li>
+                            ))
+                          ) : (
+                            <li>-</li>
+                          )}
+                        </ul>
+                      </div>
+                    )}
+                    {/* Arm Protection Attributes - after main Features */}
+                    {((product.category || '').toLowerCase().includes('arm') || (product.sub_category || '').toLowerCase().includes('sleeve')) && (
+                      <ArmProtectionAttributes product={product} />
+                    )}
+                    {/* Other details blocks - after Safety features (non-head, non-respiratory, non-clothing) */}
+                    {isHearing && (
+                      <HearingOtherDetails product={product} />
+                    )}
                   </div>
                 </TabsContent>
                 
@@ -550,12 +671,42 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                   </div>
                 </TabsContent>
                 
-                {(product.safety) && (
+                {!isSwab && (product.safety || (product as any).eye_face_standards || (product as any).respiratory_standards) && (
                   <TabsContent value="safety" className="mt-0">
                     <div className="space-y-6">
                       {/* Safety Standards - Environment pictograms moved to specifications */}
-                      {product.safety && (
-                        <SafetyStandardsDisplay safety={product.safety} />
+                      {/* Generic gloves safety display unless a category-specific standards component is shown below */}
+                      {product.safety && !(((product as any).eye_face_standards && Object.keys((product as any).eye_face_standards || {}).length > 0) || ((product as any).head_standards && Object.keys((product as any).head_standards || {}).length > 0) || ((product as any).footwear_standards && Object.keys((product as any).footwear_standards || {}).length > 0) || (((product as any).arm_attributes && Object.keys((product as any).arm_attributes || {}).length > 0) || ((product as any).safety?.en_iso_21420)) || ((product as any).hearing_standards && Object.keys((product as any).hearing_standards || {}).length > 0) || ((product as any).respiratory_standards && Object.keys((product as any).respiratory_standards || {}).length > 0)) && (
+                        <SafetyStandardsDisplay safety={product.safety} hideTitle />
+                      )}
+                      {/* Eye & Face dedicated standards */
+                      }
+                      {((product as any).eye_face_standards && Object.keys((product as any).eye_face_standards || {}).length > 0) && (
+                        <EyeFaceStandards product={product} />
+                      )}
+                      {/* Respiratory dedicated standards */}
+                      {((product as any).respiratory_standards && Object.keys((product as any).respiratory_standards || {}).length > 0) && (
+                        <RespiratoryStandards product={product} />
+                      )}
+                      {/* Head dedicated standards */}
+                      {((product as any).head_standards && Object.keys((product as any).head_standards || {}).length > 0) && (
+                        <HeadStandards product={product} />
+                      )}
+                      {/* Footwear dedicated standards */}
+                      {((product as any).footwear_standards && Object.keys((product as any).footwear_standards || {}).length > 0) && (
+                        <FootwearStandards product={product} />
+                      )}
+                      {/* Arm dedicated standards (EN ISO 21420 + reuse EN chips) */}
+                      {(((product as any).arm_attributes && Object.keys((product as any).arm_attributes || {}).length > 0) || (product as any).safety?.en_iso_21420) && (
+                        <ArmStandards product={product} />
+                      )}
+                      {/* Hearing dedicated standards */}
+                      {((product as any).hearing_standards && Object.keys((product as any).hearing_standards || {}).length > 0) && (
+                        <HearingStandards product={product} />
+                      )}
+                      {/* Clothing dedicated standards */}
+                      {((product as any).clothing_standards && Object.keys((product as any).clothing_standards || {}).length > 0) && (
+                        <ClothingStandards product={product} />
                       )}
                     </div>
                   </TabsContent>
@@ -611,53 +762,11 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                       </div>
                     )}
                     
-                    {/* Declaration of Conformity - Dynamic language display */}
-                    {((language === 'en' && product.declaration_sheet_url) || (language === 'it' && product.declaration_sheet_url_it)) && (
-                      <div className="space-y-3">
-                        <h3 className="text-lg font-semibold text-brand-dark dark:text-white">{t('productPage.productDeclarations')}</h3>
-                        <div className="grid gap-3">
-                          {language === 'en' && product.declaration_sheet_url && (
-                            <Button
-                              variant="outline"
-                              size="lg"
-                              className="w-full border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
-                              asChild
-                            >
-                              <a 
-                                href={product.declaration_sheet_url} 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
-                                className="flex items-center justify-center gap-2"
-                                onClick={() => handleDocumentDownload(product.declaration_sheet_url!, 'Declaration of Conformity (EN)', 'declaration')}
-                              >
-                                <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
-                                {t('productPage.download')}
-                              </a>
-                            </Button>
-                          )}
-                          
-                          {language === 'it' && product.declaration_sheet_url_it && (
-                            <Button
-                              variant="outline"
-                              size="lg"
-                              className="w-full border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
-                              asChild
-                            >
-                              <a 
-                                href={product.declaration_sheet_url_it} 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
-                                className="flex items-center justify-center gap-2"
-                                onClick={() => handleDocumentDownload(product.declaration_sheet_url_it!, 'Declaration of Conformity (IT)', 'declaration')}
-                              >
-                                <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
-                                {t('productPage.download')}
-                              </a>
-                            </Button>
-                          )}
-                        </div>
-                      </div>
-                    )}
+                    {/* Declarations of Conformity - Enhanced with UKCA and EU language dropdown */}
+                    <ProductDeclarations 
+                      product={product} 
+                      onDocumentDownload={handleDocumentDownload}
+                    />
 
                     {/* Manufacturers Instruction - Dynamic language display */}
                     {((language === 'en' && product.manufacturers_instruction_url) || (language === 'it' && product.manufacturers_instruction_url_it)) && (

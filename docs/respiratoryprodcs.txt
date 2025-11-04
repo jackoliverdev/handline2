@@ -1,0 +1,1660 @@
+[
+  {
+    "id": "1710d73c-769c-43fe-bc0e-afcecf8f386a",
+    "name": "BLS Zer032 Active",
+    "sub_category": "Disposable masks",
+    "name_locales": {
+      "en": "BLS Zer032 Active",
+      "it": "BLS Zer032 Active"
+    },
+    "description_locales": {
+      "en": "FFP3 cup shaped filtering facepieces with Active Shield electronic valve",
+      "it": "Facciali filtranti FFP3 a coppa con valvola elettronica Active Shield"
+    },
+    "short_description_locales": {
+      "en": "FFP3 cup shaped filtering facepieces with Active Shield electronic valve",
+      "it": "Facciali filtranti FFP3 a coppa con valvola elettronica Active Shield"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Disposable masks",
+      "it": "Mascherine monouso"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "Polypropylene (PP)",
+        "Polyethylene (PE)",
+        "Other"
+      ],
+      "it": [
+        "Polipropilene (PP)",
+        "Polietilene (PE)",
+        "Altro"
+      ]
+    },
+    "size_locales": {
+      "en": "Universal",
+      "it": "Unica"
+    },
+    "tags_locales": {
+      "en": [
+        "disposable mask",
+        "smart",
+        "IoT",
+        "FFP3"
+      ],
+      "it": [
+        "mascherina monouso",
+        "smart",
+        "IoT",
+        "FFP3"
+      ]
+    }
+  },
+  {
+    "id": "8fd49263-957a-4b5d-bfd0-3528b89c381c",
+    "name": "BLS Zer032 C Active",
+    "sub_category": "Disposable masks",
+    "name_locales": {
+      "en": "BLS Zer032 C Active",
+      "it": "BLS Zer032 C Active"
+    },
+    "description_locales": {
+      "en": "FFP3 cup shaped filtering facepieces with Active Shield electronic valve and active carbon layer",
+      "it": "Facciali filtranti FFP3 a coppa con valvola elettronica Active Shield e strato di Carboni Attivi"
+    },
+    "short_description_locales": {
+      "en": "FFP3 cup shaped filtering facepieces with Active Shield electronic valve",
+      "it": "Facciali filtranti FFP3 a coppa con valvola elettronica Active Shield"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Disposable masks",
+      "it": "Mascherine monouso"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "Polypropylene (PP)",
+        "Polyethylene (PE)",
+        "Other"
+      ],
+      "it": [
+        "Polipropilene (PP)",
+        "Polietilene (PE)",
+        "Altro"
+      ]
+    },
+    "size_locales": {
+      "en": "Universal",
+      "it": "Unica"
+    },
+    "tags_locales": {
+      "en": [
+        "disposable mask",
+        "smart",
+        "IoT",
+        "FFP3"
+      ],
+      "it": [
+        "mascherina monouso",
+        "smart",
+        "IoT",
+        "FFP3"
+      ]
+    }
+  },
+  {
+    "id": "ab75311e-8a28-42b0-9f93-106100ca3735",
+    "name": "BLS 201-3",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 201-3",
+      "it": "BLS 201-3"
+    },
+    "description_locales": {
+      "en": "Flat filters with b-lock connection. FFP3 R classified, protect from dusts, fibers, fumes, aerosols of toxic particles",
+      "it": "Filtri piatti con attacco a baionetta b-lock. Classificazione FFP3 R, proteggono da polveri, fibre, fumi e aerosol di particelle tossiche"
+    },
+    "short_description_locales": {
+      "en": "Flat filters with b-lock connection",
+      "it": "Filtro piatto con aggancio b-lock"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "Polypropylene (PP)"
+      ],
+      "it": [
+        "Polipropilene (PP)"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "c5bd00df-919e-44d4-a2ca-ca8d48e7e738",
+    "name": "BLS 201-3C",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 201-3C",
+      "it": "BLS 201-3C"
+    },
+    "description_locales": {
+      "en": "Flat filters with b-lock connection. FFP3 R classified, protect from dusts, fibers, fumes, aerosols of toxic particles. Activated carbons to block gasses & vapour organic and acid in lower concentration than the TLV",
+      "it": "Filtri piatti con attacco a baionetta b-lock. Classificazione FFP3 R, proteggono da polveri, fibre, fumi e aerosol di particelle tossiche"
+    },
+    "short_description_locales": {
+      "en": "Flat filters with b-lock connection.",
+      "it": "Filtro piatto con aggancio b-lock"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "Polypropylene (PP)",
+        "Polyester (PES) + carbon grains"
+      ],
+      "it": [
+        "Polipropilene (PP)",
+        "Poliestere (PES) + granuli di carbone"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "94286eee-9255-4877-9db1-a9d7d5004a02",
+    "name": "BLS 202",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 202",
+      "it": "BLS 202"
+    },
+    "description_locales": {
+      "en": "Dust filter with b-lock connection and activated carbons",
+      "it": "Filtro per Polveri con attacco a baionetta b-lock e carboni attivi"
+    },
+    "short_description_locales": {
+      "en": "Filters with b-lock connection.",
+      "it": "Filtro con aggancio b-lock"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated glass fibre",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "fibra di vetro plissettata",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "ed7b00de-d544-4390-9629-064548d8c198",
+    "name": "BLS 210",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 210",
+      "it": "BLS 210"
+    },
+    "description_locales": {
+      "en": "Gasses & Vapours filter with b-lock connection and activated carbons",
+      "it": "Filtro per Gas & Vapori con attacco a baionetta b-lock e carboni attivi"
+    },
+    "short_description_locales": {
+      "en": "Filters with b-lock connection.",
+      "it": "Filtro con aggancio b-lock"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated glass fibre",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "fibra di vetro plissettata",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "a1d419f0-f667-4f13-bb51-658e42535780",
+    "name": "BLS 211",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 211",
+      "it": "BLS 211"
+    },
+    "description_locales": {
+      "en": "Gasses & Vapours filter with b-lock connection and activated carbons",
+      "it": "Filtro per Gas & Vapori con attacco a baionetta b-lock e carboni attivi"
+    },
+    "short_description_locales": {
+      "en": "Filters with b-lock connection.",
+      "it": "Filtro con aggancio b-lock"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated glass fibre",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "fibra di vetro plissettata",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "65569ef7-76dc-4634-b3c5-efea47cc7eab",
+    "name": "BLS 212",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 212",
+      "it": "BLS 212"
+    },
+    "description_locales": {
+      "en": "Gasses & Vapours filter with b-lock connection and activated carbons",
+      "it": "Filtro per Gas & Vapori con attacco a baionetta b-lock e carboni attivi"
+    },
+    "short_description_locales": {
+      "en": "Filters with b-lock connection.",
+      "it": "Filtro con aggancio b-lock"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated glass fibre",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "fibra di vetro plissettata",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "4051672d-3615-4fed-8339-44e4d0e8738f",
+    "name": "BLS 213",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 213",
+      "it": "BLS 213"
+    },
+    "description_locales": {
+      "en": "Gasses & Vapours filter with b-lock connection and activated carbons",
+      "it": "Filtro per Gas & Vapori con attacco a baionetta b-lock e carboni attivi"
+    },
+    "short_description_locales": {
+      "en": "Filters with b-lock connection.",
+      "it": "Filtro con aggancio b-lock"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated glass fibre",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "fibra di vetro plissettata",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "955d3036-f803-44a9-9491-692747e24569",
+    "name": "BLS 214",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 214",
+      "it": "BLS 214"
+    },
+    "description_locales": {
+      "en": "Gasses & Vapours filter with b-lock connection and activated carbons",
+      "it": "Filtro per Gas & Vapori con attacco a baionetta b-lock e carboni attivi"
+    },
+    "short_description_locales": {
+      "en": "Filters with b-lock connection.",
+      "it": "Filtro con aggancio b-lock"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated glass fibre",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "fibra di vetro plissettata",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "0779e5cc-1b02-487c-b4e2-cd505bd4a7ae",
+    "name": "BLS 221",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 221",
+      "it": "BLS 221"
+    },
+    "description_locales": {
+      "en": "Combined filter with b-lock connection and activated carbons",
+      "it": "Filtro per Combinati con attacco a baionetta b-lock e carboni attivi"
+    },
+    "short_description_locales": {
+      "en": "Filters with b-lock connection.",
+      "it": "Filtro con aggancio b-lock"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated glass fibre",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "fibra di vetro plissettata",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "f96da228-9d82-4b55-9ec5-42ff752ea6c7",
+    "name": "BLS 222",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 222",
+      "it": "BLS 222"
+    },
+    "description_locales": {
+      "en": "Combined filter with b-lock connection and activated carbons",
+      "it": "Filtro per Combinati con attacco a baionetta b-lock e carboni attivi"
+    },
+    "short_description_locales": {
+      "en": "Filters with b-lock connection.",
+      "it": "Filtro con aggancio b-lock"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated glass fibre",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "fibra di vetro plissettata",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "3ca418fd-d279-4aff-bbcd-f47a952da88d",
+    "name": "BLS 225",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 225",
+      "it": "BLS 225"
+    },
+    "description_locales": {
+      "en": "Combined filter with b-lock connection and activated carbons",
+      "it": "Filtro per Combinati con attacco a baionetta b-lock e carboni attivi"
+    },
+    "short_description_locales": {
+      "en": "Filters with b-lock connection.",
+      "it": "Filtro con aggancio b-lock"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated glass fibre",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "fibra di vetro plissettata",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "11cadd2e-05ac-480b-a2de-786d2729611f",
+    "name": "BLS 226",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 226",
+      "it": "BLS 226"
+    },
+    "description_locales": {
+      "en": "Combined filter with b-lock connection and activated carbons",
+      "it": "Filtro per Combinati con attacco a baionetta b-lock e carboni attivi"
+    },
+    "short_description_locales": {
+      "en": "Filters with b-lock connection.",
+      "it": "Filtro con aggancio b-lock"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated glass fibre",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "fibra di vetro plissettata",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "ec096311-7603-45a2-a63f-6934f040faf9",
+    "name": "BLS 227",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 227",
+      "it": "BLS 227"
+    },
+    "description_locales": {
+      "en": "Combined filter with b-lock connection and activated carbons",
+      "it": "Filtro per Combinati con attacco a baionetta b-lock e carboni attivi"
+    },
+    "short_description_locales": {
+      "en": "Filters with b-lock connection.",
+      "it": "Filtro con aggancio b-lock"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated glass fibre",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "fibra di vetro plissettata",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "b8fcfe3e-5a90-4168-8713-038a93a7d444",
+    "name": "BLS 242",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 242",
+      "it": "BLS 242"
+    },
+    "description_locales": {
+      "en": "\"Combined filter with b-lock connection and activated carbons.\\nTested on Fluoridric acid\"",
+      "it": "\"Filtro per Combinati con attacco a baionetta b-lock e carboni attivi.\\nTestato con acido fluoridrico\""
+    },
+    "short_description_locales": {
+      "en": "Combined filter with b-lock connection and activated carbons",
+      "it": "Filtro per Combinati con attacco a baionetta b-lock e carboni attivi"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated glass fibre",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "fibra di vetro plissettata",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "dbf7dc9b-84d9-41f2-8e3e-95e674c50020",
+    "name": "BLS 243",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 243",
+      "it": "BLS 243"
+    },
+    "description_locales": {
+      "en": "\"Gasses & Vapours filter with b-lock connection and activated carbons.\\nTested on formaldehyde\"",
+      "it": "\"Filtro per Gas & Vapori con attacco a baionetta b-lock e carboni attivi.\\nTestato con formaldeide\""
+    },
+    "short_description_locales": {
+      "en": "Gasses & Vapours filter with b-lock connection and activated carbons.",
+      "it": "Filtro per Gas & Vapori con attacco a baionetta b-lock e carboni attivi"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated glass fibre",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "fibra di vetro plissettata",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "2f232f95-e329-4837-b565-15f7bcfe77c8",
+    "name": "BLS 244",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 244",
+      "it": "BLS 244"
+    },
+    "description_locales": {
+      "en": "\"Gasses & Vapours filter with b-lock connection and activated carbons.\\nTested on formaldehyde\"",
+      "it": "\"Filtro per Gas & Vapori con attacco a baionetta b-lock e carboni attivi.\\nTestato con formaldeide\""
+    },
+    "short_description_locales": {
+      "en": "Gasses & Vapours filter with b-lock connection and activated carbons.",
+      "it": "Filtro per Gas & Vapori con attacco a baionetta b-lock e carboni attivi"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated glass fibre",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "fibra di vetro plissettata",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "3bf24510-1f6e-45bc-94d1-daef3bfed67e",
+    "name": "BLS 253",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 253",
+      "it": "BLS 253"
+    },
+    "description_locales": {
+      "en": "Combined filter with b-lock connection and activated carbons",
+      "it": "Filtro per Combinati con attacco a baionetta b-lock e carboni attivi"
+    },
+    "short_description_locales": {
+      "en": "Combined filter with b-lock connection and activated carbons.",
+      "it": "Filtro per Combinati con attacco a baionetta b-lock e carboni attivi"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated glass fibre",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "fibra di vetro plissettata",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "11637dbb-5ce2-4b10-9d51-cad8cdaea0fb",
+    "name": "BLS 254",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 254",
+      "it": "BLS 254"
+    },
+    "description_locales": {
+      "en": "Combined filter with b-lock connection and activated carbons",
+      "it": "Filtro per Combinati con attacco a baionetta b-lock e carboni attivi"
+    },
+    "short_description_locales": {
+      "en": "Combined filter with b-lock connection and activated carbons.",
+      "it": "Filtro per Combinati con attacco a baionetta b-lock e carboni attivi"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated glass fibre",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "fibra di vetro plissettata",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "02fc33fd-c712-45f8-9de0-a2ef41b6a522",
+    "name": "BLS 401",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 401",
+      "it": "BLS 401"
+    },
+    "description_locales": {
+      "en": "Gasses & Vapours filter with universal RD40 connection and activated carbons",
+      "it": "Filtro per Gas & Vapori con attacco universale RD40 e carboni attivi"
+    },
+    "short_description_locales": {
+      "en": "Universal RD40 filter",
+      "it": "Filtro con aggancio universale RD40"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated fiber mesh",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "rete a fibre plissettate",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "98f0e0c0-2ca7-40d0-ae05-9a4cb701c10d",
+    "name": "BLS 411",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 411",
+      "it": "BLS 411"
+    },
+    "description_locales": {
+      "en": "Gasses & Vapours filter with universal RD40 connection and activated carbons",
+      "it": "Filtro per Gas & Vapori con attacco universale RD40 e carboni attivi"
+    },
+    "short_description_locales": {
+      "en": "Universal RD40 filter",
+      "it": "Filtro con aggancio universale RD40"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated fiber mesh",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "rete a fibre plissettate",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "5989b386-e80b-4d52-aa1c-3d36f9102836",
+    "name": "BLS 412",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 412",
+      "it": "BLS 412"
+    },
+    "description_locales": {
+      "en": "Gasses & Vapours filter with universal RD40 connection and activated carbons",
+      "it": "Filtro per Gas & Vapori con attacco universale RD40 b-lock e carboni attivi"
+    },
+    "short_description_locales": {
+      "en": "Universal RD40 filter",
+      "it": "Filtro con aggancio universale RD40"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated fiber mesh",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "rete a fibre plissettate",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "5b0231d0-5b00-4b9e-be89-a68ee6fa2444",
+    "name": "BLS 413",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 413",
+      "it": "BLS 413"
+    },
+    "description_locales": {
+      "en": "Gasses & Vapours filter with universal RD40 connection and activated carbons",
+      "it": "Filtro per Gas & Vapori con attacco universale RD40 e carboni attivi"
+    },
+    "short_description_locales": {
+      "en": "Universal RD40 filter",
+      "it": "Filtro con aggancio universale RD40"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated fiber mesh",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "rete a fibre plissettate",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "ac2c29c8-5a77-4376-9906-8db2063a14ee",
+    "name": "BLS 414",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 414",
+      "it": "BLS 414"
+    },
+    "description_locales": {
+      "en": "Gasses & Vapours filter with universal RD40 connection and activated carbons",
+      "it": "Filtro per Gas & Vapori con attacco universale RD40 e carboni attivi"
+    },
+    "short_description_locales": {
+      "en": "Universal RD40 filter",
+      "it": "Filtro con aggancio universale RD40"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated fiber mesh",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "rete a fibre plissettate",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "a55ed9be-cf59-4daa-b3b8-004feb998008",
+    "name": "BLS 415",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 415",
+      "it": "BLS 415"
+    },
+    "description_locales": {
+      "en": "Gasses & Vapours filter with universal RD40 connection and activated carbons",
+      "it": "Filtro per Gas & Vapori con attacco universale RD40 e carboni attivi"
+    },
+    "short_description_locales": {
+      "en": "Universal RD40 filter",
+      "it": "Filtro con aggancio universale RD40"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated fiber mesh",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "rete a fibre plissettate",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "238715b9-c13d-49e8-b9f0-645560523cc3",
+    "name": "BLS 421",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 421",
+      "it": "BLS 421"
+    },
+    "description_locales": {
+      "en": "Combined filter with universal RD40 connection and activated carbons",
+      "it": "Filtro combinato con attacco universale RD40 b-lock e carboni attivi"
+    },
+    "short_description_locales": {
+      "en": "Universal RD40 filter",
+      "it": "Filtro con aggancio universale RD40"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated fiber mesh",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "rete a fibre plissettate",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "c736af79-7d80-4741-95ca-d16bfeb3526f",
+    "name": "BLS 422",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 422",
+      "it": "BLS 422"
+    },
+    "description_locales": {
+      "en": "Combined filter with universal RD40 connection and activated carbons",
+      "it": "Filtro combinato con attacco universale RD40 b-lock e carboni attivi"
+    },
+    "short_description_locales": {
+      "en": "Universal RD40 filter",
+      "it": "Filtro con aggancio universale RD40"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated fiber mesh",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "rete a fibre plissettate",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "dc88fbbd-00ca-4c5a-8ab6-f79029e46aec",
+    "name": "BLS 423",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 423",
+      "it": "BLS 423"
+    },
+    "description_locales": {
+      "en": "Combined filter with universal RD40 connection and activated carbons",
+      "it": "Filtro combinato con attacco universale RD40 per maschere facciali integrali"
+    },
+    "short_description_locales": {
+      "en": "Universal RD40 filter",
+      "it": "Filtro con aggancio universale RD40"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated fiber mesh",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "rete a fibre plissettate",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "35ad5070-bf2c-4fd5-a06f-d1236398ef47",
+    "name": "BLS 424",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 424",
+      "it": "BLS 424"
+    },
+    "description_locales": {
+      "en": "Combined filter with universal RD40 connection and activated carbons",
+      "it": "Filtro combinato con attacco universale RD40 per maschere facciali integrali"
+    },
+    "short_description_locales": {
+      "en": "Universal RD40 filter",
+      "it": "Filtro con aggancio universale RD40"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartridges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "ABS",
+        "Pleated fiber mesh",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "ABS",
+        "rete a fibre plissettate",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "1e30fd92-6bf2-41ff-b759-50c54a6ba413",
+    "name": "BLS 425",
+    "sub_category": "Filters, Cartidges and accessories",
+    "name_locales": {
+      "en": "BLS 425",
+      "it": "BLS 425"
+    },
+    "description_locales": {
+      "en": "Combined filter with universal RD40 connection and activated carbons",
+      "it": "Filtro combinato con attacco universale RD40 per maschere facciali integrali"
+    },
+    "short_description_locales": {
+      "en": "Combined filter with universal RD40 connection and activated carbons.",
+      "it": "Filtro combinato con attacco universale RD40 per maschere facciali integrali"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartidges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "Alluminium with plastic caps",
+        "Pleated fiber mesh",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "Alluminio con copertura in plastica",
+        "rete a fibre plissettate",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "eba7e505-193a-402c-a330-8a2e4d4ad6c1",
+    "name": "BLS 430",
+    "sub_category": "Filters, Cartridges and accessories",
+    "name_locales": {
+      "en": "BLS 430",
+      "it": "BLS 430"
+    },
+    "description_locales": {
+      "en": "Combined filter with universal RD40 connection for full masks",
+      "it": "Filtro combinato con aggancio universale RD40 per maschere facciali integrali"
+    },
+    "short_description_locales": {
+      "en": "Universal RD40 filter",
+      "it": "Filtro con aggancio universale RD40"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartridges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "Aluminium with plastic caps",
+        "Pleated fibre mesh",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "Alluminio con copertura in plastica",
+        "rete a fibre plissettate",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "ce1e8616-ccf4-4385-b1a3-6bae68f3333f",
+    "name": "BLS 441",
+    "sub_category": "Filters, Cartridges and accessories",
+    "name_locales": {
+      "en": "BLS 441",
+      "it": "BLS 441"
+    },
+    "description_locales": {
+      "en": "Dust filter with universal RD40 connection and activated carbons",
+      "it": "Filtro per Polveri con attacco universale RD40 e carboni attivi"
+    },
+    "short_description_locales": {
+      "en": "Dust filter with universal RD40 connection and activated carbons",
+      "it": "Filtro per Polveri con attacco universale RD40 e carboni attivi"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartridges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "Alluminium with plastic caps",
+        "Pleated fiber mesh",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "Alluminio con copertura in plastica",
+        "rete a fibre plissettate",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "24972c1c-0e10-4e97-b2dc-c3538674dfd6",
+    "name": "BLS 442",
+    "sub_category": "Filters, Cartridges and accessories",
+    "name_locales": {
+      "en": "BLS 442",
+      "it": "BLS 442"
+    },
+    "description_locales": {
+      "en": "Gasses & Vapours filter with universal RD40 connection and activated carbons",
+      "it": "Filtro per Gas & Vapori con attacco universale RD40 e carboni attivi"
+    },
+    "short_description_locales": {
+      "en": "Universal RD40 filter",
+      "it": "Filtro con aggancio universale RD40"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Filters, Cartridges and accessories",
+      "it": "Filtri, cartucce e accessori"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "Alluminium with plastic caps",
+        "Pleated fiber mesh",
+        "Activated carbons grains"
+      ],
+      "it": [
+        "Alluminio con copertura in plastica",
+        "rete a fibre plissettate",
+        "granuli di carbone attivo"
+      ]
+    },
+    "size_locales": null,
+    "tags_locales": {
+      "en": [],
+      "it": []
+    }
+  },
+  {
+    "id": "5d0e1e01-5fc2-45f3-a88c-f1714190a9d6",
+    "name": "BLS 5600",
+    "sub_category": "Full face masks",
+    "name_locales": {
+      "en": "BLS 5600",
+      "it": "BLS 5600"
+    },
+    "description_locales": {
+      "en": "Full-face masks with thermoplastic rubber face seal and B-lock bayonet connection. Compatible with the BLS 200 filter range, for protection against gases/vapors and toxic particulates",
+      "it": "Maschere intera con guarnizione facciale in gomma termoplastica e raccordo a baionetta b-lock. Compatibili con la gamma di filtri BLS 200, per protezione da gas/vapori e particolati tossici"
+    },
+    "short_description_locales": {
+      "en": "Full-face mask with b-lock connection",
+      "it": "Maschera intera facciale con connessione a baionetta b-lock"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Full face masks",
+      "it": "Maschere integrali"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "Thermoplasticelastomer (TPE)",
+        "Polycarbonate (PC)",
+        "Other"
+      ],
+      "it": [
+        "Elastomero termoplastico (TPE)",
+        "Policarbonato (PC)",
+        "Altro"
+      ]
+    },
+    "size_locales": {
+      "en": "S - M - L",
+      "it": "S - M - L"
+    },
+    "tags_locales": {
+      "en": [
+        "full-face mask",
+        "B-Lock"
+      ],
+      "it": [
+        "maschera intera facciale",
+        "B-lock"
+      ]
+    }
+  },
+  {
+    "id": "8a464614-1343-4b2f-a728-2416d196cffc",
+    "name": "BLS 5700",
+    "sub_category": "Full face masks",
+    "name_locales": {
+      "en": "BLS 5700",
+      "it": "BLS 5700"
+    },
+    "description_locales": {
+      "en": "Full-face masks with silicone face seal and B-lock bayonet connection. Compatible with the BLS 200 filter range, for protection against gases/vapors and toxic particulates",
+      "it": "Maschere intera con guarnizione facciale in silicone e raccordo a baionetta b-lock. Compatibili con la gamma di filtri BLS 200, per protezione da gas/vapori e particolati tossici"
+    },
+    "short_description_locales": {
+      "en": "Full-face mask with b-lock connection",
+      "it": "Maschera intera facciale con connessione a baionetta b-lock"
+    },
+    "category_locales": {
+      "en": "Respiratory protection",
+      "it": "Protezione vie respiratorie"
+    },
+    "sub_category_locales": {
+      "en": "Full face masks",
+      "it": "Maschere integrali"
+    },
+    "features_locales": null,
+    "applications_locales": null,
+    "industries_locales": null,
+    "materials_locales": {
+      "en": [
+        "Silicone",
+        "Polycarbonate (PC)",
+        "Other"
+      ],
+      "it": [
+        "Silicone",
+        "Policarbonato (PC)",
+        "Altro"
+      ]
+    },
+    "size_locales": {
+      "en": "Universal",
+      "it": "Unica"
+    },
+    "tags_locales": {
+      "en": [
+        "full-face mask",
+        "B-Lock"
+      ],
+      "it": [
+        "maschera intera facciale",
+        "B-lock"
+      ]
+    }
+  }
+]

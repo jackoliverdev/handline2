@@ -395,7 +395,7 @@ export const FeaturedProducts = () => {
               
               {infiniteProducts.length === 0 ? null : infiniteProducts.map((product, index) => {
                 // Encode the product name for the URL
-                const encodedProductName = encodeURIComponent(product.name);
+                const encodedProductName = encodeURIComponent((product as any).name_locales?.en || product.name);
                 const originalIndex = index % products.length;
                 
                 return (

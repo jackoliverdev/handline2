@@ -70,7 +70,8 @@ export const DesignPrinciples = () => {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-x-8 gap-y-12">
+        {/* Desktop grid */}
+        <div className="hidden md:grid grid-cols-4 gap-x-8 gap-y-12">
           {principles.map((principle, index) => (
             <DesignPrinciple
               key={index}
@@ -78,6 +79,34 @@ export const DesignPrinciples = () => {
               title={t(`productsDesignPrinciples.${principle.key}.title`)}
               description={t(`productsDesignPrinciples.${principle.key}.description`)}
             />
+          ))}
+        </div>
+
+        {/* Mobile: compact stacked cards with left-aligned icon */}
+        <div className="md:hidden space-y-3">
+          {principles.map((principle, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.35, delay: index * 0.05 }}
+              className="rounded-xl border border-gray-100 dark:border-gray-700/50 bg-white dark:bg-black/50 p-3 shadow-sm"
+            >
+              <div className="flex items-start gap-3">
+                <div className="rounded-lg bg-white dark:bg-black/40 p-2 shadow-sm border border-gray-100 dark:border-gray-700/50">
+                  {principle.icon}
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-sm font-semibold text-brand-dark dark:text-white mb-0.5">
+                    {t(`productsDesignPrinciples.${principle.key}.title`)}
+                  </h3>
+                  <p className="text-xs text-brand-secondary dark:text-gray-300 leading-relaxed">
+                    {t(`productsDesignPrinciples.${principle.key}.description`)}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>

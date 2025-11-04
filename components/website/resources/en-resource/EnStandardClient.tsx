@@ -105,7 +105,7 @@ export default function EnStandardClient({ standard, relatedStandards }: {
                   className="absolute top-4 left-4 z-20"
                 >
                   <Button variant="outline" size="sm" asChild className="bg-white/20 text-white border-white/30 hover:bg-white/30 hover:border-white/50 backdrop-blur-md shadow-lg font-medium transition-all duration-200 h-8 px-3">
-                    <Link href="/resources/en-resource-centre" className="flex items-center gap-1.5 hover:text-brand-primary">
+                    <Link href="/resources/ppe-standards" className="flex items-center gap-1.5 hover:text-brand-primary">
                       <ChevronLeft className="h-4 w-4" />
                       <span className="hidden sm:inline text-sm">{t('standards.backToStandards')}</span>
                     </Link>
@@ -463,7 +463,7 @@ export default function EnStandardClient({ standard, relatedStandards }: {
                       return (
                         <Link 
                           key={index}
-                          href={`/resources/en-resource-centre/${relatedStandard.slug}`}
+                          href={`/resources/ppe-standards/${relatedStandard.slug}`}
                           className="flex items-center p-3 rounded-md hover:bg-brand-primary/5 border border-transparent hover:border-brand-primary/10 transition-all"
                         >
                           <Shield className="flex-shrink-0 h-5 w-5 mr-3 text-brand-primary" />

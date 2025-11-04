@@ -21,6 +21,8 @@ import {
   getUniqueIndustries,
   getUniqueSubCategories,
   sortCategoriesByPreference,
+  getUniqueENStandards,
+  matchesENStandards,
 } from "@/lib/product-utils";
 
 // Import filter components
@@ -28,22 +30,36 @@ import { CategoryFilter } from "./filters/CategoryFilter";
 import { SubCategoryFilter } from "./filters/SubCategoryFilter";
 import { TemperatureFilter } from "./filters/TemperatureFilter";
 import { HazardProtectionFilter } from "./filters/HazardProtectionFilter";
-import { WorkEnvironmentFilter } from "./filters/WorkEnvironmentFilter";
+import { ENStandardFilter } from "./filters/ENStandardFilter";
 import { IndustryFilter } from "./filters/IndustryFilter";
 import { FilterBadges } from "./filters/FilterBadges";
 import { MobileFilterSheet } from "./filters/MobileFilterSheet";
+import { FilterSection } from "./filters/FilterSection";
 
 // Import hazard protection helpers
 import { matchesHazardProtection } from "@/content/hazardfilters";
-import { matchesWorkEnvironment } from "@/content/workenvironmentfilters";
 
 interface ProductGridProps {
   products: Product[];
   className?: string;
   initialCategory?: string;
+  // Optional swab-specific controls (no effect unless provided)
+  extraFiltersRender?: React.ReactNode;
+  extraFiltersRenderMobile?: React.ReactNode;
+  extraFilterPredicate?: (product: Product) => boolean;
+  hideDefaultFilters?: boolean;
+  // Optional defaults for expanded/collapsed sections (allow page-level customisation)
+  categoryExpandedDefault?: boolean;
+  subCategoryExpandedDefault?: boolean;
+  // Hide Category and Sub-Category filters entirely (e.g., clothing sub-pages)
+  hideCategoryFilters?: boolean;
+  // Hide only the main Category filter (keep Sub-Category visible)
+  hideMainCategoryFilter?: boolean;
+  // Show glove filters (Hazard/Temp) directly without collapsible wrapper (for /products/gloves)
+  showGloveFiltersExpanded?: boolean;
 }
 
-export const ProductGrid = ({ products, className = "", initialCategory }: ProductGridProps) => {
+export const ProductGrid = ({ products, className = "", initialCategory, extraFiltersRender, extraFiltersRenderMobile, extraFilterPredicate, hideDefaultFilters = false, categoryExpandedDefault, subCategoryExpandedDefault, hideCategoryFilters = false, hideMainCategoryFilter = false, showGloveFiltersExpanded = false }: ProductGridProps) => {
   const { t, language } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory || "");
@@ -52,23 +68,23 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
   const [selectedCutLevels, setSelectedCutLevels] = useState<string[]>([]);
   const [selectedHeatLevels, setSelectedHeatLevels] = useState<string[]>([]);
   const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
+  const [selectedENStandards, setSelectedENStandards] = useState<string[]>([]);
   const [selectedHazardProtections, setSelectedHazardProtections] = useState<string[]>([]);
-  const [selectedWorkEnvironments, setSelectedWorkEnvironments] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState<string>("featured");
   const [previewProduct, setPreviewProduct] = useState<Product | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const [activeFiltersCount, setActiveFiltersCount] = useState(0);
   
-  // Track expanded filter sections - adjust based on whether we're on a specific category page
+  // Track expanded filter sections - allow page-level defaults (fallback to legacy behaviour)
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
-    category: false, // Always close category since we only have one
-    subCategory: true, // Always open sub-category as the main filter
+    category: typeof categoryExpandedDefault === 'boolean' ? categoryExpandedDefault : false,
+    subCategory: typeof subCategoryExpandedDefault === 'boolean' ? subCategoryExpandedDefault : true,
     temperature: false,
     cutLevel: false,
     heatLevel: false,
     hazardProtection: false,
-    workEnvironment: false,
+    enStandard: false,
     industries: false
   });
   
@@ -81,10 +97,10 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
     }
   }, []);
   
-  // Track expanded sections for mobile
+  // Track expanded sections for mobile (respect same defaults)
   const [expandedMobileSections, setExpandedMobileSections] = useState<Record<string, boolean>>({
-    category: false, // Always closed since we only have one category
-    subCategory: true, // Always open sub-category as the main filter
+    category: typeof categoryExpandedDefault === 'boolean' ? categoryExpandedDefault : false,
+    subCategory: typeof subCategoryExpandedDefault === 'boolean' ? subCategoryExpandedDefault : true,
     temperature: false,
     cutLevel: false,
     heatLevel: false,
@@ -141,6 +157,9 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
   // Get unique industries
   const uniqueIndustries = getUniqueIndustries(localizedProducts);
 
+  // Get unique EN standards
+  const uniqueENStandards = getUniqueENStandards(localizedProducts);
+
   // Define preferred subcategory order using ORIGINAL English subcategories for consistent sorting
   const originalPreferredOrder = [
     "Heat resistant gloves",
@@ -165,16 +184,16 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
   // Update active filters count when filters change
   useEffect(() => {
     let count = 0;
-    if (selectedCategory && selectedCategory !== "all") count++;
+    if (!hideMainCategoryFilter && selectedCategory && selectedCategory !== "all") count++;
     if (selectedSubCategories.length > 0) count++;
     if (selectedTempRatings.length > 0) count++;
     if (selectedCutLevels.length > 0) count++;
     if (selectedHeatLevels.length > 0) count++;
     if (selectedHazardProtections.length > 0) count++;
-    if (selectedWorkEnvironments.length > 0) count++;
+    if (selectedENStandards.length > 0) count++;
     if (selectedIndustries.length > 0) count++;
     setActiveFiltersCount(count);
-  }, [selectedCategory, selectedSubCategories, selectedTempRatings, selectedCutLevels, selectedHeatLevels, selectedHazardProtections, selectedWorkEnvironments, selectedIndustries]);
+  }, [selectedCategory, selectedSubCategories, selectedTempRatings, selectedCutLevels, selectedHeatLevels, selectedHazardProtections, selectedENStandards, selectedIndustries, hideMainCategoryFilter]);
   
   // Handle industry selection
   const toggleIndustry = (industry: string) => {
@@ -226,11 +245,11 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
     );
   };
   
-  const toggleWorkEnvironment = (environment: string) => {
-    setSelectedWorkEnvironments(prev => 
-      prev.includes(environment)
-        ? prev.filter(i => i !== environment)
-        : [...prev, environment]
+  const toggleENStandard = (standard: string) => {
+    setSelectedENStandards(prev => 
+      prev.includes(standard)
+        ? prev.filter(i => i !== standard)
+        : [...prev, standard]
     );
   };
   
@@ -242,7 +261,7 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
     setSelectedCutLevels([]);
     setSelectedHeatLevels([]);
     setSelectedHazardProtections([]);
-    setSelectedWorkEnvironments([]);
+    setSelectedENStandards([]);
     setSelectedIndustries([]);
   };
   
@@ -258,7 +277,10 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
     const matchesCategory = 
       !selectedCategory || 
       selectedCategory === "all" || 
-      (product.category || t('products.filters.uncategorised')) === selectedCategory;
+      (product.category || t('products.filters.uncategorised')) === selectedCategory ||
+      // Also match against the original (English) category to ensure
+      // category scoping works when UI language is switched (e.g. IT locale)
+      ((product as any).original_category === selectedCategory);
     
     // Match subcategory
     const matchesSubCategory =
@@ -291,12 +313,8 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
         matchesHazardProtection(product.safety, hazardId)
       );
     
-    // Match work environment
-    const matchesWorkEnvironmentFilter =
-      selectedWorkEnvironments.length === 0 ||
-      selectedWorkEnvironments.some(environmentId => 
-        matchesWorkEnvironment(product.environment_pictograms, environmentId)
-      );
+    // Match EN standards
+    const matchesENStandardFilter = matchesENStandards(product, selectedENStandards);
     
     // Match industries
     const matchesIndustries =
@@ -306,6 +324,8 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
          product.industries.includes(industry)
        ));
     
+    const matchesExtra = typeof extraFilterPredicate === 'function' ? extraFilterPredicate(product as unknown as Product) : true;
+
     return matchesSearch && 
            matchesCategory && 
            matchesSubCategory && 
@@ -313,8 +333,9 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
            matchesCutLevel && 
            matchesHeatLevel && 
            matchesHazardProtectionFilter && 
-           matchesWorkEnvironmentFilter &&
-           matchesIndustries;
+           matchesENStandardFilter &&
+           matchesIndustries &&
+           matchesExtra;
   });
   
   // Sort products based on selected option and category order using ORIGINAL categories
@@ -433,56 +454,89 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
               
               <div className="space-y-6">
                 {/* Category Filter */}
-                <CategoryFilter
-                  categories={uniqueCategories}
-                  selectedCategory={selectedCategory}
-                  setSelectedCategory={setSelectedCategory}
-                  isExpanded={expandedSections.category}
-                  toggleSection={toggleSection}
-                />
+                {!hideCategoryFilters && !hideMainCategoryFilter && (
+                  <CategoryFilter
+                    categories={uniqueCategories}
+                    selectedCategory={selectedCategory}
+                    setSelectedCategory={setSelectedCategory}
+                    isExpanded={expandedSections.category}
+                    toggleSection={toggleSection}
+                  />
+                )}
                 
                 {/* Sub-Category Filter */}
-                <SubCategoryFilter
-                  subCategories={subcategories}
-                  selectedSubCategories={selectedSubCategories}
-                  toggleSubCategory={toggleSubCategory}
-                  isExpanded={expandedSections.subCategory}
-                  toggleSection={toggleSection}
-                />
+                {!hideCategoryFilters && (
+                  <SubCategoryFilter
+                    subCategories={subcategories}
+                    selectedSubCategories={selectedSubCategories}
+                    toggleSubCategory={toggleSubCategory}
+                    isExpanded={expandedSections.subCategory}
+                    toggleSection={toggleSection}
+                  />
+                )}
                 
-                {/* Hazard Protection Filter */}
-                <HazardProtectionFilter
-                  selectedHazardProtections={selectedHazardProtections}
-                  toggleHazardProtection={toggleHazardProtection}
-                  isExpanded={expandedSections.hazardProtection}
-                  toggleSection={toggleSection}
-                />
-                
-                {/* Work Environment Filter */}
-                <WorkEnvironmentFilter
-                  selectedWorkEnvironments={selectedWorkEnvironments}
-                  toggleWorkEnvironment={toggleWorkEnvironment}
-                  isExpanded={expandedSections.workEnvironment}
-                  toggleSection={toggleSection}
-                />
-                
-                {/* Temperature Rating Filter */}
-                <TemperatureFilter
-                  tempRatings={uniqueTempRatings}
-                  selectedTempRatings={selectedTempRatings}
-                  toggleTempRating={toggleTempRating}
-                  isExpanded={expandedSections.temperature}
-                  toggleSection={toggleSection}
-                />
-                
-                {/* Industries Filter */}
-                <IndustryFilter
-                  industries={uniqueIndustries}
-                  selectedIndustries={selectedIndustries}
-                  toggleIndustry={toggleIndustry}
-                  isExpanded={expandedSections.industries}
-                  toggleSection={toggleSection}
-                />
+                {/* After Sub-Category: Industries → EN Standard */}
+                {(!hideDefaultFilters) && (
+                  <IndustryFilter
+                    industries={uniqueIndustries}
+                    selectedIndustries={selectedIndustries}
+                    toggleIndustry={toggleIndustry}
+                    isExpanded={expandedSections.industries}
+                    toggleSection={toggleSection}
+                  />
+                )}
+
+                {(!hideDefaultFilters) && (
+                  <ENStandardFilter
+                    standards={uniqueENStandards}
+                    selectedStandards={selectedENStandards}
+                    toggleStandard={toggleENStandard}
+                    isExpanded={expandedSections.enStandard}
+                    toggleSection={toggleSection}
+                  />
+                )}
+
+                {/* Hazard + Temperature filters - wrapped or direct based on page */}
+                {(!hideDefaultFilters) && (
+                  showGloveFiltersExpanded ? (
+                    <>
+                      <HazardProtectionFilter
+                        selectedHazardProtections={selectedHazardProtections}
+                        toggleHazardProtection={toggleHazardProtection}
+                        isExpanded={expandedSections.hazardProtection}
+                        toggleSection={toggleSection}
+                      />
+                      <TemperatureFilter
+                        tempRatings={uniqueTempRatings}
+                        selectedTempRatings={selectedTempRatings}
+                        toggleTempRating={toggleTempRating}
+                        isExpanded={expandedSections.temperature}
+                        toggleSection={toggleSection}
+                      />
+                    </>
+                  ) : (
+                    <FilterSection title={t('navbar.safetyGloves')} defaultExpanded={false}>
+                      <HazardProtectionFilter
+                        selectedHazardProtections={selectedHazardProtections}
+                        toggleHazardProtection={toggleHazardProtection}
+                        isExpanded={expandedSections.hazardProtection}
+                        toggleSection={toggleSection}
+                        nested={true}
+                      />
+                      <TemperatureFilter
+                        tempRatings={uniqueTempRatings}
+                        selectedTempRatings={selectedTempRatings}
+                        toggleTempRating={toggleTempRating}
+                        isExpanded={expandedSections.temperature}
+                        toggleSection={toggleSection}
+                        nested={true}
+                      />
+                    </FilterSection>
+                  )
+                )}
+
+                {/* Extra filters for category-specific pages */}
+                {extraFiltersRender}
               </div>
             </div>
           </div>
@@ -543,8 +597,9 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
                   toggleTempRating={toggleTempRating}
                   selectedHazardProtections={selectedHazardProtections}
                   toggleHazardProtection={toggleHazardProtection}
-                  selectedWorkEnvironments={selectedWorkEnvironments}
-                  toggleWorkEnvironment={toggleWorkEnvironment}
+                  enStandards={uniqueENStandards}
+                  selectedENStandards={selectedENStandards}
+                  toggleENStandard={toggleENStandard}
                   industries={uniqueIndustries}
                   selectedIndustries={selectedIndustries}
                   toggleIndustry={toggleIndustry}
@@ -552,6 +607,9 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
                   expandedSections={expandedMobileSections}
                   toggleSection={toggleMobileSection}
                   activeFiltersCount={activeFiltersCount}
+                  extraFiltersRender={extraFiltersRenderMobile || extraFiltersRender}
+                  hideDefaultFilters={hideDefaultFilters}
+                  hideCategoryFilters={hideCategoryFilters}
                 />
               </Sheet>
             </div>
@@ -574,17 +632,17 @@ export const ProductGrid = ({ products, className = "", initialCategory }: Produ
           
           {/* Active Filters - Mobile and Tablet only */}
           <FilterBadges
-            selectedCategory={selectedCategory}
+            selectedCategory={hideMainCategoryFilter ? "" : selectedCategory}
             selectedSubCategories={selectedSubCategories}
             selectedTempRatings={selectedTempRatings}
             selectedHazardProtections={selectedHazardProtections}
-            selectedWorkEnvironments={selectedWorkEnvironments}
+            selectedENStandards={selectedENStandards}
             selectedIndustries={selectedIndustries}
             setSelectedCategory={setSelectedCategory}
             toggleSubCategory={toggleSubCategory}
             toggleTempRating={toggleTempRating}
             toggleHazardProtection={toggleHazardProtection}
-            toggleWorkEnvironment={toggleWorkEnvironment}
+            toggleENStandard={toggleENStandard}
             toggleIndustry={toggleIndustry}
             clearFilters={clearFilters}
           />

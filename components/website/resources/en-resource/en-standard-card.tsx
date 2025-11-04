@@ -51,7 +51,7 @@ export function EnStandardCard({ standard, index, language }: EnStandardCardProp
       )}
       
       {/* Standard Image */}
-      <Link href={`/resources/en-resource-centre/${standard.slug}`} className="block overflow-hidden">
+      <Link href={`/resources/ppe-standards/${standard.slug}`} className="block overflow-hidden">
         <div className="relative aspect-square w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
           <Image
             src={imageUrl}
@@ -84,7 +84,7 @@ export function EnStandardCard({ standard, index, language }: EnStandardCardProp
           </div>
         )}
         
-        <Link href={`/resources/en-resource-centre/${standard.slug}`}>
+        <Link href={`/resources/ppe-standards/${standard.slug}`}>
           <h3 className="mb-2 line-clamp-2 text-base font-bold text-gray-900 dark:text-white hover:text-brand-primary transition-colors">
             {title}
           </h3>
@@ -108,7 +108,7 @@ export function EnStandardCard({ standard, index, language }: EnStandardCardProp
             className="h-8 text-xs bg-brand-primary text-white hover:bg-brand-primary/90 hover:shadow-lg hover:scale-105 transition-all duration-300 transform"
             asChild
           >
-            <Link href={`/resources/en-resource-centre/${standard.slug}`} className="flex items-center justify-center">
+            <Link href={`/resources/ppe-standards/${standard.slug}`} className="flex items-center justify-center">
               <span>{t('standards.viewStandard')}</span>
               <ArrowRight className="h-3 w-3 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>

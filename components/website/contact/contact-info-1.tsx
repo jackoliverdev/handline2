@@ -19,8 +19,8 @@ const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 // Company details
 const companyDetails = {
   name: "Hand Line Company s.r.l.",
-  address: "via Antonio Bruse 34, 22035, Canzo (CO), Italy",
-  phone: "+39 02 1234 5678",
+  address: "via Antonio Brusa 34, 22035, Canzo (CO), Italy",
+  phone: "+39 031 6121961",
   email: "info@handlineco.com",
   location: {
     lat: 45.8686, // Canzo, Italy coordinates
@@ -238,7 +238,7 @@ export function ContactInfo() {
 
             // Create info window for the marker
             const infoWindow = new google.maps.InfoWindow({
-              content: '<div style="font-family: Montserrat, Arial, sans-serif; padding: 8px;"><strong>Hand Line Company s.r.l.</strong><br>via Antonio Bruse 34, 22035, Canzo (CO), Italy</div>'
+              content: '<div style="font-family: Montserrat, Arial, sans-serif; padding: 8px;"><strong>Hand Line Company s.r.l.</strong><br>via Antonio Brusa 34, 22035, Canzo (CO), Italy</div>'
             });
             
             // Open info window by default
@@ -513,7 +513,7 @@ export function ContactInfo() {
             // Mobile: show static map image or simple Google Maps embed
             <div className="w-full max-w-[95vw] mx-auto rounded-lg overflow-hidden h-56 sm:h-64" style={{ background: '#e5e3df', position: 'relative' }}>
               <a
-                href="https://www.google.com/maps/place/via+Antonio+Bruse+34,+22035+Canzo,+Italy"
+                href="https://www.google.com/maps/place/via+Antonio+Brusa+34,+22035+Canzo,+Italy"
                 target="_blank" rel="noopener noreferrer"
                 aria-label="Open HandLine Safety location in Google Maps"
               >

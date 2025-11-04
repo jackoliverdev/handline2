@@ -25,11 +25,11 @@ export const ResourcesCategoryList = () => {
       href: "/resources/case-studies"
     },
     {
-      title: "EN Resource Centre",
-      description: "Access comprehensive information on European safety standards that ensure our products meet the highest quality requirements.",
+      title: `${t('standards.hero.title')} ${t('standards.hero.titleAccent')}`,
+      description: t('standards.hero.description'),
       imageSrc: "https://bsrdkfjapuvbzultcela.supabase.co/storage/v1/object/public/industries//Glass_Manufacturing.png",
-      imageAlt: "EN Standards",
-      href: "/resources/en-resource-centre"
+      imageAlt: t('standards.grid.badge'),
+      href: "/resources/ppe-standards"
     },
     {
       title: "Compliance Declarations",
@@ -48,56 +48,11 @@ export const ResourcesCategoryList = () => {
   ];
 
   return (
-    <section id="resource-categories" className="py-16">
+    <section id="resource-categories" className="pt-4 pb-12">
       <div className="container mx-auto px-4 sm:px-6">
-        <div className="text-center mb-12">
-          <div className="flex flex-col items-center">
-            <Link href="/resources" className="inline-block transition-transform duration-300 mb-4">
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.1 }}
-                className="inline-flex items-center rounded-full bg-white dark:bg-black/50 px-4 py-2 text-xs sm:text-sm border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm cursor-pointer shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 group"
-              >
-                <BookOpen className="mr-1.5 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4 text-brand-primary group-hover:scale-110 transition-transform duration-300" />
-                <span className="text-brand-dark dark:text-white font-medium font-heading">
-                  Knowledge Resources
-                </span>
-              </motion.div>
-            </Link>
-            <div className="inline-flex items-center justify-center mb-4">
-              <motion.div 
-                initial={{ width: 0 }}
-                whileInView={{ width: "2.5rem" }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="h-1 w-10 bg-brand-primary rounded-full mr-3"
-              ></motion.div>
-              <h2 className="text-3xl md:text-4xl font-bold text-brand-dark dark:text-white font-heading">
-                Resource Categories
-              </h2>
-              <motion.div 
-                initial={{ width: 0 }}
-                whileInView={{ width: "2.5rem" }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="h-1 w-10 bg-brand-primary rounded-full ml-3"
-              ></motion.div>
-            </div>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="text-lg text-brand-secondary dark:text-gray-300 max-w-2xl mx-auto"
-            >
-              Explore our comprehensive library of safety resources, standards, and expert knowledge to enhance workplace protection.
-            </motion.p>
-          </div>
-        </div>
+        {/* Hero pill, title and subtitle removed per brief */}
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {categories.slice(0, 3).map((category, index) => (
             <ResourcesCategoryCard
               key={category.href}
@@ -112,7 +67,7 @@ export const ResourcesCategoryList = () => {
         </div>
         
         {/* Second row with 2 cards centered */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 max-w-4xl mx-auto">
           {categories.slice(3).map((category, index) => (
             <ResourcesCategoryCard
               key={category.href}

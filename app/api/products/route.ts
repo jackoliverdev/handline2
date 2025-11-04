@@ -29,3 +29,34 @@ export async function GET() {
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
+
+export async function POST(req: Request) {
+  try {
+    const body = await req.json();
+    console.log('[API] Create product payload keys:', Object.keys(body));
+    // Helpful debugging prints
+    console.log('[API] Name:', body?.name, 'Category:', body?.category, 'Published:', body?.published);
+
+    const { data, error } = await supabase
+      .from('products')
+      .insert([body])
+      .select('*')
+      .single();
+
+    if (error) {
+      console.error('[API] Supabase insert error:', {
+        message: error.message,
+        details: (error as any).details,
+        hint: (error as any).hint,
+        code: (error as any).code,
+      });
+      return NextResponse.json({ error: { message: error.message, details: (error as any).details, hint: (error as any).hint, code: (error as any).code } }, { status: 500 });
+    }
+
+    console.log('[API] Product created with ID:', data?.id);
+    return NextResponse.json({ product: data });
+  } catch (err: any) {
+    console.error('[API] POST /api/products exception:', err);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
+}

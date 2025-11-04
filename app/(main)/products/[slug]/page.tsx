@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getProductBySlug, getAllProducts, getRelatedProducts } from "@/lib/products-service";
 import { ProductDetail } from "@/components/website/products/slug/ProductDetail";
 import { RelatedProducts } from "@/components/website/products/slug/RelatedProducts";
+import { BrandsProvider } from "@/lib/context/brands-context";
 
 interface ProductPageProps {
   params: {
@@ -51,9 +52,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const { relatedProducts } = await getRelatedProducts(product.id);
 
   return (
-    <>
+    <BrandsProvider>
       <ProductDetail product={product} relatedProducts={relatedProducts} />
       <RelatedProducts relatedProducts={relatedProducts} />
-    </>
+    </BrandsProvider>
   );
 } 

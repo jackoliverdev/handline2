@@ -402,16 +402,16 @@ export default function ProductManagementPage() {
 
   return (
     <div className="space-y-6">
-      {/* Header with search and create button */}
+      {/* Header with top-right create button (title shown in admin layout) */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex-1 min-w-[240px]">
-          <h1 className="text-2xl font-bold mb-2">Product Management</h1>
+          {/** Duplicate in-page title removed */}
           <p className="text-muted-foreground">Manage your products, add new ones, and control visibility.</p>
         </div>
         <Button asChild>
           <Link href="/admin/product/create">
             <Plus className="mr-2 h-4 w-4" />
-            Create New Product
+            Add New Product
           </Link>
         </Button>
       </div>

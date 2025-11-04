@@ -151,7 +151,7 @@ export function CaseStudyCard({ caseStudy, index, language }: CaseStudyCardProps
         {/* Challenge Preview */}
         {challenge && (
           <div className="bg-gray-50 dark:bg-black/50 rounded-lg p-3 border-l-4 border-brand-primary">
-            <h4 className="text-xs font-semibold text-brand-primary mb-1 uppercase tracking-wide">Challenge</h4>
+            <h4 className="text-xs font-semibold text-brand-primary mb-1 uppercase tracking-wide">{t('caseStudies.labels.challenge')}</h4>
             <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-2">{challenge}</p>
           </div>
         )}
@@ -180,7 +180,7 @@ export function CaseStudyCard({ caseStudy, index, language }: CaseStudyCardProps
           asChild
         >
           <Link href={`/resources/case-studies/${caseStudy.slug}`} className="flex items-center justify-center">
-            <span>Read Case Study</span>
+            <span>{t('caseStudies.buttons.read')}</span>
             <ArrowRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
           </Link>
         </Button>

@@ -11,15 +11,21 @@
     "partners": "Partner",
     "resources": "Risorse",
     "allProducts": "Tutti i Prodotti",
-    "safetyGloves": "Guanti di Sicurezza",
+    "safetyGloves": "Protezione delle mani",
     "allGloves": "Tutti i Guanti",
-    "heatResistant": "Anticalore",
-    "cutResistant": "Antitaglio",
+    "heatResistant": "Guanti Anticalore",
+    "cutResistant": "Guanti Antitaglio",
     "generalPurpose": "Uso Generale",
     "mechanicalHazards": "Rischi Meccanici",
     "welding": "Saldatura",
     "industrialSwabs": "Scovoli Industriali",
-    "respiratoryProtection": "Protezione Respiratoria",
+    "armProtection": "Protezione delle braccia",
+    "safetyFootwear": "Calzature di sicurezza",
+    "hearingProtection": "Protezione uditiva",
+    "respiratoryProtection": "Protezione vie respiratorie",
+    "protectiveClothing": "Abbigliamento protettivo e da lavoro",
+    "headProtection": "Protezione della testa",
+    "eyeFaceProtection": "Protezione occhi e viso",
     "aboutDropdown": {
       "ourCompany": "La Nostra Azienda",
       "careers": "Lavora con Noi",
@@ -28,7 +34,7 @@
     "resourcesDropdown": {
       "blog": "Blog",
       "caseStudies": "Casi Studio",
-      "enResourceCentre": "Centro Risorse EN",
+      "enResourceCentre": "Libreria Standard DPI",
       "productDisclaimer": "Dichiarazione sui Prodotti",
       "declarations": "Dichiarazioni di conformitá"
     },
@@ -79,7 +85,7 @@
       "loadMore": "Carica altri risultati",
       "loading": "Caricamento di altri risultati...",
       "searching": "Ricerca in corso...",
-      "searchingDescription": "Attendere mentre cerchiamo tra i nostri prodotti, settori e risorse.",
+      "searchingDescription": "Stiamo cercando tra i nostri prodotti e contenuto.",
       "error": "Errore di Ricerca",
       "tryAgain": "Riprova",
       "noQuery": "Inizia la Tua Ricerca",
@@ -94,6 +100,9 @@
       "clearAll": "Cancella Tutti i Filtri",
       "category": "Categoria",
       "subCategory": "Sottocategoria",
+      "sleeveLength": "Lunghezza manicotto",
+      "thumbLoop": "Passante per pollice",
+      "closureType": "Tipo di chiusura",
       "temperature": "Resistenza alla Temperatura",
       "cutLevel": "Livello Resistenza Taglio",
       "heatLevel": "Livello Resistenza Calore",
@@ -120,8 +129,24 @@
       "generalPurposeGloves": "Guanti Uso Generale",
       "mechanicalHazardsGloves": "Guanti per Rischi Meccanici",
       "weldingGlove": "Guanti da Saldatura",
-      "industrialSwabs": "Tamponi Industriali",
-      "respiratoryProtection": "Protezione Respiratoria"
+      "industrialSwabs": "Scovoli Industriali",
+      "respiratoryProtection": "Protezione vie respiratorie",
+      "footwearClass": "Classe calzatura",
+      "esd": "ESD",
+      "widthFit": "Larghezza pianta",
+      "sizeRange": "Taglia",
+      "toeCap": "Puntale",
+      "soleMaterial": "Materiale suola",
+      "standardCodes": "Marcatura standard EN",
+      "protectionType": "Tipo di protezione",
+      "lensTint": "Colore lente",
+      "coating": "Trattamento",
+      "uvCode": "Protezione UV",
+      "brimLength": "Lunghezza visiera",
+      "lowTemperature": "Prestazioni a bassa temperatura",
+      "electricalInsulation": "Isolamento elettrico (EN 50365)",
+      "moltenMetalSplash": "Schizzi di metallo fuso (MM)",
+      "ventilation": "Ventilazione"
     },
     "contentTypes": {
       "product": "Prodotto",
@@ -299,7 +324,7 @@
     "features": {
       "heatProtection": {
         "title": "Guanti Anticalore",
-        "description": "Il nostro pane e burro. Progettiamo e produciamo guanti per tutti gli ambienti e temperature, superando i 1000C",
+        "description": "Il nostro ambito di specializzazione. Progettiamo e produciamo guanti per tutti gli ambienti e temperature, superando i 1,000°C",
         "cta": "Esplora le soluzioni Anticalore"
       },
       "cutResistance": {
@@ -313,7 +338,7 @@
         "cta": "Scopri il Nostro Processo"
       },
       "headToToe": {
-        "title": "Protezione Completa dalla testa ai pied",
+        "title": "Protezione Completa dalla testa ai piedi",
         "description": "Forniamo soluzioni di sicurezza complete, sia con prodotti propri che collaborando con marchi leader del settore. Offriamo protezione completa ai migliori prezzi.",
         "cta": "Esplora tutti i prodotti"
       }
@@ -325,7 +350,7 @@
   },
   "featuredProducts": {
     "title": "Prodotti in Evidenza",
-    "description": "Scopri i nostri guanti di sicurezza più popolari, progettati per fornire una protezione e un comfort superiori in diverse applicazioni industriali.",
+    "description": "Scopri i nostri dispositivi di sicurezza più popolari, progettati per fornire una protezione e un comfort superiori in diverse applicazioni industriali.",
     "noProducts": "Nessun prodotto in evidenza disponibile al momento.",
     "preview": "Anteprima",
     "previewShort": "Vedi",
@@ -361,16 +386,17 @@
   "industryCta": {
     "badge": "Specialisti nel settore",
     "title": "Pronto a Migliorare la Sicurezza nel Settore",
-    "description": "Scopri la nostra gamma completa di soluzioni di sicurezza specificamente progettate per il settore {industry}. Dalla tecnologia all'avanguardia ai protocolli di sicurezza comprovati.",
+    "description": "Scopri la nostra gamma completa di soluzioni di sicurezza specificamente progettate per il settore {industry}.",
     "buttons": {
       "browseProducts": "Esplora i Nostri Prodotti",
       "contactUs": "Contattaci"
     },
-    "trustIndicator": "Fornitore di aziende leader {industry}"
+    "trustIndicator": "Fornitore di aziende leader nel settore {industry}"
   },
   "footer": {
     "companyDescription": "Produttore italiano specializzato in guanti di sicurezza ad alte prestazioni per ambienti industriali. Proteggiamo le mani con soluzioni innovative dal 1982.",
     "address": "via Antonio Brusa 34, 22035, Canzo (CO), Italia",
+    "addressUK": "52 Grosvenor Gardens, London SW1W 0AU, United Kingdom",
     "phone": "T: (+39) 031 6121961 | T: (+39) 031 526733",
     "email": "info@handlineco.com",
     "sections": {
@@ -379,10 +405,16 @@
         "links": {
           "safetyGloves": "Guanti di Sicurezza",
           "heatResistant": "Anticalore",
-          "cutResistant": "Antitaglio",
+          "cutResistant": "Guanti Antitaglio",
           "generalPurpose": "Guanti per uso generale",
           "mechanical": "Guanti per rischi meccanici",
           "welding": "Guanti per saldatori"
+        },
+        "eyeFace": {
+          "badge": "Protezione occhi e viso",
+          "title": "Protezione occhi e viso",
+          "description": "Occhiali e visiere protettive per ambienti industriali",
+          "detailedDescription": "Offriamo una gamma di dispositivi per la protezione di occhi e viso che include occhiali di sicurezza, occhiali a mascherina e visiere con protezione da arco elettrico, progettati per superare gli standard ed offrire massima chiarezza e comfort nei diversi ambienti di lavoro."
         }
       },
       "industries": {
@@ -418,6 +450,11 @@
         "badge": "Catalogo",
         "title": "Categorie Prodotti",
         "description": "Esplora la nostra gamma completa di prodotti di sicurezza industriale progettati per proteggere i lavoratori da capo a piedi.",
+        "contactCard": {
+          "title": "Non trovi quello che cerchi?",
+          "description": "Contatta il nostro team e ti aiuteremo a trovare la soluzione di sicurezza adatta alle tue esigenze.",
+          "cta": "Contattaci"
+        },
         "gloves": {
           "badge": "Guanti di Sicurezza",
           "title": "Guanti di Sicurezza",
@@ -427,7 +464,7 @@
           "subcategories": {
             "heat": {
               "title": "Guanti Anticalore",
-              "description": "Protezione termica avanzata per ambienti ad alta temperatura fino a 350°C"
+              "description": "Protezione termica avanzata per ambienti ad alta temperatura fino a 1000°C"
             },
             "mechanical": {
               "title": "Guanti per Rischi Meccanici",
@@ -450,16 +487,71 @@
         "industrialSwabs": {
           "badge": "Scovoli Industriali",
           "title": "Scovoli Industriali",
-          "description": "Soluzioni specializzate di pulizia, lubrificazione e manutenzione per ambienti industriali",
-          "detailedDescription": "I nostri scovoli industriali forniscono soluzioni di pulizia, lubrificazione e manutenzione per ambienti industriali impegnativi. Progettati per attività di di precisione, questi scovoli di alta qualità sono essenziali per la produzione elettronica, l'assemblaggio automobilistico, le applicazioni aerospaziali e la manutenzione industriale in presenza di stampi caldi."
+          "description": "Soluzioni specializzate per la lubrificazione e manutenzione di stampi industriali",
+          "detailedDescription": "I nostri scovoli industriali forniscono soluzioni lubrificazione e manutenzione per ambienti industriali impegnativi. Progettati per attività di precisione in presenza di stampi caldi, i nostri scovoli possono essere prodotti su misura per operazioni di precisione."
         },
         "respiratory": {
           "badge": "Protezione vie respiratorie",
           "title": "Protezione vie respiratorie",
-          "description": "Dispositivi di protezione respiratoria avanzati per ambienti pericolosi",
-          "detailedDescription": "I nostri dispositivi per la protezione delle vie respiratorie forniscono una protezione avanzata contro i contaminanti aerodispersi in ambienti industriali. Dalle maschere antipolvere ai respiratori facciali completi, i nostri prodotti sono progettati per soddisfare i più alti standard di sicurezza garantendo comfort durante l'uso prolungato. Essenziali per costruzioni, produzione, lavorazione chimica e qualsiasi ambiente con contaminanti aerodispersi."
+          "description": "Dispositivi di protezione delle vie respiratorie da diversi agenti contaminanti",
+          "detailedDescription": "I dispositivi per la protezione delle vie respiratorie forniscono una protezione avanzata contro i contaminanti aerodispersi in ambienti industriali. Dalle maschere antipolvere ai respiratori facciali completi, offriamo prodotti progettati per soddisfare i più alti standard di sicurezza garantendo comfort durante l'uso prolungato."
+        },
+        "hearing": {
+          "badge": "Protezione uditiva",
+          "title": "Protezione uditiva",
+          "description": "Dispositivi per la protezione dell'udito da ambienti rumorosi",
+          "detailedDescription": "La gamma per la protezione uditiva include tappi auricolari monouso e cuffie antirumore montate su elmetto o indipendenti. Soluzioni studiate per ridurre l'esposizione a livelli sonori dannosi mantenendo comfort anche per utilizzi prolungati. Ideali per manifattura, edilizia, aviazione e industria pesante."
+        },
+        "armProtection": {
+          "badge": "Protezione braccia",
+          "title": "Protezione braccia",
+          "description": "Manicotti antitaglio e protezione avambraccio per applicazioni industriali",
+          "detailedDescription": "La gamma per la protezione delle braccia offre affidabile copertura dell'avambraccio per ambienti industriali impegnativi. Con un focus sulla protezione da taglio e calore, i nostri manicotti garantiscono sicurezza, comfort e vestibilità aiutando gli operatori a lavorare in sicurezza nella movimentazione di spigoli taglienti, vetro e parti metalliche."
+        },
+        "footwear": {
+          "badge": "Calzature di sicurezza",
+          "title": "Calzature di sicurezza",
+          "description": "Protezione dei piedi da rischi industriali",
+          "detailedDescription": "La gamma di calzature di sicurezza include scarpe, sneakers e stivali progettati per diversi rischi secondo la norma EN ISO 20345 e pensati per offrire comfort e protezione in ambienti impegnativi."
+        },
+        "head": {
+          "badge": "Protezione della testa",
+          "title": "Protezione della testa",
+          "description": "Caschi di sicurezza e berretti antiurto per ambienti industriali",
+          "detailedDescription": "La gamma per la protezione della testa include caschi di sicurezza e berretti antiurto progettati secondo le norme EN e compatibili con sistemi di sicurezza completi per la protezione di occhi e udito."
+        },
+        "eyeFace": {
+          "badge": "Protezione occhi e viso",
+          "title": "Protezione occhi e viso",
+          "description": "Occhiali e visiere protettive per ambienti industriali",
+          "detailedDescription": "La gamma per la protezione di occhi e viso include occhiali di sicurezza, occhiali a mascherina e visiere con protezione da arco elettrico, progettati secondo le norme EN. Massima chiarezza e comfort con trattamenti antiappannanti e antigraffio, filtri UV e opzioni per protezione IR."
+        },
+      "clothing": {
+        "badge": "Abbigliamento protettivo",
+        "title": "Abbigliamento protettivo e da lavoro",
+          "description": "Capi alta visibilità e abbigliamento di sicurezza e da lavoro",
+        "detailedDescription": "La gamma di abbigliamento include abbigliamento ad alta visibilità e abbigliamento protettivo e da lavoro certificato secondo le norme EN, garantendo visibilità, protezione e comfort.",
+        "categoriesDescription": "Scegli tra le nostre linee di abbigliamento dedicate a visibilità, protezione multirischio e saldatura.",
+        "subcategories": {
+          "highVisibility": {
+            "title": "Abbigliamento alta visibilità",
+            "description": "Capi EN ISO 20471 per alta visibilità e sicurezza",
+            "detailedDescription": "Abbigliamento ad alta visibilità certificato EN ISO 20471 progettato per garantire visibilità affidabile in condizioni di scarsa illuminazione e in aree ad alto rischio in diverse classi adatte fino a rischi più elevati. Tessuti traspiranti e durevoli e tagli ergonomici assicurano comfort per tutta la giornata in manutenzione stradale, edilizia, logistica e servizi pubblici, con opzioni invernali e impermeabili."
+          },
+          "safetyWorkwear": {
+            "title": "Abbigliamento di sicurezza e da lavoro",
+            "description": "Abbigliamento da lavoro e di sicurezza per uso industriale",
+            "detailedDescription": "Abbigliamento da lavoro e di sicurezza che offre protezione multirischio per operazioni in ambienti industriali dove durata e conformità non sono negoziabili. Vestibilità moderne ed ergonomiche supportano libertà di movimento e lunga durata, aiutando gli operatori a mantenere la produttività in manutenzione, produzione e attività sul campo."
+          },
+          "welding": {
+            "title": "Abbigliamento per saldatori",
+            "description": "Abbigliamento resistente a calore e spruzzi per la saldatura",
+            "detailedDescription": "Abbigliamento per saldatura pensato per ambienti di fabbricazione impegnativi e protezione da scintille, spruzzi e calore convettivo. Giacche, grembiuli e manicotti utilizzano tessuti ignifughi e cuciture rinforzate, con design in linea con i requisiti prestazionali EN ISO 11611 ed EN ISO 11612. Il bilanciamento tra traspirabilità e copertura consente agli operatori di lavorare in sicurezza mantenendo comfort per tutta la durata del turno."
+          }
         }
+      }
       },
+
       "pages": {
         "heat": {
           "badge": "Protezione da rischi termici",
@@ -471,7 +563,7 @@
           "badge": "Protezione dal Taglio",
           "title": "Prodotti Antitaglio",
           "description": "Sfoglia la nostra gamma completa di guanti antitaglio progettati per la massima protezione contro i rischi da taglio.",
-          "detailedDescription": "I nostri guanti antitaglio forniscono una protezione superiore contro tagli e lacerazioni mantenendo una destrezza e un comfort eccezionali. Progettati con materiali avanzati e testati per raggiungere la resistenza al taglio fino a Livello 5, questi guanti sono essenziali per i lavoratori che maneggiano materiali taglienti, vetro, metalli e per operazioni di assemblaggio di precisione."
+          "detailedDescription": "I nostri guanti antitaglio forniscono una protezione superiore contro tagli e lacerazioni mantenendo una destrezza e un comfort eccezionali. Progettati con materiali avanzati e testati per raggiungere elevatissima resistenza al taglio, questi guanti sono essenziali per i lavoratori che maneggiano materiali taglienti, vetro, metalli e per operazioni di assemblaggio di precisione."
         },
         "general": {
           "badge": "Uso Generale",
@@ -491,15 +583,26 @@
           "description": "Sfoglia la nostra gamma completa di guanti per saldatura progettati per attività di lavorazione metalli ad alto calore.",
           "detailedDescription": "I nostri guanti per saldatori forniscono una protezione specializzata per le attività di saldatura e di lavorazione dei metalli, sia ad elevato rischio meccanico e termico che in ambienti di saldatura di precisione. Progettati con materiali resistenti al calore e agli stress meccanici, questi guanti offrono un'eccellente protezione contro scintille, spruzzi e alte temperature mantenendo la destrezza necessaria per il lavoro di precisione."
         },
+        "clothing": {
+          "highVisibility": {
+            "detailedDescription": "Il nostro abbigliamento ad alta visibilità è certificato EN ISO 20471 e progettato per garantire visibilità affidabile in condizioni di scarsa illuminazione e in aree ad alto rischio. I capi sono disponibili nelle Classi 1–3 e combinano tessuti ad alto contrasto con nastri retroriflettenti di qualità che massimizzano la visibilità a distanza e in movimento. Tessuti traspiranti e durevoli e tagli ergonomici assicurano comfort per tutta la giornata in manutenzione stradale, utilities, logistica ed edilizia, con opzioni invernali e gusci impermeabili per le diverse stagioni."
+          },
+          "safetyWorkwear": {
+            "detailedDescription": "La nostra linea di abbigliamento da lavoro di sicurezza offre protezione multirischio per operazioni industriali dove durata e conformità non sono negoziabili. Alcuni modelli garantiscono prestazioni contro calore e fiamma secondo EN ISO 11612, proprietà antistatiche secondo EN 1149‑5 e protezione opzionale contro l’arco elettrico secondo IEC 61482‑2, abbinate a tessuti robusti, cuciture rinforzate e sistemi di tasche funzionali. Vestibilità moderne ed ergonomiche supportano libertà di movimento e lunga durata, aiutando i team a mantenere la produttività in manutenzione, produzione e attività sul campo."
+          },
+          "welding": {
+            "detailedDescription": "Il nostro abbigliamento per saldatura è pensato per ambienti di fabbricazione impegnativi e protegge il corpo da scintille, spruzzi e calore convettivo. Giacche, grembiuli e manicotti utilizzano tessuti ignifughi e cuciture rinforzate, con design in linea con i requisiti prestazionali EN ISO 11611 ed EN ISO 11612. Il bilanciamento tra traspirabilità e copertura consente agli operatori di lavorare in sicurezza ed efficienza durante attività di saldatura gravose e molatura, mantenendo comfort per tutta la durata del turno."
+          }
+        },
         "respiratory": {
           "badge": "Sicurezza Respiratoria",
           "title": "Prodotti Protezione Respiratoria",
           "description": "Sfoglia la nostra gamma completa di dispositivi di protezione respiratoria per ambienti pericolosi."
         },
         "industrialSwabs": {
-          "badge": "Pulizia di Precisione",
-          "title": "Prodotti Tamponi Industriali",
-          "description": "Sfoglia la nostra gamma completa di tamponi industriali progettati per attività di pulizia di precisione.",
+          "badge": "Operazioni di Precisione",
+          "title": "Prodotti Scovoli Industriali",
+          "description": "Sfoglia la nostra gamma completa di scovoli industriali progettati per attività di pulizia di precisione.",
           "detailedDescription": "Esplora la nostra gamma di soluzioni di pulizia specializzate progettate per applicazioni industriali."
         }
       }
@@ -523,12 +626,34 @@
       "resultsCount": "{count} risultati",
       "contentType": "Tipo di Contenuto", 
       "category": "Categoria",
+        "any": "Tutti",
+        "enStandard": "Norma EN",
+        "sleeveLength": "Lunghezza manicotto",
+        "thumbLoop": "Passante per pollice",
+        "closureType": "Tipo di chiusura",
+        "connection": "Attacco",
+        "filterType": "Tipo di filtro (Filtri)",
+        "protectionClass": "Classe di protezione (Maschere)",
+        "filteredParticles": "Particelle filtrate (Filtri)",
         "temperature": "Resistenza alla Temperatura",
       "subCategory": "Sottocategoria",
         "temperatureRating": "Resistenza alla Temperatura",
+        "snr": "SNR",
+        "en352Part": "Parte EN 352",
+        "reusable": "Riutilizzabile",
+        "mountType": "Tipo di montaggio",
+        "bluetooth": "Bluetooth",
       "cutLevel": "Livello Resistenza Taglio",
       "heatLevel": "Livello Resistenza Calore",
       "hazardProtection": "Protezione dai Rischi",
+      "length": "Lunghezza",
+      "min": "Min",
+      "max": "Max",
+      "padSize": "Dimensione scovolo",
+      "diameter": "Diametro (mm)",
+      "padLength": "Lunghezza tampone (mm)",
+      "material": "Materiale",
+      "ceCategory": "Categoria CE",
       "hazardProtectionItems": {
         "generalMechanical": "Rischi meccanici generali",
         "highCutRisks": "Rischi di taglio elevati",
@@ -551,9 +676,47 @@
       "generalPurposeGloves": "Guanti Uso Generale",
       "mechanicalHazardsGloves": "Guanti per Rischi Meccanici",
       "weldingGlove": "Guanti da Saldatura",
-      "industrialSwabs": "Tamponi Industriali",
-      "respiratoryProtection": "Protezione Respiratoria"
+      "industrialSwabs": "Scovoli Industriali",
+      "respiratoryProtection": "Protezione vie respiratorie",
+      "footwearClass": "Classe calzatura",
+      "esd": "ESD",
+      "widthFit": "Larghezza pianta",
+      "sizeRange": "Intervallo taglie",
+      "toeCap": "Puntale",
+      "soleMaterial": "Materiale suola",
+      "standardCodes": "Codici standard",
+      "protectionType": "Tipo di protezione",
+      "lensTint": "Colore lente",
+      "coating": "Trattamento",
+      "uvCode": "Protezione UV",
+      "brimLength": "Lunghezza visiera",
+      "lowTemperature": "Prestazioni a bassa temperatura",
+      "electricalInsulation": "Isolamento elettrico (EN 50365)",
+      "moltenMetalSplash": "Schizzi di metallo fuso (MM)",
+      "ventilation": "Ventilazione",
+      "hiVisClass": "Classe alta visibilità",
+      "flameStandard": "Norma calore/fiamma (EN ISO 11612)",
+      "arcClass": "Classe protezione arco",
+      "antistatic": "Antistatico (EN 1149-5)",
+      "clothingType": "Tipologia abbigliamento",
+      "size": "Taglie",
+      "clothingCategory": {
+        "title": "Categoria abbigliamento"
+      },
+      "garmentTypes": {
+        "Aprons": "Grembiuli",
+        "Jackets": "Giacche",
+        "Coveralls": "Tute",
+        "Trousers": "Pantaloni",
+        "Waistcoats": "Gilet",
+        "Body warmers": "Scaldacorpo",
+        "Fleece & Sweatshirts": "Pile e felpe",
+        "Polo & T-shirts": "Polo e magliette",
+        "Other workwear": "Altri indumenti da lavoro",
+        "Accessories": "Accessori"
+      }
     },
+    
     "results": {
       "showing": "{current} di {total} prodotti visualizzati",
       "noResults": "Nessun prodotto trovato",
@@ -581,12 +744,38 @@
     "backToProducts": "Torna ai prodotti",
     "specifications": "Specifiche",
     "features": "Caratteristiche",
+    "safetyFeatures": "Caratteristiche di sicurezza",
+      "equipment": "Attrezzatura",
+      "otherDetails": "Altri dettagli",
     "applications": "Applicazioni",
     "safety": "Livelli di protezione",
     "documentation": "Documenti",
     "productDetails": "Dettagli Prodotto",
     "technicalSpecifications": "Specifiche Tecniche",
     "materials": "Materiali",
+    "materialLabels": {
+      "upper": "Tomaia",
+      "lining": "Fodera",
+      "sole": "Suola",
+      "insole": "Soletta",
+      "toeCap": "Puntale"
+    },
+    "npf": "NPF",
+    "size": "Taglie",
+    "comfortFeatures": "Comfort e vestibilità",
+    "attributes": "Attributi",
+      "protectiveFilters": "Filtri protettivi",
+      "protectiveFilter": "Filtro protettivo",
+      "protection": "Protezione",
+      "filtersFitted": "filtri installati",
+      "dust": "Polvere",
+      "gasesVapours": "Gas e Vapori",
+      "combined": "Combinato",
+      "sun": "Sole",
+      "glare": "Abbaglio",
+      "ir": "IR",
+      "welding": "Saldatura",
+      "uv": "UV",
     "dimensions": "Dimensioni",
     "temperatureRating": "Resistenza al Calore",
     "cutResistanceLevel": "Livello di Resistenza al Taglio",
@@ -595,15 +784,18 @@
     "submitEnquiry": "Invia richiesta",
     "contactUs": "Contattaci",
     "requestSample": "Richiedi Campione",
+    "padSize": "Dimensione scovolo",
     "productInfo": {
       "brand": "Marca", 
       "size": "Taglia",
-      "length": "Lunghezza"
+      "length": "Lunghezza",
+      "rodLength": "Lunghezza asta"
     },
     "ceCategory": "Categoria CE",
     "category": "Categoria",
     "technicalSheets": "Scheda Tecnica",
     "productDeclarations": "Dichiarazione di Conformità",
+    "declarationsOfConformity": "Dichiarazioni di Conformità",
     "manufacturersInstruction": "Istruzioni del Produttore",
     "safetyStandards": "Livelli di Protezione",
     "cut": "Taglio",
@@ -613,13 +805,79 @@
     "declarationOfConformity": "Dichiarazione di Conformità",
     "download": "Scarica",
     "noDocuments": "Nessun documento disponibile",
+      "opticalClass": "Classe ottica",
+      "mechanical": "Meccanico",
+      "coating": "Trattamento",
+      "standards": "Standard",
+      "weight": "Peso",
+      "closedShell": "Calotta chiusa",
+      "brimShort": "Visiera corta",
+      "brimLong": "Visiera lunga",
+      "slipResistance": "Resistenza allo scivolamento",
+      "metalFree": "Senza metallo",
+      "sleeveFeatures": "Caratteristiche manicotto",
+      "snr": "SNR",
+      "en352Parts": "Parti EN 352",
+      "bluetooth": "Bluetooth",
+      "fit": "Vestibilità",
+      "gender": "Genere",
+      "colours": "Colori",
+      "uvProtection": "Protezione UV",
+      "frameMark": "Montatura",
+      "lensMark": "Lente",
+      "frame": "Montatura",
+      "lens": "Lenti",
+      "additionalMarking": "Marcatura aggiuntiva",
+      "arm": "Asta",
+      "headband": "Fascia",
+      "lowTemperature": "Prestazioni a bassa temperatura",
+      "highTemperature": "Alta temperatura",
+      "electricalInsulation": "Isolamento elettrico",
+      
+      "lateralDeformation": "Deformazione laterale",
+      "enIso20345": "EN ISO 20345",
+      "enIso20345_2022": "EN ISO 20345:2022",
+      "enIso20345_2011": "EN ISO 20345:2011",
+      "enIso21420": "EN ISO 21420",
+      "stdLabel": {
+        "en397": "Caschi di sicurezza industriali",
+        "en169": "Filtri per saldatura",
+        "en170": "Filtri UV",
+        "en172": "Filtri antiabbagliamento per uso industriale",
+        "en175": "Apparecchi per saldatura e processi affini",
+        "gset29": "Protezione da arco elettrico (visiere)",
+        "en50365": "Isolamento elettrico",
+        "en12492": "Caschi da alpinismo",
+        "en812": "Berretti antiurto",
+        "en_iso_21420": "Requisiti generali",
+        "en140": "Dispositivi di protezione delle vie respiratorie - Semimaschere e quarti di maschera",
+        "en143": "Dispositivi di protezione delle vie respiratorie - Filtri per particelle",
+        "din31813": "Dispositivi di protezione delle vie respiratorie - Filtri per gas",
+        "en421": "Radiazioni ionizzanti e contaminazione radioattiva",
+        "en659": "Calzature di sicurezza per vigili del fuoco",
+        "foodGrade": "Idoneo al contatto alimentare",
+        "ionisingRadiation": "Protezione contro radiazioni ionizzanti",
+        "radioactiveContamination": "Protezione contro contaminazione radioattiva"
+      },
+      "additionalRequirements": "Requisiti supplementari",
+      "compatibleWith": "Compatibile con",
+      "protectionCodes": "Codici di protezione",
     "workEnvironmentSuitability": "Idoneità ambiente di lavoro",
+    "workEnvironment": {
+      "chemical": "Esposizione Chimica",
+      "biological": "Rischi Biologici",
+      "electrical": "Rischio elettrico"
+    },
     "dryConditions": "Ambiente asciutto",
     "wetConditions": "Ambiente umido",
     "dustyConditions": "Presenza di polveri", 
     "chemicalExposure": "Esposizione Chimica",
     "biologicalHazards": "Rischi Biologici",
       "oilyGreasy": "Oleoso / Grasso",
+      "electrical": "Rischio elettrico",
+      "electricalRisks": "Rischi elettrici",
+      "radiation": "Radiazione",
+      "lowVisibility": "Bassa visibilità",
     "suitableFor": "Adatto per",
     "workEnvironments": "ambienti di lavoro",
     "yes": "Sì",
@@ -635,7 +893,85 @@
     "convectiveHeat": "Calore Convettivo",
     "radiantHeat": "Calore Radiante", 
     "smallSplashes": "Piccoli Schizzi",
-    "additionalStandards": "Conformità standard aggiuntivi"
+    "coldProtection": "Protezione dal freddo",
+    "convectiveCold": "Freddo convettivo",
+    "contactCold": "Freddo da contatto",
+    "waterPermeability": "Permeabilità all'acqua",
+    "additionalStandards": "Conformità standard aggiuntivi",
+    "coatingTypes": {
+      "anti_fog": "Antiappannante",
+      "scratch_resistant": "Antigraffio",
+      "chemical_resistant": "Resistente agli agenti chimici"
+    },
+      "lensTintTypes": {
+        "transparent": "Trasparente",
+        "clear": "Trasparente",
+        "grey": "Grigio",
+        "smoke": "Fumé",
+        "brown": "Marrone",
+        "amber": "Ambra",
+        "yellow": "Giallo",
+        "green": "Verde",
+        "blue": "Blu",
+        "mirror": "Specchiata"
+      },
+      "footwearAttributes": {
+        "metalFree": "Senza metallo",
+        "esd": "ESD",
+        "slipResistance": "Resistenza allo scivolamento",
+        "waterResistance": "Resistenza all'acqua",
+        "chemicalExposure": "Esposizione chimica",
+        "metatarsalProtection": "Protezione metatarsale"
+      },
+      "hearingAttributes": {
+        "waterResistance": "Resistenza all'acqua",
+        "extremeTemperature": "Temperatura estrema",
+        "mechanicalStress": "Stress meccanico",
+        "electricalInsulation": "Isolamento elettrico",
+        "specialElectrical": "Elettrico speciale",
+        "adjustments": "Regolazioni",
+        "biohazard": "Rischio biologico",
+        "compatibility": "Compatibilità",
+        "decontamination": "Decontaminazione",
+        "flame": "Fiamma",
+        "lowTemperature": "Prestazioni a bassa temperatura",
+        "mhNoise": "Rumore M/H",
+        "radioFrequency": "Radiofrequenza",
+        "temperatureWater": "Temperatura + Acqua"
+      },
+      "respiratoryStandards": {
+        "class": "Classe",
+        "nonReusable": "Non riutilizzabile",
+        "reusable": "Riutilizzabile",
+        "highDust": "Alta polvere",
+        "gasFilters": "Filtri Gas",
+        "gases": {
+          "a": "Gas organici",
+          "b": "Gas inorganici",
+          "e": "Gas acidi", 
+          "k": "Ammoniaca",
+          "ax": "Gas organico < 65°C",
+          "hg": "Mercurio",
+          "no": "Gas nitrosi",
+          "sx": "Gas specifico",
+          "co": "Monossido di carbonio",
+          "p": "Polvere"
+        }
+      },
+      "clothingStandards": {
+        "flameSpread": "Propagazione della fiamma",
+        "convectiveHeat": "Calore convettivo",
+        "radiantHeat": "Calore radiante",
+        "moltenAluminium": "Alluminio fuso",
+        "moltenIron": "Ferro fuso",
+        "contactHeat": "Calore di contatto",
+        "class": "Classe",
+        "protection": "Protezione",
+        "welding": "Saldatura",
+        "waterPenetration": "Penetrazione dell'acqua",
+        "breathability": "Traspirabilità",
+        "enStandards": "Livelli di protezione"
+      }
   },
   "relatedProducts": {
     "title": "Prodotti correlati"
@@ -723,7 +1059,7 @@
       },
       "2002": {
         "title": "Espansione del Catalogo",
-        "description": "Ampliamo il nostro portfolio di prodotti dedicato alle industrie del vetro e della metallurgia con molti guanti certificati oltre i 350°C. La nostra espansione geografica inizia in 6 mercati in Europa e Medio Oriente, guidata dai nostri clienti italiani esistenti."
+        "description": "Ampliamo il nostro portfolio di prodotti dedicato alle industrie del vetro e della metallurgia con molti guanti certificati oltre i 1000°C. La nostra espansione geografica inizia in 6 mercati in Europa e Medio Oriente, guidata dai nostri clienti italiani esistenti."
       },
       "2003": {
         "title": "Costituzione Societaria",
@@ -964,17 +1300,18 @@
         "uk": "Regno Unito"
       },
       "address": {
-        "title": "Sede Amministrativa",
+      "title": "Sede Amministrativa",
+      "titleUK": "Sede Legale & Indirizzo Operativo",
         "content": "Viale Varese 83, 22100 Como (CO), Italia",
-        "contentUK": "Londra, Regno Unito",
-        "operationalTitle": "Sede Operativa",
+        "contentUK": "52 Grosvenor Gardens, London SW1W 0AU, United Kingdom",
+      "operationalTitle": "HQ - Uffici & Magazzino",
         "operationalContent": "via Antonio Brusa 34, 22035, Canzo (CO), Italia",
-        "operationalContentUK": "Londra, Regno Unito"
+        "operationalContentUK": "52 Grosvenor Gardens, London SW1W 0AU, United Kingdom"
       },
       "phone": {
         "title": "Telefono",
         "content": "+39 031 6121961 | +39 031 526733",
-        "contentUK": "+39 031 6121961 | +39 031 526733"
+        "contentUK": "T: (+44) 020 7866 3849"
       },
       "email": {
         "title": "Email",
@@ -1045,12 +1382,33 @@
   },
   "blog": {
     "hero": {
-      "badge": "Approfondimenti e Risorse",
+      "badge": "Blog",
       "title": "Hand Line",
-      "titleAccent": "Notiziario",
-      "description": "Competenza leader nel settore sui guanti di sicurezza e soluzioni di protezione delle mani.",
+      "titleAccent": "Insights",
+      "description": "Conoscenza leader, approfondimenti e idee per far progredire la sicurezza in ogni luogo di lavoro.",
       "exploreArticles": "Esplora Articoli",
       "learnAboutUs": "Scopri Chi Siamo"
+    },
+    "categoriesBuckets": {
+      "title": "Esplora per Argomento",
+      "buckets": {
+        "productsInnovation": {
+          "title": "Prodotti & Innovazione",
+          "description": "Scopri le nostre ultime soluzioni DPI e tecnologie di sicurezza all'avanguardia."
+        },
+        "industrySustainability": {
+          "title": "Industria & Sostenibilità",
+          "description": "Rimani aggiornato su trend di mercato e pratiche sostenibili nella sicurezza."
+        },
+        "safetyCompliance": {
+          "title": "Sicurezza & Conformità",
+          "description": "Guida pratica a norme, regolamenti e protezione sul lavoro."
+        },
+        "other": {
+          "title": "Altri Approfondimenti",
+          "description": "Articoli generali e aggiornamenti su sicurezza e protezione."
+        }
+      }
     },
     "stats": {
       "articles": "Articoli",
@@ -1062,22 +1420,154 @@
       "badge": "Conoscenza della Sicurezza",
       "title": "Risorse sulla Sicurezza Hand Line",
       "description": "Scopri approfondimenti esperti sui guanti di sicurezza industriali, dispositivi di protezione e migliori pratiche per la protezione delle mani sul posto di lavoro.",
-      "searchPlaceholder": "Cerca articoli...",
+      "searchPlaceholder": "Cerca Insights...",
       "showing": "Mostrando",
       "articles": "articoli",
       "noArticles": "Nessun articolo trovato",
       "noArticlesDescription": "Prova a modificare i criteri di ricerca o filtro",
-      "filterByTags": "Tag",
+      "filterByTags": "Categorie",
       "clearFilters": "Cancella",
       "searchFor": "per",
       "clearAllFilters": "Cancella tutti i filtri"
     },
     "readArticle": "Leggi l'articolo",
-    "backToBlogs": "Torna al notiziario",
+    "backToBlogs": "Torna al blog",
     "minRead": "min di lettura",
     "featuredArticle": "Articolo in Evidenza",
-    "featuredTitle": "Approfondimenti Esperti",
+    "featuredTitle": "Approfondimenti",
     "featuredDescription": "Scopri le ultime novità e innovazioni nella sicurezza sul lavoro e nella tecnologia di protezione delle mani."
+  },
+  "careers": {
+    "hero": {
+      "badge": "Lavora con Hand Line",
+      "titleStart": "Costruiamo qualcosa di grande.",
+      "titleAccent": "Insieme.",
+      "description1": "In Hand Line crediamo di poter fare la differenza. Ogni giorno progettiamo e consegniamo prodotti e soluzioni che proteggono le persone e permettono alle aziende di tutto il mondo di lavorare in sicurezza ed efficacia.",
+      "description2": "Cerchiamo menti curiose, pensatori audaci e persone instancabili che vogliano crescere con noi. Che tu stia iniziando la tua carriera o porti anni di esperienza, troverai opportunità per imparare, contribuire e prosperare in un ambiente internazionale e collaborativo.",
+      "title": "Carriere in Hand Line",
+      "description": "Unisciti al nostro team di professionisti appassionati, dedicati a creare soluzioni di sicurezza innovative. Scopri opportunità che ti permettono di fare la differenza nella sicurezza sul lavoro.",
+      "viewOpenings": "Vedi posizioni aperte",
+      "aboutCompany": "La nostra azienda",
+      "browseOpenings": "Sfoglia le posizioni",
+      "learnAboutValues": "Scopri i nostri valori",
+      "joinOurTeam": "Unisciti al team",
+      "contactUs": "Contattaci",
+      "stats": {
+        "teamMembers": "120+",
+        "teamMembersLabel": "Membri del team",
+        "locations": "5",
+        "locationsLabel": "Sedi",
+        "countries": "12",
+        "countriesLabel": "Paesi",
+        "founded": "1981",
+        "foundedLabel": "Fondazione",
+        "employees": "Membri del team",
+        "years": "Anni di esperienza"
+      }
+    },
+    
+    "grid": {
+      "badge": "Posizioni Aperte",
+      "title": "Opportunità Disponibili",
+      "description": "Esplora le posizioni aperte e trova il ruolo perfetto per le tue competenze.",
+      "searchPlaceholder": "Cerca posizioni...",
+      "departments": "Dipartimenti",
+      "locations": "Luogo",
+      "clearFilters": "Cancella filtri",
+      "showing": "Mostrando",
+      "positions": "posizioni",
+      "positionsAvailableSingular": "1 posizione disponibile",
+      "positionsAvailablePlural": "{count} posizioni disponibili",
+      "filteredFrom": "Filtrate da {total} posizioni totali",
+      "noPositions": "Nessuna posizione trovata",
+      "noPositionsDescription": "Al momento non abbiamo posizioni aperte che corrispondono ai tuoi criteri. Riprova più tardi o modifica la ricerca."
+    },
+    
+    "viewPosition": "Vedi posizione",
+    "viewDetails": "Vedi dettagli",
+    "new": "Nuovo",
+    "backToCareers": "Torna a Carriere",
+    
+    "post": {
+      "aboutRole": "Il Ruolo",
+      "requirements": "Requisiti",
+      "benefits": "Benefici",
+      "responsibilities": "Responsabilità",
+      "salary": "Retribuzione",
+      "applyNow": "Candidati ora",
+      "location": "Sede",
+      "jobType": "Tipo di contratto",
+      "workSite": "Modalità di lavoro",
+      "posted": "Pubblicato",
+      "quickActions": "Azioni rapide",
+      "sharePosition": "Condividi questa posizione",
+      "backToCareers": "Torna a Carriere",
+      "readyToJoin": "Pensi che questo ruolo sia fatto per te?",
+      "readyToJoinBadge": "Entra nel team",
+      "excitedToLearn": "Siamo entusiasti di conoscerti e di scoprire come puoi contribuire alla nostra missione.",
+      "joinTeamIndicator": "Affidati da professionisti in tutto il mondo • Benefit competitivi • Standard europei sul lavoro"
+    },
+    "equalityStatement": "In Hand Line ci impegniamo a creare un ambiente di lavoro inclusivo, dove tutti si sentano valorizzati, rispettati e supportati. Accogliamo candidature da tutte le persone qualificate, indipendentemente da età, genere, disabilità, orientamento sessuale, razza, religione o credo. Se hai bisogno di adattamenti o supporto durante il processo di candidatura, faccelo sapere.",
+    
+    "application": {
+      "title": "Candidati per la Posizione",
+      "personalInfo": "Informazioni personali",
+      "firstName": "Nome",
+      "lastName": "Cognome",
+      "email": "Email",
+      "phone": "Telefono",
+      "documents": "Documenti",
+      "cv": "CV",
+      "coverLetter": "Lettera di presentazione",
+      "fileSelected": "File selezionato",
+      "additionalInfo": "Informazioni aggiuntive",
+      "message": "Messaggio",
+      "messagePlaceholder": "Aggiungi qualsiasi cosa ritieni importante…",
+      "availableFrom": "Disponibile da",
+      "submit": "Invia candidatura"
+    },
+    "cta": {
+      "badge": "Candidature Aperte",
+      "title": "Sei interessato ma non trovi una posizione su misura?",
+      "description": "Se non hai visto nulla che sembra perfetto per te ma pensi che le tue competenze possano essere preziose e ti vedi crescere professionalmente in Hand Line o se hai idee interessanti di cui vorresti parlarci, ci farebbe piacere sentirti. Inviaci una candidatura spontanea, siamo sempre aperti a suggerimenti e nuove idee.",
+      "buttons": {
+        "openApplication": "Invia candidatura spontanea",
+        "keepInformed": "Tienimi aggiornato"
+      },
+      "openTitle": "Invia una candidatura spontanea",
+      "cvUrl": "Link al CV / portfolio (opzionale)",
+      "cvUrlPlaceholder": "https://il-tuo-link-al-cv-o-portfolio",
+      "ideaLabel": "Raccontaci cosa hai in mente e dove pensi di poter portare valore",
+      "submitOpen": "Invia",
+      "keepTitle": "Tienimi aggiornato",
+      "keepDescription": "Ti terremo informato sulle nuove posizioni per i prossimi 12 mesi. Torna in qualsiasi momento per rinnovare l'interesse.",
+      "submitKeep": "Iscriviti",
+      "success": "Grazie!",
+      "openSuccess": "La tua candidatura spontanea è stata inviata.",
+      "interestSuccess": "Sei nella lista per le future opportunità."
+    },
+    "whyJoin": {
+      "badge": "Perché entrare nel team",
+      "title": "Il tuo prossimo lavoro potrebbe essere qui",
+      "description": "Vogliamo circondarci di persone straordinarie, impegnate a raggiungere grandi obiettivi, a crescere continuamente e a non smettere mai di imparare.",
+      "items": {
+        "opportunity": {
+          "title": "Opportunità",
+          "titleAccent": "fenomenale",
+          "description": "Abbiamo grandi piani per nuovi prodotti, servizi innovativi e crescita e vogliamo che le nostre persone crescano con noi."
+        },
+        "international": {
+          "title": "Ambiente internazionale",
+          "titleAccent": "e dinamico",
+          "description": "Operiamo a livello globale e pensiamo in ottica globale."
+        },
+        "greatPlace": {
+          "title": "Un posto di lavoro",
+          "titleAccent": "davvero piacevole",
+          "description": "Vogliamo che le nostre persone abbiano successo, siano valorizzate e felici, e ci impegniamo a creare un ambiente di lavoro che lo permetta."
+        }
+      }
+    }
   },
   "caseStudies": {
     "hero": {
@@ -1116,7 +1606,19 @@
     "relatedCaseStudies": "Casi Studio Correlati",
     "clientDetails": "Dettagli Cliente",
     "industryDetails": "Dettagli Settore",
-    "testimonial": "Testimonianza Cliente"
+    "testimonial": "Testimonianza Cliente",
+    "featured": {
+      "badge": "Caso Studio in Evidenza",
+      "title": "Successo in Azione",
+      "description": "Scopri come abbiamo aiutato le aziende a trasformare le operazioni e ottenere risultati straordinari."
+    },
+    "buttons": {
+      "readFull": "Leggi il Caso Studio Completo",
+      "read": "Leggi il Caso Studio"
+    },
+    "labels": {
+      "challenge": "Sfida"
+    }
   },
   "partners": {
     "hero": {
@@ -1268,7 +1770,155 @@
     "weldingGloves": "Guanti per saldatura",
     "mechanicalHazardsGloves": "Guanti per rischi meccanici",
     "industrialSwabs": "Tamponi industriali",
-    "respiratoryProtection": "Protezione respiratoria"
+    "respiratoryProtection": "Protezione vie respiratorie"
+  },
+  "standards": {
+    "viewStandard": "Vedi Standard",
+    "download": "Scarica",
+    "downloads": "Download",
+    "relatedStandards": "Standard correlati",
+    "backToStandards": "Torna agli Standard",
+    "grid": {
+      "badge": "Standard di Sicurezza",
+      "title": "Libreria Standard Europei",
+      "description": "Sfoglia la nostra raccolta di standard europei, guide e risorse per i dispositivi di protezione individuale.",
+      "searchPlaceholder": "Cerca standard per codice o parola chiave...",
+      "showing": "Mostrando",
+      "standards": "standard",
+      "noStandards": "Nessuno standard trovato",
+      "noStandardsDescription": "Prova a modificare i criteri di ricerca o filtro",
+      "filterByCategory": "Filtra per Categoria",
+      "clearFilters": "Cancella Filtri"
+    },
+    "cards": {
+      "learnMore": "Scopri di più"
+    },
+    "hero": {
+      "badge": "Standard e Regolamenti",
+      "title": "Libreria Standard",
+      "titleAccent": "DPI",
+      "description": "Accedi a informazioni complete sugli standard europei che garantiscono che i nostri prodotti soddisfino i massimi requisiti di qualità e sicurezza.",
+      "intro": "Benvenuti nel nostro Hub sugli Standard dei DPI, dove potrete trovare indicazioni chiare sugli standard di sicurezza e le normative relative ai dispositivi di protezione individuale (DPI). Esplorate le nostre pagine dettagliate per capire quali standard si applicano a ciascun tipo di DPI, cosa significano nella pratica e come i prodotti vengono testati per garantire la sicurezza.",
+      "important": "Importante: le informazioni fornite in questo hub hanno solo scopo informativo e non sostituiscono in alcun caso consulenze professionali o valutazioni indipendenti.",
+      "contactLine": {
+        "before": "Per ulteriori indicazioni o richieste specifiche,",
+        "linkText": "contattateci",
+        "after": ": il nostro team di esperti in DPI sarà a vostra disposizione."
+      },
+      "buttons": {
+        "contact": "Contattaci",
+        "viewProducts": "Prodotti"
+      },
+      "exploreStandards": "Esplora Standard",
+      "learnAboutUs": "Scopri Chi Siamo",
+      "stats": {
+        "standards": "50+",
+        "resources": "100%",
+        "guides": "40+",
+        "categories": "15+",
+        "resourcesLabel": "Conformità",
+        "guidesLabel": "Anni di esperienza",
+        "categoriesLabel": "Categorie"
+      }
+    },
+    "overview": {
+      "badge": "Normativa di Riferimento",
+      "title": "Guida alle Normative sui DPI",
+      "subtitle": "Scopri la nostra guida completa alle normative sui DPI, inclusi gli standard UKCA, CE e internazionali, le categorie di prodotti e i requisiti di conformità. Comprendi quali dispositivi di protezione rispettano le norme di sicurezza e come scegliere i DPI più adatti per il tuo ambiente di lavoro"
+    },
+    "buckets": {
+      "regulation": {
+        "title": "Normative DPI",
+        "subtitle": "Scopri quali regolamenti e requisiti di sicurezza sono in vigore"
+      },
+      "categories": {
+        "title": "Categorie DPI",
+        "subtitle": "Comprendi le classi di rischio dei DPI e i pericoli protetti"
+      },
+      "standards": {
+        "title": "Standard EN, UKCA e ANSI",
+        "subtitle": "Chiarezza sugli standard in vigore in UE e Regno Unito"
+      }
+    },
+    "categories": {
+      "navTitle": "Categorie"
+    },
+    "categoriesIntro": {
+      "badge": "Standard EN",
+      "title": "Standard per Categoria",
+      "description": "Esplora le principali categorie di DPI e scopri quali standard, prove e requisiti si applicano a ciascuna area. Seleziona una categoria qui sotto per entrare nelle guide pratiche, standard chiave e consigli di scelta."
+    },
+    "footerCta": {
+      "badge": "Aggiornamenti",
+      "title": "Resta in contatto per gli ultimi aggiornamenti",
+      "text": "Le normative sui DPI sono in continua evoluzione e possono essere difficili da navigare. Abbiamo creato una sezione dedicata del nostro blog Hand Line Insights con aggiornamenti su conformità e regolamentazione. Hai altre domande o vuoi approfondire temi specifici? Siamo a un clic di distanza.",
+      "buttons": {
+        "blog": "Hand Line Insights",
+        "contact": "Contattaci"
+      }
+    },
+    "productDisclaimer": {
+      "hero": {
+        "badge": "Informazioni Importanti",
+        "title": "Dichiarazione",
+        "titleAccent": "Prodotto",
+        "description": "Hand Line Company Srl si impegna a supportare i clienti con il prodotto giusto e con competenze e conoscenze di livello superiore. I nostri servizi e prodotti devono essere utilizzati con il necessario rigore da parte del datore di lavoro/operatore nella selezione e nell’impiego dei DPI forniti."
+      },
+      "sections": {
+        "usage": {
+          "title": "Selezione dei DPI",
+          "content": "Tutte le informazioni fornite si basano sulle nostre attuali conoscenze e comprensione della materia. Queste informazioni sono offerte esclusivamente come suggerimenti a supporto delle vostre decisioni o scelte di prodotto. Ci riserviamo il diritto di aggiornare tali informazioni qualora diventino disponibili nuove conoscenze, esperienze o indicazioni normative. La scelta corretta dei DPI dipende dai rischi presenti sul luogo di lavoro. È responsabilità esclusiva del datore di lavoro e/o dell’utente, tra le altre cose, effettuare una corretta valutazione dei rischi, selezionare i DPI appropriati per lo specifico compito e garantire la compatibilità con altri dispositivi di protezione ove rilevante."
+        },
+        "heatResistance": {
+          "title": "Utilizzo dei DPI",
+          "content": "Tutti i DPI devono essere utilizzati esclusivamente in conformità alle istruzioni del produttore e alle linee guida sulla sicurezza. Un uso improprio, una modifica o un impiego al di fuori dell’ambito previsto possono ridurre il livello di protezione ed aumentare il rischio di infortuni. I datori di lavoro e gli utenti sono responsabili di garantire il corretto utilizzo, la formazione all’uso appropriato, la manutenzione e conservazione dei DPI come indicato, nonché la loro sostituzione quando danneggiati, usurati o giunti al termine della loro vita utile. I DPI devono essere accuratamente ispezionati prima di ogni utilizzo per assicurarsi che non presentino difetti o danni visibili. L’uso dei DPI non deve mai e non può sostituire la cautela e l’attenzione nella manipolazione di materiali pericolosi e/o nelle attività svolte in ambienti rischiosi."
+        },
+        "cutResistance": {
+          "title": "Livelli di Protezione",
+          "content": "Sebbene i nostri DPI siano progettati e certificati in conformità alle normative e agli standard europei, incluso il Regolamento (UE) 2016/425, nessuna attrezzatura può offrire una protezione assoluta o illimitata. I diversi tipi di DPI riducono specifici rischi ma non eliminano completamente i pericoli che sono destinati a mitigare. A titolo di esempio non esaustivo: la resistenza/protezione al taglio, alla perforazione, all’abrasione, allo strappo, ecc. riduce il rischio di lesioni meccaniche ma non le previene o elimina completamente; i DPI resistenti alla fiamma riducono il rischio di ustioni ma non impediscono infortuni in tutte le situazioni di incendio e non sono “ignifughi”; l’abbigliamento protettivo contro il freddo riduce il rischio di congelamento ma non elimina le lesioni da freddo; i DPI resistenti agli agenti chimici riducono il rischio di esposizione ma non garantiscono una protezione totale contro tutte le sostanze; i guanti e i tappeti isolanti riducono il rischio di elettrocuzione ma non eliminano completamente i pericoli elettrici; i dispositivi di protezione dalle radiazioni mitigano alcuni rischi di esposizione ma non li eliminano completamente. I DPI devono essere sempre utilizzati come parte di un sistema completo di sicurezza sul lavoro, che includa misure di controllo dei rischi, formazione, supervisione e procedure di lavoro sicure."
+        },
+        "generalGuidelines": {
+          "title": "Modifica dei DPI & Prodotti Contraffatti",
+          "content": "Qualsiasi alterazione, riparazione o modifica dei DPI invalida la certificazione del prodotto e annulla immediatamente ogni garanzia. I dispositivi modificati non possono essere garantiti come conformi ai livelli di prestazione originali e non devono essere utilizzati. Solo i prodotti originali, acquistati tramite canali autorizzati, sono coperti da certificazione e garanzia. I prodotti contraffatti o imitazioni possono non fornire il livello di protezione richiesto e non devono essere utilizzati. Hand Line Company Srl declina ogni garanzia e responsabilità salvo nei casi espressamente previsti o derivante da un uso improprio dei DPI."
+        }
+      }
+    }
+  },
+  "declarations": {
+    "hero": {
+      "badge": "Documentazione normativa",
+      "title": "Dichiarazioni",
+      "titleAccent": "di Conformità",
+      "description": "Benvenuto nel nostro archivio delle dichiarazioni di conformità dei prodotti, dove puoi trovare e scaricare i documenti necessari in conformità al Regolamento (UE) 2016/425. Cerca il prodotto richiesto e seleziona la lingua per scaricare la DoC in PDF. Questa libreria è aggiornata regolarmente; in alcuni casi una singola dichiarazione copre più varianti all'interno di una famiglia di prodotti.",
+      "contactLine": {
+        "before": "Se il prodotto che stai cercando non è presente,",
+        "linkText": "contattaci",
+        "after": ""
+      },
+      "viewDeclarations": "Vedi Dichiarazioni",
+      "stats": {
+        "products": "200+",
+        "productsLabel": "Prodotti",
+        "declarations": "20+",
+        "declarationsLabel": "Dichiarazioni",
+        "compliance": "100%",
+        "certified": "UE",
+        "certifiedLabel": "Certificato"
+      }
+    },
+    "grid": {
+      "searchPlaceholder": "Cerca dichiarazioni...",
+      "allLanguages": "Tutte",
+      "filterByCategory": "Categorie",
+      "categories": "Categorie",
+      "declarations": "dichiarazioni",
+      "searchFor": "per",
+      "clearFilters": "Cancella",
+      "noDeclarations": "Nessuna dichiarazione trovata",
+      "noDeclarationsDescription": "Nessuna dichiarazione corrisponde ai criteri selezionati. Prova a modificare i filtri.",
+      "noDeclarationsAvailable": "Al momento non sono disponibili dichiarazioni di conformità.",
+      "clearAllFilters": "Cancella tutti i filtri"
+    }
   },
   "legal": {
     "hero": {
@@ -1306,10 +1956,10 @@
     }
   },
   "forms": {
-    "privacyConsent": "Accetto l'",
-    "privacyPolicy": "Informativa sulla Privacy",
-    "and": "e i",
-    "terms": "Termini di Servizio",
+    "privacyConsent": "Accetto ",
+    "privacyPolicy": "l'Informativa sulla Privacy",
+    "and": "e",
+    "terms": "i Termini di Servizio",
     "privacyConsentError": "Devi accettare l'informativa sulla privacy e i termini di servizio",
     "submit": "Invia Richiesta"
   },
@@ -1317,5 +1967,23 @@
     "message": "Utilizziamo cookie essenziali per il corretto funzionamento del sito. Con il tuo consenso useremo cookie di analisi per capire come utilizzi il sito e migliorare i nostri servizi. Puoi modificare la tua scelta in qualsiasi momento nella nostra",
     "accept": "Accetta",
     "decline": "Rifiuta"
+  },
+  "admin": {
+    "brands": {
+      "title": "Marchi",
+      "selectBrands": "Seleziona Marchi",
+      "addNewBrand": "Aggiungi Nuovo Marchio",
+      "brandName": "Nome Marchio",
+      "brandLogo": "Logo Marchio",
+      "createBrand": "Crea Marchio",
+      "noBrandsSelected": "Nessun marchio selezionato",
+      "brandNameRequired": "Il nome del marchio è obbligatorio",
+      "brandNameExists": "Il nome del marchio esiste già",
+      "invalidLogoFile": "Il logo deve essere un file immagine valido (JPEG, PNG, GIF o WebP)",
+      "logoTooLarge": "Il file del logo deve essere inferiore a 5MB",
+      "brandCreated": "Marchio creato con successo",
+      "errorCreatingBrand": "Errore nella creazione del marchio",
+      "errorLoadingBrands": "Impossibile caricare i marchi disponibili"
+    }
   }
 } 

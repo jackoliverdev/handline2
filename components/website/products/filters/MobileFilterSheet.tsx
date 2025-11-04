@@ -5,9 +5,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { X } from "lucide-react";
+import { FilterSection } from "./FilterSection";
 import { useLanguage } from "@/lib/context/language-context";
 import { hazardProtectionFilters } from "@/content/hazardfilters";
-import { workEnvironmentFilters } from "@/content/workenvironmentfilters";
 
 interface MobileFilterSheetProps {
   isOpen: boolean;
@@ -23,8 +23,9 @@ interface MobileFilterSheetProps {
   toggleTempRating: (temp: string) => void;
   selectedHazardProtections: string[];
   toggleHazardProtection: (hazard: string) => void;
-  selectedWorkEnvironments: string[];
-  toggleWorkEnvironment: (environment: string) => void;
+  enStandards: string[];
+  selectedENStandards: string[];
+  toggleENStandard: (standard: string) => void;
   industries: string[];
   selectedIndustries: string[];
   toggleIndustry: (industry: string) => void;
@@ -32,6 +33,14 @@ interface MobileFilterSheetProps {
   expandedSections: Record<string, boolean>;
   toggleSection: (section: string) => void;
   activeFiltersCount: number;
+  // Category-specific mobile content
+  extraFiltersRender?: React.ReactNode;
+  // When true, hide default hazard/EN standard/temp/industries blocks
+  hideDefaultFilters?: boolean;
+  // When true, hide Category and Sub-Category groups
+  hideCategoryFilters?: boolean;
+  // When true, hide only the main Category group (keep Sub-Category)
+  hideMainCategoryFilter?: boolean;
 }
 
 export const MobileFilterSheet = ({
@@ -48,8 +57,9 @@ export const MobileFilterSheet = ({
   toggleTempRating,
   selectedHazardProtections,
   toggleHazardProtection,
-  selectedWorkEnvironments,
-  toggleWorkEnvironment,
+  enStandards,
+  selectedENStandards,
+  toggleENStandard,
   industries,
   selectedIndustries,
   toggleIndustry,
@@ -57,17 +67,22 @@ export const MobileFilterSheet = ({
   expandedSections,
   toggleSection,
   activeFiltersCount,
+  extraFiltersRender,
+  hideDefaultFilters = false,
+  hideCategoryFilters = false,
+  hideMainCategoryFilter = false,
 }: MobileFilterSheetProps) => {
   const { t } = useLanguage();
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
-      <SheetContent side="left" className="w-full max-w-xs" onOpenAutoFocus={(e) => e.preventDefault()}>
+      <SheetContent side="left" className="w-full max-w-xs h-full flex flex-col" onOpenAutoFocus={(e) => e.preventDefault()}>
         <SheetHeader>
           <SheetTitle className="text-xl font-bold text-brand-dark dark:text-white">{t('products.filters.title')}</SheetTitle>
         </SheetHeader>
         
-        <div className="flex flex-col gap-4 mt-4">
+        <div className="flex-1 flex flex-col gap-4 mt-4 overflow-y-auto pr-1">
           {/* Category Filter */}
+          {!hideCategoryFilters && !hideMainCategoryFilter && (
           <div>
             <button 
               className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"
@@ -121,9 +136,10 @@ export const MobileFilterSheet = ({
               </div>
             )}
           </div>
+          )}
           
           {/* Sub-Category Filter */}
-          {subCategories.length > 0 && (
+          {!hideCategoryFilters && subCategories.length > 0 && (
             <div>
               <button 
                 className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"
@@ -165,135 +181,8 @@ export const MobileFilterSheet = ({
             </div>
           )}
           
-          {/* Hazard Protection Filter */}
-          <div>
-            <button 
-              className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"
-              onClick={() => toggleSection('hazardProtection')}
-            >
-              <span className="flex items-center">
-                {t('products.filters.hazardProtection')}
-                {selectedHazardProtections.length > 0 && (
-                  <Badge className="ml-2 bg-brand-primary text-white">{selectedHazardProtections.length}</Badge>
-                )}
-              </span>
-              <ChevronDown 
-                className={`h-4 w-4 text-brand-primary transition-transform ${
-                  expandedSections.hazardProtection ? 'rotate-180' : ''
-                }`}
-              />
-            </button>
-            
-            {expandedSections.hazardProtection && (
-              <div className="space-y-2 max-h-40 overflow-y-auto pr-2 mt-2">
-                {hazardProtectionFilters.map((filter) => (
-                  <div key={filter.id} className="flex items-center space-x-2">
-                    <Checkbox 
-                      id={`hazardProtection-${filter.id}`} 
-                      checked={selectedHazardProtections.includes(filter.id)}
-                      onCheckedChange={() => toggleHazardProtection(filter.id)}
-                      className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary"
-                    />
-                    <label 
-                      htmlFor={`hazardProtection-${filter.id}`}
-                      className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer"
-                    >
-                      {t(filter.translationKey)}
-                    </label>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-          
-          {/* Work Environment Filter */}
-          {workEnvironmentFilters.length > 0 && (
-            <div>
-              <button 
-                className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"
-                onClick={() => toggleSection('workEnvironment')}
-              >
-                <span className="flex items-center">
-                  {t('products.filters.workEnvironment')}
-                  {selectedWorkEnvironments.length > 0 && (
-                    <Badge className="ml-2 bg-brand-primary text-white">{selectedWorkEnvironments.length}</Badge>
-                  )}
-                </span>
-                <ChevronDown 
-                  className={`h-4 w-4 text-brand-primary transition-transform ${
-                    expandedSections.workEnvironment ? 'rotate-180' : ''
-                  }`}
-                />
-              </button>
-              
-              {expandedSections.workEnvironment && (
-                <div className="space-y-2 max-h-40 overflow-y-auto pr-2 mt-2">
-                  {workEnvironmentFilters.map((filter) => (
-                    <div key={filter.id} className="flex items-center space-x-2">
-                      <Checkbox 
-                        id={`workEnvironment-${filter.id}`} 
-                        checked={selectedWorkEnvironments.includes(filter.id)}
-                        onCheckedChange={() => toggleWorkEnvironment(filter.id)}
-                        className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary"
-                      />
-                      <label 
-                        htmlFor={`workEnvironment-${filter.id}`}
-                        className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer"
-                      >
-                        {t(filter.translationKey)}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-          
-          {/* Temperature Rating Filter */}
-          {tempRatings.length > 0 && (
-            <div>
-              <button 
-                className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"
-                onClick={() => toggleSection('temperature')}
-              >
-                <span className="flex items-center">
-                  {t('products.filters.temperature')}
-                  {selectedTempRatings.length > 0 && (
-                    <Badge className="ml-2 bg-brand-primary text-white">{selectedTempRatings.length}</Badge>
-                  )}
-                </span>
-                <ChevronDown 
-                  className={`h-4 w-4 text-brand-primary transition-transform ${
-                    expandedSections.temperature ? 'rotate-180' : ''
-                  }`}
-                />
-              </button>
-              
-              {expandedSections.temperature && (
-                <div className="space-y-2 max-h-40 overflow-y-auto pr-2 mt-2">
-                  {tempRatings.map((temp) => (
-                    <div key={temp} className="flex items-center space-x-2">
-                      <Checkbox 
-                        id={`tempRating-${temp}`} 
-                        checked={selectedTempRatings.includes(temp.toString())}
-                        onCheckedChange={() => toggleTempRating(temp.toString())}
-                        className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary"
-                      />
-                      <label 
-                        htmlFor={`tempRating-${temp}`}
-                        className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer"
-                      >
-                        {temp}°C
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-          
-          {/* Industries Filter */}
-          {industries.length > 0 && (
+          {/* Industries (moved directly after Sub-Category) */}
+          {!hideDefaultFilters && (
             <div>
               <button 
                 className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"
@@ -334,6 +223,139 @@ export const MobileFilterSheet = ({
               )}
             </div>
           )}
+
+          {/* EN Standard (now after Industries) */}
+          {!hideDefaultFilters && enStandards.length > 0 && (
+            <div>
+              <button 
+                className="flex w-full items-center justify-between py-2 text-left text-base font-medium text-brand-dark dark:text-white"
+                onClick={() => toggleSection('enStandard')}
+              >
+                <span className="flex items-center">
+                  {t('products.filters.enStandard')}
+                  {selectedENStandards.length > 0 && (
+                    <Badge className="ml-2 bg-brand-primary text-white">{selectedENStandards.length}</Badge>
+                  )}
+                </span>
+                <ChevronDown 
+                  className={`h-4 w-4 text-brand-primary transition-transform ${
+                    expandedSections.enStandard ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+              
+              {expandedSections.enStandard && (
+                <div className="space-y-2 max-h-40 overflow-y-auto pr-2 mt-2">
+                  {enStandards.map((standard) => (
+                    <div key={standard} className="flex items-center space-x-2">
+                      <Checkbox 
+                        id={`enStandard-mobile-${standard}`} 
+                        checked={selectedENStandards.includes(standard)}
+                        onCheckedChange={() => toggleENStandard(standard)}
+                        className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary"
+                      />
+                      <label 
+                        htmlFor={`enStandard-mobile-${standard}`}
+                        className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer"
+                      >
+                        {standard}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Gloves group: Hazard Protection + Temperature */}
+          {!hideDefaultFilters && (
+            <FilterSection title={t('navbar.safetyGloves')} defaultExpanded={false} variant="mobile">
+              {/* Hazard Protection Filter */}
+              <div className="pb-2">
+                <button 
+                  className="flex w-full items-center justify-between mb-2"
+                  onClick={() => toggleSection('hazardProtection')}
+                >
+                  <h3 className="text-base font-medium text-brand-dark dark:text-white">
+                    {t('products.filters.hazardProtection')}
+                    {selectedHazardProtections.length > 0 && (
+                      <Badge className="ml-2 bg-brand-primary text-white">{selectedHazardProtections.length}</Badge>
+                    )}
+                  </h3>
+                  <ChevronDown 
+                    className={`h-4 w-4 text-brand-primary transition-transform ${
+                      expandedSections.hazardProtection ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+                
+                {expandedSections.hazardProtection && (
+                  <div className="space-y-2 max-h-40 overflow-y-auto pr-2 mt-2">
+                    {hazardProtectionFilters.map((filter) => (
+                      <div key={filter.id} className="flex items-center space-x-2">
+                        <Checkbox 
+                          id={`hazardProtection-${filter.id}`} 
+                          checked={selectedHazardProtections.includes(filter.id)}
+                          onCheckedChange={() => toggleHazardProtection(filter.id)}
+                          className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary"
+                        />
+                        <label 
+                          htmlFor={`hazardProtection-${filter.id}`}
+                          className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer"
+                        >
+                          {t(filter.translationKey)}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Temperature Rating Filter */}
+              <div className="pb-2">
+                <button 
+                  className="flex w-full items-center justify-between mb-2"
+                  onClick={() => toggleSection('temperature')}
+                >
+                  <h3 className="text-base font-medium text-brand-dark dark:text-white">
+                    {t('products.filters.temperature')}
+                    {selectedTempRatings.length > 0 && (
+                      <Badge className="ml-2 bg-brand-primary text-white">{selectedTempRatings.length}</Badge>
+                    )}
+                  </h3>
+                  <ChevronDown 
+                    className={`h-4 w-4 text-brand-primary transition-transform ${
+                      expandedSections.temperature ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+                
+                {expandedSections.temperature && (
+                  <div className="space-y-2 max-h-40 overflow-y-auto pr-2 mt-2">
+                    {tempRatings.map((temp) => (
+                      <div key={temp} className="flex items-center space-x-2">
+                        <Checkbox 
+                          id={`tempRating-${temp}`} 
+                          checked={selectedTempRatings.includes(temp.toString())}
+                          onCheckedChange={() => toggleTempRating(temp.toString())}
+                          className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary"
+                        />
+                        <label 
+                          htmlFor={`tempRating-${temp}`}
+                          className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer"
+                        >
+                          {temp}°C
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </FilterSection>
+          )}
+
+          {/* Category-specific extra filters (e.g., swabs) come last to match desktop order */}
+          {extraFiltersRender}
         </div>
         
         <SheetFooter className="mt-6">

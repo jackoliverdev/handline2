@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
 import { Separator } from "@/components/ui/separator";
-import { AlertCircle, Factory, ArrowLeft, Save, Trash, Upload, Eye, CheckCircle, AlertTriangle } from "lucide-react";
+import { AlertCircle, Factory, ArrowLeft, Save, Trash, Upload, Eye, CheckCircle, AlertTriangle, Plus } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -40,12 +40,17 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
     image_url: string;
     feature_image_url: string;
     related_products: string[];
+    // Homepage featured settings
+    is_featured: boolean;
+    position: number | null;
     // Locale fields for basic info
     industry_name_locales: Record<string, string>;
     description_locales: Record<string, string>;
     // Showcase fields
     showcase_description: string;
     showcase_description_locales: Record<string, string>;
+    // Key Features
+    features_locales: Record<string, string[]>;
     // New structured content fields
     summary_content_locales: Record<string, string>;
     summary_content_image_url: string;
@@ -68,12 +73,17 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
     image_url: "",
     feature_image_url: "",
     related_products: [],
+    // Homepage featured settings
+    is_featured: false,
+    position: null,
     // Locale fields for basic info
     industry_name_locales: {},
     description_locales: {},
     // Showcase fields
     showcase_description: "",
     showcase_description_locales: {},
+    // Key Features
+    features_locales: {},
     // New structured content fields
     summary_content_locales: {},
     summary_content_image_url: "",
@@ -143,6 +153,41 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
       showcase_description_locales: {
         ...prev.showcase_description_locales,
         [lang]: description
+      }
+    }));
+  };
+  
+  // Helper functions for key features
+  const addFeature = (lang: 'en' | 'it') => {
+    setIndustry(prev => ({
+      ...prev,
+      features_locales: {
+        ...prev.features_locales,
+        [lang]: [...(prev.features_locales[lang] || []), '']
+      }
+    }));
+  };
+
+  const updateFeature = (lang: 'en' | 'it', index: number, value: string) => {
+    setIndustry(prev => {
+      const features = [...(prev.features_locales[lang] || [])];
+      features[index] = value;
+      return {
+        ...prev,
+        features_locales: {
+          ...prev.features_locales,
+          [lang]: features
+        }
+      };
+    });
+  };
+
+  const removeFeature = (lang: 'en' | 'it', index: number) => {
+    setIndustry(prev => ({
+      ...prev,
+      features_locales: {
+        ...prev.features_locales,
+        [lang]: (prev.features_locales[lang] || []).filter((_, i) => i !== index)
       }
     }));
   };
@@ -310,12 +355,17 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
             image_url: data.image_url || "",
             feature_image_url: data.feature_image_url || "",
             related_products: data.related_products || [],
+            // Homepage featured settings
+            is_featured: data.is_featured || false,
+            position: data.position || null,
             // Locale fields for basic info
             industry_name_locales: data.industry_name_locales || {},
             description_locales: data.description_locales || {},
             // Showcase fields
             showcase_description: data.showcase_description || "",
             showcase_description_locales: data.showcase_description_locales || {},
+            // Key Features
+            features_locales: data.features_locales || { en: [], it: [] },
             // New structured content fields
             summary_content_locales: data.summary_content_locales || {},
             summary_content_image_url: data.summary_content_image_url || "",
@@ -397,10 +447,13 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
       industry.image_url !== originalIndustry.image_url ||
       industry.feature_image_url !== originalIndustry.feature_image_url ||
       industry.summary_content_image_url !== originalIndustry.summary_content_image_url ||
+      industry.is_featured !== originalIndustry.is_featured ||
+      industry.position !== originalIndustry.position ||
       JSON.stringify(industry.related_products) !== JSON.stringify(originalIndustry.related_products) ||
       JSON.stringify(industry.industry_name_locales) !== JSON.stringify(originalIndustry.industry_name_locales) ||
       JSON.stringify(industry.description_locales) !== JSON.stringify(originalIndustry.description_locales) ||
       JSON.stringify(industry.showcase_description_locales) !== JSON.stringify(originalIndustry.showcase_description_locales) ||
+      JSON.stringify(industry.features_locales) !== JSON.stringify(originalIndustry.features_locales) ||
       JSON.stringify(industry.summary_content_locales) !== JSON.stringify(originalIndustry.summary_content_locales) ||
       JSON.stringify(industry.sections_locales) !== JSON.stringify(originalIndustry.sections_locales) ||
       industry.related_product_id_1 !== originalIndustry.related_product_id_1 ||
@@ -588,10 +641,13 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
         image_url: industry.image_url,
         feature_image_url: industry.feature_image_url,
         related_products: industry.related_products,
+        is_featured: industry.is_featured,
+        position: industry.position,
         industry_name_locales: industry.industry_name_locales || null,
         description_locales: industry.description_locales || null,
         showcase_description: industry.showcase_description || undefined,
         showcase_description_locales: industry.showcase_description_locales || null,
+        features_locales: industry.features_locales || null,
         summary_content_locales: industry.summary_content_locales || null,
         sections_locales: industry.sections_locales || null,
         summary_content_image_url: industry.summary_content_image_url || null,
@@ -690,6 +746,63 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {/* Main Content Column */}
           <div className="md:col-span-2 space-y-6">
+            {/* Featured on Homepage Card */}
+            <Card className="p-2 sm:p-0 border-brand-primary/20 bg-brand-primary/5 dark:bg-brand-primary/10">
+              <CardHeader>
+                <CardTitle className="text-base sm:text-lg flex items-center gap-2">
+                  <Factory className="h-5 w-5 text-brand-primary" />
+                  Featured on Homepage
+                </CardTitle>
+                <CardDescription className="text-xs sm:text-sm">
+                  Control whether this industry appears on the homepage and its display position
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                  <div className="space-y-0.5">
+                    <Label htmlFor="is_featured" className="text-sm font-medium">Display on Homepage</Label>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Show this industry in the homepage Industry Solutions section</p>
+                  </div>
+                  <Switch
+                    id="is_featured"
+                    checked={industry.is_featured}
+                    onCheckedChange={(checked) => setIndustry(prev => ({ ...prev, is_featured: checked }))}
+                  />
+                </div>
+                
+                {industry.is_featured && (
+                  <div className="space-y-2 p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                    <Label htmlFor="position" className="text-sm font-medium">Homepage Position</Label>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
+                      Select which position (1-4) this industry should appear in on the homepage
+                    </p>
+                    <Select 
+                      value={industry.position?.toString() || ""} 
+                      onValueChange={(value) => setIndustry(prev => ({ ...prev, position: value ? parseInt(value) : null }))}
+                    >
+                      <SelectTrigger className="w-full text-xs sm:text-sm h-8 sm:h-10">
+                        <SelectValue placeholder="Select position..." />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1">Position 1 (First)</SelectItem>
+                        <SelectItem value="2">Position 2 (Second)</SelectItem>
+                        <SelectItem value="3">Position 3 (Third)</SelectItem>
+                        <SelectItem value="4">Position 4 (Fourth)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {!industry.position && (
+                      <Alert className="mt-2">
+                        <AlertCircle className="h-4 w-4" />
+                        <AlertDescription className="text-xs">
+                          Please select a position for this featured industry
+                        </AlertDescription>
+                      </Alert>
+                    )}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
             {/* Showcase Details Card */}
             <Card className="p-2 sm:p-0">
               <CardHeader>
@@ -727,6 +840,77 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
                   />
                   <p className="text-xs sm:text-sm text-muted-foreground">
                     This description appears in hero sections and industry showcases. Keep it concise and engaging.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Key Features Card */}
+            <Card className="p-2 sm:p-0">
+              <CardHeader>
+                <CardTitle className="text-base sm:text-lg">Key Features</CardTitle>
+                <CardDescription className="text-xs sm:text-sm">
+                  Feature badges displayed on industry cards (shows first 3)
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {/* Language Selector */}
+                <div className="flex items-center gap-2">
+                  <Label className="text-xs sm:text-sm">Language:</Label>
+                  <Select value={currentLanguage} onValueChange={(value: 'en' | 'it') => setCurrentLanguage(value)}>
+                    <SelectTrigger className="w-32 text-xs sm:text-sm h-8 sm:h-10">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="en">English</SelectItem>
+                      <SelectItem value="it">Italian</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-xs sm:text-sm">Features</Label>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => addFeature(currentLanguage)}
+                      className="text-xs h-7"
+                    >
+                      <Plus className="h-3 w-3 mr-1" />
+                      Add Feature
+                    </Button>
+                  </div>
+
+                  {(industry.features_locales[currentLanguage] || []).length === 0 && (
+                    <p className="text-xs text-muted-foreground">
+                      No features added yet. Click "Add Feature" to create one.
+                    </p>
+                  )}
+
+                  {(industry.features_locales[currentLanguage] || []).map((feature, index) => (
+                    <div key={index} className="flex gap-2">
+                      <Input
+                        value={feature}
+                        onChange={(e) => updateFeature(currentLanguage, index, e.target.value)}
+                        placeholder="e.g., Advanced thermal protection materials..."
+                        className="text-xs sm:text-sm h-8"
+                      />
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => removeFeature(currentLanguage, index)}
+                        className="h-8 px-2"
+                      >
+                        <Trash className="h-3 w-3" />
+                      </Button>
+                    </div>
+                  ))}
+
+                  <p className="text-xs sm:text-sm text-muted-foreground">
+                    These features appear as badges on industry cards. First 3 are shown, rest indicated with "+X".
                   </p>
                 </div>
               </CardContent>

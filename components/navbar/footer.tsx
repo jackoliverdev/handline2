@@ -33,7 +33,7 @@ export function Footer() {
           {/* Left side - Company info */}
           <div className="lg:flex-1 lg:max-w-md">
             <div className="flex items-center gap-3">
-              <div className="relative h-14 w-14">
+              <div className="relative h-16 w-16">
                 <Image 
                   src="/faviconBLACK.png" 
                   alt="Hand Line Logo" 
@@ -52,6 +52,7 @@ export function Footer() {
                   <span className="text-slate-900 dark:text-white">Hand Line</span>
                 </h3>
                 <p className="text-xs text-gray-600 dark:text-gray-400">{t('footer.address')}</p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">{t('footer.addressUK')}</p>
                 <a href="https://www.linkedin.com/company/hand-line/?originalSubdomain=it" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 mt-0.5">
                   <svg className="h-3 w-3 transition-transform duration-200 hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
@@ -76,6 +77,10 @@ export function Footer() {
               </button>
               {isProductsOpen && (
                 <div className="mt-2 flex flex-col gap-1 text-sm animate-in slide-in-from-top-2 duration-200">
+                  {/* All products and categories */}
+                  <Link href="/products" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                    {t('navbar.allProducts')}
+                  </Link>
                   <div className="mb-1">
                     <button 
                       onClick={() => setIsGlovesOpen(!isGlovesOpen)}
@@ -104,6 +109,30 @@ export function Footer() {
                       </div>
                     )}
                   </div>
+                  <Link href="/products/industrial-swabs" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                    {t('navbar.industrialSwabs')}
+                  </Link>
+                  <Link href="/products/eye-face" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                    {t('navbar.eyeFaceProtection') || 'Eye & Face Protection'}
+                  </Link>
+                  <Link href="/products/head" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                    {t('navbar.headProtection')}
+                  </Link>
+                  <Link href="/products/footwear" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                    {t('navbar.safetyFootwear')}
+                  </Link>
+                  <Link href="/products/arm-protection" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                    {t('navbar.armProtection')}
+                  </Link>
+                  <Link href="/products/hearing" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                    {t('navbar.hearingProtection')}
+                  </Link>
+                  <Link href="/products/respiratory" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                    {t('navbar.respiratoryProtection')}
+                  </Link>
+                  <Link href="/products/clothing" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                    {t('navbar.protectiveClothing') || 'Protective Clothing'}
+                  </Link>
                 </div>
               )}
             </div>
@@ -139,6 +168,9 @@ export function Footer() {
                 <div className="mt-2 flex flex-col gap-1 text-sm animate-in slide-in-from-top-2 duration-200">
                   <Link href="/about" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
                     {t('footer.sections.company.links.about')}
+                  </Link>
+                  <Link href="/careers" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                    {t('navbar.aboutDropdown.careers') || 'Careers'}
                   </Link>
                   <Link href="/contact" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
                     {t('footer.sections.company.links.contactUs')}
