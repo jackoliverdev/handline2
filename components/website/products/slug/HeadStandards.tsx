@@ -2,9 +2,7 @@
 
 import { useLanguage } from "@/lib/context/language-context";
 import { Product } from "@/lib/products-service";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Shield, HardHat, Snowflake, AlertTriangle } from "lucide-react";
+import { Shield, HardHat, Snowflake } from "lucide-react";
 
 export function HeadStandards({ product }: { product: Product }) {
   const { t } = useLanguage();
@@ -13,9 +11,6 @@ export function HeadStandards({ product }: { product: Product }) {
   const hasEN397 = Boolean(std?.en397?.present || std?.en397 === true);
   const en397 = std?.en397 || {};
   const opt = en397?.optional || {};
-
-  // Check if we have any additional standards to display
-  const hasAdditionalStandards = std?.en_421 || std?.en_659 || std?.food_grade || std?.ionising_radiation || std?.radioactive_contamination || std?.en50365 || std?.en12492;
 
   const optChips: Array<{ key: 'low_temperature' | 'high_temperature' | 'electrical_insulation' | 'lateral_deformation' | 'molten_metal'; label: string; enabled: boolean }> = [];
   // Low temperature (string like "-30°C" or "-20°C")
@@ -97,57 +92,66 @@ export function HeadStandards({ product }: { product: Product }) {
         </div>
       )}
 
-      {/* Additional head standards */}
-      {hasAdditionalStandards && (
-        <Card className="border-brand-primary/10 dark:border-brand-primary/20">
-          <CardHeader className="pb-3">
-            <div className="flex items-center gap-2">
-              <AlertTriangle className="h-5 w-5 text-brand-primary" />
-              <h3 className="font-medium text-brand-dark dark:text-white">
-                {t('productPage.additionalStandards')}
-              </h3>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-wrap gap-2">
-              {std?.en50365 && (
-                <Badge className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/10 text-sm px-3 py-1">
-                  EN 50365 - {t('productPage.stdLabel.en50365') || 'Electrical Insulation'}
-                </Badge>
-              )}
-              {std?.en12492 && (
-                <Badge className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/10 text-sm px-3 py-1">
-                  EN 12492 - {t('productPage.stdLabel.en12492') || 'Mountaineering Helmets'}
-                </Badge>
-              )}
-              {std?.en_421 && (
-                <Badge className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/10 text-sm px-3 py-1">
-                  EN 421 - {t('productPage.stdLabel.en421')}
-                </Badge>
-              )}
-              {std?.en_659 && (
-                <Badge className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/10 text-sm px-3 py-1">
-                  EN 659 - {t('productPage.stdLabel.en659')}
-                </Badge>
-              )}
-              {std?.food_grade && (
-                <Badge className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/10 text-sm px-3 py-1">
-                  {t('productPage.stdLabel.foodGrade')}
-                </Badge>
-              )}
-              {std?.ionising_radiation && (
-                <Badge className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/10 text-sm px-3 py-1">
-                  {t('productPage.stdLabel.ionisingRadiation')}
-                </Badge>
-              )}
-              {std?.radioactive_contamination && (
-                <Badge className="bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/10 text-sm px-3 py-1">
-                  {t('productPage.stdLabel.radioactiveContamination')}
-                </Badge>
-              )}
-            </div>
-          </CardContent>
-        </Card>
+      {/* Additional head standards - Each in its own box */}
+      {std?.en50365 && (
+        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+          <div className="flex items-center gap-3 md:gap-4 flex-wrap">
+            <Shield className="h-5 w-5 text-brand-primary" />
+            <h3 className="font-medium text-brand-dark dark:text-white">EN 50365</h3>
+            <span className="text-sm md:text-base font-semibold text-brand-dark dark:text-white">{t('productPage.stdLabel.en50365') || 'Electrical Insulation'}</span>
+          </div>
+        </div>
+      )}
+      {std?.en12492 && (
+        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+          <div className="flex items-center gap-3 md:gap-4 flex-wrap">
+            <Shield className="h-5 w-5 text-brand-primary" />
+            <h3 className="font-medium text-brand-dark dark:text-white">EN 12492</h3>
+            <span className="text-sm md:text-base font-semibold text-brand-dark dark:text-white">{t('productPage.stdLabel.en12492') || 'Mountaineering Helmets'}</span>
+          </div>
+        </div>
+      )}
+      {std?.en_421 && (
+        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+          <div className="flex items-center gap-3 md:gap-4 flex-wrap">
+            <Shield className="h-5 w-5 text-brand-primary" />
+            <h3 className="font-medium text-brand-dark dark:text-white">EN 421</h3>
+            <span className="text-sm md:text-base font-semibold text-brand-dark dark:text-white">{t('productPage.stdLabel.en421')}</span>
+          </div>
+        </div>
+      )}
+      {std?.en_659 && (
+        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+          <div className="flex items-center gap-3 md:gap-4 flex-wrap">
+            <Shield className="h-5 w-5 text-brand-primary" />
+            <h3 className="font-medium text-brand-dark dark:text-white">EN 659</h3>
+            <span className="text-sm md:text-base font-semibold text-brand-dark dark:text-white">{t('productPage.stdLabel.en659')}</span>
+          </div>
+        </div>
+      )}
+      {std?.food_grade && (
+        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+          <div className="flex items-center gap-3 md:gap-4 flex-wrap">
+            <Shield className="h-5 w-5 text-brand-primary" />
+            <h3 className="font-medium text-brand-dark dark:text-white">{t('productPage.stdLabel.foodGrade')}</h3>
+          </div>
+        </div>
+      )}
+      {std?.ionising_radiation && (
+        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+          <div className="flex items-center gap-3 md:gap-4 flex-wrap">
+            <Shield className="h-5 w-5 text-brand-primary" />
+            <h3 className="font-medium text-brand-dark dark:text-white">{t('productPage.stdLabel.ionisingRadiation')}</h3>
+          </div>
+        </div>
+      )}
+      {std?.radioactive_contamination && (
+        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+          <div className="flex items-center gap-3 md:gap-4 flex-wrap">
+            <Shield className="h-5 w-5 text-brand-primary" />
+            <h3 className="font-medium text-brand-dark dark:text-white">{t('productPage.stdLabel.radioactiveContamination')}</h3>
+          </div>
+        </div>
       )}
     </div>
   );

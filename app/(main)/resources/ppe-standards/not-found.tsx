@@ -23,7 +23,7 @@ export default function NotFound() {
         
         <div className="mt-6 flex flex-col sm:flex-row gap-4">
           <Button asChild className="bg-brand-primary hover:bg-brand-primary/90">
-            <Link href="/resources/en-resource-centre">
+            <Link href="/resources/ppe-standards">
               Browse All Standards
             </Link>
           </Button>

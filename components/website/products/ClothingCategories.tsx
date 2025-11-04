@@ -13,21 +13,21 @@ export const ClothingCategories = () => {
     {
       title: t('products.categories.main.clothing.subcategories.highVisibility.title'),
       description: t('products.categories.main.clothing.subcategories.highVisibility.description'),
-      imageSrc: "/images/clothingcats/High-visibility clothing.jpeg",
+      imageSrc: "/categoryimages/CAT_clothing-SUBCAT_HighVis_Hero (1).webp",
       imageAlt: t('products.categories.main.clothing.subcategories.highVisibility.title'),
       href: "/products/clothing/high-visibility"
     },
     {
       title: t('products.categories.main.clothing.subcategories.safetyWorkwear.title'),
       description: t('products.categories.main.clothing.subcategories.safetyWorkwear.description'),
-      imageSrc: "/images/clothingcats/Safety clothing and Workwear.jpeg",
+      imageSrc: "/categoryimages/SUBCAT_workwear-safety_Hero (1).webp",
       imageAlt: t('products.categories.main.clothing.subcategories.safetyWorkwear.title'),
       href: "/products/clothing/safety-workwear"
     },
     {
       title: t('products.categories.main.clothing.subcategories.welding.title'),
       description: t('products.categories.main.clothing.subcategories.welding.description'),
-      imageSrc: "/images/clothingcats/Welding clothing.jpeg",
+      imageSrc: "/categoryimages/SUBCAT_welding_Hero (1).webp",
       imageAlt: t('products.categories.main.clothing.subcategories.welding.title'),
       href: "/products/clothing/welding"
     }

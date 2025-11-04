@@ -90,7 +90,7 @@ export const NavBar = () => {
     if (item.href === "/resources" && (
       pathname.startsWith("/resources/blog") || 
       pathname.startsWith("/resources/case-studies") || 
-      pathname.startsWith("/resources/en-resource-centre") ||
+      pathname.startsWith("/resources/ppe-standards") ||
       pathname.startsWith("/resources/product-disclaimer") ||
       pathname.startsWith("/resources/declarations")
     )) return true;

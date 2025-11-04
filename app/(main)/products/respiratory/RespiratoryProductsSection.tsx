@@ -97,7 +97,9 @@ export function RespiratoryProductsSection({ products }: RespiratoryProductsSect
         const gases = respiratoryStandards.en14387.gases as Record<string, boolean>;
         Object.keys(gases).forEach(gasKey => {
           if (gases[gasKey] === true) {
-            set.add(gasKey.toUpperCase());
+            // Special case for mercury - normalize all variations (hg, HG, Hg) to 'Hg' (proper chemical symbol)
+            const displayKey = gasKey.toLowerCase() === 'hg' ? 'Hg' : gasKey.toUpperCase();
+            set.add(displayKey);
           }
         });
       }
@@ -181,7 +183,11 @@ export function RespiratoryProductsSection({ products }: RespiratoryProductsSect
               const respiratoryStandards = p.respiratory_standards as Record<string, any>;
               if (!respiratoryStandards?.en14387?.gases) return false;
               const gases = respiratoryStandards.en14387.gases as Record<string, boolean>;
-              return selectedFilteredParticles.some(particle => gases[particle.toLowerCase()] === true);
+              return selectedFilteredParticles.some(particle => {
+                const lower = particle.toLowerCase();
+                // Check both lowercase and uppercase keys in database (handles hg/HG/Hg variations)
+                return gases[lower] === true || gases[lower.toUpperCase()] === true;
+              });
             })();
             return connOk && typeOk && classOk && particlesOk;
           }}

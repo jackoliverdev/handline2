@@ -27,6 +27,7 @@ export interface Industry {
   updated_at?: string;
   slug?: string; // Derived from industry_name
   is_featured?: boolean;
+  position?: number | null;
   showcase_description?: string;
   // Locale fields
   industry_name_locales?: Record<string, string>;
@@ -96,6 +97,36 @@ export async function getAllIndustries(language: Language) {
     return { data: industriesWithSlugs, count };
   } catch (error) {
     console.error('Error in getAllIndustries:', error);
+    throw error;
+  }
+}
+
+/**
+ * Get featured industries for homepage (ordered by position)
+ */
+export async function getFeaturedIndustries(language: Language) {
+  try {
+    const { data, error } = await supabase
+      .from('industry_solutions')
+      .select('*')
+      .eq('is_featured', true)
+      .order('position', { ascending: true })
+      .limit(4);
+    
+    if (error) {
+      console.error('Error fetching featured industries:', error);
+      throw error;
+    }
+    
+    // Transform data to include slugs and localise content
+    const industriesWithSlugs = data.map(industry => localiseIndustry({
+      ...industry,
+      slug: createSlug(industry.industry_name)
+    }, language));
+    
+    return { data: industriesWithSlugs };
+  } catch (error) {
+    console.error('Error in getFeaturedIndustries:', error);
     throw error;
   }
 }

@@ -92,20 +92,20 @@ export function FootwearSpecs({ product }: { product: Product }) {
           <div className="space-y-2">
             {Array.isArray(fstd.en_iso_20345_2011) && fstd.en_iso_20345_2011.length > 0 && (
               <div>
-                <span className="bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 rounded px-2 py-0.5 text-xs">
+                <span className="text-brand-dark dark:text-white font-medium">
                   EN ISO 20345:2011
                 </span>
               </div>
             )}
             {Array.isArray(fstd.en_iso_20345_2022) && fstd.en_iso_20345_2022.length > 0 && (
               <div>
-                <span className="bg-white dark:bg-black/40 text-brand-dark dark:text-white border border-brand-primary/20 rounded px-2 py-0.5 text-xs">
+                <span className="text-brand-dark dark:text-white font-medium">
                   EN ISO 20345:2022
                 </span>
               </div>
             )}
             {(!fstd.en_iso_20345_2011?.length && !fstd.en_iso_20345_2022?.length) && (
-              <span>-</span>
+              <span className="text-brand-dark dark:text-white font-medium">-</span>
             )}
           </div>
         </div>

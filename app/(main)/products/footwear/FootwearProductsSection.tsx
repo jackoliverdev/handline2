@@ -58,9 +58,9 @@ export function FootwearProductsSection({ products }: FootwearProductsSectionPro
       if (p.footwear_attributes?.class) s.add(String(p.footwear_attributes.class));
       const c2011: string[] = p.footwear_standards?.en_iso_20345_2011 || [];
       const c2022: string[] = p.footwear_standards?.en_iso_20345_2022 || [];
-      // Only include codes that start with 'S' (class codes: SB, S1, S2, etc.)
+      // Only include actual safety classes (SB, S1-S5), not slip resistance codes (SC, SR, SRC)
       [...c2011, ...c2022].forEach((c) => {
-        if (c && String(c).match(/^S/i)) s.add(String(c));
+        if (c && String(c).match(/^S[B1-5]$/i)) s.add(String(c));
       });
     });
     return Array.from(s).sort();
@@ -100,9 +100,9 @@ export function FootwearProductsSection({ products }: FootwearProductsSectionPro
     footwearProducts.forEach((p: any) => {
       const c2011: string[] = p.footwear_standards?.en_iso_20345_2011 || [];
       const c2022: string[] = p.footwear_standards?.en_iso_20345_2022 || [];
-      // Only include codes that DON'T start with 'S' (additional codes: PL, HI, CI, etc.)
+      // Include slip resistance codes (SC, SR, SRC) and other additional codes (PL, HI, CI, etc.)
       [...c2011, ...c2022].forEach((c: string) => {
-        if (c && !String(c).match(/^S/i)) s.add(c);
+        if (c && !String(c).match(/^S[B1-5]$/i)) s.add(c);
       });
     });
     return Array.from(s).sort();
@@ -111,23 +111,23 @@ export function FootwearProductsSection({ products }: FootwearProductsSectionPro
   const extraFilters = (
     <>
       <ClassFilter options={classOptions} selected={selectedClasses} onToggle={(opt) => setSelectedClasses(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
+      <StandardCodeFilter options={stdCodeOptions} selected={stdCodes} onToggle={(opt) => setStdCodes(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
       <ESDFilter value={esd} onChange={setEsd} />
       <WidthFilter options={widthOptions} selected={selectedWidths} onToggle={(opt) => setSelectedWidths(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
       <SizeRangeFilter bounds={sizeBounds} value={sizeRange} onChange={setSizeRange} />
       <ToeCapFilter options={toeOptions} selected={toeCaps} onToggle={(opt) => setToeCaps(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
       <SoleMaterialFilter options={soleOptions} selected={soles} onToggle={(opt) => setSoles(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <StandardCodeFilter options={stdCodeOptions} selected={stdCodes} onToggle={(opt) => setStdCodes(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
     </>
   );
   const extraFiltersMobile = (
     <>
       <ClassFilterMobile options={classOptions} selected={selectedClasses} onToggle={(opt) => setSelectedClasses(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
+      <StandardCodeFilterMobile options={stdCodeOptions} selected={stdCodes} onToggle={(opt) => setStdCodes(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
       <ESDFilterMobile value={esd} onChange={setEsd} />
       <WidthFilterMobile options={widthOptions} selected={selectedWidths} onToggle={(opt) => setSelectedWidths(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
       <SizeRangeFilterMobile bounds={sizeBounds} value={sizeRange} onChange={setSizeRange} />
       <ToeCapFilterMobile options={toeOptions} selected={toeCaps} onToggle={(opt) => setToeCaps(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
       <SoleMaterialFilterMobile options={soleOptions} selected={soles} onToggle={(opt) => setSoles(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
-      <StandardCodeFilterMobile options={stdCodeOptions} selected={stdCodes} onToggle={(opt) => setStdCodes(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} />
     </>
   );
 

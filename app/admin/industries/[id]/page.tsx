@@ -40,6 +40,9 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
     image_url: string;
     feature_image_url: string;
     related_products: string[];
+    // Homepage featured settings
+    is_featured: boolean;
+    position: number | null;
     // Locale fields for basic info
     industry_name_locales: Record<string, string>;
     description_locales: Record<string, string>;
@@ -70,6 +73,9 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
     image_url: "",
     feature_image_url: "",
     related_products: [],
+    // Homepage featured settings
+    is_featured: false,
+    position: null,
     // Locale fields for basic info
     industry_name_locales: {},
     description_locales: {},
@@ -349,6 +355,9 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
             image_url: data.image_url || "",
             feature_image_url: data.feature_image_url || "",
             related_products: data.related_products || [],
+            // Homepage featured settings
+            is_featured: data.is_featured || false,
+            position: data.position || null,
             // Locale fields for basic info
             industry_name_locales: data.industry_name_locales || {},
             description_locales: data.description_locales || {},
@@ -438,6 +447,8 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
       industry.image_url !== originalIndustry.image_url ||
       industry.feature_image_url !== originalIndustry.feature_image_url ||
       industry.summary_content_image_url !== originalIndustry.summary_content_image_url ||
+      industry.is_featured !== originalIndustry.is_featured ||
+      industry.position !== originalIndustry.position ||
       JSON.stringify(industry.related_products) !== JSON.stringify(originalIndustry.related_products) ||
       JSON.stringify(industry.industry_name_locales) !== JSON.stringify(originalIndustry.industry_name_locales) ||
       JSON.stringify(industry.description_locales) !== JSON.stringify(originalIndustry.description_locales) ||
@@ -630,6 +641,8 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
         image_url: industry.image_url,
         feature_image_url: industry.feature_image_url,
         related_products: industry.related_products,
+        is_featured: industry.is_featured,
+        position: industry.position,
         industry_name_locales: industry.industry_name_locales || null,
         description_locales: industry.description_locales || null,
         showcase_description: industry.showcase_description || undefined,
@@ -733,6 +746,63 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {/* Main Content Column */}
           <div className="md:col-span-2 space-y-6">
+            {/* Featured on Homepage Card */}
+            <Card className="p-2 sm:p-0 border-brand-primary/20 bg-brand-primary/5 dark:bg-brand-primary/10">
+              <CardHeader>
+                <CardTitle className="text-base sm:text-lg flex items-center gap-2">
+                  <Factory className="h-5 w-5 text-brand-primary" />
+                  Featured on Homepage
+                </CardTitle>
+                <CardDescription className="text-xs sm:text-sm">
+                  Control whether this industry appears on the homepage and its display position
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                  <div className="space-y-0.5">
+                    <Label htmlFor="is_featured" className="text-sm font-medium">Display on Homepage</Label>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Show this industry in the homepage Industry Solutions section</p>
+                  </div>
+                  <Switch
+                    id="is_featured"
+                    checked={industry.is_featured}
+                    onCheckedChange={(checked) => setIndustry(prev => ({ ...prev, is_featured: checked }))}
+                  />
+                </div>
+                
+                {industry.is_featured && (
+                  <div className="space-y-2 p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                    <Label htmlFor="position" className="text-sm font-medium">Homepage Position</Label>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
+                      Select which position (1-4) this industry should appear in on the homepage
+                    </p>
+                    <Select 
+                      value={industry.position?.toString() || ""} 
+                      onValueChange={(value) => setIndustry(prev => ({ ...prev, position: value ? parseInt(value) : null }))}
+                    >
+                      <SelectTrigger className="w-full text-xs sm:text-sm h-8 sm:h-10">
+                        <SelectValue placeholder="Select position..." />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1">Position 1 (First)</SelectItem>
+                        <SelectItem value="2">Position 2 (Second)</SelectItem>
+                        <SelectItem value="3">Position 3 (Third)</SelectItem>
+                        <SelectItem value="4">Position 4 (Fourth)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {!industry.position && (
+                      <Alert className="mt-2">
+                        <AlertCircle className="h-4 w-4" />
+                        <AlertDescription className="text-xs">
+                          Please select a position for this featured industry
+                        </AlertDescription>
+                      </Alert>
+                    )}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
             {/* Showcase Details Card */}
             <Card className="p-2 sm:p-0">
               <CardHeader>

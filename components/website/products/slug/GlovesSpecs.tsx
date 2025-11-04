@@ -75,34 +75,34 @@ export function GlovesSpecs({ product }: { product: Product }) {
             <Shield className="h-5 w-5 text-brand-primary" />
             <h4 className="font-medium text-brand-dark dark:text-white">{t('products.enStandards')}</h4>
           </div>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex items-center flex-wrap gap-2">
             {product.safety && (product.safety.en_388?.enabled || product.safety.en_407?.enabled || product.safety.en_511?.enabled) ? (
               <>
                 {product.safety.en_388?.enabled && (
-                  <span className="flex items-center gap-1 text-xs px-2 py-0.5 rounded border border-brand-primary/20 bg-white dark:bg-black/40 text-brand-dark dark:text-white">
+                  <span className="flex items-center gap-1 text-brand-dark dark:text-white font-medium">
                     <Hammer className="h-4 w-4 text-brand-primary" />
                     EN388
                   </span>
                 )}
                 {product.safety.en_407?.enabled && (
-                  <span className="flex items-center gap-1 text-xs px-2 py-0.5 rounded border border-brand-primary/20 bg-white dark:bg-black/40 text-brand-dark dark:text-white">
+                  <span className="flex items-center gap-1 text-brand-dark dark:text-white font-medium">
                     <Flame className="h-4 w-4 text-orange-500" />
                     EN407
                   </span>
                 )}
                 {product.safety.en_511?.enabled && (
-                  <span className="flex items-center gap-1 text-xs px-2 py-0.5 rounded border border-brand-primary/20 bg-white dark:bg-black/40 text-brand-dark dark:text-white">
+                  <span className="flex items-center gap-1 text-brand-dark dark:text-white font-medium">
                     <Snowflake className="h-4 w-4 text-blue-500" />
                     EN511
                   </span>
                 )}
               </>
             ) : padSizeDisplay ? (
-              <span className="text-xs px-2 py-0.5 rounded border border-brand-primary/20 bg-white dark:bg-black/40 text-brand-dark dark:text-white">{padSizeDisplay}</span>
+              <span className="text-brand-dark dark:text-white font-medium">{padSizeDisplay}</span>
             ) : product.en_standard ? (
-              <span className="text-xs px-2 py-0.5 rounded border border-brand-primary/20 bg-white dark:bg-black/40 text-brand-dark dark:text-white">{product.en_standard}</span>
+              <span className="text-brand-dark dark:text-white font-medium">{product.en_standard}</span>
             ) : (
-              <span className="text-sm text-brand-secondary dark:text-gray-300">-</span>
+              <span className="text-brand-dark dark:text-white font-medium">-</span>
             )}
           </div>
         </div>

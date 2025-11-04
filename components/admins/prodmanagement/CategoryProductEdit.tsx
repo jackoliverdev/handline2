@@ -226,7 +226,7 @@ export default function CategoryProductEdit({ id, slug }: Props) {
         setHeadTechSpecsLocales((product as any).head_tech_specs_locales || { en: { form_factor: '', brim_length: '', colours: [], additional_features: [] }, it: { form_factor: '', brim_length: '', colours: [], additional_features: [] } });
         setHeadAttributes((product as any).head_attributes || { form_factor: '', brim_length: '', size_min_cm: null, size_max_cm: null, weight_g: null, colours: [], ventilation: null, harness_points: null, chinstrap_points: null, sweatband: null, closed_shell: null, euroslot_mm: null, accessories: [] });
         setClothingStandards((product as any).clothing_standards || { en_iso_20471: { class: null }, en_iso_11612: {}, iec_61482_2: { class: null }, en_1149_5: false });
-        setClothingAttributes((product as any).clothing_attributes || { fit: '', gender: '', size_range: '', colours: [], uv_protection: null });
+        setClothingAttributes((product as any).clothing_attributes || { fit: '', gender: '', size_range: '', size_min: null, size_max: null, colours: [], uv_protection: null });
         setClothingAttributesLocales((product as any).clothing_attributes_locales || { en: { fit: '', size_range: '' }, it: { fit: '', size_range: '' } });
         setClothingType((product as any).clothing_type || '');
         setClothingCategory((product as any).clothing_category || '');
@@ -585,10 +585,12 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                     </div>
                       </>
                     )}
-                    <div className="space-y-1 sm:space-y-2">
-                      <Label>Size</Label>
-                      <Input value={sizeLocales.en} onChange={(e)=> setSizeLocales({...sizeLocales, en: e.target.value})} placeholder="e.g. One size, S, M, L, XL" />
-                    </div>
+                    {slug !== 'clothing' && (
+                      <div className="space-y-1 sm:space-y-2">
+                        <Label>Size</Label>
+                        <Input value={sizeLocales.en} onChange={(e)=> setSizeLocales({...sizeLocales, en: e.target.value})} placeholder="e.g. One size, S, M, L, XL" />
+                      </div>
+                    )}
                     <div className="space-y-1 sm:space-y-2">
                       <Label>CE Category</Label>
                       <Input value={ceCategory} onChange={(e)=> setCeCategory(e.target.value)} placeholder="e.g. I, II, III" />
@@ -696,10 +698,23 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                 {/* Tags */}
                 <LocaleListEditor title="Tags" items={tagsLocales[language]} onAdd={(val)=> setTagsLocales({ ...tagsLocales, [language]: [...tagsLocales[language], val] })} onRemove={(idx)=> setTagsLocales({ ...tagsLocales, [language]: tagsLocales[language].filter((_,i)=> i!==idx) })} icon />
                 {/* Size */}
-                <div>
-                  <Label>Size Info</Label>
-                  <Input className="mt-2" value={sizeLocales[language]} onChange={(e)=> setSizeLocales({ ...sizeLocales, [language]: e.target.value })} />
-                </div>
+                {slug === 'clothing' ? (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Size</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground">
+                        Size for clothing products is managed in the <strong>Safety & Specs</strong> tab.
+                      </p>
+                    </CardContent>
+                  </Card>
+                ) : (
+                  <div>
+                    <Label>Size Info</Label>
+                    <Input className="mt-2" value={sizeLocales[language]} onChange={(e)=> setSizeLocales({ ...sizeLocales, [language]: e.target.value })} />
+                  </div>
+                )}
               </div>
             </CardContent>
             <CardFooter><Button onClick={handleSave} disabled={saving}>{saving ? 'Saving…' : 'Save Changes'}</Button></CardFooter>
@@ -960,32 +975,32 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                           <div>
                             <Label className="text-xs text-gray-600">Lens Material</Label>
                             <Input 
-                              value={eyeFaceMaterialsLocales[language].lens || ''} 
-                              onChange={(e) => setEyeFaceMaterialsLocales({ ...eyeFaceMaterialsLocales, [language]: { ...eyeFaceMaterialsLocales[language], lens: e.target.value } })} 
+                              value={eyeFaceMaterialsLocales[language]?.lens || ''} 
+                              onChange={(e) => setEyeFaceMaterialsLocales({ ...eyeFaceMaterialsLocales, [language]: { ...(eyeFaceMaterialsLocales[language] || { lens: '', frame: '', arm: '', headband: '' }), lens: e.target.value } })} 
                               placeholder="e.g. PC, Polycarbonate"
                             />
                       </div>
                           <div>
                             <Label className="text-xs text-gray-600">Frame Material</Label>
                             <Input 
-                              value={eyeFaceMaterialsLocales[language].frame || ''} 
-                              onChange={(e) => setEyeFaceMaterialsLocales({ ...eyeFaceMaterialsLocales, [language]: { ...eyeFaceMaterialsLocales[language], frame: e.target.value } })} 
+                              value={eyeFaceMaterialsLocales[language]?.frame || ''} 
+                              onChange={(e) => setEyeFaceMaterialsLocales({ ...eyeFaceMaterialsLocales, [language]: { ...(eyeFaceMaterialsLocales[language] || { lens: '', frame: '', arm: '', headband: '' }), frame: e.target.value } })} 
                               placeholder="e.g. Plastic, Nylon"
                             />
                           </div>
                           <div>
                             <Label className="text-xs text-gray-600">Arm Material</Label>
                             <Input 
-                              value={eyeFaceMaterialsLocales[language].arm || ''} 
-                              onChange={(e) => setEyeFaceMaterialsLocales({ ...eyeFaceMaterialsLocales, [language]: { ...eyeFaceMaterialsLocales[language], arm: e.target.value } })} 
+                              value={eyeFaceMaterialsLocales[language]?.arm || ''} 
+                              onChange={(e) => setEyeFaceMaterialsLocales({ ...eyeFaceMaterialsLocales, [language]: { ...(eyeFaceMaterialsLocales[language] || { lens: '', frame: '', arm: '', headband: '' }), arm: e.target.value } })} 
                               placeholder="e.g. Plastic, Rubber"
                             />
                           </div>
                           <div>
                             <Label className="text-xs text-gray-600">Headband Material</Label>
                             <Input 
-                              value={eyeFaceMaterialsLocales[language].headband || ''} 
-                              onChange={(e) => setEyeFaceMaterialsLocales({ ...eyeFaceMaterialsLocales, [language]: { ...eyeFaceMaterialsLocales[language], headband: e.target.value } })} 
+                              value={eyeFaceMaterialsLocales[language]?.headband || ''} 
+                              onChange={(e) => setEyeFaceMaterialsLocales({ ...eyeFaceMaterialsLocales, [language]: { ...(eyeFaceMaterialsLocales[language] || { lens: '', frame: '', arm: '', headband: '' }), headband: e.target.value } })} 
                               placeholder="e.g. Fabric, Elastic"
                             />
                           </div>
@@ -1535,9 +1550,65 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                         </Select>
                       </div>
                       <div className="space-y-1"><Label>Fit</Label><Input value={clothingAttributesLocales[language].fit || ''} onChange={(e)=> setClothingAttributesLocales({ ...clothingAttributesLocales, [language]: { ...clothingAttributesLocales[language], fit: e.target.value } })} /></div>
-                      <div className="space-y-1"><Label>Size range</Label><Input value={clothingAttributesLocales[language].size_range || ''} onChange={(e)=> setClothingAttributesLocales({ ...clothingAttributesLocales, [language]: { ...clothingAttributesLocales[language], size_range: e.target.value } })} /></div>
                       <div className="flex items-center gap-2"><Checkbox checked={clothingAttributes.uv_protection === true} onCheckedChange={(v)=> setClothingAttributes({ ...clothingAttributes, uv_protection: v ? true : false })} /><span>UV protection</span></div>
                     </div>
+                    
+                    {/* Size */}
+                    <Card>
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-lg">Size</CardTitle>
+                        <CardDescription className="text-xs sm:text-sm">
+                          Configure the size range for filtering
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="space-y-1">
+                            <Label>Size Min</Label>
+                            <Select value={clothingAttributes.size_min ? String(clothingAttributes.size_min) : 'none'} onValueChange={(v)=> setClothingAttributes({ ...clothingAttributes, size_min: v === 'none' ? null : parseInt(v) })}>
+                              <SelectTrigger><SelectValue placeholder="Select min size" /></SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="none">None</SelectItem>
+                                <SelectItem value="1">XS</SelectItem>
+                                <SelectItem value="2">S</SelectItem>
+                                <SelectItem value="3">M</SelectItem>
+                                <SelectItem value="4">L</SelectItem>
+                                <SelectItem value="5">XL</SelectItem>
+                                <SelectItem value="6">2XL</SelectItem>
+                                <SelectItem value="7">3XL</SelectItem>
+                                <SelectItem value="8">4XL</SelectItem>
+                                <SelectItem value="9">5XL</SelectItem>
+                                <SelectItem value="10">6XL</SelectItem>
+                                <SelectItem value="11">7XL</SelectItem>
+                                <SelectItem value="12">8XL</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                          <div className="space-y-1">
+                            <Label>Size Max</Label>
+                            <Select value={clothingAttributes.size_max ? String(clothingAttributes.size_max) : 'none'} onValueChange={(v)=> setClothingAttributes({ ...clothingAttributes, size_max: v === 'none' ? null : parseInt(v) })}>
+                              <SelectTrigger><SelectValue placeholder="Select max size" /></SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="none">None</SelectItem>
+                                <SelectItem value="1">XS</SelectItem>
+                                <SelectItem value="2">S</SelectItem>
+                                <SelectItem value="3">M</SelectItem>
+                                <SelectItem value="4">L</SelectItem>
+                                <SelectItem value="5">XL</SelectItem>
+                                <SelectItem value="6">2XL</SelectItem>
+                                <SelectItem value="7">3XL</SelectItem>
+                                <SelectItem value="8">4XL</SelectItem>
+                                <SelectItem value="9">5XL</SelectItem>
+                                <SelectItem value="10">6XL</SelectItem>
+                                <SelectItem value="11">7XL</SelectItem>
+                                <SelectItem value="12">8XL</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                    
                     {/* EN ISO 20471 - Hi-Vis */}
                     <Card>
                       <CardHeader className="pb-3">
@@ -1563,9 +1634,9 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                       <CardContent>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                           <div className="space-y-2">
-                            <Label>A1 - Flame spread</Label>
+                            <Label>Flame spread (A1)</Label>
                             <Input 
-                              placeholder="e.g. A1"
+                              placeholder="e.g. A1 or true"
                               value={clothingStandards.en_iso_11612?.a1 ?? ''} 
                               onChange={(e)=> setClothingStandards({ 
                                 ...clothingStandards, 
@@ -1574,20 +1645,9 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                             />
                           </div>
                           <div className="space-y-2">
-                            <Label>A2 - Flame spread</Label>
+                            <Label>Convective heat (B)</Label>
                             <Input 
-                              placeholder="e.g. A2"
-                              value={clothingStandards.en_iso_11612?.a2 ?? ''} 
-                              onChange={(e)=> setClothingStandards({ 
-                                ...clothingStandards, 
-                                en_iso_11612: { ...(clothingStandards.en_iso_11612 || {}), a2: e.target.value || null } 
-                              })} 
-                            />
-                          </div>
-                          <div className="space-y-2">
-                            <Label>B - Convective heat</Label>
-                            <Input 
-                              placeholder="e.g. B1"
+                              placeholder="e.g. 1"
                               value={clothingStandards.en_iso_11612?.b ?? ''} 
                               onChange={(e)=> setClothingStandards({ 
                                 ...clothingStandards, 
@@ -1596,9 +1656,9 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                             />
                           </div>
                           <div className="space-y-2">
-                            <Label>C - Radiant heat</Label>
+                            <Label>Radiant heat (C)</Label>
                             <Input 
-                              placeholder="e.g. C1"
+                              placeholder="e.g. 1"
                               value={clothingStandards.en_iso_11612?.c ?? ''} 
                               onChange={(e)=> setClothingStandards({ 
                                 ...clothingStandards, 
@@ -1607,9 +1667,9 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                             />
                           </div>
                           <div className="space-y-2">
-                            <Label>D - Aluminium splash</Label>
+                            <Label>Molten Aluminium (D)</Label>
                             <Input 
-                              placeholder="e.g. D1"
+                              placeholder="e.g. leave blank for -"
                               value={clothingStandards.en_iso_11612?.d ?? ''} 
                               onChange={(e)=> setClothingStandards({ 
                                 ...clothingStandards, 
@@ -1618,9 +1678,9 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                             />
                           </div>
                           <div className="space-y-2">
-                            <Label>E - Iron splash</Label>
+                            <Label>Molten Iron (E)</Label>
                             <Input 
-                              placeholder="e.g. E2"
+                              placeholder="e.g. 2"
                               value={clothingStandards.en_iso_11612?.e ?? ''} 
                               onChange={(e)=> setClothingStandards({ 
                                 ...clothingStandards, 
@@ -1629,9 +1689,9 @@ export default function CategoryProductEdit({ id, slug }: Props) {
                             />
                           </div>
                           <div className="space-y-2">
-                            <Label>F - Contact heat</Label>
+                            <Label>Contact heat (F)</Label>
                             <Input 
-                              placeholder="e.g. F1"
+                              placeholder="e.g. 1"
                               value={clothingStandards.en_iso_11612?.f ?? ''} 
                               onChange={(e)=> setClothingStandards({ 
                                 ...clothingStandards, 

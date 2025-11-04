@@ -55,8 +55,8 @@ import { CoatingFilter } from "@/components/website/products/filters/eyeface/Coa
 import { CoatingFilterMobile } from "@/components/website/products/filters/eyeface/CoatingFilterMobile";
 import { UvCodeFilter } from "@/components/website/products/filters/eyeface/UvCodeFilter";
 import { UvCodeFilterMobile } from "@/components/website/products/filters/eyeface/UvCodeFilterMobile";
-import { EyeFaceEnStandardFilter } from "@/components/website/products/filters/eyeface/EyeFaceEnStandardFilter";
-import { EyeFaceEnStandardFilterMobile } from "@/components/website/products/filters/eyeface/EyeFaceEnStandardFilterMobile";
+import { WorkEnvironmentFilter as EyeFaceWorkEnvironmentFilter } from "@/components/website/products/filters/eyeface/WorkEnvironmentFilter";
+import { WorkEnvironmentFilterMobile as EyeFaceWorkEnvironmentFilterMobile } from "@/components/website/products/filters/eyeface/WorkEnvironmentFilterMobile";
 // Head filters
 import { BrimLengthFilter } from "@/components/website/products/filters/head/BrimLengthFilter";
 import { BrimLengthFilterMobile } from "@/components/website/products/filters/head/BrimLengthFilterMobile";
@@ -74,18 +74,17 @@ import { FilterSection } from "@/components/website/products/filters/FilterSecti
 import { useLanguage } from "@/lib/context/language-context";
 // Protective clothing filters
 import { ClothingTypeFilter } from "@/components/website/products/filters/clothing/ClothingTypeFilter";
-import { ClothingCategoryFilter } from "@/components/website/products/filters/clothing/ClothingCategoryFilter";
 import { HiVisClassFilter } from "@/components/website/products/filters/clothing/HiVisClassFilter";
-import { FlameStandardFilter } from "@/components/website/products/filters/clothing/FlameStandardFilter";
-import { ArcClassFilter } from "@/components/website/products/filters/clothing/ArcClassFilter";
-import { AntistaticFilter } from "@/components/website/products/filters/clothing/AntistaticFilter";
 import { ClothingTypeFilterMobile } from "@/components/website/products/filters/clothing/ClothingTypeFilterMobile";
-import { ClothingCategoryFilterMobile } from "@/components/website/products/filters/clothing/ClothingCategoryFilterMobile";
 import { HiVisClassFilterMobile } from "@/components/website/products/filters/clothing/HiVisClassFilterMobile";
-import { FlameStandardFilterMobile } from "@/components/website/products/filters/clothing/FlameStandardFilterMobile";
-import { ArcClassFilterMobile } from "@/components/website/products/filters/clothing/ArcClassFilterMobile";
-import { AntistaticFilterMobile } from "@/components/website/products/filters/clothing/AntistaticFilterMobile";
-import { CLOTHING_TYPE_TO_CATEGORIES } from "@/content/clothing-categories";
+import { ClothingSizeRangeFilter } from "@/components/website/products/filters/clothing/ClothingSizeRangeFilter";
+import { ClothingSizeRangeFilterMobile } from "@/components/website/products/filters/clothing/ClothingSizeRangeFilterMobile";
+import { ENStandardFilter } from "@/components/website/products/filters/ENStandardFilter";
+import { ENStandardFilterMobile } from "@/components/website/products/filters/ENStandardFilterMobile";
+import { WorkEnvironmentFilter } from "@/components/website/products/filters/WorkEnvironmentFilter";
+import { WorkEnvironmentFilterMobile } from "@/components/website/products/filters/WorkEnvironmentFilterMobile";
+import { GARMENT_TYPES } from "@/content/clothing-categories";
+import { getUniqueENStandards, matchesENStandards } from "@/lib/product-utils";
 
 interface AllProductsGridProps {
   products: Product[];
@@ -194,7 +193,7 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
   const [selectedEyeFaceTints, setSelectedEyeFaceTints] = React.useState<string[]>([]);
   const [selectedEyeFaceCoats, setSelectedEyeFaceCoats] = React.useState<string[]>([]);
   const [selectedEyeFaceUv, setSelectedEyeFaceUv] = React.useState<string[]>([]);
-  const [selectedEyeFaceEn, setSelectedEyeFaceEn] = React.useState<string[]>([]);
+  const [selectedEyeFaceWorkEnv, setSelectedEyeFaceWorkEnv] = React.useState<string[]>([]);
   // Head state
   const [selectedHeadBrims, setSelectedHeadBrims] = React.useState<string[]>([]);
   const [selectedHeadLt, setSelectedHeadLt] = React.useState<boolean>(false);
@@ -203,12 +202,14 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
   const [selectedHeadVent, setSelectedHeadVent] = React.useState<boolean>(false);
   const [selectedHeadStds, setSelectedHeadStds] = React.useState<string[]>([]);
   // Clothing state
-  const [selectedHiVis, setSelectedHiVis] = React.useState<number[]>([]);
-  const [selectedClArc, setSelectedClArc] = React.useState<number[]>([]);
-  const [selectedClFlame, setSelectedClFlame] = React.useState<boolean>(false);
-  const [selectedClAnti, setSelectedClAnti] = React.useState<boolean>(false);
   const [selectedClTypes, setSelectedClTypes] = React.useState<string[]>([]);
-  const [selectedClCats, setSelectedClCats] = React.useState<string[]>([]);
+  const [selectedHiVis, setSelectedHiVis] = React.useState<number[]>([]);
+  const [selectedClENStandards, setSelectedClENStandards] = React.useState<string[]>([]);
+  const [selectedClWorkEnv, setSelectedClWorkEnv] = React.useState<string[]>([]);
+  const [selectedClSizeRange, setSelectedClSizeRange] = React.useState<{ min?: number; max?: number }>({});
+  const [clEnStandardExpanded, setClEnStandardExpanded] = React.useState<boolean>(false);
+  const [clWorkEnvExpanded, setClWorkEnvExpanded] = React.useState<boolean>(false);
+  const [clSizeExpanded, setClSizeExpanded] = React.useState<boolean>(false);
 
   const connectionOptions = React.useMemo(() => {
     const set = new Set<string>();
@@ -233,7 +234,9 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
         const gases = respiratoryStandards.en14387.gases as Record<string, boolean>;
         Object.keys(gases).forEach(gasKey => {
           if (gases[gasKey] === true) {
-            set.add(gasKey.toUpperCase());
+            // Special case for mercury - normalize all variations (hg, HG, Hg) to 'Hg' (proper chemical symbol)
+            const displayKey = gasKey.toLowerCase() === 'hg' ? 'Hg' : gasKey.toUpperCase();
+            set.add(displayKey);
           }
         });
       }
@@ -269,9 +272,12 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
   const fwClassOptions = React.useMemo(() => {
     const s = new Set<string>();
     (footwear as any[]).forEach((p: any) => {
-      if (p.footwear_attributes?.class) s.add(String(p.footwear_attributes.class));
-      (p.footwear_standards?.en_iso_20345_2011 || []).forEach((c: string) => c && s.add(c));
-      (p.footwear_standards?.en_iso_20345_2022 || []).forEach((c: string) => c && s.add(c));
+      const c2011: string[] = p.footwear_standards?.en_iso_20345_2011 || [];
+      const c2022: string[] = p.footwear_standards?.en_iso_20345_2022 || [];
+      // Only include actual safety classes (SB, S1-S5), not slip resistance codes (SC, SR, SRC)
+      [...c2011, ...c2022].forEach((c: string) => {
+        if (c && String(c).match(/^S[B1-5]$/i)) s.add(c);
+      });
     });
     return Array.from(s).sort();
   }, [footwear]);
@@ -298,19 +304,26 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
   }, [footwear]);
   const fwCodeOptions = React.useMemo(() => {
     const s = new Set<string>();
-    (footwear as any[]).forEach((p: any) => (p.footwear_standards?.en_iso_20345_2022 || []).forEach((c: string) => c && s.add(c)));
+    (footwear as any[]).forEach((p: any) => {
+      const c2011: string[] = p.footwear_standards?.en_iso_20345_2011 || [];
+      const c2022: string[] = p.footwear_standards?.en_iso_20345_2022 || [];
+      // Include slip resistance codes (SC, SR, SRC) and other additional codes (PL, HI, CI, etc.)
+      [...c2011, ...c2022].forEach((c: string) => {
+        if (c && !String(c).match(/^S[B1-5]$/i)) s.add(c);
+      });
+    });
     return Array.from(s).sort();
   }, [footwear]);
 
   // Eye & Face options
   const eyeFaceTintOptions = React.useMemo(() => {
     const s = new Set<string>();
-    (eyeFace as any[]).forEach((p: any) => { const v = p.eye_face_attributes?.lens_tint; if (v) s.add(String(v)); });
+    (eyeFace as any[]).forEach((p: any) => { const v = p.eye_face_attributes?.lens_tint; if (v) s.add(String(v).toLowerCase()); });
     return Array.from(s).sort();
   }, [eyeFace]);
   const eyeFaceCoatingOptions = React.useMemo(() => {
     const s = new Set<string>();
-    (eyeFace as any[]).forEach((p: any) => { (p.eye_face_attributes?.coatings || []).forEach((c: string) => c && s.add(c)); });
+    (eyeFace as any[]).forEach((p: any) => { (p.eye_face_attributes?.coatings || []).forEach((c: string) => c && s.add(String(c).toLowerCase())); });
     return Array.from(s).sort();
   }, [eyeFace]);
   const eyeFaceUvOptions = React.useMemo(() => {
@@ -318,41 +331,29 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
     (eyeFace as any[]).forEach((p: any) => { const v = p.eye_face_attributes?.uv_code; if (v) s.add(String(v)); });
     return Array.from(s).sort();
   }, [eyeFace]);
-  const eyeFaceEnOptions = React.useMemo(() => {
-    const s = new Set<string>();
-    (eyeFace as any[]).forEach((p: any) => {
-      const en166 = p.eye_face_standards?.en166;
-      if (!en166) return;
-      const fm = en166.frame_mark as string | undefined;
-      const lm = en166.lens_mark as string | undefined;
-      const ms = en166.mechanical_strength as string | undefined;
-      const am = en166.additional_marking as string | undefined;
-      const oc = typeof en166.optical_class === 'number' ? `Optical class ${en166.optical_class}` : undefined;
-      if (fm) s.add(String(fm));
-      if (lm) s.add(String(lm));
-      if (ms) s.add(String(ms));
-      if (am) s.add(String(am));
-      if (oc) s.add(oc);
-    });
-    return Array.from(s).sort();
-  }, [eyeFace]);
+  const eyeFaceWorkEnvOptions = React.useMemo(() => {
+    // Always show all 3 options regardless of product data
+    return ['biological', 'chemical', 'electrical'];
+  }, []);
   // Clothing options
+  const clothingTypeOptions = React.useMemo(() => Array.from(GARMENT_TYPES), []);
   const clothingHiVisOptions = React.useMemo(() => {
     const s = new Set<number>();
     (clothing as any[]).forEach((p: any) => { const c = p.clothing_standards?.en_iso_20471?.class; if (typeof c === 'number') s.add(c); });
     return Array.from(s).sort((a,b)=>a-b);
   }, [clothing]);
-  const clothingArcOptions = React.useMemo(() => {
-    const s = new Set<number>();
-    (clothing as any[]).forEach((p: any) => { const c = p.clothing_standards?.iec_61482_2?.class; if (typeof c === 'number') s.add(c); });
-    return Array.from(s).sort((a,b)=>a-b);
+  const clothingENStandards = React.useMemo(() => getUniqueENStandards(clothing), [clothing]);
+  const clothingSizeBounds = React.useMemo(() => {
+    let min = Infinity, max = -Infinity;
+    (clothing as any[]).forEach((p: any) => {
+      const sizeMin = p.clothing_attributes?.size_min;
+      const sizeMax = p.clothing_attributes?.size_max;
+      if (typeof sizeMin === 'number') min = Math.min(min, sizeMin);
+      if (typeof sizeMax === 'number') max = Math.max(max, sizeMax);
+    });
+    if (!isFinite(min) || !isFinite(max)) return null;
+    return { min, max };
   }, [clothing]);
-  const clothingTypeOptions = React.useMemo(() => ['welding','high-visibility','safety-workwear'], []);
-  const clothingCategoryOptions = React.useMemo(() => {
-    const set = new Set<string>();
-    Object.values(CLOTHING_TYPE_TO_CATEGORIES).forEach((arr) => (arr as string[]).forEach((c) => set.add(c)));
-    return Array.from(set);
-  }, []);
 
   // Head options
   const headBrimOptions = React.useMemo(() => {
@@ -455,20 +456,20 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
 
       <FilterSection title={t('navbar.safetyFootwear')} defaultExpanded={false}>
         <ClassFilter options={fwClassOptions} selected={selectedFwClasses} onToggle={(opt) => setSelectedFwClasses((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <StandardCodeFilter options={fwCodeOptions} selected={selectedFwCodes} onToggle={(opt) => setSelectedFwCodes((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <ESDFilter value={selectedFwEsd} onChange={setSelectedFwEsd} />
         <WidthFilter options={fwWidthOptions} selected={selectedFwWidths} onToggle={(opt) => setSelectedFwWidths((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <SizeRangeFilter bounds={fwSizeBounds} value={selectedFwSize} onChange={setSelectedFwSize} />
         <ToeCapFilter options={fwToeOptions} selected={selectedFwToes} onToggle={(opt) => setSelectedFwToes((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <SoleMaterialFilter options={fwSoleOptions} selected={selectedFwSoles} onToggle={(opt) => setSelectedFwSoles((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
-        <StandardCodeFilter options={fwCodeOptions} selected={selectedFwCodes} onToggle={(opt) => setSelectedFwCodes((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
       </FilterSection>
 
       <FilterSection title={t('navbar.eyeFaceProtection')} defaultExpanded={false}>
         <ProtectionTypeFilter selected={selectedEyeFaceProt} onToggle={(opt) => setSelectedEyeFaceProt((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <LensTintFilter options={eyeFaceTintOptions} selected={selectedEyeFaceTints} onToggle={(opt) => setSelectedEyeFaceTints((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <CoatingFilter options={eyeFaceCoatingOptions} selected={selectedEyeFaceCoats} onToggle={(opt) => setSelectedEyeFaceCoats((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <EyeFaceWorkEnvironmentFilter options={eyeFaceWorkEnvOptions} selected={selectedEyeFaceWorkEnv} onToggle={(opt) => setSelectedEyeFaceWorkEnv((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <UvCodeFilter options={eyeFaceUvOptions} selected={selectedEyeFaceUv} onToggle={(opt) => setSelectedEyeFaceUv((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
-      <EyeFaceEnStandardFilter options={eyeFaceEnOptions} selected={selectedEyeFaceEn} onToggle={(opt) => setSelectedEyeFaceEn((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
       </FilterSection>
 
       <FilterSection title={t('navbar.headProtection')} defaultExpanded={false}>
@@ -481,12 +482,11 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
       </FilterSection>
 
       <FilterSection title={t('navbar.protectiveClothing')} defaultExpanded={false}>
-        <ClothingTypeFilter options={clothingTypeOptions} selected={selectedClTypes} onToggle={(v) => setSelectedClTypes((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]))} />
-        <ClothingCategoryFilter options={clothingCategoryOptions} selected={selectedClCats} onToggle={(v) => setSelectedClCats((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]))} />
+        <ClothingTypeFilter options={clothingTypeOptions} selected={selectedClTypes} onToggle={(v: string) => setSelectedClTypes((prev) => (prev.includes(v) ? prev.filter((x: string) => x !== v) : [...prev, v]))} defaultOpen={false} />
         <HiVisClassFilter options={clothingHiVisOptions} selected={selectedHiVis} onToggle={(c) => setSelectedHiVis((prev) => (prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]))} />
-        <FlameStandardFilter value={selectedClFlame} onChange={setSelectedClFlame} />
-        <ArcClassFilter options={clothingArcOptions} selected={selectedClArc} onToggle={(c) => setSelectedClArc((prev) => (prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]))} />
-        <AntistaticFilter value={selectedClAnti} onChange={setSelectedClAnti} />
+        <ENStandardFilter standards={clothingENStandards} selectedStandards={selectedClENStandards} toggleStandard={(v) => setSelectedClENStandards((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]))} isExpanded={clEnStandardExpanded} toggleSection={() => setClEnStandardExpanded(!clEnStandardExpanded)} />
+        <WorkEnvironmentFilter selectedWorkEnvironments={selectedClWorkEnv} toggleWorkEnvironment={(v) => setSelectedClWorkEnv((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]))} isExpanded={clWorkEnvExpanded} toggleSection={() => setClWorkEnvExpanded(!clWorkEnvExpanded)} />
+        <ClothingSizeRangeFilter bounds={clothingSizeBounds} value={selectedClSizeRange} onChange={setSelectedClSizeRange} isExpanded={clSizeExpanded} toggleSection={() => setClSizeExpanded(!clSizeExpanded)} />
       </FilterSection>
     </>
   );
@@ -585,20 +585,20 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
 
       <FilterSection title={t('navbar.safetyFootwear')} defaultExpanded={false} variant="mobile">
         <ClassFilterMobile options={fwClassOptions} selected={selectedFwClasses} onToggle={(opt) => setSelectedFwClasses((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <StandardCodeFilterMobile options={fwCodeOptions} selected={selectedFwCodes} onToggle={(opt) => setSelectedFwCodes((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <ESDFilterMobile value={selectedFwEsd} onChange={setSelectedFwEsd} />
         <WidthFilterMobile options={fwWidthOptions} selected={selectedFwWidths} onToggle={(opt) => setSelectedFwWidths((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <SizeRangeFilterMobile bounds={fwSizeBounds} value={selectedFwSize} onChange={setSelectedFwSize} />
         <ToeCapFilterMobile options={fwToeOptions} selected={selectedFwToes} onToggle={(opt) => setSelectedFwToes((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <SoleMaterialFilterMobile options={fwSoleOptions} selected={selectedFwSoles} onToggle={(opt) => setSelectedFwSoles((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
-        <StandardCodeFilterMobile options={fwCodeOptions} selected={selectedFwCodes} onToggle={(opt) => setSelectedFwCodes((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
       </FilterSection>
 
       <FilterSection title={t('navbar.eyeFaceProtection')} defaultExpanded={false} variant="mobile">
         <ProtectionTypeFilterMobile selected={selectedEyeFaceProt} onToggle={(opt) => setSelectedEyeFaceProt((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <LensTintFilterMobile options={eyeFaceTintOptions} selected={selectedEyeFaceTints} onToggle={(opt) => setSelectedEyeFaceTints((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <CoatingFilterMobile options={eyeFaceCoatingOptions} selected={selectedEyeFaceCoats} onToggle={(opt) => setSelectedEyeFaceCoats((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
+        <EyeFaceWorkEnvironmentFilterMobile options={eyeFaceWorkEnvOptions} selected={selectedEyeFaceWorkEnv} onToggle={(opt) => setSelectedEyeFaceWorkEnv((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
         <UvCodeFilterMobile options={eyeFaceUvOptions} selected={selectedEyeFaceUv} onToggle={(opt) => setSelectedEyeFaceUv((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
-      <EyeFaceEnStandardFilterMobile options={eyeFaceEnOptions} selected={selectedEyeFaceEn} onToggle={(opt) => setSelectedEyeFaceEn((prev) => (prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt]))} />
       </FilterSection>
 
       <FilterSection title={t('navbar.headProtection')} defaultExpanded={false} variant="mobile">
@@ -611,12 +611,11 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
       </FilterSection>
 
       <FilterSection title={t('navbar.protectiveClothing')} defaultExpanded={false} variant="mobile">
-        <ClothingTypeFilterMobile options={clothingTypeOptions} selected={selectedClTypes} onToggle={(v) => setSelectedClTypes((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]))} />
-        <ClothingCategoryFilterMobile options={clothingCategoryOptions} selected={selectedClCats} onToggle={(v) => setSelectedClCats((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]))} />
+        <ClothingTypeFilterMobile options={clothingTypeOptions} selected={selectedClTypes} onToggle={(v: string) => setSelectedClTypes((prev) => (prev.includes(v) ? prev.filter((x: string) => x !== v) : [...prev, v]))} />
         <HiVisClassFilterMobile options={clothingHiVisOptions} selected={selectedHiVis} onToggle={(c) => setSelectedHiVis((prev) => (prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]))} />
-        <FlameStandardFilterMobile value={selectedClFlame} onChange={setSelectedClFlame} />
-        <ArcClassFilterMobile options={clothingArcOptions} selected={selectedClArc} onToggle={(c) => setSelectedClArc((prev) => (prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]))} />
-        <AntistaticFilterMobile value={selectedClAnti} onChange={setSelectedClAnti} />
+        <ENStandardFilterMobile standards={clothingENStandards} selectedStandards={selectedClENStandards} toggleStandard={(v: string) => setSelectedClENStandards((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]))} isExpanded={clEnStandardExpanded} toggleSection={() => setClEnStandardExpanded(!clEnStandardExpanded)} />
+        <WorkEnvironmentFilterMobile selectedWorkEnvironments={selectedClWorkEnv} toggleWorkEnvironment={(v: string) => setSelectedClWorkEnv((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]))} />
+        <ClothingSizeRangeFilterMobile bounds={clothingSizeBounds} value={selectedClSizeRange} onChange={setSelectedClSizeRange} />
       </FilterSection>
     </>
   );
@@ -627,9 +626,9 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
     const hasArmSel = selectedArmLengths.length > 0 || selectedArmThumbLoop || selectedArmClosures.length > 0;
     const hasHearSel = selectedSnrs.length > 0 || selectedParts.length > 0 || selectedMounts.length > 0 || selectedReusable || selectedBluetooth;
     const hasFwSel = selectedFwClasses.length > 0 || selectedFwEsd || selectedFwWidths.length > 0 || (selectedFwSize.min !== undefined || selectedFwSize.max !== undefined) || selectedFwToes.length > 0 || selectedFwSoles.length > 0 || selectedFwCodes.length > 0;
-    const hasEyeSel = selectedEyeFaceProt.length > 0 || selectedEyeFaceTints.length > 0 || selectedEyeFaceCoats.length > 0 || selectedEyeFaceUv.length > 0 || selectedEyeFaceEn.length > 0;
+    const hasEyeSel = selectedEyeFaceProt.length > 0 || selectedEyeFaceTints.length > 0 || selectedEyeFaceCoats.length > 0 || selectedEyeFaceUv.length > 0 || selectedEyeFaceWorkEnv.length > 0;
     const hasHeadSel = selectedHeadBrims.length > 0 || selectedHeadLt || selectedHead50365 || selectedHeadMm || selectedHeadVent || selectedHeadStds.length > 0;
-    const hasClothSel = selectedClTypes.length > 0 || selectedClCats.length > 0 || selectedHiVis.length > 0 || selectedClFlame || selectedClArc.length > 0 || selectedClAnti;
+    const hasClothSel = selectedClTypes.length > 0 || selectedHiVis.length > 0 || selectedClENStandards.length > 0 || selectedClWorkEnv.length > 0 || (selectedClSizeRange.min !== undefined || selectedClSizeRange.max !== undefined);
     // If no selections at all, don't filter out anything
     if (!hasSwabSel && !hasRespSel && !hasArmSel && !hasHearSel && !hasFwSel && !hasEyeSel && !hasHeadSel && !hasClothSel) return true;
 
@@ -648,7 +647,11 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
       const respiratoryStandards = p.respiratory_standards as Record<string, any>;
       if (!respiratoryStandards?.en14387?.gases) return false;
       const gases = respiratoryStandards.en14387.gases as Record<string, boolean>;
-      return selectedFilteredParticles.some(particle => gases[particle.toLowerCase()] === true);
+      return selectedFilteredParticles.some(particle => {
+        const lower = particle.toLowerCase();
+        // Check both lowercase and uppercase keys in database (handles hg/HG/Hg variations)
+        return gases[lower] === true || gases[lower.toUpperCase()] === true;
+      });
     })();
 
     const armLenLabel = typeof p.length_cm === 'number' ? `${p.length_cm} cm` : undefined;
@@ -685,7 +688,7 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
     );
     const fwToeOk = selectedFwToes.length === 0 ? true : (!!fattr.toe_cap && selectedFwToes.includes(String(fattr.toe_cap)));
     const fwSoleOk = selectedFwSoles.length === 0 ? true : (!!fattr.sole_material && selectedFwSoles.includes(String(fattr.sole_material)));
-    const codes: string[] = (fstd.en_iso_20345_2022 || []) as string[];
+    const codes: string[] = [...((fstd.en_iso_20345_2011 || []) as string[]), ...((fstd.en_iso_20345_2022 || []) as string[])];
     const fwCodeOk = selectedFwCodes.length === 0 ? true : codes.some((c) => selectedFwCodes.includes(c));
 
     // Eye & Face checks
@@ -695,18 +698,19 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
       (selectedEyeFaceProt.includes('UV') && !!ef.has_uv) ||
       (selectedEyeFaceProt.includes('Arc') && !!ef.has_arc)
     );
-    const efTintOk = selectedEyeFaceTints.length === 0 ? true : (!!ef.lens_tint && selectedEyeFaceTints.includes(String(ef.lens_tint)));
-    const efCoatOk = selectedEyeFaceCoats.length === 0 ? true : (Array.isArray(ef.coatings) && ef.coatings.some((c: string) => selectedEyeFaceCoats.includes(c)));
+    const efTintOk = selectedEyeFaceTints.length === 0 ? true : (!!ef.lens_tint && selectedEyeFaceTints.includes(String(ef.lens_tint).toLowerCase()));
+    const efCoatingsArr: string[] = Array.isArray(ef.coatings) ? ef.coatings : [];
+    const efCoatingsArrLower = efCoatingsArr.map(c => String(c).toLowerCase());
+    const efCoatOk = selectedEyeFaceCoats.length === 0 ? true : selectedEyeFaceCoats.some(c => efCoatingsArrLower.includes(c));
     const efUvOk = selectedEyeFaceUv.length === 0 ? true : (!!ef.uv_code && selectedEyeFaceUv.includes(String(ef.uv_code)));
-    const efStd: any = (p as any).eye_face_standards || {};
-    const en = efStd?.en166 || {};
-    const efFlags: string[] = [];
-    if (en.frame_mark) efFlags.push(String(en.frame_mark));
-    if (en.lens_mark) efFlags.push(String(en.lens_mark));
-    if (en.mechanical_strength) efFlags.push(String(en.mechanical_strength));
-    if (en.additional_marking) efFlags.push(String(en.additional_marking));
-    if (typeof en.optical_class === 'number') efFlags.push(`Optical class ${en.optical_class}`);
-    const efEnOk = selectedEyeFaceEn.length === 0 ? true : selectedEyeFaceEn.some(sel => efFlags.includes(sel));
+    // Work environment filtering
+    const efEnvPictograms: any = (p as any).environment_pictograms || {};
+    const efWorkEnvOk = selectedEyeFaceWorkEnv.length === 0 ? true : selectedEyeFaceWorkEnv.every(sel => {
+      if (sel === 'chemical') return !!efEnvPictograms.chemical;
+      if (sel === 'biological') return !!efEnvPictograms.biological;
+      if (sel === 'electrical') return !!efEnvPictograms.electrical;
+      return false;
+    });
 
     // Head checks
     const hsHead: any = (p as any).head_standards || {};
@@ -731,19 +735,24 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
     // Clothing checks
     const cs: any = (p as any).clothing_standards || {};
     const cVis = cs?.en_iso_20471?.class as number | undefined;
-    const cFl = cs?.en_iso_11612 as Record<string, any> | undefined;
-    const cArc = cs?.iec_61482_2?.class as number | undefined;
-    const cAnti = cs?.en_1149_5 as boolean | undefined;
+    const clTypeOk = selectedClTypes.length === 0 ? true : (() => {
+      const sub = (p.sub_category || '').toLowerCase();
+      return selectedClTypes.some(ct => sub.includes(ct.toLowerCase()));
+    })();
     const clVisOk = selectedHiVis.length === 0 ? true : (typeof cVis === 'number' && selectedHiVis.includes(cVis));
-    const clFlOk = selectedClFlame ? !!cFl : true;
-    const clArcOk = selectedClArc.length === 0 ? true : (typeof cArc === 'number' && selectedClArc.includes(cArc));
-    const clAntiOk = selectedClAnti ? !!cAnti : true;
-    const pType = ((p as any).clothing_type || '').toLowerCase();
-    const pCat = ((p as any).clothing_category || '') as string;
-    const clTypeOk = selectedClTypes.length === 0 ? true : (pType && selectedClTypes.includes(pType));
-    const clCatOk = selectedClCats.length === 0 ? true : (pCat && selectedClCats.includes(pCat));
+    const clENStdOk = selectedClENStandards.length === 0 ? true : matchesENStandards(p, selectedClENStandards);
+    const clWorkEnvOk = selectedClWorkEnv.length === 0 ? true : (() => {
+      const envs = (p as any).work_environment_suitability || [];
+      return selectedClWorkEnv.some((env: string) => envs.includes(env));
+    })();
+    const clSizeOk = (selectedClSizeRange.min === undefined && selectedClSizeRange.max === undefined) ? true : (
+      (typeof (p as any).clothing_attributes?.size_min === 'number' && 
+       typeof (p as any).clothing_attributes?.size_max === 'number') &&
+      (selectedClSizeRange.min !== undefined ? (p as any).clothing_attributes.size_max >= selectedClSizeRange.min : true) &&
+      (selectedClSizeRange.max !== undefined ? (p as any).clothing_attributes.size_min <= selectedClSizeRange.max : true)
+    );
 
-    return lengthOk && padOk && connOk && typeOk && classOk && particlesOk && armLenOk && armLoopOk && armClosureOk && snrOk && partOk && reuseOk && mountOk && btOk && fwClassOk && fwEsdOk && fwWidthOk && fwSizeOk && fwToeOk && fwSoleOk && fwCodeOk && efProtOk && efTintOk && efCoatOk && efUvOk && efEnOk && headBrimOk && headLtOk && head50365Ok && headMmOk && headVentOk && headStdOk && clVisOk && clFlOk && clArcOk && clAntiOk && clTypeOk && clCatOk;
+    return lengthOk && padOk && connOk && typeOk && classOk && particlesOk && armLenOk && armLoopOk && armClosureOk && snrOk && partOk && reuseOk && mountOk && btOk && fwClassOk && fwEsdOk && fwWidthOk && fwSizeOk && fwToeOk && fwSoleOk && fwCodeOk && efProtOk && efTintOk && efCoatOk && efUvOk && efWorkEnvOk && headBrimOk && headLtOk && head50365Ok && headMmOk && headVentOk && headStdOk && clTypeOk && clVisOk && clENStdOk && clWorkEnvOk && clSizeOk;
   };
 
   return (

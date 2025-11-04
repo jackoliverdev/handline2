@@ -199,6 +199,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
   const isHearing = ((product.category || '').toLowerCase().includes('hearing') || (product.sub_category || '').toLowerCase().includes('ear plug') || (product.sub_category || '').toLowerCase().includes('defender'));
   const isRespiratory = ((product.category || '').toLowerCase().includes('respir'));
   const isClothing = ((product.category || '').toLowerCase().includes('cloth') || (product.sub_category || '').toLowerCase().includes('jacket'));
+  const isFootwear = ((product.category || '').toLowerCase().includes('footwear') || (product.sub_category || '').toLowerCase().includes('boot') || (product.sub_category || '').toLowerCase().includes('insol'));
 
   return (
     <main className="bg-brand-light dark:bg-background min-h-screen pt-11">
@@ -516,13 +517,32 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                       </>
                     )}
 
-                    {/* Comfort & fit features: Footwear, Hearing */}
-                    {((product.category || '').toLowerCase().includes('footwear') || (product.sub_category || '').toLowerCase().includes('boot') || (product.sub_category || '').toLowerCase().includes('insol')) && (
+                    {/* Footwear: Safety features FIRST */}
+                    {isFootwear && (
+                      <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          <ListChecks className="h-5 w-5 text-brand-primary" />
+                          <h3 className="font-medium text-brand-dark dark:text-white">{t('productPage.safetyFeatures')}</h3>
+                        </div>
+                        <ul className="list-disc list-inside space-y-1 text-brand-secondary dark:text-gray-300">
+                          {currentFeatures && currentFeatures.length > 0 ? (
+                            currentFeatures.map((feature: string, idx: number) => (
+                              <li key={idx}>{feature}</li>
+                            ))
+                          ) : (
+                            <li>-</li>
+                          )}
+                        </ul>
+                      </div>
+                    )}
+                    {/* Footwear: Then Comfort and Special */}
+                    {isFootwear && (
                       <>
                         <FootwearComfortFeatures product={product} />
                         <FootwearSpecialFeatures product={product} />
                       </>
                     )}
+                    {/* Comfort & fit features: Hearing */}
                     {isHearing && (
                       <HearingComfortFeatures product={product} />
                     )}
@@ -581,12 +601,12 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                     {isHearing && (
                       <HearingEquipment product={product} />
                     )}
-                    {/* Safety features for OTHER categories (NOT eye-face, respiratory, head, or clothing) */}
-                    {!isRespiratory && !isEyeFace && !isHead && !isClothing && (
+                    {/* Safety features for OTHER categories (NOT eye-face, respiratory, head, clothing, or footwear) */}
+                    {!isRespiratory && !isEyeFace && !isHead && !isClothing && !isFootwear && (
                       <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
                         <div className="flex items-center gap-2 mb-2">
                           <ListChecks className="h-5 w-5 text-brand-primary" />
-                          <h3 className="font-medium text-brand-dark dark:text-white">{(isHearing || (product.category || '').toLowerCase().includes('footwear') || (product.sub_category || '').toLowerCase().includes('boot') || (product.sub_category || '').toLowerCase().includes('insol')) ? t('productPage.safetyFeatures') : t('productPage.features')}</h3>
+                          <h3 className="font-medium text-brand-dark dark:text-white">{isHearing ? t('productPage.safetyFeatures') : t('productPage.features')}</h3>
                         </div>
                         <ul className="list-disc list-inside space-y-1 text-brand-secondary dark:text-gray-300">
                           {currentFeatures && currentFeatures.length > 0 ? (
