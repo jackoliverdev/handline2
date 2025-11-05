@@ -41,7 +41,7 @@ export async function sendContactEmail(data: ContactFormData, attachments?: Emai
   try {
     const { data: result, error } = await resend.emails.send({
       from: 'Hand Line Website <noreply@resend.dev>',
-      to: ['jackoliverdev@gmail.com'],
+      to: ['enquiries@handlineco.com', 'jackoliverdev@gmail.com'],
       subject: `Contact Form: ${data.subject}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -62,7 +62,7 @@ export async function sendContactEmail(data: ContactFormData, attachments?: Emai
           </div>
           <div style="padding: 20px; text-align: center; color: #666;">
             <p>This email was sent from the Hand Line Company website contact form.</p>
-            <p><strong>Original destination:</strong> info@handlineco.com</p>
+            <p><strong>Destination:</strong> enquiries@handlineco.com</p>
           </div>
         </div>
       `,
