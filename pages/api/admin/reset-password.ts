@@ -50,7 +50,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (resendKey) {
       const resend = new Resend(resendKey);
       await resend.emails.send({
-        from: "Hand Line Website <noreply@resend.dev>",
+        from: "Hand Line Website <noreply@mail.handlineco.com>",
         to: [email],
         subject: "Reset your Hand Line account password",
         html: `<p>Hello,</p><p>Click the button below to reset your password:</p><p><a href="${link}" style="display:inline-block;padding:10px 16px;background:#F28C38;color:#fff;text-decoration:none;border-radius:6px">Reset Password</a></p><p>If the button does not work, copy and paste this URL:</p><p>${link}</p>`

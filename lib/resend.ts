@@ -40,7 +40,7 @@ type EmailAttachment = { filename: string; content: string; contentType?: string
 export async function sendContactEmail(data: ContactFormData, attachments?: EmailAttachment[]) {
   try {
     const { data: result, error } = await resend.emails.send({
-      from: 'Hand Line Website <noreply@resend.dev>',
+      from: 'Hand Line Website <noreply@mail.handlineco.com>',
       to: ['enquiries@handlineco.com', 'jackoliverdev@gmail.com'],
       subject: `Contact Form: ${data.subject}`,
       html: `
@@ -83,8 +83,8 @@ export async function sendContactEmail(data: ContactFormData, attachments?: Emai
 export async function sendPartnershipEmail(data: PartnershipFormData) {
   try {
     const { data: result, error } = await resend.emails.send({
-      from: 'Hand Line Website <noreply@resend.dev>',
-      to: ['jackoliverdev@gmail.com'],
+      from: 'Hand Line Website <noreply@mail.handlineco.com>',
+      to: ['enquiries@handlineco.com', 'jackoliverdev@gmail.com'],
       subject: 'New Partnership Inquiry',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -125,8 +125,8 @@ export async function sendPartnershipEmail(data: PartnershipFormData) {
 export async function sendDistributionEmail(data: DistributionFormData) {
   try {
     const { data: result, error } = await resend.emails.send({
-      from: 'Hand Line Website <noreply@resend.dev>',
-      to: ['jackoliverdev@gmail.com'],
+      from: 'Hand Line Website <noreply@mail.handlineco.com>',
+      to: ['enquiries@handlineco.com', 'jackoliverdev@gmail.com'],
       subject: 'New Distribution Inquiry',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -167,8 +167,8 @@ export async function sendDistributionEmail(data: DistributionFormData) {
 export async function sendProductInquiryEmail(data: ProductInquiryData) {
   try {
     const { data: result, error } = await resend.emails.send({
-      from: 'Hand Line Website <noreply@resend.dev>',
-      to: ['jackoliverdev@gmail.com'],
+      from: 'Hand Line Website <noreply@mail.handlineco.com>',
+      to: ['enquiries@handlineco.com', 'jackoliverdev@gmail.com'],
       subject: `Product Inquiry: ${data.productName}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
