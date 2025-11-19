@@ -22,8 +22,9 @@ export const AuthCard = () => {
 
   useEffect(() => {
     if (user) {
-      // Check if user is admin (jackoliverdev@gmail.com) before redirecting
-      if (user.email === "jackoliverdev@gmail.com") {
+      // Check if user is admin before redirecting
+      const ADMIN_EMAILS = ['jackoliverdev@gmail.com', 'enquiries@handlineco.com'];
+      if (ADMIN_EMAILS.includes(user.email || '')) {
         router.push("/admin");
       } else {
         router.push("/dashboard");

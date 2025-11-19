@@ -14,7 +14,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!authHeader?.startsWith('Bearer ')) return res.status(401).json({ success: false, message: 'Unauthorized' });
     const token = authHeader.split('Bearer ')[1];
     const decoded = await admin.auth().verifyIdToken(token);
-    if (decoded.email !== 'jackoliverdev@gmail.com') return res.status(403).json({ success: false, message: 'Forbidden' });
+    const ADMIN_EMAILS = ['jackoliverdev@gmail.com', 'enquiries@handlineco.com'];
+    if (!ADMIN_EMAILS.includes(decoded.email || '')) return res.status(403).json({ success: false, message: 'Forbidden' });
   } catch (e) {
     return res.status(401).json({ success: false, message: 'Invalid token' });
   }

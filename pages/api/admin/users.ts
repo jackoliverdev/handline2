@@ -23,8 +23,9 @@ export default async function handler(
     const decodedToken = await admin.auth().verifyIdToken(token);
     const email = decodedToken.email;
     
-    // Only allow your admin email
-    if (email !== 'jackoliverdev@gmail.com') {
+    // Only allow admin emails
+    const ADMIN_EMAILS = ['jackoliverdev@gmail.com', 'enquiries@handlineco.com'];
+    if (!ADMIN_EMAILS.includes(email || '')) {
       return res.status(403).json({ error: 'Forbidden' });
     }
     
