@@ -2,6 +2,8 @@ import { Resend } from 'resend';
 
 export const resend = new Resend(process.env.RESEND_API_KEY);
 
+const websiteFormRecipients = ['enquiries@handlineco.com'];
+
 export interface ContactFormData {
   name: string;
   company?: string;
@@ -41,7 +43,7 @@ export async function sendContactEmail(data: ContactFormData, attachments?: Emai
   try {
     const { data: result, error } = await resend.emails.send({
       from: 'Hand Line Website <noreply@mail.handlineco.com>',
-      to: ['enquiries@handlineco.com', 'jackoliverdev@gmail.com'],
+      to: websiteFormRecipients,
       subject: `Contact Form: ${data.subject}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -84,7 +86,7 @@ export async function sendPartnershipEmail(data: PartnershipFormData) {
   try {
     const { data: result, error } = await resend.emails.send({
       from: 'Hand Line Website <noreply@mail.handlineco.com>',
-      to: ['enquiries@handlineco.com', 'jackoliverdev@gmail.com'],
+      to: websiteFormRecipients,
       subject: 'New Partnership Inquiry',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -126,7 +128,7 @@ export async function sendDistributionEmail(data: DistributionFormData) {
   try {
     const { data: result, error } = await resend.emails.send({
       from: 'Hand Line Website <noreply@mail.handlineco.com>',
-      to: ['enquiries@handlineco.com', 'jackoliverdev@gmail.com'],
+      to: websiteFormRecipients,
       subject: 'New Distribution Inquiry',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -168,7 +170,7 @@ export async function sendProductInquiryEmail(data: ProductInquiryData) {
   try {
     const { data: result, error } = await resend.emails.send({
       from: 'Hand Line Website <noreply@mail.handlineco.com>',
-      to: ['enquiries@handlineco.com', 'jackoliverdev@gmail.com'],
+      to: websiteFormRecipients,
       subject: `Product Inquiry: ${data.productName}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

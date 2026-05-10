@@ -142,6 +142,9 @@ export default function PPEHubManagementPage() {
                         <Calendar className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                         <span>Updated: {formatDate((c as any).updated_at)}</span>
                       </div>
+                      <div className="mt-1 text-[10px] sm:text-xs text-muted-foreground">
+                        Position: {c.sortOrder ?? 0}
+                      </div>
                     </div>
                     <div className="flex justify-between items-center px-2 sm:px-4 py-2 sm:py-3 bg-muted/20">
                       <div className="flex space-x-1 sm:space-x-2">

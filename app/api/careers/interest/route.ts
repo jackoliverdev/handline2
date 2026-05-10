@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
 
     const { data: result, error } = await resend.emails.send({
       from: 'Hand Line Website <noreply@mail.handlineco.com>',
-      to: ['enquiries@handlineco.com', 'jackoliverdev@gmail.com'],
+      to: ['enquiries@handlineco.com'],
       subject: `Careers Interest Subscription: ${data.name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 640px; margin: 0 auto;">

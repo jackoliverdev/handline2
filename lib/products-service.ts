@@ -1,4 +1,5 @@
 import { supabase } from './supabase';
+import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Language } from './context/language-context';
 
 // Safety Standards interfaces
@@ -422,6 +423,7 @@ export async function getProductBySlug(slug: string): Promise<{ product: Product
       .from('products')
       .select('*', { head: false })
       .eq('name', slug)
+      .eq('published', true)
       .single();
     
     if (error) {
@@ -788,7 +790,11 @@ export async function toggleProductStock(id: string): Promise<{ product: Product
 /**
  * Upload a product image to Supabase storage
  */
-export async function uploadProductImage(productId: string, file: File): Promise<{ url: string | null }> {
+export async function uploadProductImage(
+  productId: string,
+  file: File,
+  client: SupabaseClient = supabase
+): Promise<{ url: string | null }> {
   try {
     if (!productId) {
       throw new Error("Product ID is required for image upload");
@@ -803,19 +809,19 @@ export async function uploadProductImage(productId: string, file: File): Promise
     console.log("Uploading to:", fileName);
     
     // Upload to storage
-    const { data, error } = await supabase.storage
+    const { data, error } = await client.storage
       .from('products')
       .upload(fileName, file);
       
     if (error) {
       console.error("Error uploading product image:", error);
-      return { url: null };
+      throw error;
     }
     
     console.log("Image uploaded successfully:", data);
     
     // Get public URL
-    const { data: { publicUrl } } = supabase.storage
+    const { data: { publicUrl } } = client.storage
       .from('products')
       .getPublicUrl(fileName);
       
@@ -824,7 +830,7 @@ export async function uploadProductImage(productId: string, file: File): Promise
     return { url: publicUrl };
   } catch (error) {
     console.error('Error uploading product image:', error);
-    return { url: null };
+    throw error;
   }
 }
 

@@ -356,10 +356,10 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
       console.error("Error uploading image:", error);
       toast({
         title: "Upload Error",
-        description: "Failed to upload product image",
+        description: error instanceof Error ? error.message : "Failed to upload product image",
         variant: "destructive"
       });
-      return null;
+      throw error;
     } finally {
       setIsSaving(false);
     }
@@ -964,6 +964,9 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
       let newImageUrl = imageUrl;
       if (coverImage.file) {
         newImageUrl = await uploadImage(coverImage.file, true);
+        if (!newImageUrl) {
+          throw new Error("Failed to upload product image");
+        }
       }
       
       const productData = {
