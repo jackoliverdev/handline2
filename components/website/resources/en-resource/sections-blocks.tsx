@@ -8,9 +8,11 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { PPESection } from '@/lib/ppe-standards/types';
 import { useLanguage } from '@/lib/context/language-context';
 import { supabase } from '@/lib/supabase';
+import { preserveMarkdownSpacing } from '@/lib/markdown-utils';
 import { SectionImagesGallery } from '@/components/website/resources/shared/SectionImagesGallery';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import remarkBreaks from 'remark-breaks';
 
 interface Props {
   sections: PPESection[];
@@ -46,7 +48,7 @@ export function ENResourceSectionsBlocks({ sections }: Props) {
               {intro && (
                 <div className="mt-2 text-brand-secondary dark:text-gray-300 prose prose-sm max-w-none dark:prose-invert">
                   <ReactMarkdown 
-                    remarkPlugins={[remarkGfm]}
+                    remarkPlugins={[remarkGfm, remarkBreaks]}
                     components={{
                       a: ({ node, ...props }) => <a className="text-brand-primary hover:text-brand-primary/80 underline" target="_blank" rel="noopener noreferrer" {...props} />,
                       img: ({ node, ...props }) => <img className="max-w-full h-auto rounded-md" alt={props.alt || ''} {...props} />,
@@ -63,7 +65,7 @@ export function ENResourceSectionsBlocks({ sections }: Props) {
                       em: ({ node, ...props }) => <em className="italic text-brand-dark dark:text-white" {...props} />
                     }}
                   >
-                    {intro}
+                    {preserveMarkdownSpacing(intro)}
                   </ReactMarkdown>
                 </div>
               )}

@@ -5,9 +5,13 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import type { PPESectionDetail } from '@/lib/ppe-standards/types';
+import { preserveMarkdownSpacing } from '@/lib/markdown-utils';
 import { MiniProductCard } from '@/components/app/mini-product-card';
 import { SectionImagesGallery } from '@/components/website/resources/shared/SectionImagesGallery';
 import { useEffect, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import remarkBreaks from 'remark-breaks';
 
 interface Props {
   section: PPESectionDetail;
@@ -55,7 +59,18 @@ export function ENResourceSectionPage({ section }: Props) {
                 {section.code ? `${section.code} — ${section.title}` : section.title}
               </h1>
               {section.intro && (
-                <p className="mt-3 text-brand-secondary dark:text-gray-300 text-base md:text-lg max-w-2xl">{section.intro}</p>
+                <div className="mt-3 text-brand-secondary dark:text-gray-300 text-base md:text-lg max-w-2xl prose prose-sm md:prose-base dark:prose-invert">
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm, remarkBreaks]}
+                    components={{
+                      p: ({ node, ...props }) => <p className="mb-3 leading-relaxed text-brand-secondary dark:text-gray-300" {...props} />,
+                      a: ({ node, ...props }) => <a className="text-brand-primary hover:text-brand-primary/80 underline" target="_blank" rel="noopener noreferrer" {...props} />,
+                      strong: ({ node, ...props }) => <strong className="font-semibold text-brand-dark dark:text-white" {...props} />,
+                    }}
+                  >
+                    {preserveMarkdownSpacing(section.intro)}
+                  </ReactMarkdown>
+                </div>
               )}
             </div>
             <div className="md:col-span-2 relative aspect-[16/10] w-full overflow-hidden rounded-xl shadow-lg">

@@ -58,8 +58,9 @@ export const SignInForm: FC<SignInFormProps> = ({ onShowSignUp }) => {
         description: "You have been signed in.",
       });
       
-      // Check if the user is admin (jackoliverdev@gmail.com) and redirect accordingly
-      if (email.toLowerCase() === "jackoliverdev@gmail.com") {
+      // Check if the user is admin and redirect accordingly
+      const ADMIN_EMAILS = ['jackoliverdev@gmail.com', 'enquiries@handlineco.com'];
+      if (ADMIN_EMAILS.includes(email.toLowerCase())) {
         // Admin redirect
         router.push('/admin');
       } else {

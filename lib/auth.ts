@@ -25,8 +25,9 @@ export async function getUserRole(user: User): Promise<UserRole> {
     console.warn("Failed to load role from Supabase, falling back to email check", e);
   }
 
-  // Legacy fallback: allow your admin email
-  if (user.email === "jackoliverdev@gmail.com") {
+  // Legacy fallback: allow admin emails
+  const ADMIN_EMAILS = ['jackoliverdev@gmail.com', 'enquiries@handlineco.com'];
+  if (ADMIN_EMAILS.includes(user.email || '')) {
     return "admin";
   }
 

@@ -2,6 +2,8 @@ import { Resend } from 'resend';
 
 export const resend = new Resend(process.env.RESEND_API_KEY);
 
+const websiteFormRecipients = ['enquiries@handlineco.com'];
+
 export interface ContactFormData {
   name: string;
   company?: string;
@@ -40,8 +42,8 @@ type EmailAttachment = { filename: string; content: string; contentType?: string
 export async function sendContactEmail(data: ContactFormData, attachments?: EmailAttachment[]) {
   try {
     const { data: result, error } = await resend.emails.send({
-      from: 'Hand Line Website <noreply@resend.dev>',
-      to: ['jackoliverdev@gmail.com'],
+      from: 'Hand Line Website <noreply@mail.handlineco.com>',
+      to: websiteFormRecipients,
       subject: `Contact Form: ${data.subject}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -62,7 +64,7 @@ export async function sendContactEmail(data: ContactFormData, attachments?: Emai
           </div>
           <div style="padding: 20px; text-align: center; color: #666;">
             <p>This email was sent from the Hand Line Company website contact form.</p>
-            <p><strong>Original destination:</strong> info@handlineco.com</p>
+            <p><strong>Destination:</strong> enquiries@handlineco.com</p>
           </div>
         </div>
       `,
@@ -83,8 +85,8 @@ export async function sendContactEmail(data: ContactFormData, attachments?: Emai
 export async function sendPartnershipEmail(data: PartnershipFormData) {
   try {
     const { data: result, error } = await resend.emails.send({
-      from: 'Hand Line Website <noreply@resend.dev>',
-      to: ['jackoliverdev@gmail.com'],
+      from: 'Hand Line Website <noreply@mail.handlineco.com>',
+      to: websiteFormRecipients,
       subject: 'New Partnership Inquiry',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -125,8 +127,8 @@ export async function sendPartnershipEmail(data: PartnershipFormData) {
 export async function sendDistributionEmail(data: DistributionFormData) {
   try {
     const { data: result, error } = await resend.emails.send({
-      from: 'Hand Line Website <noreply@resend.dev>',
-      to: ['jackoliverdev@gmail.com'],
+      from: 'Hand Line Website <noreply@mail.handlineco.com>',
+      to: websiteFormRecipients,
       subject: 'New Distribution Inquiry',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -167,8 +169,8 @@ export async function sendDistributionEmail(data: DistributionFormData) {
 export async function sendProductInquiryEmail(data: ProductInquiryData) {
   try {
     const { data: result, error } = await resend.emails.send({
-      from: 'Hand Line Website <noreply@resend.dev>',
-      to: ['jackoliverdev@gmail.com'],
+      from: 'Hand Line Website <noreply@mail.handlineco.com>',
+      to: websiteFormRecipients,
       subject: `Product Inquiry: ${data.productName}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

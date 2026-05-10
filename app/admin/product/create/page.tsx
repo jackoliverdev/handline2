@@ -252,7 +252,7 @@ export default function CreateProductPage() {
       const tempId = `temp-${Date.now()}`;
       
       // Upload the image
-      const { url } = await uploadProductImage(tempId, file);
+      const { url } = await uploadProductImage(tempId, file, supabase);
       
       if (url) {
         // Set the URL to the first available slot
@@ -341,7 +341,7 @@ export default function CreateProductPage() {
     try {
       setIsUploading(true);
       const tempId = `temp-${Date.now()}`;
-      const { url } = await uploadProductImage(tempId, additionalImage.file);
+      const { url } = await uploadProductImage(tempId, additionalImage.file, supabase);
       if (!url) throw new Error('Failed to upload image');
       if (!imageUrl) setImageUrl(url);
       else if (!image2Url) setImage2Url(url);

@@ -199,19 +199,40 @@ export default function CategoryProductCreate({ slug }: Props) {
         if (error) throw error;
         if (!data) return;
 
-        // Helper to auto-increment name
-        const getIncrementedName = (name: string) => {
-          const match = name.match(/^(.*?)\s*\((\d+)\)$/);
-          if (match) {
-            return `${match[1]} (${parseInt(match[2]) + 1})`;
+        // Helper to auto-increment name until the generated product URL/name is available.
+        const getUniqueDuplicateName = async (name: string) => {
+          const trimmedName = name.trim();
+          if (!trimmedName) return '';
+
+          const match = trimmedName.match(/^(.*?)\s*\((\d+)\)$/);
+          const baseName = (match ? match[1] : trimmedName).trim();
+          let suffix = match ? parseInt(match[2], 10) + 1 : 2;
+
+          while (suffix < 1000) {
+            const candidate = `${baseName} (${suffix})`;
+            const { data: existing, error: existingError } = await supabase
+              .from('products')
+              .select('id')
+              .eq('name', candidate)
+              .limit(1)
+              .maybeSingle();
+
+            if (existingError) throw existingError;
+            if (!existing) return candidate;
+
+            suffix += 1;
           }
-          return `${name} (2)`;
+
+          return `${baseName} (${Date.now()})`;
         };
+
+        const duplicateNameEn = await getUniqueDuplicateName(data.name_locales?.en || data.name || '');
+        const duplicateNameIt = await getUniqueDuplicateName(data.name_locales?.it || data.name || '');
 
         // Pre-fill all fields from the duplicated product
         setNameLocales({
-          en: getIncrementedName(data.name_locales?.en || data.name || ''),
-          it: getIncrementedName(data.name_locales?.it || data.name || '')
+          en: duplicateNameEn,
+          it: duplicateNameIt
         });
         setShortDescriptionLocales(data.short_description_locales || {en: '', it: ''});
         setDescriptionLocales(data.description_locales || {en: '', it: ''});

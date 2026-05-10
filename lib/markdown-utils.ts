@@ -66,6 +66,20 @@ export function parseMarkdown(markdown: string): string {
 }
 
 /**
+ * ReactMarkdown follows the Markdown spec and collapses repeated blank lines.
+ * Use this when editor-entered vertical spacing should be reflected in previews.
+ */
+export function preserveMarkdownSpacing(markdown: string): string {
+  if (!markdown) return '';
+
+  return markdown.replace(/\r\n/g, '\n').replace(/\n{3,}/g, (lineBreaks) => {
+    const spacerCount = lineBreaks.length - 2;
+    const spacers = Array.from({ length: spacerCount }, () => '&nbsp;').join('\n\n');
+    return `\n\n${spacers}\n\n`;
+  });
+}
+
+/**
  * Escape HTML special characters to prevent XSS
  */
 function escapeHtml(text: string): string {
