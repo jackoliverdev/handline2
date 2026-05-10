@@ -348,73 +348,36 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
             {/* Product details tabs */}
             <div className="pt-2">
               <Tabs defaultValue="specifications" className="w-full">
-                {/* Mobile: Vertical stacked tabs */}
-                <TabsList className="flex flex-col h-auto w-full bg-white dark:bg-black/50 mb-4 border border-brand-primary/10 dark:border-brand-primary/20 rounded-lg shadow-sm backdrop-blur-sm gap-1 p-2 md:hidden">
+                <TabsList className="flex h-auto w-full max-w-full flex-nowrap justify-start gap-1 overflow-x-auto whitespace-nowrap scrollbar-hide bg-white dark:bg-black/50 mb-4 border border-brand-primary/10 dark:border-brand-primary/20 rounded-lg shadow-sm backdrop-blur-sm p-1">
                   <TabsTrigger 
                     value="specifications" 
-                    className="w-full rounded-lg px-4 py-3 data-[state=active]:bg-brand-primary data-[state=active]:text-white text-left justify-start"
+                    className="flex-none md:flex-1 min-w-max rounded-lg px-4 py-1.5 data-[state=active]:bg-brand-primary data-[state=active]:text-white"
                   >
                     {t('productPage.specifications')}
                   </TabsTrigger>
                   <TabsTrigger 
                     value="features" 
-                    className="w-full rounded-lg px-4 py-3 data-[state=active]:bg-brand-primary data-[state=active]:text-white text-left justify-start"
+                    className="flex-none md:flex-1 min-w-max rounded-lg px-4 py-1.5 data-[state=active]:bg-brand-primary data-[state=active]:text-white"
                   >
                     {t('productPage.features')}
                   </TabsTrigger>
                   <TabsTrigger 
                     value="applications" 
-                    className="w-full rounded-lg px-4 py-3 data-[state=active]:bg-brand-primary data-[state=active]:text-white text-left justify-start"
+                    className="flex-none md:flex-1 min-w-max rounded-lg px-4 py-1.5 data-[state=active]:bg-brand-primary data-[state=active]:text-white"
                   >
                     {t('productPage.applications')}
                   </TabsTrigger>
                   {((product.safety || product.environment_pictograms) && !isSwab) && (
                     <TabsTrigger 
                       value="safety" 
-                      className="w-full rounded-lg px-4 py-3 data-[state=active]:bg-brand-primary data-[state=active]:text-white text-left justify-start"
+                      className="flex-none md:flex-1 min-w-max rounded-lg px-4 py-1.5 data-[state=active]:bg-brand-primary data-[state=active]:text-white"
                     >
                       {t('productPage.safety')}
                     </TabsTrigger>
                   )}
                   <TabsTrigger 
                     value="documentation" 
-                    className="w-full rounded-lg px-4 py-3 data-[state=active]:bg-brand-primary data-[state=active]:text-white text-left justify-start"
-                  >
-                    {t('productPage.documentation')}
-                  </TabsTrigger>
-                </TabsList>
-                
-                {/* Desktop: Horizontal tabs */}
-                <TabsList className="hidden md:flex w-full justify-between bg-white dark:bg-black/50 mb-4 border border-brand-primary/10 dark:border-brand-primary/20 rounded-lg shadow-sm backdrop-blur-sm p-2">
-                  <TabsTrigger 
-                    value="specifications" 
-                    className="flex-1 rounded-lg px-4 py-2 data-[state=active]:bg-brand-primary data-[state=active]:text-white"
-                  >
-                    {t('productPage.specifications')}
-                  </TabsTrigger>
-                  <TabsTrigger 
-                    value="features" 
-                    className="flex-1 rounded-lg px-4 py-2 data-[state=active]:bg-brand-primary data-[state=active]:text-white"
-                  >
-                    {t('productPage.features')}
-                  </TabsTrigger>
-                  <TabsTrigger 
-                    value="applications" 
-                    className="flex-1 rounded-lg px-4 py-2 data-[state=active]:bg-brand-primary data-[state=active]:text-white"
-                  >
-                    {t('productPage.applications')}
-                  </TabsTrigger>
-                  {((product.safety || product.environment_pictograms) && !isSwab) && (
-                    <TabsTrigger 
-                      value="safety" 
-                      className="flex-1 rounded-lg px-4 py-2 data-[state=active]:bg-brand-primary data-[state=active]:text-white"
-                    >
-                      {t('productPage.safety')}
-                    </TabsTrigger>
-                  )}
-                  <TabsTrigger 
-                    value="documentation" 
-                    className="flex-1 rounded-lg px-4 py-2 data-[state=active]:bg-brand-primary data-[state=active]:text-white"
+                    className="flex-none md:flex-1 min-w-max rounded-lg px-4 py-1.5 data-[state=active]:bg-brand-primary data-[state=active]:text-white"
                   >
                     {t('productPage.documentation')}
                   </TabsTrigger>

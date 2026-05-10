@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import { useLanguage } from "@/lib/context/language-context";
+import { preserveMarkdownSpacing } from "@/lib/markdown-utils";
 import type { PPESectionRecord } from "@/lib/ppe-standards/types";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -20,6 +21,7 @@ import { MiniProductCard } from "@/components/app/mini-product-card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import remarkBreaks from 'remark-breaks';
 
 import { ArrowLeft, Save, Eye, Trash, Upload, Shield, ArrowUp, ArrowDown } from "lucide-react";
 
@@ -67,6 +69,7 @@ export default function CreatePPECategoryPage() {
     summary_locales: {} as Locales,
     hero_image_url: "",
     card_image_url: "",
+    sort_order: 0,
   });
   const [sections, setSections] = useState<PPESectionRecord[]>([]);
   const [saving, setSaving] = useState(false);
@@ -296,7 +299,7 @@ export default function CreatePPECategoryPage() {
       // Upsert category first
       const { error: catErr } = await supabase
         .from('ppe_categories')
-        .upsert([{ id: category.id, slug, title_locales: category.title_locales || {}, summary_locales: category.summary_locales || {}, hero_image_url: heroUrl, card_image_url: cardUrl, hero_focus_y: heroFocus }], { onConflict: 'id' });
+        .upsert([{ id: category.id, slug, title_locales: category.title_locales || {}, summary_locales: category.summary_locales || {}, hero_image_url: heroUrl, card_image_url: cardUrl, hero_focus_y: heroFocus, sort_order: Number(category.sort_order) || 0 }], { onConflict: 'id' });
       if (catErr) throw catErr;
 
       // Upsert sections
@@ -420,6 +423,18 @@ export default function CreatePPECategoryPage() {
                   placeholder="Short summary for the category"
                   className="min-h-[80px] text-xs sm:text-sm"
                 />
+              </div>
+              <div className="space-y-2">
+                <Label className="text-xs sm:text-sm">Display position</Label>
+                <Input
+                  type="number"
+                  min={0}
+                  step={1}
+                  value={category.sort_order ?? 0}
+                  onChange={(e) => setCategory((prev: any) => ({ ...prev, sort_order: Number(e.target.value) || 0 }))}
+                  className="text-xs sm:text-sm h-8 sm:h-10"
+                />
+                <p className="text-xs text-muted-foreground">Lower numbers appear first on the PPE Standards Hub.</p>
               </div>
             </CardContent>
           </Card>
@@ -594,7 +609,7 @@ export default function CreatePPECategoryPage() {
                           <TabsContent value="preview" className="p-4 border rounded-md min-h-[100px] markdown-preview text-xs prose prose-sm max-w-none">
                             {introLocales[currentLanguage] ? (
                               <ReactMarkdown 
-                                remarkPlugins={[remarkGfm]}
+                                remarkPlugins={[remarkGfm, remarkBreaks]}
                                 components={{
                                   a: ({ node, ...props }) => <a className="text-blue-600 hover:text-blue-800 underline" target="_blank" rel="noopener noreferrer" {...props} />,
                                   img: ({ node, ...props }) => <img className="max-w-full h-auto rounded-md" alt={props.alt || ''} {...props} />,
@@ -609,7 +624,7 @@ export default function CreatePPECategoryPage() {
                                     <code className="bg-gray-100 px-1 py-0.5 rounded text-xs font-mono" {...props} />
                                 }}
                               >
-                                {introLocales[currentLanguage]}
+                                {preserveMarkdownSpacing(introLocales[currentLanguage])}
                               </ReactMarkdown>
                             ) : (
                               <p className="text-muted-foreground text-xs">Nothing to preview yet...</p>

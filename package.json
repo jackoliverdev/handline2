@@ -1,7 +1,7 @@
 {
-  "name": "example-ltd",
-  "description": "Boilerplate & template for Vercel projects using Next.js, Firebase and shadcn/ui.",
-  "author": "Example LTD <contact@example.com> (https://example.com)",
+  "name": "handlineco",
+  "description": "Handline - PPE and safety equipment platform using Next.js, Firebase and shadcn/ui.",
+  "author": "Handline Company",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -55,6 +55,7 @@
     "react-markdown": "^10.1.0",
     "react-syntax-highlighter": "^15.6.1",
     "reactfire": "^4.2.3",
+    "remark-breaks": "^4.0.0",
     "remark-gfm": "^4.0.1",
     "resend": "^4.8.0",
     "supports-color": "^10.0.0",

@@ -5,8 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import { toast } from "@/components/ui/use-toast";
 import { Upload, X, Star, Image as ImageIcon, Plus, ChevronUp, ChevronDown } from "lucide-react";
 import { uploadProductImage } from "@/lib/products-service";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 interface ProductImagesEditorProps {
   // Main image
@@ -42,6 +44,7 @@ export function ProductImagesEditor({
 }: ProductImagesEditorProps) {
   const [uploading, setUploading] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const supabase = createClientComponentClient();
 
   // Get all images in order
   const allImages = [imageUrl, image2Url, image3Url, image4Url, image5Url].filter(Boolean) as string[];
@@ -53,7 +56,7 @@ export function ProductImagesEditor({
     
     setUploading('uploading');
     try {
-      const result = await uploadProductImage(productId, file);
+      const result = await uploadProductImage(productId, file, supabase);
       if (result.url) {
         // Find first empty slot and add image there
         if (!imageUrl) {
@@ -67,9 +70,16 @@ export function ProductImagesEditor({
         } else if (!image5Url) {
           setImage5Url(result.url);
         }
+      } else {
+        throw new Error('Image upload did not return a URL.');
       }
     } catch (error) {
       console.error('Upload failed:', error);
+      toast({
+        title: 'Upload failed',
+        description: error instanceof Error ? error.message : 'Failed to upload product image.',
+        variant: 'destructive',
+      });
     } finally {
       setUploading(null);
     }

@@ -115,6 +115,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
   // Always build URLs from the English name to keep slugs stable across locales
   const slugSource = (product as any).name_locales?.en || product.name;
   const encodedProductName = encodeURIComponent(slugSource);
+  const isComingSoon = product.coming_soon || product.availability_status === 'coming_soon';
 
   // Get applications with conditional limit based on number of standards shown
   const hasMultipleStandards = !!(product.cut_resistance_level && product.heat_resistance_level);
@@ -404,8 +405,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
     >
       {/* Badges container - stacked vertically */}
       <div className="absolute right-3 top-3 z-20 flex flex-col gap-1">
+        {/* Coming Soon Badge */}
+        {isComingSoon && (
+          <Badge className="border border-brand-primary/25 bg-white/95 text-brand-primary font-semibold px-2 py-1 shadow-lg text-xs backdrop-blur-sm dark:bg-black/80">
+            {t('products.comingSoon')}
+          </Badge>
+        )}
+
         {/* Out of Stock Badge */}
-        {product.out_of_stock && (
+        {product.out_of_stock && !isComingSoon && (
           <Badge className="bg-gradient-to-r from-red-500 to-red-600 text-white font-medium px-2 py-1 shadow-lg text-xs">
             {t('products.outOfStock')}
           </Badge>
