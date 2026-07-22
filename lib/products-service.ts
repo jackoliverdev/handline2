@@ -72,6 +72,7 @@ export type AvailabilityStatus = 'in_stock' | 'made_to_order' | 'out_of_stock' |
 
 export interface Product {
   id: string;
+  slug: string;
   name: string;
   description: string;
   short_description: string;
@@ -151,6 +152,10 @@ export interface Product {
   arm_attributes?: {
     thumb_loop?: boolean;
     closure?: 'velcro' | 'elastic' | 'none' | string;
+    length_cm?: number | null;
+    size?: string | null;
+    ce_category?: string | null;
+    materials_locales?: Record<string, string[]>;
   } | null;
   // Hearing-specific
   hearing_standards?: {
@@ -417,15 +422,24 @@ export async function getFeaturedProducts(language: Language): Promise<{ product
 export async function getProductBySlug(slug: string): Promise<{ product: Product | null }> {
   try {
     console.log(`Fetching product with slug: ${slug}...`, new Date().toISOString());
-    
-    // We need to use the name field as the slug since our new schema doesn't have a slug field
-    const { data, error } = await supabase
+
+    let { data, error } = await supabase
       .from('products')
       .select('*', { head: false })
-      .eq('name', slug)
+      .eq('slug', slug)
       .eq('published', true)
       .single();
-    
+
+    // Temporary legacy fallback so existing encoded-name links keep working.
+    if (error) {
+      ({ data, error } = await supabase
+        .from('products')
+        .select('*', { head: false })
+        .eq('name', slug)
+        .eq('published', true)
+        .single());
+    }
+
     if (error) {
       console.error(`Error fetching product with slug ${slug}:`, error);
       return { product: null };

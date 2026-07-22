@@ -8,7 +8,14 @@ export function HeadSpecs({ product }: { product: Product }) {
   const { t, language } = useLanguage();
   const attrs: any = (product as any).head_attributes || {};
   const std: any = (product as any).head_standards || {};
-  const techSpecs = (product as any).head_tech_specs_locales?.[language] || (product as any).head_tech_specs_locales?.en || {};
+  const localisedTechSpecs = (product as any).head_tech_specs_locales?.[language] || (product as any).head_tech_specs_locales?.en || {};
+  const techSpecs = {
+    ...attrs,
+    ...localisedTechSpecs,
+    colours: Array.isArray(localisedTechSpecs.colours) && localisedTechSpecs.colours.length > 0
+      ? localisedTechSpecs.colours
+      : Array.isArray(attrs.colours) ? attrs.colours : [],
+  };
 
   const materials = product.materials_locales?.[language] || [];
   const size = product.size_locales?.[language] || product.size_locales?.en || null;

@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight, ChevronLeft, Flame, Scissors, Eye, Package } from "lucide-react";
+import { ChevronRight, ChevronLeft, Flame, Scissors, Eye, Package, Shield } from "lucide-react";
 import { getFeaturedProducts, Product } from "@/lib/products-service";
 import { ProductPreviewModal } from "@/components/website/products/product-preview-modal";
 import { useLanguage } from "@/lib/context/language-context";
@@ -89,6 +89,22 @@ const parseEN407 = (heatLevel: string): (string | number)[] => {
     ];
   }
   return [];
+};
+
+const getClothingStandards = (product: Product): string[] => {
+  const standards: string[] = [];
+  const clothingStandards: any = product.clothing_standards;
+
+  if (clothingStandards?.en_iso_20471?.class) standards.push(`EN ISO 20471 ${clothingStandards.en_iso_20471.class}`);
+  if (clothingStandards?.en_iso_11612 && Object.keys(clothingStandards.en_iso_11612).length > 0) standards.push('EN ISO 11612');
+  if (clothingStandards?.en_iso_11611?.class) standards.push(`EN ISO 11611 ${clothingStandards.en_iso_11611.class}`);
+  if (clothingStandards?.iec_61482_2?.class) standards.push(`IEC 61482-2 ${clothingStandards.iec_61482_2.class}`);
+  if (clothingStandards?.en_1149_5) standards.push('EN 1149-5');
+  if (clothingStandards?.en_13034) standards.push(`EN 13034 ${clothingStandards.en_13034}`);
+  if (clothingStandards?.en_343 && (clothingStandards.en_343.water || clothingStandards.en_343.breath)) standards.push('EN 343');
+  if (clothingStandards?.uv_standard_801) standards.push('UV Standard 801');
+
+  return standards;
 };
 
 // Animation variants
@@ -394,9 +410,9 @@ export const FeaturedProducts = () => {
               `}</style>
               
               {infiniteProducts.length === 0 ? null : infiniteProducts.map((product, index) => {
-                // Encode the product name for the URL
-                const encodedProductName = encodeURIComponent((product as any).name_locales?.en || product.name);
+                const productSlug = product.slug || encodeURIComponent((product as any).name_locales?.en || product.name);
                 const originalIndex = index % products.length;
+                const clothingStandards = getClothingStandards(product);
                 
                 return (
                   <motion.div 
@@ -406,7 +422,7 @@ export const FeaturedProducts = () => {
                     className="min-w-[200px] sm:min-w-[280px] w-52 sm:w-72 flex-shrink-0 snap-start mr-3 sm:mr-5 product-card"
                   >
                     <div className="bg-white dark:bg-black/50 rounded-2xl overflow-hidden transition-all duration-500 h-full flex flex-col border border-gray-100 dark:border-gray-700/50 group">
-                      <Link href={`/products/${encodedProductName}`} className="block" prefetch={false}>
+                      <Link href={`/products/${productSlug}`} className="block" prefetch={false}>
                         <div className="relative h-40 sm:h-56 overflow-hidden cursor-pointer">
                           {product.image_url ? (
                             <motion.div
@@ -456,7 +472,7 @@ export const FeaturedProducts = () => {
                         transition={{ delay: 0.5 + (index * 0.1), duration: 0.3 }}
                         className="p-3 sm:p-5 flex flex-col flex-grow space-y-2 sm:space-y-3"
                       >
-                        <Link href={`/products/${encodedProductName}`}>
+                        <Link href={`/products/${productSlug}`}>
                           <h3 className="text-sm sm:text-xl font-bold text-gray-900 dark:text-white mb-1 font-heading group-hover:text-brand-primary transition-colors duration-200 cursor-pointer hover:text-brand-primary line-clamp-2">{product.name}</h3>
                         </Link>
                         
@@ -529,6 +545,19 @@ export const FeaturedProducts = () => {
                             </div>
                           </div>
                         )}
+
+                        {clothingStandards.length > 0 && (
+                          <div className="space-y-1">
+                            {clothingStandards.map((standard) => (
+                              <div key={standard} className="flex items-center gap-1.5">
+                                <Shield className="h-3 w-3 text-brand-primary flex-shrink-0" />
+                                <span className="text-[10px] sm:text-xs font-semibold text-gray-700 dark:text-gray-300">
+                                  {standard}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
                         
                         <div className="flex-1" />
                         
@@ -555,7 +584,7 @@ export const FeaturedProducts = () => {
                             className="bg-brand-primary hover:bg-brand-primary/90 text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl transform text-[10px] sm:text-sm py-1.5 sm:py-2 px-1 sm:px-3"
                             asChild
                           >
-                            <Link href={`/products/${encodedProductName}`} className="flex items-center justify-center">
+                            <Link href={`/products/${productSlug}`} className="flex items-center justify-center">
                               <span className="transition-all duration-300">{t('featuredProducts.details')}</span>
                               <motion.div
                                 whileHover={{ x: 3, scale: 1.1 }}

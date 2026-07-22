@@ -27,7 +27,10 @@ export function ArmProductsSection({ products }: ArmProductsSectionProps) {
   const lengthOptions = useMemo(() => {
     const set = new Set<string>();
     armProducts.forEach((p) => {
-      if (typeof p.length_cm === 'number') set.add(`${p.length_cm} cm`);
+      const armLength = typeof (p as any).arm_attributes?.length_cm === 'number'
+        ? (p as any).arm_attributes.length_cm
+        : p.length_cm;
+      if (typeof armLength === 'number') set.add(`${armLength} cm`);
     });
     return Array.from(set).sort((a, b) => parseInt(a) - parseInt(b));
   }, [armProducts]);
@@ -63,7 +66,10 @@ export function ArmProductsSection({ products }: ArmProductsSectionProps) {
   );
 
   const predicate = (p: Product) => {
-    const lenLabel = typeof p.length_cm === 'number' ? `${p.length_cm} cm` : undefined;
+    const armLength = typeof (p as any).arm_attributes?.length_cm === 'number'
+      ? (p as any).arm_attributes.length_cm
+      : p.length_cm;
+    const lenLabel = typeof armLength === 'number' ? `${armLength} cm` : undefined;
     const lengthOk = selectedLengths.length === 0 ? true : (!!lenLabel && selectedLengths.includes(lenLabel));
     const thumb = (p as any).arm_attributes?.thumb_loop as boolean | undefined;
     const loopOk = !selectedThumbLoop ? true : (typeof thumb === 'boolean' && thumb === selectedThumbLoop);

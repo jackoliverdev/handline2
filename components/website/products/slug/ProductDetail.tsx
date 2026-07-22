@@ -116,6 +116,30 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
   // Modal state variables
   const [isSampleModalOpen, setIsSampleModalOpen] = React.useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = React.useState(false);
+  const [activeTab, setActiveTab] = React.useState("specifications");
+
+  React.useEffect(() => {
+    const syncTabFromHash = () => {
+      const hash = window.location.hash.replace("#", "");
+      const documentationAnchors = ["technical-sheet", "declarations", "manufacturer-instructions"];
+      const tab = documentationAnchors.includes(hash) ? "documentation" : hash;
+      if (["specifications", "features", "applications", "safety", "documentation"].includes(tab)) {
+        setActiveTab(tab);
+        if (documentationAnchors.includes(hash)) {
+          window.setTimeout(() => document.getElementById(hash)?.scrollIntoView({ behavior: "smooth", block: "start" }), 0);
+        }
+      }
+    };
+
+    syncTabFromHash();
+    window.addEventListener("hashchange", syncTabFromHash);
+    return () => window.removeEventListener("hashchange", syncTabFromHash);
+  }, []);
+
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+    window.history.replaceState(null, "", `#${tab}`);
+  };
 
   // Get localised size and other info
   const size = product.size_locales?.[language] || product.size_locales?.en || null;
@@ -200,6 +224,15 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
   const isRespiratory = ((product.category || '').toLowerCase().includes('respir'));
   const isClothing = ((product.category || '').toLowerCase().includes('cloth') || (product.sub_category || '').toLowerCase().includes('jacket'));
   const isFootwear = ((product.category || '').toLowerCase().includes('footwear') || (product.sub_category || '').toLowerCase().includes('boot') || (product.sub_category || '').toLowerCase().includes('insol'));
+  const hasCategoryStandards = Boolean(
+    (product as any).eye_face_standards ||
+    (product as any).respiratory_standards ||
+    (product as any).head_standards ||
+    (product as any).footwear_standards ||
+    (product as any).hearing_standards ||
+    (product as any).clothing_standards
+  );
+  const hasSafetyContent = Boolean(product.safety || product.environment_pictograms || hasCategoryStandards);
 
   return (
     <main className="bg-brand-light dark:bg-background min-h-screen pt-11">
@@ -347,7 +380,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
             
             {/* Product details tabs */}
             <div className="pt-2">
-              <Tabs defaultValue="specifications" className="w-full">
+              <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
                 <TabsList className="flex h-auto w-full max-w-full flex-nowrap justify-start gap-1 overflow-x-auto whitespace-nowrap scrollbar-hide bg-white dark:bg-black/50 mb-4 border border-brand-primary/10 dark:border-brand-primary/20 rounded-lg shadow-sm backdrop-blur-sm p-1">
                   <TabsTrigger 
                     value="specifications" 
@@ -367,7 +400,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                   >
                     {t('productPage.applications')}
                   </TabsTrigger>
-                  {((product.safety || product.environment_pictograms) && !isSwab) && (
+                  {(hasSafetyContent && !isSwab) && (
                     <TabsTrigger 
                       value="safety" 
                       className="flex-none md:flex-1 min-w-max rounded-lg px-4 py-1.5 data-[state=active]:bg-brand-primary data-[state=active]:text-white"
@@ -383,7 +416,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                   </TabsTrigger>
                 </TabsList>
                 
-                <TabsContent value="specifications" className="mt-0">
+                <TabsContent value="specifications" id="specifications" className="mt-0">
                   <div className="space-y-4">
                     {/* Technical Specifications - New 3-tile layout */}
                     <h3 className="text-lg font-semibold text-brand-dark dark:text-white mb-4">
@@ -425,7 +458,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                   </div>
                 </TabsContent>
                 
-                <TabsContent value="features" className="mt-0">
+                <TabsContent value="features" id="features" className="mt-0">
                   <div className="space-y-4">
                     {/* Eye & Face: Safety features FIRST */}
                     {isEyeFace && (
@@ -593,7 +626,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                   </div>
                 </TabsContent>
                 
-                <TabsContent value="applications" className="mt-0">
+                <TabsContent value="applications" id="applications" className="mt-0">
                   <div className="space-y-4">
                     {/* Applications */}
                     <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
@@ -634,8 +667,8 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                   </div>
                 </TabsContent>
                 
-                {!isSwab && (product.safety || (product as any).eye_face_standards || (product as any).respiratory_standards) && (
-                  <TabsContent value="safety" className="mt-0">
+                {!isSwab && hasSafetyContent && (
+                  <TabsContent value="safety" id="safety" className="mt-0">
                     <div className="space-y-6">
                       {/* Safety Standards - Environment pictograms moved to specifications */}
                       {/* Generic gloves safety display unless a category-specific standards component is shown below */}
@@ -675,11 +708,11 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                   </TabsContent>
                 )}
                 
-                <TabsContent value="documentation" className="mt-0">
+                <TabsContent value="documentation" id="documentation" className="mt-0">
                   <div className="space-y-4">
                     {/* Technical Sheet - Dynamic language display */}
                     {((language === 'en' && product.technical_sheet_url) || (language === 'it' && product.technical_sheet_url_it)) && (
-                      <div className="space-y-3">
+                      <div id="technical-sheet" className="space-y-3">
                         <h3 className="text-lg font-semibold text-brand-dark dark:text-white">{t('productPage.technicalSheets')}</h3>
                         <div className="grid gap-3">
                           {language === 'en' && product.technical_sheet_url && (
@@ -726,14 +759,16 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                     )}
                     
                     {/* Declarations of Conformity - Enhanced with UKCA and EU language dropdown */}
-                    <ProductDeclarations 
-                      product={product} 
-                      onDocumentDownload={handleDocumentDownload}
-                    />
+                    <div id="declarations">
+                      <ProductDeclarations
+                        product={product}
+                        onDocumentDownload={handleDocumentDownload}
+                      />
+                    </div>
 
                     {/* Manufacturers Instruction - Dynamic language display */}
                     {((language === 'en' && product.manufacturers_instruction_url) || (language === 'it' && product.manufacturers_instruction_url_it)) && (
-                      <div className="space-y-3">
+                      <div id="manufacturer-instructions" className="space-y-3">
                         <h3 className="text-lg font-semibold text-brand-dark dark:text-white">{t('productPage.manufacturersInstruction')}</h3>
                         <div className="grid gap-3">
                           {language === 'en' && product.manufacturers_instruction_url && (

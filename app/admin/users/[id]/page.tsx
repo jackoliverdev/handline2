@@ -28,8 +28,9 @@ import {
 import { toast } from "@/components/ui/use-toast";
 import { ArrowLeft, Loader2, Mail, Trash, Shield, Upload, User, Ban } from "lucide-react";
 import Link from "next/link";
-import { getUserProfile, updateUserProfile, deleteUser, uploadAvatar } from "@/lib/user-service";
+import { uploadAvatar } from "@/lib/user-service";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { getAuth } from "firebase/auth";
 
 interface UserEditPageProps {
   params: {
@@ -64,15 +65,14 @@ export default function UserEditPage({ params }: UserEditPageProps) {
       setLoading(true);
       
       // First try to get the user by ID from Supabase
-      const response = await fetch(`/api/admin/user/${params.id}`, {
-        method: 'GET'
-      });
+      const token = await getAuth().currentUser?.getIdToken();
+      const response = await fetch(`/api/admin/users/${params.id}`, { method: 'GET', headers: token ? { Authorization: `Bearer ${token}` } : {} });
       
       if (!response.ok) {
         throw new Error('Failed to fetch user data');
       }
       
-      const { data: userData } = await response.json();
+      const { user: userData } = await response.json();
       
       if (!userData) {
         toast({
@@ -172,7 +172,15 @@ export default function UserEditPage({ params }: UserEditPageProps) {
         marketing_emails: marketingEmails
       };
       
-      const updatedProfile = await updateUserProfile(user.firebase_uid, updates);
+      const token = await getAuth().currentUser?.getIdToken();
+      const response = await fetch(`/api/admin/users/${user.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+        body: JSON.stringify(updates),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Failed to update user");
+      const updatedProfile = result.user;
       
       setUser({ ...user, ...updatedProfile });
       
@@ -199,14 +207,10 @@ export default function UserEditPage({ params }: UserEditPageProps) {
     setProcessingAction(true);
     try {
       // We need to use Firebase Admin SDK via an API route
-      const response = await fetch('/api/admin/reset-password', {
+      const token = await getAuth().currentUser?.getIdToken();
+      const response = await fetch(`/api/admin/users/${user.id}/reset-password`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          email: user.email
-        }),
+        headers: { ...(token ? { Authorization: `Bearer ${token}` } : {}) },
       });
       
       const result = await response.json();
@@ -238,27 +242,17 @@ export default function UserEditPage({ params }: UserEditPageProps) {
     
     setProcessingAction(true);
     try {
-      // First, try to delete from Supabase
-      const { success, error } = await deleteUser(user.id);
-      
-      if (!success) {
-        throw new Error(error ? String(error) : "Failed to delete user from database");
-      }
-      
-      // Now try to delete from Firebase
-      const response = await fetch('/api/admin/delete-user', {
-        method: 'POST',
+      const token = await getAuth().currentUser?.getIdToken();
+      const response = await fetch(`/api/admin/users/${user.id}`, {
+        method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
-        body: JSON.stringify({ 
-          firebaseUid: user.firebase_uid 
-        }),
       });
       
       const result = await response.json();
       
-      if (result.success) {
+      if (response.ok && result.success) {
         toast({
           title: "Success",
           description: "User deleted successfully."
@@ -266,16 +260,7 @@ export default function UserEditPage({ params }: UserEditPageProps) {
         
         // Redirect to user list
         router.push('/admin/users');
-      } else {
-        // If Firebase delete fails but Supabase succeeded
-        toast({
-          title: "Partial Success",
-          description: "User removed from database but not from authentication system."
-        });
-        
-        // Still redirect
-        router.push('/admin/users');
-      }
+      } else throw new Error(result.error || "Failed to delete user");
     } catch (error) {
       console.error("Error deleting user:", error);
       toast({
@@ -357,7 +342,6 @@ export default function UserEditPage({ params }: UserEditPageProps) {
                             </SelectTrigger>
                             <SelectContent>
                               <SelectItem value="admin">Admin</SelectItem>
-                              <SelectItem value="moderator">Moderator</SelectItem>
                               <SelectItem value="user">User</SelectItem>
                             </SelectContent>
                           </Select>
@@ -371,7 +355,7 @@ export default function UserEditPage({ params }: UserEditPageProps) {
                             </SelectTrigger>
                             <SelectContent>
                               <SelectItem value="active">Active</SelectItem>
-                              <SelectItem value="pending">Pending</SelectItem>
+                              <SelectItem value="invited">Invited</SelectItem>
                               <SelectItem value="suspended">Suspended</SelectItem>
                             </SelectContent>
                           </Select>

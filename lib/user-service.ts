@@ -332,14 +332,16 @@ export async function createUserProfile(userData: UserProfile) {
  */
 export async function getUserProfile(firebaseUid: string) {
   try {
-    const { data, error } = await supabase
-      .from('users')
-      .select('*')
-      .eq('firebase_uid', firebaseUid)
-      .single();
-      
-    if (error) throw error;
-    return data;
+    const currentUser = getAuth().currentUser;
+    if (!currentUser || currentUser.uid !== firebaseUid) {
+      throw new Error("You can only load your own profile");
+    }
+    const response = await fetch("/api/user-profile", {
+      headers: { Authorization: `Bearer ${await currentUser.getIdToken()}` },
+    });
+    const result = await response.json();
+    if (!response.ok || !result.success) throw new Error(result.message || "Failed to load profile");
+    return result.data;
   } catch (error) {
     console.error('Error getting user profile:', error);
     throw error;
@@ -351,27 +353,22 @@ export async function getUserProfile(firebaseUid: string) {
  */
 export async function updateUserProfile(firebaseUid: string, updates: Partial<UserProfile>) {
   try {
-    console.log("Attempting to update user profile:", { firebaseUid, updates });
-    
     if (!firebaseUid) {
-      console.error("Missing Firebase UID for profile update");
       throw new Error("Firebase UID is required for profile update");
     }
-    
-    const { data, error } = await supabase
-      .from('users')
-      .update(updates)
-      .eq('firebase_uid', firebaseUid)
-      .select()
-      .single();
-      
-    if (error) {
-      console.error("Supabase update error:", error);
-      throw error;
+
+    const currentUser = getAuth().currentUser;
+    if (!currentUser || currentUser.uid !== firebaseUid) {
+      throw new Error("You can only update your own profile");
     }
-    
-    console.log("User profile updated successfully:", data);
-    return data;
+    const response = await fetch("/api/user-profile", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${await currentUser.getIdToken()}` },
+      body: JSON.stringify(updates),
+    });
+    const result = await response.json();
+    if (!response.ok || !result.success) throw new Error(result.message || "Failed to update profile");
+    return result.data;
   } catch (error) {
     console.error('Error updating user profile:', error);
     throw error;
@@ -494,42 +491,30 @@ export async function updateUserPreferences(firebaseUid: string, preferences: {
   marketing_emails?: boolean;
 }) {
   try {
-    console.log("Updating user preferences:", { firebaseUid, preferences });
-    
     if (!firebaseUid) {
-      console.error("Missing Firebase UID for preferences update");
       throw new Error("Firebase UID is required for preferences update");
     }
-    
-    // Simply update via standard Supabase client since RLS is disabled
-    const { data, error } = await supabase
-      .from('users')
-      .update(preferences)
-      .eq('firebase_uid', firebaseUid)
-      .select()
-      .single();
-      
-    if (error) {
-      console.error("Supabase update error:", error);
-      
-      // Return dummy success data to prevent UI from breaking
-      return { 
-        id: firebaseUid,
-        firebase_uid: firebaseUid,
-        dark_mode: preferences.dark_mode,
-        notifications: preferences.notifications,
-        marketing_emails: preferences.marketing_emails
-      };
+
+    const currentUser = getAuth().currentUser;
+    if (!currentUser || currentUser.uid !== firebaseUid) {
+      throw new Error("You can only update your own preferences");
     }
-    
-    console.log("User preferences updated successfully:", data);
-    return data;
+
+    const response = await fetch("/api/user-preferences", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${await currentUser.getIdToken()}`,
+      },
+      body: JSON.stringify({ firebaseUid, ...preferences }),
+    });
+    const result = await response.json();
+    if (!response.ok || !result.success) {
+      throw new Error(result.message || "Failed to update preferences");
+    }
+    return result.data;
   } catch (error) {
     console.error('Error updating user preferences:', error);
-    // Return dummy success data as fallback
-    return { 
-      firebase_uid: firebaseUid,
-      dark_mode: preferences.dark_mode
-    };
+    throw error;
   }
 } 

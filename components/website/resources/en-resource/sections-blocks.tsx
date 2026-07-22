@@ -151,7 +151,7 @@ function SectionRelatedProducts({ ids, lang, captions }: SectionRelatedProductsP
   const caption: string | undefined = captions?.[product?.id]?.[lang] || captions?.[product?.id]?.['en'] || undefined;
   // Attempt to read caption from injected relatedProductCaptions if present on the parent section prop (via closure capture not available here),
   // so we rely on a data attribute passed through ids? As a simpler approach, read from product object if backend later adds it. For now, just noop.
-  const encoded = encodeURIComponent(name);
+  const productSlug = product?.slug || encodeURIComponent(product?.name || "");
 
   const canSlide = products.length > 1;
 
@@ -160,7 +160,7 @@ function SectionRelatedProducts({ ids, lang, captions }: SectionRelatedProductsP
 
   return (
     <div className="relative w-full">
-      <Link href={`/products/${encoded}`} className="block group">
+      <Link href={`/products/${productSlug}`} className="block group">
         <div className="relative w-full aspect-[16/10] bg-white dark:bg-black rounded-xl overflow-hidden">
           {product?.image_url ? (
             <Image src={product.image_url} alt={name} fill className="object-contain" />

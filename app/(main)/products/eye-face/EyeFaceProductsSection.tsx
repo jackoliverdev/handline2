@@ -15,8 +15,10 @@ import { EyeFaceEnStandardFilter } from "@/components/website/products/filters/e
 import { EyeFaceEnStandardFilterMobile } from "@/components/website/products/filters/eyeface/EyeFaceEnStandardFilterMobile";
 import { WorkEnvironmentFilter } from "@/components/website/products/filters/eyeface/WorkEnvironmentFilter";
 import { WorkEnvironmentFilterMobile } from "@/components/website/products/filters/eyeface/WorkEnvironmentFilterMobile";
+import { useLanguage } from "@/lib/context/language-context";
 
 export function EyeFaceProductsSection({ products }: { products: Product[] }) {
+  const { language } = useLanguage();
   const scoped = useMemo(() => {
     return products.filter((p) => {
       const cat = (p.category || '').toLowerCase();
@@ -33,6 +35,19 @@ export function EyeFaceProductsSection({ products }: { products: Product[] }) {
     });
   }, [products]);
 
+  const getProductCoatings = (product: Product): string[] => {
+    const productData = product as any;
+    const localisedCoatings = productData.coatings_locales?.[language] || productData.coatings_locales?.en;
+
+    if (Array.isArray(localisedCoatings)) {
+      return localisedCoatings;
+    }
+
+    return Array.isArray(productData.eye_face_attributes?.coatings)
+      ? productData.eye_face_attributes.coatings
+      : [];
+  };
+
   // Build options from attributes JSON
   const [protTypes, setProtTypes] = useState<string[]>([]); // values: IR, UV, Arc
   const [tints, setTints] = useState<string[]>([]);
@@ -48,9 +63,14 @@ export function EyeFaceProductsSection({ products }: { products: Product[] }) {
   }, [scoped]);
   const coatingOptions = useMemo(() => {
     const s = new Set<string>();
-    (scoped as any[]).forEach((p: any) => { (p.eye_face_attributes?.coatings || []).forEach((c: string) => c && s.add(String(c).toLowerCase())); });
+    scoped.forEach((product) => {
+      getProductCoatings(product).forEach((coating) => {
+        const normalisedCoating = String(coating).trim().toLowerCase();
+        if (normalisedCoating) s.add(normalisedCoating);
+      });
+    });
     return Array.from(s).sort();
-  }, [scoped]);
+  }, [scoped, language]);
   const uvOptions = useMemo(() => {
     const s = new Set<string>();
     (scoped as any[]).forEach((p: any) => { const v = p.eye_face_attributes?.uv_code; if (v) s.add(String(v)); });
@@ -106,7 +126,7 @@ export function EyeFaceProductsSection({ products }: { products: Product[] }) {
     const hasIR = !!attrs?.has_ir;
     const hasUV = !!attrs?.has_uv;
     const hasArc = !!attrs?.has_arc;
-    const coatingsArr: string[] = Array.isArray(attrs?.coatings) ? attrs.coatings : [];
+    const coatingsArr = getProductCoatings(p);
     const lensTint: string | undefined = attrs?.lens_tint ? String(attrs.lens_tint) : undefined;
     const uvCode: string | undefined = attrs?.uv_code ? String(attrs.uv_code) : undefined;
 
@@ -116,8 +136,8 @@ export function EyeFaceProductsSection({ products }: { products: Product[] }) {
       (protTypes.includes('Arc') && hasArc)
     );
     const tintOk = tints.length === 0 ? true : (!!lensTint && tints.includes(lensTint.toLowerCase()));
-    const coatingsArrLower = coatingsArr.map(c => String(c).toLowerCase());
-    const coatOk = coatings.length === 0 ? true : coatings.every(c => coatingsArrLower.includes(c)) || coatings.some(c => coatingsArrLower.includes(c));
+    const coatingsArrLower = coatingsArr.map((coating) => String(coating).trim().toLowerCase());
+    const coatOk = coatings.length === 0 || coatings.some((coating) => coatingsArrLower.includes(coating));
     const uvOk = uvCodes.length === 0 ? true : (!!uvCode && uvCodes.includes(uvCode));
     const std: any = (p as any).eye_face_standards || {};
     const en = std?.en166 || {};

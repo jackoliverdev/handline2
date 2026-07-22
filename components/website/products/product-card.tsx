@@ -112,9 +112,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
     setShowPreviewModal(false);
   };
 
-  // Always build URLs from the English name to keep slugs stable across locales
-  const slugSource = (product as any).name_locales?.en || product.name;
-  const encodedProductName = encodeURIComponent(slugSource);
+  const productSlug = product.slug || encodeURIComponent((product as any).name_locales?.en || product.name);
   const isComingSoon = product.coming_soon || product.availability_status === 'coming_soon';
 
   // Get applications with conditional limit based on number of standards shown
@@ -254,6 +252,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
         en166Text += ` Class ${rs.en166.class}`;
       }
       standards.push(en166Text);
+    }
+
+    if (rs.en12941?.enabled) {
+      let en12941Text = 'EN 12941';
+      if (rs.en12941.class) {
+        en12941Text += ` ${rs.en12941.class}`;
+      }
+      standards.push(en12941Text);
     }
     
     // EN 14387 - Gas filters (e.g., "EN 14387 Class 2 A B E K Hg NO")
@@ -420,7 +426,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
         )}
         
         {/* New Badge */}
-        {isNew && (
+        {!isComingSoon && isNew && (
           <Badge className="bg-gradient-to-r from-brand-primary to-brand-primary text-white font-medium px-2 py-1 shadow-lg text-xs">
             {t('products.new')}
           </Badge>
@@ -428,7 +434,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
       </div>
       
       {/* Product Image */}
-      <Link href={`/products/${encodedProductName}`} className="block overflow-hidden">
+      <Link href={`/products/${productSlug}`} className="block overflow-hidden">
         <div className="relative h-36 w-full overflow-hidden">
           {product.image_url ? (
             <Image
@@ -459,7 +465,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
         </div>
         
         {/* Product Name */}
-        <Link href={`/products/${encodedProductName}`}>
+        <Link href={`/products/${productSlug}`}>
           <h3 className="text-lg font-bold leading-tight text-gray-900 dark:text-white hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 line-clamp-2 group-hover:text-brand-primary">
             {product.name}
           </h3>
@@ -606,7 +612,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onProductClic
             className="bg-brand-primary hover:bg-brand-primary/90 text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl transform h-8"
             asChild
           >
-            <Link href={`/products/${encodedProductName}`} className="flex items-center justify-center w-full">
+            <Link href={`/products/${productSlug}`} className="flex items-center justify-center w-full">
               <span className="text-xs transition-all duration-300">{t('products.details')}</span>
               <ArrowRight className="h-3 w-3 ml-1.5 transition-all duration-300 group-hover:translate-x-2 group-hover:scale-110" />
             </Link>

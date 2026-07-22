@@ -6,7 +6,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import { 
   Select, 
   SelectContent, 
@@ -15,35 +14,26 @@ import {
   SelectValue 
 } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
-import { ArrowLeft, Loader2, Info } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff, Loader2 } from "lucide-react";
 import Link from "next/link";
-import { createUserProfile } from "@/lib/user-service";
 import { z } from "zod";
 
 // Validation schema for user creation
 const createUserSchema = z.object({
   email: z.string().email("Please enter a valid email"),
-  password: z
-    .string()
-    .min(8, "Password must be at least 8 characters")
-    .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
-    .regex(/[a-z]/, "Password must contain at least one lowercase letter")
-    .regex(/[0-9]/, "Password must contain at least one number"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
   displayName: z.string().min(2, "Display name must be at least 2 characters"),
-  role: z.string(),
-  status: z.string()
+  role: z.enum(["admin", "user"]),
 });
 
 export default function CreateUserPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [displayName, setDisplayName] = useState("");
   const [role, setRole] = useState("user");
-  const [status, setStatus] = useState("active");
-  const [darkMode, setDarkMode] = useState(false);
   const [notifications, setNotifications] = useState(true);
-  const [marketingEmails, setMarketingEmails] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   
@@ -58,7 +48,6 @@ export default function CreateUserPage() {
         password,
         displayName,
         role,
-        status
       });
       
       // Clear any previous errors
@@ -79,10 +68,10 @@ export default function CreateUserPage() {
     setIsSubmitting(true);
     
     try {
-      // Admin route using Firebase Admin SDK ensures role/status + claims are set
+      // The server creates the account and emails the administrator-set credentials.
       const { getAuth } = await import('firebase/auth');
       const adminToken = await getAuth().currentUser?.getIdToken(true);
-      const response = await fetch('/api/admin/create-user', {
+      const response = await fetch('/api/admin/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -93,11 +82,8 @@ export default function CreateUserPage() {
           password,
           displayName,
           role,
-          status,
           preferences: {
-            dark_mode: darkMode,
             notifications,
-            marketing_emails: marketingEmails
           }
         })
       });
@@ -105,7 +91,7 @@ export default function CreateUserPage() {
       console.log('[admin/users/create] create-user response', result);
       if (!response.ok || !result.success) throw new Error(result.message || 'Failed to create user');
       
-      toast({ title: "Success", description: "User created successfully." });
+      toast({ title: "User created", description: "The user has been emailed their account credentials." });
       
       // Redirect to user list
       router.push('/admin/users');
@@ -133,10 +119,7 @@ export default function CreateUserPage() {
         <h1 className="text-2xl font-bold tracking-tight">Create New User</h1>
       </div>
       
-      <form onSubmit={handleSubmit}>
-        <div className="grid gap-6 md:grid-cols-6">
-          {/* Main content area - 4 columns */}
-          <div className="md:col-span-4 space-y-6">
+      <form onSubmit={handleSubmit} className="max-w-3xl">
             <Card>
               <CardHeader>
                 <CardTitle>User Information</CardTitle>
@@ -176,23 +159,18 @@ export default function CreateUserPage() {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="password">Password</Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="Enter password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-                  {formErrors.password && (
-                    <p className="text-xs text-destructive mt-1">{formErrors.password}</p>
-                  )}
-                  <div className="text-xs text-muted-foreground mt-1">
-                    Password must be at least 8 characters and include an uppercase letter, lowercase letter, and number.
+                  <Label htmlFor="password">Temporary Password</Label>
+                  <div className="relative">
+                    <Input id="password" type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} required className="pr-10" />
+                    <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 h-8 w-8 -translate-y-1/2" onClick={() => setShowPassword((visible) => !visible)}>
+                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      <span className="sr-only">{showPassword ? "Hide password" : "Show password"}</span>
+                    </Button>
                   </div>
+                  <p className="text-xs text-muted-foreground">This password will be included in the account email. The user can reset it later from the login page.</p>
+                  {formErrors.password && <p className="text-xs text-destructive">{formErrors.password}</p>}
                 </div>
-                
+
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-2">
                     <Label htmlFor="role">Role</Label>
@@ -202,87 +180,17 @@ export default function CreateUserPage() {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="admin">Admin</SelectItem>
-                        <SelectItem value="moderator">Moderator</SelectItem>
                         <SelectItem value="user">User</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
-                  
                   <div className="space-y-2">
-                    <Label htmlFor="status">Status</Label>
-                    <Select value={status} onValueChange={setStatus}>
-                      <SelectTrigger id="status">
-                        <SelectValue placeholder="Select user status" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="active">Active</SelectItem>
-                        <SelectItem value="pending">Pending</SelectItem>
-                        <SelectItem value="suspended">Suspended</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <Label htmlFor="notifications">Email Notifications</Label>
+                    <div className="flex items-center gap-3 rounded-md border px-3 py-2">
+                      <input id="notifications" type="checkbox" checked={notifications} onChange={(e) => setNotifications(e.target.checked)} className="h-4 w-4 accent-brand-primary" />
+                      <span className="text-sm">Receive future account alerts and emails</span>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-          
-          {/* Sidebar - 2 columns */}
-          <div className="md:col-span-2 space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>User Preferences</CardTitle>
-                <CardDescription>
-                  Configure default preferences for the new user.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <Label htmlFor="darkMode">Dark Mode</Label>
-                    <p className="text-sm text-muted-foreground">
-                      Enable dark mode by default.
-                    </p>
-                  </div>
-                  <Switch
-                    id="darkMode"
-                    checked={darkMode}
-                    onCheckedChange={setDarkMode}
-                  />
-                </div>
-                
-                <div className="flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <Label htmlFor="notifications">Notifications</Label>
-                    <p className="text-sm text-muted-foreground">
-                      Allow this user to receive notifications.
-                    </p>
-                  </div>
-                  <Switch
-                    id="notifications"
-                    checked={notifications}
-                    onCheckedChange={setNotifications}
-                  />
-                </div>
-                
-                <div className="flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <Label htmlFor="marketingEmails">Marketing Emails</Label>
-                    <p className="text-sm text-muted-foreground">
-                      Allow this user to receive marketing emails.
-                    </p>
-                  </div>
-                  <Switch
-                    id="marketingEmails"
-                    checked={marketingEmails}
-                    onCheckedChange={setMarketingEmails}
-                  />
-                </div>
-                
-                <div className="flex items-center gap-2 rounded-md bg-blue-50 p-3 text-blue-900 dark:bg-blue-900/30 dark:text-blue-100">
-                  <Info className="h-4 w-4" />
-                  <p className="text-xs">
-                    The user will receive an email notification when their account is created.
-                  </p>
                 </div>
               </CardContent>
               <CardFooter className="border-t px-6 py-4">
@@ -302,8 +210,6 @@ export default function CreateUserPage() {
                 </Button>
               </CardFooter>
             </Card>
-          </div>
-        </div>
       </form>
     </div>
   );

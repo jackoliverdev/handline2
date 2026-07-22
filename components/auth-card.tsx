@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { useUser } from "reactfire";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLanguage } from '@/lib/context/language-context';
+import { getUserRole } from "@/lib/auth";
 
 export const AuthCard = () => {
   // Temporarily disable sign-up — only show sign-in form
@@ -21,15 +22,19 @@ export const AuthCard = () => {
   const { t } = useLanguage();
 
   useEffect(() => {
-    if (user) {
-      // Check if user is admin before redirecting
-      const ADMIN_EMAILS = ['jackoliverdev@gmail.com', 'enquiries@handlineco.com'];
-      if (ADMIN_EMAILS.includes(user.email || '')) {
-        router.push("/admin");
-      } else {
-        router.push("/dashboard");
+    const redirectAuthenticatedUser = async () => {
+      if (!user) {
+        return;
       }
-    }
+
+      const role = await getUserRole(user);
+      const nextPath = new URLSearchParams(window.location.search).get('next');
+      const isSafeAdminPath = Boolean(nextPath?.startsWith('/admin') && !nextPath.startsWith('//'));
+
+      router.replace(role === 'admin' && isSafeAdminPath ? nextPath! : role === 'admin' ? '/admin' : '/dashboard');
+    };
+
+    redirectAuthenticatedUser();
   }, [user, router]);
   
   return (

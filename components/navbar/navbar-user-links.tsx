@@ -6,12 +6,14 @@ import { FC } from "react";
 import { useUser } from "reactfire";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { useRole } from "@/components/role-provider";
 
 export const NavbarUserLinks: FC = () => {
   const { data, hasEmitted } = useUser();
+  const { isAdmin } = useRole();
 
   // Define the target URL based on user state
-  const targetUrl = hasEmitted && data ? "/app" : "/login";
+  const targetUrl = hasEmitted && data ? (isAdmin ? "/admin" : "/dashboard") : "/login";
 
   return (
     <Button asChild size="sm" className="relative group overflow-hidden rounded-full bg-gradient-to-r from-brand-primary to-brand-primary/80 hover:shadow-lg hover:shadow-brand-primary/20 transition-all duration-300 border-0 text-white font-medium px-6">

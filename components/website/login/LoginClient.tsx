@@ -1,8 +1,6 @@
 "use client";
 
 import { AuthCard } from "@/components/auth-card";
-import { ProviderLoginButtons } from "@/components/auth/provider-login-buttons";
-import { OrSeparator } from "@/components/ui/or-separator";
 import { useLanguage } from '@/lib/context/language-context';
 
 export default function LoginClient() {
@@ -20,10 +18,6 @@ export default function LoginClient() {
             </p>
           </div>
           <AuthCard />
-          <div className="space-y-4">
-            <OrSeparator />
-            <ProviderLoginButtons />
-          </div>
           <div className="text-center text-xs text-brand-secondary dark:text-gray-400 font-body">
             {t('auth.agreeTo')} {" "}
             <a href="/legal?tab=terms" className="underline underline-offset-4 hover:text-brand-primary">

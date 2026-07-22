@@ -46,6 +46,9 @@ export const FootwearSafetyStandardsEditor: React.FC<FootwearSafetyStandardsEdit
   const [specialFeatureInput, setSpecialFeatureInput] = useState('');
   const [en2011Input, setEn2011Input] = useState('');
   const [en2022Input, setEn2022Input] = useState('');
+  const activeMaterials = footwearMaterialsLocales[language] || { upper: '', lining: '', sole: '', insole: '', toe_cap: '' };
+  const standardCodes2011 = Array.isArray(footwearStandards.en_iso_20345_2011) ? footwearStandards.en_iso_20345_2011 : [];
+  const standardCodes2022 = Array.isArray(footwearStandards.en_iso_20345_2022) ? footwearStandards.en_iso_20345_2022 : [];
 
   const addComfortFeature = () => {
     if (comfortFeatureInput.trim()) {
@@ -102,7 +105,7 @@ export const FootwearSafetyStandardsEditor: React.FC<FootwearSafetyStandardsEdit
     if (en2011Input.trim()) {
       setFootwearStandards({
         ...footwearStandards,
-        en_iso_20345_2011: [...(footwearStandards.en_iso_20345_2011 || []), en2011Input.trim()]
+        en_iso_20345_2011: [...standardCodes2011, en2011Input.trim()]
       });
       setEn2011Input('');
     }
@@ -112,7 +115,7 @@ export const FootwearSafetyStandardsEditor: React.FC<FootwearSafetyStandardsEdit
     if (en2022Input.trim()) {
       setFootwearStandards({
         ...footwearStandards,
-        en_iso_20345_2022: [...(footwearStandards.en_iso_20345_2022 || []), en2022Input.trim()]
+        en_iso_20345_2022: [...standardCodes2022, en2022Input.trim()]
       });
       setEn2022Input('');
     }
@@ -121,7 +124,7 @@ export const FootwearSafetyStandardsEditor: React.FC<FootwearSafetyStandardsEdit
   const removeStandardCode = (standard: 'en_iso_20345_2011' | 'en_iso_20345_2022', index: number) => {
     setFootwearStandards({
       ...footwearStandards,
-      [standard]: (footwearStandards[standard] || []).filter((_: any, i: number) => i !== index)
+      [standard]: (Array.isArray(footwearStandards[standard]) ? footwearStandards[standard] : []).filter((_: any, i: number) => i !== index)
     });
   };
 
@@ -247,40 +250,40 @@ export const FootwearSafetyStandardsEditor: React.FC<FootwearSafetyStandardsEdit
                   <div>
                     <Label className="text-xs text-gray-600">Upper Material</Label>
                     <Input 
-                      value={footwearMaterialsLocales[language].upper || ''} 
-                      onChange={(e) => setFootwearMaterialsLocales({ ...footwearMaterialsLocales, [language]: { ...footwearMaterialsLocales[language], upper: e.target.value } })} 
+                      value={activeMaterials.upper}
+                      onChange={(e) => setFootwearMaterialsLocales({ ...footwearMaterialsLocales, [language]: { ...activeMaterials, upper: e.target.value } })}
                       placeholder="e.g. Leather, Synthetic"
                     />
                   </div>
                   <div>
                     <Label className="text-xs text-gray-600">Lining Material</Label>
                     <Input 
-                      value={footwearMaterialsLocales[language].lining || ''} 
-                      onChange={(e) => setFootwearMaterialsLocales({ ...footwearMaterialsLocales, [language]: { ...footwearMaterialsLocales[language], lining: e.target.value } })} 
+                      value={activeMaterials.lining}
+                      onChange={(e) => setFootwearMaterialsLocales({ ...footwearMaterialsLocales, [language]: { ...activeMaterials, lining: e.target.value } })}
                       placeholder="e.g. Textile, Mesh"
                     />
                   </div>
                   <div>
                     <Label className="text-xs text-gray-600">Sole Material</Label>
                     <Input 
-                      value={footwearMaterialsLocales[language].sole || ''} 
-                      onChange={(e) => setFootwearMaterialsLocales({ ...footwearMaterialsLocales, [language]: { ...footwearMaterialsLocales[language], sole: e.target.value } })} 
+                      value={activeMaterials.sole}
+                      onChange={(e) => setFootwearMaterialsLocales({ ...footwearMaterialsLocales, [language]: { ...activeMaterials, sole: e.target.value } })}
                       placeholder="e.g. PU, Rubber"
                     />
                   </div>
                   <div>
                     <Label className="text-xs text-gray-600">Insole Material</Label>
                     <Input 
-                      value={footwearMaterialsLocales[language].insole || ''} 
-                      onChange={(e) => setFootwearMaterialsLocales({ ...footwearMaterialsLocales, [language]: { ...footwearMaterialsLocales[language], insole: e.target.value } })} 
+                      value={activeMaterials.insole}
+                      onChange={(e) => setFootwearMaterialsLocales({ ...footwearMaterialsLocales, [language]: { ...activeMaterials, insole: e.target.value } })}
                       placeholder="e.g. EVA, Foam"
                     />
                   </div>
                   <div>
                     <Label className="text-xs text-gray-600">Toe Cap Material</Label>
                     <Input 
-                      value={footwearMaterialsLocales[language].toe_cap || ''} 
-                      onChange={(e) => setFootwearMaterialsLocales({ ...footwearMaterialsLocales, [language]: { ...footwearMaterialsLocales[language], toe_cap: e.target.value } })} 
+                      value={activeMaterials.toe_cap}
+                      onChange={(e) => setFootwearMaterialsLocales({ ...footwearMaterialsLocales, [language]: { ...activeMaterials, toe_cap: e.target.value } })}
                       placeholder="e.g. Steel, Composite"
                     />
                   </div>
@@ -407,11 +410,11 @@ export const FootwearSafetyStandardsEditor: React.FC<FootwearSafetyStandardsEdit
                   </Button>
                 </div>
               </div>
-              {(footwearStandards.en_iso_20345_2011 || []).length === 0 ? (
+              {standardCodes2011.length === 0 ? (
                 <p className="text-sm text-muted-foreground">No codes added.</p>
               ) : (
                 <div className="flex flex-wrap gap-2">
-                  {(footwearStandards.en_iso_20345_2011 || []).map((code: string, index: number) => {
+                  {standardCodes2011.map((code: string, index: number) => {
                     const isClass = isClassCode(code);
                     const rank = isClass ? classRank(code) : 0;
                     return (
@@ -452,11 +455,11 @@ export const FootwearSafetyStandardsEditor: React.FC<FootwearSafetyStandardsEdit
                   </Button>
                 </div>
               </div>
-              {(footwearStandards.en_iso_20345_2022 || []).length === 0 ? (
+              {standardCodes2022.length === 0 ? (
                 <p className="text-sm text-muted-foreground">No codes added.</p>
               ) : (
                 <div className="flex flex-wrap gap-2">
-                  {(footwearStandards.en_iso_20345_2022 || []).map((code: string, index: number) => {
+                  {standardCodes2022.map((code: string, index: number) => {
                     const isClass = isClassCode(code);
                     const rank = isClass ? classRank(code) : 0;
                     return (

@@ -42,7 +42,7 @@ import {
   CheckCircle
 } from "lucide-react";
 import Link from "next/link";
-import { getAllUsers, updateUserRole, updateUserStatus } from "@/lib/user-service";
+import { getAuth } from "firebase/auth";
 
 interface User {
   id: string;
@@ -103,7 +103,11 @@ export default function UserManagementPage() {
   async function loadUsers() {
     try {
       setLoading(true);
-      const { users: loadedUsers } = await getAllUsers();
+      const token = await getAuth().currentUser?.getIdToken();
+      const response = await fetch("/api/admin/users", { headers: token ? { Authorization: `Bearer ${token}` } : {} });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Failed to load users");
+      const loadedUsers = result.users as User[];
       setUsers(loadedUsers);
       setFilteredUsers(loadedUsers);
     } catch (error) {
@@ -136,9 +140,13 @@ export default function UserManagementPage() {
     
     setProcessingAction(true);
     try {
-      const { success, error } = await updateUserRole(selectedUser.id, role);
-      
-      if (success) {
+      const token = await getAuth().currentUser?.getIdToken();
+      const response = await fetch(`/api/admin/users/${selectedUser.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+        body: JSON.stringify({ role }),
+      });
+      if (response.ok) {
         // Update the local state
         const updatedUsers = users.map(user => 
           user.id === selectedUser.id ? { ...user, role } : user
@@ -149,9 +157,7 @@ export default function UserManagementPage() {
           title: "Success",
           description: `User role updated to ${role}.`
         });
-      } else {
-        throw new Error(error ? String(error) : "Failed to update user role");
-      }
+      } else throw new Error((await response.json()).error || "Failed to update user role");
     } catch (error) {
       console.error("Error updating user role:", error);
       toast({
@@ -171,9 +177,13 @@ export default function UserManagementPage() {
     
     setProcessingAction(true);
     try {
-      const { success, error } = await updateUserStatus(selectedUser.id, status);
-      
-      if (success) {
+      const token = await getAuth().currentUser?.getIdToken();
+      const response = await fetch(`/api/admin/users/${selectedUser.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+        body: JSON.stringify({ status }),
+      });
+      if (response.ok) {
         // Update the local state
         const updatedUsers = users.map(user => 
           user.id === selectedUser.id ? { ...user, status } : user
@@ -184,9 +194,7 @@ export default function UserManagementPage() {
           title: "Success",
           description: `User status updated to ${status}.`
         });
-      } else {
-        throw new Error(error ? String(error) : "Failed to update user status");
-      }
+      } else throw new Error((await response.json()).error || "Failed to update user status");
     } catch (error) {
       console.error("Error updating user status:", error);
       toast({
@@ -210,39 +218,18 @@ export default function UserManagementPage() {
       // Since this is client-side, we'll need to call a server API
       const { getAuth } = await import('firebase/auth');
       const adminToken = await getAuth().currentUser?.getIdToken(true);
-      const response = await fetch('/api/admin/reset-password', {
+      const response = await fetch(`/api/admin/users/${selectedUser.id}/reset-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           ...(adminToken ? { 'Authorization': `Bearer ${adminToken}` } : {})
         },
-        body: JSON.stringify({ 
-          email: selectedUser.email
-        }),
       });
       
       const result = await response.json();
       
       if (result.success) {
-        if (result.link) {
-          try {
-            await navigator.clipboard.writeText(result.link as string);
-            toast({
-              title: "Password reset link generated",
-              description: "Link copied to clipboard. Paste it into an email or browser.",
-            });
-          } catch {
-            toast({
-              title: "Password reset link generated",
-              description: "Copy the link from the Network response if it wasn't copied.",
-            });
-          }
-        } else {
-          toast({
-            title: "Success",
-            description: "Password reset email sent successfully.",
-          });
-        }
+        toast({ title: "Success", description: "Password reset email sent successfully." });
       } else {
         throw new Error(result.message || "Failed to send password reset email");
       }
@@ -266,13 +253,12 @@ export default function UserManagementPage() {
     try {
       const { getAuth } = await import('firebase/auth');
       const adminToken = await getAuth().currentUser?.getIdToken(true);
-      const response = await fetch('/api/admin/delete-user', {
-        method: 'POST',
+      const response = await fetch(`/api/admin/users/${selectedUser.id}`, {
+        method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
           ...(adminToken ? { 'Authorization': `Bearer ${adminToken}` } : {})
         },
-        body: JSON.stringify({ firebaseUid: selectedUser.firebase_uid, supabaseId: selectedUser.id })
       });
       const result = await response.json();
       if (!response.ok || !result.success) throw new Error(result.message || 'Failed to delete user');
@@ -330,25 +316,13 @@ export default function UserManagementPage() {
     <div className="space-y-6">
       {/* Header (title shown in admin layout) */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
-        {/** Duplicate in-page title removed */}
-        {/**
-         * Add User disabled for now
-         * <Button asChild className="w-full sm:w-auto">
-         *   <Link href="/admin/users/create">
-         *     <Plus className="mr-2 h-4 w-4" />
-         *     Add User
-         *   </Link>
-         * </Button>
-         */}
-      </div>
-
-      {/* Coming Soon Note (placed above user grid) */}
-      <div className="flex justify-center">
-        <Card className="w-full max-w-2xl border-l-4 border-l-[#F28C38]">
-          <CardHeader className="py-3">
-            <CardTitle className="text-base">User management functionality coming soon</CardTitle>
-          </CardHeader>
-        </Card>
+        <div />
+        <Button asChild className="w-full sm:w-auto">
+          <Link href="/admin/users/create">
+            <Plus className="mr-2 h-4 w-4" />
+            Invite User
+          </Link>
+        </Button>
       </div>
       <Card>
         <CardHeader>
@@ -382,7 +356,6 @@ export default function UserManagementPage() {
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={() => setRoleFilter("admin")}>Admin</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setRoleFilter("moderator")}>Moderator</DropdownMenuItem>
                   <DropdownMenuItem onClick={() => setRoleFilter("user")}>User</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -398,7 +371,7 @@ export default function UserManagementPage() {
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={() => setStatusFilter("active")}>Active</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setStatusFilter("pending")}>Pending</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setStatusFilter("invited")}>Invited</DropdownMenuItem>
                   <DropdownMenuItem onClick={() => setStatusFilter("suspended")}>Suspended</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -412,7 +385,7 @@ export default function UserManagementPage() {
               <div className="col-span-3 sm:col-span-2">Role</div>
               <div className="col-span-3 sm:col-span-2">Status</div>
               <div className="hidden sm:block sm:col-span-3">Created</div>
-              {/** <div className="col-span-1">Actions</div> */}
+              <div className="col-span-1">Actions</div>
             </div>
             {/* Mobile card/list view */}
             <div className="sm:hidden divide-y">
@@ -503,7 +476,24 @@ export default function UserManagementPage() {
                     <div className="hidden sm:block sm:col-span-3 text-muted-foreground">
                       {formatDate(user.created_at)}
                     </div>
-                    {/** Actions column disabled for now */}
+                    <div className="col-span-1 flex justify-end">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="icon" aria-label={`Manage ${user.email}`}>
+                            <MoreVertical className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuLabel>Account actions</DropdownMenuLabel>
+                          <DropdownMenuItem asChild><Link href={`/admin/users/${user.id}`}><Edit className="mr-2 h-4 w-4" />Edit</Link></DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => { setSelectedUser(user); setIsResetPasswordDialogOpen(true); }}><Mail className="mr-2 h-4 w-4" />Reset password</DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => { setSelectedUser(user); setIsStatusDialogOpen(true); }}><Ban className="mr-2 h-4 w-4" />Change status</DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => { setSelectedUser(user); setIsRoleDialogOpen(true); }}><Shield className="mr-2 h-4 w-4" />Change role</DropdownMenuItem>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem className="text-destructive focus:text-destructive" onClick={() => { setSelectedUser(user); setIsDeleteDialogOpen(true); }}><Trash className="mr-2 h-4 w-4" />Delete</DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
                   </div>
                 ))
               )}
@@ -530,14 +520,6 @@ export default function UserManagementPage() {
               >
                 <Shield className="mr-2 h-4 w-4" />
                 Admin
-              </Button>
-              <Button 
-                variant="outline" 
-                onClick={() => handleRoleChange("moderator")}
-                disabled={processingAction}
-              >
-                <Shield className="mr-2 h-4 w-4" />
-                Moderator
               </Button>
               <Button 
                 variant="outline" 
@@ -579,12 +561,12 @@ export default function UserManagementPage() {
               </Button>
               <Button 
                 variant="outline" 
-                onClick={() => handleStatusChange("pending")}
+                onClick={() => handleStatusChange("invited")}
                 disabled={processingAction}
                 className="border-yellow-200 bg-yellow-50 hover:bg-yellow-100 text-yellow-900"
               >
                 <UserIcon className="mr-2 h-4 w-4" />
-                Pending
+                Invited
               </Button>
               <Button 
                 variant="outline" 

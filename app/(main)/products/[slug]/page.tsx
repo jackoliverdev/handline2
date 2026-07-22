@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getProductBySlug, getAllProducts, getRelatedProducts } from "@/lib/products-service";
 import { ProductDetail } from "@/components/website/products/slug/ProductDetail";
 import { RelatedProducts } from "@/components/website/products/slug/RelatedProducts";
@@ -26,6 +26,9 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   return {
     title: `${product.name} | Hand Line`,
     description: product.short_description || product.description.substring(0, 160),
+    alternates: {
+      canonical: `/products/${product.slug || encodeURIComponent(product.name)}`,
+    },
   };
 }
 
@@ -33,7 +36,7 @@ export async function generateStaticParams() {
   const { products } = await getAllProducts();
   
   return products.map((product) => ({
-    slug: encodeURIComponent(product.name),
+    slug: product.slug || encodeURIComponent(product.name),
   }));
 }
 
@@ -47,6 +50,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
   
   if (!product) {
     notFound();
+  }
+
+  if (product.slug && params.slug !== product.slug) {
+    redirect(`/products/${product.slug}`);
   }
   
   const { relatedProducts } = await getRelatedProducts(product.id);

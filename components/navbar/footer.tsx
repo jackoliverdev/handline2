@@ -1,21 +1,44 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "@/lib/context/language-context";
+import { getAllIndustries, Industry } from "@/lib/industries-service";
 
 export function Footer() {
   const pathname = usePathname();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const [industries, setIndustries] = useState<Industry[]>([]);
   
   // State for collapsible sections
   const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isIndustriesOpen, setIsIndustriesOpen] = useState(false);
   const [isCompanyOpen, setIsCompanyOpen] = useState(false);
   const [isGlovesOpen, setIsGlovesOpen] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadIndustries = async () => {
+      try {
+        const { data } = await getAllIndustries(language);
+        if (isMounted) {
+          setIndustries(data);
+        }
+      } catch (error) {
+        console.error("Failed to load footer industries:", error);
+      }
+    };
+
+    loadIndustries();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [language]);
   
   // Don't render the footer on dashboard routes
   if (pathname?.startsWith('/dashboard')) {
@@ -148,8 +171,17 @@ export function Footer() {
               </button>
               {isIndustriesOpen && (
                 <div className="mt-2 flex flex-col gap-1 text-sm animate-in slide-in-from-top-2 duration-200">
-                  <Link href="/industries/glass-manufacturing" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
-                    {t('footer.sections.industries.links.glassManufacturing')}
+                  {industries.map((industry) => (
+                    <Link
+                      key={industry.id}
+                      href={`/industries/${industry.slug}`}
+                      className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform"
+                    >
+                      {industry.industry_name}
+                    </Link>
+                  ))}
+                  <Link href="/industries" className="mt-1 text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                    {t('industries.viewAll')}
                   </Link>
                 </div>
               )}

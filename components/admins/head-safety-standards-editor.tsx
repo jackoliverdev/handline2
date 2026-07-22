@@ -50,6 +50,12 @@ export const HeadSafetyStandardsEditor: React.FC<HeadSafetyStandardsEditorProps>
   const [equipmentInput, setEquipmentInput] = useState('');
   const [colourInput, setColourInput] = useState('');
   const [additionalFeatureInput, setAdditionalFeatureInput] = useState('');
+  const activeTechSpecs = headTechSpecsLocales[language] || {
+    form_factor: '',
+    brim_length: '',
+    colours: [],
+    additional_features: [],
+  };
 
   const addComfortFeature = () => {
     if (comfortFeatureInput.trim()) {
@@ -107,8 +113,8 @@ export const HeadSafetyStandardsEditor: React.FC<HeadSafetyStandardsEditorProps>
       setHeadTechSpecsLocales({
         ...headTechSpecsLocales,
         [language]: {
-          ...headTechSpecsLocales[language],
-          colours: [...(headTechSpecsLocales[language].colours || []), colourInput.trim()]
+          ...activeTechSpecs,
+          colours: [...activeTechSpecs.colours, colourInput.trim()]
         }
       });
       setColourInput('');
@@ -119,8 +125,8 @@ export const HeadSafetyStandardsEditor: React.FC<HeadSafetyStandardsEditorProps>
     setHeadTechSpecsLocales({
       ...headTechSpecsLocales,
       [language]: {
-        ...headTechSpecsLocales[language],
-        colours: (headTechSpecsLocales[language].colours || []).filter((_, i) => i !== index)
+          ...activeTechSpecs,
+          colours: activeTechSpecs.colours.filter((_, i) => i !== index)
       }
     });
   };
@@ -130,8 +136,8 @@ export const HeadSafetyStandardsEditor: React.FC<HeadSafetyStandardsEditorProps>
       setHeadTechSpecsLocales({
         ...headTechSpecsLocales,
         [language]: {
-          ...headTechSpecsLocales[language],
-          additional_features: [...(headTechSpecsLocales[language].additional_features || []), additionalFeatureInput.trim()]
+          ...activeTechSpecs,
+          additional_features: [...activeTechSpecs.additional_features, additionalFeatureInput.trim()]
         }
       });
       setAdditionalFeatureInput('');
@@ -142,8 +148,8 @@ export const HeadSafetyStandardsEditor: React.FC<HeadSafetyStandardsEditorProps>
     setHeadTechSpecsLocales({
       ...headTechSpecsLocales,
       [language]: {
-        ...headTechSpecsLocales[language],
-        additional_features: (headTechSpecsLocales[language].additional_features || []).filter((_, i) => i !== index)
+          ...activeTechSpecs,
+          additional_features: activeTechSpecs.additional_features.filter((_, i) => i !== index)
       }
     });
   };
@@ -164,22 +170,22 @@ export const HeadSafetyStandardsEditor: React.FC<HeadSafetyStandardsEditorProps>
               <div>
                 <Label className="text-sm font-medium">Form Factor</Label>
                 <Input 
-                  value={headTechSpecsLocales[language].form_factor || ''} 
-                  onChange={(e) => setHeadTechSpecsLocales({ 
-                    ...headTechSpecsLocales, 
-                    [language]: { ...headTechSpecsLocales[language], form_factor: e.target.value } 
-                  })} 
+                  value={activeTechSpecs.form_factor}
+                  onChange={(e) => setHeadTechSpecsLocales({
+                    ...headTechSpecsLocales,
+                    [language]: { ...activeTechSpecs, form_factor: e.target.value }
+                  })}
                   placeholder="e.g. Full brim, Cap style"
                 />
               </div>
               <div>
                 <Label className="text-sm font-medium">Brim Length</Label>
                 <Input 
-                  value={headTechSpecsLocales[language].brim_length || ''} 
-                  onChange={(e) => setHeadTechSpecsLocales({ 
-                    ...headTechSpecsLocales, 
-                    [language]: { ...headTechSpecsLocales[language], brim_length: e.target.value } 
-                  })} 
+                  value={activeTechSpecs.brim_length}
+                  onChange={(e) => setHeadTechSpecsLocales({
+                    ...headTechSpecsLocales,
+                    [language]: { ...activeTechSpecs, brim_length: e.target.value }
+                  })}
                   placeholder="e.g. Short, Long"
                 />
               </div>
@@ -228,11 +234,11 @@ export const HeadSafetyStandardsEditor: React.FC<HeadSafetyStandardsEditorProps>
                       <Plus className="h-4 w-4" />
                     </Button>
                   </div>
-                  {(headTechSpecsLocales[language].colours || []).length === 0 ? (
+                  {activeTechSpecs.colours.length === 0 ? (
                     <p className="text-sm text-muted-foreground">No items added.</p>
                   ) : (
                   <div className="flex flex-wrap gap-2">
-                      {(headTechSpecsLocales[language].colours || []).map((colour: string, index: number) => (
+                      {activeTechSpecs.colours.map((colour: string, index: number) => (
                         <Badge key={`${colour}-${index}`} variant="outline" className="flex items-center gap-1">
                         {colour}
                           <Button 
@@ -279,7 +285,7 @@ export const HeadSafetyStandardsEditor: React.FC<HeadSafetyStandardsEditorProps>
                       </Badge>
                     )}
                     {/* Show additional features array */}
-                    {(headTechSpecsLocales[language].additional_features || []).map((feature: string, index: number) => (
+                    {activeTechSpecs.additional_features.map((feature: string, index: number) => (
                       <Badge key={index} variant="outline" className="bg-brand-primary/5 border-brand-primary/20">
                         {feature}
                         <button
