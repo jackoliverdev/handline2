@@ -9,6 +9,7 @@ type RespiratoryStandardsJson = {
   en136?: { enabled?: boolean; class?: string };
   en140?: { enabled?: boolean };
   en166?: { enabled?: boolean; class?: string };
+  en12941?: { enabled?: boolean; class?: string };
   en143?: { enabled?: boolean; class?: string; nr?: boolean; r?: boolean };
   en14387?: { enabled?: boolean; class?: string; gases?: Record<string, boolean> };
   din_3181_3?: { enabled?: boolean };
@@ -24,6 +25,7 @@ export function RespiratoryStandards({ product }: { product: Product }) {
   const hasEn140 = Boolean(std?.en140?.enabled);
   const hasEn14387 = Boolean(std?.en14387?.enabled);
   const hasEn143 = Boolean(std?.en143?.enabled);
+  const hasEn12941 = Boolean(std?.en12941?.enabled);
   const hasDin31813 = Boolean(std?.din_3181_3?.enabled);
 
   // Helper function to get class color based on numeric value
@@ -110,7 +112,7 @@ export function RespiratoryStandards({ product }: { product: Product }) {
   };
 
   // Don't render if no standards are present
-  if (!hasEn149 && !hasEn143 && !hasEn166 && !hasEn136 && !hasEn140 && !hasEn14387 && !hasDin31813) return null;
+  if (!hasEn149 && !hasEn143 && !hasEn166 && !hasEn136 && !hasEn140 && !hasEn12941 && !hasEn14387 && !hasDin31813) return null;
 
   return (
     <div className="space-y-4">
@@ -139,6 +141,18 @@ export function RespiratoryStandards({ product }: { product: Product }) {
           </div>
           <div className="grid grid-cols-1 gap-3">
             {renderClassTile(t('productPage.respiratoryStandards.class'), std.en143?.class || '')}
+          </div>
+        </div>
+      )}
+
+      {hasEn12941 && (
+        <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">
+          <div className="flex items-center gap-3 mb-3">
+            <Wind className="h-5 w-5 text-brand-primary" />
+            <h3 className="font-medium text-brand-dark dark:text-white">EN 12941</h3>
+          </div>
+          <div className="grid grid-cols-1 gap-3">
+            {renderClassTile(t('productPage.respiratoryStandards.class'), std.en12941?.class || '')}
           </div>
         </div>
       )}

@@ -27,6 +27,10 @@ export function FootwearSpecs({ product }: { product: Product }) {
   const slip: string | null = typeof fstd.slip_resistance === 'string' ? fstd.slip_resistance : null;
   const metalFree: boolean | null = typeof fattr.metal_free === 'boolean' ? fattr.metal_free : null;
   const widthFit: number[] = Array.isArray(fattr.width_fit) ? fattr.width_fit : [];
+  const hasMetatarsalProtection = Boolean(
+    fattr.metatarsal_protection ||
+    (Array.isArray(fattr.special) && fattr.special.includes('metatarsal_protection'))
+  );
 
   const humanise = (val: string) => val.replace(/_/g, ' ').replace(/\b\w/g, (m) => m.toUpperCase());
   const hasSlipInCodes = codes.includes('SRC') || codes.includes('SR');
@@ -155,7 +159,7 @@ export function FootwearSpecs({ product }: { product: Product }) {
           },
           { 
             key: 'metatarsalProtection', 
-            enabled: Boolean(fattr.metatarsal_protection), 
+            enabled: hasMetatarsalProtection,
             Icon: HardHat,
             label: t('productPage.footwearAttributes.metatarsalProtection')
           },

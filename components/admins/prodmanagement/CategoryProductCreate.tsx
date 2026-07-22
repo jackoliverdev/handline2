@@ -21,6 +21,11 @@ import { CLOTHING_TYPE_TO_CATEGORIES } from "@/content/clothing-categories";
 import { BrandSelector } from "@/components/admins/brand-selector";
 import { Brand, getAllBrands } from "@/lib/brands-service";
 import { WorkEnvironmentSuitabilityEditor } from "@/components/admins/work-environment-suitability-editor";
+import {
+  normaliseFootwearMaterialsLocales,
+  normaliseFootwearStandards,
+  normaliseHeadTechnicalSpecsLocales,
+} from "@/lib/product-data-normalizers";
 import { ProductImagesEditor } from "@/components/admins/product-images-editor";
 import { GlovesSafetyStandardsEditor } from "@/components/admins/gloves-safety-standards-editor";
 import { HeadSafetyStandardsEditor } from "@/components/admins/head-safety-standards-editor";
@@ -134,7 +139,7 @@ export default function CategoryProductCreate({ slug }: Props) {
   // Gloves safety JSON for create
   const defaultSafety: any = { en_388: { enabled: false, abrasion: null, cut: null, tear: null, puncture: null, iso_13997: null, impact_en_13594: null }, en_407: { enabled: false, contact_heat: null, radiant_heat: null, convective_heat: null, limited_flame_spread: null, small_splashes_molten_metal: null, large_quantities_molten_metal: null }, en_511: { enabled: false, contact_cold: null, convective_cold: null, water_permeability: null } };
   const [safety, setSafety] = useState<any>(defaultSafety);
-  const [respiratoryStandards, setRespiratoryStandards] = useState<any>({ en149: { enabled: false, class: '', r: false, nr: false, d: false }, en14387: { enabled: false, class: '', gases: {} }, en143: { enabled: false, class: '', r: false, nr: false }, en136: { enabled: false, class: '' }, en140: { enabled: false }, en166: { enabled: false, class: '' }, din_3181_3: { enabled: false }, has_dust: false, has_gases_vapours: false, has_combined: false });
+  const [respiratoryStandards, setRespiratoryStandards] = useState<any>({ en149: { enabled: false, class: '', r: false, nr: false, d: false }, en14387: { enabled: false, class: '', gases: {} }, en143: { enabled: false, class: '', r: false, nr: false }, en136: { enabled: false, class: '' }, en140: { enabled: false }, en166: { enabled: false, class: '' }, en12941: { enabled: false, class: '' }, din_3181_3: { enabled: false }, has_dust: false, has_gases_vapours: false, has_combined: false });
   const [respConnectionsLocales, setRespConnectionsLocales] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
   const [respFilterType, setRespFilterType] = useState<string>('');
   const [respProtectionClass, setRespProtectionClass] = useState<string>('');
@@ -262,8 +267,9 @@ export default function CategoryProductCreate({ slug }: Props) {
         
         // Category-specific data
         if (data.safety) setSafety(data.safety);
-        if (data.footwear_standards) setFootwearStandards(data.footwear_standards);
+        if (data.footwear_standards) setFootwearStandards(normaliseFootwearStandards(data.footwear_standards));
         if (data.footwear_attributes) setFootwearAttributes(data.footwear_attributes);
+        if (data.footwear_materials_locales) setFootwearMaterialsLocales(normaliseFootwearMaterialsLocales(data.footwear_materials_locales));
         if (data.footwear_comfort_features_locales) setFootwearComfortFeatures(data.footwear_comfort_features_locales);
         if (data.eye_face_attributes) setEyeFaceAttributes(data.eye_face_attributes);
         if (data.eye_face_standards) setEyeFaceStandards(data.eye_face_standards);
@@ -279,6 +285,7 @@ export default function CategoryProductCreate({ slug }: Props) {
         if (data.respiratory_equipment_locales) setRespiratoryEquipment(data.respiratory_equipment_locales);
         if (data.head_standards) setHeadStandards(data.head_standards);
         if (data.head_attributes) setHeadAttributes(data.head_attributes);
+        if (data.head_tech_specs_locales) setHeadTechSpecsLocales(normaliseHeadTechnicalSpecsLocales(data.head_tech_specs_locales));
         if (data.head_comfort_features_locales) setHeadComfortFeatures(data.head_comfort_features_locales);
         if (data.head_other_details_locales) setHeadOtherDetails(data.head_other_details_locales);
         if (data.head_equipment_locales) setHeadEquipment(data.head_equipment_locales);
@@ -413,7 +420,9 @@ export default function CategoryProductCreate({ slug }: Props) {
         temperature_rating: temperatureRating,
         cut_resistance_level: cutResistanceLevel,
         heat_resistance_level: heatResistanceLevel,
-        length_cm: (slug==='industrial-swabs' || slug==='gloves') ? (lengthCm ?? null) : undefined,
+        length_cm: slug === 'arm-protection'
+          ? (armAttributes.length_cm ?? null)
+          : (slug === 'industrial-swabs' || slug === 'gloves') ? (lengthCm ?? null) : undefined,
         ce_category: (slug==='industrial-swabs' || slug==='gloves') ? (ceCategory || null) : undefined,
         en_standard: slug==='industrial-swabs' ? (enStandard || null) : undefined,
         technical_sheet_url: technicalSheetUrl,
@@ -457,6 +466,7 @@ export default function CategoryProductCreate({ slug }: Props) {
         respiratory_equipment_locales: slug === 'respiratory' ? respiratoryEquipment : undefined,
         head_standards: slug==='head' ? headStandards : undefined,
         head_attributes: slug==='head' ? headAttributes : undefined,
+        head_tech_specs_locales: slug==='head' ? headTechSpecsLocales : undefined,
         head_other_details_locales: slug==='head' ? headOtherDetails : undefined,
         head_equipment_locales: slug==='head' ? headEquipment : undefined,
         head_comfort_features_locales: slug==='head' ? headComfortFeatures : undefined,
@@ -577,11 +587,12 @@ export default function CategoryProductCreate({ slug }: Props) {
                 </CardContent>
               </Card>
 
-              {/* Work Environment Suitability - only for gloves, arm, and swabs */}
-              {(slug === 'gloves' || slug === 'arm' || slug === 'industrial-swabs') && (
+              {/* Work Environment Suitability */}
+              {(slug === 'gloves' || slug === 'arm' || slug === 'industrial-swabs' || slug === 'clothing') && (
                 <WorkEnvironmentSuitabilityEditor
                   environmentPictograms={environmentPictograms}
                   onEnvironmentChange={setEnvironmentPictograms}
+                  showExtendedItems={slug === 'clothing'}
                 />
               )}
             </div>
@@ -754,6 +765,7 @@ export default function CategoryProductCreate({ slug }: Props) {
                       <div className="space-y-1"><div className="flex items-center gap-2"><Checkbox checked={!!respiratoryStandards.en14387?.enabled} onCheckedChange={(v)=> setRespiratoryStandards({ ...respiratoryStandards, en14387: { ...(respiratoryStandards.en14387||{}), enabled: !!v } })} /><span>EN 14387</span></div><Input placeholder="Class e.g. A2B2E2K2" value={respiratoryStandards.en14387?.class || ''} onChange={(e)=> setRespiratoryStandards({ ...respiratoryStandards, en14387: { ...(respiratoryStandards.en14387||{}), class: e.target.value, gases: respiratoryStandards.en14387?.gases || {} } })} /></div>
                       <div className="space-y-1"><div className="flex items-center gap-2"><Checkbox checked={!!respiratoryStandards.en136?.enabled} onCheckedChange={(v)=> setRespiratoryStandards({ ...respiratoryStandards, en136: { ...(respiratoryStandards.en136||{}), enabled: !!v } })} /><span>EN 136</span></div><Input placeholder="Class" value={respiratoryStandards.en136?.class || ''} onChange={(e)=> setRespiratoryStandards({ ...respiratoryStandards, en136: { ...(respiratoryStandards.en136||{}), class: e.target.value } })} /></div>
                       <div className="space-y-1"><div className="flex items-center gap-2"><Checkbox checked={!!respiratoryStandards.en166?.enabled} onCheckedChange={(v)=> setRespiratoryStandards({ ...respiratoryStandards, en166: { ...(respiratoryStandards.en166||{}), enabled: !!v } })} /><span>EN 166</span></div><Input placeholder="Class" value={respiratoryStandards.en166?.class || ''} onChange={(e)=> setRespiratoryStandards({ ...respiratoryStandards, en166: { ...(respiratoryStandards.en166||{}), class: e.target.value } })} /></div>
+                      <div className="space-y-1"><div className="flex items-center gap-2"><Checkbox checked={!!respiratoryStandards.en12941?.enabled} onCheckedChange={(v)=> setRespiratoryStandards({ ...respiratoryStandards, en12941: { ...(respiratoryStandards.en12941||{}), enabled: !!v } })} /><span>EN 12941</span></div><Input placeholder="Class e.g. TH3" value={respiratoryStandards.en12941?.class || ''} onChange={(e)=> setRespiratoryStandards({ ...respiratoryStandards, en12941: { ...(respiratoryStandards.en12941||{}), class: e.target.value.toUpperCase() } })} /></div>
                       <div className="space-y-1"><div className="flex items-center gap-2"><Checkbox checked={!!respiratoryStandards.en140?.enabled} onCheckedChange={(v)=> setRespiratoryStandards({ ...respiratoryStandards, en140: { ...(respiratoryStandards.en140||{}), enabled: !!v } })} /><span>EN 140</span></div></div>
                       <div className="space-y-1"><div className="flex items-center gap-2"><Checkbox checked={!!respiratoryStandards.din_3181_3?.enabled} onCheckedChange={(v)=> setRespiratoryStandards({ ...respiratoryStandards, din_3181_3: { ...(respiratoryStandards.din_3181_3||{}), enabled: !!v } })} /><span>DIN 3181-3</span></div></div>
                     </div>

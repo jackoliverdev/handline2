@@ -176,6 +176,7 @@ yarn-error.log*
 # build
 build
 dist.tsbuildinfo
+*.tsbuildinfo
 next-env.d.ts
 node_modules/
 .next/

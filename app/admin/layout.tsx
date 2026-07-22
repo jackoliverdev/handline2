@@ -13,21 +13,39 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+  const [isAuthorised, setIsAuthorised] = useState(false);
+  const [isCheckingAccess, setIsCheckingAccess] = useState(true);
   
   // Check if user has admin access (role-based)
   useEffect(() => {
     const checkAdmin = async () => {
-      if (status === "success" && user) {
+      if (status !== "success") {
+        return;
+      }
+
+      if (!user) {
+        const nextPath = pathname?.startsWith('/admin') ? pathname : '/admin';
+        router.replace(`/login?next=${encodeURIComponent(nextPath)}`);
+        return;
+      }
+
+      try {
         const role = await getUserRole(user);
-        if (role !== 'admin') {
-          router.push('/dashboard');
+        if (role === 'admin') {
+          setIsAuthorised(true);
+          return;
         }
-      } else if (status === "success" && !user) {
-        router.push('/');
+
+        router.replace('/dashboard');
+      } finally {
+        setIsCheckingAccess(false);
       }
     };
+
+    setIsAuthorised(false);
+    setIsCheckingAccess(true);
     checkAdmin();
-  }, [user, status, router]);
+  }, [user, status, pathname, router]);
 
   // Check localStorage for saved collapse state on component mount
   useEffect(() => {
@@ -110,7 +128,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   }, [darkMode]);
 
   // Show loading state while checking authentication
-  if (status === "loading") {
+  if (status === "loading" || isCheckingAccess || !isAuthorised) {
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600"></div>

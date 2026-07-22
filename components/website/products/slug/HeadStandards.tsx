@@ -8,7 +8,11 @@ export function HeadStandards({ product }: { product: Product }) {
   const { t } = useLanguage();
   const std: any = (product as any).head_standards || {};
 
-  const hasEN397 = Boolean(std?.en397?.present || std?.en397 === true);
+  const hasEN397 = Boolean(
+    std?.en397?.present ||
+    std?.en397 === true ||
+    Object.values(std?.en397?.optional || {}).some(Boolean)
+  );
   const en397 = std?.en397 || {};
   const opt = en397?.optional || {};
 

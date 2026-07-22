@@ -707,6 +707,12 @@
     "specifications": "Specifications",
     "features": "Features",
     "safetyFeatures": "Safety features",
+    "armProtectionAttributes": "Arm Protection Attributes",
+    "closureTypes": {
+      "velcro": "Velcro",
+      "elastic": "Elastic",
+      "none": "None"
+    },
       "equipment": "Equipment",
       "otherDetails": "Other details",
     "applications": "Applications",
@@ -1181,15 +1187,9 @@
         }
       },
       "certification": {
-        "badge": "Our Journey",
-        "title": "Our Path to Certification",
-        "description": "We are in the initial phases of ESG certification preparation and working with recognised frameworks, we are:",
-        "points": {
-          "0": "Auditing current practices.",
-          "1": "Identifying key performance indicators.",
-          "2": "Building ESG reporting systems."
-        },
-        "closing": "This is a long-term journey, and we're committed to real, measurable progress—not just box-checking."
+        "badge": "Certified Management Systems",
+        "title": "Certified for Quality, Environment and Safety",
+        "description": "Hand Line is fully certified to ISO 9001, ISO 14001 and ISO 45001, reflecting our commitment to quality management, environmental responsibility and occupational health and safety."
       },
       "cta": {
         "badge": "Join Our Mission",

@@ -8,9 +8,12 @@ import { Product } from "@/lib/products-service";
 
 export function ArmSpecs({ product }: { product: Product }) {
   const { t, language } = useLanguage();
-  const currentMaterials = product.materials_locales?.[language] || [];
+  const currentMaterials = product.materials_locales?.[language] || product.materials_locales?.en || [];
   const size = product.size_locales?.[language] || product.size_locales?.en || null;
   const p: any = product as any;
+  const armLength = typeof p.arm_attributes?.length_cm === 'number'
+    ? p.arm_attributes.length_cm
+    : product.length_cm;
 
   return (
     <TooltipProvider>
@@ -49,7 +52,7 @@ export function ArmSpecs({ product }: { product: Product }) {
             <Ruler className="h-5 w-5 text-brand-primary" />
             <h4 className="font-medium text-brand-dark dark:text-white">{t('productPage.productInfo.length')}</h4>
           </div>
-          <div className="text-brand-dark dark:text-white font-medium">{product.length_cm ? `${product.length_cm} cm` : '-'}</div>
+          <div className="text-brand-dark dark:text-white font-medium">{typeof armLength === 'number' ? `${armLength} cm` : '-'}</div>
         </div>
 
         {/* CE Category - Column 2, Row 2 */}

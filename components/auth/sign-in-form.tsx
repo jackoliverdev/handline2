@@ -20,7 +20,6 @@ import { useAuth } from "reactfire";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { ModalForgotPassword } from "@/components/auth/modal-forgot-password";
 import { Eye, EyeOff, LogIn } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useLanguage } from '@/lib/context/language-context';
 
 const formSchema = z.object({
@@ -34,7 +33,6 @@ interface SignInFormProps {
 
 export const SignInForm: FC<SignInFormProps> = ({ onShowSignUp }) => {
   const auth = useAuth();
-  const router = useRouter();
   const [isResetOpen, setIsResetOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const { t } = useLanguage();
@@ -58,17 +56,14 @@ export const SignInForm: FC<SignInFormProps> = ({ onShowSignUp }) => {
         description: "You have been signed in.",
       });
       
-      // Check if the user is admin and redirect accordingly
-      const ADMIN_EMAILS = ['jackoliverdev@gmail.com', 'enquiries@handlineco.com'];
-      if (ADMIN_EMAILS.includes(email.toLowerCase())) {
-        // Admin redirect
-        router.push('/admin');
-      } else {
-        // Regular user redirect
-        router.push('/dashboard');
-      }
+      // AuthCard observes the signed-in user and redirects according to their stored role.
     } catch (error) {
-      toast({ title: "Error Signing In", description: `${error}` });
+      console.error("Error signing in:", error);
+      toast({
+        title: "Unable to sign in",
+        description: "There was an error signing in. Please try again or contact support.",
+        variant: "destructive",
+      });
     } finally {
       setIsLoading(false);
     }

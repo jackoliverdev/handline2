@@ -21,9 +21,9 @@ import { WorkEnvironmentFilter } from "@/components/website/products/filters/Wor
 import { WorkEnvironmentFilterMobile } from "@/components/website/products/filters/WorkEnvironmentFilterMobile";
 import { ClothingSizeRangeFilter } from "@/components/website/products/filters/clothing/ClothingSizeRangeFilter";
 import { ClothingSizeRangeFilterMobile } from "@/components/website/products/filters/clothing/ClothingSizeRangeFilterMobile";
-import { GARMENT_TYPES } from "@/content/clothing-categories";
+import { CLOTHING_TYPE_TO_CATEGORIES, GARMENT_TYPES } from "@/content/clothing-categories";
 import { getUniqueENStandards, matchesENStandards } from "@/lib/product-utils";
-import { workEnvironmentFilters } from "@/content/workenvironmentfilters";
+import { matchesWorkEnvironment } from "@/content/workenvironmentfilters";
 
 // Clothing – targeted filters (few and focused)
 // We'll add small inline filter UIs here to avoid creating many files.
@@ -56,17 +56,24 @@ interface ClothingProductsSectionProps {
 export function ClothingProductsSection({ products, pinnedClothingType }: ClothingProductsSectionProps) {
   // Scope: clothing by EN/IT category/subcategory
   const clothingProducts = useMemo(() => {
+    const allowedSubCategories = pinnedClothingType
+      ? CLOTHING_TYPE_TO_CATEGORIES[pinnedClothingType].map((category) => category.toLowerCase())
+      : null;
+
     return products.filter((p) => {
       const cat = (p.category || '').toLowerCase();
       const sub = (p.sub_category || '').toLowerCase();
       const itCat = (p.category_locales?.it || '').toLowerCase();
       const itSub = (p.sub_category_locales?.it || '').toLowerCase();
-      return (
+      const isClothingProduct = (
         cat.includes('clothing') || itCat.includes('abbigliament') ||
         sub.includes('jacket') || itSub.includes('giacch')
       );
+      const matchesPinnedType = !allowedSubCategories || allowedSubCategories.includes(sub);
+
+      return isClothingProduct && matchesPinnedType;
     });
-  }, [products]);
+  }, [products, pinnedClothingType]);
 
   // Filter state
   const [subCategories, setSubCategories] = useState<string[]>([]);
@@ -211,10 +218,9 @@ export function ClothingProductsSection({ products, pinnedClothingType }: Clothi
       return clothingTypes.some(ct => sub.includes(ct.toLowerCase()));
     })();
     const enStdOk = selectedENStandards.length === 0 ? true : matchesENStandards(p, selectedENStandards);
-    const workEnvOk = selectedWorkEnvironments.length === 0 ? true : (() => {
-      const envs = (p as any).work_environment_suitability || [];
-      return selectedWorkEnvironments.some((env: string) => envs.includes(env));
-    })();
+    const workEnvOk = selectedWorkEnvironments.length === 0 || selectedWorkEnvironments.some((environment) =>
+      matchesWorkEnvironment(p.environment_pictograms, environment)
+    );
     const sizeOk = (!sizeRange.min && !sizeRange.max) ? true : (
       (typeof (p as any).clothing_attributes?.size_min === 'number' && 
        typeof (p as any).clothing_attributes?.size_max === 'number') &&

@@ -5,13 +5,45 @@ import { useLanguage } from "@/lib/context/language-context";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Package, Ruler, Users, Award, Shield } from "lucide-react";
 
+const CLOTHING_SIZE_LABELS: Record<number, string> = {
+  1: 'XS',
+  2: 'S',
+  3: 'M',
+  4: 'L',
+  5: 'XL',
+  6: '2XL',
+  7: '3XL',
+  8: '4XL',
+  9: '5XL',
+  10: '6XL',
+  11: '7XL',
+  12: '8XL',
+};
+
+const getClothingSizeDisplay = (attributes: Record<string, unknown>): string | null => {
+  const min = attributes.size_min;
+  const max = attributes.size_max;
+
+  if (typeof min !== 'number' || typeof max !== 'number') {
+    return null;
+  }
+
+  const minLabel = CLOTHING_SIZE_LABELS[min];
+  const maxLabel = CLOTHING_SIZE_LABELS[max];
+  if (!minLabel || !maxLabel) {
+    return null;
+  }
+
+  return min === max ? minLabel : `${minLabel}–${maxLabel}`;
+};
+
 export function ClothingSpecs({ product }: { product: Product }) {
   const { t, language } = useLanguage();
   const materials = product.materials_locales?.[language] || product.materials_locales?.en || [];
-  const size = product.size_locales?.[language] || product.size_locales?.en || null;
   const cs: any = (product as any).clothing_standards || {};
   const ca: any = (product as any).clothing_attributes || {};
   const caLocales: any = (product as any).clothing_attributes_locales || {};
+  const size = getClothingSizeDisplay(ca) || product.size_locales?.[language] || product.size_locales?.en || null;
   const fit = caLocales[language]?.fit || caLocales.en?.fit || ca?.fit;
 
   const hiVis = cs?.en_iso_20471?.class;

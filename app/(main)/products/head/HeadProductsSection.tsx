@@ -17,8 +17,10 @@ import { VentilationFilter } from "@/components/website/products/filters/head/Ve
 import { VentilationFilterMobile } from "@/components/website/products/filters/head/VentilationFilterMobile";
 import { EnStandardFilter } from "@/components/website/products/filters/head/EnStandardFilter";
 import { EnStandardFilterMobile } from "@/components/website/products/filters/head/EnStandardFilterMobile";
+import { useLanguage } from "@/lib/context/language-context";
 
 export function HeadProductsSection({ products }: { products: Product[] }) {
+  const { language } = useLanguage();
   const headProducts = useMemo(() => {
     return products.filter((p) => {
       const cat = (p.category || '').toLowerCase();
@@ -29,12 +31,25 @@ export function HeadProductsSection({ products }: { products: Product[] }) {
     });
   }, [products]);
 
+  const getProductBrimLength = (product: Product): string | null => {
+    const productData = product as any;
+    const technicalSpecs = productData.head_tech_specs_locales?.[language] || productData.head_tech_specs_locales?.en;
+    const brimLength = technicalSpecs?.brim_length || productData.head_attributes?.brim_length;
+
+    return typeof brimLength === 'string' && brimLength.trim()
+      ? brimLength.trim().toLocaleLowerCase()
+      : null;
+  };
+
   // Build option sets
   const brimOptions = useMemo(() => {
     const s = new Set<string>();
-    (headProducts as any[]).forEach((p: any) => { const v = p.head_attributes?.brim_length; if (v) s.add(String(v)); });
+    headProducts.forEach((product) => {
+      const brimLength = getProductBrimLength(product);
+      if (brimLength) s.add(brimLength);
+    });
     return Array.from(s).sort();
-  }, [headProducts]);
+  }, [headProducts, language]);
 
   // UI state
   const [selectedBrims, setSelectedBrims] = useState<string[]>([]);
@@ -69,7 +84,7 @@ export function HeadProductsSection({ products }: { products: Product[] }) {
   const predicate = (p: Product) => {
     const hst: any = (p as any).head_standards || {};
     const hat: any = (p as any).head_attributes || {};
-    const brim = hat?.brim_length as string | undefined;
+    const brim = getProductBrimLength(p);
     const lt = hst?.en397?.optional?.low_temperature;
     const mm = hst?.en397?.optional?.molten_metal as boolean | undefined;
     const en50365 = hst?.en50365 as boolean | undefined;

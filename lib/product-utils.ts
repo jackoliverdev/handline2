@@ -197,10 +197,14 @@ export const getProductENStandards = (product: Product): string[] => {
   // Check respiratory standards
   if (product.respiratory_standards) {
     const respStds = product.respiratory_standards as any;
-    if (respStds.en_149) standards.push('EN 149');
-    if (respStds.en_140) standards.push('EN 140');
-    if (respStds.en_143) standards.push('EN 143');
-    if (respStds.din_3181_3) standards.push('DIN 3181-3');
+    if (respStds.en149?.enabled) standards.push('EN 149');
+    if (respStds.en140?.enabled) standards.push('EN 140');
+    if (respStds.en143?.enabled) standards.push('EN 143');
+    if (respStds.en136?.enabled) standards.push('EN 136');
+    if (respStds.en166?.enabled) standards.push('EN 166');
+    if (respStds.en12941?.enabled) standards.push('EN 12941');
+    if (respStds.en14387?.enabled) standards.push('EN 14387');
+    if (respStds.din_3181_3?.enabled) standards.push('DIN 3181-3');
   }
 
   // Check hearing standards

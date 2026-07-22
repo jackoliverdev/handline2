@@ -3,37 +3,33 @@
 import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/lib/context/language-context";
-import { Target, TrendingUp, CheckCircle } from "lucide-react";
+import Image from "next/image";
+import { CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
 export const EsgCertification = () => {
   const { t } = useLanguage();
-  
-  // Safely access certification points using individual translation keys with index
-  const getCertificationPoint = (index: number) => {
-    return t(`about.esg.certification.points.${index}`);
-  };
-  
-  // Define number of points for certification section
-  const pointIndices = [0, 1, 2]; // 3 points
+  const certifications = [
+    { standard: "ISO 9001", image: "/icons/iso9001.png" },
+    { standard: "ISO 14001", image: "/icons/iso14001.png" },
+    { standard: "ISO 45001", image: "/icons/iso45001.png" },
+  ];
   
   return (
     <section className="py-16 md:py-20 bg-green-100/90 dark:bg-green-900/30">
       <div className="container px-4 md:px-6">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <Badge className="mb-6 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 border-green-200 dark:border-green-700">
+            <Badge variant="outline" className="mb-6 bg-brand-primary/10 text-brand-primary border-brand-primary/20">
               {t('about.esg.certification.badge')}
             </Badge>
           </motion.div>
-          
-          {/* Title */}
+
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -44,52 +40,42 @@ export const EsgCertification = () => {
             {t('about.esg.certification.title')}
           </motion.h2>
           
-          {/* Description */}
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-base text-brand-secondary dark:text-gray-300 mb-8"
+            className="text-base text-brand-secondary dark:text-gray-300 mb-10"
           >
             {t('about.esg.certification.description')}
           </motion.p>
-          
-          {/* Points */}
+
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"
+            className="mx-auto grid max-w-xl grid-cols-1 gap-4 sm:grid-cols-3"
           >
-            {pointIndices.map((index) => {
-              const icons = [Target, TrendingUp, CheckCircle];
-              const Icon = icons[index] || CheckCircle;
-              
-              return (
-                <div key={index} className="flex flex-col items-center text-center space-y-3">
-                  <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
-                    <Icon className="h-6 w-6 text-green-600 dark:text-green-400" />
+            {certifications.map((certification) => (
+              <div key={certification.standard} className="flex flex-col items-center p-2">
+                <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-2xl border border-brand-primary/15 bg-brand-primary/10 p-3">
+                  <div className="relative h-full w-full">
+                    <Image
+                      src={certification.image}
+                      alt={`${certification.standard} certification`}
+                      fill
+                      className={`object-contain ${certification.standard === "ISO 14001" ? "scale-125" : ""}`}
+                    />
                   </div>
-                  <p className="text-sm text-brand-secondary dark:text-gray-300">
-                    {getCertificationPoint(index)}
-                  </p>
                 </div>
-              );
-            })}
+                <div className="flex items-center justify-center gap-2 text-sm font-semibold text-brand-dark dark:text-white">
+                  <CheckCircle className="h-4 w-4 text-brand-primary" />
+                  {certification.standard}
+                </div>
+              </div>
+            ))}
           </motion.div>
-          
-          {/* Closing statement */}
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-sm italic text-brand-secondary dark:text-gray-400"
-          >
-            {t('about.esg.certification.closing')}
-          </motion.p>
         </div>
       </div>
     </section>

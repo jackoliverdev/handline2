@@ -73,7 +73,7 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
   const { t, language } = useLanguage();
   
   // Always build URLs from the English name to keep slugs stable across locales
-  const encodedProductName = encodeURIComponent((product as any).name_locales?.en || product.name);
+  const productSlug = product.slug || encodeURIComponent((product as any).name_locales?.en || product.name);
   
   // Function to clean and validate image URLs
   const cleanImageUrl = (url: string | null | undefined): string | null => {
@@ -135,6 +135,7 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
     if (rs.en136?.enabled) chips.push({ label: 'EN136', value: rs.en136.class });
     if (rs.en140?.enabled) chips.push({ label: 'EN140' });
     if (rs.en166?.enabled) chips.push({ label: 'EN166', value: rs.en166.class });
+    if (rs.en12941?.enabled) chips.push({ label: 'EN12941', value: rs.en12941.class });
     if (chips.length === 0) return null;
 
     return (
@@ -659,7 +660,7 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
             className="bg-gradient-to-r from-brand-primary to-brand-primary hover:from-brand-primary/90 hover:to-brand-primary/90 text-white font-medium transition-all duration-300 hover:scale-[1.02] hover:shadow-lg w-full py-2.5 text-sm rounded-lg shadow-md" 
             asChild
           >
-            <Link href={`/products/${encodedProductName}`} className="flex items-center justify-center">
+            <Link href={`/products/${productSlug}`} className="flex items-center justify-center">
               <span className="font-semibold">{t('products.viewFullDetails')}</span>
               <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>

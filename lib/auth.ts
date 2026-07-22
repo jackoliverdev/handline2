@@ -14,21 +14,24 @@ export async function getUserRole(user: User): Promise<UserRole> {
   if (!user) return "user";
 
   try {
-    // Primary source of truth: Supabase users table
+    const tokenResult = await user.getIdTokenResult();
+    if (tokenResult.claims.role === "admin") {
+      return "admin";
+    }
+  } catch (error) {
+    console.warn("Failed to read Firebase role claim", error);
+  }
+
+  try {
+    // The profile endpoint verifies the Firebase token and reads with the
+    // server-only Supabase service role, so browser clients never bypass RLS.
     const profile = await getUserProfile(user.uid);
     const roleFromDb = (profile?.role as string | undefined)?.toLowerCase();
     if (roleFromDb === "admin") {
       return "admin";
     }
   } catch (e) {
-    // Non-fatal: fall back to email check below
-    console.warn("Failed to load role from Supabase, falling back to email check", e);
-  }
-
-  // Legacy fallback: allow admin emails
-  const ADMIN_EMAILS = ['jackoliverdev@gmail.com', 'enquiries@handlineco.com'];
-  if (ADMIN_EMAILS.includes(user.email || '')) {
-    return "admin";
+    console.warn("Failed to load role from Supabase", e);
   }
 
   return "user";
