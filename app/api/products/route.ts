@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
+import { generateUniqueProductSlug } from '@/lib/product-slug';
 
 export async function GET() {
   try {
@@ -33,13 +34,22 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
+    if (typeof body?.name !== 'string' || !body.name.trim()) {
+      return NextResponse.json({ error: { message: 'A product name is required.' } }, { status: 400 });
+    }
+
+    const product = {
+      ...body,
+      slug: await generateUniqueProductSlug(body.name.trim()),
+    };
+
     console.log('[API] Create product payload keys:', Object.keys(body));
     // Helpful debugging prints
     console.log('[API] Name:', body?.name, 'Category:', body?.category, 'Published:', body?.published);
 
     const { data, error } = await supabase
       .from('products')
-      .insert([body])
+      .insert([product])
       .select('*')
       .single();
 

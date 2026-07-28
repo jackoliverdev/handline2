@@ -419,6 +419,7 @@
       },
       "industries": {
         "title": "Settori",
+        "loading": "Caricamento settori…",
         "links": {
           "glassManufacturing": "Produzione del Vetro"
         }
@@ -699,6 +700,12 @@
       "arcClass": "Classe protezione arco",
       "antistatic": "Antistatico (EN 1149-5)",
       "clothingType": "Tipologia abbigliamento",
+      "clothingTypeOptions": {
+        "welding": "Abbigliamento per saldatura",
+        "high-visibility": "Abbigliamento ad alta visibilità",
+        "safety-workwear": "Abbigliamento di sicurezza e da lavoro"
+      },
+      "garmentType": "Tipo di indumento",
       "size": "Taglie",
       "clothingCategory": {
         "title": "Categoria abbigliamento"
@@ -1302,12 +1309,13 @@
       },
       "address": {
       "title": "Sede Amministrativa",
-      "titleUK": "Sede Legale & Indirizzo Operativo",
+      "titleUK": "Sede Legale",
         "content": "Viale Varese 83, 22100 Como (CO), Italia",
         "contentUK": "52 Grosvenor Gardens, London SW1W 0AU, United Kingdom",
       "operationalTitle": "HQ - Uffici & Magazzino",
         "operationalContent": "via Antonio Brusa 34, 22035, Canzo (CO), Italia",
-        "operationalContentUK": "52 Grosvenor Gardens, London SW1W 0AU, United Kingdom"
+      "operationalTitleUK": "Ufficio Regno Unito",
+        "operationalContentUK": "27 Hill Street, London W1J 5LP, United Kingdom"
       },
       "phone": {
         "title": "Telefono",

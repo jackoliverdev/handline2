@@ -20,7 +20,7 @@ const officeData = {
   },
   uk: {
     name: "Hand Line Company s.r.l.",
-    address: "52 Grosvenor Gardens, London SW1W 0AU, United Kingdom",
+    address: "27 Hill Street, London W1J 5LP, United Kingdom",
     phone: "+44 020 7866 3849",
     email: "info@handlineco.com", 
     location: {
@@ -152,18 +152,22 @@ export function ContactInfo() {
               </div>
             </div>
 
-            {/* Operational Location */}
-            {selectedOffice === 'italy' && (
-              <div className="flex items-start gap-3">
-                <Building2 className="h-5 w-5 text-brand-primary mt-1" />
-                <div>
-                  <div className="font-medium text-brand-dark dark:text-white">{t('contact.info.address.operationalTitle')}</div>
-                  <div className="text-brand-secondary dark:text-gray-300">
-                    {t('contact.info.address.operationalContent')}
-                  </div>
+            {/* Operating Office */}
+            <div className="flex items-start gap-3">
+              <Building2 className="h-5 w-5 text-brand-primary mt-1" />
+              <div>
+                <div className="font-medium text-brand-dark dark:text-white">
+                  {selectedOffice === 'italy'
+                    ? t('contact.info.address.operationalTitle')
+                    : t('contact.info.address.operationalTitleUK')}
+                </div>
+                <div className="text-brand-secondary dark:text-gray-300">
+                  {selectedOffice === 'italy'
+                    ? t('contact.info.address.operationalContent')
+                    : t('contact.info.address.operationalContentUK')}
                 </div>
               </div>
-            )}
+            </div>
             
             {/* Phone Number */}
             <div className="flex items-start gap-3">

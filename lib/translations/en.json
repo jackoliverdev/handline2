@@ -389,6 +389,7 @@
       },
       "industries": {
         "title": "Industries",
+        "loading": "Loading industries…",
         "links": {
           "glassManufacturing": "Glass Manufacturing"
         }
@@ -661,6 +662,12 @@
       "arcClass": "Arc protection class",
       "antistatic": "Antistatic (EN 1149-5)",
       "clothingType": "Clothing Type",
+      "clothingTypeOptions": {
+        "welding": "Welding clothing",
+        "high-visibility": "High-visibility clothing",
+        "safety-workwear": "Safety clothing and workwear"
+      },
+      "garmentType": "Garment Type",
       "size": "Size",
       "clothingCategory": {
         "title": "Clothing Category"
@@ -1255,12 +1262,13 @@
       },
       "address": {
       "title": "Registered Office",
-      "titleUK": "Registered Office & Business Address",
+      "titleUK": "Registered Office",
         "content": "Viale Varese 83, 22100 Como (CO), Italy",
         "contentUK": "52 Grosvenor Gardens, London SW1W 0AU, United Kingdom",
       "operationalTitle": "HQ Office & Warehouse",
         "operationalContent": "via Antonio Brusa 34, 22035, Canzo (CO), Italy",
-        "operationalContentUK": "52 Grosvenor Gardens, London SW1W 0AU, United Kingdom"
+      "operationalTitleUK": "UK Office",
+        "operationalContentUK": "27 Hill Street, London W1J 5LP, United Kingdom"
       },
       "phone": {
         "title": "Telephone",

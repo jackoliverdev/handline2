@@ -1,6 +1,7 @@
 import { supabase } from './supabase';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Language } from './context/language-context';
+import { generateUniqueProductSlug } from './product-slug';
 
 // Safety Standards interfaces
 export interface SafetyEN388 {
@@ -594,19 +595,27 @@ export async function getProductsByIndustry(industry: string): Promise<{ product
 /**
  * Create a new product
  */
-export async function createProduct(productData: Partial<Product>): Promise<{ product: Product | null }> {
+export async function createProduct(productData: Partial<Product>): Promise<{ product: Product | null; error?: string }> {
   try {
     console.log('Creating new product:', productData.name);
+    if (!productData.name?.trim()) {
+      return { product: null, error: 'A product name is required.' };
+    }
+
+    const productWithSlug = {
+      ...productData,
+      slug: await generateUniqueProductSlug(productData.name.trim()),
+    };
     
     const { data, error } = await supabase
       .from('products')
-      .insert([productData])
+      .insert([productWithSlug])
       .select()
       .single();
     
     if (error) {
       console.error('Error creating product:', error);
-      return { product: null };
+      return { product: null, error: error.message };
     }
     
     // Parse JSONB fields
@@ -626,7 +635,7 @@ export async function createProduct(productData: Partial<Product>): Promise<{ pr
     return { product };
   } catch (error) {
     console.error('Error in createProduct:', error);
-    return { product: null };
+    return { product: null, error: error instanceof Error ? error.message : 'Unable to create product.' };
   }
 }
 

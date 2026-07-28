@@ -12,6 +12,7 @@ export function Footer() {
   const pathname = usePathname();
   const { t, language } = useLanguage();
   const [industries, setIndustries] = useState<Industry[]>([]);
+  const [isIndustriesLoading, setIsIndustriesLoading] = useState(true);
   
   // State for collapsible sections
   const [isProductsOpen, setIsProductsOpen] = useState(false);
@@ -23,6 +24,9 @@ export function Footer() {
     let isMounted = true;
 
     const loadIndustries = async () => {
+      setIsIndustriesLoading(true);
+      setIndustries([]);
+
       try {
         const { data } = await getAllIndustries(language);
         if (isMounted) {
@@ -30,6 +34,13 @@ export function Footer() {
         }
       } catch (error) {
         console.error("Failed to load footer industries:", error);
+        if (isMounted) {
+          setIndustries([]);
+        }
+      } finally {
+        if (isMounted) {
+          setIsIndustriesLoading(false);
+        }
       }
     };
 
@@ -171,7 +182,12 @@ export function Footer() {
               </button>
               {isIndustriesOpen && (
                 <div className="mt-2 flex flex-col gap-1 text-sm animate-in slide-in-from-top-2 duration-200">
-                  {industries.map((industry) => (
+                  {isIndustriesLoading && (
+                    <p className="text-gray-500 dark:text-gray-400" aria-live="polite">
+                      {t('footer.sections.industries.loading')}
+                    </p>
+                  )}
+                  {industries.filter((industry) => industry.industry_name?.trim() && industry.slug).map((industry) => (
                     <Link
                       key={industry.id}
                       href={`/industries/${industry.slug}`}
@@ -180,8 +196,8 @@ export function Footer() {
                       {industry.industry_name}
                     </Link>
                   ))}
-                  <Link href="/industries" className="mt-1 text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
-                    {t('industries.viewAll')}
+                  <Link href="/industries" className="text-gray-600 dark:text-gray-400 hover:text-brand-primary dark:hover:text-brand-primary transition-colors duration-200 hover:translate-x-1 transform">
+                    {t('industrySolutions.viewAll')}
                   </Link>
                 </div>
               )}

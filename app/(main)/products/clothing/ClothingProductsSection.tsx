@@ -13,8 +13,8 @@ import { FlameStandardFilterMobile } from "@/components/website/products/filters
 import { AntistaticFilterMobile } from "@/components/website/products/filters/clothing/AntistaticFilterMobile";
 import { ClothingTypeFilter } from "@/components/website/products/filters/clothing/ClothingTypeFilter";
 import { ClothingTypeFilterMobile } from "@/components/website/products/filters/clothing/ClothingTypeFilterMobile";
-import { SubCategoryFilter } from "@/components/website/products/filters/SubCategoryFilter";
-import { SubCategoryFilterMobile } from "@/components/website/products/filters/SubCategoryFilterMobile";
+import { ClothingCategoryFilter } from "@/components/website/products/filters/clothing/ClothingCategoryFilter";
+import { ClothingCategoryFilterMobile } from "@/components/website/products/filters/clothing/ClothingCategoryFilterMobile";
 import { ENStandardFilter } from "@/components/website/products/filters/ENStandardFilter";
 import { ENStandardFilterMobile } from "@/components/website/products/filters/ENStandardFilterMobile";
 import { WorkEnvironmentFilter } from "@/components/website/products/filters/WorkEnvironmentFilter";
@@ -56,10 +56,6 @@ interface ClothingProductsSectionProps {
 export function ClothingProductsSection({ products, pinnedClothingType }: ClothingProductsSectionProps) {
   // Scope: clothing by EN/IT category/subcategory
   const clothingProducts = useMemo(() => {
-    const allowedSubCategories = pinnedClothingType
-      ? CLOTHING_TYPE_TO_CATEGORIES[pinnedClothingType].map((category) => category.toLowerCase())
-      : null;
-
     return products.filter((p) => {
       const cat = (p.category || '').toLowerCase();
       const sub = (p.sub_category || '').toLowerCase();
@@ -69,15 +65,17 @@ export function ClothingProductsSection({ products, pinnedClothingType }: Clothi
         cat.includes('clothing') || itCat.includes('abbigliament') ||
         sub.includes('jacket') || itSub.includes('giacch')
       );
-      const matchesPinnedType = !allowedSubCategories || allowedSubCategories.includes(sub);
+      const matchesPinnedType = !pinnedClothingType ||
+        (p.clothing_type || '').toLowerCase() === pinnedClothingType;
 
       return isClothingProduct && matchesPinnedType;
     });
   }, [products, pinnedClothingType]);
 
   // Filter state
-  const [subCategories, setSubCategories] = useState<string[]>([]);
-  const [clothingTypes, setClothingTypes] = useState<string[]>([]);
+  const [selectedClothingTypes, setSelectedClothingTypes] = useState<string[]>([]);
+  const [clothingCategories, setClothingCategories] = useState<string[]>([]);
+  const [garmentTypes, setGarmentTypes] = useState<string[]>([]);
   const [selectedENStandards, setSelectedENStandards] = useState<string[]>([]);
   const [selectedWorkEnvironments, setSelectedWorkEnvironments] = useState<string[]>([]);
   const [sizeRange, setSizeRange] = useState<{ min?: number; max?: number }>({});
@@ -105,16 +103,21 @@ export function ClothingProductsSection({ products, pinnedClothingType }: Clothi
     return Array.from(s).sort((a,b)=>a-b);
   }, [clothingProducts]);
 
-  const subCategoryOptions = useMemo(() => {
+  const clothingCategoryOptions = useMemo(() => {
+    if (pinnedClothingType) {
+      return CLOTHING_TYPE_TO_CATEGORIES[pinnedClothingType];
+    }
+
     const s = new Set<string>();
     clothingProducts.forEach(p => {
-      const sub = p.sub_category;
-      if (sub && sub.trim()) s.add(sub.trim());
+      const category = p.clothing_category;
+      if (category && category.trim()) s.add(category.trim());
     });
     return Array.from(s).sort();
-  }, [clothingProducts]);
+  }, [clothingProducts, pinnedClothingType]);
 
-  const clothingTypeOptions = useMemo(() => Array.from(GARMENT_TYPES), []);
+  const clothingTypeOptions = useMemo(() => Object.keys(CLOTHING_TYPE_TO_CATEGORIES), []);
+  const garmentTypeOptions = useMemo(() => Array.from(GARMENT_TYPES), []);
 
   const enStandards = useMemo(() => getUniqueENStandards(clothingProducts), [clothingProducts]);
 
@@ -138,11 +141,27 @@ export function ClothingProductsSection({ products, pinnedClothingType }: Clothi
   const extraFilters = (
     <>
       {!pinnedClothingType && (
-        <>
-          <SubCategoryFilter subCategories={subCategoryOptions} selectedSubCategories={subCategories} toggleSubCategory={(v) => setSubCategories(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} isExpanded={false} toggleSection={() => {}} />
-        </>
+        <ClothingTypeFilter
+          options={clothingTypeOptions}
+          selected={selectedClothingTypes}
+          onToggle={(value) => setSelectedClothingTypes(prev => prev.includes(value) ? prev.filter(type => type !== value) : [...prev, value])}
+          defaultOpen={false}
+        />
       )}
-      <ClothingTypeFilter options={clothingTypeOptions} selected={clothingTypes} onToggle={(v: string)=> setClothingTypes(prev => prev.includes(v) ? prev.filter((x: string)=>x!==v) : [...prev, v])} defaultOpen={false} />
+      <ClothingCategoryFilter
+        options={clothingCategoryOptions}
+        selected={clothingCategories}
+        onToggle={(value) => setClothingCategories(prev => prev.includes(value) ? prev.filter(category => category !== value) : [...prev, value])}
+        defaultOpen={false}
+      />
+      <ClothingTypeFilter
+        options={garmentTypeOptions}
+        selected={garmentTypes}
+        onToggle={(value) => setGarmentTypes(prev => prev.includes(value) ? prev.filter(type => type !== value) : [...prev, value])}
+        defaultOpen={false}
+        titleKey="products.filters.garmentType"
+        optionLabelKeyPrefix="products.filters.garmentTypes"
+      />
       {pinnedClothingType === 'high-visibility' && (
         <HiVisClassFilter options={hiVisOptions} selected={hiVisClasses} onToggle={(c) => setHiVisClasses(prev => prev.includes(c) ? prev.filter(x => x !== c) : [...prev, c])} />
       )}
@@ -174,13 +193,24 @@ export function ClothingProductsSection({ products, pinnedClothingType }: Clothi
   const extraFiltersMobile = (
     <>
       {!pinnedClothingType && (
-        <SubCategoryFilterMobile 
-          subCategories={subCategoryOptions} 
-          selectedSubCategories={subCategories} 
-          toggleSubCategory={(v: string) => setSubCategories(prev => prev.includes(v) ? prev.filter(x => x !== v) : [...prev, v])} 
+        <ClothingTypeFilterMobile
+          options={clothingTypeOptions}
+          selected={selectedClothingTypes}
+          onToggle={(value) => setSelectedClothingTypes(prev => prev.includes(value) ? prev.filter(type => type !== value) : [...prev, value])}
         />
       )}
-      <ClothingTypeFilterMobile options={clothingTypeOptions} selected={clothingTypes} onToggle={(v: string)=> setClothingTypes(prev => prev.includes(v) ? prev.filter((x: string)=>x!==v) : [...prev, v])} />
+      <ClothingCategoryFilterMobile
+        options={clothingCategoryOptions}
+        selected={clothingCategories}
+        onToggle={(value) => setClothingCategories(prev => prev.includes(value) ? prev.filter(category => category !== value) : [...prev, value])}
+      />
+      <ClothingTypeFilterMobile
+        options={garmentTypeOptions}
+        selected={garmentTypes}
+        onToggle={(value) => setGarmentTypes(prev => prev.includes(value) ? prev.filter(type => type !== value) : [...prev, value])}
+        titleKey="products.filters.garmentType"
+        optionLabelKeyPrefix="products.filters.garmentTypes"
+      />
       {pinnedClothingType === 'high-visibility' && (
         <HiVisClassFilterMobile options={hiVisOptions} selected={hiVisClasses} onToggle={(c) => setHiVisClasses(prev => prev.includes(c) ? prev.filter(x => x !== c) : [...prev, c])} />
       )}
@@ -212,10 +242,13 @@ export function ClothingProductsSection({ products, pinnedClothingType }: Clothi
     const arc = cs?.iec_61482_2?.class as number | undefined;
     const anti = cs?.en_1149_5 as boolean | undefined;
 
-    const subCatOk = subCategories.length === 0 ? true : subCategories.includes(p.sub_category || '');
-    const typeOk = clothingTypes.length === 0 ? true : (() => {
+    const clothingTypeOk = selectedClothingTypes.length === 0 ||
+      selectedClothingTypes.includes((p.clothing_type || '').toLowerCase());
+    const clothingCategoryOk = clothingCategories.length === 0 ||
+      clothingCategories.includes(p.clothing_category || '');
+    const garmentTypeOk = garmentTypes.length === 0 ? true : (() => {
       const sub = (p.sub_category || '').toLowerCase();
-      return clothingTypes.some(ct => sub.includes(ct.toLowerCase()));
+      return garmentTypes.some(type => sub.includes(type.toLowerCase()));
     })();
     const enStdOk = selectedENStandards.length === 0 ? true : matchesENStandards(p, selectedENStandards);
     const workEnvOk = selectedWorkEnvironments.length === 0 || selectedWorkEnvironments.some((environment) =>
@@ -231,7 +264,7 @@ export function ClothingProductsSection({ products, pinnedClothingType }: Clothi
     const flOk = hasFlameStd ? !!fl : true;
     const arcOk = arcClasses.length === 0 ? true : (typeof arc === 'number' && arcClasses.includes(arc));
     const antiOk = antistatic ? !!anti : true;
-    return subCatOk && typeOk && enStdOk && workEnvOk && sizeOk && visOk && flOk && arcOk && antiOk;
+    return clothingTypeOk && clothingCategoryOk && garmentTypeOk && enStdOk && workEnvOk && sizeOk && visOk && flOk && arcOk && antiOk;
   };
 
   return (
