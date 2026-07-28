@@ -83,7 +83,7 @@ import { ENStandardFilter } from "@/components/website/products/filters/ENStanda
 import { ENStandardFilterMobile } from "@/components/website/products/filters/ENStandardFilterMobile";
 import { WorkEnvironmentFilter } from "@/components/website/products/filters/WorkEnvironmentFilter";
 import { WorkEnvironmentFilterMobile } from "@/components/website/products/filters/WorkEnvironmentFilterMobile";
-import { GARMENT_TYPES } from "@/content/clothing-categories";
+import { CLOTHING_TYPE_TO_CATEGORIES } from "@/content/clothing-categories";
 import { getUniqueENStandards, matchesENStandards } from "@/lib/product-utils";
 
 interface AllProductsGridProps {
@@ -336,7 +336,7 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
     return ['biological', 'chemical', 'electrical'];
   }, []);
   // Clothing options
-  const clothingTypeOptions = React.useMemo(() => Array.from(GARMENT_TYPES), []);
+  const clothingTypeOptions = React.useMemo(() => Object.keys(CLOTHING_TYPE_TO_CATEGORIES), []);
   const clothingHiVisOptions = React.useMemo(() => {
     const s = new Set<number>();
     (clothing as any[]).forEach((p: any) => { const c = p.clothing_standards?.en_iso_20471?.class; if (typeof c === 'number') s.add(c); });
@@ -735,10 +735,8 @@ export function AllProductsGrid({ products }: AllProductsGridProps) {
     // Clothing checks
     const cs: any = (p as any).clothing_standards || {};
     const cVis = cs?.en_iso_20471?.class as number | undefined;
-    const clTypeOk = selectedClTypes.length === 0 ? true : (() => {
-      const sub = (p.sub_category || '').toLowerCase();
-      return selectedClTypes.some(ct => sub.includes(ct.toLowerCase()));
-    })();
+    const clTypeOk = selectedClTypes.length === 0 ||
+      selectedClTypes.includes((p.clothing_type || '').toLowerCase());
     const clVisOk = selectedHiVis.length === 0 ? true : (typeof cVis === 'number' && selectedHiVis.includes(cVis));
     const clENStdOk = selectedClENStandards.length === 0 ? true : matchesENStandards(p, selectedClENStandards);
     const clWorkEnvOk = selectedClWorkEnv.length === 0 ? true : (() => {

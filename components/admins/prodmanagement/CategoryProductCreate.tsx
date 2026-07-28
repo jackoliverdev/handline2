@@ -507,7 +507,11 @@ export default function CategoryProductCreate({ slug }: Props) {
       router.push(`/admin/prod-management/${slug}/${product.id}`);
     } catch (e) {
       console.error(e);
-      toast({ title: 'Error', description: 'Failed to create product.', variant: 'destructive' });
+      toast({
+        title: 'Error',
+        description: e instanceof Error ? e.message : 'Failed to create product.',
+        variant: 'destructive',
+      });
     } finally {
       setSaving(false);
     }

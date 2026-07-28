@@ -639,10 +639,10 @@ export default function CreateProductPage() {
       };
       
       // Use the createProduct service function
-      const { product } = await createProduct(productData);
+      const { product, error: createError } = await createProduct(productData);
       
       if (!product) {
-        throw new Error("Failed to create product");
+        throw new Error(createError || "Failed to create product");
       }
       
       toast({
@@ -656,7 +656,7 @@ export default function CreateProductPage() {
       console.error("Error creating product:", error);
       toast({
         title: "Error",
-        description: "Failed to create product. Please try again.",
+        description: error instanceof Error ? error.message : "Failed to create product. Please try again.",
         variant: "destructive"
       });
     } finally {
