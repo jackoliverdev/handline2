@@ -4,23 +4,19 @@ import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useLanguage } from "@/lib/context/language-context";
-import { legalContent } from "@/content/legal";
+import { resolveLegalDocument, type LegalDocumentRecord } from "@/lib/legal-service";
 
-export function LegalTabs() {
+export function LegalTabs({ documents }: { documents: LegalDocumentRecord[] }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { t, language } = useLanguage();
   const tabParam = searchParams?.get("tab") || "terms";
   const validTabs = ["terms", "privacy", "cookies"] as const;
   const tab = (validTabs as readonly string[]).includes(tabParam) ? tabParam : "terms";
+  const resolved = documents.map((document) => resolveLegalDocument(document, language));
 
   const handleTabChange = (value: string) => {
     router.push(`/legal?tab=${value}` , { scroll: false });
-  };
-
-  const getLocalizedContent = (section: keyof typeof legalContent.en) => {
-    const contentByLanguage = legalContent[language as keyof typeof legalContent];
-    return (contentByLanguage || legalContent.en)[section];
   };
 
   return (
@@ -50,71 +46,29 @@ export function LegalTabs() {
             </TabsList>
           </div>
 
-          <TabsContent value="terms" className="max-w-4xl mx-auto">
-            <div className="rounded-lg p-6 md:p-8 bg-white dark:bg-black/50 border border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm shadow-sm">
-              <h2 className="text-3xl font-bold mb-2 text-brand-dark dark:text-white font-heading">{t('legal.content.terms.title')}</h2>
-              <p className="text-brand-secondary dark:text-gray-400 mb-8">{t('legal.content.terms.lastUpdated')}</p>
-              
-              {getLocalizedContent('terms').sections.map((section, index) => (
-                <div key={index} className="mb-8">
-                  <h3 className="text-xl font-semibold mb-4 text-brand-dark dark:text-white font-heading">{section.title}</h3>
-                  <div 
-                    dangerouslySetInnerHTML={{ __html: section.content }} 
-                    className="legal-content prose prose-slate dark:prose-invert max-w-none text-brand-secondary dark:text-gray-300 
-                               prose-p:mb-4 prose-p:leading-relaxed prose-p:text-base
-                               prose-ul:mb-4 prose-ul:pl-6 prose-li:mb-2 prose-li:leading-relaxed 
-                               prose-ol:mb-4 prose-ol:pl-6 prose-ol:list-decimal
-                               prose-strong:text-brand-dark dark:prose-strong:text-white prose-strong:font-semibold
-                               prose-h4:text-lg prose-h4:font-semibold prose-h4:text-brand-dark dark:prose-h4:text-white prose-h4:mb-3 prose-h4:mt-6" 
-                  />
-                </div>
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="privacy" className="max-w-4xl mx-auto">
-            <div className="rounded-lg p-6 md:p-8 bg-white dark:bg-black/50 border border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm shadow-sm">
-              <h2 className="text-3xl font-bold mb-2 text-brand-dark dark:text-white font-heading">{t('legal.content.privacy.title')}</h2>
-              <p className="text-brand-secondary dark:text-gray-400 mb-8">{t('legal.content.privacy.lastUpdated')}</p>
-              
-              {getLocalizedContent('privacy').sections.map((section, index) => (
-                <div key={index} className="mb-8">
-                  <h3 className="text-xl font-semibold mb-4 text-brand-dark dark:text-white font-heading">{section.title}</h3>
-                  <div 
-                    dangerouslySetInnerHTML={{ __html: section.content }} 
-                    className="legal-content prose prose-slate dark:prose-invert max-w-none text-brand-secondary dark:text-gray-300 
-                               prose-p:mb-4 prose-p:leading-relaxed prose-p:text-base
-                               prose-ul:mb-4 prose-ul:pl-6 prose-li:mb-2 prose-li:leading-relaxed 
-                               prose-ol:mb-4 prose-ol:pl-6 prose-ol:list-decimal
-                               prose-strong:text-brand-dark dark:prose-strong:text-white prose-strong:font-semibold
-                               prose-h4:text-lg prose-h4:font-semibold prose-h4:text-brand-dark dark:prose-h4:text-white prose-h4:mb-3 prose-h4:mt-6" 
-                  />
-                </div>
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="cookies" className="max-w-4xl mx-auto">
-            <div className="rounded-lg p-6 md:p-8 bg-white dark:bg-black/50 border border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm shadow-sm">
-              <h2 className="text-3xl font-bold mb-2 text-brand-dark dark:text-white font-heading">{t('legal.content.cookies.title')}</h2>
-              <p className="text-brand-secondary dark:text-gray-400 mb-8">{t('legal.content.cookies.lastUpdated')}</p>
-              
-              {getLocalizedContent('cookies').sections.map((section, index) => (
-                <div key={index} className="mb-8">
-                  <h3 className="text-xl font-semibold mb-4 text-brand-dark dark:text-white font-heading">{section.title}</h3>
-                  <div 
-                    dangerouslySetInnerHTML={{ __html: section.content }} 
-                    className="legal-content prose prose-slate dark:prose-invert max-w-none text-brand-secondary dark:text-gray-300 
-                               prose-p:mb-4 prose-p:leading-relaxed prose-p:text-base
-                               prose-ul:mb-4 prose-ul:pl-6 prose-li:mb-2 prose-li:leading-relaxed 
-                               prose-ol:mb-4 prose-ol:pl-6 prose-ol:list-decimal
-                               prose-strong:text-brand-dark dark:prose-strong:text-white prose-strong:font-semibold
-                               prose-h4:text-lg prose-h4:font-semibold prose-h4:text-brand-dark dark:prose-h4:text-white prose-h4:mb-3 prose-h4:mt-6" 
-                  />
-                </div>
-              ))}
-            </div>
-          </TabsContent>
+          {resolved.map((document) => (
+            <TabsContent key={document.slug} value={document.slug} className="max-w-4xl mx-auto">
+              <div className="rounded-lg p-6 md:p-8 bg-white dark:bg-black/50 border border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm shadow-sm">
+                <h2 className="text-3xl font-bold mb-2 text-brand-dark dark:text-white font-heading">{document.title}</h2>
+                <p className="text-brand-secondary dark:text-gray-400 mb-8">{document.lastUpdated}</p>
+                
+                {document.sections.map((section) => (
+                  <div key={section.id} className="mb-8">
+                    <h3 className="text-xl font-semibold mb-4 text-brand-dark dark:text-white font-heading">{section.title}</h3>
+                    <div 
+                      dangerouslySetInnerHTML={{ __html: section.content }} 
+                      className="legal-content prose prose-slate dark:prose-invert max-w-none text-brand-secondary dark:text-gray-300 
+                                 prose-p:mb-4 prose-p:leading-relaxed prose-p:text-base
+                                 prose-ul:mb-4 prose-ul:pl-6 prose-li:mb-2 prose-li:leading-relaxed 
+                                 prose-ol:mb-4 prose-ol:pl-6 prose-ol:list-decimal
+                                 prose-strong:text-brand-dark dark:prose-strong:text-white prose-strong:font-semibold
+                                 prose-h4:text-lg prose-h4:font-semibold prose-h4:text-brand-dark dark:prose-h4:text-white prose-h4:mb-3 prose-h4:mt-6" 
+                    />
+                  </div>
+                ))}
+              </div>
+            </TabsContent>
+          ))}
         </Tabs>
       </div>
     </div>
