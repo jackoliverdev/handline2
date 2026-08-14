@@ -188,14 +188,14 @@ export async function getSearchFilters(query: string = '', language: Language = 
     // Format content type filters
     const contentTypeFilters = Array.from(contentTypeCounts.entries()).map(([key, count]) => ({
       key,
-      name: CONTENT_TYPE_LABELS[key]?.[language] || CONTENT_TYPE_LABELS[key]?.en || key,
+      name: CONTENT_TYPE_LABELS[key]?.[language === 'it' ? 'it' : 'en'] || CONTENT_TYPE_LABELS[key]?.en || key,
       count
     }));
 
     // Format category filters  
     const categoryFilters = Array.from(categoryCounts.entries()).map(([key, count]) => ({
       key,
-      name: CATEGORY_LABELS[key]?.[language] || CATEGORY_LABELS[key]?.en || key,
+      name: CATEGORY_LABELS[key]?.[language === 'it' ? 'it' : 'en'] || CATEGORY_LABELS[key]?.en || key,
       count
     }));
 
@@ -233,7 +233,7 @@ export async function getPopularSearches(language: Language = 'en'): Promise<str
     ]
   };
 
-  return popularSearches[language] || popularSearches.en;
+  return popularSearches[language === 'it' ? 'it' : 'en'];
 }
 
 /**

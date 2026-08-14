@@ -9,6 +9,7 @@ import type { BlogPost } from '@/lib/blog-service';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/lib/context/language-context';
+import { getIntlLocale } from '@/lib/i18n/config';
 
 interface BlogCardProps {
   post: BlogPost;
@@ -19,14 +20,14 @@ interface BlogCardProps {
 export function BlogCard({ post, index, language }: BlogCardProps) {
   const { t } = useLanguage();
   // Calculate the reading time (approximately 200 words per minute)
-  const wordCount = (post.content_locales && post.content_locales[language] ? post.content_locales[language] : post.content).split(/\s+/).length;
+  const wordCount = (post.content_locales?.[language] || post.content_locales?.en || post.content).split(/\s+/).length;
   const readingTime = Math.ceil(wordCount / 200);
   
   // Format the date
   const formatDate = (dateString?: string) => {
     if (!dateString) return '';
     const date = new Date(dateString);
-    return new Intl.DateTimeFormat(language === 'it' ? 'it-IT' : 'en-GB', {
+    return new Intl.DateTimeFormat(getIntlLocale(language), {
       year: 'numeric',
       month: 'long',
       day: 'numeric'

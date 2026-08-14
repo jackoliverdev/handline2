@@ -241,14 +241,14 @@ export const RelatedProducts = ({ relatedProducts }: RelatedProductsProps) => {
     : relatedProducts;
 
   const renderProductCard = (product: Product, index: number) => {
-    const name = product.name_locales?.[language] || product.name;
-    const description = product.description_locales?.[language] || product.description;
-    const short_description = product.short_description_locales?.[language] || product.short_description;
-    const category = product.category_locales?.[language] || product.category;
-    const sub_category = product.sub_category_locales?.[language] || product.sub_category;
-    const features = product.features_locales?.[language] || product.features;
-    const applications = product.applications_locales?.[language] || product.applications;
-    const industries = product.industries_locales?.[language] || product.industries;
+    const name = product.name_locales?.[language] || product.name_locales?.en || product.name;
+    const description = product.description_locales?.[language] || product.description_locales?.en || product.description;
+    const short_description = product.short_description_locales?.[language] || product.short_description_locales?.en || product.short_description;
+    const category = product.category_locales?.[language] || product.category_locales?.en || product.category;
+    const sub_category = product.sub_category_locales?.[language] || product.sub_category_locales?.en || product.sub_category;
+    const features = product.features_locales?.[language] || product.features_locales?.en || product.features;
+    const applications = product.applications_locales?.[language] || product.applications_locales?.en || product.applications;
+    const industries = product.industries_locales?.[language] || product.industries_locales?.en || product.industries;
     
     const localizedProduct = {
       ...product,

@@ -46,6 +46,9 @@
       "toggleLabel": "Language / Lingua",
       "en": "English",
       "it": "Italiano",
+      "fr": "Français",
+      "de": "Deutsch",
+      "es": "Español",
       "toggleButton": "Switch to {lang}"
     },
     "announcement": "PROTECTING HANDS WITH INNOVATIVE SOLUTIONS",

@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { useEffect, useMemo, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { PPESection } from '@/lib/ppe-standards/types';
-import { useLanguage } from '@/lib/context/language-context';
+import { useLanguage, type Language } from '@/lib/context/language-context';
 import { supabase } from '@/lib/supabase';
 import { preserveMarkdownSpacing } from '@/lib/markdown-utils';
 import { SectionImagesGallery } from '@/components/website/resources/shared/SectionImagesGallery';
@@ -24,8 +24,8 @@ export function ENResourceSectionsBlocks({ sections }: Props) {
     <section className="container pt-0 md:pt-1 pb-6 md:pb-8">
       <div className="space-y-8 md:space-y-10">
         {sections.map((s, idx) => {
-          const title = (s as any).titleLocales?.[language] || s.title;
-          const intro = (s as any).introLocales?.[language] || s.intro;
+          const title = (s as any).titleLocales?.[language] || (s as any).titleLocales?.en || s.title;
+          const intro = (s as any).introLocales?.[language] || (s as any).introLocales?.en || s.intro;
           const bullets = ((s as any).bulletsLocales && !Array.isArray((s as any).bulletsLocales) ? (s as any).bulletsLocales[language] || (s as any).bulletsLocales['en'] : s.bullets) || s.bullets;
           return (
           <motion.article
@@ -102,7 +102,7 @@ export function ENResourceSectionsBlocks({ sections }: Props) {
 
 interface SectionRelatedProductsProps {
   ids: string[];
-  lang: 'en' | 'it';
+  lang: Language;
   captions?: Record<string, Record<string, string>>;
 }
 

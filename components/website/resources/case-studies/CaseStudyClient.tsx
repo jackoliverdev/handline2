@@ -1,5 +1,6 @@
 "use client";
 import { useLanguage } from '@/lib/context/language-context';
+import { getIntlLocale } from '@/lib/i18n/config';
 import { CaseStudyCard } from './case-study-card';
 import { MarkdownContent } from './markdown-content';
 import { Button } from '@/components/ui/button';
@@ -27,20 +28,20 @@ export default function CaseStudyClient({ caseStudy, relatedCaseStudies }: { cas
     router.push('/resources/case-studies');
   };
 
-  const title = caseStudy.title_locales?.[language] || caseStudy.title;
-  const summary = caseStudy.summary_locales?.[language] || caseStudy.summary;
-  const content = caseStudy.content_locales?.[language] || caseStudy.content;
-  const tags = caseStudy.tags_locales?.[language] || caseStudy.tags || [];
-  const clientName = caseStudy.client_name_locales?.[language] || caseStudy.client_name;
-  const industry = caseStudy.industry_locales?.[language] || caseStudy.industry;
-  const challenge = caseStudy.challenge_locales?.[language] || caseStudy.challenge;
-  const solution = caseStudy.solution_locales?.[language] || caseStudy.solution;
-  const results = caseStudy.results_locales?.[language] || caseStudy.results;
-  const testimonial = caseStudy.testimonial_locales?.[language] || caseStudy.testimonial;
-  const testimonialAuthor = caseStudy.testimonial_author_locales?.[language] || caseStudy.testimonial_author;
-  const testimonialPosition = caseStudy.testimonial_position_locales?.[language] || caseStudy.testimonial_position;
-  const showcaseTitle = caseStudy.showcase_title_locales?.[language] || caseStudy.showcase_title;
-  const showcaseDescription = caseStudy.showcase_description_locales?.[language] || caseStudy.showcase_description;
+  const title = caseStudy.title_locales?.[language] || caseStudy.title_locales?.en || caseStudy.title;
+  const summary = caseStudy.summary_locales?.[language] || caseStudy.summary_locales?.en || caseStudy.summary;
+  const content = caseStudy.content_locales?.[language] || caseStudy.content_locales?.en || caseStudy.content;
+  const tags = caseStudy.tags_locales?.[language] || caseStudy.tags_locales?.en || caseStudy.tags || [];
+  const clientName = caseStudy.client_name_locales?.[language] || caseStudy.client_name_locales?.en || caseStudy.client_name;
+  const industry = caseStudy.industry_locales?.[language] || caseStudy.industry_locales?.en || caseStudy.industry;
+  const challenge = caseStudy.challenge_locales?.[language] || caseStudy.challenge_locales?.en || caseStudy.challenge;
+  const solution = caseStudy.solution_locales?.[language] || caseStudy.solution_locales?.en || caseStudy.solution;
+  const results = caseStudy.results_locales?.[language] || caseStudy.results_locales?.en || caseStudy.results;
+  const testimonial = caseStudy.testimonial_locales?.[language] || caseStudy.testimonial_locales?.en || caseStudy.testimonial;
+  const testimonialAuthor = caseStudy.testimonial_author_locales?.[language] || caseStudy.testimonial_author_locales?.en || caseStudy.testimonial_author;
+  const testimonialPosition = caseStudy.testimonial_position_locales?.[language] || caseStudy.testimonial_position_locales?.en || caseStudy.testimonial_position;
+  const showcaseTitle = caseStudy.showcase_title_locales?.[language] || caseStudy.showcase_title_locales?.en || caseStudy.showcase_title;
+  const showcaseDescription = caseStudy.showcase_description_locales?.[language] || caseStudy.showcase_description_locales?.en || caseStudy.showcase_description;
   
   const [currentUrl, setCurrentUrl] = useState<string>('');
   const [copySuccess, setCopySuccess] = useState(false);
@@ -70,7 +71,7 @@ export default function CaseStudyClient({ caseStudy, relatedCaseStudies }: { cas
   const formatDate = (dateString: string | undefined) => {
     if (!dateString) return '';
     const date = new Date(dateString);
-    return new Intl.DateTimeFormat(language === 'it' ? 'it-IT' : 'en-GB', {
+    return new Intl.DateTimeFormat(getIntlLocale(language), {
       year: 'numeric',
       month: 'long',
       day: 'numeric',

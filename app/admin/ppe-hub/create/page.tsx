@@ -73,7 +73,7 @@ export default function CreatePPECategoryPage() {
   });
   const [sections, setSections] = useState<PPESectionRecord[]>([]);
   const [saving, setSaving] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState<'en' | 'it'>(language || 'en');
+  const [currentLanguage, setCurrentLanguage] = useState<'en' | 'it'>(language === 'it' ? 'it' : 'en');
   const [availableProducts, setAvailableProducts] = useState<Product[]>([]);
   const [introPreviewTabs, setIntroPreviewTabs] = useState<Record<number, string>>({});
   const standardIconsRef = useRef<any[] | null>(null);

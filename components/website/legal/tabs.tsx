@@ -18,10 +18,9 @@ export function LegalTabs() {
     router.push(`/legal?tab=${value}` , { scroll: false });
   };
 
-  // Get content based on current language
   const getLocalizedContent = (section: keyof typeof legalContent.en) => {
-    const langCode = language as 'en' | 'it';
-    return legalContent[langCode][section];
+    const contentByLanguage = legalContent[language as keyof typeof legalContent];
+    return (contentByLanguage || legalContent.en)[section];
   };
 
   return (

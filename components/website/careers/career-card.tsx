@@ -9,6 +9,7 @@ import type { CareerPost } from '@/lib/career-service';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/lib/context/language-context';
+import { getIntlLocale } from '@/lib/i18n/config';
 
 interface CareerCardProps {
   post: CareerPost;
@@ -24,7 +25,7 @@ export function CareerCard({ post, index, language, disableAnimation = false }: 
   const formatDate = (dateString?: string) => {
     if (!dateString) return '';
     const date = new Date(dateString);
-    return new Intl.DateTimeFormat(language === 'it' ? 'it-IT' : 'en-GB', {
+    return new Intl.DateTimeFormat(getIntlLocale(language), {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
@@ -44,13 +45,13 @@ export function CareerCard({ post, index, language, disableAnimation = false }: 
     : false;
 
   // Localised fields
-  const title = (post.title_locales && post.title_locales[language]) || post.title;
-  const summary = (post.summary_locales && post.summary_locales[language]) || post.summary;
-  const location = (post.location_locales && post.location_locales[language]) || post.location;
-  const department = (post.department_locales && post.department_locales[language]) || post.department;
-  const jobType = (post.job_type_locales && post.job_type_locales[language]) || post.job_type;
-  const workSite = (post.work_site_locales && post.work_site_locales[language]) || post.work_site;
-  const salaryRange = (post.salary_range_locales && post.salary_range_locales[language]) || post.salary_range;
+  const title = (post.title_locales && (post.title_locales[language] || post.title_locales.en)) || post.title;
+  const summary = (post.summary_locales && (post.summary_locales[language] || post.summary_locales.en)) || post.summary;
+  const location = (post.location_locales && (post.location_locales[language] || post.location_locales.en)) || post.location;
+  const department = (post.department_locales && (post.department_locales[language] || post.department_locales.en)) || post.department;
+  const jobType = (post.job_type_locales && (post.job_type_locales[language] || post.job_type_locales.en)) || post.job_type;
+  const workSite = (post.work_site_locales && (post.work_site_locales[language] || post.work_site_locales.en)) || post.work_site;
+  const salaryRange = (post.salary_range_locales && (post.salary_range_locales[language] || post.salary_range_locales.en)) || post.salary_range;
 
   const item = {
     hidden: { opacity: 0, y: 12 },

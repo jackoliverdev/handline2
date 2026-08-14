@@ -611,7 +611,7 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
 
             {/* Key Features - Compact */}
             {(() => {
-              const currentFeatures = product.features_locales?.[language] || product.features || [];
+              const currentFeatures = product.features_locales?.[language] || product.features_locales?.en || product.features || [];
               return currentFeatures.length > 0 && (
                 <div className="space-y-2">
                   <h4 className="text-base font-semibold text-brand-dark dark:text-white font-heading">{t('products.keyFeatures')}</h4>
@@ -636,7 +636,7 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
 
             {/* Industries - Compact */}
             {(() => {
-              const currentIndustries = product.industries_locales?.[language] || product.industries || [];
+              const currentIndustries = product.industries_locales?.[language] || product.industries_locales?.en || product.industries || [];
               return currentIndustries.length > 0 && (
                 <div className="space-y-2">
                   <h4 className="text-base font-semibold text-brand-dark dark:text-white font-heading">{t('productPage.industries')}</h4>

@@ -9,6 +9,7 @@ import type { CaseStudy } from '@/lib/case-studies-service';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/lib/context/language-context';
+import { getIntlLocale } from '@/lib/i18n/config';
 
 interface CaseStudyCardProps {
   caseStudy: CaseStudy;
@@ -23,7 +24,7 @@ export function CaseStudyCard({ caseStudy, index, language }: CaseStudyCardProps
   const formatDate = (dateString?: string) => {
     if (!dateString) return '';
     const date = new Date(dateString);
-    return new Intl.DateTimeFormat(language === 'it' ? 'it-IT' : 'en-GB', {
+    return new Intl.DateTimeFormat(getIntlLocale(language), {
       year: 'numeric',
       month: 'short',
       day: 'numeric'

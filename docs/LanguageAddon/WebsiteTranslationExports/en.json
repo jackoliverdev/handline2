@@ -1,0 +1,1968 @@
+{
+  "navbar": {
+    "home": "Home",
+    "products": "Products",
+    "industries": "Industries",
+    "about": "About Us",
+    "blog": "Blog",
+    "contact": "Contact",
+    "dashboard": "Dashboard",
+    "menu": "Menu",
+    "partners": "Partners",
+    "resources": "Resources",
+    "allProducts": "All Products",
+    "safetyGloves": "Hand Protection",
+    "allGloves": "All Gloves",
+    "heatResistant": "Heat-Resistant",
+    "cutResistant": "Cut-Resistant",
+    "generalPurpose": "General Purpose",
+    "mechanicalHazards": "Mechanical Hazards",
+    "welding": "Welding",
+    "industrialSwabs": "Industrial Swabs",
+    "armProtection": "Arm Protection",
+    "safetyFootwear": "Safety Footwear",
+    "eyeFaceProtection": "Eye & Face Protection",
+    "headProtection": "Head Protection",
+    "hearingProtection": "Hearing Protection",
+    "respiratoryProtection": "Respiratory Protection",
+    "protectiveClothing": "Protective Clothing",
+    "aboutDropdown": {
+      "ourCompany": "Our Company",
+      "careers": "Careers",
+      "esg": "ESG Commitment"
+    },
+    "resourcesDropdown": {
+      "blog": "Blog",
+      "caseStudies": "Case Studies",
+      "enResourceCentre": "PPE Standards Hub",
+      "productDisclaimer": "Product Disclaimer",
+      "declarations": "Declarations"
+    },
+    "partnersDropdown": {
+      "partnerships": "Partnerships",
+      "distribution": "Distribution"
+    },
+    "language": {
+      "toggleLabel": "Language / Lingua",
+      "en": "English",
+      "it": "Italiano",
+      "toggleButton": "Switch to {lang}"
+    },
+    "announcement": "PROTECTING HANDS WITH INNOVATIVE SOLUTIONS",
+    "searchPlaceholder": "Search products, industries, or articles..."
+  },
+  "search": {
+    "searchPlaceholder": "Search products or content",
+    "sidebarSearchPlaceholder": "Search products...",
+    "searchButton": "Search",
+    "clearSearch": "Clear search",
+    "searching": "Searching...",
+    "noQuery": "Enter a search term to begin",
+    "dropdown": {
+      "noResults": "No results found",
+      "noResultsDescription": "Try a different search term",
+      "viewAll": "View all results",
+      "viewAllFor": "View all results for \"{query}\"",
+      "suggestions": "Suggestions",
+      "recentSearches": "Recent Searches",
+      "popularSearches": "Popular Searches",
+      "clearRecent": "Clear recent searches"
+    },
+    "results": {
+      "title": "Search Results",
+      "showing": "Showing {count} of {total} results",
+      "showingFor": "Showing {count} of {total} results for \"{query}\"",
+      "noResults": "No results found",
+      "noResultsFor": "No results found for \"{query}\"",
+      "noResultsDescription": "Try adjusting your search terms or filters",
+      "suggestions": {
+        "title": "Suggestions:",
+        "checkSpelling": "Check your spelling",
+        "tryDifferent": "Try different keywords",
+        "useGeneral": "Use more general terms",
+        "clearFilters": "Clear active filters"
+      },
+      "loadMore": "Load more results",
+      "loading": "Loading more results...",
+      "searching": "Searching...",
+      "searchingDescription": "Please wait while we search through our products, industries, and resources.",
+      "error": "Search Error",
+      "tryAgain": "Try Again",
+      "noQuery": "Start Your Search",
+      "noQueryDescription": "Enter search terms above to find products, industries, articles, and more.",
+      "pageInfo": "Page {current} of {total}",
+      "loadingMore": "Loading more results...",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "filters": {
+      "title": "Filters",
+      "activeFilters": "Active Filters",
+      "clearAll": "Clear All",
+      "clearFilter": "Clear {filter}",
+      "apply": "Apply Filters",
+      "loading": "Loading filters...",
+      "resultsCount": "{count} results",
+      "contentType": "Content Type",
+      "category": "Category",
+      "applied": "Applied Filters",
+      "allCategories": "All Categories",
+      "contentTypes": {
+        "title": "Content Type",
+        "all": "All Content",
+        "products": "Products",
+        "industries": "Industries", 
+        "articles": "Articles",
+        "caseStudies": "Case Studies",
+        "careers": "Careers",
+        "enStandards": "EN Standards"
+      },
+      "categories": {
+        "title": "Categories",
+        "all": "All Categories"
+      },
+      "sortBy": {
+        "title": "Sort By",
+        "relevance": "Relevance",
+        "newest": "Newest First",
+        "alphabetical": "Alphabetical"
+      }
+    },
+    "contentTypes": {
+      "product": "Product",
+      "industry_solution": "Industry Solution",
+      "blog": "Article",
+      "case_study": "Case Study", 
+      "career": "Career",
+      "en_resource": "EN Standard",
+      "category": "Category"
+    },
+    "hero": {
+      "badge": "Global Search",
+      "title": "Search",
+      "titleAccent": "Results", 
+      "heading": "Search",
+      "headingAccent": "Results",
+      "headingWithQuery": "Results for",
+      "description": "Find the safety solutions, industry insights, and resources you need across our complete product range and knowledge base.",
+      "searching": "Searching...",
+      "descriptionWithResults": "Found {count} results for '{query}' across our products, industries, and resources.",
+      "descriptionNoResults": "No results found for '{query}'. Try different keywords or browse our categories below.",
+      "stats": {
+        "results": "Results",
+        "categories": "Categories",
+        "languages": "Languages",
+        "availability": "Available"
+      },
+      "tips": {
+        "title": "Search Tips",
+        "checkSpelling": "Check your spelling and try again",
+        "tryKeywords": "Try different or more general keywords",
+        "useSynonyms": "Use synonyms or alternative terms",
+        "browseCategories": "Browse categories below for inspiration"
+      }
+    },
+    "errors": {
+      "general": "Something went wrong. Please try again.",
+      "network": "Network error. Please check your connection.",
+      "timeout": "Search timed out. Please try again.",
+      "tooManyRequests": "Too many search requests. Please wait a moment."
+    },
+    "categories": {
+      "heatResistant": "Heat-Resistant Gloves",
+      "cutResistant": "Cut-Resistant Gloves", 
+      "generalPurpose": "General Purpose Gloves",
+      "industrialSwabs": "Industrial Swabs",
+      "respiratory": "Respiratory Protection",
+      "industry": "Industry Solutions",
+      "blog": "Blog Articles",
+      "caseStudy": "Case Studies",
+      "career": "Career Opportunities",
+      "enResource": "EN Standards"
+    },
+    "sorting": {
+      "relevance": "Most Relevant",
+      "newest": "Newest First",
+      "alphabetical": "A-Z"
+    }
+  },
+  "hero": {
+    "expertise": "40+ Years of Expertise",
+    "title": "Your Hands Protected",
+    "description": "With over 40 years' experience in designing, manufacturing and distributing safety gloves, we developed tailored solutions for hand protection for heavy duty industries, with particular focus on heat and cut hazards.",
+    "exploreProducts": "Explore Products",
+    "getInTouch": "Get in Touch",
+    "mainTitle": {
+      "handline": "HAND LINE",
+      "weSpeak": "WE SPEAK",
+      "safety": "SAFETY"
+    }
+  },
+  "productsHero": {
+    "badge": "Industrial Safety",
+    "heading": {
+      "line1Start": "We",
+      "line1Highlight": "protect the people",
+      "line1End": "that",
+      "line2": "build our world"
+    },
+    "headingAccent": "",
+    "description": "The right PPE is a critical line of defence that protects workers from hazards, prevents injuries, and saves lives. Research shows that effective PPE usage can reduce workplace injury rates by up to 60%, underscoring how crucial the right equipment is to a safer, more productive work environment. Poorly fitted or inadequate PPE, on the other hand, is demonstrated to be a concurring factor to the majority of registered injuries.",
+    "secondDescription": "With over 40 years of industry expertise, we specialise in designing and distributing top-quality products that meet rigorous industry standards, ensuring the perfect fit and protection tailored to your unique challenges. We offer comprehensive head-to-toe safety solutions with particular expertise in hand protection.",
+    "browseProducts": "Browse Products",
+    "getInTouch": "Get in Touch",
+    "stats": {
+      "heat": "Heat Resistance",
+      "cut": "Cut Resistance",
+      "cutValue": "Level 5",
+      "certified": "Certified",
+      "years": "Years Experience"
+    }
+  },
+  "productsDesignPrinciples": {
+    "title": "Our product design principles",
+    "protection": {
+      "title": "Protection",
+      "description": "Safety is our core objective and every product we design starts with protecting people"
+    },
+    "comfort": {
+      "title": "Comfort",
+      "description": "From material selection to task-specific customisation, we make our product fit the operators' needs, not the opposite."
+    },
+    "quality": {
+      "title": "Quality",
+      "description": "Consistent quality is ensured by stringent checks and certified production chain to ensure compliance."
+    },
+    "affordability": {
+      "title": "Affordability",
+      "description": "Meticulous production planning and strong international partnerships allow us to offer our quality products at competitive price."
+    }
+  },
+  "glovesHero": {
+    "badge": "Hand Protection",
+    "heading": "Safety",
+    "headingAccent": "Gloves",
+    "description": "Discover our comprehensive range of high-performance safety gloves, designed to provide superior protection against heat, cuts, and mechanical hazards in industrial environments.",
+    "browseProducts": "Browse Gloves",
+    "getInTouch": "Get in Touch",
+    "stats": {
+      "heat": "Heat Resistance",
+      "cut": "Cut Resistance",
+      "cutValue": "Level 5",
+      "certified": "Certified",
+      "years": "Years Experience"
+    }
+  },
+  "industrialSwabsHero": {
+    "badge": "Precision Cleaning",
+    "heading": "Industrial",
+    "headingAccent": "Swabs",
+    "description": "Explore our specialised range of industrial swabs and cleaning solutions, designed for precision cleaning tasks in demanding industrial environments.",
+    "browseProducts": "Browse Swabs",
+    "getInTouch": "Get in Touch",
+    "stats": {
+      "precision": "Precision Cleaning",
+      "applications": "Applications",
+      "applicationsValue": "500+",
+      "certified": "Certified",
+      "years": "Years Experience"
+    }
+  },
+  "respiratoryHero": {
+    "badge": "Respiratory Safety",
+    "heading": "Respiratory",
+    "headingAccent": "Protection",
+    "description": "Discover our advanced respiratory protection equipment, designed to provide superior protection against airborne hazards in industrial environments.",
+    "browseProducts": "Browse Protection",
+    "getInTouch": "Get in Touch",
+    "stats": {
+      "protection": "Protection Levels",
+      "standards": "Standards",
+      "standardsValue": "EN 149",
+      "certified": "Certified",
+      "years": "Years Experience"
+    }
+  },
+  "industriesHero": {
+    "badge": "Sector Solutions",
+    "heading": "Industry",
+    "headingAccent": "Solutions",
+    "description": "Discover how Hand Line's innovative safety solutions are tailored to meet the unique challenges of various industries, providing protection and performance when it matters most.",
+    "stats": {
+      "industries": "Industries Served",
+      "years": "Years Experience",
+      "products": "Products",
+      "customers": "Happy Customers"
+    },
+    "exploreIndustries": "Explore Industries",
+    "viewProducts": "View Products"
+  },
+  "expertise": {
+    "title": "Our Expertise",
+    "description": "With over four decades of experience, Hand Line Company has established itself as a leader in innovative hand protection solutions for industrial environments.",
+    "features": {
+      "heatProtection": {
+        "title": "Heat Protection Gloves",
+        "description": "Our bread and butter. We design and manufacture gloves to cater for all environments and temperatures, exceeding 1000C",
+        "cta": "Explore Heat-Resistant Range"
+      },
+      "cutResistance": {
+        "title": "Cut Resistant Gloves",
+        "description": "Advanced materials provide superior cut protection while maintaining dexterity and comfort for precision tasks.",
+        "cta": "View Cut-Resistant Solutions"
+      },
+      "customisation": {
+        "title": "Product Customisation",
+        "description": "We design and tailor products with our customers, starting from the operator's needs. We combine our deep expertise with your input to build the perfect solution.",
+        "cta": "Learn About Our Process"
+      },
+      "headToToe": {
+        "title": "Head-to-toe Protection",
+        "description": "We provide full-range safety solutions, both with first party products and partnering with industry leading brands. We offer complete protection at the best prices.",
+        "cta": "Explore Products"
+      }
+    },
+    "quote": {
+      "text": "My journey began 40 years ago when I observed workers handling hot moulds. By combining their perspectives with my craftsmanship, we created innovative safety solutions that now protect workers across countless industries.",
+      "author": "Franco Castronuovo, CEO and Founder"
+    }
+  },
+  "featuredProducts": {
+    "title": "Featured Products",
+    "description": "Discover our most popular safety products, designed to provide superior protection and comfort across different industrial applications.",
+    "noProducts": "No featured products available at the moment.",
+    "preview": "Preview",
+    "previewShort": "View",
+    "details": "Details",
+    "viewAll": "View all products",
+    "specs": {
+      "temperature": "Temperature",
+      "cutLevel": "Cut Level"
+    }
+  },
+  "industrySolutions": {
+    "badge": "Sector Solutions",
+    "title": "Industry Solutions",
+    "description": "We design specialised hand protection for a wide range of industries, ensuring safety, comfort, and precision for every application.",
+    "detailedDescription": "We start from the person and design solutions around their needs. With almost half a century serving large organisations, we've developed deep industry expertise to help our customers improve protection and optimise productivity.",
+    "noIndustries": "No industry solutions available at the moment.",
+    "learnMore": "Learn more",
+    "viewAll": "View all industries"
+  },
+  "cta": {
+    "title": "Ready to Enhance Workplace",
+    "titleAccent": "Safety",
+    "description": "Our comprehensive range of industry-proven safety solutions is just the starting point. We work hand in hand with our customers to identify the most effective solutions to ensure best-in-class protection and optimal commercial performance.",
+    "buttons": {
+      "browseProducts": "Explore Products",
+      "contactUs": "Contact Us Today"
+    },
+    "trustIndicator": "Trusted by leading companies worldwide"
+  },
+  "industryCta": {
+    "badge": "Specialised Safety Solutions",
+    "title": "Ready to Enhance Safety in",
+    "description": "Discover our comprehensive range of safety solutions specifically designed for the {industry} industry.",
+    "buttons": {
+      "browseProducts": "Browse Our Products",
+      "contactUs": "Contact Us Today"
+    },
+    "trustIndicator": "Trusted by leading companies in {industry}"
+  },
+  "footer": {
+    "companyDescription": "Italian manufacturer specialising in high-performance safety gloves for industrial environments. Protecting hands with innovative solutions since 1982.",
+    "address": "via Antonio Brusa 34, 22035, Canzo (CO), Italy",
+    "addressUK": "52 Grosvenor Gardens, London SW1W 0AU, United Kingdom",
+      "phone": "T: (+39) 031 6121961 | (+39) 031 526733",
+    "email": "info@handlineco.com",
+    "sections": {
+      "products": {
+        "title": "Products",
+        "links": {
+          "safetyGloves": "Safety Gloves",
+          "heatResistant": "Heat-Resistant",
+          "cutResistant": "Cut-Resistant",
+          "generalPurpose": "General Purpose",
+          "mechanical": "Mechanical",
+          "welding": "Welding"
+        }
+      },
+      "industries": {
+        "title": "Industries",
+        "loading": "Loading industries…",
+        "links": {
+          "glassManufacturing": "Glass Manufacturing"
+        }
+      },
+      "company": {
+        "title": "Company",
+        "links": {
+          "about": "About Us",
+          "contactUs": "Contact Us",
+          "esg": "ESG Commitment"
+        }
+      }
+    },
+    "legal": {
+      "copyright": "All rights reserved.",
+      "links": {
+        "privacy": "Privacy Policy",
+        "terms": "Terms of Service",
+        "cookies": "Cookie Policy",
+        "standards": "EN-Standards"
+      }
+    }
+  },
+  "products": {
+    "product": "Product",
+    "categoryOverview": "Category Overview",
+    "categories": {
+      "main": {
+        "badge": "Product Categories",
+        "title": "Product Categories",
+        "description": "Explore our comprehensive range of industrial safety products designed to protect workers across various industries.",
+        "contactCard": {
+          "title": "Can't see what you're looking for?",
+          "description": "Get in touch with our team and we'll help you find the right safety solution for your needs.",
+          "cta": "Contact Us"
+        },
+        "gloves": {
+          "badge": "Safety Gloves",
+          "title": "Safety Gloves",
+          "description": "High-performance protective gloves for all industrial applications",
+          "categoriesDescription": "Choose from our specialised range of safety gloves designed for specific industrial applications.",
+          "detailedDescription": "Our comprehensive range of safety gloves provides superior protection across all industrial applications. From extreme heat resistance to advanced cut protection, our gloves are designed with precision engineering and tested to exceed industry standards. Each category is specifically tailored to meet the unique challenges of different work environments while maintaining comfort and dexterity.",
+          "subcategories": {
+            "heat": {
+              "title": "Heat-Resistant Gloves",
+              "description": "Protection for high-temperature environments and applications"
+            },
+            "mechanical": {
+              "title": "Mechanical Hazards Gloves",
+              "description": "Superior protection against mechanical risks and general workplace hazards"
+            },
+            "cut": {
+              "title": "Cut-Resistant Gloves", 
+              "description": "Protection against cuts and lacerations and handling of sharp objects"
+            },
+            "general": {
+              "title": "General Use Gloves",
+              "description": "Versatile protection for everyday industrial tasks and construction work"
+            },
+            "welding": {
+              "title": "Welding Gloves",
+              "description": "Specialised protection for welding and high-heat metalworking tasks"
+            }
+          }
+        },
+        "industrialSwabs": {
+          "badge": "Industrial Swabs",
+          "title": "Industrial Swabs",
+          "description": "Specialised solutions for industrial mold lubrication and maintenance ",
+          "detailedDescription": "Our industrial swabs provide lubrication and maintenance solutions for demanding industrial environments. Designed for precision tasks involving hot molds, our brushes can be custom-made for specific and high-accuracy operations."
+        },
+        "respiratory": {
+          "badge": "Respiratory Protection",
+          "title": "Respiratory Protection",
+          "description": "Respiratory protection equipment against multiple contaminants",
+          "detailedDescription": "Respiratory protection equipment provide advanced defense against airborne contaminants in industrial environments. From dust masks to full-face respirators, we offer products designed to meet the highest safety standards while ensuring comfort during prolonged use."
+        },
+        "hearing": {
+          "badge": "Hearing Protection",
+          "title": "Hearing Protection",
+          "description": "Hearing protection devices for noisy industrial environments",
+          "detailedDescription": "The hearing protection range includes disposable earplugs and earmuffs, either helmet-mounted or standalone. These solutions are designed to reduce exposure to harmful noise levels while maintaining comfort even during prolonged use. Ideal for manufacturing, construction, aviation, and heavy industry."
+        },
+        "armProtection": {
+          "badge": "Arm Protection",
+          "title": "Arm protection",
+          "description": "Cut-resistant sleeves and arm protection for industrial applications",
+          "detailedDescription": "The arm protection range provides reliable forearm coverage for demanding industrial environments. Focusing on cut and heat resistance, our sleeves ensure safety, comfort, and a secure fit, helping operators work safely when handling sharp edges, glass, and metal parts."
+        },
+        "footwear": {
+          "badge": "Safety Footwear",
+          "title": "Safety Footwear",
+          "description": "Feet protection from safety hazards and slip",
+          "detailedDescription": "The safety footwear range includes shoes, sneakers, and boots designed for various risks in accordance with EN ISO 20345, offering both comfort and protection in demanding environments."
+        },
+        "head": {
+          "badge": "Head Protection",
+          "title": "Head Protection",
+          "description": "Safety helmets and bump caps for industrial environments",
+          "detailedDescription": "The head protection range includes safety helmets and bump caps designed according to EN standards and compatible with complete safety systems for eye and hearing protection."
+        },
+        "eyeFace": {
+          "badge": "Eye & Face Protection",
+          "title": "Eye & Face Protection",
+          "description": "Protective eyewear and visors for industrial environments",
+          "detailedDescription": "The eye and face protection range includes safety glasses, goggles, and visors with arc flash protection, designed according to EN standards. They offer maximum clarity and comfort with anti-fog and anti-scratch coatings, UV filters, and options for IR protection."
+        },
+        "clothing": {
+          "badge": "Protective Clothing",
+          "title": "Protective Clothing",
+          "description": "High‑visibility garments, safety clothing and workwear",
+          "detailedDescription": "The clothing range includes high-visibility garments as well as protective and workwear certified according to EN standards, ensuring visibility, protection, and comfort",
+          "categoriesDescription": "Choose from our specialised clothing ranges designed for visibility, multi‑risk protection and welding applications.",
+          "subcategories": {
+            "highVisibility": {
+              "title": "High‑visibility clothing",
+              "description": "EN ISO 20471 garments for high-visibility and safety"
+            },
+            "safetyWorkwear": {
+              "title": "Safety clothing and Workwear",
+              "description": "Industrial workwear and safety clothing"
+            },
+            "welding": {
+              "title": "Welding clothing",
+              "description": "Heat and spatter resistant clothing for welding operations"
+            }
+          }
+        }
+      },
+      "pages": {
+        "heat": {
+          "badge": "Heat Protection",
+          "title": "Heat-Resistant Products",
+          "description": "Browse our complete range of heat-resistant gloves designed for extreme temperature protection.",
+          "detailedDescription": "Our heat-resistant gloves provide exceptional thermal protection for workers in high-temperature environments. Engineered with advanced materials and tested to withstand temperatures up to 1000°C, these gloves offer superior protection without compromising dexterity. Perfect for glass manufacturing, metalworking, welding, and other high-heat industrial applications."
+        },
+        "cut": {
+          "badge": "Cut Protection",
+          "title": "Cut-Resistant Products", 
+          "description": "Browse our complete range of cut-resistant gloves designed for maximum protection against sharp objects.",
+          "detailedDescription": "Our cut-resistant gloves provide superior protection against cuts and lacerations whilst maintaining exceptional dexterity and comfort. Engineered with advanced materials and tested to achieve very high cut resistance, these gloves are essential for workers handling sharp materials, glass, metal fabrication, and precision assembly operations."
+        },
+        "general": {
+          "badge": "General Purpose",
+          "title": "General Purpose Products",
+          "description": "Browse our complete range of general purpose gloves designed for everyday industrial tasks.",
+          "detailedDescription": "Our general purpose gloves provide reliable protection for everyday industrial tasks and construction work. Designed for versatility and comfort, these gloves offer excellent grip, durability, and protection for a wide range of applications including assembly work, material handling, maintenance tasks, and general construction activities."
+        },
+        "mechanical": {
+          "badge": "Mechanical Protection",
+          "title": "Mechanical Hazards Products",
+          "description": "Browse our complete range of mechanical hazards gloves designed for superior workplace protection.",
+          "detailedDescription": "Our mechanical hazards gloves provide superior protection against mechanical risks and general workplace hazards whilst maintaining exceptional dexterity and comfort. Engineered with advanced materials and tested to meet EN388 standards, these gloves are essential for workers in manufacturing, assembly, construction, and general industrial environments."
+        },
+        "welding": {
+          "badge": "Welding Protection",
+          "title": "Welding Products",
+          "description": "Browse our complete range of welding gloves designed for high-heat metalworking tasks.",
+          "detailedDescription": "Our welding gloves provide specialised protection for welding and high-heat metalworking tasks with superior durability and comfort. Engineered with heat-resistant materials and designed for demanding welding environments, these gloves offer excellent protection against sparks, spatter, and high temperatures whilst maintaining the dexterity needed for precision work."
+        },
+      "clothing": {
+        "highVisibility": {
+          "detailedDescription": "High-visibility clothing certified to EN ISO 20471, designed to provide reliable visibility in low-light conditions and high-risk areas across different classes, suitable for even the highest-risk situations. Breathable, durable fabrics and ergonomic cuts ensure all-day comfort in road maintenance, construction, logistics, and public services, with winter and waterproof options available."
+        },
+        "safetyWorkwear": {
+          "detailedDescription": "Work and safety clothing that provides multi-risk protection for operations in industrial environments where durability and compliance are non-negotiable. Modern, ergonomic fits support freedom of movement and long-lasting performance, helping operators maintain productivity in maintenance, production, and field activities"
+        },
+        "welding": {
+          "detailedDescription": "Welding clothing designed for demanding manufacturing environments, providing protection against sparks, spatter, and convective heat. Jackets, aprons, and sleeves use flame-resistant fabrics and reinforced stitching, with designs compliant with EN ISO 11611 and EN ISO 11612 performance requirements. The balance between breathability and coverage allows operators to work safely while maintaining comfort throughout the entire shift."
+        }
+      },
+        "respiratory": {
+          "badge": "Respiratory Safety",
+          "title": "Respiratory Protection Products",
+          "description": "Browse our complete range of respiratory protection equipment for hazardous environments."
+        },
+        "industrialSwabs": {
+          "badge": "Precision Operations",
+          "title": "Industrial Swab Products",
+          "description": "Browse our complete range of industrial swabs designed for precision cleaning tasks.",
+          "detailedDescription": "Explore our range of specialised cleaning solutions designed for industrial applications."
+        }
+      }
+    },
+    "browseTitle": "Browse Our Products",
+    "badge": "Our Products",
+    "mainPageTitle": "Browse All of Our Products",
+    "mainPageDescription": "Explore our complete range of industrial safety products and protective equipment designed for professional environments.",
+    "searchPlaceholder": "Search products...",
+    "sortOptions": {
+      "featured": "Featured",
+      "newest": "Newest",
+      "name-asc": "Name: A to Z",
+      "name-desc": "Name: Z to A"
+    },
+    "filters": {
+      "title": "Filters",
+      "clearAll": "Clear All Filters",
+      "category": "Category",
+      "subCategory": "Sub-Category",
+        "any": "Any",
+        "enStandard": "EN Standard",
+        "sleeveLength": "Sleeve length",
+        "thumbLoop": "Thumb loop",
+        "closureType": "Closure type",
+        "connection": "Connection",
+        "filterType": "Filter type (Filters)",
+        "protectionClass": "Protection class (Masks)",
+        "filteredParticles": "Filtered particles (Filters)",
+        "snr": "SNR",
+        "en352Part": "EN 352 part",
+        "reusable": "Reusable",
+        "mountType": "Mount type",
+        "bluetooth": "Bluetooth",
+      "temperature": "Temperature Rating",
+      "cutLevel": "Cut Resistance Level",
+      "heatLevel": "Heat Resistance Level",
+      "hazardProtection": "Hazard Protection",
+      "hazardProtectionItems": {
+        "generalMechanical": "General mechanical risks",
+        "highCutRisks": "High cut risks",
+        "abrasionProtection": "Abrasion protection",
+        "highContactTemperature": "High contact temperature",
+        "highHeatTemperature": "High heat/temperature",
+        "hotSplashes": "Hot splashes",
+        "highCutAndHeat": "High Cut and Heat",
+        "heavyDutyWelding": "Heavy-duty welding",
+        "precisionWelding": "Precision welding"
+      },
+      "workEnvironment": "Work Environment",
+      "length": "Length",
+      "min": "Min",
+      "max": "Max",
+      "padSize": "Pad size",
+      "diameter": "Diameter (mm)",
+      "padLength": "Pad length (mm)",
+      "material": "Material",
+      "ceCategory": "CE Category",
+      "industries": "Industries",
+      "allCategories": "All Categories",
+      "uncategorised": "Uncategorised",
+      "activeFilters": "Active filters:",
+      "apply": "Apply",
+      "heatResistantGloves": "Heat-Resistant Gloves",
+      "cutResistantGloves": "Cut-Resistant Gloves",
+      "generalPurposeGloves": "General Purpose Gloves",
+      "mechanicalHazardsGloves": "Mechanical Hazards Gloves",
+      "weldingGlove": "Welding Gloves",
+      "industrialSwabs": "Industrial Swabs",
+      "respiratoryProtection": "Respiratory Protection",
+      "protectiveClothing": "Protective Clothing",
+      "footwearClass": "Footwear class",
+      "esd": "ESD",
+      "widthFit": "Width fit",
+      "sizeRange": "Size range",
+      "toeCap": "Toe cap",
+      "soleMaterial": "Sole material",
+      "standardCodes": "Standard codes",
+      "protectionType": "Protection type",
+      "lensTint": "Lens tint",
+      "coating": "Coating",
+      "uvCode": "UV protection",
+      "brimLength": "Brim length",
+      "lowTemperature": "Low-temperature performance",
+      "electricalInsulation": "Electrical insulation (EN 50365)",
+      "moltenMetalSplash": "Molten metal splash (MM)",
+      "ventilation": "Ventilation",
+      "hiVisClass": "Hi-Vis class",
+      "flameStandard": "Flame/heat standard (EN ISO 11612)",
+      "arcClass": "Arc protection class",
+      "antistatic": "Antistatic (EN 1149-5)",
+      "clothingType": "Clothing Type",
+      "clothingTypeOptions": {
+        "welding": "Welding clothing",
+        "high-visibility": "High-visibility clothing",
+        "safety-workwear": "Safety clothing and workwear"
+      },
+      "garmentType": "Garment Type",
+      "size": "Size",
+      "clothingCategory": {
+        "title": "Clothing Category"
+      },
+      "garmentTypes": {
+        "Aprons": "Aprons",
+        "Jackets": "Jackets",
+        "Coveralls": "Coveralls",
+        "Trousers": "Trousers",
+        "Waistcoats": "Waistcoats",
+        "Body warmers": "Body warmers",
+        "Fleece & Sweatshirts": "Fleece & Sweatshirts",
+        "Polo & T-shirts": "Polo & T-shirts",
+        "Other workwear": "Other workwear",
+        "Accessories": "Accessories"
+      }
+    },
+    "results": {
+      "showing": "Showing {current} of {total} products",
+      "noResults": "No products found",
+      "noResultsDescription": "We couldn't find any products matching your search criteria.",
+      "clearFilters": "Clear Filters",
+      "seeMore": "See More Products",
+      "showLess": "Show Less"
+    },
+    "preview": "Preview",
+    "details": "Details",
+    "viewFullDetails": "View Full Details",
+    "outOfStock": "Out of Stock",
+    "comingSoon": "Coming Soon",
+    "new": "New",
+    "featured": "Featured",
+    "industries": "Industries",
+    "keyFeatures": "Key Features:",
+    "moreFeatures": "+{{count}} more",
+    "temperature": "Temperature",
+    "temperatureMobile": "Temp",
+    "enStandards": "EN Standards",
+    "enStandardsMobile": "EN",
+    "applications": "Applications"
+  },
+  "productPage": {
+    "backToProducts": "Back to products",
+    "specifications": "Specifications",
+    "features": "Features",
+    "safetyFeatures": "Safety features",
+    "armProtectionAttributes": "Arm Protection Attributes",
+    "closureTypes": {
+      "velcro": "Velcro",
+      "elastic": "Elastic",
+      "none": "None"
+    },
+      "equipment": "Equipment",
+      "otherDetails": "Other details",
+    "applications": "Applications",
+    "safety": "EN Standards",
+    "documentation": "Documents",
+    "declarationOfConformity": "Declaration of Conformity",
+    "download": "Download",
+    "noDocuments": "No documents available",
+      "opticalClass": "Optical class",
+      "mechanical": "Mechanical",
+      "coating": "Coating",
+      "standards": "Standards",
+      "weight": "Weight",
+      "closedShell": "Closed shell",
+      "brimShort": "Short brim",
+      "brimLong": "Long brim",
+      "slipResistance": "Slip resistance",
+      "metalFree": "Metal-free",
+      "sleeveFeatures": "Sleeve features",
+      "snr": "SNR",
+      "en352Parts": "EN 352 parts",
+      "bluetooth": "Bluetooth",
+      "compatibleWith": "Compatible with",
+      "protectionCodes": "Protection codes",
+      "fit": "Fit",
+      "gender": "Gender",
+      "colours": "Colours",
+      "uvProtection": "UV protection",
+      "frameMark": "Frame mark",
+      "lensMark": "Lens mark",
+      "frame": "Frame",
+      "lens": "Lens",
+      "additionalMarking": "Additional marking",
+      "arm": "Arm",
+      "headband": "Headband",
+      "lowTemperature": "Low temperature",
+      "highTemperature": "High temperature",
+      "electricalInsulation": "Electrical insulation",
+      
+      "lateralDeformation": "Lateral deformation",
+      "enIso20345": "EN ISO 20345",
+      "enIso20345_2022": "EN ISO 20345:2022",
+      "enIso20345_2011": "EN ISO 20345:2011",
+      "enIso21420": "EN ISO 21420",
+      "stdLabel": {
+        "en397": "Industrial safety helmets",
+        "en169": "Welding filters",
+        "en170": "UV filters",
+        "en172": "Sunglare filters for industrial use",
+        "en175": "Equipment for welding and allied processes",
+        "gset29": "Electric arc protection (face shields)",
+        "en50365": "Electrical insulation",
+        "en12492": "Mountaineering helmets",
+        "en812": "Bump caps",
+        "en_iso_21420": "General requirements",
+        "en140": "Respiratory protective devices - Half masks and quarter masks",
+        "en143": "Respiratory protective devices - Particle filters",
+        "din31813": "Respiratory protective devices - Gas filters",
+        "en421": "Ionising radiation and radioactive contamination",
+        "en659": "Firefighters' protective footwear",
+        "foodGrade": "Food contact safe",
+        "ionisingRadiation": "Protection against ionising radiation",
+        "radioactiveContamination": "Protection against radioactive contamination"
+      },
+      "additionalRequirements": "Additional requirements",
+    "productDetails": "Product Details",
+    "technicalSpecifications": "Technical Specifications",
+    "materials": "Materials",
+    "materialLabels": {
+      "upper": "Upper",
+      "lining": "Lining",
+      "sole": "Sole",
+      "insole": "Insole",
+      "toeCap": "Toe Cap"
+    },
+    "npf": "NPF",
+    "size": "Size",
+    "comfortFeatures": "Comfort & fit features",
+    "attributes": "Attributes",
+      "protectiveFilters": "Protective filters",
+      "protectiveFilter": "Protective filter",
+      "protection": "Protection",
+      "filtersFitted": "filters fitted",
+      "dust": "Dust",
+      "gasesVapours": "Gases & Vapours",
+      "combined": "Combined",
+      "sun": "Sun",
+      "glare": "Glare",
+      "ir": "IR",
+      "welding": "Welding",
+      "uv": "UV",
+    "dimensions": "Dimensions",
+    "temperatureRating": "Temperature Rating",
+    "cutResistanceLevel": "Cut Resistance Level",
+    "industries": "Industries",
+    "keyIndustries": "Key Industries",
+    "submitEnquiry": "Submit Enquiry",
+    "contactUs": "Contact Us",
+    "requestSample": "Request Sample",
+    "padSize": "Pad Size",
+    "productInfo": {
+      "brand": "Brand", 
+      "size": "Size",
+      "length": "Length",
+      "rodLength": "Rod length"
+    },
+    "ceCategory": "CE Category",
+    "category": "Category",
+    "technicalSheets": "Technical Sheet",
+    "productDeclarations": "Declaration of Conformity",
+    "declarationsOfConformity": "Declarations of Conformity",
+    "manufacturersInstruction": "Manufacturers Instruction",
+    "safetyStandards": "Protection Levels",
+    "cut": "Cut",
+    "largeSplashes": "Large Splashes",
+    "workEnvironmentSuitability": "Work Environment Suitability",
+    "workEnvironment": {
+      "chemical": "Chemical Exposure",
+      "biological": "Biological Hazards",
+      "electrical": "Electrical risk"
+    },
+    "dryConditions": "Dry Conditions",
+    "wetConditions": "Wet Conditions", 
+    "dustyConditions": "Dusty Conditions",
+    "chemicalExposure": "Chemical Exposure",
+    "biologicalHazards": "Biological Hazards",
+    "oilyGreasy": "Oily / Greasy",
+    "electrical": "Electrical risk",
+    "electricalRisks": "Electrical risks",
+    "radiation": "Radiation",
+    "lowVisibility": "Low visibility",
+    "suitableFor": "Suitable for",
+    "workEnvironments": "work environments",
+    "yes": "Yes",
+    "no": "No",
+    "mechanicalRisks": "Mechanical Risks",
+    "thermalRisks": "Thermal Risks",
+    "abrasion": "Abrasion",
+    "tear": "Tear", 
+    "puncture": "Puncture",
+    "impact": "Impact",
+    "flammability": "Flammability",
+    "contactHeat": "Contact Heat",
+    "convectiveHeat": "Convective Heat", 
+    "radiantHeat": "Radiant Heat",
+    "smallSplashes": "Small Splashes",
+    "coldProtection": "Cold Protection",
+    "convectiveCold": "Convective Cold",
+    "contactCold": "Contact Cold",
+    "waterPermeability": "Water Permeability",
+    "additionalStandards": "Additional Standards",
+    "englishDocument": "English",
+    "italianDocument": "Italiano",
+    "coatingTypes": {
+      "anti_fog": "Anti Fog",
+      "scratch_resistant": "Scratch Resistant",
+      "chemical_resistant": "Chemical Resistant"
+    },
+      "lensTintTypes": {
+        "transparent": "Transparent",
+        "clear": "Clear",
+        "grey": "Grey",
+        "smoke": "Smoke",
+        "brown": "Brown",
+        "amber": "Amber",
+        "yellow": "Yellow",
+        "green": "Green",
+        "blue": "Blue",
+        "mirror": "Mirror"
+      },
+      "footwearAttributes": {
+        "metalFree": "Metal-free",
+        "esd": "ESD",
+        "slipResistance": "Slip resistance",
+        "waterResistance": "Water resistance",
+        "chemicalExposure": "Chemical exposure",
+        "metatarsalProtection": "Metatarsal protection"
+      },
+      "hearingAttributes": {
+        "waterResistance": "Water resistance",
+        "extremeTemperature": "Extreme temperature",
+        "mechanicalStress": "Mechanical stress",
+        "electricalInsulation": "Electrical insulation",
+        "specialElectrical": "Special electrical",
+        "adjustments": "Adjustments",
+        "biohazard": "Biohazard",
+        "compatibility": "Compatibility",
+        "decontamination": "Decontamination",
+        "flame": "Flame",
+        "lowTemperature": "Low-temperature",
+        "mhNoise": "M/H Noise",
+        "radioFrequency": "Radio frequency",
+        "temperatureWater": "Temperature + Water"
+      },
+      "respiratoryStandards": {
+        "class": "Class",
+        "nonReusable": "Non-reusable",
+        "reusable": "Reusable",
+        "highDust": "High dust",
+        "gasFilters": "Gas Filters",
+        "gases": {
+          "a": "Organic gases",
+          "b": "Inorganic gases", 
+          "e": "Acid gases",
+          "k": "Ammonia",
+          "ax": "Organic gas < 65°C",
+          "hg": "Mercury",
+          "no": "Nitrous gas",
+          "sx": "Specific gas",
+          "co": "Carbon monoxide",
+          "p": "Dust"
+        }
+      },
+      "clothingStandards": {
+        "flameSpread": "Flame spread",
+        "convectiveHeat": "Convective heat",
+        "radiantHeat": "Radiant heat",
+        "moltenAluminium": "Molten Aluminium",
+        "moltenIron": "Molten Iron",
+        "contactHeat": "Contact heat",
+        "class": "Class",
+        "protection": "Protection",
+        "welding": "Welding",
+        "waterPenetration": "Water penetration",
+        "breathability": "Breathability",
+        "enStandards": "EN Standards"
+      }
+  },
+  "relatedProducts": {
+    "title": "Related Products"
+  },
+  "industries": {
+    "manufacturing": "Manufacturing",
+    "sectorsWeServe": "Sectors We Serve",
+    "sectorsDescription": "At Hand Line, we develop specialised safety solutions for a diverse range of industries, each with unique challenges and requirements.",
+    "keyFeatures": "Key Features",
+    "summary": "Industry Overview",
+    "keyHazards": "Key Hazards",
+    "ppeSolutions": "PPE Solutions",
+    "noSectionsAvailable": "Detailed industry information is being updated. Please check back soon.",
+    "industrySummary": "Industry Summary",
+    "viewSolutions": "View Solutions",
+    "contactForDetails": "Contact us for details",
+    "spotlight": {
+      "badge": "Featured Industry",
+      "title": "Industry Spotlight",
+      "description": "Discover how Hand Line's innovative safety solutions are tailored to meet the unique challenges of this industry.",
+      "subtitle": "Specialised Safety Solutions",
+      "cta": "Explore Solutions"
+    },
+    "features": {
+      "title": "Specialised Safety Features",
+      "description": "Discover the advanced safety features that make our {industry} solutions exceptional.",
+      "count": "{count}+ specialised safety features"
+    }
+  },
+  "about": {
+    "est": "Est. 1981",
+    "heading": "About",
+    "description": "For over four decades, Hand Line has been at the forefront of industrial safety, designing and manufacturing premium protective gloves that combine innovation, comfort, and uncompromising protection.",
+    "ourStory": "Our Story",
+    "getInTouch": "Get in Touch",
+    "hero": {
+      "badge": "Our mission since 1977",
+      "title": "We protect the",
+      "titleHighlight1": "Hands",
+      "titleMiddle": "that build our",
+      "titleHighlight2": "World",
+      "subtitle": "We believe \"Zero Accident\" is more than a vision, it's a need.",
+      "descriptionMobile": "We envision a world where every organisation equips its workforce with custom-engineered equipment, meticulously designed to address the unique requirements of their employees.",
+      "descriptionDesktop": " We strive to be the catalyst for a safer and more comfortable workplace, where businesses prioritise individual well-being and productivity through personalised protection solutions, ultimately setting new standards for safety and comfort in the industrial sector.",
+      "buttons": {
+        "ourStory": "Our Story",
+        "getInTouch": "Get in Touch"
+      }
+    },
+    "stats": {
+      "years": "Years' Experience",
+      "team": "Team Members",
+      "countries": "Countries",
+      "products": "Products"
+    },
+    "history": {
+      "badge": "Our Journey",
+      "heading": "Our History",
+      "description": "From our beginnings in Milan to becoming a leading safety equipment manufacturer, discover key moments that shaped our company.",
+      "1977": {
+        "title": "Foundation",
+        "description": "Our history starts as Italian manufacturer of leather and work gloves with a distinctively artisanal footprint based on craftsmanship and high quality products"
+      },
+      "1980": {
+        "title": "First Innovation",
+        "description": "We develop the first wool mitten for high-temperature mould handling in the hot end of the glass manufacturing process"
+      },
+      "1996": {
+        "title": "Standards Certification",
+        "description": "We led the way in adapting to newly introduced EN388 and EN407 standards bringing certified products to all our customers. Our products are widely adopted across major glass manufacturing and automotive plants in Italy"
+      },
+      "2002": {
+        "title": "Portfolio Expansion",
+        "description": "We enlarge our product portfolio dedicated to the glass and metallurgy industries with many gloves certified over 1000°C. Our geographical expansion starts across 6 markets in Europe and Middle East, driven by our existing Italian customers."
+      },
+      "2003": {
+        "title": "Company Incorporation",
+        "description": "Hand Line Company is incorporated, marking the shift from artisanal firm into business enterprise that has flourished, has won credibility, and inspired confidence to a wider number of clients. We supply gloves and other PPE across 10 markets in Europe and the East"
+      },
+      "2005": {
+        "title": "Extreme Heat Innovation",
+        "description": "We develop and certify a unique glove able to withstand over 1,000°C contact heat for extreme conditions: HL 1000"
+      },
+      "2015": {
+        "title": "Digital Transformation",
+        "description": "Hand Line embarks in its digitalisation of processes and marks the change with a brand re-design"
+      },
+      "2023": {
+        "title": "Infrastructure Expansion",
+        "description": "We invest in a significant expansion of our HQ and Warehouse in northern Italy, driven by increased portfolio of customers and international footprint"
+      },
+      "2025": {
+        "title": "UK Market Entry",
+        "description": "Hand Line announces its expansion in the UK market with the launch of a subsidiary in London to further support the growing market in England, Wales and Ireland"
+      }
+    },
+    "different": {
+      "badge": "Our Advantages",
+      "heading": "What Makes Us Different",
+      "description": "At Hand Line, we pride ourselves on several key differentiators that set us apart in the safety equipment industry.",
+      "productQuality": {
+        "title": "Excellence in",
+        "titleAccent": "Product Quality",
+        "description": "40+ years of technical expertise in safety glove manufacturing with rigorous quality control throughout production."
+      },
+      "customisation": {
+        "title": "Unmatched",
+        "titleAccent": "Customisation",
+        "description": "Tailored products according to user's needs. No one knows products better than our customer."
+      },
+      "pricing": {
+        "title": "Competitive",
+        "titleAccent": "Pricing",
+        "description": "Guaranteed market competitiveness and effective cost structure management."
+      },
+      "innovation": {
+        "title": "Continuous",
+        "titleAccent": "Innovation",
+        "description": "At the forefront of product development, continuously looking for new ways to improve."
+      },
+      "flexibility": {
+        "title": "Product",
+        "titleAccent": "Flexibility",
+        "description": "No order limits or restrictions, guaranteeing full flexibility to manage unpredictable needs."
+      },
+      "service": {
+        "title": "Best in class",
+        "titleAccent": "Service",
+        "description": "Stock management to cover fast changing customer's need, ensuring excellent delivery timing."
+      }
+    },
+    "mission": {
+      "badge": "Our Mission",
+      "heading": "Protecting Hands That Build Our World",
+      "description": "Since 1981, Hand Line has been dedicated to developing innovative protective solutions that combine uncompromising safety with Italian design excellence.",
+      "points": {
+        "0": "Specialised manufacturing expertise in high-performance safety gloves",
+        "1": "Rigorous testing to exceed industry safety standards",
+        "2": "Balance of protection, comfort and performance",
+        "3": "Commitment to innovation and continuous improvement"
+      },
+      "cta": "Discover Our Products",
+      "since": "Since",
+      "year": "1981"
+    },
+    "values": {
+      "badge": "Our Values",
+      "heading": "Principles That Guide Us",
+      "description": "These core principles guide everything we do at Hand Line, from product design to customer service.",
+      "safety": {
+        "title": "Safety First",
+        "description": "We believe that safety should never be compromised. Every product we design prioritises protection above all else."
+      },
+      "innovation": {
+        "title": "Innovation",
+        "description": "We continuously push the boundaries of what is possible in hand protection through research and innovation."
+      },
+      "customer": {
+        "title": "Customer Focus",
+        "description": "We listen to our clients' needs and develop solutions that address their specific safety challenges."
+      },
+      "quality": {
+        "title": "Quality Excellence",
+        "description": "Our rigorous quality control ensures that every product meets the highest standards of durability and performance."
+      },
+      "design": {
+        "title": "Design Clarity",
+        "description": "We believe in clear, purposeful design that enhances function while providing intuitive user experience."
+      },
+      "compliance": {
+        "title": "Compliance",
+        "description": "Our products meet or exceed all relevant safety standards and certifications across global markets."
+      }
+    },
+    "team": {
+      "badge": "Our People",
+      "heading": "Meet the Hand Line Team",
+      "description": "Our dedicated professionals combine decades of experience with a passion for safety innovation."
+    },
+    "certifications": {
+      "badge": "Quality Standards",
+      "heading": "Our Commitments",
+      "description": "Hand Line meets and exceeds the highest safety and quality standards in the industry, ensuring reliable protection for all users.",
+      "mainStatement": "Our production follows the highest quality standards with ISO certification across production and value chain.",
+      "types": {
+        "quality": {
+          "title": "Quality",
+          "description": "Our production follows the highest quality standards with ISO certification."
+        },
+        "compliance": {
+          "title": "Compliance",
+          "description": "All our products are certified to guarantee protection and compliance."
+        },
+        "eyeFace": {
+          "badge": "Eye & Face Protection",
+          "title": "Eye & Face Protection",
+          "description": "Protective eyewear and visors for industrial environments",
+          "detailedDescription": "Our eye & face protection range covers safety glasses, sealed goggles and arc‑rated visors designed to EN 166 and related standards. Built for clarity, comfort and reliability with anti‑fog and scratch‑resistant coatings, UV filtering and infrared protection options. Ideal for manufacturing, construction and electrical maintenance."
+        }
+      },
+      "environmental": {
+        "title": "Environmental Commitment",
+        "description": "Our commitment to help our planet through sustainable practices and responsible manufacturing.",
+        "learnMore": "Learn about our ESG initiatives"
+      },
+      "note": "Our certification documentation is available upon request."
+    },
+    "esg": {
+      "hero": {
+        "badge": "ESG Commitment",
+        "title": "We protect the Hands that build our World.",
+        "titleAccent": "And our Planet.",
+        "description": "Our mission goes beyond providing world-class Personal Protective Equipment. We believe true protection includes a responsibility to the environment, to society, and to ethical governance. That's why we are actively aligning our operations with ESG (Environmental, Social, and Governance) principles."
+      },
+      "environmental": {
+        "badge": "Environmental",
+        "title": "Environmental Stewardship",
+        "description": "We are taking meaningful steps to reduce our environmental footprint:",
+        "points": {
+          "0": "Transitioning to sustainable materials and eco-friendly packaging.",
+          "1": "Reducing waste through lean manufacturing and recycling programmes.",
+          "2": "Minimising carbon emissions across our supply chain and logistics.",
+          "3": "Minimising shipping volumes and waste."
+        },
+        "closing": "While our ESG journey has just begun, sustainability is no longer optional—it's essential."
+      },
+      "social": {
+        "badge": "Social",
+        "title": "Social Responsibility",
+        "description": "Our commitment to people drives everything we do:",
+        "points": {
+          "0": "We prioritise worker safety and fair labour practices across our global supply chain.",
+          "1": "We are building strong relationships with our local communities through education, donations, and volunteer programmes.",
+          "2": "Internally, we foster a culture of diversity, equity, and inclusion, ensuring a safe and respectful workplace."
+        }
+      },
+      "governance": {
+        "badge": "Governance",
+        "title": "Transparent Governance",
+        "description": "Integrity guides our actions:",
+        "points": {
+          "0": "We're implementing clear, accountable policies that ensure ethical business practices.",
+          "1": "Our leadership is focused on long-term impact, not just short-term profit.",
+          "2": "We are increasing transparency by tracking and reporting ESG metrics across our operations."
+        }
+      },
+      "certification": {
+        "badge": "Certified Management Systems",
+        "title": "Certified for Quality, Environment and Safety",
+        "description": "Hand Line is fully certified to ISO 9001, ISO 14001 and ISO 45001, reflecting our commitment to quality management, environmental responsibility and occupational health and safety."
+      },
+      "cta": {
+        "badge": "Join Our Mission",
+        "title": "Let's Build a Safer, More Sustainable",
+        "titleAccent": "Future",
+        "description": "We invite our partners, customers, and community to join us in creating a more sustainable and ethical future in PPE. If you have questions about our ESG practices or want to collaborate, contact us here.",
+        "buttons": {
+          "contact": "Contact Us",
+          "learnMore": "Explore Our Products"
+        }
+      }
+    }
+  },
+  "contact": {
+    "section": {
+      "badge": "Get In Touch",
+      "title": "Contact Hand Line",
+      "description": "Our team is ready to assist with your industrial safety glove requirements."
+    },
+    "form": {
+      "title": "Get in Touch",
+      "description": "Fill out the form below and we'll get back to you as soon as possible.",
+      "name": "Full Name",
+      "namePlaceholder": "Enter your full name",
+      "company": "Company",
+      "companyPlaceholder": "Enter your company name (optional)",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email address",
+      "subject": "Subject",
+      "subjectPlaceholder": "What is this regarding?",
+      "message": "Message",
+      "messagePlaceholder": "Tell us how we can help you...",
+      "submit": "Send Message",
+      "submitting": "Sending...",
+      "fields": {
+        "name": "Full Name",
+        "namePlaceholder": "Enter your full name",
+        "company": "Company",
+        "companyPlaceholder": "Enter your company name (optional)",
+        "email": "Email Address",
+        "emailPlaceholder": "Enter your email address",
+        "subject": "Subject",
+        "subjectPlaceholder": "What is this regarding?",
+        "message": "Message",
+        "messagePlaceholder": "Tell us how we can help you..."
+      },
+      "success": {
+        "title": "Message Sent!",
+        "description": "Thank you for contacting us. We'll get back to you within 24 hours."
+      },
+      "error": {
+        "title": "Error",
+        "description": "Failed to send message. Please try again or contact us directly."
+      }
+    },
+    "info": {
+      "title": "Contact Information",
+      "description": "Reach us at our headquarters or using the details below.",
+      "offices": {
+        "switchLabel": "Office Location",
+        "italy": "Italy",
+        "uk": "UK"
+      },
+      "address": {
+      "title": "Registered Office",
+      "titleUK": "Registered Office",
+        "content": "Viale Varese 83, 22100 Como (CO), Italy",
+        "contentUK": "52 Grosvenor Gardens, London SW1W 0AU, United Kingdom",
+      "operationalTitle": "HQ Office & Warehouse",
+        "operationalContent": "via Antonio Brusa 34, 22035, Canzo (CO), Italy",
+      "operationalTitleUK": "UK Office",
+        "operationalContentUK": "27 Hill Street, London W1J 5LP, United Kingdom"
+      },
+      "phone": {
+        "title": "Telephone",
+        "content": "T: (+39) 031 6121961 | (+39) 031 526733",
+        "contentUK": "T: (+44) 020 7866 3849"
+      },
+      "email": {
+        "title": "Email",
+        "content": "info@handlineco.com"
+      },
+      "contactInfoTitle": "Contact Information",
+      "findUsTitle": "Find Us",
+      "directionsTitle": "Travel to Hand Line Company",
+      "directionsDescription": "Get directions to our main facility in Como",
+      "directionsDescriptionUK": "Get directions to our UK office in London",
+      "directionsButton": "Get directions"
+    },
+    "faq": {
+      "badge": "Safety First",
+      "title": "Frequently Asked Questions",
+      "description": "Find quick answers to common questions about our safety gloves and services",
+      "questions": [
+        {
+          "question": "How do I choose the right PPE?",
+          "answer": "Selecting the right PPE is crucial to ensure the safety and wellbeing of your employees. Firstly, we recommend gathering detailed information of the working conditions and risk exposure in the most extreme conditions encountered. That will give an indication of the protection levels and practical requirements for the PPE. Our website includes a wide range of products that you can filter by requirements, environment conditions, risk category, or protection level. We always recommend contacting our team to discuss and recommend the most suitable PPE based on your work environment and required protection. We are just one click away."
+        },
+        {
+          "question": "Are you able to customise and design bespoke PPE?",
+          "answer": "Yes, we can create tailored hand protection solutions based on your specific requirements. We have the capability of creating samples within weeks. Many of the products we offer today were initially created for our customers' specifications."
+        },
+        {
+          "question": "Can I request product samples for testing?",
+          "answer": "Yes, we offer samples for industrial customers and distributors. Please contact us with your company details and application requirements to arrange a sample pack."
+        },
+        {
+          "question": "Do you ship internationally?",
+          "answer": "Yes, we currently supply PPE in over 15 market across EMEA and have the capability to deliver globally."
+        },
+        {
+          "question": "What industries do you serve?",
+          "answer": "Our products are designed for a wide range of industries including glass manufacturing, metal production, construction, automotive, food processing, logistics, and metalworking. We have developed deep industry expertise in glass and metal manufacturing and heavy industry with over 40 years of experience serving large international customers. We are both a reliable supplier and a trusted advisor to our customers."
+        },
+        {
+          "question": "Do you offer OEM or private label options?",
+          "answer": "Yes, we can support OEM and private label manufacturing for partners looking to customise gloves, garments, etc with their own branding, packaging, or specifications. Contact us to discuss your requirements."
+        },
+        {
+          "question": "What standards do your product comply with?",
+          "answer": "All our products are certified according to European PPE Regulation (EU) 2016/425 and comply with relevant EN standards."
+        },
+        {
+          "question": "How do I become a distributor or reseller of your products?",
+          "answer": "Please fill out our distributor application form or contact our team directly at distribution@handlineco.com. We support resellers with marketing materials, technical training, and flexible ordering options."
+        }
+      ]
+    },
+    "hero": {
+      "badge": "We're Here To Help",
+      "title": "Contact",
+      "titleAccent": "Hand Line",
+      "description": "We're here to help with any questions you may have about our safety products and solutions. Reach out to our team and we'll get back to you as soon as possible.",
+      "stats": {
+        "support": "24/7 Support Available",
+        "response": "1hr Avg. Response Time",
+        "satisfaction": "98% Customer Satisfaction",
+        "experience": "40+ Years Experience"
+      },
+      "buttons": {
+        "sendMessage": "Send a Message",
+        "ourInfo": "Our Information"
+      }
+    }
+  },
+  "blog": {
+    "hero": {
+      "badge": "Blog",
+      "title": "Hand Line",
+      "titleAccent": "Insights",
+      "description": "Industry-leading knowledge, insights, and ideas to advance safety in every workplace.",
+      "exploreArticles": "Explore Articles",
+      "learnAboutUs": "Learn About Us"
+    },
+    "categoriesBuckets": {
+      "title": "Explore by Topic",
+      "buckets": {
+        "productsInnovation": {
+          "title": "Products & Innovation",
+          "description": "Discover our latest PPE solutions and cutting-edge safety technologies."
+        },
+        "industrySustainability": {
+          "title": "Industry & Sustainability",
+          "description": "Stay informed on market trends and sustainable practices in safety."
+        },
+        "safetyCompliance": {
+          "title": "Safety & Compliance",
+          "description": "Get practical guidance on standards, regulations, and workplace protection."
+        },
+        "other": {
+          "title": "Other Insights",
+          "description": "General articles and updates on safety and protection."
+        }
+      }
+    },
+    "stats": {
+      "articles": "Articles",
+      "categories": "Categories",
+      "freeAccess": "Free Access",
+      "yearsExperience": "Years Experience"
+    },
+    "grid": {
+      "badge": "Safety Knowledge",
+      "title": "Hand Line Safety Resources",
+      "description": "Discover expert insights about industrial safety gloves, protective equipment, and best practices for workplace hand protection.",
+      "searchPlaceholder": "Search Insights...",
+      "showing": "Showing",
+      "articles": "articles",
+      "noArticles": "No articles found",
+      "noArticlesDescription": "Try adjusting your search or filter criteria",
+      "filterByTags": "Categories",
+      "clearFilters": "Clear",
+      "searchFor": "for",
+      "clearAllFilters": "Clear all filters"
+    },
+    "readArticle": "Read Article",
+    "backToBlogs": "Back to Blogs",
+    "minRead": "min read",
+    "featuredArticle": "Featured Article",
+    "featuredTitle": "Expert Insights",
+    "featuredDescription": "Discover the latest insights and innovations in workplace safety and hand protection technology."
+  },
+  "caseStudies": {
+    "hero": {
+      "badge": "Client Success Stories",
+      "title": "Hand Line",
+      "titleAccent": "Case Studies",
+      "description": "Real-world examples of how our safety solutions have transformed workplace protection across industries.",
+      "exploreCaseStudies": "Explore Case Studies",
+      "learnAboutUs": "Learn About Us"
+    },
+    "featured": {
+      "badge": "Featured Case Study",
+      "title": "Success in Action",
+      "description": "Discover how we've helped businesses transform their operations and achieve remarkable results."
+    },
+    "buttons": {
+      "readFull": "Read Full Case Study",
+      "read": "Read Case Study"
+    },
+    "labels": {
+      "challenge": "Challenge"
+    },
+    "stats": {
+      "caseStudies": "Case Studies",
+      "industries": "Industries",
+      "successStories": "Success Stories",
+      "yearsExperience": "Years Experience"
+    },
+    "grid": {
+      "badge": "Success Stories",
+      "title": "Hand Line Success Stories",
+      "description": "Discover how Hand Line safety solutions have helped businesses across various industries improve their safety protocols and protect their workforce.",
+      "searchPlaceholder": "Search case studies...",
+      "showing": "Showing",
+      "caseStudies": "case studies",
+      "noCaseStudies": "No case studies found",
+      "noCaseStudiesDescription": "Try adjusting your search or filter criteria",
+      "filterByTags": "Tags",
+      "filterByIndustry": "Industries",
+      "clearFilters": "Clear",
+      "clearAllFilters": "Clear all filters"
+    },
+    "viewCaseStudy": "View Case Study",
+    "backToCaseStudies": "Back to Case Studies",
+    "challenge": "The Challenge",
+    "solution": "Our Solution",
+    "results": "The Results",
+    "relatedCaseStudies": "Related Case Studies",
+    "clientDetails": "Client Details",
+    "industryDetails": "Industry Details",
+    "testimonial": "Client Testimonial"
+  },
+  "partners": {
+    "hero": {
+      "badge": "Global Partnerships",
+      "title": "Partner with",
+      "description": "Join our global network of partners to bring Hand Line's innovative safety solutions to more workers around the world. Discover opportunities for strategic partnerships and distribution.",
+      "partnerships": "Strategic Partnerships",
+      "distribution": "Distribution Network",
+      "stats": {
+        "countries": "Countries",
+        "partners": "Global Partners",
+        "years": "Years Experience",
+        "products": "Products"
+      }
+    },
+    "title": "Partner with Hand Line",
+    "description": "Join our global network of partners and distributors to bring Hand Line's innovative safety solutions to more workers around the world.",
+    "strategic": {
+      "title": "Strategic Partnerships",
+      "description": "We're looking for industry leaders to collaborate on innovative safety solutions. Build a strategic alliance with Hand Line.",
+      "cta": "Explore Partnerships"
+    },
+    "distribution": {
+      "title": "Distribution Network",
+      "description": "Join our growing network of distributors to bring Hand Line's safety products to your region. We provide comprehensive support and competitive margins.",
+      "cta": "Become a Distributor"
+    },
+    "partnerships": {
+      "hero": {
+        "badge": "Strategic Alliances",
+        "title": "Partner with",
+        "titleAccent": "Hand Line",
+        "description": "We build lasting partnerships to enhance worker safety and innovation. Join us to create protective solutions that make a difference in workplaces worldwide.",
+        "becomePartner": "Become a Partner",
+        "seeProducts": "See our products"
+      },
+      "form": {
+        "title": "Become a Partner",
+        "description": "Fill out the form below to discuss partnership opportunities with our team.",
+        "emailAlternative": "Alternatively, email us directly at",
+        "emailAddress": "partnerships@handlineco.com",
+        "fullName": "Full Name",
+        "fullNamePlaceholder": "Your full name",
+        "company": "Company",
+        "companyPlaceholder": "Your company name",
+        "email": "Email Address",
+        "emailPlaceholder": "your.email@company.com",
+        "phone": "Phone (Optional)",
+        "phonePlaceholder": "Your phone number",
+        "details": "Partnership Details",
+        "detailsPlaceholder": "Please tell us about your partnership interests and how we might work together...",
+        "submit": "Submit Partnership Enquiry",
+        "submitting": "Submitting...",
+        "successTitle": "Partnership enquiry sent",
+        "successMessage": "Thank you for your interest. We'll be in touch shortly at ",
+        "errorTitle": "Something went wrong",
+        "errorMessage": "Please try again later or contact us directly at partnerships@handlineco.com"
+      }
+    },
+    "distributionPage": {
+      "hero": {
+        "badge": "Global Network",
+        "title": "Distribute",
+        "titleAccent": "Hand Line",
+        "titleSuffix": "Products",
+        "description": "Join our global distribution network to bring industry-leading safety solutions to your market. Our distributors benefit from exclusive products, competitive margins and comprehensive support.",
+        "becomeDistributor": "Become a Distributor",
+        "seeProducts": "See our products"
+      },
+      "form": {
+        "title": "Become a Distributor",
+        "description": "Fill out the form below to discuss distribution opportunities in your region.",
+        "emailAlternative": "Alternatively, email us directly at",
+        "emailAddress": "distribution@handlineco.com",
+        "fullName": "Full Name",
+        "fullNamePlaceholder": "Your full name",
+        "company": "Company",
+        "companyPlaceholder": "Your company name",
+        "email": "Email Address",
+        "emailPlaceholder": "your.email@company.com",
+        "phone": "Phone (Optional)",
+        "phonePlaceholder": "Your phone number",
+        "country": "Country",
+        "countryPlaceholder": "Your country or region of operation",
+        "details": "Distribution Details",
+        "detailsPlaceholder": "Please tell us about your distribution capabilities, market reach, and why you're interested in Hand Line products...",
+        "submit": "Submit Distribution Enquiry",
+        "submitting": "Submitting...",
+        "successTitle": "Distribution enquiry sent",
+        "successMessage": "Thank you for your interest. We'll be in touch shortly at ",
+        "errorTitle": "Something went wrong",
+        "errorMessage": "Please try again later or contact us directly at distribution@handlineco.com"
+      }
+    }
+  },
+  "auth": {
+    "customerPortal": "Customer Portal",
+    "customerPortalDesc": "Access your account dashboard and services",
+    "welcomeBack": "Welcome Back",
+    "createAccount": "Create Your Account",
+    "signInDesc": "Enter your credentials to access your account and dashboard.",
+    "signUpDesc": "Create an account to access our full suite of services and features.",
+    "email": "Email Address",
+    "emailPlaceholder": "name@example.com",
+    "password": "Password",
+    "orContinueWith": "or continue with",
+    "passwordPlaceholder": "••••••••",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot password?",
+    "forgotPasswordTitle": "Forgot password?",
+    "forgotPasswordDesc": "Enter your email to reset your password",
+    "forgotPasswordHelp": "We will send you a link to reset your password",
+    "submit": "Submit",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signUpInstead": "Sign up instead",
+    "signInInstead": "Sign in",
+    "notAMember": "Not a member?",
+    "alreadyHaveAccount": "Already have an account?",
+    "continueWithGoogle": "Continue with Google",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "agreeTo": "By signing in, you agree to our",
+    "successSignIn": "You have been signed in.",
+    "successSignUp": "You have been signed up and logged in.",
+    "errorSignIn": "Error Signing In",
+    "errorSignUp": "Error signing up",
+    "userExists": "User already exists",
+    "profileSetupIssue": "Your sign-in was successful but profile setup failed. Some features may be limited.",
+    "accountCreated": "Account created!",
+    "passwordRequirement": {
+      "minLength": "At least 8 characters",
+      "hasNumber": "At least one number",
+      "hasSpecial": "At least one special character",
+      "match": "Passwords match",
+      "noMatch": "Passwords do not match"
+    },
+    "showPassword": "Show password",
+    "hidePassword": "Hide password"
+  },
+  "sidebar": {
+    "categories": "Product Categories",
+    "industries": "Industries",
+    "resources": "Resources",
+    "products": {
+      "categories": {
+        "heatResistantGloves": "Heat-Resistant Gloves",
+        "heatResistantSleeves": "Heat-Resistant Sleeves",
+        "cutResistantGloves": "Cut-Resistant Gloves",
+        "cutResistantSleeves": "Cut-Resistant Sleeves",
+        "corporateCustomisation": "Corporate Solutions",
+        "industrialCustomisation": "Industrial Solutions"
+      }
+    }
+  },
+  "forms": {
+    "company": "Company Name",
+    "companySize": "Company Size",
+    "selectCompanySize": "Select company size",
+    "industry": "Industry",
+    "sizeNeeded": "Size Needed",
+    "contactDetails": "Contact Details",
+    "emailPlaceholder": "your.email@company.com",
+    "privacyConsent": "I consent to Hand Line storing and processing my data in accordance with the ",
+    "privacyPolicy": "Privacy Policy",
+    "and": "and",
+    "terms": "Terms of Service",
+    "submit": "Submit Request"
+  },
+  "standards": {
+    "viewStandard": "View Standard",
+    "download": "Download",
+    "downloads": "Downloads",
+    "relatedStandards": "Related Standards",
+    "backToStandards": "Back to Standards",
+    "grid": {
+      "badge": "Safety Standards",
+      "title": "European Standards Library",
+      "description": "Browse our comprehensive collection of European safety standards, guides, and resources for personal protective equipment.",
+      "searchPlaceholder": "Search standards by code or keyword...",
+      "showing": "Showing",
+      "standards": "standards",
+      "noStandards": "No standards found",
+      "noStandardsDescription": "Try adjusting your search or filter criteria",
+      "filterByCategory": "Filter by Category",
+      "clearFilters": "Clear Filters"
+    },
+    "cards": {
+      "learnMore": "Learn more"
+    },
+    "hero": {
+      "badge": "Standards and Regulations",
+      "title": "PPE Standards",
+      "titleAccent": "Hub",
+      "description": "Access comprehensive information on European safety standards that ensure our products meet the highest quality and safety requirements.",
+      "intro": "Welcome to our PPE Standards Hub, where you can find clear guidance on safety standards and regulations relevant to personal protective equipment (PPE). Explore our detailed pages to understand which standards apply to each type of PPE, what they mean in practice, and how products are tested to ensure safety.",
+      "important": "The information provided in this hub is for guidance purposes only and it should never replace professional advice and independent evaluation.",
+      "contactLine": {
+        "before": "For further guidance or specific enquiries, please",
+        "linkText": "contact us",
+        "after": "and our team of PPE experts will assist you."
+      },
+      "buttons": {
+        "contact": "Contact us",
+        "viewProducts": "View products"
+      },
+      "exploreStandards": "Explore Standards",
+      "learnAboutUs": "Learn About Us",
+      "stats": {
+        "standards": "50+",
+        "resources": "100%",
+        "guides": "40+",
+        "categories": "15+",
+        "resourcesLabel": "Compliance",
+        "guidesLabel": "Years Expertise",
+        "categoriesLabel": "Categories"
+      }
+    },
+    "overview": {
+      "badge": "Overarching Regulation",
+      "title": "PPE Regulations Overview",
+      "subtitle": "Explore our comprehensive guide to PPE regulations, including UKCA, CE, and international standards, product categories, and conformity requirements. Understand which protective equipment meets legal safety standards and how to select the right PPE for your workplace."
+    },
+    "buckets": {
+      "regulation": {
+        "title": "PPE Regulation",
+        "subtitle": "Know what regulations & safety requirements are in place"
+      },
+      "categories": {
+        "title": "PPE Categories",
+        "subtitle": "Understand PPE classes of risk and protected hazards"
+      },
+      "standards": {
+        "title": "EN, UKCA & ANSI Standards",
+        "subtitle": "Get clarity on standards across EU and UK"
+      }
+    },
+    "categories": {
+      "navTitle": "Categories"
+    },
+    "categoriesIntro": {
+      "badge": "Category Overview",
+      "title": "Standards by Category",
+      "description": "Explore the main PPE categories and learn which standards, tests and requirements apply to each area. Choose a category below to dive into practical guidance, key standards and selection advice."
+    },
+    "footerCta": {
+      "badge": "Keep up to date",
+      "title": "Stay in touch for the latest updates",
+      "text": "PPE Regulation is constantly in motion and can be difficult to navigate. We have started a section in our Hand Line Insights Blog dedicated to compliance and regulation updates. You have more questions or want to discuss further, we are one click away.",
+      "buttons": {
+        "blog": "Hand Line Insights",
+        "contact": "Contact Us"
+      }
+    },
+    "productDisclaimer": {
+      "hero": {
+        "badge": "Important Information",
+        "title": "Product",
+        "titleAccent": "Disclaimer",
+        "description": "Hand Line Company Srl strives to support customers with the right product and best-in-class expertise and knowledge. Our services and products must be met with employer/user rigour in selecting and utilising the PPE supplied."
+      },
+      "sections": {
+        "usage": {
+          "title": "PPE Selection",
+          "content": "All provided information is based upon our current knowledge and understanding of the subject matter. This information is offered solely as suggestion for use in making your own decisions or product choices. We reserve the right to revise this information as new knowledge, experience, or regulatory guidance becomes available. The correct choice of PPE depends on the hazards present in the workplace. It is the responsibility of the employer and/or user to, among other things, carry out a proper risk assessment, select the appropriate PPE for the specific task, and ensure compatibility with other protective equipment where relevant."
+        },
+        "heatResistance": {
+          "title": "PPE Use",
+          "content": "All PPE must be used strictly in line with the manufacturer's instructions and safety guidelines. Improper use, modification, or use outside the intended scope may reduce the level of protection and increase the risk of injury. Employers and users are responsible for ensuring correct fit and training in proper use, maintaining and storing PPE as instructed, and replacing equipment when damaged, worn, or beyond its service life. PPE should be thoroughly inspected before any use to ensure they present no visible defect or damage. PPE use should never and cannot replace caution and care in handling hazardous materials and/or operating in hazardous environments."
+        },
+        "cutResistance": {
+          "title": "Protection levels",
+          "content": "While our personal protective equipment (PPE) is designed and certified in accordance with European regulations and standards, including Regulation (EU) 2016/425, no equipment can offer absolute or unlimited protection. Different types of PPE reduce specific hazards but do not eliminate the risk they are designed to mitigate. As non-exhaustive examples: cut, puncture, abrasion, tear, etc. resistance/protection reduce the risk of mechanical hazards but do not completely prevent or eliminate such risks, flame-resistant PPE lowers the risk of burns but does not prevent injury in all fire situations and are not 'fire-proof', cold-protective clothing mitigates frostbite but does not eliminate cold-related injury, chemical-resistant PPE reduce exposure risk but do not guarantee total protection against all substances, insulating gloves and mats reduce the risk of electrocution but cannot fully eliminate electrical hazards, radiation protective equipment mitigates certain radiation exposure risks but does not fully remove them. PPE should always be used as part of a comprehensive workplace safety system, which includes hazard control measures, training, supervision, and safe work procedures."
+        },
+        "generalGuidelines": {
+          "title": "PPE Modification & Counterfeit Products",
+          "content": "Any alteration, repair, or modification of PPE invalidates the product's certification and immediately voids any warranty. Modified equipment cannot be guaranteed to meet the original performance standards and must not be used. Only genuine products, purchased through authorized channels, are covered by certification and warranty. Counterfeit or imitation products may not provide the required level of protection and must not be used. Hand Line Company Srl disclaims all warranties and declines any liability other than where expressly provided or arising from misuse of the PPE."
+        }
+      }
+    }
+  },
+  "declarations": {
+    "hero": {
+      "badge": "Regulatory",
+      "title": "Declarations",
+      "titleAccent": "of Conformity",
+      "description": "Welcome to our repository of declarations of conformity for products where you can find and download the documents needed, in accordance with Regulation (EU) 2016/425. Please search for the required product and select the language to download the DoC as PDF. This library is updated regularly; in some cases a single declaration covers multiple variants within a product family.",
+      "contactLine": {
+        "before": "If the product you are looking for is not here,",
+        "linkText": "contact us",
+        "after": ""
+      },
+      "viewDeclarations": "View Declarations",
+      "stats": {
+        "products": "200+",
+        "productsLabel": "Products",
+        "declarations": "20+",
+        "declarationsLabel": "Declarations",
+        "compliance": "100%",
+        "certified": "EU",
+        "certifiedLabel": "Certified"
+      }
+    },
+    "grid": {
+      "searchPlaceholder": "Search declarations...",
+      "allLanguages": "All",
+      "filterByCategory": "Categories",
+      "categories": "Categories",
+      "declarations": "declarations",
+      "searchFor": "for",
+      "clearFilters": "Clear",
+      "noDeclarations": "No declarations found",
+      "noDeclarationsDescription": "No product declarations match your search criteria. Try adjusting your filters.",
+      "noDeclarationsAvailable": "There are currently no product declarations available.",
+      "clearAllFilters": "Clear all filters"
+    }
+  },
+  "careers": {
+    "hero": {
+      "badge": "Join Hand Line",
+      "titleStart": "Let's build something big.",
+      "titleAccent": "Together.",
+      "description1": "At Hand Line, we believe we can make a difference. Every day, we design and deliver products and solutions that protect people and enable organisations worldwide to perform safely and effectively.",
+      "description2": "We are looking for curious minds, bold thinkers, and unstoppable doers who want to grow with us. Whether you're just starting your career or bringing years of experience, you'll find opportunities to learn, contribute, and thrive in an international, collaborative environment.",
+      "title": "Careers at Hand Line",
+      "description": "Join our team of passionate professionals dedicated to creating innovative safety solutions. Discover exciting career opportunities that allow you to make a difference in workplace safety.",
+      "viewOpenings": "View Current Openings",
+      "aboutCompany": "About Our Company",
+      "browseOpenings": "Browse Openings",
+      "learnAboutValues": "Learn About Our Values",
+      "joinOurTeam": "Join Our Team",
+      "contactUs": "Contact Us",
+      "stats": {
+        "teamMembers": "120+",
+        "teamMembersLabel": "Team Members",
+        "locations": "5",
+        "locationsLabel": "Locations",
+        "countries": "12",
+        "countriesLabel": "Countries",
+        "founded": "1981",
+        "foundedLabel": "Founded",
+        "employees": "Team Members",
+        "years": "Years Experience"
+      }
+    },
+    "grid": {
+      "badge": "Open Positions",
+      "title": "Current Opportunities",
+      "description": "Explore our current openings and find the perfect role to match your skills and passion for safety innovation.",
+      "searchPlaceholder": "Search positions...",
+      "departments": "Departments",
+      "locations": "Locations",
+      "clearFilters": "Clear Filters",
+      "showing": "Showing",
+      "positions": "positions",
+      "positionsAvailableSingular": "1 Position Available",
+      "positionsAvailablePlural": "{count} Positions Available",
+      "filteredFrom": "Filtered from {total} total positions",
+      "noPositions": "No positions found",
+      "noPositionsDescription": "We don't have any open positions matching your criteria at the moment. Please check back later or adjust your search."
+    },
+    "viewPosition": "View Position",
+    "viewDetails": "View Details",
+    "new": "New",
+    "backToCareers": "Back to Careers",
+    "post": {
+      "aboutRole": "About the Role",
+      "requirements": "Requirements",
+      "benefits": "Benefits",
+      "responsibilities": "Responsibilities",
+      "salary": "Salary",
+      "applyNow": "Apply Now",
+      "location": "Location",
+      "jobType": "Job Type", 
+      "workSite": "Work Site",
+      "posted": "Posted",
+      "quickActions": "Quick Actions",
+      "sharePosition": "Share this position",
+      "backToCareers": "Back to Careers",
+      "readyToJoin": "Ready to join?",
+      "readyToJoinBadge": "Join Our Team",
+      "excitedToLearn": "We're excited to learn more about you and discuss how you can contribute to our mission.",
+      "joinTeamIndicator": "Trusted by professionals worldwide • Competitive benefits • European workplace standards"
+    },
+    "equalityStatement": "At Hand Line, we are committed to creating an inclusive workplace where everyone feels valued, respected, and supported. We welcome applications from all qualified individuals, regardless of age, gender, disability, sexual orientation, race, religion, or belief. If you need any adjustments or support during the application process, please let us know.",
+    "application": {
+      "title": "Apply for Position",
+      "personalInfo": "Personal Information",
+      "firstName": "First Name",
+      "lastName": "Last Name", 
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "documents": "Documents",
+      "cv": "CV/Resume",
+      "coverLetter": "Cover Letter",
+      "fileSelected": "File selected",
+      "additionalInfo": "Additional Information",
+      "message": "Message",
+      "messagePlaceholder": "Tell us why you're interested in this position and what makes you a great fit...",
+      "availableFrom": "Available From",
+      "submit": "Submit Application"
+    },
+    "cta": {
+      "badge": "Open Applications",
+      "title": "Nothing tailored to you but you still interested?",
+      "description": "If you haven't seen anything that feels like a perfect fit but you think your skills would be valuable and you see yourself growing professionally in Hand Line or have some exciting ideas you want to discuss with us, we would love to hear you out. Send us an open application, we are open to ideas.",
+      "buttons": {
+        "openApplication": "Submit Open Application",
+        "keepInformed": "Keep me informed"
+      },
+      "openTitle": "Submit an Open Application",
+      "cvUrl": "Link to CV / portfolio (optional)",
+      "cvUrlPlaceholder": "https://your-portfolio-or-cv-link",
+      "ideaLabel": "Tell us what you have in mind and where you see yourself adding value",
+      "submitOpen": "Send Application",
+      "keepTitle": "Keep me informed",
+      "keepDescription": "We will keep you informed of new jobs for the next 12 months. Come back any time to renew your interest.",
+      "submitKeep": "Subscribe",
+      "success": "Thank you!",
+      "openSuccess": "Your open application has been sent.",
+      "interestSuccess": "You're on the list for future opportunities."
+    },
+    "whyJoin": {
+      "badge": "Why join",
+      "title": "Your next career step could be here",
+      "description": "We want to surround ourselves with great people that are committed to achieve great things, continuously grow and never stop learning.",
+      "items": {
+        "opportunity": {
+          "title": "Phenomenal",
+          "titleAccent": "opportunity",
+          "description": "We have big plans for new products, innovative services and growth and we want our people to grow with us."
+        },
+        "international": {
+          "title": "International, dynamic",
+          "titleAccent": "environment",
+          "description": "We trade globally and we think globally."
+        },
+        "greatPlace": {
+          "title": "Just a great place",
+          "titleAccent": "to be",
+          "description": "We want our people to be successful, rewarded and happy and we strive to create a great work environment."
+        }
+      }
+    }
+  },
+  "legal": {
+    "hero": {
+      "badge": "Important Documents",
+      "title": "Legal",
+      "titleAccent": "Information",
+      "description": "Our commitment to transparency, protection, and compliance with all relevant laws and regulations.",
+      "stats": {
+        "documents": "3",
+        "documentsLabel": "Legal Documents",
+        "compliance": "100%", 
+        "complianceLabel": "EU Compliant",
+        "updated": "2025",
+        "updatedLabel": "Last Updated"
+      }
+    },
+    "tabs": {
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy", 
+      "cookies": "Cookie Policy"
+    },
+    "content": {
+      "terms": {
+        "title": "Terms of Service",
+        "lastUpdated": "Last updated: 4th August 2025"
+      },
+      "privacy": {
+        "title": "Privacy Policy",
+        "lastUpdated": "Last updated: 4th August 2025"
+      },
+      "cookies": {
+        "title": "Cookie Policy",
+        "lastUpdated": "Last updated: 4th August 2025"
+      }
+    }
+  },
+  "cookies": {
+    "message": "We use essential cookies to make this website work. With your consent, we will use analytics cookies to understand how you use our site and to improve our services. You can change your choice at any time in our",
+    "accept": "Accept",
+    "decline": "Decline"
+  },
+  "common": {
+    "and": "and"
+  },
+  "productCategories": {
+    "handProtection": "Hand protection",
+    "heatResistantGloves": "Heat resistant gloves", 
+    "cutResistantGloves": "Cut resistant gloves",
+    "generalPurposeGloves": "General purpose gloves",
+    "weldingGloves": "Welding gloves",
+    "mechanicalHazardsGloves": "Mechanical hazards gloves",
+    "industrialSwabs": "Industrial swabs",
+    "respiratoryProtection": "Respiratory protection"
+  },
+  "admin": {
+    "brands": {
+      "title": "Brands",
+      "selectBrands": "Select Brands",
+      "addNewBrand": "Add New Brand",
+      "brandName": "Brand Name",
+      "brandLogo": "Brand Logo",
+      "createBrand": "Create Brand",
+      "noBrandsSelected": "No brands selected",
+      "brandNameRequired": "Brand name is required",
+      "brandNameExists": "Brand name already exists",
+      "invalidLogoFile": "Logo must be a valid image file (JPEG, PNG, GIF, or WebP)",
+      "logoTooLarge": "Logo file must be less than 5MB",
+      "brandCreated": "Brand created successfully",
+      "errorCreatingBrand": "Error creating brand",
+      "errorLoadingBrands": "Failed to load available brands"
+    }
+  }
+} 

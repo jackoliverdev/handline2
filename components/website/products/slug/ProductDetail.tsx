@@ -101,6 +101,17 @@ const getBrandLogo = (brandName: string, brands: any[], isDarkMode = false) => {
   return brand.logo_url || null;
 };
 
+function pickProductDocument(
+  language: string,
+  englishUrl?: string | null,
+  italianUrl?: string | null
+): { url: string; code: 'EN' | 'IT' } | null {
+  if (language === 'it' && italianUrl) return { url: italianUrl, code: 'IT' };
+  if (englishUrl) return { url: englishUrl, code: 'EN' };
+  if (italianUrl) return { url: italianUrl, code: 'IT' };
+  return null;
+}
+
 export function ProductDetail({ product, relatedProducts }: { product: Product, relatedProducts: any[] }) {
   const { t, language } = useLanguage();
   const router = useRouter();
@@ -143,6 +154,18 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
 
   // Get localised size and other info
   const size = product.size_locales?.[language] || product.size_locales?.en || null;
+  const technicalSheet = pickProductDocument(language, product.technical_sheet_url, product.technical_sheet_url_it);
+  const manufacturersInstruction = pickProductDocument(
+    language,
+    product.manufacturers_instruction_url,
+    (product as any).manufacturers_instruction_url_it
+  );
+  const hasAnyDocumentation = Boolean(
+    technicalSheet ||
+    manufacturersInstruction ||
+    product.declaration_sheet_url ||
+    (product as any).declaration_sheet_url_it
+  );
 
   // Compute pad size display if available (primarily for Industrial Swabs)
   const padSizeDisplay: string | null = React.useMemo(() => {
@@ -160,7 +183,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
   React.useEffect(() => {
     if (product) {
       trackProductView(
-        product.name_locales?.[language] || product.name || '',
+        product.name_locales?.[language] || product.name_locales?.en || product.name || '',
         product.id
       );
     }
@@ -169,7 +192,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
   // Handle sample request with analytics
   const handleSampleRequest = () => {
     setIsSampleModalOpen(true);
-    trackSampleRequest(product.name_locales?.[language] || product.name || '');
+    trackSampleRequest(product.name_locales?.[language] || product.name_locales?.en || product.name || '');
   };
 
   // Handle contact request with analytics
@@ -268,7 +291,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
             )}
             <ChevronRight className="h-4 w-4 text-brand-primary/60" />
             <span className="text-brand-dark dark:text-white font-semibold bg-brand-primary/10 dark:bg-brand-primary/20 px-3 py-1 rounded-full text-xs uppercase tracking-wide">
-              {product.name_locales?.[language] || product.name || ''}
+              {product.name_locales?.[language] || product.name_locales?.en || product.name || ''}
             </span>
           </nav>
         </div>
@@ -298,7 +321,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
             image4={product.image4_url}
             image5={product.image5_url}
             additionalImages={product.additional_images}
-            productName={product.name_locales?.[language] || product.name || ''}
+            productName={product.name_locales?.[language] || product.name_locales?.en || product.name || ''}
             isFeatured={product.is_featured}
             isNew={new Date(product.created_at).getTime() > Date.now() - (30 * 24 * 60 * 60 * 1000)}
             outOfStock={product.out_of_stock}
@@ -320,7 +343,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
               
               {/* Product title with brand positioned inline right-aligned */}
               <div className="flex items-start justify-between gap-4 mb-4">
-                <h1 className="text-3xl font-bold tracking-tight md:text-4xl text-brand-dark dark:text-white flex-1">{product.name_locales?.[language] || product.name || ''}</h1>
+                <h1 className="text-3xl font-bold tracking-tight md:text-4xl text-brand-dark dark:text-white flex-1">{product.name_locales?.[language] || product.name_locales?.en || product.name || ''}</h1>
                 
                 {/* Brand display - right aligned */}
                 {product.brands && product.brands.length > 0 && (
@@ -710,50 +733,28 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                 
                 <TabsContent value="documentation" id="documentation" className="mt-0">
                   <div className="space-y-4">
-                    {/* Technical Sheet - Dynamic language display */}
-                    {((language === 'en' && product.technical_sheet_url) || (language === 'it' && product.technical_sheet_url_it)) && (
+                    {/* Technical Sheet - Italian when selected, otherwise English (FR/DE/ES fall back to EN) */}
+                    {technicalSheet && (
                       <div id="technical-sheet" className="space-y-3">
                         <h3 className="text-lg font-semibold text-brand-dark dark:text-white">{t('productPage.technicalSheets')}</h3>
                         <div className="grid gap-3">
-                          {language === 'en' && product.technical_sheet_url && (
-                            <Button
-                              variant="outline"
-                              size="lg"
-                              className="w-full border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
-                              asChild
+                          <Button
+                            variant="outline"
+                            size="lg"
+                            className="w-full border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
+                            asChild
+                          >
+                            <a 
+                              href={technicalSheet.url} 
+                              target="_blank" 
+                              rel="noopener noreferrer" 
+                              className="flex items-center justify-center gap-2"
+                              onClick={() => handleDocumentDownload(technicalSheet.url, `Technical Sheet (${technicalSheet.code})`, 'technical_sheet')}
                             >
-                              <a 
-                                href={product.technical_sheet_url} 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
-                                className="flex items-center justify-center gap-2"
-                                onClick={() => handleDocumentDownload(product.technical_sheet_url!, 'Technical Sheet (EN)', 'technical_sheet')}
-                              >
-                                <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
-                                {t('productPage.download')}
-                              </a>
-                            </Button>
-                          )}
-                          
-                          {language === 'it' && product.technical_sheet_url_it && (
-                            <Button
-                              variant="outline"
-                              size="lg"
-                              className="w-full border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
-                              asChild
-                            >
-                              <a 
-                                href={product.technical_sheet_url_it} 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
-                                className="flex items-center justify-center gap-2"
-                                onClick={() => handleDocumentDownload(product.technical_sheet_url_it!, 'Technical Sheet (IT)', 'technical_sheet')}
-                              >
-                                <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
-                                {t('productPage.download')}
-                              </a>
-                            </Button>
-                          )}
+                              <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
+                              {t('productPage.download')}
+                            </a>
+                          </Button>
                         </div>
                       </div>
                     )}
@@ -766,57 +767,34 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                       />
                     </div>
 
-                    {/* Manufacturers Instruction - Dynamic language display */}
-                    {((language === 'en' && product.manufacturers_instruction_url) || (language === 'it' && product.manufacturers_instruction_url_it)) && (
+                    {/* Manufacturers Instruction - Italian when selected, otherwise English (FR/DE/ES fall back to EN) */}
+                    {manufacturersInstruction && (
                       <div id="manufacturer-instructions" className="space-y-3">
                         <h3 className="text-lg font-semibold text-brand-dark dark:text-white">{t('productPage.manufacturersInstruction')}</h3>
                         <div className="grid gap-3">
-                          {language === 'en' && product.manufacturers_instruction_url && (
-                            <Button
-                              variant="outline"
-                              size="lg"
-                              className="w-full border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
-                              asChild
+                          <Button
+                            variant="outline"
+                            size="lg"
+                            className="w-full border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
+                            asChild
+                          >
+                            <a 
+                              href={manufacturersInstruction.url} 
+                              target="_blank" 
+                              rel="noopener noreferrer" 
+                              className="flex items-center justify-center gap-2"
+                              onClick={() => handleDocumentDownload(manufacturersInstruction.url, `Manufacturers Instruction (${manufacturersInstruction.code})`, 'instruction')}
                             >
-                              <a 
-                                href={product.manufacturers_instruction_url} 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
-                                className="flex items-center justify-center gap-2"
-                                onClick={() => handleDocumentDownload(product.manufacturers_instruction_url!, 'Manufacturers Instruction (EN)', 'instruction')}
-                              >
-                                <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
-                                {t('productPage.download')}
-                              </a>
-                            </Button>
-                          )}
-                          
-                          {language === 'it' && product.manufacturers_instruction_url_it && (
-                            <Button
-                              variant="outline"
-                              size="lg"
-                              className="w-full border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
-                              asChild
-                            >
-                              <a 
-                                href={product.manufacturers_instruction_url_it} 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
-                                className="flex items-center justify-center gap-2"
-                                onClick={() => handleDocumentDownload(product.manufacturers_instruction_url_it!, 'Manufacturers Instruction (IT)', 'instruction')}
-                              >
-                                <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
-                                {t('productPage.download')}
-                              </a>
-                            </Button>
-                          )}
+                              <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
+                              {t('productPage.download')}
+                            </a>
+                          </Button>
                         </div>
                       </div>
                     )}
                     
                     {/* Show message if no documents available */}
-                    {!((language === 'en' && (product.technical_sheet_url || product.declaration_sheet_url || product.manufacturers_instruction_url)) || 
-                        (language === 'it' && (product.technical_sheet_url_it || product.declaration_sheet_url_it || product.manufacturers_instruction_url_it))) && (
+                    {!hasAnyDocumentation && (
                       <div className="text-center py-8 text-brand-secondary dark:text-gray-400">
                         <Download className="h-8 w-8 mx-auto mb-2 opacity-50" />
                         <p>No documentation available for this product.</p>

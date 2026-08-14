@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getIndustryBySlug, getRelatedProducts, getRelatedProductsByIds } from '@/lib/industries-service';
 import { cookies } from 'next/headers';
+import { parseLanguage } from '@/lib/i18n/config';
 import { IndustryDetail } from '@/components/website/industries/slug/IndustryDetail';
 
 interface IndustryPageProps {
@@ -12,7 +13,7 @@ interface IndustryPageProps {
 
 export async function generateMetadata({ params }: IndustryPageProps): Promise<Metadata> {
   const cookieStore = cookies();
-  const lang = (cookieStore.get('language')?.value as 'en' | 'it') || 'en';
+  const lang = parseLanguage(cookieStore.get('language')?.value);
   const industry = await getIndustryBySlug(params.slug, lang);
   if (!industry) {
     return {
@@ -30,7 +31,7 @@ export const revalidate = 0;
 
 export default async function IndustryPage({ params }: IndustryPageProps) {
   const cookieStore = cookies();
-  const lang = (cookieStore.get('language')?.value as 'en' | 'it') || 'en';
+  const lang = parseLanguage(cookieStore.get('language')?.value);
   // Fetch raw industry (with all locale fields)
   const industry = await getIndustryBySlug(params.slug, lang);
   if (!industry) {

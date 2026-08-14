@@ -1,0 +1,955 @@
+"source_table","record_id","slug","locale_field","english","italian","french","german","spanish"
+"ppe_categories","7c329c88-eb36-4886-a1ec-1b1b2f50c00a","hand-and-arm-protection","title_locales","Hand and arm protection","Protezione di mani e braccia","""""","""""",""""""
+"ppe_categories","7c329c88-eb36-4886-a1ec-1b1b2f50c00a","hand-and-arm-protection","summary_locales","Glove standards for mechanical, cut and thermal risks; selection and markings. ","Norme per guanti contro rischi meccanici, da taglio e termici; scelta e marcature.","""""","""""",""""""
+"ppe_categories","11c78157-b966-466b-9836-d458979a976a","protezione-del-capo","title_locales","Head protection","Protezione del capo","""""","""""",""""""
+"ppe_categories","11c78157-b966-466b-9836-d458979a976a","protezione-del-capo","summary_locales","Key norms for head protection and PPE selection guide based on environment and risks.","Norme e livelli di protezione per testa e guida alla selezione dei DPI in base ad ambiente e rischi.","""""","""""",""""""
+"ppe_categories","80998942-6686-4f48-9578-6a64719f6681","hearing-protection","title_locales","Hearing protection","Protezione delle vie uditive","""""","""""",""""""
+"ppe_categories","80998942-6686-4f48-9578-6a64719f6681","hearing-protection","summary_locales","Guide on hearing protection norms and selection.","Guida alla selezione della protezione vie uditive.","""""","""""",""""""
+"ppe_sections","1a2206fc-598c-4734-b63b-f9570b269740","new-1","title_locales","EN ISO 21420 - General requirements for protective gloves","EN ISO 21420 - Guanti di protezione - Requisiti generali e metodi di prova","""""","""""",""""""
+"ppe_sections","1a2206fc-598c-4734-b63b-f9570b269740","new-1","intro_locales","       
+### What the Standard Covers
+
+**EN ISO 21420** sets the *general requirements and test methods* for all protective gloves.  
+It doesn’t define protection levels itself (that’s done by specific standards like **EN 388** or **EN 407**), but it ensures that every glove on the market meets **basic safety, comfort, and information requirements** before being tested for specific risks.
+
+In short:  
+> **EN ISO 21420 defines what every glove must meet to be safe, comfortable, trustworthy and correctly labelled. It’s the first step toward full CE certification for any glove type.**  
+
+
+       
+
+### Why It Matters When Choosing PPE
+
+When you see **EN ISO 21420** on a glove, it means:
+
+✅ The glove is made from **materials proven safe for skin contact**  
+✅ It has been tested for **ergonomic comfort and fit**  
+✅ Its **labelling and user information** are complete and reliable  
+✅ It provides a **consistent reference** for all other EN glove standards  
+
+This standard guarantees that every performance test (cut, heat, chemical, etc.) is carried out on a glove that already meets fundamental safety and quality rules.
+
+.
+### Key Requirements at a Glance
+
+| Category | What It Covers | Why It Matters |
+|-----------|----------------|----------------|
+| **Innocuousness** | Materials must not harm the skin; pH, chromium VI, azo dyes, and nickel are checked. | Prevents allergic or toxic reactions. |
+| **Comfort and Fit** | Glove sizing (from 5 to 12), dexterity tests, and water vapour transmission. | Ensures wearability and performance in real use. |
+| **Cleaning Instructions** | The glove must not degrade or lose performance after washing (if washable). | Maintains safety after cleaning. |
+| **Electrostatic Properties** | If relevant, gloves tested for static dissipation. | Important for electronics or explosive environments. |
+| **Labelling and Information** | Clear manufacturer name, size, EN ISO 21420 pictogram, and instructions. | Helps users select and use gloves correctly. |
+
+.
+### Typical Glove Applications
+",".
+
+### Cosa Copre la Norma
+
+**EN ISO 21420** definisce i *requisiti generali e i metodi di prova* per tutti i guanti di protezione.  
+Non stabilisce di per sé i livelli di protezione (questo è compito di norme specifiche come **EN 388** o **EN 407**), ma garantisce che ogni guanto sul mercato rispetti **requisiti fondamentali di sicurezza, comfort e informazioni** prima di essere testato per rischi specifici.
+
+In breve:  
+> **EN ISO 21420 definisce ciò che ogni guanto deve rispettare per essere sicuro, confortevole, affidabile e correttamente etichettato. È il primo passo verso la completa certificazione CE per qualsiasi tipo di guanto.**
+
+.
+
+### Perché È Importante nella Scelta dei DPI
+
+Quando vedi **EN ISO 21420** su un guanto, significa che:  
+
+✅ Il guanto è realizzato con **materiali sicuri per il contatto con la pelle**  
+✅ È stato testato per **comfort ergonomico e vestibilità**  
+✅ La sua **etichettatura e le informazioni per l’utente** sono complete e affidabili  
+✅ Fornisce un **riferimento coerente** per tutte le altre norme EN sui guanti  
+
+Questa norma garantisce che ogni test di prestazione (taglio, calore, sostanze chimiche, ecc.) venga eseguito su un guanto che già rispetta regole fondamentali di sicurezza e qualità.
+
+.
+
+### Requisiti Chiave a Colpo d’Occhio
+
+| Categoria | Cosa Copre | Perché È Importante |
+|-----------|------------|------------------|
+| **Innocuità** | I materiali non devono danneggiare la pelle; controllati pH, cromo VI, coloranti azoici e nichel. | Previene reazioni allergiche o tossiche. |
+| **Comfort e Vestibilità** | Taglie del guanto (da 5 a 12), test di destrezza e trasmissione del vapore acqueo. | Garantisce portabilità e prestazioni in uso reale. |
+| **Istruzioni di Pulizia** | Il guanto non deve degradarsi o perdere prestazioni dopo il lavaggio (se lavabile). | Mantiene la sicurezza dopo la pulizia. |
+| **Proprietà Elettrostatiche** | Se rilevante, guanti testati per dissipazione statica. | Importante per ambienti elettronici o esplosivi. |
+| **Etichettatura e Informazioni** | Nome chiaro del produttore, taglia, pittogramma EN ISO 21420 e istruzioni. | Aiuta l’utente a selezionare e usare correttamente i guanti. |
+
+.
+
+### Applicazioni Tipiche dei Guanti
+","""""","""""",""""""
+"ppe_sections","1a2206fc-598c-4734-b63b-f9570b269740","new-1","bullets_locales","[""General handling and industrial work "",""Gloves certified under any EN protection category (mechanical, thermal, chemical, etc.)"",""General handling and industrial work""]","[""Lavori generici di manipolazione e attività industriali "",""Guanti certificati secondo qualsiasi categoria di protezione EN (meccanica, termica, chimica, ecc.)  "",""Lavori di manipolazione e attività industriali in generale""]","""""","""""",""""""
+"ppe_sections","8d1430a1-896f-46b4-837d-3fff02f9cdd4","new-3","title_locales","ANSI/ISEA 105-2016 - Cut resistance","ANSI/ISEA 105-2016 - Resistenza al taglio","""""","""""",""""""
+"ppe_sections","8d1430a1-896f-46b4-837d-3fff02f9cdd4","new-3","intro_locales",".
+
+### Understanding Cut Protection Standards
+
+Gloves are often tested for **cut resistance** using either the **European EN 388 ISO 13997 test** or the **American ANSI/ISEA 105 standard**. Both measure how well gloves resist cuts, but they differ in **method, scale, and interpretation**.
+
+> Both systems tell you how strong a glove is against cutting hazards. EN 388 ISO uses a **straight blade under tension** and rates performance from A to F, while ANSI uses a **rotating circular blade** and assigns performance levels from 1 to 9. 
+
+**Important:** Whilst both system measure glove cut resistance accurately, ANSI scale goes further and covers higher mechanical stress.
+
+.
+
+### Cut Level Comparison Table
+
+| EN ISO   | Force (N)   | ANSI Level   | Cut Threshold (grams)   | Notes   |
+|------------|------------|----------------|----------------------|-------|
+| A | 2–5 N | A1 | 200–499 g | Minimal cut protection |
+| B | 5–10 N | A2 | 500–999 g | Light cut protection |
+| C | 10–15 N | A3 | 1000–1499 g | Medium cut protection |
+| D | 15–22 N | A4 | 1500–2199 g | Moderate cut protection |
+| E | 22–30 N | A5 | 2200–2999 g | High cut protection |
+| F | 30+ N | A6 | 3000–3999 g | Very high cut protection |
+| — | — | A7 | 4000–4999 g | Specialty/high-performance gloves |
+| — | — | A8 | 5000–5999 g | Extreme protection |
+| — | — | A9 | 6000+ g | Ultra/high-end protection |
+
+",".
+
+### Comprendere le Norme sulla Resistenza al Taglio
+
+I guanti vengono spesso testati per la **resistenza al taglio** utilizzando due principali standard: il **test europeo EN 388 ISO 13997** e la **norma americana ANSI/ISEA 105**.  
+Entrambi misurano quanto bene un guanto resiste ai tagli, ma differiscono per **metodo, scala e interpretazione**.
+
+> Entrambi i sistemi indicano quanto un guanto sia resistente ai rischi di taglio. EN 388 ISO utilizza una **lama dritta sotto tensione** e classifica le prestazioni da A a F, mentre ANSI usa una **lama circolare rotante** e assegna livelli da 1 a 9.
+
+**Importante:** Sebbene entrambi i sistemi misurino con precisione la resistenza al taglio dei guanti, la scala ANSI copre livelli di stress meccanico più elevati.
+
+.
+
+### Tabella di Confronto dei Livelli di Taglio
+
+| Livello EN ISO | Forza (N) | Livello ANSI | Soglia di Taglio (grammi) | Note |
+|----------------|------------|---------------|----------------------------|------|
+| A | 2–5 N | A1 | 200–499 g | Protezione minima dal taglio |
+| B | 5–10 N | A2 | 500–999 g | Protezione leggera |
+| C | 10–15 N | A3 | 1000–1499 g | Protezione media |
+| D | 15–22 N | A4 | 1500–2199 g | Protezione moderata |
+| E | 22–30 N | A5 | 2200–2999 g | Alta protezione |
+| F | 30+ N | A6 | 3000–3999 g | Protezione molto alta |
+| — | — | A7 | 4000–4999 g | Guanti speciali / alte prestazioni |
+| — | — | A8 | 5000–5999 g | Protezione estrema |
+| — | — | A9 | 6000+ g | Protezione ultra / di fascia alta |
+","""""","""""",""""""
+"ppe_sections","8d1430a1-896f-46b4-837d-3fff02f9cdd4","new-3","bullets_locales","[]","""""","""""","""""",""""""
+"ppe_sections","bcaed282-348b-4285-a1db-c35750dd310b","new-5","title_locales","EN 407:2020 - Gloves against thermal risks","EN 407:2020 - Guanti contro rischi termici","""""","""""",""""""
+"ppe_sections","bcaed282-348b-4285-a1db-c35750dd310b","new-5","intro_locales",".
+### What the Standard Covers
+
+**EN 407:2020** is the key European standard for protection against **thermal hazards** in gloves.
+It defines how gloves are tested and rated for resistance to Flame and contact heat, Convective heat, Radiant heat, and Small and large splashes of molten metal.
+
+> Gloves marked EN 407 protect your hands from **burns, heat exposure, and molten metal splashes**.  
+> Often combined with EN 388 for gloves that require **mechanical + thermal protection**.
+
+.
+
+### Why It Matters When Choosing PPE
+
+When you see **EN 407:2020** on a glove, it means:
+
+✅ The glove provides **tested protection against heat and flame hazards**  
+✅ You can **match the performance level to the specific thermal risk** in your workplace  
+✅ The glove has been **lab-tested for flame resistance, contact heat, radiant heat, convective heat, and molten metal**  
+✅ It helps ensure **both safety and compliance** in industrial or laboratory environments  
+
+.
+
+### Key Test Areas and Performance Levels
+
+| Test Type | Description | Performance Levels |
+|-----------|------------|------------------|
+| **Flammability** | Measures how quickly the glove ignites and stops burning. | 0–4 |
+| **Contact Heat** | Measures time until pain threshold when touching a hot surface. | 0–4 |
+| **Convective Heat** | Measures resistance to hot air or gas flow. | 0–4 |
+| **Radiant Heat** | Measures resistance to heat radiated from flame or hot object. | 0–4 |
+| **Molten Metal – Small Drops** | Resistance to splashes of small amounts of molten metal. | 0–4 |
+| **Molten Metal – Large Splashes** | Resistance to splashes of larger amounts of molten metal. | 0–4 |
+
+.
+
+### Thresholds for Each Test and Performance Level
+
+| Test Type | Level | Threshold / Criteria |
+|-----------|-------|-------------------|
+| **Flammability** | 0 | Ignites immediately or burns > 3 s |
+|  | 1 | Burns ≤ 3 s |
+|  | 2 | Burns ≤ 2 s |
+|  | 3 | Burns ≤ 1.5 s |
+|  | 4 | Burns ≤ 1 s |
+| **Contact Heat** | 0 | ≤ 60°C (time to pain < 15 s) |
+|  | 1 | 100°C ≥ 15 s |
+|  | 2 | 250°C ≥ 15 s |
+|  | 3 | 350°C ≥ 15 s |
+|  | 4 | 500°C ≥ 15 s |
+| **Convective Heat** | 0 | < 2 s |
+|  | 1 | ≥ 2 s |
+|  | 2 | ≥ 7 s |
+|  | 3 | ≥ 20 s |
+|  | 4 | ≥ 50 s |
+| **Radiant Heat** | 0 | < 10 s |
+|  | 1 | ≥ 10 s |
+|  | 2 | ≥ 15 s |
+|  | 3 | ≥ 20 s |
+|  | 4 | ≥ 40 s |
+| **Molten Metal – Small Drops** | 0 | 0 drops |
+|  | 1 | 1–5 drops |
+|  | 2 | 6–15 drops |
+|  | 3 | 16–35 drops |
+|  | 4 | ≥36 drops |
+| **Molten Metal – Large Splashes** | 0 | < 15 g |
+|  | 1 | 15–50 g |
+|  | 2 | 51–100 g |
+|  | 3 | 101–200 g |
+|  | 4 | >200 g |
+
+.
+
+### Example of Marking
+
+A glove meeting EN 407:2020 may be marked as:  EN 407:2020 4 3 4 3 3 3
+
+
+| Position | Number | Meaning |
+|----------|--------|---------|
+| 1 | 4 | **Flammability** – highest flame resistance |
+| 2 | 3 | **Contact Heat** – can withstand 350°C for ≥15 s |
+| 3 | 4 | **Convective Heat** – can withstand hot air ≥50 s |
+| 4 | 3 | **Radiant Heat** – can withstand radiant heat ≥20 s |
+| 5 | 3 | **Molten Metal – Small Drops** – tolerates 16–35 drops |
+| 6 | 3 | **Molten Metal – Large Splashes** – tolerates 101–200 g |
+
+.
+
+### Typical Applications
+",".
+
+### Cosa Copre la Norma
+
+**EN 407:2020** è la principale norma europea per la protezione contro i **rischi termici** nei guanti di protezione.  
+Definisce come i guanti vengono testati e classificati per la resistenza a **fiamma e calore da contatto, calore convettivo, calore radiante**, e **piccoli o grandi schizzi di metallo fuso**.
+
+> I guanti marcati EN 407 proteggono le mani da **ustioni, esposizione al calore e schizzi di metallo fuso**.  
+> Spesso sono combinati con la norma **EN 388** per offrire **protezione meccanica + termica**.
+
+.
+
+### Perché È Importante nella Scelta dei DPI
+
+Quando trovi la marcatura **EN 407:2020** su un guanto, significa che:
+
+✅ Il guanto offre **protezione testata contro i rischi di calore e fiamma**  
+✅ Puoi **associare il livello di prestazione al tipo di rischio termico** presente nel tuo ambiente di lavoro  
+✅ Il guanto è stato **testato in laboratorio per resistenza a fiamma, calore da contatto, calore radiante, calore convettivo e metallo fuso**  
+✅ Garantisce **sicurezza e conformità** in ambienti industriali o di laboratorio  
+
+.
+
+### Aree di Prova e Livelli di Prestazione
+
+| Tipo di Test | Descrizione | Livelli di Prestazione |
+|--------------|-------------|------------------------|
+| **Infiammabilità** | Misura quanto rapidamente il guanto si accende e smette di bruciare. | 0–4 |
+| **Calore da Contatto** | Misura il tempo fino alla soglia di dolore al contatto con una superficie calda. | 0–4 |
+| **Calore Convettivo** | Misura la resistenza al flusso di aria o gas caldo. | 0–4 |
+| **Calore Radiante** | Misura la resistenza al calore irradiato da fiamme o superfici calde. | 0–4 |
+| **Metallo Fuso – Piccole Gocce** | Resistenza a schizzi di piccole quantità di metallo fuso. | 0–4 |
+| **Metallo Fuso – Grandi Schizzi** | Resistenza a schizzi di grandi quantità di metallo fuso. | 0–4 |
+
+.
+
+### Soglie di Prova per Ogni Livello di Prestazione
+
+| Tipo di Test | Livello | Soglia / Criteri |
+|---------------|---------|------------------|
+| **Infiammabilità** | 0 | Si accende immediatamente o brucia > 3 s |
+|  | 1 | Brucia ≤ 3 s |
+|  | 2 | Brucia ≤ 2 s |
+|  | 3 | Brucia ≤ 1,5 s |
+|  | 4 | Brucia ≤ 1 s |
+| **Calore da Contatto** | 0 | ≤ 60°C (tempo al dolore < 15 s) |
+|  | 1 | 100°C ≥ 15 s |
+|  | 2 | 250°C ≥ 15 s |
+|  | 3 | 350°C ≥ 15 s |
+|  | 4 | 500°C ≥ 15 s |
+| **Calore Convettivo** | 0 | < 2 s |
+|  | 1 | ≥ 2 s |
+|  | 2 | ≥ 7 s |
+|  | 3 | ≥ 20 s |
+|  | 4 | ≥ 50 s |
+| **Calore Radiante** | 0 | < 10 s |
+|  | 1 | ≥ 10 s |
+|  | 2 | ≥ 15 s |
+|  | 3 | ≥ 20 s |
+|  | 4 | ≥ 40 s |
+| **Metallo Fuso – Piccole Gocce** | 0 | 0 gocce |
+|  | 1 | 1–5 gocce |
+|  | 2 | 6–15 gocce |
+|  | 3 | 16–35 gocce |
+|  | 4 | ≥36 gocce |
+| **Metallo Fuso – Grandi Schizzi** | 0 | < 15 g |
+|  | 1 | 15–50 g |
+|  | 2 | 51–100 g |
+|  | 3 | 101–200 g |
+|  | 4 | >200 g |
+
+.
+
+### Esempio di Marcatura
+
+Un guanto conforme alla **EN 407:2020** può riportare la marcatura: **EN 407:2020 4 3 4 3 3 3**
+
+| Posizione | Numero | Significato |
+|------------|---------|-------------|
+| 1 | 4 | **Infiammabilità** – massima resistenza alla fiamma |
+| 2 | 3 | **Calore da Contatto** – resiste a 350°C per ≥15 s |
+| 3 | 4 | **Calore Convettivo** – resiste a flusso d’aria calda ≥50 s |
+| 4 | 3 | **Calore Radiante** – resiste a calore irradiato ≥20 s |
+| 5 | 3 | **Metallo Fuso – Piccole Gocce** – tollera 16–35 gocce |
+| 6 | 3 | **Metallo Fuso – Grandi Schizzi** – tollera 101–200 g |
+
+.
+
+### Applicazioni Tipiche
+","""""","""""",""""""
+"ppe_sections","bcaed282-348b-4285-a1db-c35750dd310b","new-5","bullets_locales","[""Welding and metalworking"",""Foundries and casting  "",""Glass handling and manufacturing"",""Laboratory work with hot chemicals or equipment  "",""Industrial processes with exposure to hot surfaces, flames, or molten metal ""]","[""Saldatura e lavorazioni metalliche"",""Industria pesante, del vetro e fonderie"",""Laboratori e test termici"",""Cucine industriali e forni"",""Manutenzione industriale""]","""""","""""",""""""
+"ppe_sections","477f5bfe-d334-44cd-9180-e74593be782d","new-7","title_locales"," ","""""","""""","""""",""""""
+"ppe_sections","477f5bfe-d334-44cd-9180-e74593be782d","new-7","intro_locales","This section provides a clear, practical guide to the main international standards for hand protection — so you can make confident, informed choices when selecting your gloves:
+
+🧤 **EN ISO 21420** — *General Requirements*
+
+⚙️ **EN 388:2016+A1:2018** — *Mechanical Risks*
+
+🪓 **ANSI/ISEA 105** — *Cut Resistance*
+
+💥 **ANSI/ISEA 138** — *Impact Protection*
+
+🔥 **EN 407:2020** — *Thermal Risks*
+
+❄️ **EN 511:2006** — *Cold Risks*","Questa sezione offre una guida chiara e pratica alle principali norme internazionali per la protezione delle mani — per aiutarti a scegliere i guanti in modo consapevole e sicuro:
+
+🧤 **EN ISO 21420** — Requisiti Generali
+
+⚙️ **EN 388:2016+A1:2018** — Rischi Meccanici
+
+🪓 **ANSI/ISEA 105** — Resistenza al Taglio
+
+💥 **ANSI/ISEA 138** — Protezione da Impatto
+
+🔥 **EN 407:2020** — Rischi Termici
+
+❄️ **EN 511:2006** — Rischi da Freddo","""""","""""",""""""
+"ppe_sections","477f5bfe-d334-44cd-9180-e74593be782d","new-7","bullets_locales","[]","""""","""""","""""",""""""
+"ppe_sections","64348932-a01b-4ef6-bfac-e5ddf8da12e5","new-6","title_locales","EN 511:2006 - Gloves against cold","EN 511:2006 - Guanti contro il freddo","""""","""""",""""""
+"ppe_sections","64348932-a01b-4ef6-bfac-e5ddf8da12e5","new-6","intro_locales",".
+
+### What the Standard Covers
+
+**EN 511:2020** specifies requirements and test methods for gloves designed to protect against **convective and contact cold**, including gloves for wet or dry cold environments.  
+
+> Gloves marked EN 511 reduce the **risk of cold injuries**, frostbite, and discomfort during work in low-temperature environments.
+
+.
+
+### Why It Matters When Choosing PPE
+
+When you see **EN 511** on a glove, it means:  
+
+✅ The glove has been **tested for cold protection in standardized lab conditions**  
+✅ You can **compare gloves based on insulation and water resistance**  
+✅ It helps ensure **worker safety and compliance** in cold industrial, outdoor, or refrigerated work environments  
+
+.
+
+### Key Test Areas and Performance Levels
+
+| Test Type | Description | Performance Levels |
+|-----------|------------|------------------|
+| **Convective Cold Resistance** | Measures thermal insulation against cold air. | 0–4 |
+| **Contact Cold Resistance** | Measures thermal insulation when touching cold surfaces. | 0–4 |
+| **Water Penetration** | Measures resistance to water penetration over time. | 0–1 |
+
+.
+
+### Thresholds for Each Test and Performance Level
+
+| Test Type | Level | Threshold / Criteria |
+|-----------|-------|-------------------|
+| **Convective Cold** | 0 | <0.10 m²·K/W (lowest insulation) |
+|  | 1 | 0.10–0.19 m²·K/W |
+|  | 2 | 0.20–0.29 m²·K/W |
+|  | 3 | 0.30–0.39 m²·K/W |
+|  | 4 | ≥0.40 m²·K/W (highest insulation) |
+| **Contact Cold** | 0 | <5°C temperature rise after 30 s |
+|  | 1 | 5–9°C temperature rise |
+|  | 2 | 10–14°C temperature rise |
+|  | 3 | 15–19°C temperature rise |
+|  | 4 | ≥20°C temperature rise (best insulation) |
+| **Water Penetration** | 0 | Glove allows water penetration within 30 min |
+|  | 1 | No water penetration after 30 min |
+
+.
+
+### Example of Marking
+
+A glove tested to EN 511 may be marked as: EN 511:2020: 3 4 1
+
+
+| Position | Number | Meaning |
+|----------|--------|---------|
+| 1 | 3 | **Convective Cold** – good insulation against cold air |
+| 2 | 4 | **Contact Cold** – highest protection when touching cold surfaces |
+| 3 | 1 | **Water Penetration** – fully resistant to water for 30 minutes |
+
+.
+
+### Typical Applications
+",".
+
+### Cosa Copre la Norma
+
+**EN 511:2020** specifica i requisiti e i metodi di prova per i guanti progettati per proteggere dal **freddo convettivo e da contatto**, inclusi quelli destinati ad ambienti **freddi, umidi o asciutti**.
+
+> I guanti marcati EN 511 riducono il **rischio di lesioni da freddo, congelamento e disagio** durante il lavoro in ambienti a basse temperature.
+
+.
+
+### Perché È Importante nella Scelta dei DPI
+
+Quando trovi la marcatura **EN 511** su un guanto, significa che:
+
+✅ Il guanto è stato **testato per la protezione dal freddo in condizioni di laboratorio standardizzate**  
+✅ Puoi **confrontare i guanti in base all’isolamento termico e alla resistenza all’acqua**  
+✅ Garantisce **sicurezza e conformità** per chi lavora in ambienti freddi, all’aperto o in celle frigorifere  
+
+.
+
+### Aree di Prova e Livelli di Prestazione
+
+| Tipo di Test | Descrizione | Livelli di Prestazione |
+|--------------|-------------|------------------------|
+| **Resistenza al Freddo Convettivo** | Misura l’isolamento termico contro l’aria fredda. | 0–4 |
+| **Resistenza al Freddo da Contatto** | Misura l’isolamento quando si toccano superfici fredde. | 0–4 |
+| **Penetrazione d’Acqua** | Misura la resistenza alla penetrazione dell’acqua nel tempo. | 0–1 |
+
+.
+
+### Soglie di Prova per Ogni Livello di Prestazione
+
+| Tipo di Test | Livello | Soglia / Criteri |
+|---------------|---------|------------------|
+| **Freddo Convettivo** | 0 | <0,10 m²·K/W (isolamento minimo) |
+|  | 1 | 0,10–0,19 m²·K/W |
+|  | 2 | 0,20–0,29 m²·K/W |
+|  | 3 | 0,30–0,39 m²·K/W |
+|  | 4 | ≥0,40 m²·K/W (isolamento massimo) |
+| **Freddo da Contatto** | 0 | Aumento di temperatura <5°C dopo 30 s |
+|  | 1 | Aumento di temperatura 5–9°C |
+|  | 2 | Aumento di temperatura 10–14°C |
+|  | 3 | Aumento di temperatura 15–19°C |
+|  | 4 | Aumento di temperatura ≥20°C (isolamento ottimale) |
+| **Penetrazione d’Acqua** | 0 | Penetrazione d’acqua entro 30 min |
+|  | 1 | Nessuna penetrazione d’acqua dopo 30 min |
+
+.
+
+### Esempio di Marcatura
+
+Un guanto testato secondo la norma **EN 511:2020** può riportare la seguente marcatura:  
+**EN 511:2020 3 4 1**
+
+| Posizione | Numero | Significato |
+|------------|---------|-------------|
+| 1 | 3 | **Freddo Convettivo** – buon isolamento contro l’aria fredda |
+| 2 | 4 | **Freddo da Contatto** – massima protezione al contatto con superfici fredde |
+| 3 | 1 | **Penetrazione d’Acqua** – nessuna penetrazione entro 30 minuti |
+
+.
+
+### Applicazioni Tipiche
+","""""","""""",""""""
+"ppe_sections","64348932-a01b-4ef6-bfac-e5ddf8da12e5","new-6","bullets_locales","[""Outdoor work in winter conditions  "",""Refrigerated warehouses and cold storage  "",""Freezing process industries (food, chemical, pharmaceutical)  "",""Transport, logistics, and cold chain handling  "",""Any industrial environment with prolonged exposure to cold or wet conditions ""]","[""Lavori in celle frigorifere o magazzini a freddo"",""Logistica e trasporti in ambienti freddi o invernali"",""Lavori all’aperto in condizioni climatiche rigide"",""Manutenzione o movimentazione di materiali refrigerati"",""Industrie alimentari o ittiche** – ambienti umidi e freddi""]","""""","""""",""""""
+"ppe_sections","265dddce-a36c-4705-888b-9ec76b7f6bf5","new-1","title_locales"," ","","""""","""""",""""""
+"ppe_sections","265dddce-a36c-4705-888b-9ec76b7f6bf5","new-1","intro_locales","Head protection PPE is designed to protect users from **impact, penetration, electrical hazards, and injuries caused by falling or moving objects**.
+
+In the UK and Europe, head protection is regulated through harmonised standards that define performance requirements and testing methods. The most important standards are:
+
+- **EN 397** – Industrial safety helmets for protection against falling objects and top impact  
+- **EN 14052** – High-performance helmets with enhanced impact and penetration resistance, including side impacts  
+- **EN 812** – Lightweight head protection for minor bumps and scrapes (not suitable for falling objects)  
+- **EN 50365** – Helmets designed to protect against electrical hazards  
+.
+
+Choosing the correct standard is critical, as different types of head protection offer **very different levels of safety**. In particular, bump caps and safety helmets are often confused, despite being designed for completely different risk levels.
+
+This guide explains each standard in detail to help you select the most appropriate head protection for your application.
+
+## How to Choose the Right Head Protection Standard
+
+Selecting the correct head protection depends on the specific risks present in the working environment:
+
+- **Falling objects → EN 397**  
+- **High impact or side impact risk → EN 14052**  
+- **Minor bumps only → EN 812**  
+- **Electrical hazards → EN 50365**  
+- **Working at height → EN 12492**
+
+Always base selection on a **risk assessment**, ensuring the chosen helmet meets the required level of protection for the task.","Questa guida fornisce una panoramica chiara e pratica sui caschi di sicurezza.
+.
+Gli elmetti di sicurezza devono essere conformi a specifiche norme europee che ne definiscono requisiti, prove e marcature.
+Le principali norme sono:
+DIN EN 397 – Elmetti di protezione per l’industria 
+EN 812 – Caschi anti urto (bump cap)
+EN 50365 – Elmetti isolanti elettrici per lavori sotto tensione 
+EN 12492 – Caschi per lavori in quota / alpinismo industriale
+","""""","""""",""""""
+"ppe_sections","265dddce-a36c-4705-888b-9ec76b7f6bf5","new-1","bullets_locales","""""","[]","""""","""""",""""""
+"ppe_sections","e1fafc85-62fb-48c0-afb6-85b9c05c8da7","new-3","title_locales","EN 14052: High Performance Industrial helments","""""","""""","""""",""""""
+"ppe_sections","e1fafc85-62fb-48c0-afb6-85b9c05c8da7","new-3","intro_locales","**EN 14052** specifies helmets designed for **higher-risk environments** where standard industrial helmets may not provide sufficient protection.
+
+### What it covers
+- High-energy impacts  
+- Falling and moving objects  
+- Penetration (higher resistance than EN 397)  
+- Lateral (side) impacts  
+
+### Key differences vs EN 397
+- Greater shock absorption  
+- Improved penetration resistance  
+- Mandatory side impact protection  
+
+### Typical applications
+- Heavy industry  
+- High-risk construction  
+- Environments with multi-directional hazards  
+
+### Key insight
+If there is a risk of **side impact**, EN 397 helmets may not provide adequate protection—EN 14052 should be considered.
+","""""","""""","""""",""""""
+"ppe_sections","e1fafc85-62fb-48c0-afb6-85b9c05c8da7","new-3","bullets_locales","[]","""""","""""","""""",""""""
+"ppe_sections","96dce74f-2122-4f3c-b7d1-39fc3f6038b8","new-1","title_locales","EN352: Hearing protection Standards","EN352: Protezione dell'udito","""""","""""",""""""
+"ppe_sections","96dce74f-2122-4f3c-b7d1-39fc3f6038b8","new-1","intro_locales",".
+
+### What the Standard Covers
+
+The **EN 352 series** defines the safety and performance requirements for **hearing protection devices** such as **earmuffs, earplugs, and communication protectors**.  
+These standards ensure that hearing protectors effectively reduce noise exposure, are comfortable to wear for extended periods, and remain safe and durable in industrial use.
+
+.
+
+### Why It Matters When Choosing PPE
+
+Exposure to excessive noise can lead to **irreversible hearing damage**.  
+In many workplaces — such as construction sites, factories, and workshops — daily noise levels can exceed **85 dB(A)**, the threshold at which employers must take preventive action.  
+
+Hearing protectors compliant with EN 352 guarantee that the equipment has been **tested for real protective performance**, enabling employers to select suitable devices for their environment and meet legal obligations under **Regulation (EU) 2016/425** on Personal Protective Equipment.
+
+.
+
+## The EN 352 Series
+
+The EN 352 series is composed of several parts, each dedicated to a specific type of hearing protector or electronic function.
+
+| Standard | Title | Description |
+|-----------|--------|-------------|
+| **EN 352-1** | Earmuffs | Passive earmuffs that cover the ear and create an acoustic seal against the head. |
+| **EN 352-2** | Earplugs | Pre-moulded, banded, or roll-down plugs inserted into the ear canal. |
+| **EN 352-3** | Helmet-mounted earmuffs | For earmuffs designed to attach directly to industrial safety helmets. |
+| **EN 352-4** | Level-dependent earmuffs | Allow perception of ambient sounds at low levels while blocking hazardous noise peaks. |
+| **EN 352-5** | Active noise reduction earmuffs | Include electronic systems that generate anti-phase sound to reduce continuous noise. |
+| **EN 352-6** | Earmuffs with audio input | Earmuffs incorporating wired audio communication. |
+| **EN 352-7** | Level-dependent earplugs | Same as EN 352-4 but for earplugs. |
+| **EN 352-8** | Entertainment audio earmuffs | Allow music or audio playback while limiting maximum sound output. |
+| **EN 352-9 / EN 352-10** | Wireless communication protectors | Cover Bluetooth or similar communication-enabled devices. |
+
+All EN 352 standards require hearing protectors to be **effective, comfortable, and robust**, maintaining their protective qualities during normal use and cleaning.
+
+.
+
+## Understanding Attenuation Ratings
+
+Unlike hand protection standards, hearing protectors do not have “performance levels.”  
+Instead, they are assessed by **attenuation values** measured in **decibels (dB)**, which represent how much noise is reduced before reaching the ear.
+
+The main indicators are:
+
+- **SNR (Single Number Rating):**  
+  Overall noise reduction value in dB, providing a general indication of protection.
+
+- **HML Values:**  
+  Separate attenuation values for **High (H)**, **Medium (M)**, and **Low (L)** frequencies.  
+  Useful for selecting protectors that best match the noise profile of a workplace.
+
+- **Octave Band Data:**  
+  A detailed table showing attenuation at different frequencies (available in the product’s technical file).
+
+> **Example:**  
+> A protector marked “SNR 32 dB, H 34 M 29 L 23” reduces overall noise by 32 dB on average, providing strongest protection at high frequencies.
+
+.
+
+## Selecting the Right Hearing Protector
+
+Selecting the correct protector involves more than choosing the highest SNR.  
+The aim is to **reduce exposure to a safe level**, not to eliminate all sound.
+
+Key factors include:
+- The **measured noise level and frequency content** at the workplace  
+- **Duration of exposure** during the shift  
+- Compatibility with other PPE (helmets, visors, masks)  
+- **Fit and comfort**, since poor fit drastically reduces protection  
+- Avoiding **over-protection**, which can cause isolation or communication difficulties
+
+> As a rule, effective selection should bring the daily noise exposure to between **70–80 dB(A)** at the ear.
+
+",".
+### Cosa Copre la Norma
+
+La serie **EN 352** definisce i requisiti di sicurezza e prestazione per i **dispositivi di protezione dell’udito**, come **cuffie, tappi auricolari e dispositivi di protezione con comunicazione**.  
+Queste norme garantiscono che i dispositivi di protezione dell’udito riducano efficacemente l’esposizione al rumore, siano confortevoli da indossare per periodi prolungati e rimangano sicuri e duraturi nell’uso industriale.
+
+.
+
+### Perché È Importante Scegliere il PPE Correttamente
+
+L’esposizione a rumori eccessivi può provocare **danni uditivi irreversibili**.  
+In molti ambienti di lavoro — come cantieri, fabbriche e officine — i livelli di rumore giornalieri possono superare gli **85 dB(A)**, soglia oltre la quale il datore di lavoro deve adottare misure preventive.  
+
+I dispositivi di protezione dell’udito conformi alla norma EN 352 garantiscono che l’equipaggiamento sia stato **testato per le reali prestazioni protettive**, permettendo ai datori di lavoro di scegliere dispositivi adatti all’ambiente e rispettare gli obblighi legali secondo il **Regolamento (UE) 2016/425** sui Dispositivi di Protezione Individuale.
+
+.
+
+## La Serie EN 352
+
+La serie EN 352 è composta da diverse parti, ognuna dedicata a un tipo specifico di dispositivo di protezione dell’udito o funzione elettronica.
+
+| Norma | Titolo | Descrizione |
+|-------|--------|-------------|
+| **EN 352-1** | Cuffie | Cuffie passive che coprono l’orecchio e creano una sigillatura acustica con la testa. |
+| **EN 352-2** | Tappi auricolari | Tappi preformati, a fascia o roll-down inseriti nel canale uditivo. |
+| **EN 352-3** | Cuffie montate su casco | Cuffie progettate per essere fissate direttamente ai caschi di sicurezza industriali. |
+| **EN 352-4** | Cuffie a attenuazione variabile | Permettono di percepire i suoni ambientali a basso livello, bloccando i picchi di rumore pericolosi. |
+| **EN 352-5** | Cuffie con riduzione attiva del rumore | Comprendono sistemi elettronici che generano suono in controfase per ridurre il rumore continuo. |
+| **EN 352-6** | Cuffie con ingresso audio | Cuffie che integrano comunicazione audio cablata. |
+| **EN 352-7** | Tappi auricolari a attenuazione variabile | Stesso principio della EN 352-4 ma applicato ai tappi auricolari. |
+| **EN 352-8** | Cuffie audio per intrattenimento | Permettono la riproduzione di musica o audio limitando il livello massimo di volume. |
+| **EN 352-9 / EN 352-10** | Dispositivi di protezione con comunicazione wireless | Coprono dispositivi con comunicazione Bluetooth o simili. |
+
+Tutte le norme EN 352 richiedono che i dispositivi di protezione dell’udito siano **efficaci, confortevoli e robusti**, mantenendo le loro proprietà protettive durante l’uso normale e la pulizia.
+
+.
+
+## Comprendere i Valori di Attenuazione
+
+A differenza delle norme per la protezione delle mani, i dispositivi di protezione dell’udito non hanno “livelli di prestazione”.  
+Vengono invece valutati tramite **valori di attenuazione**, misurati in **decibel (dB)**, che indicano quanto il rumore viene ridotto prima di raggiungere l’orecchio.
+
+I principali indicatori sono:
+
+- **SNR (Single Number Rating):**  
+  Valore complessivo di riduzione del rumore in dB, che fornisce un’indicazione generale della protezione.
+
+- **Valori HML:**  
+  Attenuazione separata per **High (H)**, **Medium (M)** e **Low (L)** frequenze.  
+  Utile per selezionare i dispositivi più adatti al profilo di rumore del luogo di lavoro.
+
+- **Dati per bande di ottava:**  
+  Tabella dettagliata che mostra l’attenuazione a diverse frequenze (disponibile nella scheda tecnica del prodotto).
+
+> **Esempio:**  
+> Un dispositivo marcato “SNR 32 dB, H 34 M 29 L 23” riduce il rumore complessivo di 32 dB in media, con protezione maggiore alle alte frequenze.
+
+.
+
+## Come Scegliere il Dispositivo di Protezione dell’Udito Giusto
+
+La scelta del dispositivo corretto non consiste solo nel selezionare il SNR più alto.  
+L’obiettivo è **ridurre l’esposizione a un livello sicuro**, non eliminare completamente i suoni.
+
+Fattori chiave da considerare:
+- Il **livello di rumore misurato e il contenuto in frequenze** del luogo di lavoro  
+- **Durata dell’esposizione** durante il turno  
+- Compatibilità con altri DPI (caschi, visiere, maschere)  
+- **Vestibilità e comfort**, poiché una scarsa aderenza riduce drasticamente la protezione  
+- Evitare la **sovraprotezione**, che può causare isolamento o difficoltà di comunicazione
+
+> In generale, la scelta efficace dovrebbe portare l’esposizione giornaliera a valori compresi tra **70 e 80 dB(A)** all’orecchio.
+","""""","""""",""""""
+"ppe_sections","96dce74f-2122-4f3c-b7d1-39fc3f6038b8","new-1","bullets_locales","[]","""""","""""","""""",""""""
+"ppe_sections","2452b5b7-e697-491f-9008-2466e9ed7145","new-4","title_locales","ANSI/ISEA 133 - Impact protection","ANSI/ISEA 133 - Protezione urti e impatto","""""","""""",""""""
+"ppe_sections","2452b5b7-e697-491f-9008-2466e9ed7145","new-4","intro_locales",".
+
+### Understanding Impact Protection
+
+**ANSI/ISEA 133-2020** is the American standard for **hand and finger impact protection** in gloves; it measures **actual force reduction** to your hand, not just padding thickness.  
+It measures how well gloves protect against **blunt impact forces** from dropping objects, tools, or machinery.  
+
+> If a glove meets ANSI 133, it has **impact-resistant padding or inserts** that reduce the force transmitted to your hands.
+
+This standard is widely used in **construction, manufacturing, mining, and industrial maintenance**, where hands are exposed to potential impact hazards.
+
+.
+
+### Connection to EN 388:2016
+
+- EN 388:2016 includes an **optional impact protection test** for gloves.  
+- Gloves that **pass the EN 13594 impact test** are marked with **“P”** next to the EN 388 performance numbers, for example:  
+.
+
+# Performance Levels
+
+| ANSI/ISEA Level | Max Transmitted Force (lbf) | EN 388:2016 Equivalent | Notes |
+|-----------------|----------------------------|-----------------------|-------|
+| 0 | >60 lbf | No “P” | No significant impact protection |
+| 1 | 50–60 lbf | Optional “P” | Minimal impact protection |
+| 2 | 40–49 lbf | Optional “P” | Light impact protection for general tasks |
+| 3 | 30–39 lbf | Optional “P” | Moderate impact protection |
+| 4 | ≤29 lbf | Optional “P” | High impact protection for heavy-duty tasks |
+
+> **Note:**  Whilst ANSI/ISEA 133 provides **specific numeric thresholds** for transmitted force, **EN 388:2016 “P” marking indicates the glove **passed the impact test, but does not provide numeric force levels.**  
+
+",".
+
+### Comprendere la Protezione da Impatto
+
+**ANSI/ISEA 133-2020** è la norma americana per la **protezione da impatto di mani e dita** nei guanti; misura la **riduzione effettiva della forza** trasmessa alla mano, non solo lo spessore dell’imbottitura.  
+Valuta quanto efficacemente i guanti proteggono da **forze d’impatto contundenti** causate da caduta di oggetti, utensili o macchinari.
+
+> Se un guanto è conforme alla ANSI 133, significa che dispone di **imbottiture o inserti antiurto** capaci di ridurre la forza trasmessa alla mano.
+
+Questa norma è ampiamente utilizzata in **edilizia, manifattura, estrazione mineraria e manutenzione industriale**, dove le mani sono esposte a potenziali urti e impatti.
+
+.
+
+### Collegamento con EN 388:2016
+
+- EN 388:2016 include un **test opzionale di protezione da impatto** per i guanti.  
+- I guanti che **superano il test d’impatto EN 13594** sono contrassegnati con la lettera **“P”** accanto ai valori di prestazione EN 388, ad esempio:  
+
+.
+
+### Livelli di Prestazione
+
+| Livello ANSI/ISEA | Forza Massima Trasmetta (lbf) | Equivalente EN 388:2016 | Note |
+|--------------------|-------------------------------|--------------------------|------|
+| 0 | >60 lbf | Nessuna “P” | Nessuna protezione da impatto significativa |
+| 1 | 50–60 lbf | “P” opzionale | Protezione minima da impatto |
+| 2 | 40–49 lbf | “P” opzionale | Protezione leggera per attività generali |
+| 3 | 30–39 lbf | “P” opzionale | Protezione moderata |
+| 4 | ≤29 lbf | “P” opzionale | Alta protezione da impatto per lavori gravosi |
+
+> **Nota:** Sebbene la norma **ANSI/ISEA 133** fornisca **soglie numeriche specifiche** per la forza trasmessa, la marcatura **“P” di EN 388:2016** indica solo che il guanto **ha superato il test d’impatto**, senza specificare il valore numerico della forza.
+","""""","""""",""""""
+"ppe_sections","2452b5b7-e697-491f-9008-2466e9ed7145","new-4","bullets_locales","[]","""""","""""","""""",""""""
+"ppe_sections","998213a6-f374-40fd-806b-e1f92ee54b51","new-4","title_locales","EN812: Bump Caps","""""","""""","""""",""""""
+"ppe_sections","998213a6-f374-40fd-806b-e1f92ee54b51","new-4","intro_locales","**EN 812** applies to bump caps designed for **low-risk environments** where users may encounter minor head impacts.
+
+### What it covers
+- Minor bumps  
+- Scrapes against fixed objects  
+
+### What it does NOT cover
+- Falling objects  
+- High-energy impacts  
+- Penetration hazards  
+
+### Typical applications
+- Warehousing  
+- Maintenance  
+- Automotive and light industrial work  
+
+### Critical warning
+Bump caps are **not safety helmets** and must not be used where there is a risk of falling objects.
+","""""","""""","""""",""""""
+"ppe_sections","998213a6-f374-40fd-806b-e1f92ee54b51","new-4","bullets_locales","[]","""""","""""","""""",""""""
+"ppe_sections","91a64210-4d9f-4a35-be46-08e8675ac516","new-5","title_locales","EN 50365: Electrically Insulating Helmets","""""","""""","""""",""""""
+"ppe_sections","91a64210-4d9f-4a35-be46-08e8675ac516","new-5","intro_locales","**EN 50365** specifies helmets that provide protection against **electrical hazards** in low-voltage environments.
+
+### What it covers
+- Electrical insulation  
+- Protection when working on or near live installations  
+
+### Performance
+- Typically protects up to **1000V AC / 1500V DC**
+
+### Relationship with EN 397
+Most EN 50365 helmets are based on EN 397, with additional electrical insulation requirements.
+
+### Typical applications
+- Electrical installation  
+- Utilities  
+- Maintenance of live systems  
+
+### Important note
+Electrical protection is only effective when the helmet is used correctly and without contamination or damage.
+","""""","""""","""""",""""""
+"ppe_sections","91a64210-4d9f-4a35-be46-08e8675ac516","new-5","bullets_locales","[]","""""","""""","""""",""""""
+"ppe_sections","2892dda1-a582-4c8e-bafc-3518448703bd","new-2","title_locales","EN 397: Industrial safety helmets","""""","""""","""""",""""""
+"ppe_sections","2892dda1-a582-4c8e-bafc-3518448703bd","new-2","intro_locales","**EN 397** is the core European standard for industrial safety helmets. It applies to helmets designed to protect against common workplace hazards, particularly in construction, logistics, and manufacturing.
+
+### What it covers
+- Falling objects  
+- Impact to the top of the head  
+- Penetration  
+
+### Key tests
+- Shock absorption (vertical impact)  
+- Resistance to penetration  
+- Flame resistance  
+
+### Optional requirements
+- Electrical insulation  
+- Molten metal splash (MM)  
+- Extreme temperatures (-30°C / +150°C)  
+- Lateral deformation (LD)  
+
+### Key limitation
+EN 397 helmets are primarily designed for **vertical (top) impact** and offer limited protection against side impacts.
+","""""","""""","""""",""""""
+"ppe_sections","2892dda1-a582-4c8e-bafc-3518448703bd","new-2","bullets_locales","[]","""""","""""","""""",""""""
+"ppe_sections","66989258-b4d4-4b85-a895-801e6a583bc3","new-6","title_locales","EN 12492: Mountaneering & Working at height helmets","""""","""""","""""",""""""
+"ppe_sections","66989258-b4d4-4b85-a895-801e6a583bc3","new-6","intro_locales","**EN 12492** applies to helmets originally developed for mountaineering but widely used in **working at height** applications.
+
+### What it covers
+- Impact from multiple directions  
+- Falling objects  
+- Retention during falls  
+
+### Key differences vs EN 397
+- Stronger, mandatory chin strap  
+- Improved helmet retention (stays on during a fall)  
+- Better protection against side impacts  
+
+### Typical applications
+- Rope access  
+- Climbing  
+- Working at height  
+
+### Key insight
+For certain work-at-height applications, EN 12492 helmets may provide more appropriate protection than EN 397, depending on the risk assessment.
+","""""","""""","""""",""""""
+"ppe_sections","66989258-b4d4-4b85-a895-801e6a583bc3","new-6","bullets_locales","[]","""""","""""","""""",""""""
+"ppe_sections","8350a37d-3f13-4d70-a357-325e73aa55cc","new-2","title_locales","EN 388:2016 - Gloves against mechanical risks","EN 388: Guanti contro i rischi meccanici","""""","""""",""""""
+"ppe_sections","8350a37d-3f13-4d70-a357-325e73aa55cc","new-2","intro_locales",".
+### What the Standard Covers
+
+**EN 388:2016+A1:2018** is the key European standard for **mechanical protection** in gloves.  
+It defines how gloves are tested and rated for resistance to **abrasion, blade cuts, tearing, puncture**, and — when relevant — **impact protection**.
+
+In short:  
+> **EN 388 helps you understand how well a glove resists physical damage during work.**
+
+It applies to gloves designed to protect hands from mechanical hazards such as handling sharp or rough materials, tools, or machinery.
+
+.
+
+### Why It Matters When Choosing PPE
+
+When you see **EN 388** on a glove, it means:
+
+✅ The glove has been **tested in a laboratory** for specific mechanical risks.  
+✅ The **numbers and letters** following the standard tell you *how strong* that protection is.  
+✅ It gives a **clear, comparable system** for selecting the right glove for each task.  
+
+This makes EN 388 essential for applications like construction, metalworking, warehousing, automotive assembly, and general handling.
+
+.
+
+### Key Test Areas and Performance Levels
+
+Each EN 388 glove is tested for up to **six mechanical properties**, displayed as a series of **numbers and letters** after the standard reference:
+
+
+| Position | Test | Scale | Meaning |
+|-----------|------|--------|----------|
+| **1st** | **Abrasion Resistance** | 1–4 | Number of cycles needed to wear through the glove material. Higher = more durable. |
+| **2nd** | **Blade Cut Resistance (Coup Test)** | 1–5 | Measures cuts by a rotating blade. Marked “X” if ISO test used instead. |
+| **3rd** | **Tear Resistance** | 1–4 | Force required to tear the glove. Higher = stronger. |
+| **4th** | **Puncture Resistance** | 1–4 | Force needed to pierce the glove with a point. |
+| **5th** | **Cut Resistance (ISO 13997)** | A–F | Measured by straight blade under tension. Used for high-cut materials. Higher = better. |
+| **6th** | **Impact Protection (optional)** | P or absent | “P” if passed EN 13594 impact test. Blank if not applicable. |
+
+.
+
+### Example of Marking
+
+**How to read this example marking:** EN 388:2016: **4X43F**
+
+- **4** → High abrasion resistance  
+- **X** → Coup cut test not applicable (because ISO test used)  
+- **4** → High tear resistance  
+- **3** → Good puncture resistance  
+- **F** → Highest ISO cut protection level  
+- *(no “P”)* → No impact protection claimed  
+
+💡 **Tip:**  
+If both cut tests are performed, the ISO (A–F) result is considered **more accurate** for modern high-performance fibers.
+
+.
+
+### Typical Applications
+",".
+
+### Cosa Copre la Norma
+
+**EN 388:2016+A1:2018** è la principale norma europea per la **protezione meccanica** nei guanti.  
+Definisce come i guanti vengono testati e classificati per resistenza a **abrasione, taglio da lama, strappo, perforazione** e — quando rilevante — **protezione da impatto**.
+
+In breve:  
+> **EN 388 aiuta a capire quanto un guanto resista ai danni fisici durante il lavoro.**
+
+Si applica ai guanti progettati per proteggere le mani da rischi meccanici come la manipolazione di materiali taglienti o ruvidi, utensili o macchinari.
+
+.
+
+### Perché È Importante nella Scelta dei DPI
+
+Quando vedi **EN 388** su un guanto, significa:
+
+✅ Il guanto è stato **testato in laboratorio** per rischi meccanici specifici  
+✅ I **numeri e le lettere** che seguono la norma indicano *quanto efficace* è quella protezione  
+✅ Fornisce un **sistema chiaro e confrontabile** per selezionare il guanto giusto per ogni attività
+
+EN 388 è quindi essenziale per applicazioni come costruzione, metalmeccanica, magazzinaggio, assemblaggio automotive e manipolazione generale.
+
+.
+
+### Aree Chiave di Test e Livelli di Prestazione
+
+Ogni guanto EN 388 è testato per fino a **sei proprietà meccaniche**, mostrate come una serie di **numeri e lettere** dopo la norma di riferimento:
+
+| Posizione | Test | Scala | Significato |
+|-----------|------|--------|-------------|
+| **1ª** | **Resistenza all’Abrasione** | 1–4 | Numero di cicli necessari a consumare il materiale del guanto. Maggiore = più durevole. |
+| **2ª** | **Resistenza al Taglio (Coup Test)** | 1–5 | Misura i tagli con lama rotante. Segnato “X” se usato test ISO invece. |
+| **3ª** | **Resistenza allo Strappo** | 1–4 | Forza necessaria per strappare il guanto. Maggiore = più resistente. |
+| **4ª** | **Resistenza alla Perforazione** | 1–4 | Forza necessaria a perforare il guanto con una punta. |
+| **5ª** | **Resistenza al Taglio (ISO 13997)** | A–F | Misurata con lama dritta sotto tensione. Usata per materiali ad alto taglio. Maggiore = migliore. |
+| **6ª** | **Protezione da Impatto (opzionale)** | P o assente | “P” se passato il test EN 13594; vuoto se non applicabile. |
+
+.
+
+### Esempio di Marcatura
+
+**Come leggere questo esempio di marcatura:** EN 388:2016: **4X43F**
+
+- **4** → Alta resistenza all’abrasione  
+- **X** → Coup test non applicabile (perché è stato usato test ISO)  
+- **4** → Alta resistenza allo strappo  
+- **3** → Buona resistenza alla perforazione  
+- **F** → Massimo livello di protezione ISO da taglio  
+- *(nessuna “P”)* → Nessuna protezione da impatto dichiarata  
+
+💡 **Suggerimento:**  
+Se entrambi i test di taglio sono eseguiti, il risultato ISO (A–F) è considerato **più accurato** per fibre ad alte prestazioni moderne.
+
+.
+
+### Applicazioni Tipiche dei Guanti
+","""""","""""",""""""
+"ppe_sections","8350a37d-3f13-4d70-a357-325e73aa55cc","new-2","bullets_locales","[""Metal fabrication and sheet handling  "",""Construction and building trades  "",""Automotive assembly and maintenance  "",""Glass, ceramics, and plastic processing  "",""Warehousing, logistics, and general handling ""]","[""Lavori in costruzione e cantieri  "",""Metalmeccanica e carpenteria  "",""Magazzinaggio e movimentazione materiali  "",""Assemblaggio automotive"",""Manipolazione generale di materiali taglienti o abrasivi""]","""""","""""",""""""

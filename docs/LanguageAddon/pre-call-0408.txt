@@ -1,0 +1,44 @@
+HAND LINE — PRE-CALL NOTES — 04/08
+
+CURRENT FIXES TO TEST
+- Clothing sub-category filtering: Welding, High-Visibility and Safety/Workwear pages.
+- Footer industries list: all named industries, no extra blank gap.
+- New product creation: create a test product from the category admin.
+- UK contact page: Registered Office plus UK Office address.
+
+ADDITIONAL LANGUAGES — CONFIRM SCOPE
+1. Initial languages
+   - French, German and Spanish confirmed?
+   - Polish, Dutch and Turkish only possible future additions?
+
+2. Translation ownership
+   - Luca's team supplies/reviews all translated website copy and product content.
+   - Jack supplies the structured template/export and imports validated returned content.
+   - Confirm whether legal pages, blogs, industries, careers and PPE resources are included in phase one, or products only.
+
+3. Missing translations
+   - Confirm English is the fallback whenever a translation is unavailable.
+   - Confirm whether the page should show English content, or the item should be hidden, when a translation is missing.
+
+4. Technical sheets and manufacturer instructions
+   - Confirm they should be downloadable regardless of the selected website language.
+   - Confirm no translated PDF versions are required for phase one.
+
+5. Blogs and jobs
+   - Confirm posts/jobs can be published in one or more selected languages.
+   - Confirm how a French-only post behaves in English/German/Spanish navigation:
+     a) hidden outside French; or
+     b) visible everywhere, showing its original French content.
+
+6. Delivery and commercial scope
+   - Initial estimate: approximately 10 hours at £50/hour.
+   - Jack will confirm before exceeding 10 hours.
+   - Translation writing, legal review and PDF creation are excluded unless separately agreed.
+   - Confirm preferred start date and who will provide the returned translations/documents.
+
+POST-CALL
+- Record the agreed languages.
+- Record the agreed phase-one content types.
+- Record the document/PDF decision.
+- Record the blog/job language-visibility decision.
+- Send a written scope and estimate for approval before starting.

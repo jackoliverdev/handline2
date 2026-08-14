@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { cookies } from 'next/headers';
+import { parseLanguage } from '@/lib/i18n/config';
 import { ENResourceBreadcrumb } from '@/components/website/resources/en-resource/breadcrumb';
 import { ENResourceCategoryHero } from '@/components/website/resources/en-resource/category-hero';
 import { ENResourceSectionsBlocks } from '@/components/website/resources/en-resource/sections-blocks';
@@ -12,7 +13,7 @@ export const revalidate = 0;
 interface Params { params: { category: string } }
 
 export default async function CategoryPage({ params }: Params) {
-  const lang = (cookies().get('language')?.value as 'en' | 'it') || 'en';
+  const lang = parseLanguage(cookies().get('language')?.value);
   const svc = getService();
   const category = await svc.getCategory(params.category, lang);
   if (!category) return notFound();

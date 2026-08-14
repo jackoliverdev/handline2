@@ -1,5 +1,6 @@
 "use client";
 import { useLanguage } from '@/lib/context/language-context';
+import { getIntlLocale } from '@/lib/i18n/config';
 import { CareerMarkdownContent } from './career-markdown-content';
 import { JobApplicationModal } from './job-application-modal';
 import { Button } from '@/components/ui/button';
@@ -20,17 +21,17 @@ import { toast } from '@/components/ui/use-toast';
 
 export default function CareerPostClient({ post }: { post: CareerPost }) {
   const { language, t } = useLanguage();
-  const title = post.title_locales?.[language] || post.title;
-  const summary = post.summary_locales?.[language] || post.summary;
-  const description = post.description_locales?.[language] || post.description;
-  const responsibilities = post.responsibilities_locales?.[language] || post.responsibilities;
-  const requirements = post.requirements_locales?.[language] || post.requirements;
-  const benefits = post.benefits_locales?.[language] || post.benefits;
-  const location = post.location_locales?.[language] || post.location;
-  const department = post.department_locales?.[language] || post.department;
-  const jobType = post.job_type_locales?.[language] || post.job_type;
-  const workSite = post.work_site_locales?.[language] || post.work_site;
-  const salaryRange = post.salary_range_locales?.[language] || post.salary_range;
+  const title = post.title_locales?.[language] || post.title_locales?.en || post.title;
+  const summary = post.summary_locales?.[language] || post.summary_locales?.en || post.summary;
+  const description = post.description_locales?.[language] || post.description_locales?.en || post.description;
+  const responsibilities = post.responsibilities_locales?.[language] || post.responsibilities_locales?.en || post.responsibilities;
+  const requirements = post.requirements_locales?.[language] || post.requirements_locales?.en || post.requirements;
+  const benefits = post.benefits_locales?.[language] || post.benefits_locales?.en || post.benefits;
+  const location = post.location_locales?.[language] || post.location_locales?.en || post.location;
+  const department = post.department_locales?.[language] || post.department_locales?.en || post.department;
+  const jobType = post.job_type_locales?.[language] || post.job_type_locales?.en || post.job_type;
+  const workSite = post.work_site_locales?.[language] || post.work_site_locales?.en || post.work_site;
+  const salaryRange = post.salary_range_locales?.[language] || post.salary_range_locales?.en || post.salary_range;
   
   const [currentUrl, setCurrentUrl] = useState<string>('');
   const [copySuccess, setCopySuccess] = useState(false);
@@ -57,7 +58,7 @@ export default function CareerPostClient({ post }: { post: CareerPost }) {
   const formatDate = (dateString: string | undefined) => {
     if (!dateString) return '';
     const date = new Date(dateString);
-    return new Intl.DateTimeFormat(language === 'it' ? 'it-IT' : 'en-GB', {
+    return new Intl.DateTimeFormat(getIntlLocale(language), {
       year: 'numeric',
       month: 'long',
       day: 'numeric',

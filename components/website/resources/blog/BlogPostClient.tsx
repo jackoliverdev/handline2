@@ -1,5 +1,6 @@
 "use client";
 import { useLanguage } from '@/lib/context/language-context';
+import { getIntlLocale } from '@/lib/i18n/config';
 import { BlogCard } from './blog-card';
 import { MarkdownContent } from './markdown-content';
 import { Button } from '@/components/ui/button';
@@ -23,10 +24,10 @@ import { toast } from '@/components/ui/use-toast';
 
 export default function BlogPostClient({ post }: { post: BlogPost }) {
   const { language, t } = useLanguage();
-  const title = post.title_locales?.[language] || post.title;
-  const summary = post.summary_locales?.[language] || post.summary;
-  const content = post.content_locales?.[language] || post.content;
-  const tags = post.tags_locales?.[language] || post.tags || [];
+  const title = post.title_locales?.[language] || post.title_locales?.en || post.title;
+  const summary = post.summary_locales?.[language] || post.summary_locales?.en || post.summary;
+  const content = post.content_locales?.[language] || post.content_locales?.en || post.content;
+  const tags = post.tags_locales?.[language] || post.tags_locales?.en || post.tags || [];
   const [currentUrl, setCurrentUrl] = useState<string>('');
   const [copySuccess, setCopySuccess] = useState(false);
   const [relatedProducts, setRelatedProducts] = useState<any[]>([]);
@@ -71,7 +72,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
   const formatDate = (dateString: string | undefined) => {
     if (!dateString) return '';
     const date = new Date(dateString);
-    return new Intl.DateTimeFormat(language === 'it' ? 'it-IT' : 'en-GB', {
+    return new Intl.DateTimeFormat(getIntlLocale(language), {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
