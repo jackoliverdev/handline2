@@ -1005,6 +1005,9 @@
       "products": "Produkte"
     },
     "history": {
+      "badge": "Unser Werdegang",
+      "heading": "Unsere Geschichte",
+      "description": "Von den Anfängen in der Lombardei (Italien) bis zum internationalen Hersteller und Lieferanten von Schutzausrüstung – entdecken Sie die entscheidenden Momente, die unser Unternehmen und unsere Kultur geprägt haben.",
       "1977": {
         "title": "Gründung",
         "description": "Unsere Geschichte beginnt als italienischer Hersteller von Leder- und Arbeitshandschuhen mit einer ausgeprägt handwerklichen Prägung, die auf Handwerkskunst und hochwertigen Produkten beruht"
@@ -1040,10 +1043,7 @@
       "2025": {
         "title": "Markteintritt Großbritannien",
         "description": "Hand Line kündigt seine Expansion auf den britischen Markt an und eröffnet eine Niederlassung in London, um den wachsenden internationalen Markt weiter zu unterstützen"
-      },
-      "badge": "Unser Werdegang",
-      "heading": "Unsere Geschichte",
-      "description": "Von den Anfängen in der Lombardei (Italien) bis zum internationalen Hersteller und Lieferanten von Schutzausrüstung – entdecken Sie die entscheidenden Momente, die unser Unternehmen und unsere Kultur geprägt haben."
+      }
     },
     "different": {
       "badge": "Unsere Vorteile",

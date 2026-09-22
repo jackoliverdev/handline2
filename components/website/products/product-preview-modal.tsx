@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Flame, Scissors, ArrowRight, X, Snowflake, Move, Shield, Hammer } from "lucide-react";
 import { Product } from "@/lib/products-service";
 import { useLanguage } from "@/lib/context/language-context";
+import { pickLocaleList } from "@/lib/i18n/locale-fallback";
 
 // Professional green color scheme function (same as safety standards display)
 const getGreenPerformanceColour = (value: number | string | null | undefined, maxLevel: number = 5): string => {
@@ -611,7 +612,7 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
 
             {/* Key Features - Compact */}
             {(() => {
-              const currentFeatures = product.features_locales?.[language] || product.features_locales?.en || product.features || [];
+              const currentFeatures = pickLocaleList(product.features_locales, language, product.features);
               return currentFeatures.length > 0 && (
                 <div className="space-y-2">
                   <h4 className="text-base font-semibold text-brand-dark dark:text-white font-heading">{t('products.keyFeatures')}</h4>
@@ -636,7 +637,7 @@ export const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
 
             {/* Industries - Compact */}
             {(() => {
-              const currentIndustries = product.industries_locales?.[language] || product.industries_locales?.en || product.industries || [];
+              const currentIndustries = pickLocaleList(product.industries_locales, language, product.industries);
               return currentIndustries.length > 0 && (
                 <div className="space-y-2">
                   <h4 className="text-base font-semibold text-brand-dark dark:text-white font-heading">{t('productPage.industries')}</h4>

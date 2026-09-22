@@ -1,3 +1,5 @@
+import { SUPPORTED_LANGUAGES, type Language } from '@/lib/i18n/config';
+
 type LocaleRecord = Record<string, unknown>;
 
 const isRecord = (value: unknown): value is LocaleRecord =>
@@ -18,32 +20,48 @@ const EMPTY_HEAD_TECHNICAL_SPECS = {
   additional_features: [] as string[],
 };
 
-export const normaliseFootwearMaterialsLocales = (value: unknown) => {
-  const source = isRecord(value) ? value : {};
+export type FootwearMaterials = typeof EMPTY_FOOTWEAR_MATERIALS;
+export type HeadTechnicalSpecs = typeof EMPTY_HEAD_TECHNICAL_SPECS;
 
-  return {
-    en: { ...EMPTY_FOOTWEAR_MATERIALS, ...(isRecord(source.en) ? source.en : {}) },
-    it: { ...EMPTY_FOOTWEAR_MATERIALS, ...(isRecord(source.it) ? source.it : {}) },
-  };
+export const normaliseFootwearMaterialsLocales = (
+  value: unknown
+): Record<Language, FootwearMaterials> => {
+  const source = isRecord(value) ? value : {};
+  const result = {} as Record<Language, FootwearMaterials>;
+
+  for (const lang of SUPPORTED_LANGUAGES) {
+    const raw = source[lang];
+    const localeData: LocaleRecord = isRecord(raw) ? raw : {};
+    result[lang] = {
+      ...EMPTY_FOOTWEAR_MATERIALS,
+      ...localeData,
+    };
+  }
+
+  return result;
 };
 
-export const normaliseHeadTechnicalSpecsLocales = (value: unknown) => {
+export const normaliseHeadTechnicalSpecsLocales = (
+  value: unknown
+): Record<Language, HeadTechnicalSpecs> => {
   const source = isRecord(value) ? value : {};
-  const normaliseLocale = (locale: unknown) => {
-    const localeData = isRecord(locale) ? locale : {};
+  const result = {} as Record<Language, HeadTechnicalSpecs>;
 
-    return {
+  for (const lang of SUPPORTED_LANGUAGES) {
+    const raw = source[lang];
+    const localeData: LocaleRecord = isRecord(raw) ? raw : {};
+
+    result[lang] = {
       ...EMPTY_HEAD_TECHNICAL_SPECS,
       ...localeData,
       colours: Array.isArray(localeData.colours) ? localeData.colours : [],
-      additional_features: Array.isArray(localeData.additional_features) ? localeData.additional_features : [],
+      additional_features: Array.isArray(localeData.additional_features)
+        ? localeData.additional_features
+        : [],
     };
-  };
+  }
 
-  return {
-    en: normaliseLocale(source.en),
-    it: normaliseLocale(source.it),
-  };
+  return result;
 };
 
 export const normaliseFootwearStandards = (value: unknown) => {

@@ -100,6 +100,7 @@
     },
     "filters": {
       "title": "Filtri",
+      "resultsCount": "{count} risultati",
       "clearAll": "Cancella Tutti i Filtri",
       "category": "Categoria",
       "subCategory": "Sottocategoria",
@@ -1029,7 +1030,7 @@
       "title": "Settore in evidenza",
       "description": "Scopri come le soluzioni innovative di Hand Line sono progettate per affrontare le sfide uniche di questo settore.",
       "subtitle": "Soluzioni per l'industria",
-      "cta": "Eplora le soluzioni"
+      "cta": "Esplora le soluzioni"
     }
   },
   "about": {

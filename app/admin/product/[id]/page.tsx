@@ -21,6 +21,27 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from "next/image";
 import { MiniProductCard } from "@/components/app/mini-product-card";
 import { LanguageSwitcher } from "@/components/ui/language-switcher";
+import { GenerateFromEnglishButton } from "@/components/admins/generate-from-english-button";
+import { ProductDocumentUploads } from "@/components/admins/product-document-uploads";
+import { DEFAULT_LANGUAGE, LANGUAGE_META, type Language } from "@/lib/i18n/config";
+import {
+  applyLocaleFields,
+  emptyArrayLocales,
+  emptyStringLocales,
+  hydrateArrayLocales,
+  hydrateStringLocales,
+  localeHasContent,
+  localeList,
+  pickEnglishSource,
+  withCurrentOption,
+} from "@/lib/i18n/admin-locales";
+import {
+  emptyDocumentLocales,
+  legacyDocumentColumns,
+  mergeDocumentLocales,
+  withDocumentLocale,
+  type DocumentLocales,
+} from "@/lib/product-documents";
 
 interface ProductEditPageProps {
   params: {
@@ -38,7 +59,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
   const { id } = params;
   
   // Language management state
-  const [currentLanguage, setCurrentLanguage] = useState<'en' | 'it'>('en');
+  const [currentLanguage, setCurrentLanguage] = useState<Language>(DEFAULT_LANGUAGE);
   
   // Legacy fields (kept for compatibility, but will be auto-populated from locales)
   const [name, setName] = useState("");
@@ -56,17 +77,17 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
   const [industries, setIndustries] = useState<string[]>([]);
   
   // Locale-aware state for multi-language fields
-  const [nameLocales, setNameLocales] = useState<{en: string, it: string}>({en: '', it: ''});
-  const [descriptionLocales, setDescriptionLocales] = useState<{en: string, it: string}>({en: '', it: ''});
-  const [shortDescriptionLocales, setShortDescriptionLocales] = useState<{en: string, it: string}>({en: '', it: ''});
-  const [categoryLocales, setCategoryLocales] = useState<{en: string, it: string}>({en: '', it: ''});
-  const [subCategoryLocales, setSubCategoryLocales] = useState<{en: string, it: string}>({en: '', it: ''});
-  const [featuresLocales, setFeaturesLocales] = useState<{en: string[], it: string[]}>({en: [], it: []});
-  const [applicationsLocales, setApplicationsLocales] = useState<{en: string[], it: string[]}>({en: [], it: []});
-  const [industriesLocales, setIndustriesLocales] = useState<{en: string[], it: string[]}>({en: [], it: []});
-  const [materialsLocales, setMaterialsLocales] = useState<{en: string[], it: string[]}>({en: [], it: []});
-  const [tagsLocales, setTagsLocales] = useState<{en: string[], it: string[]}>({en: [], it: []});
-  const [sizeLocales, setSizeLocales] = useState<{en: string, it: string}>({en: '', it: ''});
+  const [nameLocales, setNameLocales] = useState(emptyStringLocales());
+  const [descriptionLocales, setDescriptionLocales] = useState(emptyStringLocales());
+  const [shortDescriptionLocales, setShortDescriptionLocales] = useState(emptyStringLocales());
+  const [categoryLocales, setCategoryLocales] = useState(emptyStringLocales());
+  const [subCategoryLocales, setSubCategoryLocales] = useState(emptyStringLocales());
+  const [featuresLocales, setFeaturesLocales] = useState(emptyArrayLocales());
+  const [applicationsLocales, setApplicationsLocales] = useState(emptyArrayLocales());
+  const [industriesLocales, setIndustriesLocales] = useState(emptyArrayLocales());
+  const [materialsLocales, setMaterialsLocales] = useState(emptyArrayLocales());
+  const [tagsLocales, setTagsLocales] = useState(emptyArrayLocales());
+  const [sizeLocales, setSizeLocales] = useState(emptyStringLocales());
   
   // New fields from database schema
   const [published, setPublished] = useState(false);
@@ -126,12 +147,12 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
   const [image3Url, setImage3Url] = useState<string | null>(null);
   const [image4Url, setImage4Url] = useState<string | null>(null);
   const [image5Url, setImage5Url] = useState<string | null>(null);
-  const [technicalSheetUrl, setTechnicalSheetUrl] = useState<string | null>(null);
-  const [technicalSheetUrlIt, setTechnicalSheetUrlIt] = useState<string | null>(null);
+  const [technicalSheetLocales, setTechnicalSheetLocales] = useState(emptyDocumentLocales());
   const [declarationSheetUrl, setDeclarationSheetUrl] = useState<string | null>(null);
   const [declarationSheetUrlIt, setDeclarationSheetUrlIt] = useState<string | null>(null);
-  const [manufacturersInstructionUrl, setManufacturersInstructionUrl] = useState<string | null>(null);
-  const [manufacturersInstructionUrlIt, setManufacturersInstructionUrlIt] = useState<string | null>(null);
+  const [manufacturersInstructionLocales, setManufacturersInstructionLocales] = useState(emptyDocumentLocales());
+  const technicalSheetRef = useRef(emptyDocumentLocales());
+  const manufacturersInstructionRef = useRef(emptyDocumentLocales());
   const [coverImage, setCoverImage] = useState<ImageUploadState>({ file: null, previewUrl: null });
   const [additionalImage, setAdditionalImage] = useState<ImageUploadState>({ file: null, previewUrl: null });
   const coverInputRef = useRef<HTMLInputElement>(null);
@@ -139,12 +160,8 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
   const supabase = createClientComponentClient();
   
   // Document upload refs
-  const techSheetEnRef = useRef<HTMLInputElement>(null);
-  const techSheetItRef = useRef<HTMLInputElement>(null);
   const declSheetEnRef = useRef<HTMLInputElement>(null);
   const declSheetItRef = useRef<HTMLInputElement>(null);
-  const manuInstructionEnRef = useRef<HTMLInputElement>(null);
-  const manuInstructionItRef = useRef<HTMLInputElement>(null);
   const [isUploadingDocs, setIsUploadingDocs] = useState(false);
   // DoC JSON locales (EU)
   const [declarationDocLocales, setDeclarationDocLocales] = useState<Array<{ lang: string; url: string }>>([]);
@@ -416,7 +433,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
   };
 
   // Upload document to Supabase storage
-  const uploadDocument = async (file: File, type: 'technical' | 'declaration' | 'manufacturers', language: 'en' | 'it'): Promise<string | null> => {
+  const uploadDocument = async (file: File, type: 'technical' | 'declaration' | 'manufacturers', language: Language): Promise<string | null> => {
     if (!file) return null;
     
     try {
@@ -480,166 +497,97 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
   };
 
   // Handle document uploads
-  const handleDocumentUpload = async (e: React.ChangeEvent<HTMLInputElement>, type: 'technical' | 'declaration' | 'manufacturers', language: 'en' | 'it') => {
+  const persistTechnicalLocales = async (next: DocumentLocales) => {
+    technicalSheetRef.current = next;
+    setTechnicalSheetLocales(next);
+    const legacy = legacyDocumentColumns(next);
+    await updateProduct(id, {
+      technical_sheet_locales: next,
+      technical_sheet_url: legacy.en,
+      technical_sheet_url_it: legacy.it,
+    });
+  };
+
+  const persistInstructionLocales = async (next: DocumentLocales) => {
+    manufacturersInstructionRef.current = next;
+    setManufacturersInstructionLocales(next);
+    const legacy = legacyDocumentColumns(next);
+    await updateProduct(id, {
+      manufacturers_instruction_locales: next,
+      manufacturers_instruction_url: legacy.en,
+      manufacturers_instruction_url_it: legacy.it,
+    });
+  };
+
+  const handleDocumentUpload = async (e: React.ChangeEvent<HTMLInputElement>, type: 'declaration', language: 'en' | 'it') => {
     const file = e.target.files?.[0];
     if (!file) return;
-    
-    // Check file type
+
     if (file.type !== 'application/pdf') {
-      toast({
-        title: "Invalid file type",
-        description: "Please select a PDF file",
-        variant: "destructive"
-      });
+      toast({ title: "Invalid file type", description: "Please select a PDF file", variant: "destructive" });
       return;
     }
-    
-    // Check file size (limit to 10MB)
+
     if (file.size > 10 * 1024 * 1024) {
-      toast({
-        title: "File too large",
-        description: "PDF must be less than 10MB",
-        variant: "destructive"
-      });
+      toast({ title: "File too large", description: "PDF must be less than 10MB", variant: "destructive" });
       return;
     }
-    
+
     try {
       const newDocUrl = await uploadDocument(file, type, language);
-      
-      if (newDocUrl) {
-        // Update the appropriate state and database
-        const updates: Record<string, any> = {};
-        
-        if (type === 'technical' && language === 'en') {
-          setTechnicalSheetUrl(newDocUrl);
-          updates.technical_sheet_url = newDocUrl;
-        } else if (type === 'technical' && language === 'it') {
-          setTechnicalSheetUrlIt(newDocUrl);
-          updates.technical_sheet_url_it = newDocUrl;
-        } else if (type === 'declaration' && language === 'en') {
-          setDeclarationSheetUrl(newDocUrl);
-          updates.declaration_sheet_url = newDocUrl;
-        } else if (type === 'declaration' && language === 'it') {
-          setDeclarationSheetUrlIt(newDocUrl);
-          updates.declaration_sheet_url_it = newDocUrl;
-        } else if (type === 'manufacturers' && language === 'en') {
-          setManufacturersInstructionUrl(newDocUrl);
-          updates.manufacturers_instruction_url = newDocUrl;
-        } else if (type === 'manufacturers' && language === 'it') {
-          setManufacturersInstructionUrlIt(newDocUrl);
-          updates.manufacturers_instruction_url_it = newDocUrl;
-        }
-        
-        await updateProduct(id, updates);
-        
-        toast({
-          title: "Success",
-          description: "Document uploaded successfully!"
-        });
+      if (!newDocUrl) return;
+      const updates: Record<string, string> = {};
+      if (language === 'en') {
+        setDeclarationSheetUrl(newDocUrl);
+        updates.declaration_sheet_url = newDocUrl;
+      } else {
+        setDeclarationSheetUrlIt(newDocUrl);
+        updates.declaration_sheet_url_it = newDocUrl;
       }
+      await updateProduct(id, updates);
+      toast({ title: "Success", description: "Document uploaded successfully!" });
     } catch (error) {
       console.error("Error uploading document:", error);
-      toast({
-        title: "Error",
-        description: "Failed to upload document.",
-        variant: "destructive"
-      });
+      toast({ title: "Error", description: "Failed to upload document.", variant: "destructive" });
     }
   };
-  
-  // Remove document
-  const removeDocument = async (type: 'technical' | 'declaration' | 'manufacturers', language: 'en' | 'it') => {
+
+  const removeDocument = async (language: 'en' | 'it') => {
     try {
-      const updates: Record<string, any> = {};
-      
-      if (type === 'technical' && language === 'en') {
-        setTechnicalSheetUrl(null);
-        updates.technical_sheet_url = null;
-      } else if (type === 'technical' && language === 'it') {
-        setTechnicalSheetUrlIt(null);
-        updates.technical_sheet_url_it = null;
-      } else if (type === 'declaration' && language === 'en') {
+      const updates: Record<string, null> = {};
+      if (language === 'en') {
         setDeclarationSheetUrl(null);
         updates.declaration_sheet_url = null;
-      } else if (type === 'declaration' && language === 'it') {
+      } else {
         setDeclarationSheetUrlIt(null);
         updates.declaration_sheet_url_it = null;
-      } else if (type === 'manufacturers' && language === 'en') {
-        setManufacturersInstructionUrl(null);
-        updates.manufacturers_instruction_url = null;
-      } else if (type === 'manufacturers' && language === 'it') {
-        setManufacturersInstructionUrlIt(null);
-        updates.manufacturers_instruction_url_it = null;
       }
-      
       await updateProduct(id, updates);
-      
-      toast({
-        title: "Success",
-        description: "Document removed successfully"
-      });
+      toast({ title: "Success", description: "Document removed successfully" });
     } catch (error) {
       console.error("Error removing document:", error);
-      toast({
-        title: "Error",
-        description: "Failed to remove document.",
-        variant: "destructive"
-      });
+      toast({ title: "Error", description: "Failed to remove document.", variant: "destructive" });
     }
   };
-  
-  // Load product data
+
+    // Load product data
   useEffect(() => {
     async function loadProduct() {
       try {
         const { product } = await getProductById(id);
         if (product) {
           // Set locale-aware fields from JSON locales
-          setNameLocales({ 
-            en: product.name_locales?.en || product.name || '', 
-            it: product.name_locales?.it || '' 
-          });
-          setDescriptionLocales({ 
-            en: product.description_locales?.en || product.description || '', 
-            it: product.description_locales?.it || '' 
-          });
-          setShortDescriptionLocales({ 
-            en: product.short_description_locales?.en || product.short_description || '', 
-            it: product.short_description_locales?.it || '' 
-          });
-          setCategoryLocales({ 
-            en: product.category_locales?.en || product.category || '', 
-            it: product.category_locales?.it || '' 
-          });
-          setSubCategoryLocales({ 
-            en: product.sub_category_locales?.en || product.sub_category || '', 
-            it: product.sub_category_locales?.it || '' 
-          });
-          setFeaturesLocales({ 
-            en: product.features_locales?.en || product.features || [], 
-            it: product.features_locales?.it || [] 
-          });
-          setApplicationsLocales({ 
-            en: product.applications_locales?.en || product.applications || [], 
-            it: product.applications_locales?.it || [] 
-          });
-          setIndustriesLocales({ 
-            en: product.industries_locales?.en || product.industries || [], 
-            it: product.industries_locales?.it || [] 
-          });
-          setMaterialsLocales({ 
-            en: product.materials_locales?.en || [], 
-            it: product.materials_locales?.it || [] 
-          });
-          setTagsLocales({ 
-            en: product.tags_locales?.en || [], 
-            it: product.tags_locales?.it || [] 
-          });
-          setSizeLocales({ 
-            en: product.size_locales?.en || '', 
-            it: product.size_locales?.it || '' 
-          });
+          setNameLocales(hydrateStringLocales(product.name_locales, product.name || ''));
+          setDescriptionLocales(hydrateStringLocales(product.description_locales, product.description || ''));
+          setShortDescriptionLocales(hydrateStringLocales(product.short_description_locales, product.short_description || ''));
+          setCategoryLocales(hydrateStringLocales(product.category_locales, product.category || ''));
+          setSubCategoryLocales(hydrateStringLocales(product.sub_category_locales, product.sub_category || ''));
+          setFeaturesLocales(hydrateArrayLocales(product.features_locales, product.features || []));
+          setApplicationsLocales(hydrateArrayLocales(product.applications_locales, product.applications || []));
+          setIndustriesLocales(hydrateArrayLocales(product.industries_locales, product.industries || []));
+          setMaterialsLocales(hydrateArrayLocales(product.materials_locales));
+          setTagsLocales(hydrateArrayLocales(product.tags_locales));
+          setSizeLocales(hydrateStringLocales(product.size_locales));
 
           // Set legacy fields for backwards compatibility
           setName(product.name);
@@ -745,13 +693,20 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
             setImage5Url(product.image5_url);
           }
           
-          if (product.technical_sheet_url) {
-            setTechnicalSheetUrl(product.technical_sheet_url);
-          }
-          
-          if (product.technical_sheet_url_it) {
-            setTechnicalSheetUrlIt(product.technical_sheet_url_it);
-          }
+          const loadedTechnical = mergeDocumentLocales(
+            product.technical_sheet_locales,
+            product.technical_sheet_url,
+            product.technical_sheet_url_it
+          );
+          const loadedInstructions = mergeDocumentLocales(
+            product.manufacturers_instruction_locales,
+            product.manufacturers_instruction_url,
+            product.manufacturers_instruction_url_it
+          );
+          technicalSheetRef.current = loadedTechnical;
+          manufacturersInstructionRef.current = loadedInstructions;
+          setTechnicalSheetLocales(loadedTechnical);
+          setManufacturersInstructionLocales(loadedInstructions);
 
           if (product.declaration_sheet_url) {
             setDeclarationSheetUrl(product.declaration_sheet_url);
@@ -759,14 +714,6 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
 
           if (product.declaration_sheet_url_it) {
             setDeclarationSheetUrlIt(product.declaration_sheet_url_it);
-          }
-
-          if (product.manufacturers_instruction_url) {
-            setManufacturersInstructionUrl(product.manufacturers_instruction_url);
-          }
-
-          if (product.manufacturers_instruction_url_it) {
-            setManufacturersInstructionUrlIt(product.manufacturers_instruction_url_it);
           }
           
           // Set related product IDs
@@ -980,18 +927,18 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
         applications: applicationsLocales.en.length > 0 ? applicationsLocales.en : applicationsLocales.it,
         industries: industriesLocales.en.length > 0 ? industriesLocales.en : industriesLocales.it,
         
-        // JSON locale fields - only include if they have content
-        name_locales: (nameLocales.en || nameLocales.it) ? nameLocales : undefined,
-        description_locales: (descriptionLocales.en || descriptionLocales.it) ? descriptionLocales : undefined,
-        short_description_locales: (shortDescriptionLocales.en || shortDescriptionLocales.it) ? shortDescriptionLocales : undefined,
-        category_locales: (categoryLocales.en || categoryLocales.it) ? categoryLocales : undefined,
-        sub_category_locales: (subCategoryLocales.en || subCategoryLocales.it) ? subCategoryLocales : undefined,
-        features_locales: (featuresLocales.en.length > 0 || featuresLocales.it.length > 0) ? featuresLocales : undefined,
-        applications_locales: (applicationsLocales.en.length > 0 || applicationsLocales.it.length > 0) ? applicationsLocales : undefined,
-        industries_locales: (industriesLocales.en.length > 0 || industriesLocales.it.length > 0) ? industriesLocales : undefined,
-        materials_locales: (materialsLocales.en.length > 0 || materialsLocales.it.length > 0) ? materialsLocales : undefined,
-        tags_locales: (tagsLocales.en.length > 0 || tagsLocales.it.length > 0) ? tagsLocales : {},
-        size_locales: (sizeLocales.en || sizeLocales.it) ? sizeLocales : undefined,
+        // JSON locale fields
+        name_locales: nameLocales,
+        description_locales: descriptionLocales,
+        short_description_locales: shortDescriptionLocales,
+        category_locales: categoryLocales,
+        sub_category_locales: subCategoryLocales,
+        features_locales: featuresLocales,
+        applications_locales: applicationsLocales,
+        industries_locales: industriesLocales,
+        materials_locales: materialsLocales,
+        tags_locales: tagsLocales,
+        size_locales: sizeLocales,
         
         // Other fields
         temperature_rating: temperatureRating,
@@ -1016,8 +963,12 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
         image3_url: image3Url,
         image4_url: image4Url,
         image5_url: image5Url,
-        technical_sheet_url: technicalSheetUrl,
-        technical_sheet_url_it: technicalSheetUrlIt,
+        technical_sheet_url: legacyDocumentColumns(technicalSheetLocales).en,
+        technical_sheet_url_it: legacyDocumentColumns(technicalSheetLocales).it,
+        technical_sheet_locales: technicalSheetLocales,
+        manufacturers_instruction_url: legacyDocumentColumns(manufacturersInstructionLocales).en,
+        manufacturers_instruction_url_it: legacyDocumentColumns(manufacturersInstructionLocales).it,
+        manufacturers_instruction_locales: manufacturersInstructionLocales,
         declaration_sheet_url: declarationSheetUrl,
         declaration_sheet_url_it: declarationSheetUrlIt,
         
@@ -1121,10 +1072,58 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
       </div>
       <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
         <h1 className="text-2xl font-bold tracking-tight">Edit Product</h1>
-        <Button variant="destructive" onClick={() => setDeleteDialogOpen(true)}>
-          <Trash className="mr-2 h-4 w-4" />
-          Delete
-        </Button>
+        <div className="flex items-center gap-2 flex-wrap">
+          <LanguageSwitcher
+            currentLanguage={currentLanguage}
+            onLanguageChange={setCurrentLanguage}
+          />
+          <GenerateFromEnglishButton
+            currentLanguage={currentLanguage}
+            getSource={() => pickEnglishSource({
+              name: nameLocales.en,
+              short_description: shortDescriptionLocales.en,
+              description: descriptionLocales.en,
+              category: categoryLocales.en,
+              sub_category: subCategoryLocales.en,
+              features: featuresLocales.en,
+              applications: applicationsLocales.en,
+              industries: industriesLocales.en,
+              materials: materialsLocales.en,
+              tags: tagsLocales.en,
+              size: sizeLocales.en,
+            })}
+            hasTargetContent={() => localeHasContent(pickEnglishSource({
+              name: nameLocales[currentLanguage],
+              short_description: shortDescriptionLocales[currentLanguage],
+              description: descriptionLocales[currentLanguage],
+              category: categoryLocales[currentLanguage],
+              sub_category: subCategoryLocales[currentLanguage],
+              features: featuresLocales[currentLanguage],
+              applications: applicationsLocales[currentLanguage],
+              industries: industriesLocales[currentLanguage],
+              materials: materialsLocales[currentLanguage],
+              tags: tagsLocales[currentLanguage],
+              size: sizeLocales[currentLanguage],
+            }))}
+            applyFields={(fields, mode) => {
+              setNameLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.name, mode));
+              setShortDescriptionLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.short_description, mode));
+              setDescriptionLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.description, mode));
+              setCategoryLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.category, mode));
+              setSubCategoryLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.sub_category, mode));
+              setFeaturesLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.features, mode));
+              setApplicationsLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.applications, mode));
+              setIndustriesLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.industries, mode));
+              setMaterialsLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.materials, mode));
+              setTagsLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.tags, mode));
+              setSizeLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.size, mode));
+            }}
+          />
+          <Button variant="destructive" onClick={() => setDeleteDialogOpen(true)}>
+            <Trash className="mr-2 h-4 w-4" />
+            Delete
+          </Button>
+        </div>
       </div>
       
       <Tabs defaultValue="information">
@@ -1141,10 +1140,6 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
         <TabsContent value="information" className="space-y-4 mt-4">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold">Product Information</h2>
-            <LanguageSwitcher 
-              currentLanguage={currentLanguage} 
-              onLanguageChange={setCurrentLanguage}
-            />
           </div>
           
           <form onSubmit={handleSubmit}>
@@ -1155,7 +1150,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                   <CardHeader>
                     <CardTitle className="text-lg sm:text-xl">Basic Information</CardTitle>
                     <CardDescription className="text-xs sm:text-sm">
-                      Enter product details in {currentLanguage === 'en' ? 'English' : 'Italian'}
+                      Enter product details in {LANGUAGE_META[currentLanguage].nativeName}
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -1167,7 +1162,6 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                           placeholder="Enter product name"
                           value={nameLocales[currentLanguage]}
                           onChange={(e) => setNameLocales({ ...nameLocales, [currentLanguage]: e.target.value })}
-                          required
                           className="text-xs sm:text-sm h-8 sm:h-10"
                         />
                       </div>
@@ -1189,40 +1183,59 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                           value={descriptionLocales[currentLanguage]}
                           onChange={(e) => setDescriptionLocales({ ...descriptionLocales, [currentLanguage]: e.target.value })}
                           rows={4}
-                          required
                           className="text-xs sm:text-sm"
                         />
                       </div>
                       <div className="grid gap-3 sm:gap-4 sm:grid-cols-2">
                         <div className="space-y-1 sm:space-y-2">
                           <Label htmlFor="category">Category</Label>
-                          <Select value={categoryLocales[currentLanguage]} onValueChange={(value) => setCategoryLocales({ ...categoryLocales, [currentLanguage]: value })}>
+                          {currentLanguage === 'en' ? (
+                          <Select value={categoryLocales.en} onValueChange={(value) => setCategoryLocales({ ...categoryLocales, en: value })}>
                             <SelectTrigger>
                               <SelectValue placeholder="Select a category" />
                             </SelectTrigger>
                             <SelectContent>
-                              {categories.map((cat) => (
+                              {withCurrentOption(categories, categoryLocales.en).map((cat) => (
                                 <SelectItem key={cat.value} value={cat.value}>
                                   {cat.label}
                                 </SelectItem>
                               ))}
                             </SelectContent>
                           </Select>
+                          ) : (
+                          <Input
+                            id="category"
+                            value={categoryLocales[currentLanguage]}
+                            onChange={(e) => setCategoryLocales({ ...categoryLocales, [currentLanguage]: e.target.value })}
+                            placeholder="Translated category"
+                            className="text-xs sm:text-sm h-8 sm:h-10"
+                          />
+                          )}
                         </div>
                         <div className="space-y-1 sm:space-y-2">
                           <Label htmlFor="subCategory">Sub-Category</Label>
-                          <Select value={subCategoryLocales[currentLanguage]} onValueChange={(value) => setSubCategoryLocales({ ...subCategoryLocales, [currentLanguage]: value })}>
+                          {currentLanguage === 'en' ? (
+                          <Select value={subCategoryLocales.en} onValueChange={(value) => setSubCategoryLocales({ ...subCategoryLocales, en: value })}>
                             <SelectTrigger>
                               <SelectValue placeholder="Select a sub-category" />
                             </SelectTrigger>
                             <SelectContent>
-                              {subcategories.map((subcat) => (
+                              {withCurrentOption(subcategories, subCategoryLocales.en).map((subcat) => (
                                 <SelectItem key={subcat.value} value={subcat.value}>
                                   {subcat.label}
                                 </SelectItem>
                               ))}
                             </SelectContent>
                           </Select>
+                          ) : (
+                          <Input
+                            id="subCategory"
+                            value={subCategoryLocales[currentLanguage]}
+                            onChange={(e) => setSubCategoryLocales({ ...subCategoryLocales, [currentLanguage]: e.target.value })}
+                            placeholder="Translated sub-category"
+                            className="text-xs sm:text-sm h-8 sm:h-10"
+                          />
+                          )}
                         </div>
                       </div>
                     </div>
@@ -1406,10 +1419,6 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
         <TabsContent value="content" className="mt-4">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold">Features & Content</h2>
-            <LanguageSwitcher 
-              currentLanguage={currentLanguage} 
-              onLanguageChange={setCurrentLanguage}
-            />
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -1417,7 +1426,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
               <CardHeader>
                 <CardTitle>Features</CardTitle>
                 <CardDescription>
-                  Add key features of this product in {currentLanguage === 'en' ? 'English' : 'Italian'}.
+                  Add key features of this product in {LANGUAGE_META[currentLanguage].nativeName}.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -1433,7 +1442,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                           if (newFeature.trim()) {
                             setFeaturesLocales({
                               ...featuresLocales,
-                              [currentLanguage]: [...featuresLocales[currentLanguage], newFeature.trim()]
+                              [currentLanguage]: [...localeList(featuresLocales, currentLanguage), newFeature.trim()]
                             });
                             setNewFeature("");
                           }
@@ -1447,7 +1456,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                         if (newFeature.trim()) {
                           setFeaturesLocales({
                             ...featuresLocales,
-                            [currentLanguage]: [...featuresLocales[currentLanguage], newFeature.trim()]
+                            [currentLanguage]: [...localeList(featuresLocales, currentLanguage), newFeature.trim()]
                           });
                           setNewFeature("");
                         }
@@ -1457,13 +1466,13 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                     </Button>
                   </div>
                   
-                  {featuresLocales[currentLanguage].length === 0 ? (
+                  {localeList(featuresLocales, currentLanguage).length === 0 ? (
                     <p className="text-sm text-muted-foreground py-4 text-center">
                       No features added yet. Add some to highlight your product's capabilities.
                     </p>
                   ) : (
                     <div className="space-y-2">
-                      {featuresLocales[currentLanguage].map((feature, index) => (
+                      {localeList(featuresLocales, currentLanguage).map((feature, index) => (
                         <div key={index} className="flex items-center justify-between py-2 px-3 border rounded-md">
                           <span className="text-sm">{feature}</span>
                           <Button 
@@ -1471,7 +1480,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                             size="sm" 
                             className="h-8 w-8 p-0"
                             onClick={() => {
-                              const newFeatures = featuresLocales[currentLanguage].filter((_, i) => i !== index);
+                              const newFeatures = localeList(featuresLocales, currentLanguage).filter((_, i) => i !== index);
                               setFeaturesLocales({
                                 ...featuresLocales,
                                 [currentLanguage]: newFeatures
@@ -1492,7 +1501,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
               <CardHeader>
                 <CardTitle>Applications</CardTitle>
                 <CardDescription>
-                  Add recommended applications for this product in {currentLanguage === 'en' ? 'English' : 'Italian'}.
+                  Add recommended applications for this product in {LANGUAGE_META[currentLanguage].nativeName}.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -1508,7 +1517,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                           if (newApplication.trim()) {
                             setApplicationsLocales({
                               ...applicationsLocales,
-                              [currentLanguage]: [...applicationsLocales[currentLanguage], newApplication.trim()]
+                              [currentLanguage]: [...localeList(applicationsLocales, currentLanguage), newApplication.trim()]
                             });
                             setNewApplication("");
                           }
@@ -1522,7 +1531,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                         if (newApplication.trim()) {
                           setApplicationsLocales({
                             ...applicationsLocales,
-                            [currentLanguage]: [...applicationsLocales[currentLanguage], newApplication.trim()]
+                            [currentLanguage]: [...localeList(applicationsLocales, currentLanguage), newApplication.trim()]
                           });
                           setNewApplication("");
                         }
@@ -1532,13 +1541,13 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                     </Button>
                   </div>
                   
-                  {applicationsLocales[currentLanguage].length === 0 ? (
+                  {localeList(applicationsLocales, currentLanguage).length === 0 ? (
                     <p className="text-sm text-muted-foreground py-4 text-center">
                       No applications added yet. Add some to guide customers on proper product usage.
                     </p>
                   ) : (
                     <div className="space-y-2">
-                      {applicationsLocales[currentLanguage].map((application, index) => (
+                      {localeList(applicationsLocales, currentLanguage).map((application, index) => (
                         <div key={index} className="flex items-center justify-between py-2 px-3 border rounded-md">
                           <span className="text-sm">{application}</span>
                           <Button 
@@ -1546,7 +1555,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                             size="sm" 
                             className="h-8 w-8 p-0"
                             onClick={() => {
-                              const newApplications = applicationsLocales[currentLanguage].filter((_, i) => i !== index);
+                              const newApplications = localeList(applicationsLocales, currentLanguage).filter((_, i) => i !== index);
                               setApplicationsLocales({
                                 ...applicationsLocales,
                                 [currentLanguage]: newApplications
@@ -1567,7 +1576,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
               <CardHeader>
                 <CardTitle>Industries</CardTitle>
                 <CardDescription>
-                  Add industries where this product is applicable in {currentLanguage === 'en' ? 'English' : 'Italian'}.
+                  Add industries where this product is applicable in {LANGUAGE_META[currentLanguage].nativeName}.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -1583,7 +1592,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                           if (newIndustry.trim()) {
                             setIndustriesLocales({
                               ...industriesLocales,
-                              [currentLanguage]: [...industriesLocales[currentLanguage], newIndustry.trim()]
+                              [currentLanguage]: [...localeList(industriesLocales, currentLanguage), newIndustry.trim()]
                             });
                             setNewIndustry("");
                           }
@@ -1597,7 +1606,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                         if (newIndustry.trim()) {
                           setIndustriesLocales({
                             ...industriesLocales,
-                            [currentLanguage]: [...industriesLocales[currentLanguage], newIndustry.trim()]
+                            [currentLanguage]: [...localeList(industriesLocales, currentLanguage), newIndustry.trim()]
                           });
                           setNewIndustry("");
                         }
@@ -1607,13 +1616,13 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                     </Button>
                   </div>
                   
-                  {industriesLocales[currentLanguage].length === 0 ? (
+                  {localeList(industriesLocales, currentLanguage).length === 0 ? (
                     <p className="text-sm text-muted-foreground py-4 text-center">
                       No industries added yet. Add some to help customers identify relevant products.
                     </p>
                   ) : (
                     <div className="flex flex-wrap gap-2 py-2">
-                      {industriesLocales[currentLanguage].map((industry, index) => (
+                      {localeList(industriesLocales, currentLanguage).map((industry, index) => (
                         <div key={index} className="flex items-center border rounded-full px-3 py-1">
                           <Factory className="h-3 w-3 mr-1" />
                           <span className="text-sm">{industry}</span>
@@ -1622,7 +1631,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                             size="sm" 
                             className="h-5 w-5 p-0 ml-1"
                             onClick={() => {
-                              const newIndustries = industriesLocales[currentLanguage].filter((_, i) => i !== index);
+                              const newIndustries = localeList(industriesLocales, currentLanguage).filter((_, i) => i !== index);
                               setIndustriesLocales({
                                 ...industriesLocales,
                                 [currentLanguage]: newIndustries
@@ -1643,7 +1652,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
               <CardHeader>
                 <CardTitle>Materials</CardTitle>
                 <CardDescription>
-                  Add materials used in this product in {currentLanguage === 'en' ? 'English' : 'Italian'}.
+                  Add materials used in this product in {LANGUAGE_META[currentLanguage].nativeName}.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -1659,7 +1668,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                           if (newMaterial.trim()) {
                             setMaterialsLocales({
                               ...materialsLocales,
-                              [currentLanguage]: [...materialsLocales[currentLanguage], newMaterial.trim()]
+                              [currentLanguage]: [...localeList(materialsLocales, currentLanguage), newMaterial.trim()]
                             });
                             setNewMaterial("");
                           }
@@ -1673,7 +1682,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                         if (newMaterial.trim()) {
                           setMaterialsLocales({
                             ...materialsLocales,
-                            [currentLanguage]: [...materialsLocales[currentLanguage], newMaterial.trim()]
+                            [currentLanguage]: [...localeList(materialsLocales, currentLanguage), newMaterial.trim()]
                           });
                           setNewMaterial("");
                         }
@@ -1683,13 +1692,13 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                     </Button>
                   </div>
                   
-                  {materialsLocales[currentLanguage].length === 0 ? (
+                  {localeList(materialsLocales, currentLanguage).length === 0 ? (
                     <p className="text-sm text-muted-foreground py-4 text-center">
                       No materials added yet. Add materials to highlight product composition.
                     </p>
                   ) : (
                     <div className="flex flex-wrap gap-2 py-2">
-                      {materialsLocales[currentLanguage].map((material, index) => (
+                      {localeList(materialsLocales, currentLanguage).map((material, index) => (
                         <div key={index} className="flex items-center border rounded-full px-3 py-1">
                           <Layers className="h-3 w-3 mr-1" />
                           <span className="text-sm">{material}</span>
@@ -1698,7 +1707,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                             size="sm" 
                             className="h-5 w-5 p-0 ml-1"
                             onClick={() => {
-                              const newMaterials = materialsLocales[currentLanguage].filter((_, i) => i !== index);
+                              const newMaterials = localeList(materialsLocales, currentLanguage).filter((_, i) => i !== index);
                               setMaterialsLocales({
                                 ...materialsLocales,
                                 [currentLanguage]: newMaterials
@@ -1719,7 +1728,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
               <CardHeader>
                 <CardTitle>Tags & Metadata</CardTitle>
                 <CardDescription>
-                  Add search tags and product metadata in {currentLanguage === 'en' ? 'English' : 'Italian'}.
+                  Add search tags and product metadata in {LANGUAGE_META[currentLanguage].nativeName}.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -1737,7 +1746,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                             if (newTag.trim()) {
                               setTagsLocales({
                                 ...tagsLocales,
-                                [currentLanguage]: [...tagsLocales[currentLanguage], newTag.trim()]
+                                [currentLanguage]: [...localeList(tagsLocales, currentLanguage), newTag.trim()]
                               });
                               setNewTag("");
                             }
@@ -1751,7 +1760,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                           if (newTag.trim()) {
                             setTagsLocales({
                               ...tagsLocales,
-                              [currentLanguage]: [...tagsLocales[currentLanguage], newTag.trim()]
+                              [currentLanguage]: [...localeList(tagsLocales, currentLanguage), newTag.trim()]
                             });
                             setNewTag("");
                           }
@@ -1761,9 +1770,9 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                       </Button>
                     </div>
                     
-                    {tagsLocales[currentLanguage].length > 0 && (
+                    {localeList(tagsLocales, currentLanguage).length > 0 && (
                       <div className="flex flex-wrap gap-2 mt-2">
-                        {tagsLocales[currentLanguage].map((tag, index) => (
+                        {localeList(tagsLocales, currentLanguage).map((tag, index) => (
                           <Badge key={index} variant="secondary" className="flex items-center gap-1">
                             <Tag className="h-3 w-3" />
                             {tag}
@@ -1772,7 +1781,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                               size="sm" 
                               className="h-4 w-4 p-0 ml-1"
                               onClick={() => {
-                                const newTags = tagsLocales[currentLanguage].filter((_, i) => i !== index);
+                                const newTags = localeList(tagsLocales, currentLanguage).filter((_, i) => i !== index);
                                 setTagsLocales({
                                   ...tagsLocales,
                                   [currentLanguage]: newTags
@@ -2437,146 +2446,16 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                     </div>
                   </div>
                 </div>
-                {/* Technical Sheet English */}
-                <div className="space-y-4">
-                  <Label>Technical Sheet (English)</Label>
-                  <input
-                    ref={techSheetEnRef}
-                    type="file"
-                    accept=".pdf"
-                    className="hidden"
-                    onChange={(e) => handleDocumentUpload(e, 'technical', 'en')}
-                  />
-                  
-                  {technicalSheetUrl ? (
-                    <div className="border rounded-lg p-4 bg-gray-50 dark:bg-gray-800">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center">
-                            <svg className="w-5 h-5 text-red-600 dark:text-red-400" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
-                            </svg>
-                          </div>
-                          <div>
-                            <p className="font-medium text-sm">Technical Sheet (EN)</p>
-                            <p className="text-xs text-muted-foreground">PDF Document</p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <a 
-                            href={technicalSheetUrl} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 text-sm"
-                          >
-                            Download
-                          </a>
-                          <Button
-                            type="button"
-                            variant="destructive"
-                            size="sm"
-                            onClick={() => removeDocument('technical', 'en')}
-                          >
-                            <X className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <div 
-                      className="border-2 border-dashed rounded-md p-6 text-center cursor-pointer hover:bg-muted/50 transition-colors"
-                      onClick={() => techSheetEnRef.current?.click()}
-                    >
-                      {isUploadingDocs ? (
-                        <div className="flex flex-col items-center">
-                          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-brand-primary"></div>
-                          <p className="mt-2 text-sm text-muted-foreground">Uploading...</p>
-                        </div>
-                      ) : (
-                        <>
-                          <Upload className="mx-auto h-8 w-8 text-muted-foreground" />
-                          <p className="mt-2 text-sm text-muted-foreground">
-                            Click to upload Technical Sheet (English)
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            PDF up to 10MB
-                          </p>
-                        </>
-                      )}
-                    </div>
-                  )}
-                </div>
-                
-                {/* Technical Sheet Italian */}
-                <div className="space-y-4">
-                  <Label>Technical Sheet (Italian)</Label>
-                  <input
-                    ref={techSheetItRef}
-                    type="file"
-                    accept=".pdf"
-                    className="hidden"
-                    onChange={(e) => handleDocumentUpload(e, 'technical', 'it')}
-                  />
-                  
-                  {technicalSheetUrlIt ? (
-                    <div className="border rounded-lg p-4 bg-gray-50 dark:bg-gray-800">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center">
-                            <svg className="w-5 h-5 text-red-600 dark:text-red-400" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
-                            </svg>
-                          </div>
-                          <div>
-                            <p className="font-medium text-sm">Technical Sheet (IT)</p>
-                            <p className="text-xs text-muted-foreground">PDF Document</p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <a 
-                            href={technicalSheetUrlIt} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 text-sm"
-                          >
-                            Download
-                          </a>
-                          <Button
-                            type="button"
-                            variant="destructive"
-                            size="sm"
-                            onClick={() => removeDocument('technical', 'it')}
-                          >
-                            <X className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <div 
-                      className="border-2 border-dashed rounded-md p-6 text-center cursor-pointer hover:bg-muted/50 transition-colors"
-                      onClick={() => techSheetItRef.current?.click()}
-                    >
-                      {isUploadingDocs ? (
-                        <div className="flex flex-col items-center">
-                          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-brand-primary"></div>
-                          <p className="mt-2 text-sm text-muted-foreground">Uploading...</p>
-                        </div>
-                      ) : (
-                        <>
-                          <Upload className="mx-auto h-8 w-8 text-muted-foreground" />
-                          <p className="mt-2 text-sm text-muted-foreground">
-                            Click to upload Technical Sheet (Italian)
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            PDF up to 10MB
-                          </p>
-                        </>
-                      )}
-                    </div>
-                  )}
-                </div>
-                
+                <ProductDocumentUploads
+                  kind="technical"
+                  title="Technical sheets"
+                  locales={technicalSheetLocales}
+                  onUpload={(file, lang) => uploadDocument(file, 'technical', lang)}
+                  onChange={(lang, url) => {
+                    void persistTechnicalLocales(withDocumentLocale(technicalSheetRef.current, lang, url));
+                  }}
+                />
+
                 {/* Declaration Sheet English */}
                 <div className="space-y-4">
                   <Label>Declaration Sheet (English)</Label>
@@ -2615,7 +2494,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                             type="button"
                             variant="destructive"
                             size="sm"
-                            onClick={() => removeDocument('declaration', 'en')}
+                            onClick={() => removeDocument('en')}
                           >
                             <X className="h-4 w-4" />
                           </Button>
@@ -2685,7 +2564,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                             type="button"
                             variant="destructive"
                             size="sm"
-                            onClick={() => removeDocument('declaration', 'it')}
+                            onClick={() => removeDocument('it')}
                           >
                             <X className="h-4 w-4" />
                           </Button>
@@ -2717,147 +2596,20 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                   )}
                 </div>
                 
-                {/* Manufacturers Instruction English */}
-                <div className="space-y-4">
-                  <Label>Manufacturers Instruction (English)</Label>
-                  <input
-                    ref={manuInstructionEnRef}
-                    type="file"
-                    accept=".pdf"
-                    className="hidden"
-                    onChange={(e) => handleDocumentUpload(e, 'manufacturers', 'en')}
-                  />
-                  
-                  {manufacturersInstructionUrl ? (
-                    <div className="border rounded-lg p-4 bg-gray-50 dark:bg-gray-800">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
-                            <svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
-                            </svg>
-                          </div>
-                          <div>
-                            <p className="font-medium text-sm">Manufacturers Instruction (EN)</p>
-                            <p className="text-xs text-muted-foreground">PDF Document</p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <a 
-                            href={manufacturersInstructionUrl} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 text-sm"
-                          >
-                            Download
-                          </a>
-                          <Button
-                            type="button"
-                            variant="destructive"
-                            size="sm"
-                            onClick={() => removeDocument('manufacturers', 'en')}
-                          >
-                            <X className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <div 
-                      className="border-2 border-dashed rounded-md p-6 text-center cursor-pointer hover:bg-muted/50 transition-colors"
-                      onClick={() => manuInstructionEnRef.current?.click()}
-                    >
-                      {isUploadingDocs ? (
-                        <div className="flex flex-col items-center">
-                          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-brand-primary"></div>
-                          <p className="mt-2 text-sm text-muted-foreground">Uploading...</p>
-                        </div>
-                      ) : (
-                        <>
-                          <Upload className="mx-auto h-8 w-8 text-muted-foreground" />
-                          <p className="mt-2 text-sm text-muted-foreground">
-                            Click to upload Manufacturers Instruction (English)
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            PDF up to 10MB
-                          </p>
-                        </>
-                      )}
-                    </div>
-                  )}
-                </div>
-                
-                {/* Manufacturers Instruction Italian */}
-                <div className="space-y-4">
-                  <Label>Manufacturers Instruction (Italian)</Label>
-                  <input
-                    ref={manuInstructionItRef}
-                    type="file"
-                    accept=".pdf"
-                    className="hidden"
-                    onChange={(e) => handleDocumentUpload(e, 'manufacturers', 'it')}
-                  />
-                  
-                  {manufacturersInstructionUrlIt ? (
-                    <div className="border rounded-lg p-4 bg-gray-50 dark:bg-gray-800">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
-                            <svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
-                            </svg>
-                          </div>
-                          <div>
-                            <p className="font-medium text-sm">Manufacturers Instruction (IT)</p>
-                            <p className="text-xs text-muted-foreground">PDF Document</p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <a 
-                            href={manufacturersInstructionUrlIt} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 text-sm"
-                          >
-                            Download
-                          </a>
-                          <Button
-                            type="button"
-                            variant="destructive"
-                            size="sm"
-                            onClick={() => removeDocument('manufacturers', 'it')}
-                          >
-                            <X className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <div 
-                      className="border-2 border-dashed rounded-md p-6 text-center cursor-pointer hover:bg-muted/50 transition-colors"
-                      onClick={() => manuInstructionItRef.current?.click()}
-                    >
-                      {isUploadingDocs ? (
-                        <div className="flex flex-col items-center">
-                          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-brand-primary"></div>
-                          <p className="mt-2 text-sm text-muted-foreground">Uploading...</p>
-                        </div>
-                      ) : (
-                        <>
-                          <Upload className="mx-auto h-8 w-8 text-muted-foreground" />
-                          <p className="mt-2 text-sm text-muted-foreground">
-                            Click to upload Manufacturers Instruction (Italian)
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            PDF up to 10MB
-                          </p>
-                        </>
-                      )}
-                    </div>
-                  )}
-                </div>
+                <ProductDocumentUploads
+                  kind="manufacturers"
+                  title="Manufacturer's notes"
+                  locales={manufacturersInstructionLocales}
+                  onUpload={(file, lang) => uploadDocument(file, 'manufacturers', lang)}
+                  onChange={(lang, url) => {
+                    void persistInstructionLocales(withDocumentLocale(manufacturersInstructionRef.current, lang, url));
+                  }}
+                  onUseForAllLanguages={(url) => {
+                    void persistInstructionLocales({ en: url, it: url, fr: url, de: url, es: url });
+                  }}
+                />
               </div>
-              
+
               <div className="flex items-center gap-2 rounded-md bg-blue-50 p-3 text-blue-900 dark:bg-blue-900/30 dark:text-blue-100 mt-6">
                 <Info className="h-4 w-4" />
                 <p className="text-xs">

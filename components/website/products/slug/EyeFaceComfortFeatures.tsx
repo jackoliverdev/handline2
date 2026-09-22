@@ -3,13 +3,12 @@
 import { useLanguage } from "@/lib/context/language-context";
 import type { Product } from "@/lib/products-service";
 import { ListChecks } from "lucide-react";
+import { pickLocaleList } from "@/lib/i18n/locale-fallback";
 
 export function EyeFaceComfortFeatures({ product }: { product: Product }) {
   const { t, language } = useLanguage();
 
-  const items = (product as any)?.eye_face_comfort_features_locales?.[language]
-    || (product as any)?.eye_face_comfort_features_locales?.en
-    || [];
+  const items = pickLocaleList((product as any)?.eye_face_comfort_features_locales, language);
 
   if (!Array.isArray(items) || items.length === 0) return null;
 

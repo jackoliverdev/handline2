@@ -52,6 +52,9 @@ import { ClothingOtherDetails } from "@/components/website/products/slug/Clothin
 import { ClothingEnvironment } from "@/components/website/products/slug/ClothingEnvironment";
 import { ArmProtectionAttributes } from "@/components/website/products/slug/ArmProtectionAttributes";
 import { ProductDeclarations } from "@/components/website/products/slug/ProductDeclarations";
+import { ProductDocumentDownload } from "@/components/website/products/slug/ProductDocumentDownload";
+import { mergeDocumentLocales, availableDocumentLanguages } from "@/lib/product-documents";
+import { pickLocaleList } from "@/lib/i18n/locale-fallback";
 import { useBrands } from "@/lib/context/brands-context";
 
 // Flag components for flag icons
@@ -101,17 +104,6 @@ const getBrandLogo = (brandName: string, brands: any[], isDarkMode = false) => {
   return brand.logo_url || null;
 };
 
-function pickProductDocument(
-  language: string,
-  englishUrl?: string | null,
-  italianUrl?: string | null
-): { url: string; code: 'EN' | 'IT' } | null {
-  if (language === 'it' && italianUrl) return { url: italianUrl, code: 'IT' };
-  if (englishUrl) return { url: englishUrl, code: 'EN' };
-  if (italianUrl) return { url: italianUrl, code: 'IT' };
-  return null;
-}
-
 export function ProductDetail({ product, relatedProducts }: { product: Product, relatedProducts: any[] }) {
   const { t, language } = useLanguage();
   const router = useRouter();
@@ -119,10 +111,10 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
   const { brands } = useBrands();
   
   // Get localized content based on current language
-  const currentFeatures = product.features_locales?.[language] || product.features || [];
-  const currentApplications = product.applications_locales?.[language] || product.applications || [];
-  const currentIndustries = product.industries_locales?.[language] || product.industries || [];
-  const currentMaterials = product.materials_locales?.[language] || [];
+  const currentFeatures = pickLocaleList(product.features_locales, language, product.features);
+  const currentApplications = pickLocaleList(product.applications_locales, language, product.applications);
+  const currentIndustries = pickLocaleList(product.industries_locales, language, product.industries);
+  const currentMaterials = pickLocaleList(product.materials_locales, language);
 
   // Modal state variables
   const [isSampleModalOpen, setIsSampleModalOpen] = React.useState(false);
@@ -154,17 +146,23 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
 
   // Get localised size and other info
   const size = product.size_locales?.[language] || product.size_locales?.en || null;
-  const technicalSheet = pickProductDocument(language, product.technical_sheet_url, product.technical_sheet_url_it);
-  const manufacturersInstruction = pickProductDocument(
-    language,
+  const technicalSheetLocales = mergeDocumentLocales(
+    product.technical_sheet_locales,
+    product.technical_sheet_url,
+    product.technical_sheet_url_it
+  );
+  const manufacturersInstructionLocales = mergeDocumentLocales(
+    product.manufacturers_instruction_locales,
     product.manufacturers_instruction_url,
-    (product as any).manufacturers_instruction_url_it
+    product.manufacturers_instruction_url_it
   );
   const hasAnyDocumentation = Boolean(
-    technicalSheet ||
-    manufacturersInstruction ||
+    availableDocumentLanguages(technicalSheetLocales).length ||
+    availableDocumentLanguages(manufacturersInstructionLocales).length ||
     product.declaration_sheet_url ||
-    (product as any).declaration_sheet_url_it
+    (product as any).declaration_sheet_url_it ||
+    (product as any).ukca_declaration_url ||
+    (Array.isArray((product as any).declaration_docs_locales) && (product as any).declaration_docs_locales.length > 0)
   );
 
   // Compute pad size display if available (primarily for Industrial Swabs)
@@ -268,7 +266,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
               className="inline-flex items-center gap-1.5 text-brand-secondary hover:text-brand-primary dark:text-gray-400 dark:hover:text-brand-primary transition-colors duration-200 group"
             >
               <Home className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
-              <span className="font-medium">Home</span>
+              <span className="font-medium">{t('navbar.home')}</span>
             </Link>
             <ChevronRight className="h-4 w-4 text-brand-primary/60" />
             <Link 
@@ -733,31 +731,16 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                 
                 <TabsContent value="documentation" id="documentation" className="mt-0">
                   <div className="space-y-4">
-                    {/* Technical Sheet - Italian when selected, otherwise English (FR/DE/ES fall back to EN) */}
-                    {technicalSheet && (
-                      <div id="technical-sheet" className="space-y-3">
-                        <h3 className="text-lg font-semibold text-brand-dark dark:text-white">{t('productPage.technicalSheets')}</h3>
-                        <div className="grid gap-3">
-                          <Button
-                            variant="outline"
-                            size="lg"
-                            className="w-full border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
-                            asChild
-                          >
-                            <a 
-                              href={technicalSheet.url} 
-                              target="_blank" 
-                              rel="noopener noreferrer" 
-                              className="flex items-center justify-center gap-2"
-                              onClick={() => handleDocumentDownload(technicalSheet.url, `Technical Sheet (${technicalSheet.code})`, 'technical_sheet')}
-                            >
-                              <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
-                              {t('productPage.download')}
-                            </a>
-                          </Button>
-                        </div>
-                      </div>
-                    )}
+                    <ProductDocumentDownload
+                      id="technical-sheet"
+                      title={t('productPage.technicalSheets')}
+                      downloadLabel={t('productPage.download')}
+                      locales={technicalSheetLocales}
+                      browsingLanguage={language}
+                      fileLabel="Technical Sheet"
+                      analyticsType="technical_sheet"
+                      onDownload={handleDocumentDownload}
+                    />
                     
                     {/* Declarations of Conformity - Enhanced with UKCA and EU language dropdown */}
                     <div id="declarations">
@@ -767,31 +750,16 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                       />
                     </div>
 
-                    {/* Manufacturers Instruction - Italian when selected, otherwise English (FR/DE/ES fall back to EN) */}
-                    {manufacturersInstruction && (
-                      <div id="manufacturer-instructions" className="space-y-3">
-                        <h3 className="text-lg font-semibold text-brand-dark dark:text-white">{t('productPage.manufacturersInstruction')}</h3>
-                        <div className="grid gap-3">
-                          <Button
-                            variant="outline"
-                            size="lg"
-                            className="w-full border-brand-primary text-brand-primary hover:bg-white hover:text-brand-primary hover:border-brand-primary hover:shadow-lg hover:scale-105 transition-all duration-300 transform group"
-                            asChild
-                          >
-                            <a 
-                              href={manufacturersInstruction.url} 
-                              target="_blank" 
-                              rel="noopener noreferrer" 
-                              className="flex items-center justify-center gap-2"
-                              onClick={() => handleDocumentDownload(manufacturersInstruction.url, `Manufacturers Instruction (${manufacturersInstruction.code})`, 'instruction')}
-                            >
-                              <Download className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
-                              {t('productPage.download')}
-                            </a>
-                          </Button>
-                        </div>
-                      </div>
-                    )}
+                    <ProductDocumentDownload
+                      id="manufacturer-instructions"
+                      title={t('productPage.manufacturersInstruction')}
+                      downloadLabel={t('productPage.download')}
+                      locales={manufacturersInstructionLocales}
+                      browsingLanguage={language}
+                      fileLabel="Manufacturers Instruction"
+                      analyticsType="instruction"
+                      onDownload={handleDocumentDownload}
+                    />
                     
                     {/* Show message if no documents available */}
                     {!hasAnyDocumentation && (

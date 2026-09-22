@@ -3,10 +3,11 @@
 import { Product } from "@/lib/products-service";
 import { useLanguage } from "@/lib/context/language-context";
 import { Layers, Move, Volume2, Mic, Settings, Shield, Droplets, Thermometer, Zap, Users, Bluetooth } from "lucide-react";
+import { pickLocaleList } from "@/lib/i18n/locale-fallback";
 
 export function HearingSpecs({ product }: { product: Product }) {
   const { t, language } = useLanguage();
-  const materials = product.materials_locales?.[language] || product.materials_locales?.en || [];
+  const materials = pickLocaleList(product.materials_locales, language);
   const size = product.size_locales?.[language] || product.size_locales?.en || '';
   const hs: any = (product as any).hearing_standards;
   const ha: any = (product as any).hearing_attributes;

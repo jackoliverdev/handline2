@@ -331,9 +331,9 @@
     }
   },
   "featuredProducts": {
-    "title": "Produits en Vedette",
+    "title": "Produits Favoris",
     "description": "Découvrez nos dispositifs de sécurité les plus populaires, conçus pour offrir une protection et un confort supérieurs dans diverses applications industrielles.",
-    "noProducts": "Aucun produit en vedette disponible pour le moment.",
+    "noProducts": "Aucun produit Favoris disponible pour le moment.",
     "preview": "Aperçu",
     "previewShort": "Voir",
     "details": "Détails",
@@ -353,7 +353,7 @@
     "viewAll": "Voir tous les secteurs"
   },
   "cta": {
-    "title": "Prêt à Améliorer la",
+    "title": "Prêts à renforcer la",
     "titleAccent": "Sécurité",
     "description": "Notre gamme complète de solutions de sécurité éprouvées par le secteur n'est que le point de départ. Nous travaillons main dans la main avec nos clients pour identifier les solutions les plus efficaces afin de garantir une protection de premier ordre et des performances commerciales optimales.",
     "buttons": {
@@ -364,7 +364,7 @@
   },
   "industryCta": {
     "badge": "Spécialistes du secteur",
-    "title": "Prêt à Améliorer la Sécurité dans le Secteur",
+    "title": "Prêts à renforcer la Sécurité dans le Secteur",
     "description": "Découvrez notre gamme complète de solutions de sécurité spécialement conçues pour le secteur {industry}.",
     "buttons": {
       "browseProducts": "Découvrez nos produits",
@@ -583,7 +583,7 @@
     "mainPageDescription": "Découvrez notre gamme complète de produits de sécurité industrielle et de dispositifs de protection conçus pour les environnements professionnels.",
     "searchPlaceholder": "Rechercher des produits...",
     "sortOptions": {
-      "featured": "En vedette",
+      "featured": "Favoris",
       "newest": "Plus récents",
       "name-asc": "Nom : A-Z",
       "name-desc": "Nom : Z-A"
@@ -702,7 +702,7 @@
     "outOfStock": "Épuisé",
     "comingSoon": "Bientôt disponible",
     "new": "Nouveau",
-    "featured": "En vedette",
+    "featured": "Favoris",
     "industries": "Secteurs",
     "keyFeatures": "Principales caractéristiques :",
     "moreFeatures": "+{{count}} autres",
@@ -966,8 +966,8 @@
     "viewSolutions": "Voir les Solutions",
     "contactForDetails": "Contactez-nous pour plus de détails",
     "spotlight": {
-      "badge": "En vedette",
-      "title": "Secteur en vedette",
+      "badge": "Favoris",
+      "title": "Secteur Favoris",
       "description": "Découvrez comment les solutions innovantes de Hand Line sont conçues pour relever les défis uniques de ce secteur.",
       "subtitle": "Solutions pour l'industrie",
       "cta": "Explorez les solutions"
@@ -1005,6 +1005,9 @@
       "products": "Produits"
     },
     "history": {
+      "badge": "Notre Parcours",
+      "heading": "Notre histoire",
+      "description": "Des origines en Lombardie (Italie) jusqu'à devenir un fabricant et fournisseur international d'équipements de protection, découvrez les moments clés qui ont façonné notre entreprise et notre culture.",
       "1977": {
         "title": "Fondation",
         "description": "Notre histoire commence en tant que fabricant italien de gants en cuir et de travail, avec une empreinte résolument artisanale fondée sur le savoir-faire et des produits de haute qualité"
@@ -1040,10 +1043,7 @@
       "2025": {
         "title": "Entrée sur le Marché du Royaume-Uni",
         "description": "Hand Line annonce son expansion sur le marché du Royaume-Uni avec le lancement d'une filiale à Londres pour soutenir davantage son marché international en pleine croissance"
-      },
-      "badge": "Notre Parcours",
-      "heading": "Notre histoire",
-      "description": "Des origines en Lombardie (Italie) jusqu'à devenir un fabricant et fournisseur international d'équipements de protection, découvrez les moments clés qui ont façonné notre entreprise et notre culture."
+      }
     },
     "different": {
       "badge": "Nos Avantages",
@@ -1378,7 +1378,7 @@
       "learnAboutUs": "Découvrez qui nous sommes"
     },
     "featured": {
-      "badge": "Étude de Cas en Vedette",
+      "badge": "Étude de Cas Favoris",
       "title": "Le Succès en Action",
       "description": "Découvrez comment nous avons aidé les entreprises à transformer leurs opérations et à obtenir des résultats extraordinaires."
     },

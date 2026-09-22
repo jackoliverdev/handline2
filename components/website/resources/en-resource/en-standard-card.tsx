@@ -9,6 +9,7 @@ import type { EnStandard } from '@/lib/en-standard-service';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/lib/context/language-context';
+import { pickLocaleList, pickLocaleText } from '@/lib/i18n/locale-fallback';
 
 interface EnStandardCardProps {
   standard: EnStandard;
@@ -26,10 +27,10 @@ export function EnStandardCard({ standard, index, language }: EnStandardCardProp
   const imageUrl = standard.image_url || '/images/placeholder-standard.jpg';
 
   // Localised fields
-  const title = (standard.title_locales && standard.title_locales[language]) || standard.title;
-  const summary = (standard.summary_locales && standard.summary_locales[language]) || standard.summary;
-  const category = (standard.category_locales && standard.category_locales[language]) || standard.category;
-  const tags = (standard.tags_locales && standard.tags_locales[language]) || standard.tags || [];
+  const title = pickLocaleText(standard.title_locales, language, standard.title);
+  const summary = pickLocaleText(standard.summary_locales, language, standard.summary);
+  const category = pickLocaleText(standard.category_locales, language, standard.category);
+  const tags = pickLocaleList(standard.tags_locales, language, standard.tags);
 
   return (
     <motion.div

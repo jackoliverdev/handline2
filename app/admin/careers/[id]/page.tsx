@@ -16,6 +16,18 @@ import { getCareerById, updateCareer, deleteCareer, toggleCareerFeatured, toggle
 import { ArrowLeft, Save, Trash, X } from "lucide-react";
 import type { CareerPost } from "@/lib/career-service";
 import { LanguageSwitcher } from "@/components/ui/language-switcher";
+import { GenerateFromEnglishButton } from "@/components/admins/generate-from-english-button";
+import { DEFAULT_LANGUAGE, type Language } from "@/lib/i18n/config";
+import {
+  applyLocaleFields,
+  emptyArrayLocales,
+  emptyStringLocales,
+  hydrateArrayLocales,
+  hydrateStringLocales,
+  localeHasContent,
+  localeList,
+  pickEnglishSource,
+} from "@/lib/i18n/admin-locales";
 
 interface PageProps { params: { id: string } }
 
@@ -26,25 +38,25 @@ export default function EditCareerPage({ params }: PageProps) {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState<'en' | 'it'>('en');
+  const [currentLanguage, setCurrentLanguage] = useState<Language>(DEFAULT_LANGUAGE);
   
   // Fields
-  const [titleLocales, setTitleLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
+  const [titleLocales, setTitleLocales] = useState(emptyStringLocales());
   const [slug, setSlug] = useState("");
   const [department, setDepartment] = useState("");
   const [location, setLocation] = useState("");
   const [jobType, setJobType] = useState("");
-  const [departmentLocales, setDepartmentLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
-  const [locationLocales, setLocationLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
-  const [jobTypeLocales, setJobTypeLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
-  const [summaryLocales, setSummaryLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
-  const [descriptionLocales, setDescriptionLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
-  const [responsibilitiesLocales, setResponsibilitiesLocales] = useState<{en: string[], it: string[]}>({ en: [], it: [] });
-  const [requirementsLocales, setRequirementsLocales] = useState<{en: string[], it: string[]}>({ en: [], it: [] });
-  const [benefitsLocales, setBenefitsLocales] = useState<{en: string[], it: string[]}>({ en: [], it: [] });
-  const [salaryRangeLocales, setSalaryRangeLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
+  const [departmentLocales, setDepartmentLocales] = useState(emptyStringLocales());
+  const [locationLocales, setLocationLocales] = useState(emptyStringLocales());
+  const [jobTypeLocales, setJobTypeLocales] = useState(emptyStringLocales());
+  const [summaryLocales, setSummaryLocales] = useState(emptyStringLocales());
+  const [descriptionLocales, setDescriptionLocales] = useState(emptyStringLocales());
+  const [responsibilitiesLocales, setResponsibilitiesLocales] = useState(emptyArrayLocales());
+  const [requirementsLocales, setRequirementsLocales] = useState(emptyArrayLocales());
+  const [benefitsLocales, setBenefitsLocales] = useState(emptyArrayLocales());
+  const [salaryRangeLocales, setSalaryRangeLocales] = useState(emptyStringLocales());
   const [workSite, setWorkSite] = useState<string>("");
-  const [workSiteLocales, setWorkSiteLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
+  const [workSiteLocales, setWorkSiteLocales] = useState(emptyStringLocales());
   const [isPublished, setIsPublished] = useState(false);
   const [isFeatured, setIsFeatured] = useState(false);
   
@@ -56,22 +68,22 @@ export default function EditCareerPage({ params }: PageProps) {
       try {
         const post = await getCareerById(id);
         if (!post) throw new Error("Not found");
-        setTitleLocales({ en: post.title_locales?.en || post.title || '', it: post.title_locales?.it || '' });
+        setTitleLocales(hydrateStringLocales(post.title_locales, post.title || ''));
         setSlug(post.slug);
         setDepartment(post.department);
         setLocation(post.location);
         setJobType(post.job_type);
-        setDepartmentLocales({ en: post.department_locales?.en || post.department || '', it: post.department_locales?.it || '' });
-        setLocationLocales({ en: post.location_locales?.en || post.location || '', it: post.location_locales?.it || '' });
-        setJobTypeLocales({ en: post.job_type_locales?.en || post.job_type || '', it: post.job_type_locales?.it || '' });
-        setSummaryLocales({ en: post.summary_locales?.en || post.summary || '', it: post.summary_locales?.it || '' });
-        setDescriptionLocales({ en: post.description_locales?.en || post.description || '', it: post.description_locales?.it || '' });
-        setResponsibilitiesLocales({ en: post.responsibilities_locales?.en || post.responsibilities || [], it: post.responsibilities_locales?.it || [] });
-        setRequirementsLocales({ en: post.requirements_locales?.en || post.requirements || [], it: post.requirements_locales?.it || [] });
-        setBenefitsLocales({ en: post.benefits_locales?.en || post.benefits || [], it: post.benefits_locales?.it || [] });
-        setSalaryRangeLocales({ en: post.salary_range_locales?.en || post.salary_range || '', it: post.salary_range_locales?.it || '' });
+        setDepartmentLocales(hydrateStringLocales(post.department_locales, post.department || ''));
+        setLocationLocales(hydrateStringLocales(post.location_locales, post.location || ''));
+        setJobTypeLocales(hydrateStringLocales(post.job_type_locales, post.job_type || ''));
+        setSummaryLocales(hydrateStringLocales(post.summary_locales, post.summary || ''));
+        setDescriptionLocales(hydrateStringLocales(post.description_locales, post.description || ''));
+        setResponsibilitiesLocales(hydrateArrayLocales(post.responsibilities_locales, post.responsibilities || []));
+        setRequirementsLocales(hydrateArrayLocales(post.requirements_locales, post.requirements || []));
+        setBenefitsLocales(hydrateArrayLocales(post.benefits_locales, post.benefits || []));
+        setSalaryRangeLocales(hydrateStringLocales(post.salary_range_locales, post.salary_range || ''));
         setWorkSite(post.work_site || "");
-        setWorkSiteLocales({ en: post.work_site_locales?.en || post.work_site || '', it: post.work_site_locales?.it || '' });
+        setWorkSiteLocales(hydrateStringLocales(post.work_site_locales, post.work_site || ''));
         setIsPublished(!!post.is_published);
         setIsFeatured(!!post.is_featured);
       } catch (error) {
@@ -88,16 +100,16 @@ export default function EditCareerPage({ params }: PageProps) {
   const addArrayItem = () => {
     const value = currentArrayItem.trim();
     if (!value) return;
-    if (arrayTarget === 'resp') setResponsibilitiesLocales(prev => ({ ...prev, [currentLanguage]: [...prev[currentLanguage], value] }));
-    if (arrayTarget === 'req') setRequirementsLocales(prev => ({ ...prev, [currentLanguage]: [...prev[currentLanguage], value] }));
-    if (arrayTarget === 'ben') setBenefitsLocales(prev => ({ ...prev, [currentLanguage]: [...prev[currentLanguage], value] }));
+    if (arrayTarget === 'resp') setResponsibilitiesLocales(prev => ({ ...prev, [currentLanguage]: [...localeList(prev, currentLanguage), value] }));
+    if (arrayTarget === 'req') setRequirementsLocales(prev => ({ ...prev, [currentLanguage]: [...localeList(prev, currentLanguage), value] }));
+    if (arrayTarget === 'ben') setBenefitsLocales(prev => ({ ...prev, [currentLanguage]: [...localeList(prev, currentLanguage), value] }));
     setCurrentArrayItem("");
   };
   
   const removeFrom = (type: 'resp' | 'req' | 'ben', value: string) => {
-    if (type === 'resp') setResponsibilitiesLocales(prev => ({ ...prev, [currentLanguage]: prev[currentLanguage].filter(x => x !== value) }));
-    if (type === 'req') setRequirementsLocales(prev => ({ ...prev, [currentLanguage]: prev[currentLanguage].filter(x => x !== value) }));
-    if (type === 'ben') setBenefitsLocales(prev => ({ ...prev, [currentLanguage]: prev[currentLanguage].filter(x => x !== value) }));
+    if (type === 'resp') setResponsibilitiesLocales(prev => ({ ...prev, [currentLanguage]: localeList(prev, currentLanguage).filter(x => x !== value) }));
+    if (type === 'req') setRequirementsLocales(prev => ({ ...prev, [currentLanguage]: localeList(prev, currentLanguage).filter(x => x !== value) }));
+    if (type === 'ben') setBenefitsLocales(prev => ({ ...prev, [currentLanguage]: localeList(prev, currentLanguage).filter(x => x !== value) }));
   };
   
   const handleSave = async (e: React.FormEvent) => {
@@ -111,17 +123,17 @@ export default function EditCareerPage({ params }: PageProps) {
         job_type: jobTypeLocales.en,
         summary: summaryLocales.en, description: descriptionLocales.en,
         responsibilities: responsibilitiesLocales.en, requirements: requirementsLocales.en, benefits: benefitsLocales.en,
-        department_locales: (departmentLocales.en || departmentLocales.it) ? departmentLocales : undefined,
-        location_locales: (locationLocales.en || locationLocales.it) ? locationLocales : undefined,
-        job_type_locales: (jobTypeLocales.en || jobTypeLocales.it) ? jobTypeLocales : undefined,
-        work_site_locales: (workSiteLocales.en || workSiteLocales.it) ? workSiteLocales : undefined,
-        title_locales: (titleLocales.en || titleLocales.it) ? titleLocales : undefined,
-        summary_locales: (summaryLocales.en || summaryLocales.it) ? summaryLocales : undefined,
-        description_locales: (descriptionLocales.en || descriptionLocales.it) ? descriptionLocales : undefined,
-        responsibilities_locales: (responsibilitiesLocales.en.length || responsibilitiesLocales.it.length) ? responsibilitiesLocales : undefined,
-        requirements_locales: (requirementsLocales.en.length || requirementsLocales.it.length) ? requirementsLocales : undefined,
-        benefits_locales: (benefitsLocales.en.length || benefitsLocales.it.length) ? benefitsLocales : undefined,
-        salary_range_locales: (salaryRangeLocales.en || salaryRangeLocales.it) ? salaryRangeLocales : undefined,
+        department_locales: departmentLocales,
+        location_locales: locationLocales,
+        job_type_locales: jobTypeLocales,
+        work_site_locales: workSiteLocales,
+        title_locales: titleLocales,
+        summary_locales: summaryLocales,
+        description_locales: descriptionLocales,
+        responsibilities_locales: responsibilitiesLocales,
+        requirements_locales: requirementsLocales,
+        benefits_locales: benefitsLocales,
+        salary_range_locales: salaryRangeLocales,
         salary_range: salaryRangeLocales.en || null, is_published: isPublished, is_featured: isFeatured,
       });
       toast({ title: "Saved", description: "Role updated." });
@@ -170,6 +182,48 @@ export default function EditCareerPage({ params }: PageProps) {
             Delete
           </Button>
           <LanguageSwitcher currentLanguage={currentLanguage} onLanguageChange={setCurrentLanguage} />
+          <GenerateFromEnglishButton
+            currentLanguage={currentLanguage}
+            getSource={() => pickEnglishSource({
+              title: titleLocales.en,
+              department: departmentLocales.en,
+              location: locationLocales.en,
+              job_type: jobTypeLocales.en,
+              work_site: workSiteLocales.en,
+              summary: summaryLocales.en,
+              description: descriptionLocales.en,
+              salary_range: salaryRangeLocales.en,
+              responsibilities: responsibilitiesLocales.en,
+              requirements: requirementsLocales.en,
+              benefits: benefitsLocales.en,
+            })}
+            hasTargetContent={() => localeHasContent(pickEnglishSource({
+              title: titleLocales[currentLanguage],
+              department: departmentLocales[currentLanguage],
+              location: locationLocales[currentLanguage],
+              job_type: jobTypeLocales[currentLanguage],
+              work_site: workSiteLocales[currentLanguage],
+              summary: summaryLocales[currentLanguage],
+              description: descriptionLocales[currentLanguage],
+              salary_range: salaryRangeLocales[currentLanguage],
+              responsibilities: responsibilitiesLocales[currentLanguage],
+              requirements: requirementsLocales[currentLanguage],
+              benefits: benefitsLocales[currentLanguage],
+            }))}
+            applyFields={(fields, mode) => {
+              setTitleLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.title, mode));
+              setDepartmentLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.department, mode));
+              setLocationLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.location, mode));
+              setJobTypeLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.job_type, mode));
+              setWorkSiteLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.work_site, mode));
+              setSummaryLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.summary, mode));
+              setDescriptionLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.description, mode));
+              setSalaryRangeLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.salary_range, mode));
+              setResponsibilitiesLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.responsibilities, mode));
+              setRequirementsLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.requirements, mode));
+              setBenefitsLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.benefits, mode));
+            }}
+          />
         </div>
       </div>
 
@@ -185,7 +239,7 @@ export default function EditCareerPage({ params }: PageProps) {
                 <div className="space-y-3 sm:space-y-4">
                   <div className="space-y-1 sm:space-y-2">
                     <Label htmlFor="title" className="text-xs sm:text-sm">Title</Label>
-                    <Input id="title" value={titleLocales[currentLanguage]} onChange={(e) => setTitleLocales(prev => ({ ...prev, [currentLanguage]: e.target.value }))} required className="text-xs sm:text-sm h-8 sm:h-10" />
+                    <Input id="title" value={titleLocales[currentLanguage]} onChange={(e) => setTitleLocales(prev => ({ ...prev, [currentLanguage]: e.target.value }))} className="text-xs sm:text-sm h-8 sm:h-10" />
                   </div>
                   <div className="space-y-1 sm:space-y-2">
                     <Label htmlFor="slug" className="text-xs sm:text-sm">Slug</Label>
@@ -194,15 +248,15 @@ export default function EditCareerPage({ params }: PageProps) {
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div className="space-y-1 sm:space-y-2">
                       <Label htmlFor="department" className="text-xs sm:text-sm">Department</Label>
-                      <Input id="department" value={departmentLocales[currentLanguage]} onChange={(e) => setDepartmentLocales(prev => ({ ...prev, [currentLanguage]: e.target.value }))} required className="text-xs sm:text-sm h-8 sm:h-10" />
+                      <Input id="department" value={departmentLocales[currentLanguage]} onChange={(e) => setDepartmentLocales(prev => ({ ...prev, [currentLanguage]: e.target.value }))} className="text-xs sm:text-sm h-8 sm:h-10" />
                     </div>
                     <div className="space-y-1 sm:space-y-2">
                       <Label htmlFor="location" className="text-xs sm:text-sm">Location</Label>
-                      <Input id="location" value={locationLocales[currentLanguage]} onChange={(e) => setLocationLocales(prev => ({ ...prev, [currentLanguage]: e.target.value }))} required className="text-xs sm:text-sm h-8 sm:h-10" />
+                      <Input id="location" value={locationLocales[currentLanguage]} onChange={(e) => setLocationLocales(prev => ({ ...prev, [currentLanguage]: e.target.value }))} className="text-xs sm:text-sm h-8 sm:h-10" />
                     </div>
                     <div className="space-y-1 sm:space-y-2">
                       <Label htmlFor="jobType" className="text-xs sm:text-sm">Job Type</Label>
-                      <Input id="jobType" value={jobTypeLocales[currentLanguage]} onChange={(e) => setJobTypeLocales(prev => ({ ...prev, [currentLanguage]: e.target.value }))} required className="text-xs sm:text-sm h-8 sm:h-10" />
+                      <Input id="jobType" value={jobTypeLocales[currentLanguage]} onChange={(e) => setJobTypeLocales(prev => ({ ...prev, [currentLanguage]: e.target.value }))} className="text-xs sm:text-sm h-8 sm:h-10" />
                     </div>
                   </div>
                   <div className="space-y-1 sm:space-y-2">
@@ -211,11 +265,11 @@ export default function EditCareerPage({ params }: PageProps) {
                   </div>
                   <div className="space-y-1 sm:space-y-2">
                     <Label htmlFor="summary" className="text-xs sm:text-sm">Summary</Label>
-                    <Textarea id="summary" value={summaryLocales[currentLanguage]} onChange={(e) => setSummaryLocales({ ...summaryLocales, [currentLanguage]: e.target.value })} rows={3} required className="text-xs sm:text-sm" />
+                    <Textarea id="summary" value={summaryLocales[currentLanguage]} onChange={(e) => setSummaryLocales({ ...summaryLocales, [currentLanguage]: e.target.value })} rows={3} className="text-xs sm:text-sm" />
                   </div>
                   <div className="space-y-1 sm:space-y-2">
                     <Label htmlFor="description" className="text-xs sm:text-sm">Description</Label>
-                    <Textarea id="description" value={descriptionLocales[currentLanguage]} onChange={(e) => setDescriptionLocales({ ...descriptionLocales, [currentLanguage]: e.target.value })} rows={10} required className="text-xs sm:text-sm font-mono" />
+                    <Textarea id="description" value={descriptionLocales[currentLanguage]} onChange={(e) => setDescriptionLocales({ ...descriptionLocales, [currentLanguage]: e.target.value })} rows={10} className="text-xs sm:text-sm font-mono" />
                   </div>
                 </div>
               </CardContent>
@@ -277,7 +331,7 @@ export default function EditCareerPage({ params }: PageProps) {
                   <Button type="button" variant="outline" onClick={addArrayItem} className="h-8 text-xs">Add</Button>
                 </div>
                 <div className="space-y-2">
-                  {[{ label: 'Responsibilities', items: responsibilitiesLocales[currentLanguage], key: 'resp' }, { label: 'Requirements', items: requirementsLocales[currentLanguage], key: 'req' }, { label: 'Benefits', items: benefitsLocales[currentLanguage], key: 'ben' }].map(({ label, items, key }) => (
+                  {[{ label: 'Responsibilities', items: localeList(responsibilitiesLocales, currentLanguage), key: 'resp' }, { label: 'Requirements', items: localeList(requirementsLocales, currentLanguage), key: 'req' }, { label: 'Benefits', items: localeList(benefitsLocales, currentLanguage), key: 'ben' }].map(({ label, items, key }) => (
                     <div key={label}>
                       <p className="text-xs font-medium mb-1">{label}</p>
                       <div className="flex flex-wrap gap-2">

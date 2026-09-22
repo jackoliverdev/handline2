@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/lib/context/language-context';
 import { getIntlLocale } from '@/lib/i18n/config';
+import { pickLocaleList, pickLocaleText } from '@/lib/i18n/locale-fallback';
 
 interface CaseStudyCardProps {
   caseStudy: CaseStudy;
@@ -44,16 +45,19 @@ export function CaseStudyCard({ caseStudy, index, language }: CaseStudyCardProps
     : false;
 
   // Localised fields
-  const title = (caseStudy.title_locales && caseStudy.title_locales[language]) || caseStudy.title;
-  const summary = (caseStudy.summary_locales && caseStudy.summary_locales[language]) || caseStudy.summary;
-  const tags = (caseStudy.tags_locales && caseStudy.tags_locales[language]) || caseStudy.tags || [];
-  const clientName = (caseStudy.client_name_locales && caseStudy.client_name_locales[language]) || caseStudy.client_name;
-  const industry = (caseStudy.industry_locales && caseStudy.industry_locales[language]) || caseStudy.industry;
-  const challenge = (caseStudy.challenge_locales && caseStudy.challenge_locales[language]) || caseStudy.challenge;
-  const results = (caseStudy.results_locales && caseStudy.results_locales[language]) || caseStudy.results;
+  const title = pickLocaleText(caseStudy.title_locales, language, caseStudy.title);
+  const summary = pickLocaleText(caseStudy.summary_locales, language, caseStudy.summary);
+  const tags = pickLocaleList(caseStudy.tags_locales, language, caseStudy.tags);
+  const clientName = pickLocaleText(caseStudy.client_name_locales, language, caseStudy.client_name);
+  const industry = pickLocaleText(caseStudy.industry_locales, language, caseStudy.industry);
+  const challenge = pickLocaleText(caseStudy.challenge_locales, language, caseStudy.challenge);
+  const results = pickLocaleText(caseStudy.results_locales, language, caseStudy.results);
 
-  // Extract key metrics if available
-  const metrics = caseStudy.metrics_locales?.[language] || caseStudy.metrics;
+  const languageMetrics = caseStudy.metrics_locales?.[language];
+  const englishMetrics = caseStudy.metrics_locales?.en;
+  const metrics = (languageMetrics && Object.keys(languageMetrics).length ? languageMetrics : undefined)
+    || (englishMetrics && Object.keys(englishMetrics).length ? englishMetrics : undefined)
+    || caseStudy.metrics;
   const keyMetrics = metrics ? Object.entries(metrics).slice(0, 2) : [];
 
   return (

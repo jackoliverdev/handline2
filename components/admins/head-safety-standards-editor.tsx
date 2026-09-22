@@ -10,21 +10,24 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Shield, FileText, Plus, X, FileCheck } from "lucide-react";
 import { useLanguage } from "@/lib/context/language-context";
+import type { Language } from "@/lib/i18n/config";
+import type { ArrayLocales } from "@/lib/i18n/admin-locales";
+import type { HeadTechnicalSpecs } from "@/lib/product-data-normalizers";
 
 interface HeadSafetyStandardsEditorProps {
-  language: 'en' | 'it';
+  language: Language;
   headStandards: any;
   setHeadStandards: (standards: any) => void;
   headAttributes: any;
   setHeadAttributes: (attributes: any) => void;
-  headTechSpecsLocales: { en: { form_factor: string; brim_length: string; colours: string[]; additional_features: string[] }; it: { form_factor: string; brim_length: string; colours: string[]; additional_features: string[] } };
-  setHeadTechSpecsLocales: (specs: { en: { form_factor: string; brim_length: string; colours: string[]; additional_features: string[] }; it: { form_factor: string; brim_length: string; colours: string[]; additional_features: string[] } }) => void;
-  headComfortFeatures: { en: string[]; it: string[] };
-  setHeadComfortFeatures: (features: { en: string[]; it: string[] }) => void;
-  headOtherDetails: { en: string[]; it: string[] };
-  setHeadOtherDetails: (details: { en: string[]; it: string[] }) => void;
-  headEquipment: { en: string[]; it: string[] };
-  setHeadEquipment: (equipment: { en: string[]; it: string[] }) => void;
+  headTechSpecsLocales: Record<Language, HeadTechnicalSpecs>;
+  setHeadTechSpecsLocales: (specs: Record<Language, HeadTechnicalSpecs>) => void;
+  headComfortFeatures: ArrayLocales;
+  setHeadComfortFeatures: (features: ArrayLocales) => void;
+  headOtherDetails: ArrayLocales;
+  setHeadOtherDetails: (details: ArrayLocales) => void;
+  headEquipment: ArrayLocales;
+  setHeadEquipment: (equipment: ArrayLocales) => void;
 }
 
 export const HeadSafetyStandardsEditor: React.FC<HeadSafetyStandardsEditorProps> = ({ 

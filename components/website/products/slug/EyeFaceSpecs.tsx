@@ -5,13 +5,14 @@ import { Badge } from "@/components/ui/badge";
 import { Sun, Sparkles, Flame, Hammer, Shield, Eye, Glasses } from "lucide-react";
 import { useLanguage } from "@/lib/context/language-context";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { pickLocaleList } from "@/lib/i18n/locale-fallback";
 
 export function EyeFaceSpecs({ product }: { product: Product }) {
   const { t, language } = useLanguage();
   const attrs: any = (product as any).eye_face_attributes || {};
   const std: any = (product as any).eye_face_standards || {};
 
-  const materials = product.materials_locales?.[language] || [];
+  const materials = pickLocaleList(product.materials_locales, language);
   const opticalClass = std?.en166?.optical_class;
   const mech = std?.en166?.mechanical_strength;
   // Read from new coatings_locales with fallback to old coatings field

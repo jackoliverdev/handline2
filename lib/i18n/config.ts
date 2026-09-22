@@ -9,6 +9,7 @@ export const LANGUAGE_META: Record<
   Language,
   {
     labelKey: string;
+    nativeName: string;
     flag: FlagCountry;
     intlLocale: string;
     openGraphLocale: string;
@@ -16,30 +17,35 @@ export const LANGUAGE_META: Record<
 > = {
   en: {
     labelKey: 'navbar.language.en',
+    nativeName: 'English',
     flag: 'GB',
     intlLocale: 'en-GB',
     openGraphLocale: 'en_GB',
   },
   it: {
     labelKey: 'navbar.language.it',
+    nativeName: 'Italiano',
     flag: 'IT',
     intlLocale: 'it-IT',
     openGraphLocale: 'it_IT',
   },
   fr: {
     labelKey: 'navbar.language.fr',
+    nativeName: 'Français',
     flag: 'FR',
     intlLocale: 'fr-FR',
     openGraphLocale: 'fr_FR',
   },
   de: {
     labelKey: 'navbar.language.de',
+    nativeName: 'Deutsch',
     flag: 'DE',
     intlLocale: 'de-DE',
     openGraphLocale: 'de_DE',
   },
   es: {
     labelKey: 'navbar.language.es',
+    nativeName: 'Español',
     flag: 'ES',
     intlLocale: 'es-ES',
     openGraphLocale: 'es_ES',

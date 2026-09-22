@@ -32,6 +32,26 @@ import { HeadSafetyStandardsEditor } from "@/components/admins/head-safety-stand
 import { FootwearSafetyStandardsEditor } from "@/components/admins/footwear-safety-standards-editor";
 import { ArmSafetyStandardsEditor } from "@/components/admins/arm-safety-standards-editor";
 import { HearingSafetyStandardsEditor } from "@/components/admins/hearing-safety-standards-editor";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+import { GenerateFromEnglishButton } from "@/components/admins/generate-from-english-button";
+import { ProductDocumentUploads } from "@/components/admins/product-document-uploads";
+import { DEFAULT_LANGUAGE, type Language } from "@/lib/i18n/config";
+import {
+  applyLocaleFields,
+  emptyArrayLocales,
+  emptyStringLocales,
+  hydrateArrayLocales,
+  hydrateObjectLocales,
+  hydrateStringLocales,
+  localeHasContent,
+  pickEnglishSource,
+  type GenerateApplyMode,
+} from "@/lib/i18n/admin-locales";
+import {
+  emptyDocumentLocales,
+  legacyDocumentColumns,
+  withDocumentLocale,
+} from "@/lib/product-documents";
 
 interface Props { slug: string; }
 
@@ -40,21 +60,21 @@ export default function CategoryProductCreate({ slug }: Props) {
   const searchParams = useSearchParams();
   const duplicateId = searchParams?.get('duplicate') || null;
   const [saving, setSaving] = useState(false);
-  const [language, setLanguage] = useState<'en' | 'it'>('en');
+  const [language, setLanguage] = useState<Language>(DEFAULT_LANGUAGE);
   const supabase = createClientComponentClient();
 
   // Reuse same shapes as editor, start with empty defaults
-  const [nameLocales, setNameLocales] = useState<{en: string, it: string}>({en: '', it: ''});
-  const [shortDescriptionLocales, setShortDescriptionLocales] = useState<{en: string, it: string}>({en: '', it: ''});
-  const [descriptionLocales, setDescriptionLocales] = useState<{en: string, it: string}>({en: '', it: ''});
-  const [categoryLocales, setCategoryLocales] = useState<{en: string, it: string}>({en: '', it: ''});
-  const [subCategoryLocales, setSubCategoryLocales] = useState<{en: string, it: string}>({en: '', it: ''});
-  const [featuresLocales, setFeaturesLocales] = useState<{en: string[], it: string[]}>({en: [], it: []});
-  const [applicationsLocales, setApplicationsLocales] = useState<{en: string[], it: string[]}>({en: [], it: []});
-  const [industriesLocales, setIndustriesLocales] = useState<{en: string[], it: string[]}>({en: [], it: []});
-  const [materialsLocales, setMaterialsLocales] = useState<{en: string[], it: string[]}>({en: [], it: []});
-  const [tagsLocales, setTagsLocales] = useState<{en: string[], it: string[]}>({en: [], it: []});
-  const [sizeLocales, setSizeLocales] = useState<{en: string, it: string}>({en: '', it: ''});
+  const [nameLocales, setNameLocales] = useState(emptyStringLocales());
+  const [shortDescriptionLocales, setShortDescriptionLocales] = useState(emptyStringLocales());
+  const [descriptionLocales, setDescriptionLocales] = useState(emptyStringLocales());
+  const [categoryLocales, setCategoryLocales] = useState(emptyStringLocales());
+  const [subCategoryLocales, setSubCategoryLocales] = useState(emptyStringLocales());
+  const [featuresLocales, setFeaturesLocales] = useState(emptyArrayLocales());
+  const [applicationsLocales, setApplicationsLocales] = useState(emptyArrayLocales());
+  const [industriesLocales, setIndustriesLocales] = useState(emptyArrayLocales());
+  const [materialsLocales, setMaterialsLocales] = useState(emptyArrayLocales());
+  const [tagsLocales, setTagsLocales] = useState(emptyArrayLocales());
+  const [sizeLocales, setSizeLocales] = useState(emptyStringLocales());
 
   const [temperatureRating, setTemperatureRating] = useState<number | null>(null);
   const [cutResistanceLevel, setCutResistanceLevel] = useState<string>('');
@@ -86,12 +106,10 @@ export default function CategoryProductCreate({ slug }: Props) {
   const [image4Url, setImage4Url] = useState<string | null>(null);
   const [image5Url, setImage5Url] = useState<string | null>(null);
   const coverInputRef = useRef<HTMLInputElement>(null);
-  const [technicalSheetUrl, setTechnicalSheetUrl] = useState<string | null>(null);
-  const [technicalSheetUrlIt, setTechnicalSheetUrlIt] = useState<string | null>(null);
+  const [technicalSheetLocales, setTechnicalSheetLocales] = useState(emptyDocumentLocales());
   const [declarationSheetUrl, setDeclarationSheetUrl] = useState<string | null>(null);
   const [declarationSheetUrlIt, setDeclarationSheetUrlIt] = useState<string | null>(null);
-  const [manufacturersInstructionUrl, setManufacturersInstructionUrl] = useState<string | null>(null);
-  const [manufacturersInstructionUrlIt, setManufacturersInstructionUrlIt] = useState<string | null>(null);
+  const [manufacturersInstructionLocales, setManufacturersInstructionLocales] = useState(emptyDocumentLocales());
   const [isUploadingDocs, setIsUploadingDocs] = useState(false);
   
   // Related products
@@ -104,54 +122,54 @@ export default function CategoryProductCreate({ slug }: Props) {
   // Category-specific minimal defaults (match editor)
   const [eyeFaceAttributes, setEyeFaceAttributes] = useState<any>({ has_ir: false, has_uv: false, has_arc: false, has_sun: false, has_glare: false, has_welding: false, uv_code: '', lens_tint: '' });
   const [eyeFaceStandards, setEyeFaceStandards] = useState<any>({ en166: { optical_class: '', mechanical_strength: '', frame_mark: '', lens_mark: '', additional_marking: '' }, en169: false, en170: false, en172: false, en175: false, gs_et_29: false });
-  const [eyeFaceCoatingsLocales, setEyeFaceCoatingsLocales] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
-  const [eyeFaceMaterialsLocales, setEyeFaceMaterialsLocales] = useState<{ en: { lens: string; frame: string; arm: string; headband: string }; it: { lens: string; frame: string; arm: string; headband: string } }>({ en: { lens: '', frame: '', arm: '', headband: '' }, it: { lens: '', frame: '', arm: '', headband: '' } });
-  const [eyeFaceComfortFeatures, setEyeFaceComfortFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
-  const [eyeFaceEquipment, setEyeFaceEquipment] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [eyeFaceCoatingsLocales, setEyeFaceCoatingsLocales] = useState(emptyArrayLocales());
+  const [eyeFaceMaterialsLocales, setEyeFaceMaterialsLocales] = useState(hydrateObjectLocales(undefined, { lens: '', frame: '', arm: '', headband: '' }));
+  const [eyeFaceComfortFeatures, setEyeFaceComfortFeatures] = useState(emptyArrayLocales());
+  const [eyeFaceEquipment, setEyeFaceEquipment] = useState(emptyArrayLocales());
   const [hearingStandards, setHearingStandards] = useState<any>({ en352: { parts: [], snr_db: null, hml: { h: null, m: null, l: null }, additional: [] } });
   const [hearingAttributes, setHearingAttributes] = useState<any>({ reusable: null, mount: '', bluetooth: null, compatible_with: [], accessories: [], materials: [], size: '', ce_category: '', water_resistance: null, extreme_temperature: null, electrical_insulation: null });
-  const [hearingCompatibleWithLocales, setHearingCompatibleWithLocales] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
-  const [hearingAccessoriesLocales, setHearingAccessoriesLocales] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
-  const [hearingComfortFeatures, setHearingComfortFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
-  const [hearingOtherDetails, setHearingOtherDetails] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
-  const [hearingEquipment, setHearingEquipment] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
-  const [respiratoryComfortFeatures, setRespiratoryComfortFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
-  const [respiratoryOtherDetails, setRespiratoryOtherDetails] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
-  const [respiratoryEquipment, setRespiratoryEquipment] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [hearingCompatibleWithLocales, setHearingCompatibleWithLocales] = useState(emptyArrayLocales());
+  const [hearingAccessoriesLocales, setHearingAccessoriesLocales] = useState(emptyArrayLocales());
+  const [hearingComfortFeatures, setHearingComfortFeatures] = useState(emptyArrayLocales());
+  const [hearingOtherDetails, setHearingOtherDetails] = useState(emptyArrayLocales());
+  const [hearingEquipment, setHearingEquipment] = useState(emptyArrayLocales());
+  const [respiratoryComfortFeatures, setRespiratoryComfortFeatures] = useState(emptyArrayLocales());
+  const [respiratoryOtherDetails, setRespiratoryOtherDetails] = useState(emptyArrayLocales());
+  const [respiratoryEquipment, setRespiratoryEquipment] = useState(emptyArrayLocales());
   const [footwearStandards, setFootwearStandards] = useState<any>({ en_iso_20345_2011: [], en_iso_20345_2022: [], slip_resistance: '' });
   const [footwearAttributes, setFootwearAttributes] = useState<any>({ class: '', esd: null, metal_free: null, width_fit: [], size_min: null, size_max: null, gender: '', weight_grams: null, weight_ref_size: null, special: [], toe_cap: '', sole_material: '' });
-  const [footwearComfortFeatures, setFootwearComfortFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
-  const [footwearMaterialsLocales, setFootwearMaterialsLocales] = useState<{ en: { upper: string; lining: string; sole: string; insole: string; toe_cap: string }; it: { upper: string; lining: string; sole: string; insole: string; toe_cap: string } }>({ en: { upper: '', lining: '', sole: '', insole: '', toe_cap: '' }, it: { upper: '', lining: '', sole: '', insole: '', toe_cap: '' } });
-  const [footwearSpecialFeatures, setFootwearSpecialFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [footwearComfortFeatures, setFootwearComfortFeatures] = useState(emptyArrayLocales());
+  const [footwearMaterialsLocales, setFootwearMaterialsLocales] = useState(normaliseFootwearMaterialsLocales(undefined));
+  const [footwearSpecialFeatures, setFootwearSpecialFeatures] = useState(emptyArrayLocales());
   const [headStandards, setHeadStandards] = useState<any>({ en397: { present: false, optional: { low_temperature: false, molten_metal: false } }, en50365: false, en12492: false, en812: false });
-  const [headComfortFeatures, setHeadComfortFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
-  const [headOtherDetails, setHeadOtherDetails] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
-  const [headEquipment, setHeadEquipment] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [headComfortFeatures, setHeadComfortFeatures] = useState(emptyArrayLocales());
+  const [headOtherDetails, setHeadOtherDetails] = useState(emptyArrayLocales());
+  const [headEquipment, setHeadEquipment] = useState(emptyArrayLocales());
   const [headAttributes, setHeadAttributes] = useState<any>({ form_factor: '', brim_length: '', size_min_cm: null, size_max_cm: null, weight_g: null, colours: [], ventilation: null, harness_points: null, chinstrap_points: null, sweatband: null, closed_shell: null, euroslot_mm: null, accessories: [] });
-  const [headTechSpecsLocales, setHeadTechSpecsLocales] = useState<{ en: { form_factor: string; brim_length: string; colours: string[]; additional_features: string[] }; it: { form_factor: string; brim_length: string; colours: string[]; additional_features: string[] } }>({ en: { form_factor: '', brim_length: '', colours: [], additional_features: [] }, it: { form_factor: '', brim_length: '', colours: [], additional_features: [] } });
+  const [headTechSpecsLocales, setHeadTechSpecsLocales] = useState(normaliseHeadTechnicalSpecsLocales(undefined));
   const [clothingStandards, setClothingStandards] = useState<any>({ en_iso_20471: { class: null }, en_iso_11612: {}, en_iso_11611: { class: null }, iec_61482_2: { class: null }, en_343: {}, en_1149_5: false, en_13034: null, uv_standard_801: false });
   const [clothingAttributes, setClothingAttributes] = useState<any>({ fit: '', gender: '', size_range: '', size_min: null, size_max: null, colours: [], uv_protection: null });
-  const [clothingAttributesLocales, setClothingAttributesLocales] = useState<{ en: { fit: string; size_range: string }; it: { fit: string; size_range: string } }>({ en: { fit: '', size_range: '' }, it: { fit: '', size_range: '' } });
+  const [clothingAttributesLocales, setClothingAttributesLocales] = useState(hydrateObjectLocales(undefined, { fit: '', size_range: '' }));
   const [clothingType, setClothingType] = useState<string>('');
   const [clothingCategory, setClothingCategory] = useState<string>('');
   const [armAttributes, setArmAttributes] = useState<any>({ thumb_loop: null, closure: '', materials: [], size: '', length_cm: null, ce_category: '' });
-  const [armMaterialsLocales, setArmMaterialsLocales] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [armMaterialsLocales, setArmMaterialsLocales] = useState(emptyArrayLocales());
   // Gloves safety JSON for create
   const defaultSafety: any = { en_388: { enabled: false, abrasion: null, cut: null, tear: null, puncture: null, iso_13997: null, impact_en_13594: null }, en_407: { enabled: false, contact_heat: null, radiant_heat: null, convective_heat: null, limited_flame_spread: null, small_splashes_molten_metal: null, large_quantities_molten_metal: null }, en_511: { enabled: false, contact_cold: null, convective_cold: null, water_permeability: null } };
   const [safety, setSafety] = useState<any>(defaultSafety);
   const [respiratoryStandards, setRespiratoryStandards] = useState<any>({ en149: { enabled: false, class: '', r: false, nr: false, d: false }, en14387: { enabled: false, class: '', gases: {} }, en143: { enabled: false, class: '', r: false, nr: false }, en136: { enabled: false, class: '' }, en140: { enabled: false }, en166: { enabled: false, class: '' }, en12941: { enabled: false, class: '' }, din_3181_3: { enabled: false }, has_dust: false, has_gases_vapours: false, has_combined: false });
-  const [respConnectionsLocales, setRespConnectionsLocales] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [respConnectionsLocales, setRespConnectionsLocales] = useState(emptyArrayLocales());
   const [respFilterType, setRespFilterType] = useState<string>('');
   const [respProtectionClass, setRespProtectionClass] = useState<string>('');
   const [respNpf, setRespNpf] = useState<string>('');
   const [respProtectionCodes, setRespProtectionCodes] = useState<string[]>([]);
-  const [respCompatibleWithLocales, setRespCompatibleWithLocales] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [respCompatibleWithLocales, setRespCompatibleWithLocales] = useState(emptyArrayLocales());
   const [padEnDiameter, setPadEnDiameter] = useState<number | ''>('');
   const [padEnLength, setPadEnLength] = useState<number | ''>('');
   const [padItDiameter, setPadItDiameter] = useState<number | ''>('');
   const [padItLength, setPadItLength] = useState<number | ''>('');
-  const [clothingComfortFeatures, setClothingComfortFeatures] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
-  const [clothingOtherDetails, setClothingOtherDetails] = useState<{ en: string[]; it: string[] }>({ en: [], it: [] });
+  const [clothingComfortFeatures, setClothingComfortFeatures] = useState(emptyArrayLocales());
+  const [clothingOtherDetails, setClothingOtherDetails] = useState(emptyArrayLocales());
 
   // Load available brands
   useEffect(() => {
@@ -232,22 +250,22 @@ export default function CategoryProductCreate({ slug }: Props) {
         };
 
         const duplicateNameEn = await getUniqueDuplicateName(data.name_locales?.en || data.name || '');
-        const duplicateNameIt = await getUniqueDuplicateName(data.name_locales?.it || data.name || '');
+        const duplicatedNames = hydrateStringLocales(data.name_locales, data.name || '');
 
         // Pre-fill all fields from the duplicated product
         setNameLocales({
+          ...duplicatedNames,
           en: duplicateNameEn,
-          it: duplicateNameIt
         });
-        setShortDescriptionLocales(data.short_description_locales || {en: '', it: ''});
-        setDescriptionLocales(data.description_locales || {en: '', it: ''});
-        setSubCategoryLocales(data.sub_category_locales || {en: '', it: ''});
-        setFeaturesLocales(data.features_locales || {en: [], it: []});
-        setApplicationsLocales(data.applications_locales || {en: [], it: []});
-        setIndustriesLocales(data.industries_locales || {en: [], it: []});
-        setMaterialsLocales(data.materials_locales || {en: [], it: []});
-        setTagsLocales(data.tags_locales || {en: [], it: []});
-        setSizeLocales(data.size_locales || {en: '', it: ''});
+        setShortDescriptionLocales(hydrateStringLocales(data.short_description_locales, data.short_description || ''));
+        setDescriptionLocales(hydrateStringLocales(data.description_locales, data.description || ''));
+        setSubCategoryLocales(hydrateStringLocales(data.sub_category_locales, data.sub_category || ''));
+        setFeaturesLocales(hydrateArrayLocales(data.features_locales, data.features || []));
+        setApplicationsLocales(hydrateArrayLocales(data.applications_locales, data.applications || []));
+        setIndustriesLocales(hydrateArrayLocales(data.industries_locales, data.industries || []));
+        setMaterialsLocales(hydrateArrayLocales(data.materials_locales));
+        setTagsLocales(hydrateArrayLocales(data.tags_locales));
+        setSizeLocales(hydrateStringLocales(data.size_locales));
         setTemperatureRating(data.temperature_rating ?? null);
         setCutResistanceLevel(data.cut_resistance_level || '');
         setHeatResistanceLevel(data.heat_resistance_level || '');
@@ -270,39 +288,46 @@ export default function CategoryProductCreate({ slug }: Props) {
         if (data.footwear_standards) setFootwearStandards(normaliseFootwearStandards(data.footwear_standards));
         if (data.footwear_attributes) setFootwearAttributes(data.footwear_attributes);
         if (data.footwear_materials_locales) setFootwearMaterialsLocales(normaliseFootwearMaterialsLocales(data.footwear_materials_locales));
-        if (data.footwear_comfort_features_locales) setFootwearComfortFeatures(data.footwear_comfort_features_locales);
+        if (data.footwear_comfort_features_locales) setFootwearComfortFeatures(hydrateArrayLocales(data.footwear_comfort_features_locales));
+        if (data.footwear_special_features_locales) setFootwearSpecialFeatures(hydrateArrayLocales(data.footwear_special_features_locales));
         if (data.eye_face_attributes) setEyeFaceAttributes(data.eye_face_attributes);
         if (data.eye_face_standards) setEyeFaceStandards(data.eye_face_standards);
-        if (data.eye_face_comfort_features_locales) setEyeFaceComfortFeatures(data.eye_face_comfort_features_locales);
-        if (data.eye_face_equipment_locales) setEyeFaceEquipment(data.eye_face_equipment_locales);
+        if (data.coatings_locales) setEyeFaceCoatingsLocales(hydrateArrayLocales(data.coatings_locales));
+        if (data.eye_face_materials_locales) setEyeFaceMaterialsLocales(hydrateObjectLocales(data.eye_face_materials_locales, { lens: '', frame: '', arm: '', headband: '' }));
+        if (data.eye_face_comfort_features_locales) setEyeFaceComfortFeatures(hydrateArrayLocales(data.eye_face_comfort_features_locales));
+        if (data.eye_face_equipment_locales) setEyeFaceEquipment(hydrateArrayLocales(data.eye_face_equipment_locales));
         if (data.hearing_standards) setHearingStandards(data.hearing_standards);
         if (data.hearing_attributes) setHearingAttributes(data.hearing_attributes);
-        if (data.hearing_comfort_features_locales) setHearingComfortFeatures(data.hearing_comfort_features_locales);
-        if (data.hearing_other_details_locales) setHearingOtherDetails(data.hearing_other_details_locales);
-        if (data.hearing_equipment_locales) setHearingEquipment(data.hearing_equipment_locales);
-        if (data.respiratory_comfort_features_locales) setRespiratoryComfortFeatures(data.respiratory_comfort_features_locales);
-        if (data.respiratory_other_details_locales) setRespiratoryOtherDetails(data.respiratory_other_details_locales);
-        if (data.respiratory_equipment_locales) setRespiratoryEquipment(data.respiratory_equipment_locales);
+        if (data.hearing_attributes?.compatible_with_locales) setHearingCompatibleWithLocales(hydrateArrayLocales(data.hearing_attributes.compatible_with_locales));
+        if (data.hearing_attributes?.accessories_locales) setHearingAccessoriesLocales(hydrateArrayLocales(data.hearing_attributes.accessories_locales));
+        if (data.hearing_comfort_features_locales) setHearingComfortFeatures(hydrateArrayLocales(data.hearing_comfort_features_locales));
+        if (data.hearing_other_details_locales) setHearingOtherDetails(hydrateArrayLocales(data.hearing_other_details_locales));
+        if (data.hearing_equipment_locales) setHearingEquipment(hydrateArrayLocales(data.hearing_equipment_locales));
+        if (data.respiratory_comfort_features_locales) setRespiratoryComfortFeatures(hydrateArrayLocales(data.respiratory_comfort_features_locales));
+        if (data.respiratory_other_details_locales) setRespiratoryOtherDetails(hydrateArrayLocales(data.respiratory_other_details_locales));
+        if (data.respiratory_equipment_locales) setRespiratoryEquipment(hydrateArrayLocales(data.respiratory_equipment_locales));
         if (data.head_standards) setHeadStandards(data.head_standards);
         if (data.head_attributes) setHeadAttributes(data.head_attributes);
         if (data.head_tech_specs_locales) setHeadTechSpecsLocales(normaliseHeadTechnicalSpecsLocales(data.head_tech_specs_locales));
-        if (data.head_comfort_features_locales) setHeadComfortFeatures(data.head_comfort_features_locales);
-        if (data.head_other_details_locales) setHeadOtherDetails(data.head_other_details_locales);
-        if (data.head_equipment_locales) setHeadEquipment(data.head_equipment_locales);
+        if (data.head_comfort_features_locales) setHeadComfortFeatures(hydrateArrayLocales(data.head_comfort_features_locales));
+        if (data.head_other_details_locales) setHeadOtherDetails(hydrateArrayLocales(data.head_other_details_locales));
+        if (data.head_equipment_locales) setHeadEquipment(hydrateArrayLocales(data.head_equipment_locales));
         if (data.clothing_standards) setClothingStandards(data.clothing_standards);
         if (data.clothing_attributes) setClothingAttributes(data.clothing_attributes);
         if (data.clothing_type) setClothingType(data.clothing_type);
         if (data.clothing_category) setClothingCategory(data.clothing_category);
-        if (data.clothing_comfort_features_locales) setClothingComfortFeatures(data.clothing_comfort_features_locales);
-        if (data.clothing_other_details_locales) setClothingOtherDetails(data.clothing_other_details_locales);
+        if (data.clothing_attributes_locales) setClothingAttributesLocales(hydrateObjectLocales(data.clothing_attributes_locales, { fit: '', size_range: '' }));
+        if (data.clothing_comfort_features_locales) setClothingComfortFeatures(hydrateArrayLocales(data.clothing_comfort_features_locales));
+        if (data.clothing_other_details_locales) setClothingOtherDetails(hydrateArrayLocales(data.clothing_other_details_locales));
         if (data.arm_attributes) setArmAttributes(data.arm_attributes);
+        if (data.arm_attributes?.materials_locales) setArmMaterialsLocales(hydrateArrayLocales(data.arm_attributes.materials_locales));
         if (data.respiratory_standards) setRespiratoryStandards(data.respiratory_standards);
-        if (data.connections_locales) setRespConnectionsLocales(data.connections_locales);
+        if (data.connections_locales) setRespConnectionsLocales(hydrateArrayLocales(data.connections_locales));
         if (data.filter_type) setRespFilterType(data.filter_type);
         if (data.protection_class) setRespProtectionClass(data.protection_class);
         if (data.npf) setRespNpf(data.npf);
         if (data.protection_codes) setRespProtectionCodes(data.protection_codes);
-        if (data.compatible_with_locales) setRespCompatibleWithLocales(data.compatible_with_locales);
+        if (data.compatible_with_locales) setRespCompatibleWithLocales(hydrateArrayLocales(data.compatible_with_locales));
         if (data.pad_size_json) {
           const pad = data.pad_size_json;
           if (pad.en) {
@@ -346,7 +371,7 @@ export default function CategoryProductCreate({ slug }: Props) {
   };
   React.useEffect(() => {
     const labels = categoryMap[slug] || { en: slug, it: slug };
-    setCategoryLocales(labels);
+    setCategoryLocales(hydrateStringLocales(labels));
   }, [slug]);
 
   async function uploadPdfToBucket(file: File, prefix: string) {
@@ -425,12 +450,14 @@ export default function CategoryProductCreate({ slug }: Props) {
           : (slug === 'industrial-swabs' || slug === 'gloves') ? (lengthCm ?? null) : undefined,
         ce_category: (slug==='industrial-swabs' || slug==='gloves') ? (ceCategory || null) : undefined,
         en_standard: slug==='industrial-swabs' ? (enStandard || null) : undefined,
-        technical_sheet_url: technicalSheetUrl,
-        technical_sheet_url_it: technicalSheetUrlIt,
+        technical_sheet_url: legacyDocumentColumns(technicalSheetLocales).en,
+        technical_sheet_url_it: legacyDocumentColumns(technicalSheetLocales).it,
+        technical_sheet_locales: technicalSheetLocales,
         declaration_sheet_url: declarationSheetUrl,
         declaration_sheet_url_it: declarationSheetUrlIt,
-        manufacturers_instruction_url: manufacturersInstructionUrl,
-        manufacturers_instruction_url_it: manufacturersInstructionUrlIt,
+        manufacturers_instruction_url: legacyDocumentColumns(manufacturersInstructionLocales).en,
+        manufacturers_instruction_url_it: legacyDocumentColumns(manufacturersInstructionLocales).it,
+        manufacturers_instruction_locales: manufacturersInstructionLocales,
         related_product_id_1: relatedProductId1,
         related_product_id_2: relatedProductId2,
         related_product_id_3: relatedProductId3,
@@ -517,6 +544,122 @@ export default function CategoryProductCreate({ slug }: Props) {
     }
   };
 
+  const asRecord = (value: unknown): Record<string, unknown> =>
+    typeof value === 'object' && value !== null && !Array.isArray(value)
+      ? value as Record<string, unknown>
+      : {};
+
+  const categoryTranslateSource = (lang: Language) => {
+    const shared: Record<string, unknown> = {
+      name: nameLocales[lang],
+      short_description: shortDescriptionLocales[lang],
+      description: descriptionLocales[lang],
+      category: categoryLocales[lang],
+      sub_category: subCategoryLocales[lang],
+      features: featuresLocales[lang],
+      applications: applicationsLocales[lang],
+      industries: industriesLocales[lang],
+      materials: materialsLocales[lang],
+      tags: tagsLocales[lang],
+      size: sizeLocales[lang],
+    };
+
+    if (slug === 'eye-face') {
+      shared.eye_face = {
+        coatings: eyeFaceCoatingsLocales[lang],
+        materials: eyeFaceMaterialsLocales[lang],
+        comfort: eyeFaceComfortFeatures[lang],
+        equipment: eyeFaceEquipment[lang],
+      };
+    } else if (slug === 'hearing') {
+      shared.hearing = {
+        compatible: hearingCompatibleWithLocales[lang],
+        accessories: hearingAccessoriesLocales[lang],
+        comfort: hearingComfortFeatures[lang],
+        other: hearingOtherDetails[lang],
+        equipment: hearingEquipment[lang],
+      };
+    } else if (slug === 'respiratory') {
+      shared.respiratory = {
+        comfort: respiratoryComfortFeatures[lang],
+        other: respiratoryOtherDetails[lang],
+        equipment: respiratoryEquipment[lang],
+        connections: respConnectionsLocales[lang],
+        compatible_with: respCompatibleWithLocales[lang],
+      };
+    } else if (slug === 'footwear') {
+      shared.footwear = {
+        materials: footwearMaterialsLocales[lang],
+        comfort: footwearComfortFeatures[lang],
+        special: footwearSpecialFeatures[lang],
+      };
+    } else if (slug === 'head') {
+      shared.head = {
+        tech_specs: headTechSpecsLocales[lang],
+        comfort: headComfortFeatures[lang],
+        other: headOtherDetails[lang],
+        equipment: headEquipment[lang],
+      };
+    } else if (slug === 'clothing') {
+      shared.clothing = {
+        attributes: clothingAttributesLocales[lang],
+        comfort: clothingComfortFeatures[lang],
+        other: clothingOtherDetails[lang],
+      };
+    } else if (slug === 'arm-protection') {
+      shared.arm = { materials: armMaterialsLocales[lang] };
+    }
+
+    return pickEnglishSource(shared);
+  };
+
+  const applyCategoryFields = (fields: Record<string, unknown>, mode: GenerateApplyMode) => {
+    const eyeFace = asRecord(fields.eye_face);
+    const hearing = asRecord(fields.hearing);
+    const respiratory = asRecord(fields.respiratory);
+    const footwear = asRecord(fields.footwear);
+    const head = asRecord(fields.head);
+    const clothing = asRecord(fields.clothing);
+    const arm = asRecord(fields.arm);
+
+    setNameLocales((prev) => applyLocaleFields(prev, language, fields.name, mode));
+    setShortDescriptionLocales((prev) => applyLocaleFields(prev, language, fields.short_description, mode));
+    setDescriptionLocales((prev) => applyLocaleFields(prev, language, fields.description, mode));
+    setCategoryLocales((prev) => applyLocaleFields(prev, language, fields.category, mode));
+    setSubCategoryLocales((prev) => applyLocaleFields(prev, language, fields.sub_category, mode));
+    setFeaturesLocales((prev) => applyLocaleFields(prev, language, fields.features, mode));
+    setApplicationsLocales((prev) => applyLocaleFields(prev, language, fields.applications, mode));
+    setIndustriesLocales((prev) => applyLocaleFields(prev, language, fields.industries, mode));
+    setMaterialsLocales((prev) => applyLocaleFields(prev, language, fields.materials, mode));
+    setTagsLocales((prev) => applyLocaleFields(prev, language, fields.tags, mode));
+    setSizeLocales((prev) => applyLocaleFields(prev, language, fields.size, mode));
+    setEyeFaceCoatingsLocales((prev) => applyLocaleFields(prev, language, eyeFace.coatings, mode));
+    setEyeFaceMaterialsLocales((prev) => applyLocaleFields(prev, language, eyeFace.materials, mode));
+    setEyeFaceComfortFeatures((prev) => applyLocaleFields(prev, language, eyeFace.comfort, mode));
+    setEyeFaceEquipment((prev) => applyLocaleFields(prev, language, eyeFace.equipment, mode));
+    setHearingCompatibleWithLocales((prev) => applyLocaleFields(prev, language, hearing.compatible, mode));
+    setHearingAccessoriesLocales((prev) => applyLocaleFields(prev, language, hearing.accessories, mode));
+    setHearingComfortFeatures((prev) => applyLocaleFields(prev, language, hearing.comfort, mode));
+    setHearingOtherDetails((prev) => applyLocaleFields(prev, language, hearing.other, mode));
+    setHearingEquipment((prev) => applyLocaleFields(prev, language, hearing.equipment, mode));
+    setRespiratoryComfortFeatures((prev) => applyLocaleFields(prev, language, respiratory.comfort, mode));
+    setRespiratoryOtherDetails((prev) => applyLocaleFields(prev, language, respiratory.other, mode));
+    setRespiratoryEquipment((prev) => applyLocaleFields(prev, language, respiratory.equipment, mode));
+    setRespConnectionsLocales((prev) => applyLocaleFields(prev, language, respiratory.connections, mode));
+    setRespCompatibleWithLocales((prev) => applyLocaleFields(prev, language, respiratory.compatible_with, mode));
+    setFootwearMaterialsLocales((prev) => applyLocaleFields(prev, language, footwear.materials, mode));
+    setFootwearComfortFeatures((prev) => applyLocaleFields(prev, language, footwear.comfort, mode));
+    setFootwearSpecialFeatures((prev) => applyLocaleFields(prev, language, footwear.special, mode));
+    setHeadTechSpecsLocales((prev) => applyLocaleFields(prev, language, head.tech_specs, mode));
+    setHeadComfortFeatures((prev) => applyLocaleFields(prev, language, head.comfort, mode));
+    setHeadOtherDetails((prev) => applyLocaleFields(prev, language, head.other, mode));
+    setHeadEquipment((prev) => applyLocaleFields(prev, language, head.equipment, mode));
+    setClothingAttributesLocales((prev) => applyLocaleFields(prev, language, clothing.attributes, mode));
+    setClothingComfortFeatures((prev) => applyLocaleFields(prev, language, clothing.comfort, mode));
+    setClothingOtherDetails((prev) => applyLocaleFields(prev, language, clothing.other, mode));
+    setArmMaterialsLocales((prev) => applyLocaleFields(prev, language, arm.materials, mode));
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between mb-2">
@@ -524,8 +667,13 @@ export default function CategoryProductCreate({ slug }: Props) {
           <Link href={`/admin/prod-management/${slug}`}><ArrowLeft className="mr-2 h-4 w-4" /> Back</Link>
         </Button>
         <div className="flex items-center gap-2">
-          <Button variant={language==='en' ? 'default' : 'outline'} size="sm" onClick={()=> setLanguage('en')}>English</Button>
-          <Button variant={language==='it' ? 'default' : 'outline'} size="sm" onClick={()=> setLanguage('it')}>Italiano</Button>
+          <LanguageSwitcher currentLanguage={language} onLanguageChange={setLanguage} />
+          <GenerateFromEnglishButton
+            currentLanguage={language}
+            getSource={() => categoryTranslateSource('en')}
+            hasTargetContent={() => localeHasContent(categoryTranslateSource(language))}
+            applyFields={applyCategoryFields}
+          />
         </div>
       </div>
 
@@ -1924,147 +2072,25 @@ export default function CategoryProductCreate({ slug }: Props) {
           <Card>
             <CardHeader>
               <CardTitle>Documents</CardTitle>
-              <CardDescription>Upload technical sheets and declarations (EN/IT)</CardDescription>
+              <CardDescription>Upload technical sheets, manufacturer notes, and declarations.</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
-                {/* Technical Sheets */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-semibold">Technical Sheets</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <Label>Technical Sheet (EN)</Label>
-                      <div className="mt-2 space-y-2">
-                        <input 
-                          type="file" 
-                          accept="application/pdf" 
-                          onChange={async (e)=>{ 
-                            const f=e.target.files?.[0]; 
-                            if (!f) return; 
-                            const url = await uploadPdfToBucket(f,'tech_en'); 
-                            if (url) setTechnicalSheetUrl(url); 
-                          }} 
-                          className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-brand-primary file:text-white hover:file:bg-brand-primary/90"
-                        />
-                        {technicalSheetUrl && (
-                          <div className="flex items-center justify-between border rounded p-3 bg-white dark:bg-gray-900">
-                            <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
-                                {decodeURIComponent(technicalSheetUrl.split('/').pop() || 'Technical Sheet')}
-                              </p>
-                              <a className="text-xs text-blue-600 hover:underline" href={technicalSheetUrl} target="_blank" rel="noreferrer">
-                                Preview
-                              </a>
-                            </div>
-                            <Button variant="destructive" size="sm" onClick={()=> setTechnicalSheetUrl(null)}>
-                              <X className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    <div>
-                      <Label>Technical Sheet (IT)</Label>
-                      <div className="mt-2 space-y-2">
-                        <input 
-                          type="file" 
-                          accept="application/pdf" 
-                          onChange={async (e)=>{ 
-                            const f=e.target.files?.[0]; 
-                            if (!f) return; 
-                            const url = await uploadPdfToBucket(f,'tech_it'); 
-                            if (url) setTechnicalSheetUrlIt(url); 
-                          }} 
-                          className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-brand-primary file:text-white hover:file:bg-brand-primary/90"
-                        />
-                        {technicalSheetUrlIt && (
-                          <div className="flex items-center justify-between border rounded p-3 bg-white dark:bg-gray-900">
-                            <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
-                                {decodeURIComponent(technicalSheetUrlIt.split('/').pop() || 'Technical Sheet')}
-                              </p>
-                              <a className="text-xs text-blue-600 hover:underline" href={technicalSheetUrlIt} target="_blank" rel="noreferrer">
-                                Preview
-                              </a>
-                            </div>
-                            <Button variant="destructive" size="sm" onClick={()=> setTechnicalSheetUrlIt(null)}>
-                              <X className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Manufacturers Instructions */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-semibold">Manufacturers Instructions</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <Label>Manufacturers Instruction (EN)</Label>
-                      <div className="mt-2 space-y-2">
-                        <input 
-                          type="file" 
-                          accept="application/pdf" 
-                          onChange={async (e)=>{ 
-                            const f=e.target.files?.[0]; 
-                            if (!f) return; 
-                            const url = await uploadPdfToBucket(f,'manu_en'); 
-                            if (url) setManufacturersInstructionUrl(url); 
-                          }} 
-                          className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-brand-primary file:text-white hover:file:bg-brand-primary/90"
-                        />
-                        {manufacturersInstructionUrl && (
-                          <div className="flex items-center justify-between border rounded p-3 bg-white dark:bg-gray-900">
-                            <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
-                                {decodeURIComponent(manufacturersInstructionUrl.split('/').pop() || 'Manufacturers Instruction')}
-                              </p>
-                              <a className="text-xs text-blue-600 hover:underline" href={manufacturersInstructionUrl} target="_blank" rel="noreferrer">
-                                Preview
-                              </a>
-                            </div>
-                            <Button variant="destructive" size="sm" onClick={()=> setManufacturersInstructionUrl(null)}>
-                              <X className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    <div>
-                      <Label>Manufacturers Instruction (IT)</Label>
-                      <div className="mt-2 space-y-2">
-                        <input 
-                          type="file" 
-                          accept="application/pdf" 
-                          onChange={async (e)=>{ 
-                            const f=e.target.files?.[0]; 
-                            if (!f) return; 
-                            const url = await uploadPdfToBucket(f,'manu_it'); 
-                            if (url) setManufacturersInstructionUrlIt(url); 
-                          }} 
-                          className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-brand-primary file:text-white hover:file:bg-brand-primary/90"
-                        />
-                        {manufacturersInstructionUrlIt && (
-                          <div className="flex items-center justify-between border rounded p-3 bg-white dark:bg-gray-900">
-                            <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
-                                {decodeURIComponent(manufacturersInstructionUrlIt.split('/').pop() || 'Manufacturers Instruction')}
-                              </p>
-                              <a className="text-xs text-blue-600 hover:underline" href={manufacturersInstructionUrlIt} target="_blank" rel="noreferrer">
-                                Preview
-                              </a>
-                            </div>
-                            <Button variant="destructive" size="sm" onClick={()=> setManufacturersInstructionUrlIt(null)}>
-                              <X className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <ProductDocumentUploads
+                  kind="technical"
+                  title="Technical sheets"
+                  locales={technicalSheetLocales}
+                  onUpload={(file, lang) => uploadPdfToBucket(file, `tech_${lang}`)}
+                  onChange={(lang, url) => setTechnicalSheetLocales((prev) => withDocumentLocale(prev, lang, url))}
+                />
+                <ProductDocumentUploads
+                  kind="manufacturers"
+                  title="Manufacturer's notes"
+                  locales={manufacturersInstructionLocales}
+                  onUpload={(file, lang) => uploadPdfToBucket(file, `note_${lang}`)}
+                  onChange={(lang, url) => setManufacturersInstructionLocales((prev) => withDocumentLocale(prev, lang, url))}
+                  onUseForAllLanguages={(url) => setManufacturersInstructionLocales(() => ({ en: url, it: url, fr: url, de: url, es: url }))}
+                />
 
                 {/* Declarations of Conformity */}
                 <div className="space-y-4">

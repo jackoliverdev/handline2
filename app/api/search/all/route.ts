@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
+import { pickLocaleList, pickLocaleText } from '@/lib/i18n/locale-fallback';
 
 export async function GET(request: NextRequest) {
   try {
@@ -136,16 +137,9 @@ export async function GET(request: NextRequest) {
 
       if (blogPosts) {
         const blogResults = blogPosts.map((post: any) => {
-          const localizedTitle = language !== 'en' && post.title_locales?.[language] 
-            ? post.title_locales[language] 
-            : post.title;
-          const localizedSummary = language !== 'en' && post.summary_locales?.[language] 
-            ? post.summary_locales[language] 
-            : post.summary;
-          const tags = post.tags || [];
-          const localizedTags = language !== 'en' && post.tags_locales?.[language] 
-            ? post.tags_locales[language] 
-            : tags;
+          const localizedTitle = pickLocaleText(post.title_locales, language, post.title);
+          const localizedSummary = pickLocaleText(post.summary_locales, language, post.summary);
+          const localizedTags = pickLocaleList(post.tags_locales, language, post.tags);
 
           return {
             id: post.id,
@@ -185,16 +179,9 @@ export async function GET(request: NextRequest) {
 
       if (caseStudies) {
         const caseStudyResults = caseStudies.map((study: any) => {
-          const localizedTitle = language !== 'en' && study.title_locales?.[language] 
-            ? study.title_locales[language] 
-            : study.title;
-          const localizedSummary = language !== 'en' && study.summary_locales?.[language] 
-            ? study.summary_locales[language] 
-            : study.summary;
-          const tags = study.tags || [];
-          const localizedTags = language !== 'en' && study.tags_locales?.[language] 
-            ? study.tags_locales[language] 
-            : tags;
+          const localizedTitle = pickLocaleText(study.title_locales, language, study.title);
+          const localizedSummary = pickLocaleText(study.summary_locales, language, study.summary);
+          const localizedTags = pickLocaleList(study.tags_locales, language, study.tags);
 
           return {
             id: study.id,
@@ -275,15 +262,9 @@ export async function GET(request: NextRequest) {
 
       if (enResources) {
         const enResourceResults = enResources.map((resource: any) => {
-          const localizedTitle = language !== 'en' && resource.title_locales?.[language] 
-            ? resource.title_locales[language] 
-            : resource.title;
-          const localizedSummary = language !== 'en' && resource.summary_locales?.[language] 
-            ? resource.summary_locales[language] 
-            : resource.summary;
-          const localizedCategory = language !== 'en' && resource.category_locales?.[language] 
-            ? resource.category_locales[language] 
-            : resource.category;
+          const localizedTitle = pickLocaleText(resource.title_locales, language, resource.title);
+          const localizedSummary = pickLocaleText(resource.summary_locales, language, resource.summary);
+          const localizedCategory = pickLocaleText(resource.category_locales, language, resource.category);
 
           return {
             id: resource.id,
@@ -322,18 +303,10 @@ export async function GET(request: NextRequest) {
 
       if (careers) {
         const careerResults = careers.map((career: any) => {
-          const localizedTitle = language !== 'en' && career.title_locales?.[language] 
-            ? career.title_locales[language] 
-            : career.title;
-          const localizedSummary = language !== 'en' && career.summary_locales?.[language] 
-            ? career.summary_locales[language] 
-            : career.summary;
-          const localizedDepartment = language !== 'en' && career.department_locales?.[language] 
-            ? career.department_locales[language] 
-            : career.department;
-          const localizedLocation = language !== 'en' && career.location_locales?.[language] 
-            ? career.location_locales[language] 
-            : career.location;
+          const localizedTitle = pickLocaleText(career.title_locales, language, career.title);
+          const localizedSummary = pickLocaleText(career.summary_locales, language, career.summary);
+          const localizedDepartment = pickLocaleText(career.department_locales, language, career.department);
+          const localizedLocation = pickLocaleText(career.location_locales, language, career.location);
 
           return {
             id: career.id,

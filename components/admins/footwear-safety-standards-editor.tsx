@@ -10,19 +10,22 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Shield, Zap, Waves, Droplets, FlaskConical, HardHat, Footprints, Plus, X, Layers, Ruler, Scale, FileText, FileCheck } from "lucide-react";
 import { useLanguage } from "@/lib/context/language-context";
+import type { Language } from "@/lib/i18n/config";
+import type { ArrayLocales } from "@/lib/i18n/admin-locales";
+import type { FootwearMaterials } from "@/lib/product-data-normalizers";
 
 interface FootwearSafetyStandardsEditorProps {
-  language: 'en' | 'it';
+  language: Language;
   footwearStandards: any;
   setFootwearStandards: (standards: any) => void;
   footwearAttributes: any;
   setFootwearAttributes: (attributes: any) => void;
-  footwearMaterialsLocales: { en: { upper: string; lining: string; sole: string; insole: string; toe_cap: string }; it: { upper: string; lining: string; sole: string; insole: string; toe_cap: string } };
-  setFootwearMaterialsLocales: (materials: { en: { upper: string; lining: string; sole: string; insole: string; toe_cap: string }; it: { upper: string; lining: string; sole: string; insole: string; toe_cap: string } }) => void;
-  footwearComfortFeatures: { en: string[]; it: string[] };
-  setFootwearComfortFeatures: (features: { en: string[]; it: string[] }) => void;
-  footwearSpecialFeatures: { en: string[]; it: string[] };
-  setFootwearSpecialFeatures: (features: { en: string[]; it: string[] }) => void;
+  footwearMaterialsLocales: Record<Language, FootwearMaterials>;
+  setFootwearMaterialsLocales: (materials: Record<Language, FootwearMaterials>) => void;
+  footwearComfortFeatures: ArrayLocales;
+  setFootwearComfortFeatures: (features: ArrayLocales) => void;
+  footwearSpecialFeatures: ArrayLocales;
+  setFootwearSpecialFeatures: (features: ArrayLocales) => void;
 }
 
 export const FootwearSafetyStandardsEditor: React.FC<FootwearSafetyStandardsEditorProps> = ({ 

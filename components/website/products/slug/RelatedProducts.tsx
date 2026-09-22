@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight, ChevronLeft, Eye } from "lucide-react";
 import { motion } from "framer-motion";
+import { pickLocaleList } from "@/lib/i18n/locale-fallback";
 
 // Green color scheme function for safety standards (scaled down version)
 const getGreenPerformanceColour = (value: number | string | null): string => {
@@ -246,9 +247,9 @@ export const RelatedProducts = ({ relatedProducts }: RelatedProductsProps) => {
     const short_description = product.short_description_locales?.[language] || product.short_description_locales?.en || product.short_description;
     const category = product.category_locales?.[language] || product.category_locales?.en || product.category;
     const sub_category = product.sub_category_locales?.[language] || product.sub_category_locales?.en || product.sub_category;
-    const features = product.features_locales?.[language] || product.features_locales?.en || product.features;
-    const applications = product.applications_locales?.[language] || product.applications_locales?.en || product.applications;
-    const industries = product.industries_locales?.[language] || product.industries_locales?.en || product.industries;
+    const features = pickLocaleList(product.features_locales, language, product.features);
+    const applications = pickLocaleList(product.applications_locales, language, product.applications);
+    const industries = pickLocaleList(product.industries_locales, language, product.industries);
     
     const localizedProduct = {
       ...product,

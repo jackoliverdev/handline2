@@ -20,16 +20,29 @@ import Link from "next/link";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { LanguageSwitcher } from "@/components/ui/language-switcher";
+import { GenerateFromEnglishButton } from "@/components/admins/generate-from-english-button";
+import { DEFAULT_LANGUAGE, type Language } from "@/lib/i18n/config";
+import {
+  BLOG_CATEGORY_KEYS,
+  BLOG_CATEGORY_LABELS,
+  applyLocaleFields,
+  emptyArrayLocales,
+  emptyStringLocales,
+  localeHasContent,
+  localeList,
+  pickEnglishSource,
+  type BlogCategoryKey,
+} from "@/lib/i18n/admin-locales";
 
 export default function CreateBlogPage() {
   const router = useRouter();
-  const [currentLanguage, setCurrentLanguage] = useState<'en' | 'it'>('en');
-  const [titleLocales, setTitleLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
+  const [currentLanguage, setCurrentLanguage] = useState<Language>(DEFAULT_LANGUAGE);
+  const [titleLocales, setTitleLocales] = useState(emptyStringLocales());
   const [slug, setSlug] = useState("");
-  const [summaryLocales, setSummaryLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
-  const [contentLocales, setContentLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
+  const [summaryLocales, setSummaryLocales] = useState(emptyStringLocales());
+  const [contentLocales, setContentLocales] = useState(emptyStringLocales());
   const [currentTag, setCurrentTag] = useState("");
-  const [tagsLocales, setTagsLocales] = useState<{en: string[], it: string[]}>({ en: [], it: [] });
+  const [tagsLocales, setTagsLocales] = useState(emptyArrayLocales());
   const [isPublished, setIsPublished] = useState(false);
   const [previewTab, setPreviewTab] = useState("edit");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -43,7 +56,7 @@ export default function CreateBlogPage() {
   const [relatedProductId4, setRelatedProductId4] = useState<string | null>(null);
   const [availableProducts, setAvailableProducts] = useState<Product[]>([]);
   // Category (localised)
-  const [categoryLocales, setCategoryLocales] = useState<{en: string, it: string}>({ en: "", it: "" });
+  const [categoryKey, setCategoryKey] = useState<BlogCategoryKey | ''>('');
   const [galleryImages, setGalleryImages] = useState<Array<{ url: string }>>([]);
   
   // Generate slug from title
@@ -65,14 +78,15 @@ export default function CreateBlogPage() {
 
   const addTag = () => {
     const trimmed = currentTag.trim();
-    if (trimmed !== '' && !tagsLocales[currentLanguage].includes(trimmed)) {
-      setTagsLocales(prev => ({ ...prev, [currentLanguage]: [...prev[currentLanguage], trimmed] }));
+    const currentTags = localeList(tagsLocales, currentLanguage);
+    if (trimmed !== '' && !currentTags.includes(trimmed)) {
+      setTagsLocales(prev => ({ ...prev, [currentLanguage]: [...localeList(prev, currentLanguage), trimmed] }));
       setCurrentTag('');
     }
   };
 
   const removeTag = (tagToRemove: string) => {
-    setTagsLocales(prev => ({ ...prev, [currentLanguage]: prev[currentLanguage].filter(t => t !== tagToRemove) }));
+    setTagsLocales(prev => ({ ...prev, [currentLanguage]: localeList(prev, currentLanguage).filter(t => t !== tagToRemove) }));
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -165,6 +179,7 @@ export default function CreateBlogPage() {
     try {
       setIsSubmitting(true);
       
+      const categoryLabels = categoryKey ? BLOG_CATEGORY_LABELS[categoryKey] : emptyStringLocales();
       const blogData = {
         // Legacy/base fields from EN
         title: titleLocales.en,
@@ -173,15 +188,15 @@ export default function CreateBlogPage() {
         content: contentLocales.en,
         tags: tagsLocales.en,
         // Locales payload
-        title_locales: (titleLocales.en || titleLocales.it) ? titleLocales : undefined,
-        summary_locales: (summaryLocales.en || summaryLocales.it) ? summaryLocales : undefined,
-        content_locales: (contentLocales.en || contentLocales.it) ? contentLocales : undefined,
-        tags_locales: (tagsLocales.en.length > 0 || tagsLocales.it.length > 0) ? tagsLocales : undefined,
+        title_locales: titleLocales,
+        summary_locales: summaryLocales,
+        content_locales: contentLocales,
+        tags_locales: tagsLocales,
         is_published: isPublished,
         author: "Hand Line Team", // Default author, can be updated later
         image_url: imageUrl,
-        category: categoryLocales.en || null,
-        category_locales: (categoryLocales.en || categoryLocales.it) ? categoryLocales : undefined,
+        category: categoryLabels.en || null,
+        category_locales: categoryLabels,
         related_product_id_1: relatedProductId1,
         related_product_id_2: relatedProductId2,
         related_product_id_3: relatedProductId3,
@@ -230,6 +245,27 @@ export default function CreateBlogPage() {
         <div className="flex items-center justify-between gap-3 w-full sm:w-auto">
           <h1 className="text-2xl font-bold tracking-tight">Create New Blog Post</h1>
           <LanguageSwitcher currentLanguage={currentLanguage} onLanguageChange={setCurrentLanguage} />
+          <GenerateFromEnglishButton
+            currentLanguage={currentLanguage}
+            getSource={() => pickEnglishSource({
+              title: titleLocales.en,
+              summary: summaryLocales.en,
+              content: contentLocales.en,
+              tags: tagsLocales.en,
+            })}
+            hasTargetContent={() => localeHasContent(pickEnglishSource({
+              title: titleLocales[currentLanguage],
+              summary: summaryLocales[currentLanguage],
+              content: contentLocales[currentLanguage],
+              tags: tagsLocales[currentLanguage],
+            }))}
+            applyFields={(fields, mode) => {
+              setTitleLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.title, mode));
+              setSummaryLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.summary, mode));
+              setContentLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.content, mode));
+              setTagsLocales((prev) => applyLocaleFields(prev, currentLanguage, fields.tags, mode));
+            }}
+          />
         </div>
       </div>
       <form onSubmit={handleSubmit}>
@@ -258,7 +294,6 @@ export default function CreateBlogPage() {
                       placeholder="Enter blog post title"
                       value={titleLocales[currentLanguage]}
                       onChange={(e) => handleTitleChange(e.target.value)}
-                      required
                       className="text-xs sm:text-sm h-8 sm:h-10"
                     />
                   </div>
@@ -283,7 +318,6 @@ export default function CreateBlogPage() {
                       value={summaryLocales[currentLanguage]}
                       onChange={(e) => setSummaryLocales({ ...summaryLocales, [currentLanguage]: e.target.value })}
                       rows={3}
-                      required
                       className="text-xs sm:text-sm"
                     />
                   </div>
@@ -306,7 +340,6 @@ export default function CreateBlogPage() {
                           value={contentLocales[currentLanguage]}
                           onChange={(e) => setContentLocales({ ...contentLocales, [currentLanguage]: e.target.value })}
                           rows={10}
-                          required
                           className="font-mono text-xs sm:text-sm"
                         />
                       </TabsContent>
@@ -379,31 +412,21 @@ export default function CreateBlogPage() {
                     <CardDescription>Choose a blog category (localised).</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div>
-                        <Label className="text-xs sm:text-sm">Category (EN)</Label>
-                        <Select onValueChange={(v) => setCategoryLocales(prev => ({ ...prev, en: v }))}>
-                          <SelectTrigger className="w-full"><SelectValue placeholder="Select category" /></SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="Products & Innovation">Products & Innovation</SelectItem>
-                            <SelectItem value="Industry & Sustainability">Industry & Sustainability</SelectItem>
-                            <SelectItem value="Safety & Compliance">Safety & Compliance</SelectItem>
-                            <SelectItem value="Other Insights">Other Insights</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div>
-                        <Label className="text-xs sm:text-sm">Categoria (IT)</Label>
-                        <Select onValueChange={(v) => setCategoryLocales(prev => ({ ...prev, it: v }))}>
-                          <SelectTrigger className="w-full"><SelectValue placeholder="Seleziona categoria" /></SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="Prodotti & Innovazione">Prodotti & Innovazione</SelectItem>
-                            <SelectItem value="Industria & Sostenibilità">Industria & Sostenibilità</SelectItem>
-                            <SelectItem value="Sicurezza & Conformità">Sicurezza & Conformità</SelectItem>
-                            <SelectItem value="Altri Approfondimenti">Altri Approfondimenti</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
+                    <div>
+                      <Label className="text-xs sm:text-sm">Category</Label>
+                      <Select
+                        value={categoryKey || undefined}
+                        onValueChange={(v) => setCategoryKey(v as BlogCategoryKey)}
+                      >
+                        <SelectTrigger className="w-full"><SelectValue placeholder="Select category" /></SelectTrigger>
+                        <SelectContent>
+                          {BLOG_CATEGORY_KEYS.map((key) => (
+                            <SelectItem key={key} value={key}>
+                              {BLOG_CATEGORY_LABELS[key][currentLanguage]}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </div>
                   </CardContent>
                 </Card>
@@ -464,7 +487,7 @@ export default function CreateBlogPage() {
                   <div className="space-y-2">
                     <Label htmlFor="tags" className="text-xs sm:text-sm">Tags</Label>
                     <div className="flex flex-wrap gap-2 mb-2">
-                      {tagsLocales[currentLanguage].map((tag) => (
+                      {localeList(tagsLocales, currentLanguage).map((tag) => (
                         <Badge key={tag} variant="secondary" className="flex items-center gap-1 px-3 py-1 text-xs sm:text-sm">
                           {tag}
                           <button 
@@ -506,8 +529,8 @@ export default function CreateBlogPage() {
                             variant="outline" 
                             className="cursor-pointer hover:bg-accent text-xs sm:text-sm"
                             onClick={() => {
-                              if (!tagsLocales[currentLanguage].includes(tag)) {
-                                setTagsLocales(prev => ({ ...prev, [currentLanguage]: [...prev[currentLanguage], tag] }));
+                              if (!localeList(tagsLocales, currentLanguage).includes(tag)) {
+                                setTagsLocales(prev => ({ ...prev, [currentLanguage]: [...localeList(prev, currentLanguage), tag] }));
                               }
                             }}
                           >

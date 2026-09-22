@@ -1005,6 +1005,9 @@
       "products": "Productos"
     },
     "history": {
+      "badge": "Nuestro Recorrido",
+      "heading": "Nuestra historia",
+      "description": "Desde nuestros orígenes en Lombardía (Italia) hasta convertirnos en un fabricante y proveedor internacional de equipos de protección, descubre los momentos clave que han moldeado nuestra empresa y nuestra cultura.",
       "1977": {
         "title": "Fundación",
         "description": "Nuestra historia comienza como fabricante italiano de guantes de cuero y de trabajo, con una impronta claramente artesanal basada en la maestría y en productos de alta calidad"
@@ -1040,10 +1043,7 @@
       "2025": {
         "title": "Entrada en el Mercado del Reino Unido",
         "description": "Hand Line anuncia su expansión en el mercado del Reino Unido con el lanzamiento de una filial en Londres para seguir apoyando su creciente mercado internacional"
-      },
-      "badge": "Nuestro Recorrido",
-      "heading": "Nuestra historia",
-      "description": "Desde nuestros orígenes en Lombardía (Italia) hasta convertirnos en un fabricante y proveedor internacional de equipos de protección, descubre los momentos clave que han moldeado nuestra empresa y nuestra cultura."
+      }
     },
     "different": {
       "badge": "Nuestras Ventajas",

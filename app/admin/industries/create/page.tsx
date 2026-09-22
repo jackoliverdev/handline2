@@ -17,6 +17,16 @@ import Image from "next/image";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { MiniProductCard } from "@/components/app/mini-product-card";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+import { GenerateFromEnglishButton } from "@/components/admins/generate-from-english-button";
+import { DEFAULT_LANGUAGE, type Language } from "@/lib/i18n/config";
+import {
+  applyLocaleFields,
+  emptyArrayLocales,
+  emptyStringLocales,
+  localeHasContent,
+  pickEnglishSource,
+} from "@/lib/i18n/admin-locales";
 
 interface Product {
   id: string;
@@ -36,17 +46,17 @@ export default function CreateIndustryPage() {
     feature_image_url: "",
     related_products: [] as string[], // Keep for backward compatibility during transition
     // Locale fields for basic info
-    industry_name_locales: {} as Record<string, string>,
-    description_locales: {} as Record<string, string>,
+    industry_name_locales: emptyStringLocales() as Record<string, string>,
+    description_locales: emptyStringLocales() as Record<string, string>,
     // Showcase fields
     showcase_description: "",
-    showcase_description_locales: {} as Record<string, string>,
+    showcase_description_locales: emptyStringLocales() as Record<string, string>,
     // Key Features
-    features_locales: { en: [], it: [] } as Record<string, string[]>,
+    features_locales: emptyArrayLocales() as Record<string, string[]>,
     // New structured content fields
-    summary_content_locales: {} as Record<string, string>,
+    summary_content_locales: emptyStringLocales() as Record<string, string>,
     summary_content_image_url: "",
-    sections_locales: {} as Record<string, any[]>,
+    sections_locales: emptyArrayLocales() as Record<string, any[]>,
     // New individual related product fields - expanded to 10
     related_product_id_1: null as string | null,
     related_product_id_2: null as string | null,
@@ -73,7 +83,7 @@ export default function CreateIndustryPage() {
   const summaryImageInputRef = useRef<HTMLInputElement>(null);
 
   // New state for structured content management
-  const [currentLanguage, setCurrentLanguage] = useState<'en' | 'it'>('en');
+  const [currentLanguage, setCurrentLanguage] = useState<Language>(DEFAULT_LANGUAGE);
   const [currentSummary, setCurrentSummary] = useState('');
   const [currentSections, setCurrentSections] = useState<any[]>([]);
   
@@ -83,7 +93,7 @@ export default function CreateIndustryPage() {
   const [currentShowcaseDescription, setCurrentShowcaseDescription] = useState('');
   
   // Helper functions for structured content
-  const updateSummaryContent = (lang: 'en' | 'it', content: string) => {
+  const updateSummaryContent = (lang: Language, content: string) => {
     setIndustry(prev => ({
       ...prev,
       summary_content_locales: {
@@ -93,7 +103,7 @@ export default function CreateIndustryPage() {
     }));
   };
 
-  const updateSections = (lang: 'en' | 'it', sections: any[]) => {
+  const updateSections = (lang: Language, sections: any[]) => {
     setIndustry(prev => ({
       ...prev,
       sections_locales: {
@@ -150,7 +160,7 @@ export default function CreateIndustryPage() {
   };
 
   // Helper functions for basic info localized content
-  const updateIndustryName = (lang: 'en' | 'it', name: string) => {
+  const updateIndustryName = (lang: Language, name: string) => {
     setIndustry(prev => ({
       ...prev,
       industry_name_locales: {
@@ -160,7 +170,7 @@ export default function CreateIndustryPage() {
     }));
   };
 
-  const updateDescription = (lang: 'en' | 'it', description: string) => {
+  const updateDescription = (lang: Language, description: string) => {
     setIndustry(prev => ({
       ...prev,
       description_locales: {
@@ -171,7 +181,7 @@ export default function CreateIndustryPage() {
   };
 
   // Helper functions for showcase description localized content
-  const updateShowcaseDescription = (lang: 'en' | 'it', description: string) => {
+  const updateShowcaseDescription = (lang: Language, description: string) => {
     setIndustry(prev => ({
       ...prev,
       showcase_description_locales: {
@@ -182,7 +192,7 @@ export default function CreateIndustryPage() {
   };
 
   // Helper functions for key features
-  const addFeature = (lang: 'en' | 'it') => {
+  const addFeature = (lang: Language) => {
     setIndustry(prev => ({
       ...prev,
       features_locales: {
@@ -192,7 +202,7 @@ export default function CreateIndustryPage() {
     }));
   };
 
-  const updateFeature = (lang: 'en' | 'it', index: number, value: string) => {
+  const updateFeature = (lang: Language, index: number, value: string) => {
     setIndustry(prev => {
       const features = [...(prev.features_locales[lang] || [])];
       features[index] = value;
@@ -206,7 +216,7 @@ export default function CreateIndustryPage() {
     });
   };
 
-  const removeFeature = (lang: 'en' | 'it', index: number) => {
+  const removeFeature = (lang: Language, index: number) => {
     setIndustry(prev => ({
       ...prev,
       features_locales: {
@@ -427,8 +437,8 @@ export default function CreateIndustryPage() {
 
   const validateForm = () => {
     const newErrors = {
-      industry_name: !currentIndustryName.trim(),
-      description: !currentDescription.trim()
+      industry_name: !(industry.industry_name_locales.en || '').trim(),
+      description: !(industry.description_locales.en || '').trim()
     };
     
     setErrors(newErrors);
@@ -452,20 +462,20 @@ export default function CreateIndustryPage() {
     try {
       // Create industry first to get an ID
       const newIndustry = await createIndustry({
-        industry_name: currentIndustryName,
-        description: currentDescription,
+        industry_name: industry.industry_name_locales.en,
+        description: industry.description_locales.en,
         content: null, // No longer used but required by interface
         image_url: null, // We'll update this after uploading the image
         feature_image_url: null, // Add the missing field
-        showcase_description: currentShowcaseDescription, // Add showcase_description
-        showcase_description_locales: industry.showcase_description_locales || null,
-        features_locales: industry.features_locales || null,
+        showcase_description: industry.showcase_description_locales.en,
+        showcase_description_locales: industry.showcase_description_locales,
+        features_locales: industry.features_locales,
         related_products: getRelatedProductIds(),
-        industry_name_locales: industry.industry_name_locales || null,
-        description_locales: industry.description_locales || null,
-        summary_content_locales: industry.summary_content_locales || null,
+        industry_name_locales: industry.industry_name_locales,
+        description_locales: industry.description_locales,
+        summary_content_locales: industry.summary_content_locales,
         summary_content_image_url: industry.summary_content_image_url || null,
-        sections_locales: industry.sections_locales || null,
+        sections_locales: industry.sections_locales,
         related_product_id_1: industry.related_product_id_1 || null,
         related_product_id_2: industry.related_product_id_2 || null,
         related_product_id_3: industry.related_product_id_3 || null,
@@ -533,11 +543,54 @@ export default function CreateIndustryPage() {
             Back to Industries
           </Link>
         </Button>
+        <div className="flex items-center gap-2 w-full sm:w-auto order-1 sm:order-2">
+          <LanguageSwitcher currentLanguage={currentLanguage} onLanguageChange={setCurrentLanguage} />
+          <GenerateFromEnglishButton
+            currentLanguage={currentLanguage}
+            getSource={() => pickEnglishSource({
+              industry_name: industry.industry_name_locales.en,
+              description: industry.description_locales.en,
+              showcase_description: industry.showcase_description_locales.en,
+              features: industry.features_locales.en,
+              summary_content: industry.summary_content_locales.en,
+              sections: industry.sections_locales.en,
+            })}
+            hasTargetContent={() => localeHasContent(pickEnglishSource({
+              industry_name: industry.industry_name_locales[currentLanguage],
+              description: industry.description_locales[currentLanguage],
+              showcase_description: industry.showcase_description_locales[currentLanguage],
+              features: industry.features_locales[currentLanguage],
+              summary_content: industry.summary_content_locales[currentLanguage],
+              sections: industry.sections_locales[currentLanguage],
+            }))}
+            applyFields={(fields, mode) => {
+              const industryNameLocales = applyLocaleFields(industry.industry_name_locales, currentLanguage, fields.industry_name, mode);
+              const descriptionLocales = applyLocaleFields(industry.description_locales, currentLanguage, fields.description, mode);
+              const showcaseLocales = applyLocaleFields(industry.showcase_description_locales, currentLanguage, fields.showcase_description, mode);
+              const featuresLocales = applyLocaleFields(industry.features_locales, currentLanguage, fields.features, mode);
+              const summaryLocales = applyLocaleFields(industry.summary_content_locales, currentLanguage, fields.summary_content, mode);
+              const sectionsLocales = applyLocaleFields(industry.sections_locales, currentLanguage, fields.sections, mode);
+              setIndustry((prev) => ({
+                ...prev,
+                industry_name_locales: industryNameLocales,
+                description_locales: descriptionLocales,
+                showcase_description_locales: showcaseLocales,
+                features_locales: featuresLocales,
+                summary_content_locales: summaryLocales,
+                sections_locales: sectionsLocales,
+              }));
+              setCurrentIndustryName(industryNameLocales[currentLanguage] || '');
+              setCurrentDescription(descriptionLocales[currentLanguage] || '');
+              setCurrentShowcaseDescription(showcaseLocales[currentLanguage] || '');
+              setCurrentSummary(summaryLocales[currentLanguage] || '');
+              setCurrentSections(sectionsLocales[currentLanguage] || []);
+            }}
+          />
         <Button
           type="submit"
           disabled={isCreating}
           onClick={handleSubmit}
-          className="flex items-center gap-1 w-full sm:w-auto order-1 sm:order-2"
+          className="flex items-center gap-1 w-full sm:w-auto"
         >
           {isCreating ? (
             <>
@@ -551,6 +604,7 @@ export default function CreateIndustryPage() {
             </>
           )}
         </Button>
+        </div>
       </div>
       
       <form onSubmit={handleSubmit}>
@@ -566,20 +620,6 @@ export default function CreateIndustryPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                {/* Language Selector */}
-                <div className="flex items-center gap-2">
-                  <Label className="text-xs sm:text-sm">Language:</Label>
-                  <Select value={currentLanguage} onValueChange={(value: 'en' | 'it') => setCurrentLanguage(value)}>
-                    <SelectTrigger className="w-32 text-xs sm:text-sm h-8 sm:h-10">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="en">English</SelectItem>
-                      <SelectItem value="it">Italian</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
                 <div className="space-y-2">
                   <Label htmlFor="showcase_description" className="text-xs sm:text-sm">
                     Showcase Description
@@ -608,20 +648,6 @@ export default function CreateIndustryPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                {/* Language Selector */}
-                <div className="flex items-center gap-2">
-                  <Label className="text-xs sm:text-sm">Language:</Label>
-                  <Select value={currentLanguage} onValueChange={(value: 'en' | 'it') => setCurrentLanguage(value)}>
-                    <SelectTrigger className="w-32 text-xs sm:text-sm h-8 sm:h-10">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="en">English</SelectItem>
-                      <SelectItem value="it">Italian</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <Label className="text-xs sm:text-sm">Features</Label>
@@ -679,20 +705,6 @@ export default function CreateIndustryPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                {/* Language Selector */}
-                <div className="flex items-center gap-2">
-                  <Label className="text-xs sm:text-sm">Language:</Label>
-                  <Select value={currentLanguage} onValueChange={(value: 'en' | 'it') => setCurrentLanguage(value)}>
-                    <SelectTrigger className="w-32 text-xs sm:text-sm h-8 sm:h-10">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="en">English</SelectItem>
-                      <SelectItem value="it">Italian</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
                 <div className="space-y-2">
                   <Label htmlFor="industry_name" className="flex items-center gap-1 text-xs sm:text-sm">
                     Industry Name <span className="text-red-500">*</span>
@@ -741,20 +753,6 @@ export default function CreateIndustryPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                {/* Language Selector */}
-                <div className="flex items-center gap-2">
-                  <Label className="text-xs sm:text-sm">Language:</Label>
-                  <Select value={currentLanguage} onValueChange={(value: 'en' | 'it') => setCurrentLanguage(value)}>
-                    <SelectTrigger className="w-32 text-xs sm:text-sm h-8 sm:h-10">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="en">English</SelectItem>
-                      <SelectItem value="it">Italian</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
                 {/* Summary Content */}
                 <div className="space-y-2">
                   <Label htmlFor="summary_content" className="text-xs sm:text-sm">

@@ -4,6 +4,7 @@ import { Product } from "@/lib/products-service";
 import { useLanguage } from "@/lib/context/language-context";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Package, Ruler, Users, Award, Shield } from "lucide-react";
+import { pickLocaleList } from "@/lib/i18n/locale-fallback";
 
 const CLOTHING_SIZE_LABELS: Record<number, string> = {
   1: 'XS',
@@ -39,7 +40,7 @@ const getClothingSizeDisplay = (attributes: Record<string, unknown>): string | n
 
 export function ClothingSpecs({ product }: { product: Product }) {
   const { t, language } = useLanguage();
-  const materials = product.materials_locales?.[language] || product.materials_locales?.en || [];
+  const materials = pickLocaleList(product.materials_locales, language);
   const cs: any = (product as any).clothing_standards || {};
   const ca: any = (product as any).clothing_attributes || {};
   const caLocales: any = (product as any).clothing_attributes_locales || {};
