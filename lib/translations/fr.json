@@ -675,6 +675,29 @@
       "clothingCategory": {
         "title": "Catégorie de vêtements"
       },
+      "clothingCategories": {
+        "Hi-Vis Jackets": "Vestes haute visibilité",
+        "Hi-Vis Trousers": "Pantalons haute visibilité",
+        "Hi-Vis Waistcoats": "Gilets haute visibilité",
+        "Hi-Vis body warmers": "Bodywarmers haute visibilité",
+        "Hi-Vis Coveralls": "Combinaisons haute visibilité",
+        "Hi-Vis Fleeces and sweatshirts": "Polaires et sweat-shirts haute visibilité",
+        "Hi-Vis Polo and T-shirts": "Polos et t-shirts haute visibilité",
+        "Hi-Vis accessories": "Accessoires haute visibilité",
+        "Welding Aprons": "Tabliers de soudage",
+        "Welding Jackets": "Vestes de soudage",
+        "Welding Coveralls": "Combinaisons de soudage",
+        "Welding Trousers": "Pantalons de soudage",
+        "Accessories": "Accessoires",
+        "Safety Jackets": "Vestes de sécurité",
+        "Safety Trousers": "Pantalons de sécurité",
+        "Other safety clothing": "Autres vêtements de sécurité",
+        "Work Jackets": "Vestes de travail",
+        "Work Trousers": "Pantalons de travail",
+        "Work Suits": "Combinaisons de travail",
+        "Work Aprons": "Tabliers de travail",
+        "Other workwear": "Autres vêtements de travail"
+      },
       "garmentTypes": {
         "Aprons": "Tabliers",
         "Jackets": "Vestes",

@@ -675,6 +675,29 @@
       "clothingCategory": {
         "title": "Bekleidungskategorie"
       },
+      "clothingCategories": {
+        "Hi-Vis Jackets": "Warnschutzjacken",
+        "Hi-Vis Trousers": "Warnschutzhosen",
+        "Hi-Vis Waistcoats": "Warnschutzwesten",
+        "Hi-Vis body warmers": "Warnschutz-Bodywarmer",
+        "Hi-Vis Coveralls": "Warnschutzanzüge",
+        "Hi-Vis Fleeces and sweatshirts": "Warnschutz-Fleece und Sweatshirts",
+        "Hi-Vis Polo and T-shirts": "Warnschutz-Polos und T-Shirts",
+        "Hi-Vis accessories": "Warnschutz-Zubehör",
+        "Welding Aprons": "Schweißerschürzen",
+        "Welding Jackets": "Schweißerjacken",
+        "Welding Coveralls": "Schweißeranzüge",
+        "Welding Trousers": "Schweißerhosen",
+        "Accessories": "Zubehör",
+        "Safety Jackets": "Sicherheitsjacken",
+        "Safety Trousers": "Sicherheitshosen",
+        "Other safety clothing": "Sonstige Schutzkleidung",
+        "Work Jackets": "Arbeitsjacken",
+        "Work Trousers": "Arbeitshosen",
+        "Work Suits": "Arbeitsanzüge",
+        "Work Aprons": "Arbeitsschürzen",
+        "Other workwear": "Sonstige Arbeitskleidung"
+      },
       "garmentTypes": {
         "Aprons": "Schürzen",
         "Jackets": "Jacken",

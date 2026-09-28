@@ -714,6 +714,29 @@
       "clothingCategory": {
         "title": "Categoria abbigliamento"
       },
+      "clothingCategories": {
+        "Hi-Vis Jackets": "Giacche alta visibilità",
+        "Hi-Vis Trousers": "Pantaloni alta visibilità",
+        "Hi-Vis Waistcoats": "Gilet alta visibilità",
+        "Hi-Vis body warmers": "Scaldacorpo alta visibilità",
+        "Hi-Vis Coveralls": "Tute alta visibilità",
+        "Hi-Vis Fleeces and sweatshirts": "Pile e felpe alta visibilità",
+        "Hi-Vis Polo and T-shirts": "Polo e magliette alta visibilità",
+        "Hi-Vis accessories": "Accessori alta visibilità",
+        "Welding Aprons": "Grembiuli per saldatura",
+        "Welding Jackets": "Giacche per saldatura",
+        "Welding Coveralls": "Tute per saldatura",
+        "Welding Trousers": "Pantaloni per saldatura",
+        "Accessories": "Accessori",
+        "Safety Jackets": "Giacche di sicurezza",
+        "Safety Trousers": "Pantaloni di sicurezza",
+        "Other safety clothing": "Altro abbigliamento di sicurezza",
+        "Work Jackets": "Giacche da lavoro",
+        "Work Trousers": "Pantaloni da lavoro",
+        "Work Suits": "Tute da lavoro",
+        "Work Aprons": "Grembiuli da lavoro",
+        "Other workwear": "Altri indumenti da lavoro"
+      },
       "garmentTypes": {
         "Aprons": "Grembiuli",
         "Jackets": "Giacche",
