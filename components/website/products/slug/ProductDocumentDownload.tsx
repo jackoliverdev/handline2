@@ -25,6 +25,7 @@ interface ProductDocumentDownloadProps {
   browsingLanguage: string;
   fileLabel: string;
   analyticsType: string;
+  plainButton?: boolean;
   onDownload?: (url: string, filename: string, type: string) => void;
 }
 
@@ -36,6 +37,7 @@ export function ProductDocumentDownload({
   browsingLanguage,
   fileLabel,
   analyticsType,
+  plainButton = false,
   onDownload,
 }: ProductDocumentDownloadProps) {
   const available = availableDocumentLanguages(locales);
@@ -51,7 +53,8 @@ export function ProductDocumentDownload({
   if (!selected || available.length === 0) return null;
 
   const url = locales[selected];
-  const filename = `${fileLabel} (${selected.toUpperCase()})`;
+  const filename = plainButton ? fileLabel : `${fileLabel} (${selected.toUpperCase()})`;
+  const showMenu = !plainButton && available.length > 1;
 
   const download = (
     <a
@@ -69,7 +72,7 @@ export function ProductDocumentDownload({
   return (
     <div id={id} className="space-y-3">
       <h3 className="text-lg font-semibold text-brand-dark dark:text-white">{title}</h3>
-      {available.length === 1 ? (
+      {!showMenu ? (
         <Button
           variant="outline"
           size="lg"

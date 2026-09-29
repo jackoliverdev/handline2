@@ -758,6 +758,7 @@ export function ProductDetail({ product, relatedProducts }: { product: Product, 
                       browsingLanguage={language}
                       fileLabel="Manufacturers Instruction"
                       analyticsType="instruction"
+                      plainButton
                       onDownload={handleDocumentDownload}
                     />
                     
