@@ -6,6 +6,8 @@ import { X, User, Shield, Menu, ChevronRight, ChevronDown, FileText, Users, Fact
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { useLanguage } from "@/lib/context/language-context";
+import { LANGUAGE_META, SUPPORTED_LANGUAGES } from "@/lib/i18n/config";
+import { FlagIcon } from "@/components/theme/flag-icon";
 import { SearchDropdown } from "@/components/website/search/search-dropdown";
 
 type SidebarProps = {
@@ -441,19 +443,19 @@ export default function WebsiteSidebar({ isOpen, onClose }: SidebarProps) {
                 {t('navbar.language.toggleLabel')}
               </span>
             </div>
-            <div className="mt-2 pl-6">
-              <button 
-                onClick={() => setLanguage('en')}
-                className={`block py-1.5 text-xs ${language === 'en' ? 'text-slate-900 dark:text-white' : 'text-slate-600 dark:text-slate-400'} hover:text-[#F28C38] transition-colors`}
-              >
-                <span role="img" aria-label="English" className="mr-2">🇬🇧</span> {t('navbar.language.en')}
-              </button>
-              <button 
-                onClick={() => setLanguage('it')}
-                className={`block py-1.5 text-xs ${language === 'it' ? 'text-slate-900 dark:text-white' : 'text-slate-600 dark:text-slate-400'} hover:text-[#F28C38] transition-colors`}
-              >
-                <span role="img" aria-label="Italian" className="mr-2">🇮🇹</span> {t('navbar.language.it')}
-              </button>
+            <div className="mt-2 pl-6 space-y-0.5">
+              {SUPPORTED_LANGUAGES.map((code) => (
+                <button
+                  key={code}
+                  type="button"
+                  onClick={() => setLanguage(code)}
+                  className={`flex items-center py-1.5 text-xs ${language === code ? 'text-slate-900 dark:text-white font-semibold' : 'text-slate-600 dark:text-slate-400'} hover:text-[#F28C38] transition-colors`}
+                  aria-pressed={language === code}
+                >
+                  <FlagIcon country={LANGUAGE_META[code].flag} className="h-3.5 w-3.5 mr-2" />
+                  {t(LANGUAGE_META[code].labelKey)}
+                </button>
+              ))}
             </div>
           </div>
         </div>

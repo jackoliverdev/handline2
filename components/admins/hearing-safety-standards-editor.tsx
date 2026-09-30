@@ -11,23 +11,25 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Volume2, Mic, Settings, Shield, Droplets, Thermometer, Zap, Users, Bluetooth, Plus, X, Ear, FileText, FileCheck } from "lucide-react";
 import { useLanguage } from "@/lib/context/language-context";
+import type { Language } from "@/lib/i18n/config";
+import type { ArrayLocales } from "@/lib/i18n/admin-locales";
 
 interface HearingSafetyStandardsEditorProps {
-  language: 'en' | 'it';
+  language: Language;
   hearingStandards: any;
   setHearingStandards: (standards: any) => void;
   hearingAttributes: any;
   setHearingAttributes: (attributes: any) => void;
-  hearingCompatibleWithLocales: { en: string[]; it: string[] };
-  setHearingCompatibleWithLocales: (locales: { en: string[]; it: string[] }) => void;
-  hearingAccessoriesLocales: { en: string[]; it: string[] };
-  setHearingAccessoriesLocales: (locales: { en: string[]; it: string[] }) => void;
-  hearingComfortFeatures: { en: string[]; it: string[] };
-  setHearingComfortFeatures: (features: { en: string[]; it: string[] }) => void;
-  hearingOtherDetails: { en: string[]; it: string[] };
-  setHearingOtherDetails: (details: { en: string[]; it: string[] }) => void;
-  hearingEquipment: { en: string[]; it: string[] };
-  setHearingEquipment: (equipment: { en: string[]; it: string[] }) => void;
+  hearingCompatibleWithLocales: ArrayLocales;
+  setHearingCompatibleWithLocales: (locales: ArrayLocales) => void;
+  hearingAccessoriesLocales: ArrayLocales;
+  setHearingAccessoriesLocales: (locales: ArrayLocales) => void;
+  hearingComfortFeatures: ArrayLocales;
+  setHearingComfortFeatures: (features: ArrayLocales) => void;
+  hearingOtherDetails: ArrayLocales;
+  setHearingOtherDetails: (details: ArrayLocales) => void;
+  hearingEquipment: ArrayLocales;
+  setHearingEquipment: (equipment: ArrayLocales) => void;
 }
 
 export const HearingSafetyStandardsEditor: React.FC<HearingSafetyStandardsEditorProps> = ({ 

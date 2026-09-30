@@ -20,7 +20,7 @@ export function ClothingCategoryFilter({ options, selected, onToggle, isExpanded
           {options.map((val) => (
             <div key={val} className="flex items-center space-x-2">
               <Checkbox id={`cc-${val}`} checked={selected.includes(val)} onCheckedChange={() => onToggle(val)} className="data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary" />
-              <label htmlFor={`cc-${val}`} className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer">{val}</label>
+              <label htmlFor={`cc-${val}`} className="text-sm text-brand-secondary dark:text-gray-300 cursor-pointer">{t(`products.filters.clothingCategories.${val}`)}</label>
             </div>
           ))}
         </div>

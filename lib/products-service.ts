@@ -2,6 +2,7 @@ import { supabase } from './supabase';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Language } from './context/language-context';
 import { generateUniqueProductSlug } from './product-slug';
+import { pickLocaleList } from './i18n/locale-fallback';
 
 // Safety Standards interfaces
 export interface SafetyEN388 {
@@ -108,6 +109,8 @@ export interface Product {
   }> | null;
   manufacturers_instruction_url?: string | null;
   manufacturers_instruction_url_it?: string | null;
+  technical_sheet_locales?: Partial<Record<'en' | 'it' | 'fr' | 'de' | 'es', string>> | null;
+  manufacturers_instruction_locales?: Partial<Record<'en' | 'it' | 'fr' | 'de' | 'es', string>> | null;
   is_featured: boolean;
   out_of_stock: boolean;
   order_priority: number;
@@ -266,12 +269,11 @@ export function localiseProduct(product: Product, language: Language): Product {
     short_description: product.short_description_locales?.[language] || product.short_description_locales?.en || product.short_description,
     category: product.category_locales?.[language] || product.category_locales?.en || product.category,
     sub_category: product.sub_category_locales?.[language] || product.sub_category_locales?.en || product.sub_category,
-    features: product.features_locales?.[language] || product.features_locales?.en || product.features,
-    applications: product.applications_locales?.[language] || product.applications_locales?.en || product.applications,
-    industries: product.industries_locales?.[language] || product.industries_locales?.en || product.industries,
-    // New localised fields
+    features: pickLocaleList(product.features_locales, language, product.features),
+    applications: pickLocaleList(product.applications_locales, language, product.applications),
+    industries: pickLocaleList(product.industries_locales, language, product.industries),
     tags_locales: {
-      [language]: product.tags_locales?.[language] || product.tags_locales?.en || []
+      [language]: pickLocaleList(product.tags_locales, language, Array.isArray((product as { tags?: string[] }).tags) ? (product as { tags?: string[] }).tags : []),
     },
     size_locales: product.size_locales ? {
       [language]: product.size_locales?.[language] || product.size_locales?.en || ''

@@ -1,0 +1,83 @@
+Suggestion inserted None selected
+
+Skip to content
+Using centrus.ai Mail with screen readers
+
+14 of 25
+HL website languages
+External
+Inbox
+
+Luca Castronuovo
+Tue, Aug 4, 3:47 PM (22 hours ago)
+to me
+
+Hi Jack,
+
+Always good to connect and genuinely super excited for both your journey (always have been) and the extension to the website.
+
+ 
+
+As agreed, I wanted to list the scope of work we discussed:
+
+Translation of the website pages
+3 languages (French, German, Spanish)
+Luca to provide translation documents
+Once uploaded review all items are translated
+Enable admin portal to input content in all 5 languages (3 new + 2 existing)
+Products (with auto-translate function discussed)
+Blog (with auto-translate function discussed)
+Careers (no need for auto-t if extra effort)
+Industry (with auto-translate function discussed)
+PPE Hub (with auto-translate function discussed)
+Product page > Documents: ability to download TDS / Manuf. Notes in all available languages
+Dropdown button, same style of DoC with languages available
+Default to English if absent
+Default content that has no language input to English (e.g. A product page has input in English only, if I am navigating the website in French, I’ll see the website in French but product content in Eng). This should be rendered irrelevant with auto-translate possibly but important to ensure people still see content even if we missed something by mistake.
+Bug fix (if any).
+ 
+
+Scope is costed at £500 flat with any deviation or additional work to be agreed upon and charge additionally.
+
+ 
+
+Please let me know if I have missed or not captured anything correctly.
+
+Very excited to kick this off.
+
+ 
+
+Thank you,
+
+Luca
+
+ 
+
+ 
+
+ 
+
+
+
+Luca Castronuovo
+
+Managing Director
+
++44 7773 046346
++39 333 4484079
+
+ 
+
+Hand Line
+
+www.handlineco.com
+
+ 
+
+ 
+
+
+
+
+anna.kuznietsova@m8group.co.uk
+Displaying Luca_Handline_Call-transcript.txt.

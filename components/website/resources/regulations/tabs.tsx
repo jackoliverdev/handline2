@@ -21,8 +21,8 @@ export function RegulationsTabs() {
   };
 
   const getLocalizedContent = (section: keyof typeof ppeRegulationsContent.en) => {
-    const langCode = language as "en" | "it";
-    return ppeRegulationsContent[langCode][section];
+    const contentByLanguage = ppeRegulationsContent[language as keyof typeof ppeRegulationsContent];
+    return (contentByLanguage || ppeRegulationsContent.en)[section];
   };
 
   const fadeIn = {

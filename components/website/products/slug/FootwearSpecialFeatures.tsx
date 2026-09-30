@@ -3,11 +3,11 @@
 import { Product } from "@/lib/products-service";
 import { useLanguage } from "@/lib/context/language-context";
 import { ListChecks } from "lucide-react";
+import { pickLocaleList } from "@/lib/i18n/locale-fallback";
 
 export function FootwearSpecialFeatures({ product }: { product: Product }) {
   const { t, language } = useLanguage();
-  const items = (product as any).footwear_special_features_locales?.[language]
-    || (product as any).footwear_special_features_locales?.en || [];
+  const items = pickLocaleList((product as any).footwear_special_features_locales, language);
   if (!Array.isArray(items) || items.length === 0) return null;
   return (
     <div className="group relative overflow-hidden rounded-lg border bg-white dark:bg-black/50 shadow-sm transition-all duration-300 hover:shadow-md border-brand-primary/10 dark:border-brand-primary/20 backdrop-blur-sm p-4">

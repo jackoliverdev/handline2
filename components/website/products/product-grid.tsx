@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { useLanguage } from "@/lib/context/language-context";
+import { pickLocaleList } from "@/lib/i18n/locale-fallback";
 
 // Import utility functions
 import {
@@ -120,14 +121,14 @@ export const ProductGrid = ({ products, className = "", initialCategory, extraFi
     // Keep original category for sorting logic
     original_category: product.category,
     // Localized fields for display
-    name: product.name_locales?.[language] || product.name,
-    description: product.description_locales?.[language] || product.description,
-    short_description: product.short_description_locales?.[language] || product.short_description,
-    category: product.category_locales?.[language] || product.category, // This is for display
-    sub_category: product.sub_category_locales?.[language] || product.sub_category,
-    features: product.features_locales?.[language] || product.features,
-    applications: product.applications_locales?.[language] || product.applications,
-    industries: product.industries_locales?.[language] || product.industries,
+    name: product.name_locales?.[language] || product.name_locales?.en || product.name,
+    description: product.description_locales?.[language] || product.description_locales?.en || product.description,
+    short_description: product.short_description_locales?.[language] || product.short_description_locales?.en || product.short_description,
+    category: product.category_locales?.[language] || product.category_locales?.en || product.category, // This is for display
+    sub_category: product.sub_category_locales?.[language] || product.sub_category_locales?.en || product.sub_category,
+    features: pickLocaleList(product.features_locales, language, product.features),
+    applications: pickLocaleList(product.applications_locales, language, product.applications),
+    industries: pickLocaleList(product.industries_locales, language, product.industries),
   }));
 
   // Get unique categories (now just "Hand protection")

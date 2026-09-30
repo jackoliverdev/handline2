@@ -5,9 +5,20 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
-import { useLanguage } from "@/lib/context/language-context";
 import { preserveMarkdownSpacing } from "@/lib/markdown-utils";
 import type { PPESectionRecord } from "@/lib/ppe-standards/types";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+import { GenerateFromEnglishButton } from "@/components/admins/generate-from-english-button";
+import { DEFAULT_LANGUAGE, type Language } from "@/lib/i18n/config";
+import {
+  applyLocaleFields,
+  emptyStringLocales,
+  hydrateArrayLocales,
+  hydrateStringLocales,
+  localeHasContent,
+  pickEnglishSource,
+  type GenerateApplyMode,
+} from "@/lib/i18n/admin-locales";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -58,22 +69,21 @@ async function ensureUniqueSlug(base: string): Promise<string> {
 
 export default function CreatePPECategoryPage() {
   const router = useRouter();
-  const { language } = useLanguage();
 
   const newId = useMemo(() => crypto.randomUUID(), []);
 
   const [category, setCategory] = useState<any>({
     id: newId,
     slug: "",
-    title_locales: {} as Locales,
-    summary_locales: {} as Locales,
+    title_locales: emptyStringLocales() as Locales,
+    summary_locales: emptyStringLocales() as Locales,
     hero_image_url: "",
     card_image_url: "",
     sort_order: 0,
   });
   const [sections, setSections] = useState<PPESectionRecord[]>([]);
   const [saving, setSaving] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState<'en' | 'it'>(language || 'en');
+  const [currentLanguage, setCurrentLanguage] = useState<Language>(DEFAULT_LANGUAGE);
   const [availableProducts, setAvailableProducts] = useState<Product[]>([]);
   const [introPreviewTabs, setIntroPreviewTabs] = useState<Record<number, string>>({});
   const standardIconsRef = useRef<any[] | null>(null);
@@ -111,10 +121,10 @@ export default function CreatePPECategoryPage() {
   const currentTitle = useMemo(() => category.title_locales?.[currentLanguage] || "", [category, currentLanguage]);
   const currentSummary = useMemo(() => category.summary_locales?.[currentLanguage] || "", [category, currentLanguage]);
 
-  const setTitleForLang = (lang: 'en' | 'it', value: string) => {
+  const setTitleForLang = (lang: Language, value: string) => {
     setCategory((prev: any) => ({ ...prev, title_locales: { ...(prev.title_locales || {}), [lang]: value } }));
   };
-  const setSummaryForLang = (lang: 'en' | 'it', value: string) => {
+  const setSummaryForLang = (lang: Language, value: string) => {
     setCategory((prev: any) => ({ ...prev, summary_locales: { ...(prev.summary_locales || {}), [lang]: value } }));
   };
 
@@ -354,6 +364,90 @@ export default function CreatePPECategoryPage() {
     }
   };
 
+  const asRecord = (value: unknown): Record<string, unknown> =>
+    typeof value === 'object' && value !== null && !Array.isArray(value)
+      ? value as Record<string, unknown>
+      : {};
+
+  const bulletsForLang = (section: PPESectionRecord, lang: Language): string[] => {
+    const locales = (section as any).bullets_locales;
+    if (locales && typeof locales === 'object' && !Array.isArray(locales) && Array.isArray(locales[lang])) {
+      return locales[lang];
+    }
+    if (lang === 'en' && Array.isArray(locales)) return locales;
+    return [];
+  };
+
+  const ppeTranslateSource = (lang: Language) => pickEnglishSource({
+    title: category.title_locales?.[lang],
+    summary: category.summary_locales?.[lang],
+    sections: sections.map((section) => {
+      const extraImages = Array.isArray((section as any).extra_images) ? (section as any).extra_images : [];
+      const related = (section as any).related_product_captions || {};
+      const productIds = new Set<string>([
+        ...((section.related_product_ids || []) as string[]),
+        ...Object.keys(related),
+      ]);
+      return {
+        title: (section as any).title_locales?.[lang] || '',
+        intro: (section as any).intro_locales?.[lang] || '',
+        bullets: bulletsForLang(section, lang),
+        extra_image_captions: Object.fromEntries(
+          extraImages.map((img: any, index: number) => [String(index), img?.caption_locales?.[lang] || ''])
+        ),
+        related_product_captions: Object.fromEntries(
+          Array.from(productIds).map((id) => [id, related[id]?.[lang] || ''])
+        ),
+      };
+    }),
+  });
+
+  const applyPpeFields = (fields: Record<string, unknown>, mode: GenerateApplyMode) => {
+    setCategory((prev: any) => ({
+      ...prev,
+      title_locales: applyLocaleFields(hydrateStringLocales(prev.title_locales), currentLanguage, fields.title, mode),
+      summary_locales: applyLocaleFields(hydrateStringLocales(prev.summary_locales), currentLanguage, fields.summary, mode),
+    }));
+    setSections((prev) => prev.map((section, index) => {
+      const incoming = Array.isArray(fields.sections) ? asRecord(fields.sections[index]) : {};
+      const extraCaptions = asRecord(incoming.extra_image_captions);
+      const relatedCaptions = asRecord(incoming.related_product_captions);
+      const extraImages = Array.isArray((section as any).extra_images) ? (section as any).extra_images : [];
+      const related = (section as any).related_product_captions || {};
+      const productIds = new Set<string>([
+        ...((section.related_product_ids || []) as string[]),
+        ...Object.keys(related),
+        ...Object.keys(relatedCaptions),
+      ]);
+      return {
+        ...section,
+        title_locales: applyLocaleFields(hydrateStringLocales((section as any).title_locales), currentLanguage, incoming.title, mode),
+        intro_locales: applyLocaleFields(hydrateStringLocales((section as any).intro_locales), currentLanguage, incoming.intro, mode),
+        bullets_locales: applyLocaleFields(
+          hydrateArrayLocales(Array.isArray((section as any).bullets_locales) ? undefined : (section as any).bullets_locales, bulletsForLang(section, 'en')),
+          currentLanguage,
+          incoming.bullets,
+          mode
+        ),
+        extra_images: extraImages.map((img: any, imgIdx: number) => ({
+          ...img,
+          caption_locales: applyLocaleFields(
+            hydrateStringLocales(img?.caption_locales),
+            currentLanguage,
+            extraCaptions[String(imgIdx)],
+            mode
+          ),
+        })),
+        related_product_captions: Object.fromEntries(
+          Array.from(productIds).map((id) => [
+            id,
+            applyLocaleFields(hydrateStringLocales(related[id]), currentLanguage, relatedCaptions[id], mode),
+          ])
+        ),
+      } as PPESectionRecord;
+    }));
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-col sm:flex-row gap-2 sm:gap-0">
@@ -364,6 +458,13 @@ export default function CreatePPECategoryPage() {
           </Link>
         </Button>
         <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto order-1 sm:order-2">
+          <LanguageSwitcher currentLanguage={currentLanguage} onLanguageChange={setCurrentLanguage} />
+          <GenerateFromEnglishButton
+            currentLanguage={currentLanguage}
+            getSource={() => ppeTranslateSource('en')}
+            hasTargetContent={() => localeHasContent(ppeTranslateSource(currentLanguage))}
+            applyFields={applyPpeFields}
+          />
           <Button variant="outline" size="sm" disabled className="w-full sm:w-auto">
             <Eye className="h-4 w-4" />
             Preview
@@ -394,18 +495,6 @@ export default function CreatePPECategoryPage() {
               <CardDescription className="text-xs sm:text-sm">Basic information for this PPE Hub category</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-center gap-2">
-                <Label className="text-xs sm:text-sm">Language:</Label>
-                <Select value={currentLanguage} onValueChange={(v: 'en' | 'it') => setCurrentLanguage(v)}>
-                  <SelectTrigger className="w-32 text-xs sm:text-sm h-8 sm:h-10">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="en">English</SelectItem>
-                    <SelectItem value="it">Italian</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
               <div className="space-y-2">
                 <Label className="text-xs sm:text-sm">Title</Label>
                 <Input
@@ -447,19 +536,7 @@ export default function CreatePPECategoryPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex justify-between items-center">
-                <div className="flex items-center gap-2">
-                  <Label className="text-xs sm:text-sm">Language:</Label>
-                  <Select value={currentLanguage} onValueChange={(v: 'en' | 'it') => setCurrentLanguage(v)}>
-                    <SelectTrigger className="w-32 text-xs sm:text-sm h-8 sm:h-10">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="en">English</SelectItem>
-                      <SelectItem value="it">Italian</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <Button variant="outline" size="sm" type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); addSection(); }} className="text-xs">Add Section</Button>
+                <Button variant="outline" size="sm" type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation(); addSection(); }} className="text-xs ml-auto">Add Section</Button>
               </div>
 
               {sections.map((s, idx) => {
@@ -725,43 +802,23 @@ export default function CreatePPECategoryPage() {
                             return product ? (
                               <div key={pid} className="space-y-2">
                                 <MiniProductCard product={{ id: product.id, name: product.name, category: product.category || undefined, image_url: product.image_url || undefined }} showRemoveButton onRemove={() => removeRelatedProductFromSection(idx, pid)} />
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                  <div>
-                                    <Label className="text-xs">Caption (EN)</Label>
-                                    <Input
-                                      value={(((s as any).related_product_captions || {})[pid]?.en || '') as string}
-                                      onChange={(e) => {
-                                        setSections(prev => {
-                                          const copy = [...prev] as any[];
-                                          const map = { ...((copy[idx] as any).related_product_captions || {}) } as any;
-                                          const entry = { ...(map[pid] || {}) };
-                                          entry.en = e.target.value;
-                                          map[pid] = entry;
-                                          (copy[idx] as any).related_product_captions = map;
-                                          return copy as any;
-                                        });
-                                      }}
-                                      className="text-xs h-8"
-                                    />
-                                  </div>
-                                  <div>
-                                    <Label className="text-xs">Caption (IT)</Label>
-                                    <Input
-                                      value={(((s as any).related_product_captions || {})[pid]?.it || '') as string}
-                                      onChange={(e) => {
-                                        setSections(prev => {
-                                          const copy = [...prev] as any[];
-                                          const map = { ...((copy[idx] as any).related_product_captions || {}) } as any;
-                                          const entry = { ...(map[pid] || {}) };
-                                          entry.it = e.target.value;
-                                          map[pid] = entry;
-                                          (copy[idx] as any).related_product_captions = map;
-                                          return copy as any;
-                                        });
-                                      }}
-                                      className="text-xs h-8"
-                                    />
-                                  </div>
+                                <div>
+                                  <Label className="text-xs">Caption ({currentLanguage.toUpperCase()})</Label>
+                                  <Input
+                                    value={(((s as any).related_product_captions || {})[pid]?.[currentLanguage] || '') as string}
+                                    onChange={(e) => {
+                                      setSections(prev => {
+                                        const copy = [...prev] as any[];
+                                        const map = { ...((copy[idx] as any).related_product_captions || {}) } as any;
+                                        const entry = { ...(map[pid] || {}) };
+                                        entry[currentLanguage] = e.target.value;
+                                        map[pid] = entry;
+                                        (copy[idx] as any).related_product_captions = map;
+                                        return copy as any;
+                                      });
+                                    }}
+                                    className="text-xs h-8"
+                                  />
                                 </div>
                               </div>
                             ) : null;

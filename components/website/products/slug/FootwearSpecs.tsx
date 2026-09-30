@@ -5,13 +5,14 @@ import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/lib/context/language-context";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Shield, Zap, Waves, Droplets, FlaskConical, HardHat, Layers, Ruler, Move, FileText } from "lucide-react";
+import { pickLocaleList } from "@/lib/i18n/locale-fallback";
 
 export function FootwearSpecs({ product }: { product: Product }) {
   const { t, language } = useLanguage();
   // Check for new footwear_materials_locales structure first, fallback to materials_locales
   const fwMatsLocale = (product as any).footwear_materials_locales?.[language] || (product as any).footwear_materials_locales?.en;
   const hasFwMats = fwMatsLocale && (fwMatsLocale.upper || fwMatsLocale.lining || fwMatsLocale.sole || fwMatsLocale.insole || fwMatsLocale.toe_cap);
-  const mats = product.materials_locales?.[language] || product.materials_locales?.en || [];
+  const mats = pickLocaleList(product.materials_locales, language);
   const explicitSize = product.size_locales?.[language] || product.size_locales?.en;
   const inferSizeFromRange = () => {
     const fattr: any = (product as any).footwear_attributes || {};

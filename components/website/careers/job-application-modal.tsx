@@ -15,6 +15,7 @@ import { toast } from "@/components/ui/use-toast";
 import { X, Upload, FileText, User, Mail, MessageCircle } from "lucide-react";
 import { useLanguage } from "@/lib/context/language-context";
 import { CareerPost } from "@/lib/career-service";
+import { pickLocaleText } from "@/lib/i18n/locale-fallback";
 
 interface JobApplicationModalProps {
   post: CareerPost;
@@ -47,7 +48,7 @@ export const JobApplicationModal: React.FC<JobApplicationModalProps> = ({
   const [cvFile, setCvFile] = useState<File | null>(null);
   const [coverLetterFile, setCoverLetterFile] = useState<File | null>(null);
   
-  const title = post.title_locales?.[language] || post.title;
+  const title = pickLocaleText(post.title_locales, language, post.title);
   const department = post.department_locales?.[language] || post.department;
   const location = post.location_locales?.[language] || post.location;
 

@@ -11,15 +11,17 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Shield, Ruler, Move, Snowflake, Droplet, FileCheck, Sun, Wind, FlaskConical, Bug, Zap } from "lucide-react";
 import { useLanguage } from "@/lib/context/language-context";
 import { EnvironmentPictograms } from "@/lib/products-service";
+import type { Language } from "@/lib/i18n/config";
+import type { ArrayLocales } from "@/lib/i18n/admin-locales";
 
 interface ArmSafetyStandardsEditorProps {
-  language: 'en' | 'it';
+  language: Language;
   safety: any;
   setSafety: (safety: any) => void;
   armAttributes: any;
   setArmAttributes: (attributes: any) => void;
-  materialsLocales: { en: string[]; it: string[] };
-  setMaterialsLocales: (locales: { en: string[]; it: string[] }) => void;
+  materialsLocales: ArrayLocales;
+  setMaterialsLocales: (locales: ArrayLocales) => void;
   environmentPictograms: EnvironmentPictograms;
   onEnvironmentChange: (environmentPictograms: EnvironmentPictograms) => void;
 }

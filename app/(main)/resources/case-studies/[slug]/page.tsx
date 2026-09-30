@@ -4,8 +4,7 @@ import Link from 'next/link';
 import { ChevronLeft, Calendar, Clock, User, Share2, Tag } from 'lucide-react';
 import { Metadata } from 'next';
 import { cookies } from 'next/headers';
-import en from '@/lib/translations/en.json';
-import it from '@/lib/translations/it.json';
+import { getOpenGraphLocale, parseLanguage } from '@/lib/i18n/config';
 
 import { getCaseStudyBySlug, getRelatedCaseStudies } from '@/lib/case-studies-service';
 import { Button } from '@/components/ui/button';
@@ -20,12 +19,10 @@ interface CaseStudyPageProps {
   };
 }
 
-const translations = { en, it };
-
 export async function generateMetadata({ params }: CaseStudyPageProps): Promise<Metadata> {
   const cookieStore = cookies();
-  const lang = (cookieStore.get('language')?.value as 'en' | 'it') || 'en';
-  const caseStudy = await getCaseStudyBySlug(params.slug);
+  const lang = parseLanguage(cookieStore.get('language')?.value);
+  const caseStudy = await getCaseStudyBySlug(params.slug, lang);
   
   if (!caseStudy) {
     return {
@@ -37,10 +34,10 @@ export async function generateMetadata({ params }: CaseStudyPageProps): Promise<
   const url = `${hostname}/resources/case-studies/${params.slug}`;
 
   // Get localised content
-  const title = caseStudy.title_locales?.[lang] || caseStudy.title;
-  const summary = caseStudy.summary_locales?.[lang] || caseStudy.summary;
-  const clientName = caseStudy.client_name_locales?.[lang] || caseStudy.client_name;
-  const industry = caseStudy.industry_locales?.[lang] || caseStudy.industry;
+  const title = caseStudy.title_locales?.[lang] || caseStudy.title_locales?.en || caseStudy.title;
+  const summary = caseStudy.summary_locales?.[lang] || caseStudy.summary_locales?.en || caseStudy.summary;
+  const clientName = caseStudy.client_name_locales?.[lang] || caseStudy.client_name_locales?.en || caseStudy.client_name;
+  const industry = caseStudy.industry_locales?.[lang] || caseStudy.industry_locales?.en || caseStudy.industry;
 
   // Base metadata object
   const metadata: Metadata = {
@@ -51,7 +48,7 @@ export async function generateMetadata({ params }: CaseStudyPageProps): Promise<
       description: summary,
       url: url,
       siteName: 'HandLine Safety Solutions',
-      locale: lang === 'it' ? 'it_IT' : 'en_GB',
+      locale: getOpenGraphLocale(lang),
       type: 'article',
       publishedTime: caseStudy.published_at,
       authors: [caseStudy.author || 'HandLine'],
@@ -93,9 +90,9 @@ export const revalidate = 0;
 
 export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
   const cookieStore = cookies();
-  const lang = (cookieStore.get('language')?.value as 'en' | 'it') || 'en';
+  const lang = parseLanguage(cookieStore.get('language')?.value);
   
-  const caseStudy = await getCaseStudyBySlug(params.slug);
+  const caseStudy = await getCaseStudyBySlug(params.slug, lang);
   if (!caseStudy) notFound();
   
   // Fetch related case studies

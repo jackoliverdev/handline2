@@ -148,7 +148,7 @@ export function SearchFilters({
                   </div>
                 ) : (
                   <span>
-                    <span className="text-lg font-bold text-brand-primary">{totalResults.toLocaleString()}</span> results found
+                    {t('search.filters.resultsCount').replace('{count}', totalResults.toLocaleString())}
                   </span>
                 )}
               </div>
@@ -224,7 +224,7 @@ export function SearchFilters({
               <div className="space-y-2 pt-3 border-t border-gray-200 dark:border-gray-700">
                 <div className="flex items-center gap-1 text-xs text-brand-primary font-medium">
                   <span className="text-sm">🏷️</span>
-                  Active
+                  {t('search.filters.activeFilters')}
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {selectedContentTypes.map((type) => {

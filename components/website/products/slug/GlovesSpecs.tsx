@@ -4,10 +4,11 @@ import Image from "next/image";
 import { Hammer, Ruler, Layers, Move, Snowflake, Flame, Shield } from "lucide-react";
 import { useLanguage } from "@/lib/context/language-context";
 import { Product } from "@/lib/products-service";
+import { pickLocaleList } from "@/lib/i18n/locale-fallback";
 
 export function GlovesSpecs({ product }: { product: Product }) {
   const { t, language } = useLanguage();
-  const currentMaterials = product.materials_locales?.[language] || [];
+  const currentMaterials = pickLocaleList(product.materials_locales, language);
   const size = product.size_locales?.[language] || product.size_locales?.en || null;
 
   const padSizeDisplay: string | null = (() => {

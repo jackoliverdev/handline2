@@ -1,0 +1,1960 @@
+{
+  "navbar": {
+    "home": "Inicio",
+    "products": "Productos",
+    "industries": "Sectores",
+    "about": "Quiénes somos",
+    "blog": "Blog",
+    "contact": "Contacto",
+    "dashboard": "Panel de Control",
+    "menu": "Menú",
+    "partners": "Socios",
+    "resources": "Recursos",
+    "allProducts": "Todos los Productos",
+    "safetyGloves": "Protección de las manos",
+    "allGloves": "Todos los Guantes",
+    "heatResistant": "Guantes resistentes al calor",
+    "cutResistant": "Guantes anticorte",
+    "generalPurpose": "Uso general",
+    "mechanicalHazards": "Riesgos mecánicos",
+    "welding": "Soldadura",
+    "industrialSwabs": "Escobillas industriales",
+    "armProtection": "Protección de los brazos",
+    "safetyFootwear": "Calzado de seguridad",
+    "eyeFaceProtection": "Protección de los ojos y la cara",
+    "headProtection": "Protección de la cabeza",
+    "hearingProtection": "Protección auditiva",
+    "respiratoryProtection": "Protección de las vías respiratorias",
+    "protectiveClothing": "Ropa de protección y de trabajo",
+    "aboutDropdown": {
+      "ourCompany": "Nuestra Empresa",
+      "careers": "Trabaja con Nosotros",
+      "esg": "Compromiso ESG"
+    },
+    "resourcesDropdown": {
+      "blog": "Blog",
+      "caseStudies": "Casos de estudio",
+      "enResourceCentre": "Biblioteca de Normas EPI",
+      "productDisclaimer": "Declaración sobre los Productos",
+      "declarations": "Declaraciones de conformidad"
+    },
+    "partnersDropdown": {
+      "partnerships": "Asociación",
+      "distribution": "Distribución"
+    },
+    "language": {
+      "toggleLabel": "Idioma / Language",
+      "en": "English",
+      "it": "Italiano",
+      "fr": "Français",
+      "de": "Deutsch",
+      "es": "Español",
+      "toggleButton": "Cambiar a {lang}"
+    },
+    "announcement": "PROTEGEMOS LAS MANOS CON SOLUCIONES INNOVADORAS",
+    "searchPlaceholder": "Buscar productos, sectores o artículos..."
+  },
+  "search": {
+    "searchPlaceholder": "Buscar productos o contenidos",
+    "sidebarSearchPlaceholder": "Buscar productos...",
+    "searchButton": "Buscar",
+    "clearSearch": "Borrar búsqueda",
+    "searching": "Buscando...",
+    "noQuery": "Introduzca un término de búsqueda para empezar",
+    "dropdown": {
+      "noResults": "No se han encontrado resultados",
+      "noResultsDescription": "Pruebe con un término de búsqueda diferente",
+      "viewAll": "Ver todos los resultados",
+      "viewAllFor": "Ver todos los resultados para «{query}»",
+      "suggestions": "Sugerencias",
+      "recentSearches": "Búsquedas recientes",
+      "popularSearches": "Búsquedas populares",
+      "clearRecent": "Borrar búsquedas recientes"
+    },
+    "results": {
+      "title": "Resultados de búsqueda",
+      "showing": "Mostrando {count} de {total} resultados",
+      "showingFor": "Mostrando {count} de {total} resultados para «{query}»",
+      "noResults": "No se han encontrado resultados",
+      "noResultsFor": "No se han encontrado resultados para «{query}»",
+      "noResultsDescription": "No hemos podido encontrar nada que coincida con {query}. Intente buscar con otras palabras o explore nuestras categorías.",
+      "suggestions": {
+        "title": "Sugerencias:",
+        "checkSpelling": "Compruebe la ortografía",
+        "tryDifferent": "Pruebe con otras palabras clave",
+        "useGeneral": "Utilice términos más generales",
+        "clearFilters": "Borrar los filtros activos"
+      },
+      "loadMore": "Cargar más resultados",
+      "loading": "Cargando más resultados...",
+      "searching": "Buscando...",
+      "searchingDescription": "Estamos buscando entre nuestros productos y contenidos.",
+      "error": "Error de búsqueda",
+      "tryAgain": "Reintentar",
+      "noQuery": "Comience su búsqueda",
+      "noQueryDescription": "Introduzca sus términos de búsqueda arriba para encontrar productos, sectores, artículos y más.",
+      "pageInfo": "Página {current} de {total}",
+      "loadingMore": "Cargando más resultados...",
+      "previous": "Anterior",
+      "next": "Siguiente"
+    },
+    "filters": {
+      "title": "Filtros",
+      "activeFilters": "Filtros activos:",
+      "clearAll": "Borrar todos los filtros",
+      "clearFilter": "Borrar {filter}",
+      "apply": "Aplicar",
+      "loading": "Cargando filtros...",
+      "resultsCount": "{count} resultados",
+      "contentType": "Tipo de contenido",
+      "category": "Categoría",
+      "applied": "Filtros aplicados",
+      "allCategories": "Todas las categorías",
+      "contentTypes": {
+        "title": "Tipo de contenido",
+        "all": "Todo el contenido",
+        "products": "Productos",
+        "industries": "Sectores",
+        "articles": "Artículos",
+        "caseStudies": "Casos de estudio",
+        "careers": "Empleo",
+        "enStandards": "Normas EN"
+      },
+      "categories": {
+        "title": "Categorías",
+        "all": "Todas las categorías"
+      },
+      "sortBy": {
+        "title": "Ordenar por",
+        "relevance": "Relevancia",
+        "newest": "Más recientes primero",
+        "alphabetical": "Alfabético"
+      }
+    },
+    "contentTypes": {
+      "product": "Producto",
+      "industry_solution": "Solución por sector",
+      "blog": "Artículo",
+      "case_study": "Caso de estudio",
+      "career": "Carrera",
+      "en_resource": "Norma EN",
+      "category": "Categoría"
+    },
+    "hero": {
+      "badge": "Búsqueda global",
+      "title": "Búsqueda",
+      "titleAccent": "Resultados",
+      "heading": "Búsqueda",
+      "headingAccent": "Resultados",
+      "headingWithQuery": "Resultados para",
+      "description": "Encuentre las soluciones de seguridad, los análisis sectoriales y los recursos que necesita en nuestra gama completa de productos y contenidos.",
+      "searching": "Buscando...",
+      "descriptionWithResults": "Se han encontrado {count} resultados para «{query}» entre nuestros productos y recursos.",
+      "descriptionNoResults": "No se han encontrado resultados para «{query}». Pruebe con otras palabras clave o explore las categorías a continuación.",
+      "stats": {
+        "results": "Resultados",
+        "categories": "Categorías",
+        "languages": "Idiomas",
+        "availability": "Disponible"
+      },
+      "tips": {
+        "title": "Sugerencias de búsqueda",
+        "checkSpelling": "Compruebe la ortografía e inténtelo de nuevo",
+        "tryKeywords": "Pruebe con palabras clave diferentes o más generales",
+        "useSynonyms": "Utilice sinónimos o términos alternativos",
+        "browseCategories": "Explore las categorías a continuación para inspirarse"
+      }
+    },
+    "errors": {
+      "general": "Algo salió mal. Inténtelo de nuevo.",
+      "network": "Error de red. Compruebe su conexión.",
+      "timeout": "La búsqueda ha caducado. Inténtelo de nuevo.",
+      "tooManyRequests": "Demasiadas solicitudes de búsqueda. Espere un momento."
+    },
+    "categories": {
+      "heatResistant": "Guantes resistentes al calor",
+      "cutResistant": "Guantes resistentes al corte",
+      "generalPurpose": "Guantes de uso general",
+      "industrialSwabs": "Escobillas industriales",
+      "respiratory": "Protección respiratoria",
+      "industry": "Soluciones sectoriales",
+      "blog": "Artículos del blog",
+      "caseStudy": "Casos de estudio",
+      "career": "Oportunidades profesionales",
+      "enResource": "Norma EN"
+    },
+    "sorting": {
+      "relevance": "Más relevantes",
+      "newest": "Más recientes",
+      "alphabetical": "A-Z"
+    }
+  },
+  "hero": {
+    "expertise": "40+ Años de Experiencia",
+    "title": "Sus Manos Protegidas",
+    "description": "Con más de 40 años de experiencia en el diseño, fabricación y distribución de guantes de seguridad, hemos desarrollado soluciones a medida para la protección de las manos destinadas a industrias pesadas, con especial atención a los riesgos de calor y corte.",
+    "exploreProducts": "Explorar productos",
+    "getInTouch": "Contáctenos",
+    "mainTitle": {
+      "handline": "HAND LINE",
+      "weSpeak": "EXPERTOS EN",
+      "safety": "SEGURIDAD"
+    }
+  },
+  "productsHero": {
+    "badge": "Seguridad industrial",
+    "heading": {
+      "line1Start": "Nosotros",
+      "line1Highlight": "protegemos a las personas",
+      "line1End": "que",
+      "line2": "construyen nuestro mundo"
+    },
+    "headingAccent": "",
+    "description": "Los EPI adecuados son la línea de defensa fundamental que protege a los trabajadores frente a los peligros, previene lesiones y salva vidas. Las investigaciones demuestran que el uso eficaz de los EPI puede reducir las tasas de accidentes laborales hasta en un 60 %, lo que subraya lo crucial que resulta contar con el equipo adecuado para un entorno de trabajo más seguro y productivo. Los EPI mal ajustados o inadecuados, por otro lado, son un factor concurrente en la mayoría de los accidentes registrados.",
+    "secondDescription": "Con más de 40 años de experiencia en el sector, nos especializamos en el diseño y la distribución de productos de alta calidad que cumplen con estrictas normas industriales, garantizando un ajuste perfecto y una protección a medida para sus necesidades. Ofrecemos soluciones de seguridad completas de la cabeza a los pies, con especial experiencia en protección de las manos.",
+    "browseProducts": "Explorar productos",
+    "getInTouch": "Contáctenos",
+    "stats": {
+      "heat": "Resistencia al calor",
+      "cut": "Resistencia al corte",
+      "cutValue": "Nivel 5",
+      "certified": "Certificado",
+      "years": "Años de experiencia"
+    }
+  },
+  "productsDesignPrinciples": {
+    "title": "Nuestros principios de diseño",
+    "protection": {
+      "title": "Protección",
+      "description": "La seguridad es nuestro objetivo principal, y cada producto que diseñamos comienza con la protección de las personas"
+    },
+    "comfort": {
+      "title": "Confort",
+      "description": "Desde la selección de materiales hasta la adaptación en función de las tareas, nos aseguramos de que nuestro producto se adapte a las necesidades de los operarios, y no al revés."
+    },
+    "quality": {
+      "title": "Calidad",
+      "description": "La calidad constante está garantizada por controles rigurosos y cadenas de producción certificadas que aseguran el cumplimiento normativo."
+    },
+    "affordability": {
+      "title": "Rentabilidad",
+      "description": "Una planificación meticulosa de la producción y sólidas alianzas internacionales nos permiten ofrecer nuestros productos de calidad a precios competitivos."
+    }
+  },
+  "glovesHero": {
+    "badge": "Protección de las Manos",
+    "heading": "Guantes",
+    "headingAccent": "Seguridad",
+    "description": "Descubra nuestra gama completa de guantes de seguridad de altas prestaciones, diseñados para ofrecer una protección superior contra el calor, los cortes y los riesgos mecánicos en entornos industriales.",
+    "browseProducts": "Explore los Guantes",
+    "getInTouch": "Contáctenos",
+    "stats": {
+      "heat": "Resistencia al calor",
+      "cut": "Resistencia al corte",
+      "cutValue": "Nivel 5",
+      "certified": "Certificado",
+      "years": "Años de experiencia"
+    }
+  },
+  "industrialSwabsHero": {
+    "badge": "Limpieza de precisión",
+    "heading": "Escobillas",
+    "headingAccent": "Industriales",
+    "description": "Descubra nuestra gama especializada de escobillas industriales y soluciones de limpieza, diseñadas para actividades de limpieza y lubricación de precisión en entornos industriales exigentes.",
+    "browseProducts": "Explore las Escobillas",
+    "getInTouch": "Contáctenos",
+    "stats": {
+      "precision": "Limpieza de precisión",
+      "applications": "Aplicaciones",
+      "applicationsValue": "500+",
+      "certified": "Certificado",
+      "years": "Años de experiencia"
+    }
+  },
+  "respiratoryHero": {
+    "badge": "Protección de las vías respiratorias",
+    "heading": "Protección",
+    "headingAccent": "Respiratoria",
+    "description": "Descubra nuestro avanzado equipo de protección respiratoria, diseñado para ofrecer una protección superior frente a los riesgos transportados por el aire en entornos industriales.",
+    "browseProducts": "Descubrir protección",
+    "getInTouch": "Contáctenos",
+    "stats": {
+      "protection": "Niveles de protección",
+      "standards": "Estándar",
+      "standardsValue": "EN 149",
+      "certified": "Certificado",
+      "years": "Años de experiencia"
+    }
+  },
+  "industriesHero": {
+    "badge": "Soluciones por sector",
+    "heading": "Expertos en",
+    "headingAccent": "Sector",
+    "description": "Gracias a años de experiencia y a un enfoque estratégico en determinados sectores industriales, hemos desarrollado soluciones innovadoras y eficaces para responder a los desafíos únicos de nuestros clientes. Nuestra experiencia nos permite aportar valor no solo en el suministro de EPI, sino también durante la fase de identificación y creación de las soluciones de protección.",
+    "stats": {
+      "industries": "Sectores atendidos",
+      "years": "Años de experiencia",
+      "products": "Productos",
+      "customers": "Clientes Satisfechos"
+    },
+    "exploreIndustries": "Explore los Sectores",
+    "viewProducts": "Productos"
+  },
+  "expertise": {
+    "title": "Nuestra Experiencia",
+    "description": "Con más de cuatro décadas de experiencia, Hand Line Company se ha consolidado como líder en soluciones innovadoras de protección de las manos para entornos industriales.",
+    "features": {
+      "heatProtection": {
+        "title": "Guantes resistentes al calor",
+        "description": "Nuestro ámbito de especialización. Diseñamos y fabricamos guantes para todos los entornos y temperaturas, superando los 1,000°C",
+        "cta": "Explore las soluciones Resistentes al Calor"
+      },
+      "cutResistance": {
+        "title": "Guantes anticorte",
+        "description": "Los materiales avanzados ofrecen una protección superior contra los cortes, manteniendo la destreza y el confort para trabajos de precisión.",
+        "cta": "Descubra las soluciones Anticorte"
+      },
+      "customisation": {
+        "title": "Personalización de Productos",
+        "description": "Diseñamos y personalizamos productos junto con nuestros clientes, partiendo de las necesidades del operador y combinando nuestra profunda experiencia con sus aportaciones para construir la solución perfecta.",
+        "cta": "Descubra Nuestro Proceso"
+      },
+      "headToToe": {
+        "title": "Protección Completa de la cabeza a los pies",
+        "description": "Ofrecemos soluciones de seguridad completas, tanto con productos propios como en colaboración con las principales marcas del sector. Ofrecemos protección completa a los mejores precios.",
+        "cta": "Explore todos los productos"
+      }
+    },
+    "quote": {
+      "text": "Mi trayectoria comenzó hace 40 años, cuando observé a los trabajadores manipular moldes calientes. Combinando sus perspectivas con mi experiencia artesanal, creamos soluciones de seguridad innovadoras que ahora protegen a los trabajadores en innumerables sectores.",
+      "author": "Franco Castronuovo, CEO y Fundador"
+    }
+  },
+  "featuredProducts": {
+    "title": "Productos Destacados",
+    "description": "Descubra nuestros dispositivos de seguridad más populares, diseñados para ofrecer una protección y un confort superiores en diversas aplicaciones industriales.",
+    "noProducts": "No hay productos destacados disponibles en este momento.",
+    "preview": "Vista previa",
+    "previewShort": "Ver",
+    "details": "Detalles",
+    "viewAll": "Descubra todos los productos",
+    "specs": {
+      "temperature": "Temperatura",
+      "cutLevel": "Nivel de Corte"
+    }
+  },
+  "industrySolutions": {
+    "badge": "Soluciones por sector",
+    "title": "Soluciones por sector",
+    "description": "Diseñamos protecciones especializadas para las manos destinadas a una amplia gama de sectores industriales, garantizando seguridad, confort y precisión para cada aplicación.",
+    "detailedDescription": "Partimos de la persona y diseñamos soluciones en torno a sus necesidades. Con casi medio siglo de servicio a grandes organizaciones, hemos desarrollado un profundo conocimiento del sector para ayudar a nuestros clientes a mejorar la protección y optimizar la productividad.",
+    "noIndustries": "No hay soluciones sectoriales disponibles en este momento.",
+    "learnMore": "Saber más",
+    "viewAll": "Ver todos los sectores"
+  },
+  "cta": {
+    "title": "Listo para Mejorar la",
+    "titleAccent": "Seguridad",
+    "description": "Nuestra gama completa de soluciones de seguridad probadas por el sector es solo el punto de partida. Trabajamos codo con codo con nuestros clientes para identificar las soluciones más eficaces y garantizar una protección de primer nivel y un rendimiento comercial óptimo.",
+    "buttons": {
+      "browseProducts": "Explorar productos",
+      "contactUs": "Contáctenos"
+    },
+    "trustIndicator": "Proveedor de empresas líderes en todo el mundo"
+  },
+  "industryCta": {
+    "badge": "Especialistas del sector",
+    "title": "Listo para Mejorar la Seguridad en el Sector",
+    "description": "Descubra nuestra gama completa de soluciones de seguridad diseñadas específicamente para el sector {industry}.",
+    "buttons": {
+      "browseProducts": "Explora nuestros productos",
+      "contactUs": "Contáctenos"
+    },
+    "trustIndicator": "Proveedor de empresas líderes en el sector {industry}"
+  },
+  "footer": {
+    "companyDescription": "Fabricante italiano especializado en guantes de seguridad de altas prestaciones para entornos industriales. Protegemos las manos con soluciones innovadoras desde 1982.",
+    "address": "via Antonio Brusa 34, 22035, Canzo (CO), Italia",
+    "addressUK": "52 Grosvenor Gardens, London SW1W 0AU, United Kingdom",
+    "phone": "T: (+39) 031 6121961 | T: (+39) 031 526733",
+    "email": "info@handlineco.com",
+    "sections": {
+      "products": {
+        "title": "Productos",
+        "links": {
+          "safetyGloves": "Guantes de seguridad",
+          "heatResistant": "Resistencia al Calor",
+          "cutResistant": "Guantes anticorte",
+          "generalPurpose": "Guantes de uso general",
+          "mechanical": "Guantes contra riesgos mecánicos",
+          "welding": "Guantes para soldadores"
+        }
+      },
+      "industries": {
+        "title": "Sectores",
+        "loading": "Cargando sectores…",
+        "links": {
+          "glassManufacturing": "Producción de vidrio"
+        }
+      },
+      "company": {
+        "title": "Empresa",
+        "links": {
+          "about": "Quiénes somos",
+          "contactUs": "Contáctenos",
+          "esg": "Compromiso ESG"
+        }
+      }
+    },
+    "legal": {
+      "copyright": "Todos los derechos reservados.",
+      "links": {
+        "privacy": "Privacidad",
+        "terms": "Términos de uso",
+        "cookies": "Cookies",
+        "standards": "Norma EN"
+      }
+    }
+  },
+  "products": {
+    "product": "Producto",
+    "categoryOverview": "Resumen de la categoría",
+    "categories": {
+      "main": {
+        "badge": "Catálogo",
+        "title": "Categorías de productos",
+        "description": "Descubra nuestra gama completa de productos de seguridad industrial diseñados para proteger a los trabajadores de la cabeza a los pies.",
+        "contactCard": {
+          "title": "¿No encuentra lo que busca?",
+          "description": "Contacte con nuestro equipo y le ayudaremos a encontrar la solución de seguridad adecuada a sus necesidades.",
+          "cta": "Contáctenos"
+        },
+        "gloves": {
+          "badge": "Guantes de seguridad",
+          "title": "Guantes de seguridad",
+          "description": "Guantes de protección de alto rendimiento para todas las aplicaciones industriales",
+          "categoriesDescription": "Elija entre nuestra gama especializada de guantes de seguridad diseñados para aplicaciones industriales específicas.",
+          "detailedDescription": "Nuestra gama completa de guantes de seguridad ofrece una protección superior en todas las aplicaciones industriales. Desde la resistencia al calor extremo hasta la protección avanzada contra cortes y riesgos mecánicos, nuestros guantes están diseñados con ingeniería de precisión y probados para superar los estándares del sector. Cada categoría está específicamente adaptada para afrontar los desafíos únicos de los distintos entornos de trabajo, manteniendo comodidad y destreza.",
+          "subcategories": {
+            "heat": {
+              "title": "Guantes resistentes al calor",
+              "description": "Protección térmica avanzada para entornos de alta temperatura de hasta 1000°C"
+            },
+            "mechanical": {
+              "title": "Guantes contra riesgos mecánicos",
+              "description": "Protección superior frente a riesgos mecánicos y peligros industriales"
+            },
+            "cut": {
+              "title": "Guantes anticorte",
+              "description": "Protección en entornos de alto riesgo de cortes y laceraciones y para operaciones con materiales cortantes"
+            },
+            "general": {
+              "title": "Guantes de uso general",
+              "description": "Protección versátil para actividades industriales cotidianas, embalaje y construcción"
+            },
+            "welding": {
+              "title": "Guantes de soldadura",
+              "description": "Protección especializada para soldadura y trabajos intensivos de metalurgia"
+            }
+          }
+        },
+        "industrialSwabs": {
+          "badge": "Escobillas industriales",
+          "title": "Escobillas industriales",
+          "description": "Soluciones especializadas para la lubricación y el mantenimiento de moldes industriales",
+          "detailedDescription": "Nuestros escobillones industriales proporcionan soluciones de lubricación y mantenimiento para entornos industriales exigentes. Diseñados para actividades de precisión en presencia de moldes calientes, nuestros escobillones pueden fabricarse a medida para operaciones de precisión."
+        },
+        "respiratory": {
+          "badge": "Protección de las vías respiratorias",
+          "title": "Protección de las vías respiratorias",
+          "description": "Equipos de protección respiratoria frente a distintos agentes contaminantes",
+          "detailedDescription": "Los equipos de protección respiratoria proporcionan una protección avanzada frente a los contaminantes transportados por el aire en entornos industriales. Desde mascarillas antipolvo hasta máscaras faciales completas, ofrecemos productos diseñados para cumplir los más altos estándares de seguridad garantizando comodidad durante el uso prolongado."
+        },
+        "hearing": {
+          "badge": "Protección auditiva",
+          "title": "Protección auditiva",
+          "description": "Dispositivos de protección auditiva frente a entornos ruidosos",
+          "detailedDescription": "La gama de protección auditiva incluye tapones desechables y orejeras antirruido montadas en casco o independientes. Soluciones diseñadas para reducir la exposición a niveles sonoros nocivos manteniendo la comodidad incluso en usos prolongados. Ideales para la industria manufacturera, la construcción, la aviación y la industria pesada."
+        },
+        "armProtection": {
+          "badge": "Protección de los brazos",
+          "title": "Protección de los brazos",
+          "description": "Manguitos anticorte y protección del antebrazo para aplicaciones industriales",
+          "detailedDescription": "La gama de protección de brazos ofrece una cobertura fiable del antebrazo para entornos industriales exigentes. Con un enfoque en la protección contra cortes y calor, nuestros manguitos garantizan seguridad, comodidad y ajuste, ayudando a los operarios a trabajar de forma segura en la manipulación de bordes cortantes, vidrio y piezas metálicas."
+        },
+        "footwear": {
+          "badge": "Calzado de seguridad",
+          "title": "Calzado de seguridad",
+          "description": "Protección de los pies frente a riesgos industriales",
+          "detailedDescription": "La gama de calzado de seguridad incluye zapatos, zapatillas y botas diseñados para distintos riesgos según la norma EN ISO 20345, pensados para ofrecer comodidad y protección en entornos exigentes."
+        },
+        "head": {
+          "badge": "Protección de la cabeza",
+          "title": "Protección de la cabeza",
+          "description": "Cascos de seguridad y gorras antigolpes para entornos industriales",
+          "detailedDescription": "La gama de protección de la cabeza incluye cascos de seguridad y gorras antigolpes diseñados según las normas EN y compatibles con sistemas de seguridad completos para la protección de los ojos y el oído."
+        },
+        "eyeFace": {
+          "badge": "Protección de los ojos y la cara",
+          "title": "Protección de los ojos y la cara",
+          "description": "Gafas y pantallas faciales de protección para entornos industriales",
+          "detailedDescription": "La gama de protección de los ojos y la cara incluye gafas de seguridad, gafas panorámicas y visores con protección contra el arco eléctrico, diseñados según las normas EN. Máxima claridad y comodidad con tratamientos antivaho y antirrayaduras, filtros UV y opciones de protección IR."
+        },
+        "clothing": {
+          "badge": "Ropa de protección",
+          "title": "Ropa de protección y de trabajo",
+          "description": "Prendas de alta visibilidad y ropa de seguridad y trabajo",
+          "detailedDescription": "La gama de ropa incluye prendas de alta visibilidad y ropa de protección y trabajo certificada según las normas EN, garantizando visibilidad, protección y comodidad.",
+          "categoriesDescription": "Elija entre nuestras líneas de ropa dedicadas a la visibilidad, la protección multirriesgo y la soldadura.",
+          "subcategories": {
+            "highVisibility": {
+              "title": "Ropa de alta visibilidad",
+              "description": "Prendas EN ISO 20471 para alta visibilidad y seguridad"
+            },
+            "safetyWorkwear": {
+              "title": "Ropa de seguridad y de trabajo",
+              "description": "Ropa de trabajo y seguridad para uso industrial"
+            },
+            "welding": {
+              "title": "Ropa para soldadores",
+              "description": "Ropa resistente al calor y a las salpicaduras para soldadura"
+            }
+          }
+        }
+      },
+      "pages": {
+        "heat": {
+          "badge": "Protección frente a riesgos térmicos",
+          "title": "Productos resistentes al calor",
+          "description": "Explore nuestra gama completa de guantes resistentes al calor diseñados para la protección frente a temperaturas extremas.",
+          "detailedDescription": "Nuestros guantes resistentes al calor proporcionan una protección térmica excepcional a los trabajadores en entornos de alta temperatura. Diseñados con materiales avanzados y probados para resistir temperaturas de más de 1.000 °C, nuestros guantes ofrecen una protección superior sin comprometer la destreza. Perfectos para la producción de vidrio, el trabajo de metales, la soldadura y otras aplicaciones industriales de alto calor."
+        },
+        "cut": {
+          "badge": "Protección contra el corte",
+          "title": "Productos Anticorte",
+          "description": "Explore nuestra gama completa de guantes anticorte diseñados para la máxima protección frente a los riesgos de corte.",
+          "detailedDescription": "Nuestros guantes anticorte ofrecen una protección superior frente a cortes y desgarros manteniendo una destreza y comodidad excepcionales. Diseñados con materiales avanzados y probados para alcanzar una altísima resistencia al corte, estos guantes son esenciales para los trabajadores que manipulan materiales cortantes, vidrio, metales y para operaciones de montaje de precisión."
+        },
+        "general": {
+          "badge": "Uso general",
+          "title": "Productos de uso general",
+          "description": "Explore nuestra gama completa de guantes de uso general diseñados para actividades industriales cotidianas.",
+          "detailedDescription": "Nuestros guantes de uso general ofrecen una protección fiable para las actividades industriales cotidianas y los trabajos de construcción. Diseñados para la versatilidad y la comodidad, estos guantes ofrecen un excelente agarre, durabilidad y protección para una amplia gama de aplicaciones, incluidos los trabajos de montaje, la manipulación de materiales, las tareas de mantenimiento y los trabajos generales de construcción."
+        },
+        "mechanical": {
+          "badge": "Protección frente a riesgos mecánicos",
+          "title": "Productos contra riesgos mecánicos",
+          "description": "Explore nuestra gama completa de guantes contra riesgos mecánicos diseñados para ofrecer una protección superior en el trabajo.",
+          "detailedDescription": "Nuestros guantes contra riesgos mecánicos proporcionan una protección superior frente a riesgos mecánicos y peligros generales del lugar de trabajo, manteniendo una destreza y una comodidad excepcionales. Diseñados con materiales avanzados y probados conforme a la norma EN388, estos guantes son esenciales para los trabajadores de producción, montaje, construcción y entornos industriales generales."
+        },
+        "welding": {
+          "badge": "Línea para soldadores",
+          "title": "Productos para soldadores",
+          "description": "Explore nuestra gama completa de guantes de soldadura diseñados para tareas de trabajo de metales con alto calor.",
+          "detailedDescription": "Nuestros guantes de soldadura proporcionan una protección especializada para las tareas de soldadura y de trabajo de metales, tanto en contextos de alto riesgo mecánico y térmico como en entornos de soldadura de precisión. Diseñados con materiales resistentes al calor y a los esfuerzos mecánicos, estos guantes ofrecen una excelente protección frente a chispas, salpicaduras y altas temperaturas, manteniendo la destreza necesaria para el trabajo de precisión."
+        },
+        "clothing": {
+          "highVisibility": {
+            "detailedDescription": "Nuestra ropa de alta visibilidad está certificada según EN ISO 20471 y diseñada para garantizar una visibilidad fiable en condiciones de poca luz y en zonas de alto riesgo. Las prendas están disponibles en las Clases 1 a 3 y combinan tejidos de alto contraste con cintas retrorreflectantes de calidad que maximizan la visibilidad a distancia y en movimiento. Los tejidos transpirables y duraderos y los cortes ergonómicos garantizan comodidad durante toda la jornada en mantenimiento vial, servicios públicos, logística y construcción, con opciones de invierno y capas exteriores impermeables para las distintas estaciones."
+          },
+          "safetyWorkwear": {
+            "detailedDescription": "Nuestra línea de ropa de trabajo de seguridad ofrece protección multirriesgo para operaciones industriales donde la durabilidad y el cumplimiento normativo no son negociables. Algunos modelos garantizan prestaciones frente al calor y la llama según la norma EN ISO 11612, propiedades antiestáticas según EN 1149‑5 y protección opcional contra el arco eléctrico según IEC 61482‑2, combinadas con tejidos robustos, costuras reforzadas y sistemas de bolsillos funcionales. Los cortes modernos y ergonómicos favorecen la libertad de movimiento y una larga duración, ayudando a los equipos a mantener la productividad en mantenimiento, producción y actividades de campo."
+          },
+          "welding": {
+            "detailedDescription": "Nuestra ropa de soldadura está pensada para entornos de fabricación exigentes y protege el cuerpo frente a chispas, salpicaduras y calor por convección. Chaquetas, mandiles y manguitos utilizan tejidos ignífugos y costuras reforzadas, con un diseño acorde con los requisitos de rendimiento de las normas EN ISO 11611 y EN ISO 11612. El equilibrio entre transpirabilidad y cobertura permite a los operarios trabajar con seguridad y eficacia durante tareas intensas de soldadura y esmerilado, manteniendo la comodidad durante todo el turno."
+          }
+        },
+        "respiratory": {
+          "badge": "Seguridad respiratoria",
+          "title": "Productos de protección respiratoria",
+          "description": "Explore nuestra gama completa de equipos de protección respiratoria para entornos peligrosos."
+        },
+        "industrialSwabs": {
+          "badge": "Operaciones de precisión",
+          "title": "Escobillas industriales",
+          "description": "Explore nuestra gama completa de escobillas industriales diseñadas para tareas de limpieza de precisión.",
+          "detailedDescription": "Descubra nuestra gama de soluciones de limpieza especializadas diseñadas para aplicaciones industriales."
+        }
+      }
+    },
+    "browseTitle": "Explorar Nuestros Productos",
+    "badge": "Nuestros Productos",
+    "mainPageTitle": "Explorar todos nuestros productos",
+    "mainPageDescription": "Descubra nuestra gama completa de productos de seguridad industrial y dispositivos de protección diseñados para entornos profesionales.",
+    "searchPlaceholder": "Buscar productos...",
+    "sortOptions": {
+      "featured": "Destacado",
+      "newest": "Más recientes",
+      "name-asc": "Nombre: A-Z",
+      "name-desc": "Nombre: Z-A"
+    },
+    "filters": {
+      "title": "Filtros",
+      "clearAll": "Borrar todo",
+      "category": "Categoría",
+      "subCategory": "Subcategoría",
+      "any": "Todos",
+      "enStandard": "Norma EN",
+      "sleeveLength": "Longitud del manguito",
+      "thumbLoop": "Presilla para el pulgar",
+      "closureType": "Tipo de cierre",
+      "connection": "Fijación",
+      "filterType": "Tipo de filtro (Filtros)",
+      "protectionClass": "Clase de protección (Mascarillas)",
+      "filteredParticles": "Partículas filtradas (Filtros)",
+      "snr": "SNR",
+      "en352Part": "Parte EN 352",
+      "reusable": "Reutilizable",
+      "mountType": "Tipo de montaje",
+      "bluetooth": "Bluetooth",
+      "temperature": "Resistencia a la temperatura",
+      "cutLevel": "Nivel de resistencia al corte",
+      "heatLevel": "Nivel de resistencia al calor",
+      "hazardProtection": "Protección contra riesgos",
+      "hazardProtectionItems": {
+        "generalMechanical": "Riesgos mecánicos generales",
+        "highCutRisks": "Riesgos de corte elevados",
+        "abrasionProtection": "Protección contra la abrasión",
+        "highContactTemperature": "Temperatura de contacto elevada",
+        "highHeatTemperature": "Calor/temperatura elevada",
+        "hotSplashes": "Salpicaduras calientes",
+        "highCutAndHeat": "Corte y calor elevados",
+        "heavyDutyWelding": "Soldadura pesada",
+        "precisionWelding": "Soldadura de precisión"
+      },
+      "workEnvironment": "Entorno de trabajo",
+      "length": "Longitud",
+      "min": "Mín",
+      "max": "Máx",
+      "padSize": "Tamaño de la escobilla",
+      "diameter": "Diámetro (mm)",
+      "padLength": "Longitud de la almohadilla (mm)",
+      "material": "Material",
+      "ceCategory": "Categoría CE",
+      "industries": "Industrias",
+      "allCategories": "Todas las categorías",
+      "uncategorised": "Sin categorizar",
+      "activeFilters": "Filtros activos:",
+      "apply": "Aplicar",
+      "heatResistantGloves": "Guantes resistentes al calor",
+      "cutResistantGloves": "Guantes resistentes al corte",
+      "generalPurposeGloves": "Guantes de uso general",
+      "mechanicalHazardsGloves": "Guantes contra riesgos mecánicos",
+      "weldingGlove": "Guantes de soldadura",
+      "industrialSwabs": "Escobillas industriales",
+      "respiratoryProtection": "Protección de las vías respiratorias",
+      "protectiveClothing": "Ropa de protección",
+      "footwearClass": "Clase de calzado",
+      "esd": "ESD",
+      "widthFit": "Ancho de horma",
+      "sizeRange": "Rango de tallas",
+      "toeCap": "Puntera",
+      "soleMaterial": "Material de la suela",
+      "standardCodes": "Códigos de norma",
+      "protectionType": "Tipo de protección",
+      "lensTint": "Color de lente",
+      "coating": "Tratamiento",
+      "uvCode": "Protección UV",
+      "brimLength": "Longitud de la visera",
+      "lowTemperature": "Rendimiento a baja temperatura",
+      "electricalInsulation": "Aislamiento eléctrico (EN 50365)",
+      "moltenMetalSplash": "Salpicaduras de metal fundido (MM)",
+      "ventilation": "Ventilación",
+      "hiVisClass": "Clase de alta visibilidad",
+      "flameStandard": "Norma calor/llama (EN ISO 11612)",
+      "arcClass": "Clase de protección contra el arco",
+      "antistatic": "Antiestático (EN 1149-5)",
+      "clothingType": "Tipo de prenda",
+      "clothingTypeOptions": {
+        "welding": "Ropa de soldadura",
+        "high-visibility": "Ropa de alta visibilidad",
+        "safety-workwear": "Ropa de seguridad y de trabajo"
+      },
+      "garmentType": "Tipo de prenda",
+      "size": "Tallas",
+      "clothingCategory": {
+        "title": "Categoría de ropa"
+      },
+      "clothingCategories": {
+        "Hi-Vis Jackets": "Chaquetas de alta visibilidad",
+        "Hi-Vis Trousers": "Pantalones de alta visibilidad",
+        "Hi-Vis Waistcoats": "Chalecos de alta visibilidad",
+        "Hi-Vis body warmers": "Chalecos interiores de alta visibilidad",
+        "Hi-Vis Coveralls": "Monos de alta visibilidad",
+        "Hi-Vis Fleeces and sweatshirts": "Forros polares y sudaderas de alta visibilidad",
+        "Hi-Vis Polo and T-shirts": "Polos y camisetas de alta visibilidad",
+        "Hi-Vis accessories": "Accesorios de alta visibilidad",
+        "Welding Aprons": "Delantales de soldadura",
+        "Welding Jackets": "Chaquetas de soldadura",
+        "Welding Coveralls": "Monos de soldadura",
+        "Welding Trousers": "Pantalones de soldadura",
+        "Accessories": "Accesorios",
+        "Safety Jackets": "Chaquetas de seguridad",
+        "Safety Trousers": "Pantalones de seguridad",
+        "Other safety clothing": "Otra ropa de seguridad",
+        "Work Jackets": "Chaquetas de trabajo",
+        "Work Trousers": "Pantalones de trabajo",
+        "Work Suits": "Trajes de trabajo",
+        "Work Aprons": "Delantales de trabajo",
+        "Other workwear": "Otras prendas de trabajo"
+      },
+      "garmentTypes": {
+        "Aprons": "Delantales",
+        "Jackets": "Chaquetas",
+        "Coveralls": "Monos",
+        "Trousers": "Pantalones",
+        "Waistcoats": "Chalecos",
+        "Body warmers": "Ropa térmica interior",
+        "Fleece & Sweatshirts": "Forros polares y sudaderas",
+        "Polo & T-shirts": "Polos y camisetas",
+        "Other workwear": "Otras prendas de trabajo",
+        "Accessories": "Accesorios"
+      }
+    },
+    "results": {
+      "showing": "{current} de {total} productos mostrados",
+      "noResults": "No se han encontrado productos",
+      "noResultsDescription": "No hemos encontrado productos que coincidan con sus criterios de búsqueda.",
+      "clearFilters": "Borrar filtros",
+      "seeMore": "Ver más productos",
+      "showLess": "Mostrar menos"
+    },
+    "preview": "Vista previa",
+    "details": "Detalles",
+    "viewFullDetails": "Ver todos los detalles",
+    "outOfStock": "Agotado",
+    "comingSoon": "Próximamente",
+    "new": "Nuevo",
+    "featured": "Destacado",
+    "industries": "Sectores",
+    "keyFeatures": "Características principales:",
+    "moreFeatures": "+{{count}} más",
+    "temperature": "Temperatura",
+    "temperatureMobile": "Temp.",
+    "enStandards": "Niveles de protección",
+    "enStandardsMobile": "EN",
+    "applications": "Aplicaciones"
+  },
+  "productPage": {
+    "backToProducts": "Volver a los productos",
+    "specifications": "Especificaciones",
+    "features": "Características",
+    "safetyFeatures": "Características de seguridad",
+    "armProtectionAttributes": "Atributos de protección de brazos",
+    "closureTypes": {
+      "velcro": "Velcro",
+      "elastic": "Elástico",
+      "none": "Ninguno"
+    },
+    "equipment": "Equipo",
+    "otherDetails": "Otros detalles",
+    "applications": "Aplicaciones",
+    "safety": "Niveles de protección",
+    "documentation": "Documentos",
+    "declarationOfConformity": "Declaración de conformidad",
+    "download": "Descargar",
+    "noDocuments": "Ningún documento disponible",
+    "opticalClass": "Clase óptica",
+    "mechanical": "Mecánico",
+    "coating": "Tratamiento",
+    "standards": "Estándar",
+    "weight": "Peso",
+    "closedShell": "Casquete cerrado",
+    "brimShort": "Visor corto",
+    "brimLong": "Visor largo",
+    "slipResistance": "Resistencia al deslizamiento",
+    "metalFree": "Sin metal",
+    "sleeveFeatures": "Características del manguito",
+    "snr": "SNR",
+    "en352Parts": "Partes EN 352",
+    "bluetooth": "Bluetooth",
+    "compatibleWith": "Compatible con",
+    "protectionCodes": "Códigos de protección",
+    "fit": "Ajuste",
+    "gender": "Género",
+    "colours": "Colores",
+    "uvProtection": "Protección UV",
+    "frameMark": "Montura",
+    "lensMark": "Lente",
+    "frame": "Montura",
+    "lens": "Lentes",
+    "additionalMarking": "Marcado adicional",
+    "arm": "Varilla",
+    "headband": "Banda",
+    "lowTemperature": "Rendimiento a baja temperatura",
+    "highTemperature": "Alta temperatura",
+    "electricalInsulation": "Aislamiento eléctrico",
+    "lateralDeformation": "Deformación lateral",
+    "enIso20345": "EN ISO 20345",
+    "enIso20345_2022": "EN ISO 20345:2022",
+    "enIso20345_2011": "EN ISO 20345:2011",
+    "enIso21420": "EN ISO 21420",
+    "stdLabel": {
+      "en397": "Cascos de seguridad industriales",
+      "en169": "Filtros para soldadura",
+      "en170": "Filtros UV",
+      "en172": "Filtros antideslumbrantes para uso industrial",
+      "en175": "Equipos de soldadura y procesos afines",
+      "gset29": "Protección contra el arco eléctrico (visores)",
+      "en50365": "Aislamiento eléctrico",
+      "en12492": "Cascos de alpinismo",
+      "en812": "Gorras antigolpes",
+      "en_iso_21420": "Requisitos generales",
+      "en140": "Equipos de protección respiratoria - Semimáscaras y cuartos de máscara",
+      "en143": "Equipos de protección respiratoria - Filtros para partículas",
+      "din31813": "Equipos de protección respiratoria - Filtros para gases",
+      "en421": "Radiaciones ionizantes y contaminación radiactiva",
+      "en659": "Calzado de seguridad para bomberos",
+      "foodGrade": "Apto para contacto alimentario",
+      "ionisingRadiation": "Protección contra radiaciones ionizantes",
+      "radioactiveContamination": "Protección contra la contaminación radiactiva"
+    },
+    "additionalRequirements": "Requisitos adicionales",
+    "productDetails": "Detalles del Producto",
+    "technicalSpecifications": "Especificaciones Técnicas",
+    "materials": "Materiales",
+    "materialLabels": {
+      "upper": "Empeine",
+      "lining": "Forro",
+      "sole": "Suela",
+      "insole": "Plantilla",
+      "toeCap": "Puntera"
+    },
+    "npf": "NPF",
+    "size": "Tallas",
+    "comfortFeatures": "Confort y ajuste",
+    "attributes": "Atributos",
+    "protectiveFilters": "Filtros de protección",
+    "protectiveFilter": "Filtro de protección",
+    "protection": "Protección",
+    "filtersFitted": "filtros instalados",
+    "dust": "Polvo",
+    "gasesVapours": "Gases y Vapores",
+    "combined": "Combinado",
+    "sun": "Sol",
+    "glare": "Deslumbramiento",
+    "ir": "IR",
+    "welding": "Soldadura",
+    "uv": "UV",
+    "dimensions": "Dimensiones",
+    "temperatureRating": "Resistencia al calor",
+    "cutResistanceLevel": "Nivel de Resistencia al Corte",
+    "industries": "Sectores",
+    "keyIndustries": "Indicado para los sectores",
+    "submitEnquiry": "Enviar solicitud",
+    "contactUs": "Contáctenos",
+    "requestSample": "Solicitar Muestra",
+    "padSize": "Tamaño de la escobilla",
+    "productInfo": {
+      "brand": "Marca",
+      "size": "Talla",
+      "length": "Longitud",
+      "rodLength": "Longitud de patilla"
+    },
+    "ceCategory": "Categoría CE",
+    "category": "Categoría",
+    "technicalSheets": "Ficha Técnica",
+    "productDeclarations": "Declaración de conformidad",
+    "declarationsOfConformity": "Declaraciones de Conformidad",
+    "manufacturersInstruction": "Instrucciones del Fabricante",
+    "safetyStandards": "Niveles de protección",
+    "cut": "Corte",
+    "largeSplashes": "Grandes Salpicaduras",
+    "workEnvironmentSuitability": "Idoneidad para el entorno de trabajo",
+    "workEnvironment": {
+      "chemical": "Exposición química",
+      "biological": "Riesgos biológicos",
+      "electrical": "Riesgo eléctrico"
+    },
+    "dryConditions": "Entorno seco",
+    "wetConditions": "Ambiente húmedo",
+    "dustyConditions": "Presencia de polvo",
+    "chemicalExposure": "Exposición química",
+    "biologicalHazards": "Riesgos biológicos",
+    "oilyGreasy": "Aceitoso / Graso",
+    "electrical": "Riesgo eléctrico",
+    "electricalRisks": "Riesgos eléctricos",
+    "radiation": "Radiación",
+    "lowVisibility": "Baja visibilidad",
+    "suitableFor": "Adecuado para",
+    "workEnvironments": "entornos de trabajo",
+    "yes": "Sí",
+    "no": "No",
+    "mechanicalRisks": "Riesgos mecánicos",
+    "thermalRisks": "Riesgos Térmicos",
+    "abrasion": "Abrasión",
+    "tear": "Desgarro",
+    "puncture": "Perforación",
+    "impact": "Impacto",
+    "flammability": "Inflamabilidad",
+    "contactHeat": "Calor de Contacto",
+    "convectiveHeat": "Calor Convectivo",
+    "radiantHeat": "Calor Radiante",
+    "smallSplashes": "Pequeñas Salpicaduras",
+    "coldProtection": "Protección contra el frío",
+    "convectiveCold": "Frío convectivo",
+    "contactCold": "Frío de contacto",
+    "waterPermeability": "Permeabilidad al agua",
+    "additionalStandards": "Conformidad con normas adicionales",
+    "englishDocument": "English",
+    "italianDocument": "Italiano",
+    "coatingTypes": {
+      "anti_fog": "Antivaho",
+      "scratch_resistant": "Antirrayaduras",
+      "chemical_resistant": "Resistente a los agentes químicos"
+    },
+    "lensTintTypes": {
+      "transparent": "Transparente",
+      "clear": "Transparente",
+      "grey": "Gris",
+      "smoke": "Ahumado",
+      "brown": "Marrón",
+      "amber": "Ámbar",
+      "yellow": "Amarillo",
+      "green": "Verde",
+      "blue": "Azul",
+      "mirror": "Espejada"
+    },
+    "footwearAttributes": {
+      "metalFree": "Sin metal",
+      "esd": "ESD",
+      "slipResistance": "Resistencia al deslizamiento",
+      "waterResistance": "Resistencia al agua",
+      "chemicalExposure": "Exposición química",
+      "metatarsalProtection": "Protección metatarsal"
+    },
+    "hearingAttributes": {
+      "waterResistance": "Resistencia al agua",
+      "extremeTemperature": "Temperatura extrema",
+      "mechanicalStress": "Estrés mecánico",
+      "electricalInsulation": "Aislamiento eléctrico",
+      "specialElectrical": "Eléctrico especial",
+      "adjustments": "Ajustes",
+      "biohazard": "Riesgo biológico",
+      "compatibility": "Compatibilidad",
+      "decontamination": "Descontaminación",
+      "flame": "Llama",
+      "lowTemperature": "Rendimiento a baja temperatura",
+      "mhNoise": "Ruido M/H",
+      "radioFrequency": "Radiofrecuencia",
+      "temperatureWater": "Temperatura + Agua"
+    },
+    "respiratoryStandards": {
+      "class": "Clase",
+      "nonReusable": "No reutilizable",
+      "reusable": "Reutilizable",
+      "highDust": "Alto nivel de polvo",
+      "gasFilters": "Filtros de Gas",
+      "gases": {
+        "a": "Gases orgánicos",
+        "b": "Gases inorgánicos",
+        "e": "Gases ácidos",
+        "k": "Amoníaco",
+        "ax": "Gas orgánico < 65°C",
+        "hg": "Mercurio",
+        "no": "Gases nitrosos",
+        "sx": "Gas específico",
+        "co": "Monóxido de carbono",
+        "p": "Polvo"
+      }
+    },
+    "clothingStandards": {
+      "flameSpread": "Propagación de la llama",
+      "convectiveHeat": "Calor convectivo",
+      "radiantHeat": "Calor radiante",
+      "moltenAluminium": "Aluminio fundido",
+      "moltenIron": "Hierro fundido",
+      "contactHeat": "Calor de contacto",
+      "class": "Clase",
+      "protection": "Protección",
+      "welding": "Soldadura",
+      "waterPenetration": "Penetración de agua",
+      "breathability": "Transpirabilidad",
+      "enStandards": "Niveles de protección"
+    }
+  },
+  "relatedProducts": {
+    "title": "Productos relacionados"
+  },
+  "industries": {
+    "manufacturing": "Manufactura",
+    "sectorsWeServe": "Sectores atendidos",
+    "sectorsDescription": "En Hand Line desarrollamos soluciones de seguridad especializadas para una amplia gama de sectores, cada uno con desafíos y requisitos únicos.",
+    "keyFeatures": "Características principales",
+    "summary": "Panorama del Sector",
+    "keyHazards": "Riesgos Principales",
+    "ppeSolutions": "Soluciones EPI",
+    "noSectionsAvailable": "La información detallada del sector se está actualizando. Por favor, inténtelo de nuevo más tarde.",
+    "industrySummary": "Resumen del Sector",
+    "viewSolutions": "Ver Soluciones",
+    "contactForDetails": "Contáctenos para más detalles",
+    "spotlight": {
+      "badge": "Destacado",
+      "title": "Sector destacado",
+      "description": "Descubra cómo las soluciones innovadoras de Hand Line están diseñadas para afrontar los desafíos únicos de este sector.",
+      "subtitle": "Soluciones para la industria",
+      "cta": "Explore las soluciones"
+    },
+    "features": {
+      "title": "Características de Seguridad Especializadas",
+      "description": "Descubra las características de seguridad avanzadas que hacen excepcionales nuestras soluciones para {industry}.",
+      "count": "{count}+ características de seguridad especializadas"
+    }
+  },
+  "about": {
+    "est": "Fund. 1981",
+    "heading": "Quiénes somos",
+    "description": "Desde hace más de cuarenta años, Hand Line está a la vanguardia de la seguridad industrial, diseñando y fabricando guantes de protección de alta calidad que combinan innovación, confort y protección sin compromisos.",
+    "ourStory": "Nuestra historia",
+    "getInTouch": "Contáctenos",
+    "hero": {
+      "badge": "Nuestra misión desde 1977",
+      "title": "Nosotros protegemos las",
+      "titleHighlight1": "Manos",
+      "titleMiddle": "que construyen nuestro",
+      "titleHighlight2": "Mundo",
+      "subtitle": "Creemos que «Cero Accidentes» no es solo una visión, sino una necesidad.",
+      "descriptionMobile": "Imaginamos un mundo donde cada organización equipa a su fuerza laboral con equipos diseñados a medida, creados meticulosamente para satisfacer los requisitos únicos de sus empleados.",
+      "descriptionDesktop": "Nos comprometemos a ser el catalizador de un entorno de trabajo más seguro y confortable, donde las empresas prioricen el bienestar individual y la productividad mediante soluciones de protección personalizadas, estableciendo así nuevos estándares de seguridad y comodidad en el sector industrial.",
+      "buttons": {
+        "ourStory": "Nuestra historia",
+        "getInTouch": "Contáctenos"
+      }
+    },
+    "stats": {
+      "years": "Años de experiencia",
+      "team": "Miembros del Equipo",
+      "countries": "Países",
+      "products": "Productos"
+    },
+    "history": {
+      "badge": "Nuestro Recorrido",
+      "heading": "Nuestra historia",
+      "description": "Desde nuestros orígenes en Lombardía (Italia) hasta convertirnos en un fabricante y proveedor internacional de equipos de protección, descubre los momentos clave que han moldeado nuestra empresa y nuestra cultura.",
+      "1977": {
+        "title": "Fundación",
+        "description": "Nuestra historia comienza como fabricante italiano de guantes de cuero y de trabajo, con una impronta claramente artesanal basada en la maestría y en productos de alta calidad"
+      },
+      "1980": {
+        "title": "Primera Innovación",
+        "description": "Desarrollamos el primer guante de lana para la manipulación de moldes a alta temperatura en la parte caliente del proceso de producción del vidrio"
+      },
+      "1996": {
+        "title": "Certificación y normas EN",
+        "description": "Fuimos pioneros en la adaptación a las nuevas normas EN388 y EN407 introducidas, llevando productos certificados a todos nuestros clientes. Nuestros productos se adoptan ampliamente en las principales plantas de producción de vidrio y automoción en Italia"
+      },
+      "2002": {
+        "title": "Expansión del Catálogo",
+        "description": "Ampliamos nuestra cartera de productos dedicada a las industrias del vidrio y la metalurgia con numerosos guantes certificados para más de 1.000 °C. Nuestra expansión geográfica comienza en 6 mercados de Europa y Oriente Medio, impulsada por nuestros clientes italianos existentes."
+      },
+      "2003": {
+        "title": "Constitución de la Sociedad",
+        "description": "Se constituye Hand Line Company, marcando el paso de empresa artesanal a empresa comercial que ha prosperado, ha ganado credibilidad e inspirado confianza a un número cada vez mayor de clientes. Suministramos guantes y otros EPI en 10 mercados de Europa y Oriente"
+      },
+      "2005": {
+        "title": "Innovación en Calor Extremo",
+        "description": "Desarrollamos y certificamos un guante único capaz de resistir un calor de contacto de más de 1.000 °C para condiciones extremas: HL 1000"
+      },
+      "2015": {
+        "title": "Transformación Digital",
+        "description": "Hand Line emprende la digitalización de sus procesos y marca el cambio con un restyling de la marca"
+      },
+      "2023": {
+        "title": "Expansión de Infraestructuras",
+        "description": "Invertimos en una expansión significativa de nuestra sede central y almacén en el norte de Italia, impulsada por el crecimiento de nuestra cartera de clientes y de nuestra presencia internacional"
+      },
+      "2025": {
+        "title": "Entrada en el Mercado del Reino Unido",
+        "description": "Hand Line anuncia su expansión en el mercado del Reino Unido con el lanzamiento de una filial en Londres para seguir apoyando su creciente mercado internacional"
+      }
+    },
+    "different": {
+      "badge": "Nuestras Ventajas",
+      "heading": "Qué nos hace Diferentes",
+      "description": "Hand Line se distingue en el sector de los EPI con focos estratégicos claros.",
+      "productQuality": {
+        "title": "Excelencia en la",
+        "titleAccent": "Calidad del Producto",
+        "description": "Más de 40 años de experiencia con un riguroso control de calidad de los materiales y durante toda la producción."
+      },
+      "customisation": {
+        "title": "Inigualable",
+        "titleAccent": "Personalización",
+        "description": "Productos a medida según las necesidades del usuario. Nadie conoce mejor los productos que nuestros clientes."
+      },
+      "pricing": {
+        "title": "Precios",
+        "titleAccent": "Competitivos",
+        "description": "Competitividad garantizada en el mercado y gestión eficaz de la estructura de costes."
+      },
+      "innovation": {
+        "title": "Innovación",
+        "titleAccent": "Continua",
+        "description": "A la vanguardia en el desarrollo de productos, en la búsqueda continua de nuevas formas de mejorar."
+      },
+      "flexibility": {
+        "title": "Flexibilidad",
+        "titleAccent": "del Producto",
+        "description": "Ofrecemos soluciones de pedidos flexibles y garantizamos cobertura de almacén para gestionar cualquier necesidad."
+      },
+      "service": {
+        "title": "Servicio",
+        "titleAccent": "de excelencia",
+        "description": "Ofrecemos asesoramiento en la identificación y creación de productos a medida, y realizamos las primeras entregas en pocas semanas."
+      }
+    },
+    "mission": {
+      "badge": "Nuestra Misión",
+      "heading": "Proteger las Manos Que Construyen Nuestro Mundo",
+      "description": "Desde 1981, Hand Line se dedica al desarrollo de soluciones de protección innovadoras que combinan una seguridad sin concesiones con la excelencia del diseño italiano.",
+      "points": {
+        "0": "Experiencia especializada en la fabricación de guantes de seguridad de altas prestaciones",
+        "1": "Pruebas rigurosas para superar los estándares de seguridad del sector",
+        "2": "Equilibrio entre protección, confort y prestaciones",
+        "3": "Compromiso con la innovación y la mejora continua"
+      },
+      "cta": "Descubre Nuestros Productos",
+      "since": "Desde",
+      "year": "1981"
+    },
+    "values": {
+      "badge": "Nuestros Valores",
+      "heading": "Principios Rectores",
+      "description": "Estos principios fundamentales guían cada aspecto de Hand Line, desde el diseño de los productos hasta el servicio al cliente.",
+      "safety": {
+        "title": "La Seguridad Ante Todo",
+        "description": "Creemos que la seguridad nunca debe verse comprometida. Cada producto que diseñamos pone la protección en primer lugar."
+      },
+      "innovation": {
+        "title": "Innovación",
+        "description": "Superamos constantemente los límites de la protección de las manos mediante la investigación y la innovación."
+      },
+      "customer": {
+        "title": "Enfoque en el Cliente",
+        "description": "Escuchamos las necesidades de nuestros clientes y desarrollamos soluciones para sus retos de seguridad específicos."
+      },
+      "quality": {
+        "title": "Excelencia Cualitativa",
+        "description": "Nuestro riguroso control de calidad garantiza que cada producto cumpla los más altos estándares de durabilidad y rendimiento."
+      },
+      "design": {
+        "title": "Claridad del Diseño",
+        "description": "Creemos en un diseño claro y funcional que mejora la usabilidad y la experiencia del usuario."
+      },
+      "compliance": {
+        "title": "Conformidad",
+        "description": "Nuestros productos cumplen o superan todos los estándares y certificaciones de seguridad relevantes a nivel mundial."
+      }
+    },
+    "team": {
+      "badge": "Nuestra Gente",
+      "heading": "El Equipo Hand Line",
+      "description": "Nuestros profesionales combinan décadas de experiencia con una pasión por la innovación en seguridad."
+    },
+    "certifications": {
+      "badge": "Estandares de Calidad",
+      "heading": "Nuestros compromisos",
+      "description": "Hand Line cumple y supera los más altos estándares de seguridad y calidad del sector, garantizando una protección fiable para todos los usuarios.",
+      "mainStatement": "Nuestra producción sigue los más altos estándares de calidad con certificaciones ISO en toda la cadena de producción y de valor.",
+      "types": {
+        "quality": {
+          "title": "Calidad",
+          "description": "Nuestra producción sigue los más altos estándares de calidad con certificación ISO."
+        },
+        "compliance": {
+          "title": "Conformidad",
+          "description": "Todos nuestros productos están certificados para garantizar protección y conformidad."
+        },
+        "eyeFace": {
+          "badge": "Protección para ojos y cara",
+          "title": "Protección de los ojos y la cara",
+          "description": "Gafas y viseras de protección para entornos industriales",
+          "detailedDescription": "Nuestra gama de protección ocular y facial incluye gafas de seguridad, gafas panorámicas selladas y viseras con protección contra arco eléctrico diseñadas conforme a la norma EN 166 y normas relacionadas. Fabricada para ofrecer claridad, confort y fiabilidad, con recubrimientos antivaho y antirrayaduras, así como opciones de filtrado UV y protección infrarroja. Ideal para la industria manufacturera, la construcción y el mantenimiento eléctrico."
+        }
+      },
+      "environmental": {
+        "title": "Compromiso Medioambiental",
+        "description": "Nuestro compromiso para ayudar a nuestro planeta mediante prácticas sostenibles y una producción responsable.",
+        "learnMore": "Descubra nuestras iniciativas ESG"
+      },
+      "note": "Documentación disponible a petición."
+    },
+    "esg": {
+      "hero": {
+        "badge": "Compromiso ESG",
+        "title": "Protegemos las Manos que construyen nuestro Mundo.",
+        "titleAccent": "Y nuestro Planeta.",
+        "description": "Nuestra misión va más allá del suministro de Equipos de Protección Individual de excelencia. Creemos que la verdadera protección incluye una responsabilidad hacia el medio ambiente, la sociedad y una gobernanza ética. Por eso estamos alineando activamente nuestras operaciones con los principios ESG (Environmental, Social and Governance)."
+      },
+      "environmental": {
+        "badge": "Medio Ambiente",
+        "title": "Responsabilidad Medioambiental",
+        "description": "Estamos adoptando medidas significativas para reducir nuestra huella ambiental:",
+        "points": {
+          "0": "Transición hacia materiales sostenibles y envases ecocompatibles.",
+          "1": "Reducción de residuos mediante una producción ajustada y programas de reciclaje.",
+          "2": "Minimización de las emisiones de carbono en nuestra cadena de suministro y logística.",
+          "3": "Minimización de los volúmenes de envío y de los residuos."
+        },
+        "closing": "Aunque nuestro recorrido ESG se encuentra en sus fases iniciales, la sostenibilidad es un parámetro esencial."
+      },
+      "social": {
+        "badge": "Social",
+        "title": "Responsabilidad Social",
+        "description": "Nuestro compromiso con las personas guía todo lo que hacemos:",
+        "points": {
+          "0": "Priorizamos la seguridad de los trabajadores y las prácticas laborales justas en toda nuestra cadena de suministro global.",
+          "1": "Verificamos que los mismos estándares se extiendan a toda la cadena de valor, asegurándonos de que nuestros proveedores de materiales, productos y servicios compartan nuestra visión.",
+          "2": "Internamente, promovemos una cultura de diversidad, equidad e inclusión, garantizando un entorno de trabajo seguro y respetuoso."
+        }
+      },
+      "governance": {
+        "badge": "Gobernanza",
+        "title": "Gobernanza Transparente",
+        "description": "La integridad guía nuestras acciones:",
+        "points": {
+          "0": "Estamos implementando políticas claras y responsables que garantizan prácticas comerciales éticas.",
+          "1": "Nuestro liderazgo se centra en el impacto a largo plazo, no solo en el beneficio a corto plazo.",
+          "2": "Estamos aumentando la transparencia mediante el seguimiento y la comunicación de las métricas ESG en todas nuestras operaciones."
+        }
+      },
+      "certification": {
+        "badge": "Sistemas de Gestión Certificados",
+        "title": "Certificados en Calidad, Medio Ambiente y Seguridad",
+        "description": "Hand Line está plenamente certificada según las normas ISO 9001, ISO 14001 e ISO 45001, lo que confirma nuestro compromiso con la gestión de la calidad, la responsabilidad medioambiental y la salud y seguridad en el trabajo."
+      },
+      "cta": {
+        "badge": "Únete a Nuestra Misión",
+        "title": "Construyamos un Futuro más Seguro y",
+        "titleAccent": "Sostenible",
+        "description": "Invitamos a nuestros socios, clientes y comunidades a unirse a nosotros en la creación de un futuro más sostenible y ético en el ámbito de los EPI. Si tienes preguntas sobre nuestras prácticas ESG o quieres colaborar, contáctanos aquí.",
+        "buttons": {
+          "contact": "Contáctenos",
+          "learnMore": "Explora nuestros productos"
+        }
+      }
+    }
+  },
+  "contact": {
+    "section": {
+      "badge": "Contáctenos",
+      "title": "Contacta con Hand Line",
+      "description": "Nuestro equipo está a tu disposición para cualquier necesidad de guantes de seguridad industrial."
+    },
+    "form": {
+      "title": "Contáctenos",
+      "description": "Rellena el formulario a continuación y te responderemos lo antes posible.",
+      "name": "Nombre completo",
+      "namePlaceholder": "Introduce tu nombre completo",
+      "company": "Empresa",
+      "companyPlaceholder": "Introduce el nombre de tu empresa (opcional)",
+      "email": "Dirección de correo electrónico",
+      "emailPlaceholder": "Introduce tu dirección de correo electrónico",
+      "subject": "Asunto",
+      "subjectPlaceholder": "¿De qué se trata?",
+      "message": "Mensaje",
+      "messagePlaceholder": "Cuéntanos cómo podemos ayudarte...",
+      "submit": "Enviar Mensaje",
+      "submitting": "Enviando...",
+      "fields": {
+        "name": "Nombre completo",
+        "namePlaceholder": "Introduce tu nombre completo",
+        "company": "Empresa",
+        "companyPlaceholder": "Introduce el nombre de tu empresa (opcional)",
+        "email": "Dirección de correo electrónico",
+        "emailPlaceholder": "Introduce tu dirección de correo electrónico",
+        "subject": "Asunto",
+        "subjectPlaceholder": "¿De qué se trata?",
+        "message": "Mensaje",
+        "messagePlaceholder": "Cuéntanos cómo podemos ayudarte..."
+      },
+      "success": {
+        "title": "¡Mensaje Enviado!",
+        "description": "Gracias por contactarnos. Te responderemos en un plazo de 24 horas."
+      },
+      "error": {
+        "title": "Error",
+        "description": "El envío del mensaje ha fallado. Inténtalo de nuevo o contáctanos directamente."
+      }
+    },
+    "info": {
+      "title": "Información de contacto",
+      "description": "Puedes contactarnos en nuestra sede utilizando los datos que aparecen a continuación.",
+      "offices": {
+        "switchLabel": "Sede",
+        "italy": "Italia",
+        "uk": "Reino Unido"
+      },
+      "address": {
+        "title": "Sede Administrativa",
+        "titleUK": "Domicilio Social",
+        "content": "Viale Varese 83, 22100 Como (CO), Italia",
+        "contentUK": "52 Grosvenor Gardens, London SW1W 0AU, United Kingdom",
+        "operationalTitle": "Sede Central - Oficinas & Almacén",
+        "operationalContent": "via Antonio Brusa 34, 22035, Canzo (CO), Italia",
+        "operationalTitleUK": "Oficina Reino Unido",
+        "operationalContentUK": "27 Hill Street, London W1J 5LP, United Kingdom"
+      },
+      "phone": {
+        "title": "Teléfono",
+        "content": "+39 031 6121961 | +39 031 526733",
+        "contentUK": "T: (+44) 020 7866 3849"
+      },
+      "email": {
+        "title": "Correo electrónico",
+        "content": "info@handlineco.com"
+      },
+      "contactInfoTitle": "Información de contacto",
+      "findUsTitle": "Encontrarnos",
+      "directionsTitle": "Cómo llegar a Hand Line Company",
+      "directionsDescription": "Obtener indicaciones para nuestra sede principal en Como",
+      "directionsDescriptionUK": "Obtener indicaciones para nuestra oficina en el Reino Unido en Londres",
+      "directionsButton": "Obtener indicaciones"
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Preguntas Frecuentes",
+      "description": "Encuentra respuestas rápidas a las preguntas frecuentes sobre nuestros productos y servicios",
+      "questions": "[{\"question\": \"¿Cómo puedo elegir el EPI adecuado?\", \"answer\": \"La elección correcta del EPI es fundamental para garantizar la seguridad y el bienestar de los trabajadores. En primer lugar, recomendamos recopilar información detallada sobre las condiciones de trabajo y la exposición a los riesgos en las situaciones más extremas. Esto ayudará a determinar los niveles de protección y los requisitos prácticos necesarios para el EPI. Nuestro sitio incluye una amplia gama de productos filtrables por requisitos, condiciones ambientales, categoría de riesgo o nivel de protección. Recomendamos siempre contactar con nuestro equipo para recibir asesoramiento e identificar el EPI más adecuado para sus necesidades. Estamos a solo un clic de distancia.\"}, {\"question\": \"¿Pueden personalizar o diseñar EPI a medida?\", \"answer\": \"Sí, podemos crear soluciones de protección de las manos personalizadas según sus necesidades específicas y producir muestras en pocas semanas. Muchos de nuestros productos actuales surgieron de solicitudes específicas de nuestros clientes.\"}, {\"question\": \"¿Puedo solicitar muestras para pruebas?\", \"answer\": \"Sí, ofrecemos muestras para clientes industriales y distribuidores. Contáctenos con los detalles de su empresa y sus aplicaciones para solicitar un kit de muestras.\"}, {\"question\": \"¿Realizan envíos internacionales?\", \"answer\": \"Sí, suministramos EPI a decenas de clientes en más de 15 mercados de la región EMEA y somos capaces de realizar entregas a nivel global.\"}, {\"question\": \"¿Para qué sectores industriales suministran EPI?\", \"answer\": \"Nuestros productos están diseñados para una amplia variedad de sectores, entre ellos vidriería, metalurgia, construcción, automoción, industria alimentaria, logística y trabajo de metales. Hemos adquirido una profunda experiencia en los sectores de la producción de vidrio y metales y en la industria pesada, con más de 40 años de actividad al servicio de grandes clientes internacionales. Nuestra ambición es ser un proveedor fiable y, al mismo tiempo, un asesor de confianza.\"}, {\"question\": \"¿Ofrecen servicios OEM o de marca blanca?\", \"answer\": \"Sí, apoyamos la producción en OEM y marca blanca para socios interesados en personalizar guantes, prendas, etc., con su propia marca, embalaje o especificaciones técnicas. Contáctenos para hablar de sus necesidades.\"}, {\"question\": \"¿Con qué normas cumplen sus productos?\", \"answer\": \"Todos nuestros productos están certificados conforme al Reglamento Europeo de EPI (UE) 2016/425 y cumplen con las normas EN aplicables.\"}, {\"question\": \"¿Cómo puedo convertirme en distribuidor o revendedor de sus productos?\", \"answer\": \"Puede rellenar el formulario de solicitud para distribuidores o contactar directamente con nuestro equipo en distribution@handlineco.com. Apoyamos a los revendedores con material de marketing, formación técnica y modalidades de pedido flexibles.\"}]"
+    },
+    "hero": {
+      "badge": "Estamos Aquí Para Ayudarte",
+      "title": "Contactar",
+      "titleAccent": "Hand Line",
+      "description": "Nuestro equipo está a su disposición para cualquier consulta sobre nuestros productos y soluciones de seguridad. Contáctenos y le responderemos lo antes posible.",
+      "stats": {
+        "support": "Soporte 24/7",
+        "response": "Tiempo de respuesta medio: 1 hora",
+        "satisfaction": "Satisfacción del cliente 98%",
+        "experience": "Más de 40 años de experiencia"
+      },
+      "buttons": {
+        "sendMessage": "Enviar un Mensaje",
+        "ourInfo": "Nuestra Información"
+      }
+    }
+  },
+  "blog": {
+    "hero": {
+      "badge": "Blog",
+      "title": "Hand Line",
+      "titleAccent": "Insights",
+      "description": "Conocimiento líder, información e ideas para hacer progresar la seguridad en cada lugar de trabajo.",
+      "exploreArticles": "Explorar Artículos",
+      "learnAboutUs": "Descubre quiénes somos"
+    },
+    "categoriesBuckets": {
+      "title": "Explorar por Tema",
+      "buckets": {
+        "productsInnovation": {
+          "title": "Productos e Innovación",
+          "description": "Descubre nuestras últimas soluciones de EPI y tecnologías de seguridad de vanguardia."
+        },
+        "industrySustainability": {
+          "title": "Industria y sostenibilidad",
+          "description": "Mantente al día sobre las tendencias del mercado y las prácticas sostenibles en materia de seguridad."
+        },
+        "safetyCompliance": {
+          "title": "Seguridad y conformidad",
+          "description": "Guía práctica sobre normas, reglamentos y protección en el trabajo."
+        },
+        "other": {
+          "title": "Otros Análisis",
+          "description": "Artículos generales y novedades sobre seguridad y protección."
+        }
+      }
+    },
+    "stats": {
+      "articles": "Artículos",
+      "categories": "Categorías",
+      "freeAccess": "Acceso Gratuito",
+      "yearsExperience": "Años de experiencia"
+    },
+    "grid": {
+      "badge": "Conocimiento sobre Seguridad",
+      "title": "Recursos de Seguridad de Hand Line",
+      "description": "Descubra información experta sobre guantes de seguridad industriales, equipos de protección y mejores prácticas para la protección de las manos en el lugar de trabajo.",
+      "searchPlaceholder": "Buscar Insights...",
+      "showing": "Mostrando",
+      "articles": "artículos",
+      "noArticles": "No se han encontrado artículos",
+      "noArticlesDescription": "Intenta modificar los criterios de búsqueda o filtro",
+      "filterByTags": "Categorías",
+      "clearFilters": "Borrar",
+      "searchFor": "para",
+      "clearAllFilters": "Borrar todos los filtros"
+    },
+    "readArticle": "Leer el artículo",
+    "backToBlogs": "Volver al blog",
+    "minRead": "min de lectura",
+    "featuredArticle": "Artículo Destacado",
+    "featuredTitle": "Análisis",
+    "featuredDescription": "Descubre las últimas novedades e innovaciones en seguridad laboral y tecnología de protección de las manos."
+  },
+  "caseStudies": {
+    "hero": {
+      "badge": "Historias de éxito",
+      "title": "Hand Line",
+      "titleAccent": "Casos de estudio",
+      "description": "Ejemplos reales de cómo nuestras soluciones de seguridad han transformado la protección laboral en diversos sectores.",
+      "exploreCaseStudies": "Explorar Casos de Estudio",
+      "learnAboutUs": "Descubre quiénes somos"
+    },
+    "featured": {
+      "badge": "Caso de Estudio Destacado",
+      "title": "Éxito en Acción",
+      "description": "Descubre cómo hemos ayudado a las empresas a transformar sus operaciones y obtener resultados extraordinarios."
+    },
+    "buttons": {
+      "readFull": "Leer el Caso de Estudio Completo",
+      "read": "Leer el Caso de Estudio"
+    },
+    "labels": {
+      "challenge": "Reto"
+    },
+    "stats": {
+      "caseStudies": "Casos de estudio",
+      "industries": "Sectores",
+      "successStories": "Historias de éxito",
+      "yearsExperience": "Años de experiencia"
+    },
+    "grid": {
+      "badge": "Historias de éxito",
+      "title": "Casos de Éxito de Hand Line",
+      "description": "Descubre cómo las soluciones de seguridad de Hand Line han ayudado a empresas de diversos sectores a mejorar sus protocolos de seguridad y proteger a su personal.",
+      "searchPlaceholder": "Buscar casos de estudio...",
+      "showing": "Mostrando",
+      "caseStudies": "casos de estudio",
+      "noCaseStudies": "No se ha encontrado ningún caso de estudio",
+      "noCaseStudiesDescription": "Intenta modificar los criterios de búsqueda o filtro",
+      "filterByTags": "Etiqueta",
+      "filterByIndustry": "Sectores",
+      "clearFilters": "Borrar",
+      "clearAllFilters": "Borrar todos los filtros"
+    },
+    "viewCaseStudy": "Ver Caso de Estudio",
+    "backToCaseStudies": "Volver a los Casos de Estudio",
+    "challenge": "El Reto",
+    "solution": "Nuestra Solución",
+    "results": "Los Resultados",
+    "relatedCaseStudies": "Casos de Estudio Relacionados",
+    "clientDetails": "Detalles del Cliente",
+    "industryDetails": "Detalles del Sector",
+    "testimonial": "Testimonio del Cliente"
+  },
+  "partners": {
+    "hero": {
+      "badge": "Más fuertes juntos",
+      "title": "Colabora con",
+      "description": "Descubra las oportunidades de asociación estratégica y distribución de los productos Hand Line y únase a nuestra red de socios.",
+      "partnerships": "Alianzas estratégicas",
+      "distribution": "Red de Distribución",
+      "stats": {
+        "countries": "Países",
+        "partners": "Socios Globales",
+        "years": "Años de experiencia",
+        "products": "Productos"
+      }
+    },
+    "title": "Colabore con Hand Line",
+    "description": "Únase a nuestra red global de socios y distribuidores para llevar las soluciones de seguridad innovadoras de Hand Line a más trabajadores en todo el mundo.",
+    "strategic": {
+      "title": "Alianzas estratégicas",
+      "description": "¿Desea promocionar y vender sus EPI a través de Hand Line? Buscamos líderes del sector para ampliar nuestra oferta con soluciones de seguridad innovadoras.",
+      "cta": "Explore las Alianzas"
+    },
+    "distribution": {
+      "title": "Distribución de productos Hand Line",
+      "description": "Únase a nuestra creciente red de distribuidores para llevar los productos de seguridad Hand Line a su región. Ofrecemos soporte completo y márgenes competitivos.",
+      "cta": "Conviértete en distribuidor"
+    },
+    "partnerships": {
+      "hero": {
+        "badge": "Alianzas Estratégicas",
+        "title": "Colabora con",
+        "titleAccent": "Hand Line",
+        "description": "Construimos alianzas duraderas para mejorar la seguridad y la innovación en el trabajo. Únase a nosotros para crear soluciones de protección que marcan la diferencia en los lugares de trabajo de todo el mundo.",
+        "becomePartner": "Conviértete en socio",
+        "seeProducts": "Ver nuestros productos"
+      },
+      "form": {
+        "title": "Conviértete en socio",
+        "description": "Complete el formulario a continuación para hablar sobre oportunidades de asociación con nuestro equipo.",
+        "emailAlternative": "Alternativamente, envíanos un correo electrónico directamente a",
+        "emailAddress": "partnerships@handlineco.com",
+        "fullName": "Nombre",
+        "fullNamePlaceholder": "Tu nombre completo",
+        "company": "Empresa",
+        "companyPlaceholder": "El nombre de tu empresa",
+        "email": "Dirección de correo electrónico",
+        "emailPlaceholder": "tua.email@azienda.com",
+        "phone": "Teléfono (opcional)",
+        "phonePlaceholder": "Tu número de teléfono",
+        "details": "Mensaje",
+        "detailsPlaceholder": "Cuéntenos sus intereses de colaboración y cómo podríamos trabajar juntos...",
+        "submit": "Enviar solicitud",
+        "submitting": "Enviando...",
+        "successTitle": "Solicitud de colaboración enviada",
+        "successMessage": "Gracias por tu interés. Nos pondremos en contacto contigo pronto en la dirección",
+        "errorTitle": "Algo salió mal",
+        "errorMessage": "Vuelva a intentarlo más tarde o contáctenos directamente en partnerships@handlineco.com"
+      }
+    },
+    "distributionPage": {
+      "hero": {
+        "badge": "Red Global",
+        "title": "Distribuya los Productos",
+        "titleAccent": "Hand Line",
+        "titleSuffix": "Productos",
+        "description": "Únase a nuestra red de distribución global para llevar soluciones de seguridad de vanguardia a su mercado. Nuestros distribuidores se benefician de productos exclusivos, márgenes competitivos y soporte completo.",
+        "becomeDistributor": "Conviértete en distribuidor",
+        "seeProducts": "Ver nuestros productos"
+      },
+      "form": {
+        "title": "Conviértete en distribuidor",
+        "description": "Complete el formulario a continuación para hablar sobre oportunidades de distribución en su región.",
+        "emailAlternative": "Alternativamente, envíanos un correo electrónico directamente a",
+        "emailAddress": "distribution@handlineco.com",
+        "fullName": "Nombre",
+        "fullNamePlaceholder": "Tu nombre completo",
+        "company": "Empresa",
+        "companyPlaceholder": "El nombre de tu empresa",
+        "email": "Dirección de correo electrónico",
+        "emailPlaceholder": "tua.email@azienda.com",
+        "phone": "Teléfono (opcional)",
+        "phonePlaceholder": "Tu número de teléfono",
+        "country": "País",
+        "countryPlaceholder": "Su país o región de actividad",
+        "details": "Mensaje",
+        "detailsPlaceholder": "Cuéntenos sobre sus capacidades de distribución, su alcance de mercado y el motivo por el que está interesado en los productos Hand Line...",
+        "submit": "Enviar solicitud",
+        "submitting": "Enviando...",
+        "successTitle": "Solicitud de distribución enviada",
+        "successMessage": "Gracias por tu interés. Nos pondremos en contacto contigo pronto en la dirección",
+        "errorTitle": "Algo salió mal",
+        "errorMessage": "Vuelva a intentarlo más tarde o contáctenos directamente en distribution@handlineco.com"
+      }
+    }
+  },
+  "auth": {
+    "customerPortal": "Portal de Clientes",
+    "customerPortalDesc": "Accede a tu panel y a tus servicios",
+    "welcomeBack": "Bienvenido de nuevo",
+    "createAccount": "Crea tu cuenta",
+    "signInDesc": "Introduce tus credenciales para acceder a tu cuenta y a tu panel.",
+    "signUpDesc": "Crea una cuenta para acceder a todas las funciones y servicios.",
+    "email": "Dirección de correo electrónico",
+    "emailPlaceholder": "nombre@empresa.com",
+    "password": "Contraseña",
+    "orContinueWith": "o continúa con",
+    "passwordPlaceholder": "••••••••",
+    "confirmPassword": "Confirmar contraseña",
+    "forgotPassword": "¿Contraseña olvidada?",
+    "forgotPasswordTitle": "¿Contraseña olvidada?",
+    "forgotPasswordDesc": "Introduce tu correo electrónico para restablecer la contraseña",
+    "forgotPasswordHelp": "Te enviaremos un enlace para restablecer tu contraseña",
+    "submit": "Enviar",
+    "signIn": "Iniciar sesión",
+    "signUp": "Regístrate",
+    "signUpInstead": "Regístrate en su lugar",
+    "signInInstead": "Iniciar sesión",
+    "notAMember": "¿No estás registrado?",
+    "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+    "continueWithGoogle": "Continuar con Google",
+    "terms": "Términos de Servicio",
+    "privacy": "Política de privacidad",
+    "agreeTo": "Al iniciar sesión, aceptas nuestros",
+    "successSignIn": "Sesión iniciada.",
+    "successSignUp": "Registro completado e inicio de sesión realizado.",
+    "errorSignIn": "Error de acceso",
+    "errorSignUp": "Error de registro",
+    "userExists": "Usuario ya existente",
+    "profileSetupIssue": "Inicio de sesión correcto, pero la configuración del perfil no se ha completado. Es posible que algunas funciones estén limitadas.",
+    "accountCreated": "¡Cuenta creada!",
+    "passwordRequirement": {
+      "minLength": "Al menos 8 caracteres",
+      "hasNumber": "Al menos un número",
+      "hasSpecial": "Al menos un carácter especial",
+      "match": "Las contraseñas coinciden",
+      "noMatch": "Las contraseñas no coinciden"
+    },
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña"
+  },
+  "sidebar": {
+    "categories": "Categorías de productos",
+    "industries": "Sectores",
+    "resources": "Recursos",
+    "products": {
+      "categories": {
+        "heatResistantGloves": "Guantes resistentes al calor",
+        "heatResistantSleeves": "Manguitos resistentes al calor",
+        "cutResistantGloves": "Guantes anticorte",
+        "cutResistantSleeves": "Manguitos anticorte",
+        "corporateCustomisation": "Soluciones para empresas",
+        "industrialCustomisation": "Soluciones industriales"
+      }
+    }
+  },
+  "forms": {
+    "company": "Nombre de la empresa",
+    "companySize": "Tamaño de la empresa",
+    "selectCompanySize": "Seleccione el tamaño de la empresa",
+    "industry": "Sector",
+    "sizeNeeded": "Talla necesaria",
+    "contactDetails": "Datos de contacto",
+    "emailPlaceholder": "your.email@company.com",
+    "privacyConsent": "Acepto",
+    "privacyPolicy": "la Política de Privacidad",
+    "and": "y",
+    "terms": "los Términos de Servicio",
+    "submit": "Enviar solicitud"
+  },
+  "standards": {
+    "viewStandard": "Ver norma",
+    "download": "Descargar",
+    "downloads": "Descargar",
+    "relatedStandards": "Normas relacionadas",
+    "backToStandards": "Volver a las normas",
+    "grid": {
+      "badge": "Normas de seguridad",
+      "title": "Biblioteca de normas europeas",
+      "description": "Explore nuestra colección de normas europeas, guías y recursos para equipos de protección individual.",
+      "searchPlaceholder": "Buscar normas por código o palabra clave...",
+      "showing": "Mostrando",
+      "standards": "norma",
+      "noStandards": "No se ha encontrado ninguna norma",
+      "noStandardsDescription": "Intenta modificar los criterios de búsqueda o filtro",
+      "filterByCategory": "Filtrar por categoría",
+      "clearFilters": "Borrar filtros"
+    },
+    "cards": {
+      "learnMore": "Saber más"
+    },
+    "hero": {
+      "badge": "Normas y reglamentos",
+      "title": "Biblioteca de normas",
+      "titleAccent": "EPI",
+      "description": "Acceda a información completa sobre las normas europeas que garantizan que nuestros productos cumplen los máximos requisitos de calidad y seguridad.",
+      "intro": "Bienvenido a nuestro Hub de Normas de EPI, donde encontrará indicaciones claras sobre las normas de seguridad y la normativa relativa a los equipos de protección individual (EPI). Explore nuestras páginas detalladas para entender qué normas se aplican a cada tipo de EPI, qué significan en la práctica y cómo se prueban los productos para garantizar la seguridad.",
+      "important": "Importante: la información proporcionada en este hub tiene únicamente fines informativos y no sustituye en ningún caso el asesoramiento profesional ni las evaluaciones independientes.",
+      "contactLine": {
+        "before": "Para obtener más indicaciones o solicitudes específicas,",
+        "linkText": "contáctenos",
+        "after": ": nuestro equipo de expertos en EPI estará a su disposición."
+      },
+      "buttons": {
+        "contact": "Contáctenos",
+        "viewProducts": "Productos"
+      },
+      "exploreStandards": "Descubrir normas",
+      "learnAboutUs": "Descubre quiénes somos",
+      "stats": {
+        "standards": "50+",
+        "resources": "1",
+        "guides": "40+",
+        "categories": "15+",
+        "resourcesLabel": "Conformidad",
+        "guidesLabel": "Años de experiencia",
+        "categoriesLabel": "Categorías"
+      }
+    },
+    "overview": {
+      "badge": "Normativa de referencia",
+      "title": "Guía sobre la normativa de EPI",
+      "subtitle": "Descubra nuestra guía completa sobre la normativa de EPI, incluidas las normas UKCA, CE e internacionales, las categorías de productos y los requisitos de conformidad. Comprenda qué equipos de protección cumplen las normas de seguridad y cómo elegir los EPI más adecuados para su entorno de trabajo"
+    },
+    "buckets": {
+      "regulation": {
+        "title": "Normativa de EPI",
+        "subtitle": "Descubra qué normativas y requisitos de seguridad están en vigor"
+      },
+      "categories": {
+        "title": "Categorías de EPI",
+        "subtitle": "Comprenda las clases de riesgo de los EPI y los peligros cubiertos"
+      },
+      "standards": {
+        "title": "Normas EN, UKCA y ANSI",
+        "subtitle": "Claridad sobre las normas vigentes en la UE y el Reino Unido"
+      }
+    },
+    "categories": {
+      "navTitle": "Categorías"
+    },
+    "categoriesIntro": {
+      "badge": "Norma EN",
+      "title": "Normas por categoría",
+      "description": "Descubra las principales categorías de EPI y conozca qué normas, ensayos y requisitos se aplican a cada área. Seleccione una categoría a continuación para acceder a guías prácticas, normas clave y consejos de elección."
+    },
+    "footerCta": {
+      "badge": "Actualizaciones",
+      "title": "Manténgase en contacto para recibir las últimas actualizaciones",
+      "text": "La normativa sobre EPI evoluciona constantemente y puede resultar difícil de seguir. Hemos creado una sección dedicada de nuestro blog Hand Line Insights con actualizaciones sobre cumplimiento normativo y regulación. ¿Tiene más preguntas o desea profundizar en temas específicos? Estamos a solo un clic de distancia.",
+      "buttons": {
+        "blog": "Hand Line Insights",
+        "contact": "Contáctenos"
+      }
+    },
+    "productDisclaimer": {
+      "hero": {
+        "badge": "Información importante",
+        "title": "Declaración",
+        "titleAccent": "Producto",
+        "description": "Hand Line Company Srl se compromete a apoyar a los clientes con el producto adecuado y con competencias y conocimientos de primer nivel. Nuestros servicios y productos deben utilizarse con el rigor necesario por parte del empleador/operador en la selección y el uso de los EPI suministrados."
+      },
+      "sections": {
+        "usage": {
+          "title": "Selección de los EPI",
+          "content": "Toda la información proporcionada se basa en nuestros conocimientos actuales y en la comprensión de la materia. Esta información se ofrece exclusivamente a modo de sugerencia para apoyar sus decisiones o elecciones de producto. Nos reservamos el derecho de actualizar dicha información en caso de que se disponga de nuevos conocimientos, experiencias o indicaciones normativas. La elección correcta de los EPI depende de los riesgos presentes en el lugar de trabajo. Es responsabilidad exclusiva del empleador y/o del usuario, entre otras cosas, llevar a cabo una correcta evaluación de riesgos, seleccionar los EPI adecuados para la tarea específica y garantizar la compatibilidad con otros dispositivos de protección cuando proceda."
+        },
+        "heatResistance": {
+          "title": "Uso de los EPI",
+          "content": "Todos los EPI deben utilizarse exclusivamente de conformidad con las instrucciones del fabricante y las directrices de seguridad. Un uso indebido, una modificación o un empleo fuera del ámbito previsto pueden reducir el nivel de protección y aumentar el riesgo de lesiones. Los empleadores y los usuarios son responsables de garantizar el uso correcto, la formación en el uso adecuado, el mantenimiento y la conservación de los EPI según lo indicado, así como su sustitución cuando estén dañados, desgastados o hayan llegado al final de su vida útil. Los EPI deben inspeccionarse cuidadosamente antes de cada uso para asegurarse de que no presenten defectos o daños visibles. El uso de los EPI nunca debe ni puede sustituir la cautela y la atención en la manipulación de materiales peligrosos y/o en las actividades realizadas en entornos de riesgo."
+        },
+        "cutResistance": {
+          "title": "Niveles de protección",
+          "content": "Aunque nuestros EPI están diseñados y certificados conforme a las normativas y estándares europeos, incluido el Reglamento (UE) 2016/425, ningún equipo puede ofrecer una protección absoluta o ilimitada. Los distintos tipos de EPI reducen riesgos específicos, pero no eliminan por completo los peligros que están destinados a mitigar. A modo de ejemplo no exhaustivo: la resistencia/protección al corte, a la perforación, a la abrasión, al desgarro, etc. reduce el riesgo de lesiones mecánicas, pero no las previene ni elimina por completo; los EPI resistentes a la llama reducen el riesgo de quemaduras, pero no impiden lesiones en todas las situaciones de incendio y no son «ignífugos»; la ropa de protección contra el frío reduce el riesgo de congelación, pero no elimina las lesiones por frío; los EPI resistentes a agentes químicos reducen el riesgo de exposición, pero no garantizan una protección total frente a todas las sustancias; los guantes y las alfombras aislantes reducen el riesgo de electrocución, pero no eliminan por completo los peligros eléctricos; los dispositivos de protección contra radiaciones mitigan algunos riesgos de exposición, pero no los eliminan por completo. Los EPI deben utilizarse siempre como parte de un sistema completo de seguridad laboral, que incluya medidas de control de riesgos, formación, supervisión y procedimientos de trabajo seguros."
+        },
+        "generalGuidelines": {
+          "title": "Modificación de los EPI y productos falsificados",
+          "content": "Cualquier alteración, reparación o modificación de los EPI invalida la certificación del producto y anula inmediatamente cualquier garantía. Los dispositivos modificados no pueden garantizarse como conformes con los niveles de prestación originales y no deben utilizarse. Solo los productos originales, adquiridos a través de canales autorizados, están cubiertos por certificación y garantía. Los productos falsificados o las imitaciones pueden no ofrecer el nivel de protección requerido y no deben utilizarse. Hand Line Company Srl declina toda garantía y responsabilidad, salvo en los casos expresamente previstos o derivados de un uso indebido de los EPI."
+        }
+      }
+    }
+  },
+  "declarations": {
+    "hero": {
+      "badge": "Documentación normativa",
+      "title": "Declaraciones",
+      "titleAccent": "de Conformidad",
+      "description": "Bienvenido a nuestro archivo de declaraciones de conformidad de productos, donde puede encontrar y descargar los documentos necesarios de conformidad con el Reglamento (UE) 2016/425. Busque el producto deseado y seleccione el idioma para descargar la DoC en PDF. Esta biblioteca se actualiza periódicamente; en algunos casos, una sola declaración cubre varias variantes dentro de una misma familia de productos.",
+      "contactLine": {
+        "before": "Si el producto que estás buscando no está presente,",
+        "linkText": "contáctanos",
+        "after": ""
+      },
+      "viewDeclarations": "Ver Declaraciones",
+      "stats": {
+        "products": "200+",
+        "productsLabel": "Productos",
+        "declarations": "20+",
+        "declarationsLabel": "Declaraciones",
+        "compliance": "1",
+        "certified": "UE",
+        "certifiedLabel": "Certificado"
+      }
+    },
+    "grid": {
+      "searchPlaceholder": "Buscar declaraciones...",
+      "allLanguages": "Todas",
+      "filterByCategory": "Categorías",
+      "categories": "Categorías",
+      "declarations": "declaraciones",
+      "searchFor": "para",
+      "clearFilters": "Borrar",
+      "noDeclarations": "No se ha encontrado ninguna declaración",
+      "noDeclarationsDescription": "Ninguna declaración coincide con los criterios seleccionados. Intenta modificar los filtros.",
+      "noDeclarationsAvailable": "En este momento no hay declaraciones de conformidad disponibles.",
+      "clearAllFilters": "Borrar todos los filtros"
+    }
+  },
+  "careers": {
+    "hero": {
+      "badge": "Trabaja con Hand Line",
+      "titleStart": "Construyamos algo grande.",
+      "titleAccent": "Juntos.",
+      "description1": "En Hand Line creemos que podemos marcar la diferencia. Cada día diseñamos y entregamos productos y soluciones que protegen a las personas y permiten a las empresas de todo el mundo trabajar con seguridad y eficacia.",
+      "description2": "Buscamos mentes curiosas, pensadores audaces y personas incansables que quieran crecer con nosotros. Ya sea que estés comenzando tu carrera o aportes años de experiencia, encontrarás oportunidades para aprender, contribuir y prosperar en un entorno internacional y colaborativo.",
+      "title": "Carreras en Hand Line",
+      "description": "Únete a nuestro equipo de profesionales apasionados, dedicados a crear soluciones de seguridad innovadoras. Descubre oportunidades que te permiten marcar la diferencia en la seguridad laboral.",
+      "viewOpenings": "Ver posiciones abiertas",
+      "aboutCompany": "Nuestra empresa",
+      "browseOpenings": "Explorar posiciones",
+      "learnAboutValues": "Descubre nuestros valores",
+      "joinOurTeam": "Únete al equipo",
+      "contactUs": "Contáctenos",
+      "stats": {
+        "teamMembers": "120+",
+        "teamMembersLabel": "Miembros del equipo",
+        "locations": "5",
+        "locationsLabel": "Sedes",
+        "countries": "12",
+        "countriesLabel": "Países",
+        "founded": "1981",
+        "foundedLabel": "Fundación",
+        "employees": "Miembros del equipo",
+        "years": "Años de experiencia"
+      }
+    },
+    "grid": {
+      "badge": "Posiciones Abiertas",
+      "title": "Oportunidades Disponibles",
+      "description": "Explora las posiciones abiertas y encuentra el puesto perfecto para tus competencias.",
+      "searchPlaceholder": "Buscar posiciones...",
+      "departments": "Departamentos",
+      "locations": "Ubicación",
+      "clearFilters": "Borrar filtros",
+      "showing": "Mostrando",
+      "positions": "posiciones",
+      "positionsAvailableSingular": "1 posición disponible",
+      "positionsAvailablePlural": "{count} posiciones disponibles",
+      "filteredFrom": "Filtradas de {total} posiciones totales",
+      "noPositions": "No se ha encontrado ninguna posición",
+      "noPositionsDescription": "En este momento no tenemos posiciones abiertas que coincidan con tus criterios. Inténtalo más tarde o modifica la búsqueda."
+    },
+    "viewPosition": "Ver posición",
+    "viewDetails": "Ver detalles",
+    "new": "Nuevo",
+    "backToCareers": "Volver a Carreras",
+    "post": {
+      "aboutRole": "El Puesto",
+      "requirements": "Requisitos",
+      "benefits": "Beneficios",
+      "responsibilities": "Responsabilidades",
+      "salary": "Retribución",
+      "applyNow": "Postúlate ahora",
+      "location": "Sede",
+      "jobType": "Tipo de contrato",
+      "workSite": "Modalidad de trabajo",
+      "posted": "Publicado",
+      "quickActions": "Acciones rápidas",
+      "sharePosition": "Compartir esta posición",
+      "backToCareers": "Volver a Carreras",
+      "readyToJoin": "¿Crees que este puesto es para ti?",
+      "readyToJoinBadge": "Únete al equipo",
+      "excitedToLearn": "Estamos entusiasmados por conocerte y descubrir cómo puedes contribuir a nuestra misión.",
+      "joinTeamIndicator": "Confiado por profesionales de todo el mundo • Beneficios competitivos • Estándares laborales europeos"
+    },
+    "equalityStatement": "En Hand Line nos comprometemos a crear un entorno de trabajo inclusivo, donde todos se sientan valorados, respetados y apoyados. Aceptamos candidaturas de todas las personas cualificadas, independientemente de la edad, el género, la discapacidad, la orientación sexual, la raza, la religión o las creencias. Si necesitas adaptaciones o apoyo durante el proceso de candidatura, háznoslo saber.",
+    "application": {
+      "title": "Postúlate para el Puesto",
+      "personalInfo": "Información personal",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo electrónico",
+      "phone": "Teléfono",
+      "documents": "Documentos",
+      "cv": "CV",
+      "coverLetter": "Carta de presentación",
+      "fileSelected": "Archivo seleccionado",
+      "additionalInfo": "Información adicional",
+      "message": "Mensaje",
+      "messagePlaceholder": "Añada cualquier cosa que consideres importante…",
+      "availableFrom": "Disponible desde",
+      "submit": "Enviar candidatura"
+    },
+    "cta": {
+      "badge": "Candidaturas Abiertas",
+      "title": "¿Estás interesado pero no encuentras una posición a tu medida?",
+      "description": "Si no has encontrado nada que te parezca perfecto, pero crees que tus competencias podrían ser valiosas y te ves creciendo profesionalmente en Hand Line, o si tienes ideas interesantes de las que te gustaría hablarnos, nos encantaría saber de ti. Envíanos una candidatura espontánea, siempre estamos abiertos a sugerencias y nuevas ideas.",
+      "buttons": {
+        "openApplication": "Enviar candidatura espontánea",
+        "keepInformed": "Mantenme informado"
+      },
+      "openTitle": "Enviar una candidatura espontánea",
+      "cvUrl": "Enlace al CV / portafolio (opcional)",
+      "cvUrlPlaceholder": "https://tu-enlace-a-cv-o-portafolio",
+      "ideaLabel": "Cuéntanos qué tienes en mente y dónde crees que puedes aportar valor",
+      "submitOpen": "Enviar",
+      "keepTitle": "Mantenme informado",
+      "keepDescription": "Te mantendremos informado sobre las nuevas posiciones durante los próximos 12 meses. Vuelve en cualquier momento para renovar tu interés.",
+      "submitKeep": "Suscribirse",
+      "success": "¡Gracias!",
+      "openSuccess": "Tu candidatura espontánea ha sido enviada.",
+      "interestSuccess": "Estás en la lista para futuras oportunidades."
+    },
+    "whyJoin": {
+      "badge": "Por qué unirte al equipo",
+      "title": "Tu próximo trabajo podría estar aquí",
+      "description": "Queremos rodearnos de personas extraordinarias, comprometidas con alcanzar grandes objetivos, crecer continuamente y no dejar de aprender nunca.",
+      "items": {
+        "opportunity": {
+          "title": "Oportunidad",
+          "titleAccent": "fenomenal",
+          "description": "Tenemos grandes planes para nuevos productos, servicios innovadores y crecimiento, y queremos que nuestras personas crezcan con nosotros."
+        },
+        "international": {
+          "title": "Entorno internacional",
+          "titleAccent": "y dinámico",
+          "description": "Operamos a nivel global y pensamos de forma global."
+        },
+        "greatPlace": {
+          "title": "Un lugar de trabajo",
+          "titleAccent": "realmente agradable",
+          "description": "Queremos que nuestras personas tengan éxito, se sientan valoradas y felices, y nos comprometemos a crear un entorno de trabajo que lo permita."
+        }
+      }
+    }
+  },
+  "legal": {
+    "hero": {
+      "badge": "Documentos Importantes",
+      "title": "Información",
+      "titleAccent": "Legal",
+      "description": "Nuestro compromiso con la transparencia, la protección y el cumplimiento de todas las leyes y normativas pertinentes.",
+      "stats": {
+        "documents": "3",
+        "documentsLabel": "Documentos Legales",
+        "compliance": "1",
+        "complianceLabel": "Conforme UE",
+        "updated": "2025",
+        "updatedLabel": "Última Actualización"
+      }
+    },
+    "tabs": {
+      "terms": "Términos de uso",
+      "privacy": "Política de privacidad",
+      "cookies": "Política de Cookies"
+    },
+    "content": {
+      "terms": {
+        "title": "Términos de uso",
+        "lastUpdated": "Última actualización: 4 de agosto de 2025"
+      },
+      "privacy": {
+        "title": "Política de Privacidad",
+        "lastUpdated": "Última actualización: 4 de agosto de 2025"
+      },
+      "cookies": {
+        "title": "Política de Cookies",
+        "lastUpdated": "Última actualización: 4 de agosto de 2025"
+      }
+    }
+  },
+  "cookies": {
+    "message": "Utilizamos cookies esenciales para el correcto funcionamiento del sitio. Con tu consentimiento, utilizaremos cookies de análisis para entender cómo utilizas el sitio y mejorar nuestros servicios. Puedes modificar tu elección en cualquier momento en nuestra",
+    "accept": "Aceptar",
+    "decline": "Rechazar"
+  },
+  "common": {
+    "and": "y"
+  },
+  "productCategories": {
+    "handProtection": "Protección de las manos",
+    "heatResistantGloves": "Guantes resistentes al calor",
+    "cutResistantGloves": "Guantes resistentes al corte",
+    "generalPurposeGloves": "Guantes de uso general",
+    "weldingGloves": "Guantes de soldadura",
+    "mechanicalHazardsGloves": "Guantes contra riesgos mecánicos",
+    "industrialSwabs": "Tampones industriales",
+    "respiratoryProtection": "Protección de las vías respiratorias"
+  },
+  "admin": {
+    "brands": {
+      "title": "Marcas",
+      "selectBrands": "Seleccionar Marcas",
+      "addNewBrand": "Añadir Nueva Marca",
+      "brandName": "Nombre de la Marca",
+      "brandLogo": "Logo de la Marca",
+      "createBrand": "Crear Marca",
+      "noBrandsSelected": "Ninguna marca seleccionada",
+      "brandNameRequired": "El nombre de la marca es obligatorio",
+      "brandNameExists": "El nombre de la marca ya existe",
+      "invalidLogoFile": "El logo debe ser un archivo de imagen válido (JPEG, PNG, GIF o WebP)",
+      "logoTooLarge": "El archivo del logo debe ser inferior a 5 MB",
+      "brandCreated": "Marca creada con éxito",
+      "errorCreatingBrand": "Error al crear la marca",
+      "errorLoadingBrands": "No se han podido cargar las marcas disponibles"
+    }
+  }
+}

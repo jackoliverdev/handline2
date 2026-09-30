@@ -1,0 +1,185 @@
+Hand Line language — to-do
+21/09/2026 (updated after the 04/08 call transcript, Luca’s email, the brief, the live code and the v3 import)
+
+Branch: feat/languageextension
+Same live Supabase as production.
+
+Public five-language browsing, the v3 copy, five-language admin, AI prefill and the TDS / manufacturer-note dropdown are in. document-locales.sql is applied: 25 manufacturer notes have EN/IT/FR/DE/ES, and no technical sheet was copied into FR/DE/ES.
+
+Five-language admin save is in. Saving a product, blog, career, industry or PPE Hub page keeps the other languages. Declarations are still EN/IT only.
+
+Test site (only after local sign-off):
+    https://handline2-fq8pplxji-jack-olivers-projects.vercel.app/
+
+Stable branch preview:
+    https://handline2-git-feat-languageextension-jack-olivers-projects.vercel.app/
+
+Agreed £500 scope (call + Luca’s 04/08 email + ProjectBrief.md)
+    EN / IT / FR / DE / ES. English fallback. Five-language admin. AI prefill on products, blogs, industries, PPE Hub. TDS + manufacturer-instruction dropdown like DoC. Declarations unchanged. No extra languages, no locale URLs, no blog “only in Italian” flags (Luca dropped that on the call).
+
+================================================================================
+DONE — do not redo
+================================================================================
+
+1. Website UI JSON
+[x] Rebuild lib/translations/fr.json, de.json, es.json from the v3 website sheet
+    (same keys as en.json; empty cells fall back to English in t())
+    Backup of previous JSON is in Translations/v1/*.json
+[x] Five-language selector (desktop, mobile, sidebar)
+[x] UI t() falls back to English, then the key
+
+2. Manufacturing-note PDFs
+[x] Renamed and uploaded to technical-sheets/manufacturing-notes/
+[x] 14 public PDFs return HTTP 200
+[x] Linked to the mapped products in SQL (EN and IT URL set to the same file)
+    HLC_MN_158 uploaded but not linked (no product 158 on the site)
+    152/12 ML not on the site — left
+
+3. v3 SQL generated and run on the live database
+[x] legal, careers, industries, case-studies, en-resources, blogs, ppe-hub
+[x] products-part-1 … 5 (164 products)
+[x] manufacturing-notes (25 products)
+    EN/IT were not overwritten. FR/DE/ES match the sheet.
+
+Sheet quirks already live (Luca’s copy, not import bugs):
+    - some suXXeed names still Italian in FR/DE/ES (PANTALONI, POLO CORTA)
+    - maccrossroad-3-0-hight is HIGHT in English and LOW (2) in the other languages
+
+================================================================================
+NOT DONE — do this next, before local review
+================================================================================
+
+5. Five-language admin
+    Luca’s email: “Enable admin portal to input content in all 5 languages.”
+    Call: fill English as normal, switch language tab, edit or prefill.
+
+    Editors that are still EN/IT only (saving them drops fr/de/es):
+      - app/admin/product/create + [id]
+      - components/admins/prodmanagement/CategoryProductCreate + CategoryProductEdit
+      - app/admin/blogs/create + [id]
+      - app/admin/careers/create + [id]
+      - app/admin/industries/create + [id]
+      - app/admin/ppe-hub/create + [id]
+      - components/ui/language-switcher.tsx (only GB / IT flags)
+
+    Not in Luca’s admin list — leave them:
+      - Declarations (do not change)
+      - Users
+      - Legal / case studies / old EN-resources table (no admin; v3 copy already imported)
+
+[x] Shared five-language admin switcher (EN IT FR DE ES), reuse LANGUAGE_META
+[x] Products (old product pages + category create/edit): five locale objects, load all five, save all five
+[x] Blogs: same
+[x] Careers: same (manual entry; AI only if the shared button is already there)
+[x] Industries: same
+[x] PPE Hub: same
+[x] Save must merge into existing JSONB. Never replace {en,it} only. Never drop a language that is not on the current tab.
+[x] Confirm: Save on a French tab does not wipe Italian or German.
+
+6. AI prefill — “Generate from English”
+    Call: English filled in, switch to Spanish, button pre-fills every field, Luca reviews.
+    Email: products, blogs, industries, PPE Hub. Careers “no need if extra effort”.
+    Brief: draft only; never silently publish or overwrite.
+
+    Local .env already has OPENAI_API_KEY / OPENAI_ORGANIZATION / OPENAI_PROJECT for Jack to build and test.
+    Production and the Vercel test site will not call OpenAI until Luca’s key is in Vercel env. That is the only reason this will not work on the test URL after push.
+
+    Tell Luca:
+      - Create an OpenAI Platform account (platform.openai.com), add pay-as-you-go credit (not ChatGPT Plus).
+      - Create an API key. Send it to Jack securely (not email/WhatsApp). Jack puts it in Vercel.
+      - Jack can screen-share the account setup if he wants.
+      - Pay as you go. Unused = unpaid. Roughly a thousand translations per £20, likely more.
+      - It will work on localhost now. It will work on the test site / production only after his key is in Vercel.
+
+[x] Add the OpenAI SDK / a server-only API route. Key never in client code.
+[x] Button on FR / DE / ES (and IT) admin tabs: “Generate from English”
+[x] Wire it on: products, blogs, industries, PPE Hub
+[x] Careers: same button only if it is free once the helper exists; otherwise skip
+[x] Returns editable fields. Does not save until he presses Save.
+[x] Does not overwrite a filled translation unless he confirms
+[x] Local test with the key already in .env (one product + one blog is enough)
+
+7. TDS and manufacturer-instruction dropdown
+    Call + email: same interaction as the DoC dropdown. Show every language that has a file. Default to the browsing language if that file exists, otherwise English. Independent of the page language. Declarations untouched.
+
+    What the code does now (not enough):
+      - Single Download button
+      - Italian URL if browsing Italian, otherwise English
+      - FR/DE/ES silently get the English file
+      - Database only has technical_sheet_url / _it and manufacturers_instruction_url / _it
+      - No way for Luca to attach a French or German PDF later without another code change
+
+[x] Public product page: DoC-style language dropdown for TDS and for manufacturer instructions
+[x] List only languages that actually have a file. Prefer browsing language, else English.
+[x] Leave the EU / UKCA declaration dropdown exactly as it is
+[x] Admin: upload a PDF per language (EN IT FR DE ES), not only EN/IT
+    (needs a five-language document structure, not two URL columns)
+[x] Current multilingual MN PDFs can use the same file in every language that should offer the download
+
+8. Remaining English-fallback holes on the public site
+    Most product/blog/career/industry/PPE/legal services already do lang → en → base.
+    These still do not:
+
+[x] ProductDetail features / applications / industries / materials: use lang then en then base
+    (today: locales[language] || base, so a missing French array can render empty)
+[x] Blog cards, career cards, case-study cards, EN-resource cards: locales[lang] || locales.en || title
+    (today: locales[language] || title — works if the base column is English, fails if only locales.en exists)
+[x] Search filter labels (lib/search-types.ts CONTENT_TYPE_LABELS / CATEGORY_LABELS) are EN/IT only;
+    FR/DE/ES currently show English. Add the three languages or fall back through t()
+
+================================================================================
+THEN — local review
+================================================================================
+
+9. Check locally (after 5–8)
+    localhost already hits the live database.
+
+[x] French: homepage, nav, 49K, blog, careers, industries, PPE Hub, legal, search
+[x] German: 188 S, 49K, search. Spanish: search results and login
+[x] Missing French feature list falls back to English (BLS 4000 next S, checked earlier)
+[x] 49K manufacturer menu lists EN, IT, FR, DE and ES, all HLC_MN_49K.pdf. Spanish browsing downloads that file. The technical sheet stays the English PDF. EU DoC unchanged.
+[x] 188 S has one English TDS: single Download, no language menu, English PDF while browsing French
+[x] English and Italian 49K, including the Italian technical sheet and Italian EU DoC. Italian blog list.
+[x] Admin: Save on the Italian tab of 49K. French, German and Spanish copy stayed. Manufacturer note still on all five languages. Technical sheet still only English and Italian.
+
+================================================================================
+THEN — one commit, push, Luca
+================================================================================
+
+10. Push feat/languageextension. Do not merge to production.
+
+[ ] Commit everything (JSON, SQL, admin, AI route, v1/v3 folders, this list)
+[ ] Push feat/languageextension
+[ ] Open the test URL in a private window
+[ ] Send Luca the test link
+      - Flag selector, English fallback
+      - Do not Save in admin until he has seen the new five-language editors (or until this branch is what he is clicking)
+      - Review v3 copy + legal + manufacturing notes on the mapped gloves
+      - AI prefill will 404/fail on the test site until his OpenAI key is in Vercel
+      - What product is HLC_MN_158 for?
+      - Remaining notes / translated TDS PDFs he can still add later in admin
+
+================================================================================
+AFTER LUCA SIGNS OFF — not now
+================================================================================
+
+[ ] He sends the OpenAI API key. Jack adds OPENAI_API_KEY (and org/project if needed) to Vercel. Redeploy.
+[ ] Merge feat/languageextension into production
+[ ] Rest of manufacturing notes / any translated TDS PDFs as he uploads them
+
+================================================================================
+Do not go back to Luca for, and do not build
+================================================================================
+
+- Blog “only available in Italian” flags — he dropped this on the call once AI translation was agreed
+- Extra DoC languages, locale URLs, hreflang, translated slugs
+- Legal / case-study / EN-resources admin — not in his email; copy is already in the database
+- Careers AI as a special extra job
+- Polish / Dutch / Turkish
+- Anything else: pause and price it
+
+Ask him for, when you write:
+    1. OpenAI Platform account + API key for production (Jack can show him the clicks)
+    2. Which product HLC_MN_158 belongs to
+    3. Further MN / TDS PDFs when he has them
+    4. Optional proofing: suXXeed FR/DE/ES names still Italian; Maccrossroad 3.0 HIGHT vs LOW (2)

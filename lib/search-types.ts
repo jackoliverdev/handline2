@@ -1,4 +1,5 @@
 import type { Language } from './context/language-context';
+import { isLanguage } from './i18n/config';
 
 export type ContentType = 'product' | 'industry_solution' | 'blog' | 'case_study' | 'career' | 'en_resource';
 
@@ -71,26 +72,32 @@ export interface RecentSearch {
   results_count: number;
 }
 
-// Content type display names for UI
-export const CONTENT_TYPE_LABELS: Record<ContentType, { en: string; it: string }> = {
-  product: { en: 'Products', it: 'Prodotti' },
-  industry_solution: { en: 'Industries', it: 'Settori' },
-  blog: { en: 'Articles', it: 'Articoli' },
-  case_study: { en: 'Case Studies', it: 'Casi di Studio' },
-  career: { en: 'Careers', it: 'Carriere' },
-  en_resource: { en: 'EN Standards', it: 'Standard EN' }
+type LocaleLabel = Record<Language, string>;
+
+export const CONTENT_TYPE_LABELS: Record<ContentType, LocaleLabel> = {
+  product: { en: 'Products', it: 'Prodotti', fr: 'Produits', de: 'Produkte', es: 'Productos' },
+  industry_solution: { en: 'Industries', it: 'Settori', fr: 'Secteurs', de: 'Branchen', es: 'Sectores' },
+  blog: { en: 'Articles', it: 'Articoli', fr: 'Articles', de: 'Artikel', es: 'Artículos' },
+  case_study: { en: 'Case Studies', it: 'Casi di Studio', fr: 'Études de cas', de: 'Fallstudien', es: 'Casos de estudio' },
+  career: { en: 'Careers', it: 'Carriere', fr: 'Carrières', de: 'Karriere', es: 'Empleo' },
+  en_resource: { en: 'EN Standards', it: 'Standard EN', fr: 'Normes EN', de: 'EN-Normen', es: 'Normas EN' }
 };
 
-// Category mappings for localization
-export const CATEGORY_LABELS: Record<string, { en: string; it: string }> = {
-  'Heat-Resistant Gloves': { en: 'Heat-Resistant Gloves', it: 'Guanti Resistenti al Calore' },
-  'Cut-Resistant Gloves': { en: 'Cut-Resistant Gloves', it: 'Guanti Resistenti al Taglio' },
-  'General Purpose Gloves': { en: 'General Purpose Gloves', it: 'Guanti per Uso Generale' },
-  'Industrial Swabs': { en: 'Industrial Swabs', it: 'Tamponi Industriali' },
-  'Respiratory Protection': { en: 'Respiratory Protection', it: 'Protezione Respiratoria' },
-  industry: { en: 'Industry Solutions', it: 'Soluzioni per Settori' },
-  blog: { en: 'Blog Articles', it: 'Articoli del Blog' },
-  case_study: { en: 'Case Studies', it: 'Casi di Studio' },
-  career: { en: 'Career Opportunities', it: 'Opportunità di Carriera' },
-  en_resource: { en: 'EN Standards', it: 'Standard EN' }
-}; 
+export const CATEGORY_LABELS: Record<string, LocaleLabel> = {
+  'Heat-Resistant Gloves': { en: 'Heat-Resistant Gloves', it: 'Guanti Resistenti al Calore', fr: 'Gants résistants à la chaleur', de: 'Hitzebeständige Handschuhe', es: 'Guantes resistentes al calor' },
+  'Cut-Resistant Gloves': { en: 'Cut-Resistant Gloves', it: 'Guanti Resistenti al Taglio', fr: 'Gants résistants à la coupure', de: 'Schnittfeste Handschuhe', es: 'Guantes resistentes al corte' },
+  'General Purpose Gloves': { en: 'General Purpose Gloves', it: 'Guanti per Uso Generale', fr: 'Gants à usage général', de: 'Universalhandschuhe', es: 'Guantes de uso general' },
+  'Industrial Swabs': { en: 'Industrial Swabs', it: 'Tamponi Industriali', fr: 'Écouvillons industriels', de: 'Industriewischer', es: 'Escobillas industriales' },
+  'Respiratory Protection': { en: 'Respiratory Protection', it: 'Protezione Respiratoria', fr: 'Protection des voies respiratoires', de: 'Atemschutz', es: 'Protección respiratoria' },
+  industry: { en: 'Industry Solutions', it: 'Soluzioni per Settori', fr: 'Solutions sectorielles', de: 'Branchenlösungen', es: 'Soluciones sectoriales' },
+  blog: { en: 'Blog Articles', it: 'Articoli del Blog', fr: 'Articles de blog', de: 'Blogartikel', es: 'Artículos del blog' },
+  case_study: { en: 'Case Studies', it: 'Casi di Studio', fr: 'Études de cas', de: 'Fallstudien', es: 'Casos de estudio' },
+  career: { en: 'Career Opportunities', it: 'Opportunità di Carriera', fr: 'Opportunités de carrière', de: 'Karrieremöglichkeiten', es: 'Oportunidades profesionales' },
+  en_resource: { en: 'EN Standards', it: 'Standard EN', fr: 'Norme EN', de: 'EN-Norm', es: 'Norma EN' }
+};
+
+export function labelForLanguage(labels: LocaleLabel | undefined, language: string): string {
+  if (!labels) return '';
+  const key = isLanguage(language) ? language : 'en';
+  return labels[key] || labels.en;
+} 

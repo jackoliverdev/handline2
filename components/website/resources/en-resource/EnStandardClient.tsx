@@ -17,13 +17,14 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { toast } from '@/components/ui/use-toast';
+import { pickLocaleText } from '@/lib/i18n/locale-fallback';
 
 export default function EnStandardClient({ standard, relatedStandards }: { 
   standard: EnStandard,
   relatedStandards?: EnStandard[]
 }) {
   const { language, t } = useLanguage();
-  const title = standard.title_locales?.[language] || standard.title;
+  const title = pickLocaleText(standard.title_locales, language, standard.title);
   const summary = standard.summary_locales?.[language] || standard.summary;
   const content = standard.content_locales?.[language] || standard.content;
   const category = standard.category_locales?.[language] || standard.category;
@@ -425,7 +426,7 @@ export default function EnStandardClient({ standard, relatedStandards }: {
                   <h3 className="text-xl font-bold mb-4 text-brand-dark dark:text-white">{t('standards.downloads')}</h3>
                   <div className="space-y-3">
                     {standard.downloads.map((download, index) => {
-                      const localizedTitle = download.title_locales?.[language] || download.title;
+                      const localizedTitle = pickLocaleText(download.title_locales, language, download.title);
                       return (
                         <Button 
                           key={index}
@@ -459,7 +460,7 @@ export default function EnStandardClient({ standard, relatedStandards }: {
                   <h3 className="text-xl font-bold mb-4 text-brand-dark dark:text-white">{t('standards.relatedStandards')}</h3>
                   <div className="space-y-4">
                     {relatedStandards.map((relatedStandard, index) => {
-                      const relatedTitle = relatedStandard.title_locales?.[language] || relatedStandard.title;
+                      const relatedTitle = pickLocaleText(relatedStandard.title_locales, language, relatedStandard.title);
                       return (
                         <Link 
                           key={index}

@@ -1,12 +1,19 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import enTranslations from '../translations/en.json';
 import itTranslations from '../translations/it.json';
+import frTranslations from '../translations/fr.json';
+import deTranslations from '../translations/de.json';
+import esTranslations from '../translations/es.json';
+import {
+  DEFAULT_LANGUAGE,
+  parseLanguage,
+  persistLanguageCookie,
+  type Language,
+} from '@/lib/i18n/config';
 
-type Language = 'en' | 'it';
 export type { Language };
-type Translations = typeof enTranslations;
 
 interface LanguageContextType {
   language: Language;
@@ -14,52 +21,62 @@ interface LanguageContextType {
   t: (key: string) => string;
 }
 
-const translations = {
+const translations: Record<Language, unknown> = {
   en: enTranslations,
   it: itTranslations,
+  fr: frTranslations,
+  de: deTranslations,
+  es: esTranslations,
 };
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
+function lookupTranslation(tree: unknown, key: string): string | undefined {
+  const keys = key.split('.');
+  let value: unknown = tree;
+
+  for (const k of keys) {
+    if (value && typeof value === 'object' && k in value) {
+      value = (value as Record<string, unknown>)[k];
+    } else {
+      return undefined;
+    }
+  }
+
+  return typeof value === 'string' ? value : undefined;
+}
+
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<Language>('en');
+  const [language, setLanguageState] = useState<Language>(DEFAULT_LANGUAGE);
   const [isHydrated, setIsHydrated] = useState(false);
 
-  // Load language preference from localStorage on mount (client-side only)
-  useEffect(() => {
-    // Ensure we're on the client side
+  const setLanguage = useCallback((lang: Language) => {
+    const next = parseLanguage(lang);
+    setLanguageState(next);
     if (typeof window !== 'undefined') {
-      const savedLanguage = localStorage.getItem('language') as Language;
-      if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'it')) {
-        setLanguage(savedLanguage);
-      }
-      setIsHydrated(true);
+      localStorage.setItem('language', next);
+      persistLanguageCookie(next);
     }
   }, []);
 
-  // Save language preference to localStorage when it changes (client-side only)
   useEffect(() => {
-    if (isHydrated && typeof window !== 'undefined') {
-      localStorage.setItem('language', language);
-      console.log('Language saved to localStorage:', language);
-    }
+    if (typeof window === 'undefined') return;
+    const savedLanguage = parseLanguage(localStorage.getItem('language'));
+    setLanguageState(savedLanguage);
+    persistLanguageCookie(savedLanguage);
+    setIsHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isHydrated || typeof window === 'undefined') return;
+    localStorage.setItem('language', language);
+    persistLanguageCookie(language);
   }, [language, isHydrated]);
 
-  // Translation function
   const t = (key: string): string => {
-    const keys = key.split('.');
-    let value: any = translations[language];
-
-    for (const k of keys) {
-      if (value && typeof value === 'object' && k in value) {
-        value = value[k];
-      } else {
-        console.warn(`Translation key not found: ${key}`);
-        return key;
-      }
-    }
-
-    return typeof value === 'string' ? value : key;
+    return lookupTranslation(translations[language], key)
+      ?? lookupTranslation(translations.en, key)
+      ?? key;
   };
 
   return (
@@ -77,18 +94,13 @@ export function useLanguage() {
   return context;
 }
 
-// Helper to get the current language (for server components or SSR)
 export function getCurrentLanguage(): Language {
   if (typeof window !== 'undefined') {
     try {
-      const savedLanguage = localStorage.getItem('language') as Language;
-      if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'it')) {
-        return savedLanguage;
-      }
-    } catch (error) {
-      console.warn('Failed to read from localStorage:', error);
+      return parseLanguage(localStorage.getItem('language'));
+    } catch {
+      return DEFAULT_LANGUAGE;
     }
   }
-  // Default to English if localStorage is not available or contains invalid data
-  return 'en';
-} 
+  return DEFAULT_LANGUAGE;
+}

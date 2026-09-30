@@ -3,6 +3,7 @@
 import { Product } from "@/lib/products-service";
 import { useLanguage } from "@/lib/context/language-context";
 import { Layers, Scale, Shield, FileText, Wind, Zap, Ruler } from "lucide-react";
+import { pickLocaleList } from "@/lib/i18n/locale-fallback";
 
 export function HeadSpecs({ product }: { product: Product }) {
   const { t, language } = useLanguage();
@@ -17,7 +18,7 @@ export function HeadSpecs({ product }: { product: Product }) {
       : Array.isArray(attrs.colours) ? attrs.colours : [],
   };
 
-  const materials = product.materials_locales?.[language] || [];
+  const materials = pickLocaleList(product.materials_locales, language);
   const size = product.size_locales?.[language] || product.size_locales?.en || null;
   const weight = typeof attrs.weight_g === 'number' ? `${attrs.weight_g} g` : null;
   const colours: string[] = Array.isArray(techSpecs.colours) ? techSpecs.colours : [];

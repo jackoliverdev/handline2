@@ -3,15 +3,11 @@
 import { useLanguage } from "@/lib/context/language-context";
 import { Product } from "@/lib/products-service";
 import { ListChecks } from "lucide-react";
+import { pickLocaleList } from "@/lib/i18n/locale-fallback";
 
 export function RespiratoryComfortFeatures({ product }: { product: Product }) {
   const { t, language } = useLanguage();
-  const locales: any = (product as any).respiratory_comfort_features_locales || {};
-  const items: string[] = Array.isArray(locales?.[language])
-    ? locales[language]
-    : Array.isArray(locales?.en)
-      ? locales.en
-      : [];
+  const items = pickLocaleList((product as any).respiratory_comfort_features_locales, language);
 
   if (!Array.isArray(items) || items.length === 0) return null;
 

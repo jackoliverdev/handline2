@@ -4,8 +4,7 @@ import Link from 'next/link';
 import { ChevronLeft, Calendar, Clock, User, Share2, Tag } from 'lucide-react';
 import { Metadata } from 'next';
 import { cookies } from 'next/headers';
-import en from '@/lib/translations/en.json';
-import it from '@/lib/translations/it.json';
+import { getOpenGraphLocale, parseLanguage } from '@/lib/i18n/config';
 
 import { getBlogBySlug, getRelatedBlogs } from '@/lib/blog-service';
 import { Button } from '@/components/ui/button';
@@ -20,12 +19,10 @@ interface BlogPostPageProps {
   };
 }
 
-const translations = { en, it };
-
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const cookieStore = cookies();
-  const lang = (cookieStore.get('language')?.value as 'en' | 'it') || 'en';
-  const post = await getBlogBySlug(params.slug);
+  const lang = parseLanguage(cookieStore.get('language')?.value);
+  const post = await getBlogBySlug(params.slug, lang);
   
   if (!post) {
     return {
@@ -45,7 +42,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       description: post.summary,
       url: url,
       siteName: 'HandLine Safety Solutions',
-      locale: lang === 'it' ? 'it_IT' : 'en_GB',
+      locale: getOpenGraphLocale(lang),
       type: 'article',
       publishedTime: post.published_at,
       authors: [post.author || 'HandLine'],

@@ -133,10 +133,9 @@ export function SearchResultsList({
                 {t('search.results.title')} <span className="text-brand-primary">"{query}"</span>
               </h2>
               <p className="text-sm text-brand-secondary dark:text-gray-400 mt-1">
-                <span className="font-medium text-brand-primary">{totalCount.toLocaleString()}</span> results found
-                {results.length !== totalCount && (
-                  <span className="ml-1">• Showing {results.length}</span>
-                )}
+                {t('search.results.showing')
+                  .replace('{count}', results.length.toLocaleString())
+                  .replace('{total}', totalCount.toLocaleString())}
               </p>
             </div>
           </div>
@@ -145,7 +144,7 @@ export function SearchResultsList({
           {totalPages > 1 && (
             <div className="bg-gray-50/80 dark:bg-gray-800/50 px-3 py-2 rounded-lg border border-gray-100 dark:border-gray-700/50">
               <div className="text-xs text-brand-secondary dark:text-gray-400 text-center">
-                <span className="font-medium">Page {currentPage} of {totalPages}</span>
+                <span className="font-medium">{t('search.results.pageInfo').replace('{current}', String(currentPage)).replace('{total}', String(totalPages))}</span>
               </div>
             </div>
           )}

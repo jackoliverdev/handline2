@@ -4,10 +4,11 @@ import { Shield, Ruler, Layers, Move, Hammer, Package, Users, Gauge, Award, Link
 import { useLanguage } from "@/lib/context/language-context";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Product } from "@/lib/products-service";
+import { pickLocaleList } from "@/lib/i18n/locale-fallback";
 
 export function RespiratorSpecs({ product }: { product: Product }) {
   const { t, language } = useLanguage();
-  const currentMaterials = product.materials_locales?.[language] || [];
+  const currentMaterials = pickLocaleList(product.materials_locales, language);
   const size = product.size_locales?.[language] || product.size_locales?.en || null;
   const p: any = product as any;
   const std: any = (product as any).respiratory_standards || {};

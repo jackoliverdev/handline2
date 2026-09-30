@@ -11,7 +11,8 @@ import type {
 } from './search-types';
 import {
   CONTENT_TYPE_LABELS,
-  CATEGORY_LABELS
+  CATEGORY_LABELS,
+  labelForLanguage
 } from './search-types';
 
 /**
@@ -188,14 +189,14 @@ export async function getSearchFilters(query: string = '', language: Language = 
     // Format content type filters
     const contentTypeFilters = Array.from(contentTypeCounts.entries()).map(([key, count]) => ({
       key,
-      name: CONTENT_TYPE_LABELS[key]?.[language] || CONTENT_TYPE_LABELS[key]?.en || key,
+      name: labelForLanguage(CONTENT_TYPE_LABELS[key], language) || key,
       count
     }));
 
     // Format category filters  
     const categoryFilters = Array.from(categoryCounts.entries()).map(([key, count]) => ({
       key,
-      name: CATEGORY_LABELS[key]?.[language] || CATEGORY_LABELS[key]?.en || key,
+      name: labelForLanguage(CATEGORY_LABELS[key], language) || key,
       count
     }));
 
@@ -233,7 +234,7 @@ export async function getPopularSearches(language: Language = 'en'): Promise<str
     ]
   };
 
-  return popularSearches[language] || popularSearches.en;
+  return popularSearches[language === 'it' ? 'it' : 'en'];
 }
 
 /**
