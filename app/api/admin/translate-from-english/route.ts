@@ -47,9 +47,11 @@ export async function POST(request: Request) {
     }
 
     const fields = await translateFromEnglish(targetLanguage, sanitized);
+    console.info('[translate-from-english] ok', { targetLanguage, fields: Object.keys(fields) });
     return NextResponse.json({ fields });
   } catch (error) {
     if (error instanceof TranslateFromEnglishError) {
+      console.error('[translate-from-english] failed', { code: error.code, message: error.message });
       if (error.code === 'EMPTY_SOURCE') {
         return NextResponse.json({ error: 'EMPTY_SOURCE' }, { status: 400 });
       }
@@ -58,6 +60,8 @@ export async function POST(request: Request) {
         { status: 502 }
       );
     }
+
+    console.error('[translate-from-english] unexpected', error instanceof Error ? error.message : error);
 
     const message = error instanceof Error ? error.message : 'Internal server error';
     if (message === 'UNAUTHENTICATED') {

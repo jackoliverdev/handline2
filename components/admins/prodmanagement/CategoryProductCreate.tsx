@@ -2086,6 +2086,7 @@ export default function CategoryProductCreate({ slug }: Props) {
                 <ProductDocumentUploads
                   kind="manufacturers"
                   title="Manufacturer's notes"
+                  single
                   locales={manufacturersInstructionLocales}
                   onUpload={(file, lang) => uploadPdfToBucket(file, `note_${lang}`)}
                   onChange={(lang, url) => setManufacturersInstructionLocales((prev) => withDocumentLocale(prev, lang, url))}

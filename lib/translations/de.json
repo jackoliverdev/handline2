@@ -1315,7 +1315,40 @@
       "badge": "FAQ",
       "title": "Häufig gestellte Fragen",
       "description": "Finden Sie schnelle Antworten auf häufig gestellte Fragen zu unseren Produkten und Dienstleistungen",
-      "questions": "[{\"question\": \"Wie kann ich die richtige PSA auswählen?\", \"answer\": \"Die richtige Wahl der PSA ist von grundlegender Bedeutung, um die Sicherheit und das Wohlbefinden der Arbeitnehmer zu gewährleisten. Zunächst empfehlen wir, detaillierte Informationen über die Arbeitsbedingungen und die Gefährdungsexposition in den extremsten Situationen zu sammeln. Dies hilft dabei, die erforderlichen Schutzstufen und praktischen Anforderungen für die PSA zu bestimmen. Unsere Website bietet eine breite Produktpalette, die nach Anforderungen, Umgebungsbedingungen, Risikokategorie oder Schutzstufe gefiltert werden kann. Wir empfehlen stets, unser Team zu kontaktieren, um eine Beratung zu erhalten und die für Ihre Bedürfnisse am besten geeignete PSA zu ermitteln. Wir sind nur einen Klick entfernt.\"}, {\"question\": \"Können Sie PSA individuell anpassen oder maßgeschneidert entwickeln?\", \"answer\": \"Ja, wir können individuelle Handschutzlösungen entsprechend Ihren spezifischen Anforderungen entwickeln und innerhalb weniger Wochen Muster herstellen. Viele unserer aktuellen Produkte sind aus spezifischen Kundenanfragen entstanden.\"}, {\"question\": \"Kann ich Muster zu Testzwecken anfordern?\", \"answer\": \"Ja, wir bieten Muster für Industriekunden und Vertriebspartner an. Kontaktieren Sie uns mit den Angaben zu Ihrem Unternehmen und Ihren Anwendungen, um ein Musterset anzufordern.\"}, {\"question\": \"Versenden Sie international?\", \"answer\": \"Ja, wir beliefern Dutzende von Kunden in über 15 Märkten in der EMEA-Region mit PSA und sind in der Lage, weltweit zu liefern.\"}, {\"question\": \"Für welche Industriebranchen liefern Sie PSA?\", \"answer\": \"Unsere Produkte sind für eine Vielzahl von Branchen konzipiert, darunter Glasindustrie, Metallurgie, Bauwesen, Automobilindustrie, Lebensmittelindustrie, Logistik und Metallbearbeitung. Wir verfügen über umfassende Erfahrung in der Glas- und Metallproduktion sowie in der Schwerindustrie, mit über 40 Jahren Tätigkeit im Dienst großer internationaler Kunden. Unser Ziel ist es, sowohl ein zuverlässiger Lieferant als auch ein vertrauenswürdiger Berater zu sein.\"}, {\"question\": \"Bieten Sie OEM- oder Private-Label-Dienstleistungen an?\", \"answer\": \"Ja, wir unterstützen die OEM- und Private-Label-Produktion für Partner, die Handschuhe, Kleidung usw. mit ihrer eigenen Marke, Verpackung oder technischen Spezifikationen individualisieren möchten. Kontaktieren Sie uns, um Ihre Anforderungen zu besprechen.\"}, {\"question\": \"Welchen Normen entsprechen Ihre Produkte?\", \"answer\": \"Alle unsere Produkte sind gemäß der europäischen PSA-Verordnung (EU) 2016/425 zertifiziert und entsprechen den geltenden EN-Normen.\"}, {\"question\": \"Wie kann ich Vertriebspartner oder Wiederverkäufer Ihrer Produkte werden?\", \"answer\": \"Sie können das Anfrageformular für Vertriebspartner ausfüllen oder unser Team direkt unter distribution@handlineco.com kontaktieren. Wir unterstützen Wiederverkäufer mit Marketingmaterial, technischer Schulung und flexiblen Bestellmöglichkeiten.\"}]"
+      "questions": [
+        {
+          "question": "Wie kann ich die richtige PSA auswählen?",
+          "answer": "Die richtige Wahl der PSA ist von grundlegender Bedeutung, um die Sicherheit und das Wohlbefinden der Arbeitnehmer zu gewährleisten. Zunächst empfehlen wir, detaillierte Informationen über die Arbeitsbedingungen und die Gefährdungsexposition in den extremsten Situationen zu sammeln. Dies hilft dabei, die erforderlichen Schutzstufen und praktischen Anforderungen für die PSA zu bestimmen. Unsere Website bietet eine breite Produktpalette, die nach Anforderungen, Umgebungsbedingungen, Risikokategorie oder Schutzstufe gefiltert werden kann. Wir empfehlen stets, unser Team zu kontaktieren, um eine Beratung zu erhalten und die für Ihre Bedürfnisse am besten geeignete PSA zu ermitteln. Wir sind nur einen Klick entfernt."
+        },
+        {
+          "question": "Können Sie PSA individuell anpassen oder maßgeschneidert entwickeln?",
+          "answer": "Ja, wir können individuelle Handschutzlösungen entsprechend Ihren spezifischen Anforderungen entwickeln und innerhalb weniger Wochen Muster herstellen. Viele unserer aktuellen Produkte sind aus spezifischen Kundenanfragen entstanden."
+        },
+        {
+          "question": "Kann ich Muster zu Testzwecken anfordern?",
+          "answer": "Ja, wir bieten Muster für Industriekunden und Vertriebspartner an. Kontaktieren Sie uns mit den Angaben zu Ihrem Unternehmen und Ihren Anwendungen, um ein Musterset anzufordern."
+        },
+        {
+          "question": "Versenden Sie international?",
+          "answer": "Ja, wir beliefern Dutzende von Kunden in über 15 Märkten in der EMEA-Region mit PSA und sind in der Lage, weltweit zu liefern."
+        },
+        {
+          "question": "Für welche Industriebranchen liefern Sie PSA?",
+          "answer": "Unsere Produkte sind für eine Vielzahl von Branchen konzipiert, darunter Glasindustrie, Metallurgie, Bauwesen, Automobilindustrie, Lebensmittelindustrie, Logistik und Metallbearbeitung. Wir verfügen über umfassende Erfahrung in der Glas- und Metallproduktion sowie in der Schwerindustrie, mit über 40 Jahren Tätigkeit im Dienst großer internationaler Kunden. Unser Ziel ist es, sowohl ein zuverlässiger Lieferant als auch ein vertrauenswürdiger Berater zu sein."
+        },
+        {
+          "question": "Bieten Sie OEM- oder Private-Label-Dienstleistungen an?",
+          "answer": "Ja, wir unterstützen die OEM- und Private-Label-Produktion für Partner, die Handschuhe, Kleidung usw. mit ihrer eigenen Marke, Verpackung oder technischen Spezifikationen individualisieren möchten. Kontaktieren Sie uns, um Ihre Anforderungen zu besprechen."
+        },
+        {
+          "question": "Welchen Normen entsprechen Ihre Produkte?",
+          "answer": "Alle unsere Produkte sind gemäß der europäischen PSA-Verordnung (EU) 2016/425 zertifiziert und entsprechen den geltenden EN-Normen."
+        },
+        {
+          "question": "Wie kann ich Vertriebspartner oder Wiederverkäufer Ihrer Produkte werden?",
+          "answer": "Sie können das Anfrageformular für Vertriebspartner ausfüllen oder unser Team direkt unter distribution@handlineco.com kontaktieren. Wir unterstützen Wiederverkäufer mit Marketingmaterial, technischer Schulung und flexiblen Bestellmöglichkeiten."
+        }
+      ]
     },
     "hero": {
       "badge": "Wir Sind Hier, Um Ihnen Zu Helfen",

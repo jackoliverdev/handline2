@@ -34,9 +34,9 @@ export const AboutHero = () => {
         </div>
         
         <div className="container mx-auto px-6 relative max-w-7xl">
-          <div className="flex flex-col lg:grid lg:grid-cols-3 items-center gap-6">
+          <div className="flex flex-col items-start gap-6">
             {/* Text Content */}
-            <div className="flex flex-col space-y-4 mb-8 sm:mb-0 w-full lg:col-span-2">
+            <div className="flex flex-col space-y-4 mb-8 sm:mb-0 w-full">
               {/* Badge */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.5 }}
@@ -60,14 +60,19 @@ export const AboutHero = () => {
                 transition={{ ...SPRING_CONFIG, delay: 0.1 }}
               >
                 <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight font-heading">
-                  <span className="text-white drop-shadow-md">{t('about.hero.title')} </span>
-                  <span className="text-brand-primary drop-shadow-md">{t('about.hero.titleHighlight1')}</span>
+                  <span className="lg:whitespace-nowrap">
+                    <span className="text-white drop-shadow-md">{t('about.hero.title')} </span>
+                    <span className="text-brand-primary drop-shadow-md">{t('about.hero.titleHighlight1')}</span>
+                  </span>
                   <br />
-                  <span className="text-white drop-shadow-md">{t('about.hero.titleMiddle')} </span>
-                  <span className="text-brand-primary drop-shadow-md">{t('about.hero.titleHighlight2')}</span>
+                  <span className="lg:whitespace-nowrap">
+                    <span className="text-white drop-shadow-md">{t('about.hero.titleMiddle')} </span>
+                    <span className="text-brand-primary drop-shadow-md">{t('about.hero.titleHighlight2')}</span>
+                  </span>
                 </h1>
               </motion.div>
               
+              <div className="flex flex-col space-y-4 w-full lg:max-w-[66%]">
               {/* Subtitle */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -117,6 +122,7 @@ export const AboutHero = () => {
                   <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-all duration-300 group-hover:translate-x-1" />
                 </Link>
               </motion.div>
+              </div>
             </div>
           </div>
         </div>
