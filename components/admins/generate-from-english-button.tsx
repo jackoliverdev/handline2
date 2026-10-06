@@ -72,6 +72,13 @@ export function GenerateFromEnglishButton({
       });
 
       const result = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        console.error('[generate-from-english] failed', {
+          language: currentLanguage,
+          status: response.status,
+          error: result.error ?? null,
+        });
+      }
 
       if (response.status === 401 || response.status === 403) {
         toast({
@@ -114,7 +121,8 @@ export function GenerateFromEnglishButton({
         title: "Draft ready",
         description: `${LANGUAGE_META[currentLanguage].nativeName} draft filled. Review it, then Save.`,
       });
-    } catch {
+    } catch (error) {
+      console.error('[generate-from-english] request error', error instanceof Error ? error.message : error);
       toast({
         title: "Generation failed",
         description: "Could not generate a draft. Try again.",
@@ -137,10 +145,12 @@ export function GenerateFromEnglishButton({
     }
 
     if (hasTargetContent()) {
+      console.info('[generate-from-english] this language already has text, asking before overwrite', currentLanguage);
       setConfirmOpen(true);
       return;
     }
 
+    console.info('[generate-from-english] language is empty, generating', currentLanguage);
     void generate('replace');
   };
 

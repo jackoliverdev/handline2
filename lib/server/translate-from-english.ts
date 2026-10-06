@@ -96,6 +96,32 @@ function parseJsonObject(text: string | null | undefined): unknown {
   }
 }
 
+function openAiErrorDetails(error: unknown): { status?: number; code?: string; type?: string; message: string } {
+  if (!error || typeof error !== 'object') {
+    return { message: error instanceof Error ? error.message : 'Unknown error' };
+  }
+
+  const err = error as {
+    status?: number;
+    code?: string;
+    type?: string;
+    message?: string;
+    error?: { code?: string; type?: string; message?: string };
+  };
+
+  return {
+    status: err.status,
+    code: typeof err.code === 'string' ? err.code : err.error?.code,
+    type: typeof err.type === 'string' ? err.type : err.error?.type,
+    message: err.message || err.error?.message || 'Model request failed',
+  };
+}
+
+function shouldRetryModelError(error: unknown): boolean {
+  const status = openAiErrorDetails(error).status;
+  return status === undefined || status >= 500;
+}
+
 async function requestTranslation(
   client: OpenAI,
   model: string,
@@ -129,23 +155,52 @@ export async function translateFromEnglish(
   });
 
   const model = process.env.OPENAI_MODEL || 'gpt-5.6';
+  console.info('[translate-from-english] request', {
+    targetLanguage,
+    model,
+    sourceKeys: Object.keys(source),
+  });
 
   let translated: unknown;
   try {
     translated = await requestTranslation(client, model, targetLanguage, source);
-  } catch {
-    throw new TranslateFromEnglishError('MODEL_FAILED', 'Model request failed');
-  }
-
-  if (!isRecord(translated) || !shapesMatch(source, translated)) {
+  } catch (error) {
+    const details = openAiErrorDetails(error);
+    console.error('[translate-from-english] model request failed', { targetLanguage, model, ...details });
+    if (!shouldRetryModelError(error)) {
+      throw new TranslateFromEnglishError('MODEL_FAILED', details.message);
+    }
     try {
       translated = await requestTranslation(client, model, targetLanguage, source);
-    } catch {
-      throw new TranslateFromEnglishError('MODEL_FAILED', 'Model request failed');
+    } catch (retryError) {
+      const retryDetails = openAiErrorDetails(retryError);
+      console.error('[translate-from-english] model retry failed', { targetLanguage, model, ...retryDetails });
+      throw new TranslateFromEnglishError('MODEL_FAILED', retryDetails.message);
     }
   }
 
   if (!isRecord(translated) || !shapesMatch(source, translated)) {
+    console.error('[translate-from-english] shape mismatch, retrying once', {
+      targetLanguage,
+      model,
+      gotObject: isRecord(translated),
+    });
+    try {
+      translated = await requestTranslation(client, model, targetLanguage, source);
+    } catch (error) {
+      const details = openAiErrorDetails(error);
+      console.error('[translate-from-english] model retry failed', { targetLanguage, model, ...details });
+      throw new TranslateFromEnglishError('MODEL_FAILED', details.message);
+    }
+  }
+
+  if (!isRecord(translated) || !shapesMatch(source, translated)) {
+    console.error('[translate-from-english] shape mismatch after retry', {
+      targetLanguage,
+      model,
+      gotObject: isRecord(translated),
+      gotKeys: isRecord(translated) ? Object.keys(translated) : [],
+    });
     throw new TranslateFromEnglishError('SHAPE_MISMATCH', 'Translated JSON did not match the source shape');
   }
 

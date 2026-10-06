@@ -17,6 +17,8 @@ interface ProductDocumentUploadsProps {
   onChange: (lang: Language, url: string | null) => void;
   onUpload: (file: File, lang: Language) => Promise<string | null>;
   onUseForAllLanguages?: (url: string) => void;
+  /** One PDF for every language. Used for manufacturer notes. */
+  single?: boolean;
 }
 
 export function ProductDocumentUploads({
@@ -26,6 +28,7 @@ export function ProductDocumentUploads({
   onChange,
   onUpload,
   onUseForAllLanguages,
+  single = false,
 }: ProductDocumentUploadsProps) {
   const [uploadingLang, setUploadingLang] = useState<Language | null>(null);
   const inputs = useRef<Partial<Record<Language, HTMLInputElement | null>>>({});
@@ -45,7 +48,8 @@ export function ProductDocumentUploads({
       setUploadingLang(lang);
       const url = await onUpload(file, lang);
       if (url) {
-        onChange(lang, url);
+        if (single && onUseForAllLanguages) onUseForAllLanguages(url);
+        else onChange(lang, url);
         toast({ title: "Success", description: "Document uploaded successfully!" });
       }
     } catch (error) {
@@ -55,6 +59,68 @@ export function ProductDocumentUploads({
       setUploadingLang(null);
     }
   };
+
+  const sharedUrl = locales.en.trim()
+    || SUPPORTED_LANGUAGES.map((lang) => locales[lang].trim()).find(Boolean)
+    || "";
+
+  const applyShared = (url: string | null) => {
+    if (onUseForAllLanguages) {
+      onUseForAllLanguages(url ?? "");
+      return;
+    }
+    onChange("en", url);
+  };
+
+  if (single) {
+    return (
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold">{title}</h3>
+        <input
+          ref={(node) => { inputs.current.en = node; }}
+          type="file"
+          accept="application/pdf,.pdf"
+          className="hidden"
+          onChange={(event) => {
+            void handleFile("en", event.target.files?.[0]);
+            event.target.value = "";
+          }}
+        />
+        {sharedUrl ? (
+          <div className="border rounded-lg p-3 bg-gray-50 dark:bg-gray-800">
+            <div className="flex items-center justify-between gap-2">
+              <p className="text-sm font-medium truncate">
+                {decodeURIComponent(sharedUrl.split("/").pop() || "PDF")}
+              </p>
+              <div className="flex items-center gap-2 shrink-0">
+                <a href={sharedUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 text-sm">
+                  Download
+                </a>
+                <Button type="button" variant="destructive" size="sm" onClick={() => applyShared(null)}>
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div
+            className="border-2 border-dashed rounded-md p-6 text-center cursor-pointer hover:bg-muted/50 transition-colors"
+            onClick={() => inputs.current.en?.click()}
+          >
+            {uploadingLang === "en" ? (
+              <p className="text-sm text-muted-foreground">Uploading...</p>
+            ) : (
+              <>
+                <Upload className="mx-auto h-8 w-8 text-muted-foreground" />
+                <p className="mt-2 text-sm text-muted-foreground">Click to upload a PDF</p>
+                <p className="text-xs text-muted-foreground">PDF up to 10MB. One file for every language.</p>
+              </>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-4">

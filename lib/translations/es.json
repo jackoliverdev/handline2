@@ -1315,7 +1315,40 @@
       "badge": "FAQ",
       "title": "Preguntas Frecuentes",
       "description": "Encuentra respuestas rápidas a las preguntas frecuentes sobre nuestros productos y servicios",
-      "questions": "[{\"question\": \"¿Cómo puedo elegir el EPI adecuado?\", \"answer\": \"La elección correcta del EPI es fundamental para garantizar la seguridad y el bienestar de los trabajadores. En primer lugar, recomendamos recopilar información detallada sobre las condiciones de trabajo y la exposición a los riesgos en las situaciones más extremas. Esto ayudará a determinar los niveles de protección y los requisitos prácticos necesarios para el EPI. Nuestro sitio incluye una amplia gama de productos filtrables por requisitos, condiciones ambientales, categoría de riesgo o nivel de protección. Recomendamos siempre contactar con nuestro equipo para recibir asesoramiento e identificar el EPI más adecuado para sus necesidades. Estamos a solo un clic de distancia.\"}, {\"question\": \"¿Pueden personalizar o diseñar EPI a medida?\", \"answer\": \"Sí, podemos crear soluciones de protección de las manos personalizadas según sus necesidades específicas y producir muestras en pocas semanas. Muchos de nuestros productos actuales surgieron de solicitudes específicas de nuestros clientes.\"}, {\"question\": \"¿Puedo solicitar muestras para pruebas?\", \"answer\": \"Sí, ofrecemos muestras para clientes industriales y distribuidores. Contáctenos con los detalles de su empresa y sus aplicaciones para solicitar un kit de muestras.\"}, {\"question\": \"¿Realizan envíos internacionales?\", \"answer\": \"Sí, suministramos EPI a decenas de clientes en más de 15 mercados de la región EMEA y somos capaces de realizar entregas a nivel global.\"}, {\"question\": \"¿Para qué sectores industriales suministran EPI?\", \"answer\": \"Nuestros productos están diseñados para una amplia variedad de sectores, entre ellos vidriería, metalurgia, construcción, automoción, industria alimentaria, logística y trabajo de metales. Hemos adquirido una profunda experiencia en los sectores de la producción de vidrio y metales y en la industria pesada, con más de 40 años de actividad al servicio de grandes clientes internacionales. Nuestra ambición es ser un proveedor fiable y, al mismo tiempo, un asesor de confianza.\"}, {\"question\": \"¿Ofrecen servicios OEM o de marca blanca?\", \"answer\": \"Sí, apoyamos la producción en OEM y marca blanca para socios interesados en personalizar guantes, prendas, etc., con su propia marca, embalaje o especificaciones técnicas. Contáctenos para hablar de sus necesidades.\"}, {\"question\": \"¿Con qué normas cumplen sus productos?\", \"answer\": \"Todos nuestros productos están certificados conforme al Reglamento Europeo de EPI (UE) 2016/425 y cumplen con las normas EN aplicables.\"}, {\"question\": \"¿Cómo puedo convertirme en distribuidor o revendedor de sus productos?\", \"answer\": \"Puede rellenar el formulario de solicitud para distribuidores o contactar directamente con nuestro equipo en distribution@handlineco.com. Apoyamos a los revendedores con material de marketing, formación técnica y modalidades de pedido flexibles.\"}]"
+      "questions": [
+        {
+          "question": "¿Cómo puedo elegir el EPI adecuado?",
+          "answer": "La elección correcta del EPI es fundamental para garantizar la seguridad y el bienestar de los trabajadores. En primer lugar, recomendamos recopilar información detallada sobre las condiciones de trabajo y la exposición a los riesgos en las situaciones más extremas. Esto ayudará a determinar los niveles de protección y los requisitos prácticos necesarios para el EPI. Nuestro sitio incluye una amplia gama de productos filtrables por requisitos, condiciones ambientales, categoría de riesgo o nivel de protección. Recomendamos siempre contactar con nuestro equipo para recibir asesoramiento e identificar el EPI más adecuado para sus necesidades. Estamos a solo un clic de distancia."
+        },
+        {
+          "question": "¿Pueden personalizar o diseñar EPI a medida?",
+          "answer": "Sí, podemos crear soluciones de protección de las manos personalizadas según sus necesidades específicas y producir muestras en pocas semanas. Muchos de nuestros productos actuales surgieron de solicitudes específicas de nuestros clientes."
+        },
+        {
+          "question": "¿Puedo solicitar muestras para pruebas?",
+          "answer": "Sí, ofrecemos muestras para clientes industriales y distribuidores. Contáctenos con los detalles de su empresa y sus aplicaciones para solicitar un kit de muestras."
+        },
+        {
+          "question": "¿Realizan envíos internacionales?",
+          "answer": "Sí, suministramos EPI a decenas de clientes en más de 15 mercados de la región EMEA y somos capaces de realizar entregas a nivel global."
+        },
+        {
+          "question": "¿Para qué sectores industriales suministran EPI?",
+          "answer": "Nuestros productos están diseñados para una amplia variedad de sectores, entre ellos vidriería, metalurgia, construcción, automoción, industria alimentaria, logística y trabajo de metales. Hemos adquirido una profunda experiencia en los sectores de la producción de vidrio y metales y en la industria pesada, con más de 40 años de actividad al servicio de grandes clientes internacionales. Nuestra ambición es ser un proveedor fiable y, al mismo tiempo, un asesor de confianza."
+        },
+        {
+          "question": "¿Ofrecen servicios OEM o de marca blanca?",
+          "answer": "Sí, apoyamos la producción en OEM y marca blanca para socios interesados en personalizar guantes, prendas, etc., con su propia marca, embalaje o especificaciones técnicas. Contáctenos para hablar de sus necesidades."
+        },
+        {
+          "question": "¿Con qué normas cumplen sus productos?",
+          "answer": "Todos nuestros productos están certificados conforme al Reglamento Europeo de EPI (UE) 2016/425 y cumplen con las normas EN aplicables."
+        },
+        {
+          "question": "¿Cómo puedo convertirme en distribuidor o revendedor de sus productos?",
+          "answer": "Puede rellenar el formulario de solicitud para distribuidores o contactar directamente con nuestro equipo en distribution@handlineco.com. Apoyamos a los revendedores con material de marketing, formación técnica y modalidades de pedido flexibles."
+        }
+      ]
     },
     "hero": {
       "badge": "Estamos Aquí Para Ayudarte",

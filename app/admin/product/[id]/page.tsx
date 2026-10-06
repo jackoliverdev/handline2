@@ -2599,6 +2599,7 @@ export default function ProductEditPage({ params }: ProductEditPageProps) {
                 <ProductDocumentUploads
                   kind="manufacturers"
                   title="Manufacturer's notes"
+                  single
                   locales={manufacturersInstructionLocales}
                   onUpload={(file, lang) => uploadDocument(file, 'manufacturers', lang)}
                   onChange={(lang, url) => {
