@@ -56,6 +56,15 @@ export function documentLanguageLabel(lang: Language): string {
   return `${lang.toUpperCase()} ${LANGUAGE_META[lang].nativeName}`;
 }
 
+export function documentStorageName(originalName: string, fallbackPrefix: string): string {
+  const base = originalName.split(/[/\\]/).pop()?.trim() ?? '';
+  const cleaned = base.replace(/[^\w.\- ()]/g, '').replace(/\s+/g, ' ').trim();
+  const safe = cleaned.length > 0 && cleaned !== '.' && !cleaned.includes('..') && /\.[A-Za-z0-9]{2,5}$/.test(cleaned);
+  if (safe) return cleaned;
+  const ext = (base.split('.').pop() || 'pdf').replace(/[^\w]/g, '') || 'pdf';
+  return `${fallbackPrefix}_${Date.now()}.${ext}`;
+}
+
 export function legacyDocumentColumns(map: DocumentLocales): { en: string | null; it: string | null } {
   return {
     en: map.en.trim() || null,

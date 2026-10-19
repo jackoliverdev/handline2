@@ -49,6 +49,7 @@ import {
   type GenerateApplyMode,
 } from "@/lib/i18n/admin-locales";
 import {
+  documentStorageName,
   emptyDocumentLocales,
   legacyDocumentColumns,
   mergeDocumentLocales,
@@ -330,8 +331,7 @@ export default function CategoryProductEdit({ id, slug }: Props) {
 
   async function uploadPdfToBucket(file: File, prefix: string) {
     try {
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${prefix}_${Date.now()}.${fileExt}`;
+      const fileName = documentStorageName(file.name, prefix);
       const { error } = await supabase.storage
         .from('technical-sheets')
         .upload(fileName, file, { cacheControl: '3600', upsert: true });
