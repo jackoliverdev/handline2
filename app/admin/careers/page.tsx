@@ -10,7 +10,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Switch } from "@/components/ui/switch";
 import { toast } from "@/components/ui/use-toast";
 import { Briefcase, Plus, Edit, Trash, MapPin, Building, Calendar, Eye } from "lucide-react";
-import { getAllCareerPosts, toggleCareerFeatured, toggleCareerPublished, deleteCareer } from "@/lib/career-service";
+import { getAdminCareers, toggleCareerFeatured, toggleCareerPublished, deleteCareer } from "@/lib/admin/careers-admin-client";
 import type { CareerPost } from "@/lib/career-service";
 
 export default function CareersManagementPage() {
@@ -24,7 +24,7 @@ export default function CareersManagementPage() {
   useEffect(() => {
     async function load() {
       try {
-        const data = await getAllCareerPosts({});
+        const data = await getAdminCareers();
         setCareers(data as CareerPost[]);
       } catch (error) {
         console.error("Error loading careers:", error);

@@ -11,7 +11,8 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "@/components/ui/use-toast";
-import { createBlog, uploadBlogCoverImage, uploadBlogExtraImage } from "@/lib/blog-service";
+import { createBlog, uploadBlogCoverImage, uploadBlogExtraImage } from "@/lib/admin/blog-admin-client";
+import { getAdminProductList } from "@/lib/admin/product-list-client";
 import { ArrowLeft, Save, Upload, X, Tag as TagIcon } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { MiniProductCard } from "@/components/app/mini-product-card";
@@ -137,9 +138,7 @@ export default function CreateBlogPage() {
   useEffect(() => {
     async function loadProducts() {
       try {
-        const response = await fetch('/api/products');
-        if (!response.ok) throw new Error(`Error fetching products: ${response.status}`);
-        const data = await response.json();
+        const data = await getAdminProductList();
         setAvailableProducts(data);
       } catch (error) {
         console.error("Error loading products:", error);

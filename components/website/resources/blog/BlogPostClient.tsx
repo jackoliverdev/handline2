@@ -44,7 +44,8 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
         const { data, error } = await supabase
           .from('products')
           .select('*')
-          .in('id', ids);
+          .in('id', ids)
+          .eq('published', true);
         if (!error && data) setRelatedProducts(data);
       } catch (e) {
         console.error('Failed to fetch related products for blog:', e);

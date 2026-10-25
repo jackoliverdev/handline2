@@ -21,3 +21,7 @@ export function adminAuthErrorResponse(error: unknown): NextResponse | null {
 
   return null;
 }
+
+export function invalidBody() {
+  return NextResponse.json({ error: "INVALID_BODY" }, { status: 400 });
+}

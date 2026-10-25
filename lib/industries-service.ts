@@ -1,6 +1,6 @@
 import { supabase } from './supabase';
-import { v4 as uuidv4 } from 'uuid';
 import type { Language } from './context/language-context';
+import { createIndustrySlug } from './industry-slug';
 
 // New interfaces for the structured content
 export interface IndustrySection {
@@ -91,7 +91,7 @@ export async function getAllIndustries(language: Language) {
     // Transform data to include slugs and localise content
     const industriesWithSlugs = data.map(industry => localiseIndustry({
       ...industry,
-      slug: createSlug(industry.industry_name)
+      slug: createIndustrySlug(industry.industry_name)
     }, language));
     
     return { data: industriesWithSlugs, count };
@@ -121,7 +121,7 @@ export async function getFeaturedIndustries(language: Language) {
     // Transform data to include slugs and localise content
     const industriesWithSlugs = data.map(industry => localiseIndustry({
       ...industry,
-      slug: createSlug(industry.industry_name)
+      slug: createIndustrySlug(industry.industry_name)
     }, language));
     
     return { data: industriesWithSlugs };
@@ -163,136 +163,18 @@ export async function getIndustryBySlug(slug: string, language: Language) {
     if (error) throw error;
     
     // Then find the one with matching slug (since slug is derived, not stored)
-    const industry = data.find(ind => createSlug(ind.industry_name) === slug);
+    const industry = data.find(ind => createIndustrySlug(ind.industry_name) === slug);
     
     if (!industry) return null;
     
     // Add slug to the returned object and localise
     return localiseIndustry({
       ...industry,
-      slug: createSlug(industry.industry_name)
+      slug: createIndustrySlug(industry.industry_name)
     }, language);
   } catch (error) {
     console.error('Error getting industry by slug:', error);
     throw error;
-  }
-}
-
-/**
- * Create a new industry
- */
-export async function createIndustry(industryData: Omit<Industry, 'id' | 'created_at' | 'updated_at'>) {
-  try {
-    // Generate a unique ID
-    const newIndustry = {
-      ...industryData,
-      id: uuidv4()
-    };
-    
-    const { data, error } = await supabase
-      .from('industry_solutions')
-      .insert([newIndustry])
-      .select()
-      .single();
-    
-    if (error) {
-      console.error('Error creating industry:', error);
-      throw error;
-    }
-    
-    return data;
-  } catch (error) {
-    console.error('Error in createIndustry:', error);
-    throw error;
-  }
-}
-
-/**
- * Update an industry
- */
-export async function updateIndustry(id: string, updates: Partial<Industry>) {
-  try {
-    const { data, error } = await supabase
-      .from('industry_solutions')
-      .update(updates)
-      .eq('id', id)
-      .select()
-      .single();
-    
-    if (error) {
-      console.error('Error updating industry:', error);
-      throw error;
-    }
-    
-    return data;
-  } catch (error) {
-    console.error('Error in updateIndustry:', error);
-    throw error;
-  }
-}
-
-/**
- * Delete an industry
- */
-export async function deleteIndustry(id: string) {
-  try {
-    const { error } = await supabase
-      .from('industry_solutions')
-      .delete()
-      .eq('id', id);
-    
-    if (error) {
-      console.error('Error deleting industry:', error);
-      throw error;
-    }
-    
-    return true;
-  } catch (error) {
-    console.error('Error in deleteIndustry:', error);
-    throw error;
-  }
-}
-
-/**
- * Upload an industry image to Supabase storage
- */
-export async function uploadIndustryImage(industryId: string, file: File): Promise<{ url: string | null }> {
-  try {
-    if (!industryId) {
-      throw new Error("Industry ID is required for image upload");
-    }
-
-    console.log("Uploading industry image:", file.name, "type:", file.type, "size:", file.size);
-    
-    // Create file path
-    const fileExt = file.name.split('.').pop();
-    const fileName = `${industryId}/${Date.now()}.${fileExt}`;
-    
-    console.log("Uploading to:", fileName);
-    
-    // Upload to storage - use the existing "industries" bucket
-    const { data, error } = await supabase.storage
-      .from('industries')
-      .upload(fileName, file);
-      
-    if (error) {
-      console.error("Error uploading industry image:", error);
-      return { url: null };
-    }
-    
-    console.log("Image uploaded successfully:", data);
-    
-    // Get public URL
-    const { data: { publicUrl } } = supabase.storage
-      .from('industries')
-      .getPublicUrl(fileName);
-      
-    console.log("Image public URL:", publicUrl);
-    
-    return { url: publicUrl };
-  } catch (error) {
-    console.error('Error uploading industry image:', error);
-    return { url: null };
   }
 }
 
@@ -340,7 +222,8 @@ export async function getRelatedProducts(productIds: string[]) {
     const { data, error } = await supabase
       .from('products')
       .select('*')
-      .in('id', productIds);
+      .in('id', productIds)
+      .eq('published', true);
     
     if (error) throw error;
     return data || [];
@@ -348,16 +231,4 @@ export async function getRelatedProducts(productIds: string[]) {
     console.error('Error getting related products:', error);
     return [];
   }
-}
-
-/**
- * Create a URL-friendly slug from a name
- */
-function createSlug(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/[^\w\s]/g, '') // Remove non-word chars
-    .replace(/\s+/g, '-')    // Replace spaces with hyphens
-    .replace(/--+/g, '-')    // Replace multiple hyphens with single hyphen
-    .trim();
 } 

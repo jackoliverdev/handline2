@@ -123,7 +123,8 @@ function SectionRelatedProducts({ ids, lang, captions }: SectionRelatedProductsP
         const { data, error } = await supabase
           .from('products')
           .select('id,name,name_locales,image_url')
-          .in('id', ids);
+          .in('id', ids)
+          .eq('published', true);
         if (!isMounted) return;
         if (error) {
           console.error('Failed to load related products for section:', error);

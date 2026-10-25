@@ -12,8 +12,9 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Download, FileText, Loader2, Save, Trash, Upload, ArrowLeft } from "lucide-react";
 import type { Product } from "@/lib/products-service";
-import { getProductById, updateProduct } from "@/lib/products-service";
-import { supabase } from "@/lib/supabase";
+import { getAdminProductList } from "@/lib/admin/product-list-client";
+import { getAdminProduct, updateProduct } from "@/lib/admin/products-admin-client";
+import { adminUploadFile } from "@/lib/admin/upload-client";
 
 type DocEntry = { url: string; kind: "eu" | "uk"; locale?: string };
 
@@ -60,10 +61,15 @@ export default function CreateDeclarationsPage() {
   // Load products for selector
   useEffect(() => {
     (async () => {
-      const res = await fetch('/api/products');
-      const data = res.ok ? await res.json() : [];
-      setAllProducts(data);
-      setLoading(false);
+      try {
+        const data = await getAdminProductList();
+        setAllProducts([...data].sort((a, b) => (a.name || '').localeCompare(b.name || '')));
+      } catch (error) {
+        console.error('Failed to load products', error);
+        setAllProducts([]);
+      } finally {
+        setLoading(false);
+      }
     })();
   }, []);
 
@@ -71,7 +77,7 @@ export default function CreateDeclarationsPage() {
   useEffect(() => {
     (async () => {
       if (!selectedId) return;
-      const { product } = await getProductById(selectedId);
+      const { product } = await getAdminProduct(selectedId);
       setProduct(product);
       const entries: DocEntry[] = Array.isArray((product as any)?.declaration_docs_locales)
         ? (product as any).declaration_docs_locales.map((e: any) => ({ url: e.url, kind: e.kind, locale: e.locale }))
@@ -100,13 +106,12 @@ export default function CreateDeclarationsPage() {
     const safeName = product.name;
     const filename = `HLC_${dateStr}_${country}_DoC_${safeName}.${ext}`;
     const path = `DOCs/${safeName}/${filename}`;
-    const { error } = await supabase.storage.from('technical-sheets').upload(path, file, { upsert: true });
-    if (error) {
+    try {
+      return await adminUploadFile('technical-sheets', path, file, { upsert: true });
+    } catch (error) {
       console.error('Upload error', error);
       return null;
     }
-    const { data: { publicUrl } } = supabase.storage.from('technical-sheets').getPublicUrl(path);
-    return publicUrl;
   };
 
   const availableLocales = useMemo(() => {

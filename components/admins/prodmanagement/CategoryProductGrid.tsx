@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
-import { Product, getAllProducts, toggleProductFeatured, toggleProductStock, deleteProduct } from "@/lib/products-service";
+import { Product } from "@/lib/products-service";
+import { getAdminProductList } from "@/lib/admin/product-list-client";
+import { toggleProductFeatured, toggleProductStock, deleteProduct } from "@/lib/admin/products-admin-client";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -105,8 +107,7 @@ export default function CategoryProductGrid({ slug }: Props) {
     async function loadProducts() {
       try {
         setLoading(true);
-        // Include unpublished products in the admin view
-        const { products } = await getAllProducts(true);
+        const products = await getAdminProductList();
         setProducts(products || []);
       } catch (e) {
         console.error("Failed to load products", e);
@@ -592,7 +593,7 @@ export default function CategoryProductGrid({ slug }: Props) {
               <h3 className="mt-4 text-lg font-semibold">No products yet</h3>
               <p className="mt-2 text-sm text-muted-foreground">Get started by creating your first product.</p>
               <Button className="mt-4" asChild>
-                <Link href="/admin/product/create"><Plus className="mr-2 h-4 w-4" />Create Product</Link>
+                <Link href={`/admin/prod-management/${slug}/create`}><Plus className="mr-2 h-4 w-4" />Create Product</Link>
               </Button>
             </div>
           ) : sorted.length === 0 ? (

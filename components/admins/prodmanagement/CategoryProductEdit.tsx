@@ -14,7 +14,9 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "@/components/ui/use-toast";
-import { getProductById, updateProduct, deleteProduct, uploadProductImage, Product, EnvironmentPictograms } from "@/lib/products-service";
+import { Product, EnvironmentPictograms } from "@/lib/products-service";
+import { getAdminProduct, updateProduct, deleteProduct } from "@/lib/admin/products-admin-client";
+import { adminUploadFile } from "@/lib/admin/upload-client";
 import { ArrowLeft, Save, Trash, Upload, X, Plus, Tag, Sun, Droplets, Wind, FlaskConical, Bug, Zap, Shield, Eye } from "lucide-react";
 import Link from "next/link";
 import { CLOTHING_TYPE_TO_CATEGORIES } from "@/content/clothing-categories";
@@ -181,7 +183,7 @@ export default function CategoryProductEdit({ id, slug }: Props) {
   useEffect(() => {
     (async () => {
       try {
-        const { product } = await getProductById(id);
+        const { product } = await getAdminProduct(id);
         if (!product) throw new Error('Not found');
         setNameLocales(hydrateStringLocales(product.name_locales, product.name || ''));
         setShortDescriptionLocales(hydrateStringLocales(product.short_description_locales, product.short_description || ''));
@@ -332,12 +334,7 @@ export default function CategoryProductEdit({ id, slug }: Props) {
   async function uploadPdfToBucket(file: File, prefix: string) {
     try {
       const fileName = documentStorageName(file.name, prefix);
-      const { error } = await supabase.storage
-        .from('technical-sheets')
-        .upload(fileName, file, { cacheControl: '3600', upsert: true });
-      if (error) throw error;
-      const { data } = supabase.storage.from('technical-sheets').getPublicUrl(fileName);
-      return data.publicUrl as string;
+      return await adminUploadFile('technical-sheets', fileName, file, { upsert: true });
     } catch (e) {
       console.error(e);
       toast({ title: 'Upload Error', description: 'Failed to upload document', variant: 'destructive' });

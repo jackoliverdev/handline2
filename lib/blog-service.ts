@@ -1,5 +1,4 @@
 import { supabase } from './supabase';
-import { v4 as uuidv4 } from 'uuid';
 import type { Language } from './context/language-context';
 
 export interface BlogPost {
@@ -91,25 +90,6 @@ export async function getAllBlogs(options: {
 }
 
 /**
- * Get a blog post by ID
- */
-export async function getBlogById(id: string) {
-  try {
-    const { data, error } = await supabase
-      .from('blog_posts')
-      .select('*')
-      .eq('id', id)
-      .single();
-    
-    if (error) throw error;
-    return data;
-  } catch (error) {
-    console.error('Error getting blog post:', error);
-    throw error;
-  }
-}
-
-/**
  * Get a blog post by slug
  */
 export async function getBlogBySlug(slug: string, language: Language = 'en') {
@@ -118,151 +98,17 @@ export async function getBlogBySlug(slug: string, language: Language = 'en') {
       .from('blog_posts')
       .select('*')
       .eq('slug', slug)
-      .single();
-    if (error) throw error;
+      .eq('is_published', true)
+      .maybeSingle();
+    if (error) {
+      console.error('Error getting blog post by slug:', error);
+      return null;
+    }
+    if (!data) return null;
     return localiseBlog(data, language);
   } catch (error) {
     console.error('Error getting blog post by slug:', error);
-    throw error;
-  }
-}
-
-/**
- * Create a new blog post
- */
-export async function createBlog(blogData: Omit<BlogPost, 'id' | 'created_at' | 'updated_at'>) {
-  try {
-    // Generate a unique ID
-    const newBlog: any = {
-      ...blogData,
-      id: uuidv4(),
-      slug: blogData.slug || createSlug(blogData.title)
-    };
-    
-    const { data, error } = await supabase
-      .from('blog_posts')
-      .insert([newBlog])
-      .select()
-      .single();
-    
-    if (error) {
-      console.error('Error creating blog post:', error);
-      throw error;
-    }
-    
-    return data;
-  } catch (error) {
-    console.error('Error in createBlog:', error);
-    throw error;
-  }
-}
-
-/**
- * Update a blog post
- */
-export async function updateBlog(id: string, updates: Partial<BlogPost>) {
-  try {
-    // If title is updated and slug isn't provided, update the slug too
-    if (updates.title && !updates.slug) {
-      updates.slug = createSlug(updates.title);
-    }
-    
-    const { data, error } = await supabase
-      .from('blog_posts')
-      .update(updates)
-      .eq('id', id)
-      .select()
-      .single();
-    
-    if (error) {
-      console.error('Error updating blog post:', error);
-      throw error;
-    }
-    
-    return data;
-  } catch (error) {
-    console.error('Error in updateBlog:', error);
-    throw error;
-  }
-}
-
-/**
- * Delete a blog post
- */
-export async function deleteBlog(id: string) {
-  try {
-    const { error } = await supabase
-      .from('blog_posts')
-      .delete()
-      .eq('id', id);
-    
-    if (error) {
-      console.error('Error deleting blog post:', error);
-      throw error;
-    }
-    
-    return true;
-  } catch (error) {
-    console.error('Error in deleteBlog:', error);
-    throw error;
-  }
-}
-
-/**
- * Toggle the published status of a blog post
- */
-export async function toggleBlogPublished(id: string) {
-  try {
-    // First get the current status
-    const { data: blog, error: fetchError } = await supabase
-      .from('blog_posts')
-      .select('is_published')
-      .eq('id', id)
-      .single();
-    
-    if (fetchError) throw fetchError;
-    
-    // Then toggle it
-    const { data, error } = await supabase
-      .from('blog_posts')
-      .update({ is_published: !blog.is_published })
-      .eq('id', id)
-      .select()
-      .single();
-    
-    if (error) throw error;
-    
-    return data;
-  } catch (error) {
-    console.error('Error toggling blog published status:', error);
-    throw error;
-  }
-}
-
-/**
- * Toggle the featured status of a blog post
- */
-export async function toggleBlogFeatured(id: string) {
-  try {
-    // Get current featured status
-    const { data: blog, error: fetchError } = await supabase
-      .from('blog_posts')
-      .select('is_featured')
-      .eq('id', id)
-      .single();
-    if (fetchError) throw fetchError;
-
-    const { data, error } = await supabase
-      .from('blog_posts')
-      .update({ is_featured: !blog.is_featured })
-      .eq('id', id)
-      .select()
-      .single();
-    if (error) throw error;
-    return data;
-  } catch (error) {
-    console.error('Error toggling blog featured status:', error);
-    throw error;
+    return null;
   }
 }
 
@@ -287,79 +133,9 @@ export async function getRelatedBlogs(excludeId: string, tags: string[], limit: 
 }
 
 /**
- * Upload a blog cover image to Supabase storage
- */
-export async function uploadBlogCoverImage(blogId: string, file: File): Promise<{ url: string | null }> {
-  try {
-    if (!blogId) {
-      throw new Error("Blog ID is required for image upload");
-    }
-
-    console.log("Uploading blog cover image:", file.name, "type:", file.type, "size:", file.size);
-    
-    // Create file path
-    const fileExt = file.name.split('.').pop();
-    const fileName = `${blogId}/${Date.now()}.${fileExt}`;
-    
-    console.log("Uploading to:", fileName);
-    
-    // Upload to storage
-    const { data, error } = await supabase.storage
-      .from('blog-covers')
-      .upload(fileName, file);
-      
-    if (error) {
-      console.error("Error uploading blog cover image:", error);
-      return { url: null };
-    }
-    
-    console.log("Image uploaded successfully:", data);
-    
-    // Get public URL
-    const { data: { publicUrl } } = supabase.storage
-      .from('blog-covers')
-      .getPublicUrl(fileName);
-      
-    console.log("Image public URL:", publicUrl);
-    
-    return { url: publicUrl };
-  } catch (error) {
-    console.error('Error uploading blog cover image:', error);
-    return { url: null };
-  }
-}
-
-/**
- * Upload an extra blog image to Supabase storage
- */
-export async function uploadBlogExtraImage(blogId: string, file: File): Promise<{ url: string | null }> {
-  try {
-    if (!blogId) {
-      throw new Error('Blog ID is required for image upload');
-    }
-    const fileExt = file.name.split('.').pop();
-    const fileName = `${blogId}/${Date.now()}-${Math.random().toString(36).slice(2,8)}.${fileExt}`;
-    const { error } = await supabase.storage
-      .from('blog-covers')
-      .upload(fileName, file);
-    if (error) {
-      console.error('Error uploading blog extra image:', error);
-      return { url: null };
-    }
-    const { data: { publicUrl } } = supabase.storage
-      .from('blog-covers')
-      .getPublicUrl(fileName);
-    return { url: publicUrl };
-  } catch (error) {
-    console.error('Error uploading blog extra image:', error);
-    return { url: null };
-  }
-}
-
-/**
  * Create a URL-friendly slug from a title
  */
-function createSlug(title: string): string {
+export function createSlug(title: string): string {
   return title
     .toLowerCase()
     .replace(/[^\w\s]/g, '') // Remove non-word chars

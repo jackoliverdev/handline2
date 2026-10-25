@@ -10,8 +10,9 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import { getAllProducts, toggleProductFeatured, toggleProductStock } from "@/lib/products-service";
-import { getAllBlogs } from "@/lib/blog-service";
+import { toggleProductFeatured, toggleProductStock } from "@/lib/admin/products-admin-client";
+import { getAdminProductList } from "@/lib/admin/product-list-client";
+import { getAdminBlogs } from "@/lib/admin/blog-admin-client";
 import { formatPrice } from "@/lib/utils";
 import { format, addDays, subDays } from "date-fns";
 import { 
@@ -48,6 +49,7 @@ interface ProductInfo {
   cut_resistance_level?: string;
   description?: string;
   is_featured: boolean;
+  editHref: string;
 }
 
 interface DashboardStats {
@@ -57,6 +59,26 @@ interface DashboardStats {
   totalBlogs: number;
   publishedBlogs: number;
   topProducts: ProductInfo[];
+}
+
+const PRODUCT_CATEGORY_LABELS: Record<string, string> = {
+  gloves: 'Hand protection',
+  'industrial-swabs': 'Industrial Swabs',
+  respiratory: 'Respiratory Protection',
+  hearing: 'Hearing Protection',
+  footwear: 'Safety Footwear',
+  'eye-face': 'Eye & Face protection',
+  head: 'Head protection',
+  clothing: 'Protective Clothing',
+  'arm-protection': 'Arm protection',
+};
+
+function productEditHref(id: string, category?: string | null): string {
+  const normalised = (category ?? '').trim().toLowerCase();
+  const slug = Object.keys(PRODUCT_CATEGORY_LABELS).find(
+    (key) => PRODUCT_CATEGORY_LABELS[key].toLowerCase() === normalised
+  );
+  return slug ? `/admin/prod-management/${slug}/${id}` : '/admin/prod-management';
 }
 
 export default function AdminDashboardPage() {
@@ -159,13 +181,7 @@ export default function AdminDashboardPage() {
         setIsLoading(true);
         
         // Fetch necessary data in parallel
-        const [
-          { products }, 
-          { data: blogs }
-        ] = await Promise.all([
-          getAllProducts(),
-          getAllBlogs()
-        ]);
+        const [products, { data: blogs }] = await Promise.all([getAdminProductList(), getAdminBlogs()]);
         
         // Process products
         const productsInStock = products.filter((p: any) => !p.out_of_stock);
@@ -187,7 +203,8 @@ export default function AdminDashboardPage() {
             temperature_rating: product.temperature_rating,
             cut_resistance_level: product.cut_resistance_level,
             description: product.short_description || product.description,
-            is_featured: product.is_featured
+            is_featured: product.is_featured,
+            editHref: productEditHref(product.id, product.category)
           }));
         
         // Update state with all processed data
@@ -444,7 +461,7 @@ export default function AdminDashboardPage() {
                     {/* Actions */}
                     <div className="mt-auto flex items-center justify-between pt-2 border-t gap-2">
                       <Button variant="outline" size="sm" asChild>
-                        <Link href={`/admin/product/${product.id}`}>
+                        <Link href={product.editHref}>
                           <Edit className="h-4 w-4 mr-1" />
                           Edit
                         </Link>

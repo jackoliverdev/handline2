@@ -1,7 +1,5 @@
 import { supabase } from './supabase';
-import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Language } from './context/language-context';
-import { generateUniqueProductSlug } from './product-slug';
 import { pickLocaleList } from './i18n/locale-fallback';
 
 // Safety Standards interfaces
@@ -318,25 +316,16 @@ export function getDocUrl(product: Product, targetLang: string, kind: 'eu' | 'uk
 }
 
 /**
- * Fetch all products from Supabase
- * @param includeUnpublished Whether to include unpublished products (default: false)
+ * Fetch published products from Supabase
  */
-export async function getAllProducts(includeUnpublished: boolean = false): Promise<{ products: Product[] }> {
+export async function getAllProducts(): Promise<{ products: Product[] }> {
   try {
-    console.log('Fetching all products from Supabase...', includeUnpublished ? '(including unpublished)' : '(published only)', new Date().toISOString());
-    
-    // Create query and add filter for published status if needed
-    let query = supabase
+    console.log('Fetching all products from Supabase...', '(published only)', new Date().toISOString());
+
+    const { data, error } = await supabase
       .from('products')
-      .select('*', { head: false, count: 'exact' });
-      
-    // Only include published products for the public website
-    if (!includeUnpublished) {
-      query = query.eq('published', true);
-    }
-    
-    // Add sorting
-    const { data, error } = await query
+      .select('*', { head: false, count: 'exact' })
+      .eq('published', true)
       .order('is_featured', { ascending: false })
       .order('order_priority', { ascending: false })
       .order('created_at', { ascending: false });
@@ -386,6 +375,7 @@ export async function getFeaturedProducts(language: Language): Promise<{ product
       .from('products')
       .select('*')
       .eq('is_featured', true)
+      .eq('published', true)
       .order('order_priority', { ascending: false })
       .order('created_at', { ascending: false });
     if (error) {
@@ -487,6 +477,7 @@ export async function getProductById(id: string): Promise<{ product: Product | n
       .from('products')
       .select('*')
       .eq('id', id)
+      .eq('published', true)
       .single();
     
     if (error) {
@@ -533,6 +524,7 @@ export async function getProductsByCategory(category: string): Promise<{ product
       .from('products')
       .select('*')
       .eq('category', category)
+      .eq('published', true)
       .order('order_priority', { ascending: false })
       .order('created_at', { ascending: false });
     
@@ -569,6 +561,7 @@ export async function getProductsByIndustry(industry: string): Promise<{ product
       .from('products')
       .select('*')
       .contains('industries', [industry])
+      .eq('published', true)
       .order('order_priority', { ascending: false })
       .order('created_at', { ascending: false });
     
@@ -591,271 +584,6 @@ export async function getProductsByIndustry(industry: string): Promise<{ product
   } catch (error) {
     console.error(`Error in getProductsByIndustry for ${industry}:`, error);
     return { products: [] };
-  }
-}
-
-/**
- * Create a new product
- */
-export async function createProduct(productData: Partial<Product>): Promise<{ product: Product | null; error?: string }> {
-  try {
-    console.log('Creating new product:', productData.name);
-    if (!productData.name?.trim()) {
-      return { product: null, error: 'A product name is required.' };
-    }
-
-    const productWithSlug = {
-      ...productData,
-      slug: await generateUniqueProductSlug(productData.name.trim()),
-    };
-    
-    const { data, error } = await supabase
-      .from('products')
-      .insert([productWithSlug])
-      .select()
-      .single();
-    
-    if (error) {
-      console.error('Error creating product:', error);
-      return { product: null, error: error.message };
-    }
-    
-    // Parse JSONB fields
-    const product = {
-      ...data,
-      features: Array.isArray(data.features) ? data.features : [],
-      applications: Array.isArray(data.applications) ? data.applications : [],
-      industries: Array.isArray(data.industries) ? data.industries : [],
-      additional_images: Array.isArray(data.additional_images) ? data.additional_images : []
-    };
-    
-    console.log(`Created product: ${product.name} with ID: ${product.id}`);
-    
-    // Clear cache
-    await clearProductCache();
-    
-    return { product };
-  } catch (error) {
-    console.error('Error in createProduct:', error);
-    return { product: null, error: error instanceof Error ? error.message : 'Unable to create product.' };
-  }
-}
-
-/**
- * Update an existing product
- */
-export async function updateProduct(id: string, updates: Partial<Product>): Promise<{ product: Product | null }> {
-  try {
-    console.log(`Updating product with ID: ${id}`);
-    
-    const { data, error } = await supabase
-      .from('products')
-      .update(updates)
-      .eq('id', id)
-      .select()
-      .single();
-    
-    if (error) {
-      console.error(`Error updating product with ID ${id}:`, error);
-      return { product: null };
-    }
-    
-    // Parse JSONB fields
-    const product = {
-      ...data,
-      features: Array.isArray(data.features) ? data.features : [],
-      applications: Array.isArray(data.applications) ? data.applications : [],
-      industries: Array.isArray(data.industries) ? data.industries : [],
-      additional_images: Array.isArray(data.additional_images) ? data.additional_images : []
-    };
-    
-    console.log(`Updated product: ${product.name}`);
-    
-    // Clear cache
-    await clearProductCache();
-    
-    return { product };
-  } catch (error) {
-    console.error(`Error in updateProduct for ${id}:`, error);
-    return { product: null };
-  }
-}
-
-/**
- * Delete a product
- */
-export async function deleteProduct(id: string): Promise<{ success: boolean }> {
-  try {
-    console.log(`Deleting product with ID: ${id}`);
-    
-    const { error } = await supabase
-      .from('products')
-      .delete()
-      .eq('id', id);
-    
-    if (error) {
-      console.error(`Error deleting product with ID ${id}:`, error);
-      return { success: false };
-    }
-    
-    console.log(`Successfully deleted product with ID: ${id}`);
-    
-    // Clear cache
-    await clearProductCache();
-    
-    return { success: true };
-  } catch (error) {
-    console.error(`Error in deleteProduct for ${id}:`, error);
-    return { success: false };
-  }
-}
-
-/**
- * Toggle the featured status of a product
- */
-export async function toggleProductFeatured(id: string): Promise<{ product: Product | null }> {
-  try {
-    console.log(`Toggling featured status for product with ID: ${id}`);
-    
-    // First get the current featured status
-    const { product: currentProduct } = await getProductById(id);
-    
-    if (!currentProduct) {
-      console.error(`Product with ID ${id} not found`);
-      return { product: null };
-    }
-    
-    // Toggle the featured status
-    const newFeaturedStatus = !currentProduct.is_featured;
-    
-    const { data, error } = await supabase
-      .from('products')
-      .update({ is_featured: newFeaturedStatus })
-      .eq('id', id)
-      .select()
-      .single();
-    
-    if (error) {
-      console.error(`Error toggling featured status for product with ID ${id}:`, error);
-      return { product: null };
-    }
-    
-    // Parse JSONB fields
-    const product = {
-      ...data,
-      features: Array.isArray(data.features) ? data.features : [],
-      applications: Array.isArray(data.applications) ? data.applications : [],
-      industries: Array.isArray(data.industries) ? data.industries : [],
-      additional_images: Array.isArray(data.additional_images) ? data.additional_images : []
-    };
-    
-    console.log(`Updated featured status to ${newFeaturedStatus} for product: ${product.name}`);
-    
-    // Clear cache
-    await clearProductCache();
-    
-    return { product };
-  } catch (error) {
-    console.error(`Error in toggleProductFeatured for ${id}:`, error);
-    return { product: null };
-  }
-}
-
-/**
- * Toggle the out_of_stock status of a product
- */
-export async function toggleProductStock(id: string): Promise<{ product: Product | null }> {
-  try {
-    console.log(`Toggling stock status for product with ID: ${id}`);
-    
-    // First get the current stock status
-    const { product: currentProduct } = await getProductById(id);
-    
-    if (!currentProduct) {
-      console.error(`Product with ID ${id} not found`);
-      return { product: null };
-    }
-    
-    // Toggle the stock status
-    const newStockStatus = !currentProduct.out_of_stock;
-    
-    const { data, error } = await supabase
-      .from('products')
-      .update({ out_of_stock: newStockStatus })
-      .eq('id', id)
-      .select()
-      .single();
-    
-    if (error) {
-      console.error(`Error toggling stock status for product with ID ${id}:`, error);
-      return { product: null };
-    }
-    
-    // Parse JSONB fields
-    const product = {
-      ...data,
-      features: Array.isArray(data.features) ? data.features : [],
-      applications: Array.isArray(data.applications) ? data.applications : [],
-      industries: Array.isArray(data.industries) ? data.industries : [],
-      additional_images: Array.isArray(data.additional_images) ? data.additional_images : []
-    };
-    
-    console.log(`Updated stock status to ${newStockStatus} for product: ${product.name}`);
-    
-    // Clear cache
-    await clearProductCache();
-    
-    return { product };
-  } catch (error) {
-    console.error(`Error in toggleProductStock for ${id}:`, error);
-    return { product: null };
-  }
-}
-
-/**
- * Upload a product image to Supabase storage
- */
-export async function uploadProductImage(
-  productId: string,
-  file: File,
-  client: SupabaseClient = supabase
-): Promise<{ url: string | null }> {
-  try {
-    if (!productId) {
-      throw new Error("Product ID is required for image upload");
-    }
-
-    console.log("Uploading product image:", file.name, "type:", file.type, "size:", file.size);
-    
-    // Create file path
-    const fileExt = file.name.split('.').pop();
-    const fileName = `${productId}/${Date.now()}.${fileExt}`;
-    
-    console.log("Uploading to:", fileName);
-    
-    // Upload to storage
-    const { data, error } = await client.storage
-      .from('products')
-      .upload(fileName, file);
-      
-    if (error) {
-      console.error("Error uploading product image:", error);
-      throw error;
-    }
-    
-    console.log("Image uploaded successfully:", data);
-    
-    // Get public URL
-    const { data: { publicUrl } } = client.storage
-      .from('products')
-      .getPublicUrl(fileName);
-      
-    console.log("Image public URL:", publicUrl);
-    
-    return { url: publicUrl };
-  } catch (error) {
-    console.error('Error uploading product image:', error);
-    throw error;
   }
 }
 
@@ -921,7 +649,8 @@ export async function getRelatedProducts(productId: string): Promise<{ relatedPr
     const { data, error } = await supabase
       .from('products')
       .select('*')
-      .in('id', relatedIds);
+      .in('id', relatedIds)
+      .eq('published', true);
     
     if (error) {
       console.error(`Error fetching related products for product ID ${productId}:`, error);

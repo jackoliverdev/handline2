@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import { pickLocaleList, pickLocaleText } from '@/lib/i18n/locale-fallback';
+import { createIndustrySlug } from '@/lib/industry-slug';
 
 export async function GET(request: NextRequest) {
   try {
@@ -47,7 +48,8 @@ export async function GET(request: NextRequest) {
       // First query - search in English fields
       let productQuery = supabase
         .from('products')
-        .select('id, name, description, short_description, category, image_url, created_at, name_locales, description_locales, category_locales')
+        .select('id, name, slug, description, short_description, category, image_url, created_at, name_locales, description_locales, category_locales')
+        .eq('published', true)
         .or(`name.ilike.%${searchPattern}%,description.ilike.%${searchPattern}%,category.ilike.%${searchPattern}%`);
 
       const { data: products, error: productsError } = await productQuery
@@ -64,7 +66,8 @@ export async function GET(request: NextRequest) {
         // Get all products with localized content to search client-side
         const { data: allProducts, error: allProductsError } = await supabase
           .from('products')
-          .select('id, name, description, short_description, category, image_url, created_at, name_locales, description_locales, category_locales')
+          .select('id, name, slug, description, short_description, category, image_url, created_at, name_locales, description_locales, category_locales')
+          .eq('published', true)
           .not('name_locales', 'is', null)
           .limit(500); // Reasonable limit for client-side search
 
@@ -107,7 +110,7 @@ export async function GET(request: NextRequest) {
             content_type: 'product',
             title: localizedName,
             description: localizedDescription?.substring(0, 200) + '...' || product.short_description || product.description?.substring(0, 200) + '...',
-            url: `/products/${encodeURIComponent(product.name)}`,
+            url: `/products/${encodeURIComponent(product.slug || product.id)}`,
             image_url: product.image_url,
             category: localizedCategory,
             published_at: product.created_at,
@@ -230,7 +233,7 @@ export async function GET(request: NextRequest) {
             content_type: 'industry_solution',
             title: localizedName,
             description: localizedDescription || solution.content?.substring(0, 200) + '...',
-            url: `/industries/${encodeURIComponent(solution.industry_name.toLowerCase().replace(/\s+/g, '-'))}`,
+            url: `/industries/${createIndustrySlug(solution.industry_name)}`,
             image_url: solution.feature_image_url || solution.image_url,
             category: localizedName,
             published_at: solution.created_at,
