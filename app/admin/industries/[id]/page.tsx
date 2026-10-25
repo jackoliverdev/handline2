@@ -2,7 +2,9 @@
 
 import { useState, useEffect, FormEvent, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { getIndustryById, updateIndustry, uploadIndustryImage } from "@/lib/industries-service";
+import { getIndustryById } from "@/lib/industries-service";
+import { updateIndustry, uploadIndustryImage } from "@/lib/admin/industries-admin-client";
+import { getAdminProductList } from "@/lib/admin/product-list-client";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -435,11 +437,7 @@ export default function EditIndustryPage({ params }: { params: { id: string } })
     // Fetch products for related products selection
     async function loadProducts() {
       try {
-        const response = await fetch('/api/products');
-        if (!response.ok) {
-          throw new Error(`Error fetching products: ${response.status}`);
-        }
-        const data = await response.json();
+        const data = await getAdminProductList();
         console.log("Loaded products:", data.length);
         setAvailableProducts(data);
       } catch (error) {

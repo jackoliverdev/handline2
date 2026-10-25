@@ -12,7 +12,7 @@ import { getService } from "@/lib/ppe-standards/service";
 import type { PPECategory } from "@/lib/ppe-standards/types";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "@/components/ui/use-toast";
-import { supabase } from "@/lib/supabase";
+import { deletePpeCategory } from "@/lib/admin/ppe-admin-client";
 
 export default function PPEHubManagementPage() {
   const { language } = useLanguage();
@@ -54,11 +54,7 @@ export default function PPEHubManagementPage() {
     if (!targetCategory) return;
     try {
       setDeleting(true);
-      const { error } = await supabase
-        .from('ppe_categories')
-        .delete()
-        .eq('id', targetCategory.id);
-      if (error) throw error;
+      await deletePpeCategory(targetCategory.id);
 
       setCategories((prev) => prev.filter((c) => c.id !== targetCategory.id));
       toast({ title: 'Deleted', description: 'Category removed successfully.' });

@@ -28,7 +28,8 @@ export function ENResourceSectionPage({ section }: Props) {
         const { data } = await supabase
           .from('products')
           .select('*')
-          .in('id', section.relatedProductIds);
+          .in('id', section.relatedProductIds)
+          .eq('published', true);
         setRelated(data || []);
       } catch (e) {
         console.error('Failed to load related products for section', e);

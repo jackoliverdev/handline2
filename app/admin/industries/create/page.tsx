@@ -2,7 +2,8 @@
 
 import { useState, useEffect, FormEvent, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { createIndustry, uploadIndustryImage, updateIndustry } from "@/lib/industries-service";
+import { createIndustry, uploadIndustryImage, updateIndustry } from "@/lib/admin/industries-admin-client";
+import { getAdminProductList } from "@/lib/admin/product-list-client";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -312,11 +313,7 @@ export default function CreateIndustryPage() {
   useEffect(() => {
     async function loadProducts() {
       try {
-        const response = await fetch('/api/products');
-        if (!response.ok) {
-          throw new Error(`Error fetching products: ${response.status}`);
-        }
-        const data = await response.json();
+        const data = await getAdminProductList();
         console.log("Loaded products:", data.length);
         setAvailableProducts(data);
       } catch (error) {

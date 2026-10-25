@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "@/components/ui/use-toast";
-import { createCareer } from "@/lib/career-service";
+import { createCareer } from "@/lib/admin/careers-admin-client";
 import { ArrowLeft, Save, X } from "lucide-react";
 import { LanguageSwitcher } from "@/components/ui/language-switcher";
 import { GenerateFromEnglishButton } from "@/components/admins/generate-from-english-button";

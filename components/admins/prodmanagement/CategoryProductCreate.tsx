@@ -15,7 +15,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "@/components/ui/use-toast";
 import Link from "next/link";
 import { Upload, X, Plus, Tag, ArrowLeft, Sun, Droplets, Wind, FlaskConical, Bug, Zap, Shield, Eye, Flame } from "lucide-react";
-import { uploadProductImage, EnvironmentPictograms } from "@/lib/products-service";
+import { EnvironmentPictograms } from "@/lib/products-service";
+import { createProduct, getAdminProduct, isProductNameTaken } from "@/lib/admin/products-admin-client";
+import { adminUploadFile } from "@/lib/admin/upload-client";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { CLOTHING_TYPE_TO_CATEGORIES } from "@/content/clothing-categories";
 import { BrandSelector } from "@/components/admins/brand-selector";
@@ -214,14 +216,9 @@ export default function CategoryProductCreate({ slug }: Props) {
     
     const loadProductForDuplication = async () => {
       try {
-        const { data, error } = await supabase
-          .from('products')
-          .select('*')
-          .eq('id', duplicateId)
-          .single();
-        
-        if (error) throw error;
-        if (!data) return;
+        const { product } = await getAdminProduct(duplicateId);
+        if (!product) throw new Error('Not found');
+        const data = product as any;
 
         // Helper to auto-increment name until the generated product URL/name is available.
         const getUniqueDuplicateName = async (name: string) => {
@@ -234,15 +231,8 @@ export default function CategoryProductCreate({ slug }: Props) {
 
           while (suffix < 1000) {
             const candidate = `${baseName} (${suffix})`;
-            const { data: existing, error: existingError } = await supabase
-              .from('products')
-              .select('id')
-              .eq('name', candidate)
-              .limit(1)
-              .maybeSingle();
-
-            if (existingError) throw existingError;
-            if (!existing) return candidate;
+            const taken = await isProductNameTaken(candidate);
+            if (!taken) return candidate;
 
             suffix += 1;
           }
@@ -356,7 +346,7 @@ export default function CategoryProductCreate({ slug }: Props) {
     };
 
     loadProductForDuplication();
-  }, [duplicateId, supabase]);
+  }, [duplicateId]);
 
   // Prefill and lock category
   const categoryMap: Record<string, { en: string; it: string }> = {
@@ -379,12 +369,7 @@ export default function CategoryProductCreate({ slug }: Props) {
     try {
       setIsUploadingDocs(true);
       const fileName = documentStorageName(file.name, prefix);
-      const { error } = await supabase.storage
-        .from('technical-sheets')
-        .upload(fileName, file, { cacheControl: '3600', upsert: true });
-      if (error) throw error;
-      const { data } = supabase.storage.from('technical-sheets').getPublicUrl(fileName);
-      return data.publicUrl as string;
+      return await adminUploadFile('technical-sheets', fileName, file, { upsert: true });
     } catch (e) {
       console.error(e);
       toast({ title: 'Upload Error', description: 'Failed to upload document', variant: 'destructive' });
@@ -524,12 +509,10 @@ export default function CategoryProductCreate({ slug }: Props) {
         })() : undefined,
       };
 
-      const res = await fetch('/api/products', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-      const json = await res.json();
-      if (!res.ok || !json?.product) {
-        throw new Error(json?.error?.message || 'Create failed');
+      const { product, error } = await createProduct(payload);
+      if (error || !product) {
+        throw new Error(error || 'Create failed');
       }
-      const product = json.product;
       toast({ title: 'Created', description: 'Product created successfully.' });
       router.push(`/admin/prod-management/${slug}/${product.id}`);
     } catch (e) {

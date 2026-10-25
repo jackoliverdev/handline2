@@ -10,7 +10,7 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
-import { getAllBlogs, deleteBlog, toggleBlogPublished, toggleBlogFeatured } from "@/lib/blog-service";
+import { getAdminBlogs, deleteBlog, toggleBlogPublished, toggleBlogFeatured } from "@/lib/admin/blog-admin-client";
 import { FileText, Plus, Edit, Trash, Star, Eye, EyeOff, Calendar, Image as ImageIcon, Tag } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -43,7 +43,7 @@ export default function BlogManagementPage() {
     async function loadBlogs() {
       try {
         // Then fetch all blogs
-        const { data } = await getAllBlogs();
+        const { data } = await getAdminBlogs();
         if (data) {
           setBlogs(data as BlogPost[]);
         }

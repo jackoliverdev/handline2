@@ -12,8 +12,8 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Download, FileText, Loader2, Save, Trash, Upload, ArrowLeft } from "lucide-react";
 import type { Product } from "@/lib/products-service";
-import { getProductById, updateProduct } from "@/lib/products-service";
-import { supabase } from "@/lib/supabase";
+import { getAdminProduct, updateProduct } from "@/lib/admin/products-admin-client";
+import { adminUploadFile } from "@/lib/admin/upload-client";
 
 type DocEntry = { url: string; kind: "eu" | "uk"; locale?: string };
 
@@ -61,7 +61,7 @@ export default function EditDeclarationsPage() {
     (async () => {
       if (!id) return;
       setLoading(true);
-      const { product } = await getProductById(id);
+      const { product } = await getAdminProduct(id);
       if (product) {
         setProduct(product);
         const entries: DocEntry[] = Array.isArray((product as any).declaration_docs_locales)
@@ -93,13 +93,12 @@ export default function EditDeclarationsPage() {
     const safeName = product.name; // keep spaces, to match existing structure
     const filename = `HLC_${dateStr}_${country}_DoC_${safeName}.${ext}`;
     const path = `DOCs/${safeName}/${filename}`;
-    const { error } = await supabase.storage.from('technical-sheets').upload(path, file, { upsert: true });
-    if (error) {
+    try {
+      return await adminUploadFile('technical-sheets', path, file, { upsert: true });
+    } catch (error) {
       console.error('Upload error', error);
       return null;
     }
-    const { data: { publicUrl } } = supabase.storage.from('technical-sheets').getPublicUrl(path);
-    return publicUrl;
   };
 
   const handleAddEu = async () => {

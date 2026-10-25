@@ -25,6 +25,7 @@ export async function GET(request: NextRequest) {
     const { data: products, error: productsError } = await supabase
       .from('products')
       .select('name, id')
+      .eq('published', true)
       .ilike('name', `%${searchPattern}%`)
       .limit(Math.ceil(limit / 2));
 

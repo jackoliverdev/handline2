@@ -5,6 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
+import { adminUploadFile } from "@/lib/admin/upload-client";
+import { getAdminProductList } from "@/lib/admin/product-list-client";
+import { getAdminPpeCategory, updatePpeCategory } from "@/lib/admin/ppe-admin-client";
 import { preserveMarkdownSpacing } from "@/lib/markdown-utils";
 import type { PPESectionRecord } from "@/lib/ppe-standards/types";
 import { LanguageSwitcher } from "@/components/ui/language-switcher";
@@ -72,13 +75,7 @@ export default function EditPPECategoryPage({ params }: { params: { id: string }
     async function load() {
       try {
         setIsLoading(true);
-        // Category by ID
-        const { data: cat, error: catErr } = await supabase
-          .from('ppe_categories')
-          .select('*')
-          .eq('id', params.id)
-          .single();
-        if (catErr) throw catErr;
+        const { category: cat, sections: secs } = await getAdminPpeCategory(params.id);
         setCategory({
           ...cat,
           title_locales: hydrateStringLocales(cat.title_locales),
@@ -88,13 +85,6 @@ export default function EditPPECategoryPage({ params }: { params: { id: string }
         setPreviewCard(cat.card_image_url || null);
         setHeroFocus(cat.hero_focus_y ?? 50);
 
-        // Sections
-        const { data: secs, error: secErr } = await supabase
-          .from('ppe_sections')
-          .select('*')
-          .eq('category_id', params.id)
-          .order('sort_order', { ascending: true });
-        if (secErr) throw secErr;
         setSections((secs || []).map((s: any) => {
           const captions = s.related_product_captions && typeof s.related_product_captions === 'object'
             ? Object.fromEntries(
@@ -122,11 +112,7 @@ export default function EditPPECategoryPage({ params }: { params: { id: string }
 
         // Products
         try {
-          const res = await fetch('/api/products');
-          if (res.ok) {
-            const products = await res.json();
-            setAvailableProducts(products);
-          }
+          setAvailableProducts(await getAdminProductList());
         } catch {}
       } catch (e) {
         console.error('Failed to load PPE category', e);
@@ -307,13 +293,11 @@ export default function EditPPECategoryPage({ params }: { params: { id: string }
     }
   };
 
-  const uploadToBucket = async (bucket: string, folder: string, file: File): Promise<string | null> => {
+  const uploadToBucket = async (_bucket: string, folder: string, file: File): Promise<string | null> => {
     try {
       const fileExt = file.name.split('.').pop();
       const fileName = `${category.id}/${folder}/${Date.now()}.${fileExt}`;
-      const { error } = await supabase.storage.from(bucket).upload(fileName, file, { upsert: true });
-      if (error) throw error;
-      const { data: { publicUrl } } = supabase.storage.from(bucket).getPublicUrl(fileName);
+      const publicUrl = await adminUploadFile('ppehub', fileName, file, { upsert: true });
       return publicUrl;
     } catch (e) {
       console.error('Upload failed', e);
@@ -343,79 +327,60 @@ export default function EditPPECategoryPage({ params }: { params: { id: string }
         }
       }
 
-      // Persist category
-      const { error: catErr } = await supabase
-        .from('ppe_categories')
-        .update({
+      const libraryIcons = (sections as any[])
+        .filter((s) => s.save_icon_to_library && s.icon_url && s.icon_library_name)
+        .map((s) => ({
+          sectionId: s.id as string,
+          standard_name: s.icon_library_name as string,
+          image_url: s.icon_url as string,
+        }));
+
+      const saved = await updatePpeCategory(category.id, {
+        category: {
           title_locales: category.title_locales || {},
           summary_locales: category.summary_locales || {},
           hero_image_url: heroUrl,
           card_image_url: cardUrl,
           hero_focus_y: heroFocus,
           sort_order: Number(category.sort_order) || 0,
-        })
-        .eq('id', category.id);
-      if (catErr) throw catErr;
+        },
+        sections: sections.map((s) => ({
+          id: (s as any).id,
+          category_id: category.id,
+          slug: s.slug,
+          code: s.code || null,
+          title_locales: (s as any).title_locales || {},
+          intro_locales: (s as any).intro_locales || {},
+          bullets_locales: (s as any).bullets_locales || {},
+          image_url: s.image_url || null,
+          extra_images: (s as any).extra_images || [],
+          icon_url: (s as any).icon_url || null,
+          standard_icon_id: (s as any).standard_icon_id || null,
+          related_product_captions: (s as any).related_product_captions || {},
+          related_product_ids: s.related_product_ids || [],
+          sort_order: s.sort_order || 0,
+          published: s.published ?? true,
+        })),
+        libraryIcons,
+      });
 
-      // Before persisting sections, delete any that were removed in the UI
-      const { data: existingSectionRows, error: existingFetchErr } = await supabase
-        .from('ppe_sections')
-        .select('id')
-        .eq('category_id', category.id);
-      if (existingFetchErr) throw existingFetchErr;
-
-      const existingIds = (existingSectionRows || []).map((row: any) => row.id as string);
-      const currentIds = sections.map((s) => (s as any).id as string);
-      const idsToDelete = existingIds.filter((id) => !currentIds.includes(id));
-
-      if (idsToDelete.length > 0) {
-        const { error: deleteErr } = await supabase
-          .from('ppe_sections')
-          .delete()
-          .in('id', idsToDelete);
-        if (deleteErr) throw deleteErr;
-      }
-
-      // Persist sections (upsert existing/new)
-      const upsertPayload = sections.map((s) => ({
-        id: (s as any).id,
-        category_id: category.id,
-        slug: s.slug,
-        code: s.code || null,
-        title_locales: (s as any).title_locales || {},
-        intro_locales: (s as any).intro_locales || {},
-        bullets_locales: (s as any).bullets_locales || {},
-        image_url: s.image_url || null,
-        extra_images: (s as any).extra_images || [],
-        related_product_captions: (s as any).related_product_captions || {},
-        icon_url: (s as any).icon_url || null,
-        standard_icon_id: (s as any).standard_icon_id || null,
-        related_product_ids: s.related_product_ids || [],
-        sort_order: s.sort_order || 0,
-        published: s.published ?? true,
+      const savedById = new Map(saved.sections.map((row) => [row.id, row]));
+      setSections((prev) => prev.map((section) => {
+        const match = savedById.get((section as any).id);
+        if (!match?.standard_icon_id) return section;
+        return { ...section, standard_icon_id: match.standard_icon_id };
       }));
-
-      // Save new library icons if requested
-      for (const s of sections as any[]) {
-        if (s.save_icon_to_library && s.icon_url && s.icon_library_name) {
-          try {
-            const existing = (standardIconsRef.current || []).find((it: any) => it.image_url === s.icon_url);
-            if (!existing) {
-              const { data, error } = await supabase
-                .from('standard_icons')
-                .insert({ standard_name: s.icon_library_name, image_url: s.icon_url })
-                .select('id, standard_name, image_url')
-                .single();
-              if (!error && data) {
-                standardIconsRef.current = [...(standardIconsRef.current || []), data];
-                s.standard_icon_id = data.id;
-              }
-            }
-          } catch {}
-        }
+      const knownUrls = new Set((standardIconsRef.current || []).map((it: any) => it.image_url));
+      for (const icon of libraryIcons) {
+        if (knownUrls.has(icon.image_url)) continue;
+        const match = savedById.get(icon.sectionId);
+        if (!match?.standard_icon_id) continue;
+        standardIconsRef.current = [
+          ...(standardIconsRef.current || []),
+          { id: match.standard_icon_id, standard_name: icon.standard_name, image_url: icon.image_url },
+        ];
+        knownUrls.add(icon.image_url);
       }
-      const { error: secErr } = await supabase.from('ppe_sections').upsert(upsertPayload, { onConflict: 'id' });
-      if (secErr) throw secErr;
 
       toast({ title: 'Saved', description: 'PPE Hub category updated.' });
     } catch (e) {

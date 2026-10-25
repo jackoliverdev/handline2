@@ -8,8 +8,9 @@ import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import Link from "next/link";
 import { useLanguage } from "@/lib/context/language-context";
-import { supabase } from "@/lib/supabase";
 import type { Product } from "@/lib/products-service";
+import { getAdminProductList } from "@/lib/admin/product-list-client";
+import { updateProduct } from "@/lib/admin/products-admin-client";
 import { Download, Edit, Trash, FileText } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "@/components/ui/use-toast";
@@ -27,9 +28,11 @@ export default function DeclarationsManagementPage() {
     (async () => {
       try {
         setLoading(true);
-        const res = await fetch('/api/products');
-        const data = res.ok ? await res.json() : [];
-        setProducts(data);
+        const data = await getAdminProductList();
+        setProducts([...data].sort((a, b) => (a.name || '').localeCompare(b.name || '')));
+      } catch (error) {
+        console.error('Failed to load products', error);
+        setProducts([]);
       } finally {
         setLoading(false);
       }
@@ -52,13 +55,8 @@ export default function DeclarationsManagementPage() {
     if (!target) return;
     try {
       setDeleting(true);
-      const { data, error } = await supabase
-        .from('products')
-        .update({ declaration_docs_locales: [] })
-        .eq('id', target.id)
-        .select('id')
-        .single();
-      if (error) throw error;
+      const { product } = await updateProduct(target.id, { declaration_docs_locales: [] });
+      if (!product) throw new Error('Failed to clear declarations');
       setProducts((prev) => prev.map((p) => p.id === target.id ? { ...p, declaration_docs_locales: [] as any } : p));
       toast({ title: 'Cleared', description: 'Declarations cleared for this product.' });
       setConfirmOpen(false);

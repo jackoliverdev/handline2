@@ -10,7 +10,8 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
-import { getAllIndustries, deleteIndustry } from "@/lib/industries-service";
+import { getAllIndustries } from "@/lib/industries-service";
+import { deleteIndustry } from "@/lib/admin/industries-admin-client";
 import { Factory, Plus, Edit, Trash, Star, Eye, Calendar, Image as ImageIcon, Tag, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";

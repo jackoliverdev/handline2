@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/lib/context/language-context";
+import { getAdminProductList } from "@/lib/admin/product-list-client";
 
 type CategoryInfo = {
   key: string;
@@ -48,8 +49,7 @@ export default function CategoryOverview() {
     (async () => {
       try {
         setLoading(true);
-        const res = await fetch('/api/products');
-        const data = res.ok ? await res.json() : [];
+        const data = await getAdminProductList();
 
         const nextCounts: Record<string, number> = {
           gloves: 0,
@@ -96,6 +96,8 @@ export default function CategoryOverview() {
         nextCounts.gloves = gloveCount;
 
         setCounts(nextCounts);
+      } catch (error) {
+        console.error('Failed to load products', error);
       } finally {
         setLoading(false);
       }

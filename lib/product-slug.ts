@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
 export function createProductSlugBase(name: string): string {
   const slug = name
@@ -9,9 +9,9 @@ export function createProductSlugBase(name: string): string {
   return slug || "product";
 }
 
-export async function generateUniqueProductSlug(name: string): Promise<string> {
+export async function generateUniqueProductSlug(client: SupabaseClient, name: string): Promise<string> {
   const baseSlug = createProductSlugBase(name);
-  const { data, error } = await supabase
+  const { data, error } = await client
     .from("products")
     .select("slug")
     .like("slug", `${baseSlug}%`);

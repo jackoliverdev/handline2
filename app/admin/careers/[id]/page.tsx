@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "@/components/ui/use-toast";
-import { getCareerById, updateCareer, deleteCareer, toggleCareerFeatured, toggleCareerPublished } from "@/lib/career-service";
+import { getAdminCareer, updateCareer, deleteCareer } from "@/lib/admin/careers-admin-client";
 import { ArrowLeft, Save, Trash, X } from "lucide-react";
 import type { CareerPost } from "@/lib/career-service";
 import { LanguageSwitcher } from "@/components/ui/language-switcher";
@@ -66,7 +66,7 @@ export default function EditCareerPage({ params }: PageProps) {
   useEffect(() => {
     async function load() {
       try {
-        const post = await getCareerById(id);
+        const post = await getAdminCareer(id);
         if (!post) throw new Error("Not found");
         setTitleLocales(hydrateStringLocales(post.title_locales, post.title || ''));
         setSlug(post.slug);

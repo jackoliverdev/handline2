@@ -7,8 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "@/components/ui/use-toast";
 import { Upload, X, Star, Image as ImageIcon, Plus, ChevronUp, ChevronDown } from "lucide-react";
-import { uploadProductImage } from "@/lib/products-service";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { uploadProductImage } from "@/lib/admin/products-admin-client";
 
 interface ProductImagesEditorProps {
   // Main image
@@ -44,7 +43,6 @@ export function ProductImagesEditor({
 }: ProductImagesEditorProps) {
   const [uploading, setUploading] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const supabase = createClientComponentClient();
 
   // Get all images in order
   const allImages = [imageUrl, image2Url, image3Url, image4Url, image5Url].filter(Boolean) as string[];
@@ -56,7 +54,7 @@ export function ProductImagesEditor({
     
     setUploading('uploading');
     try {
-      const result = await uploadProductImage(productId, file, supabase);
+      const result = await uploadProductImage(file, productId);
       if (result.url) {
         // Find first empty slot and add image there
         if (!imageUrl) {
