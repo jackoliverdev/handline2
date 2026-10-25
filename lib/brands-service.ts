@@ -1,4 +1,5 @@
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { adminFetch, AdminApiError } from '@/lib/admin-api';
 
 export interface Brand {
   id: string;
@@ -31,91 +32,84 @@ export async function getAllBrands(): Promise<Brand[]> {
   return data || [];
 }
 
+function toBrandError(error: unknown): Error {
+  if (error instanceof AdminApiError) {
+    if (error.code === "BRAND_EXISTS") return new Error("A brand with that name already exists.");
+    if (error.code === "NOT_FOUND") return new Error("That brand could not be found.");
+    if (error.code === "INVALID_LOGO") return new Error("The logo must be a JPEG, PNG, GIF or WebP image under 4 MB.");
+    if (error.status === 401) return new Error("Please sign in again.");
+    if (error.status === 403) return new Error("You do not have permission to manage brands.");
+    return new Error(error.message);
+  }
+
+  return error instanceof Error ? error : new Error("The request could not be completed. Try again.");
+}
+
 /**
- * Create a new brand
+ * Create a new brand through the admin server route.
  */
 export async function createBrand(name: string, logoUrl?: string, darkModeLogoUrl?: string): Promise<Brand> {
-  const supabase = createClientComponentClient();
-  const { data, error } = await supabase
-    .from('brands')
-    .insert({ name, logo_url: logoUrl, dark_mode_logo_url: darkModeLogoUrl })
-    .select()
-    .single();
-  
-  if (error) {
-    console.error('Error creating brand:', error);
-    throw error;
+  try {
+    const result = await adminFetch<{ brand: Brand }>("/api/admin/brands", {
+      method: "POST",
+      body: JSON.stringify({
+        name,
+        logo_url: logoUrl ?? null,
+        dark_mode_logo_url: darkModeLogoUrl ?? null,
+      }),
+    });
+    return result.brand;
+  } catch (error) {
+    console.error("Error creating brand:", error);
+    throw toBrandError(error);
   }
-  
-  return data;
 }
 
 /**
- * Update an existing brand
+ * Update an existing brand through the admin server route.
  */
 export async function updateBrand(id: string, updates: Partial<Pick<Brand, 'name' | 'logo_url' | 'dark_mode_logo_url'>>): Promise<Brand> {
-  const supabase = createClientComponentClient();
-  const { data, error } = await supabase
-    .from('brands')
-    .update({ ...updates, updated_at: new Date().toISOString() })
-    .eq('id', id)
-    .select()
-    .single();
-  
-  if (error) {
-    console.error('Error updating brand:', error);
-    throw error;
+  try {
+    const result = await adminFetch<{ brand: Brand }>(`/api/admin/brands/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify(updates),
+    });
+    return result.brand;
+  } catch (error) {
+    console.error("Error updating brand:", error);
+    throw toBrandError(error);
   }
-  
-  return data;
 }
 
 /**
- * Delete a brand
+ * Delete a brand through the admin server route.
  */
 export async function deleteBrand(id: string): Promise<void> {
-  const supabase = createClientComponentClient();
-  const { error } = await supabase
-    .from('brands')
-    .delete()
-    .eq('id', id);
-  
-  if (error) {
-    console.error('Error deleting brand:', error);
-    throw error;
+  try {
+    await adminFetch<{ ok: true }>(`/api/admin/brands/${id}`, { method: "DELETE" });
+  } catch (error) {
+    console.error("Error deleting brand:", error);
+    throw toBrandError(error);
   }
 }
 
 /**
- * Upload brand logo to Supabase storage
+ * Upload a brand logo through the admin server route.
+ * The file is stored in the products bucket under brands/.
  */
 export async function uploadBrandLogo(file: File): Promise<string> {
-  const supabase = createClientComponentClient();
-  
-  // Generate unique filename
-  const fileExt = file.name.split('.').pop();
-  const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
-  const filePath = `brands/${fileName}`;
-  
-  // Upload to Supabase storage
-  const { data, error } = await supabase.storage
-    .from('products')
-    .upload(filePath, file, {
-      cacheControl: '3600',
-      upsert: false
+  try {
+    const body = new FormData();
+    body.set("file", file);
+    const result = await adminFetch<{ logo_url: string }>("/api/admin/brands/logo", {
+      method: "POST",
+      body,
     });
-  
-  if (error) {
-    console.error('Error uploading brand logo:', error);
-    throw error;
+    return result.logo_url;
+  } catch (error) {
+    console.error("Error uploading brand logo:", error);
+    throw toBrandError(error);
   }
-  
-  // Get public URL
-  const { data: { publicUrl } } = supabase.storage
-    .from('products')
-    .getPublicUrl(filePath);
-  
-  return publicUrl;
 }
 
 /**
@@ -160,10 +154,10 @@ export function validateLogoFile(file: File): string | null {
     return 'Logo must be a valid image file (JPEG, PNG, GIF, or WebP)';
   }
   
-  // Check file size (max 5MB)
-  const maxSize = 5 * 1024 * 1024; // 5MB
+  // The upload now goes through the app server, whose request body limit is 4.5 MB.
+  const maxSize = 4 * 1024 * 1024;
   if (file.size > maxSize) {
-    return 'Logo file must be less than 5MB';
+    return 'Logo file must be less than 4 MB';
   }
   
   return null;
